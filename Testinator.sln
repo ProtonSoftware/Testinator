@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.Core", "Testinat
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Testinator.Client.Installer", "Testinator.Client.Installer\Testinator.Client.Installer.wixproj", "{A91B0DAF-7419-4004-8D20-D4B5ABFA8C8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.UnitTests", "Testinator.UnitTests\Testinator.UnitTests.csproj", "{20605972-C365-4A30-B3B7-858F45573E73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,14 @@ Global
 		{A91B0DAF-7419-4004-8D20-D4B5ABFA8C8F}.Release|Any CPU.ActiveCfg = Release|x86
 		{A91B0DAF-7419-4004-8D20-D4B5ABFA8C8F}.Release|x86.ActiveCfg = Release|x86
 		{A91B0DAF-7419-4004-8D20-D4B5ABFA8C8F}.Release|x86.Build.0 = Release|x86
+		{20605972-C365-4A30-B3B7-858F45573E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Debug|x86.Build.0 = Debug|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Release|x86.ActiveCfg = Release|Any CPU
+		{20605972-C365-4A30-B3B7-858F45573E73}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
