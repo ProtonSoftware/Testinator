@@ -1,0 +1,5 @@
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Network.Server\bin\Debug\Testinator.Network.Server.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Network.Server\bin\Debug\Testinator.Network.Server.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.pdb

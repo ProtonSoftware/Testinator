@@ -4,3 +4,5 @@ C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\bin\Debug\Ninject.xml
