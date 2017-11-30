@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Testinator.ClientUI
+namespace Testinator.Client
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
