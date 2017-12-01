@@ -11,3 +11,16 @@ C:\Users\maxus\Documents\GitHub\Testinator\Testinator.UnitTests\obj\Debug\Testin
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Testinator.UnitTests.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Testinator.UnitTests.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UnitTests\obj\Debug\Testinator.UnitTests.pdb

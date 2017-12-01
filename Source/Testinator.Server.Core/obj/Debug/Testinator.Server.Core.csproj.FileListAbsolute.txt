@@ -4,3 +4,9 @@ C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Test
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Server.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Server.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.csprojResolveAssemblyReference.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.pdb
