@@ -1,0 +1,16 @@
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\bin\Debug\Testinator.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\bin\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\bin\Debug\Ninject.xml
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.csprojResolveAssemblyReference.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Core\obj\Debug\Testinator.Core.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.csprojResolveAssemblyReference.cache
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.csproj.CoreCompileInputs.cache
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\bin\Debug\Testinator.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\bin\Debug\Testinator.Core.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\bin\Debug\Ninject.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\bin\Debug\Ninject.xml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.pdb
