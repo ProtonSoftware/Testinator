@@ -7,9 +7,9 @@ using Testinator.Network.Server;
 namespace ServerTesting
 {
     public class ViewModel : BaseViewModel
-    {
+    { 
 
-        public int Test { get; set; } = 1;
+        public ServerBase Server { get; set; } = new ServerBase();
 
         public string Ip { get; set; } = "127.0.0.1";
 
@@ -25,8 +25,9 @@ namespace ServerTesting
 
         public string Message { get; set; }
 
-        public ServerBase Server { get; set; }
+        public int ClientNumber => Server.ConnectedClientCount;
 
+        public ICommand ClearCommand { get; set; }
 
         #region Constructor
 
@@ -37,34 +38,45 @@ namespace ServerTesting
         {
             StartCommand = new RelayCommand(Start);
             StopCommand = new RelayCommand(Stop);
+            ClearCommand = new RelayCommand(Clear);
         }
 
-        private void Stop()
+        private void Clear()
         {
-            StartPossible = true;
-            StopPossible = false;
-
-            Server.Stop();
+            Message = string.Empty;
         }
 
-        private void Receive(byte[] data)
-        {
-            string msg = Encoding.ASCII.GetString(data);
-            
-        }
+        #endregion
 
         private void Start()
-       {
-            Server = new ServerBase(Ip, Port)
-            {
-                ReceiverCallback = Receive
-            };
+        {
+            Server.SetIP(Ip);
+            Server.Port = Port;
+            Server.ReceiverCallback = Receive;
+            Server.ClientConnectedCallback = ClientConnected;
             Server.Start();
 
             StartPossible = false;
             StopPossible = true;
         }
 
-        #endregion
+        private void ClientConnected()
+        {
+            OnPropertyChanged(nameof(ClientNumber));
+        }
+
+        private void Stop()
+        {
+
+            Server.Stop();
+            StartPossible = true;
+            StopPossible = false;
+        }
+
+        private void Receive(byte[] data)
+        {
+            string msg = Encoding.ASCII.GetString(data);
+            Message += msg + "\n";            
+        }
     }
 }

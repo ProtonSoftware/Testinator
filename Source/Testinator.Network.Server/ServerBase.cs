@@ -18,17 +18,17 @@ namespace Testinator.Network.Server
         /// <summary>
         /// The <see cref="Socket"/> for server
         /// </summary>
-        protected static Socket serverSocket;
+        protected Socket serverSocket;
 
         /// <summary>
         /// Conatins all connected clients
         /// </summary>
-        protected static readonly List<Socket> clientSockets = new List<Socket>();
+        protected readonly List<Socket> clientSockets = new List<Socket>();
 
         /// <summary>
         /// Buffer for received data
         /// </summary>
-        protected static byte[] ReceiverBuffer;
+        protected byte[] ReceiverBuffer;
 
         #endregion
 
@@ -42,22 +42,22 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Default buffer size 
         /// </summary>
-        public static int BufferSize { get; set; } = 2048;
+        public int BufferSize { get; set; } = 2048;
 
         /// <summary>
         /// Default port the server listens for
         /// </summary>
-        public static int Port { get; set; } = 3333;
+        public int Port { get; set; } = 3333;
 
         /// <summary>
         /// Default server IP
         /// </summary>
-        public static IPAddress IPAddress { get; set; } = IPAddress.Any;
+        public IPAddress IPAddress { get; set; } = IPAddress.Any;
 
         /// <summary>
         /// Number of clients curently connected
         /// </summary>
-        public static int ConnectedClientCount => clientSockets.Count;
+        public int ConnectedClientCount => clientSockets.Count;
 
         /// <summary>
         /// Delegate to the method to be called when data is received
@@ -66,10 +66,19 @@ namespace Testinator.Network.Server
         public delegate void ReceiverDelegate(byte[] data);
 
         /// <summary>
+        /// Fired when a new client is connected
+        /// </summary>
+        public delegate void ClientDelegate();
+
+        /// <summary>
         /// Method to be called any data is received from a client
         /// </summary>
         public ReceiverDelegate ReceiverCallback {get; set;}
 
+        /// <summary>
+        /// Method to be called any data is received from a client
+        /// </summary>
+        public ClientDelegate ClientConnectedCallback { get; set; }
         #endregion
 
         #region Public Methods
@@ -152,7 +161,11 @@ namespace Testinator.Network.Server
             serverSocket.Close();
             IsRunning = false;
         }
-        
+
+        #endregion
+
+        #region Private Methods
+
         /// <summary>
         /// Gets called when there is a client to be accepted
         /// </summary>
@@ -173,6 +186,10 @@ namespace Testinator.Network.Server
             clientSockets.Add(client);
             client.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, client);
             serverSocket.BeginAccept(AcceptCallback, null);
+
+            // Let them know client has connected
+            ClientConnectedCallback();
+
         }
 
         /// <summary>

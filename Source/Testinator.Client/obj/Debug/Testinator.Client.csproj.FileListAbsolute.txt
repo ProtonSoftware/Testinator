@@ -57,6 +57,7 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Mi
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Testinator.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Testinator.UICore.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Testinator.Core.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Testinator.UICore.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Microsoft.Windows.Shell.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Ninject.xml
@@ -74,4 +75,3 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\obj\Debug\Te
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\obj\Debug\Testinator.Client.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\obj\Debug\Testinator.Client.exe
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\obj\Debug\Testinator.Client.pdb
-C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client\bin\Debug\Testinator.Core.pdb

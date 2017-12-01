@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:ServerTesting"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="600"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed">
+
     <Border Padding="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -14,7 +16,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.RowSpan="2" Grid.Row="0">
                 <TextBlock Text="Ip:"
                            Margin="0 0 0 5"/>
                 <TextBox Text="{Binding Ip, Mode=TwoWay}" x:Name="txtIp"/>
@@ -34,14 +41,26 @@
                         IsEnabled="{Binding StopPossible}"/>
             </StackPanel>
 
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Connected clients: "/>
+                <TextBlock Text="{Binding ClientNumber}"/>
+            </StackPanel>
+
             <Grid Grid.Column="1" Margin="5 10 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Message:" Grid.Column="1" Margin="0 12"/>
-
+                <Grid>
+                    <TextBlock Grid.Row="0" Text="Message:" Grid.Column="1" Margin="0 12"/>
+                    <Button Content="clear" 
+                            HorizontalAlignment="Right" 
+                            Height="22" 
+                            Margin="0 0 5 0"
+                            Command="{Binding ClearCommand}"/>
+                    
+                </Grid>
                 <Grid Grid.Column="1" Grid.Row="1">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <TextBlock x:Name="txtRec" Text="{Binding Message}"/>
