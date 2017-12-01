@@ -17,20 +17,21 @@
             <StackPanel Grid.Column="0" Grid.RowSpan="2">
                 <TextBlock Text="Ip:"
                            Margin="0 0 0 5"/>
-                <TextBox Text="127.0.0.1" x:Name="txtIp"/>
+                <TextBox Text="{Binding Ip, Mode=TwoWay}" x:Name="txtIp"/>
                 <TextBlock Text="Port:"
                            Margin="0 20 0 5"/>
-                <TextBox Text="3333" x:Name="txtPort"/>
+                <TextBox Text="{Binding Port, Mode=TwoWay}" x:Name="txtPort"/>
 
                 <Button Margin="0 20 0 0" 
                         Content="Start" 
-                        Click="StartButton_Click" 
+                        Command="{Binding StartCommand}" 
+                        IsEnabled="{Binding StartPossible}"
                         x:Name="StartButton"/>
                 <Button Margin="0 5 0 0" 
                         Content="Stop" 
                         x:Name="StopButton"
-                        IsEnabled="False"
-                        Click="StopButton_Click"/>
+                        Command="{Binding StopCommand}"
+                        IsEnabled="{Binding StopPossible}"/>
             </StackPanel>
 
             <Grid Grid.Column="1" Margin="5 10 0 0">
@@ -43,7 +44,7 @@
 
                 <Grid Grid.Column="1" Grid.Row="1">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <TextBlock x:Name="txtRec"/>
+                        <TextBlock x:Name="txtRec" Text="{Binding Message}"/>
                     </ScrollViewer>
                 </Grid>
             </Grid>

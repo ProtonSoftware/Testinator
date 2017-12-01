@@ -42,7 +42,6 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Te
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.UICore.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Ninject.dll
-C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Core.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.UICore.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Ninject.xml
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csprojResolveAssemblyReference.cache
@@ -59,3 +58,4 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Te
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.exe
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Core.pdb
