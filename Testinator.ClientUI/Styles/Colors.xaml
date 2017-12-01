@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Testinator.Client">
+
+    <Color x:Key="WhitePure">#ffffff</Color>
+    <SolidColorBrush x:Key="WhitePureBrush" Color="{StaticResource WhitePure}" />
+    
+    <Color x:Key="WhiteLight">#efefef</Color>
+    <SolidColorBrush x:Key="WhiteLightBrush" Color="{StaticResource WhiteLight}" />
+
+    <Color x:Key="WhiteDark">#dfdfdf</Color>
+    <SolidColorBrush x:Key="WhiteDarkBrush" Color="{StaticResource WhiteDark}" />
+
+
+
+    <Color x:Key="BlackLight">#303030</Color>
+    <SolidColorBrush x:Key="BlackLightBrush" Color="{StaticResource BlackLight}" />
+    
+    <Color x:Key="BlackDark">#101010</Color>
+    <SolidColorBrush x:Key="BlackDarkBrush" Color="{StaticResource BlackDark}" />
+
+    <Color x:Key="BlackPure">#000000</Color>
+    <SolidColorBrush x:Key="BlackPureBrush" Color="{StaticResource BlackPure}" />
+
+</ResourceDictionary>
