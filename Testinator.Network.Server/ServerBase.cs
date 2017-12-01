@@ -28,7 +28,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Buffer for received data
         /// </summary>
-        protected static readonly byte[] ReceiverBuffer;
+        protected static byte[] ReceiverBuffer;
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Indicates if the server is currently running
         /// </summary>
-        public static bool IsRunning { get; set; } = false;
+        public bool IsRunning { get; set; } = false;
 
         /// <summary>
         /// Default buffer size 
@@ -114,7 +114,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Start the server
         /// </summary>
-        public void StartServer()
+        public void Start()
         {
             if (IsRunning)
                 return;
@@ -124,6 +124,7 @@ namespace Testinator.Network.Server
                 serverSocket.Bind(new IPEndPoint(IPAddress, Port));
                 serverSocket.Listen(25);
                 serverSocket.BeginAccept(AcceptCallback, null);
+                ReceiverBuffer = new byte[BufferSize];
                 IsRunning = true;
             }
             catch
@@ -135,7 +136,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Stops the server
         /// </summary>
-        public void StopServer()
+        public void Stop()
         {
             if (!IsRunning)
                 return;
@@ -218,9 +219,9 @@ namespace Testinator.Network.Server
         /// Constructs server with the given IP
         /// </summary>
         /// <param name="Ip">Server IP</param>
-        public ServerBase(IPAddress Ip)
+        public ServerBase(string Ip)
         {
-            IPAddress = Ip;
+            SetIP(Ip);
         }
 
         /// <summary>
@@ -228,9 +229,9 @@ namespace Testinator.Network.Server
         /// </summary>
         /// <param name="Ip">Server IP</param>
         /// <param name="port">Srver Port</param>
-        public ServerBase(IPAddress Ip, int port)
+        public ServerBase(string Ip, int port)
         {
-            IPAddress = Ip;
+            SetIP(Ip);
             Port = port;
         }
 
