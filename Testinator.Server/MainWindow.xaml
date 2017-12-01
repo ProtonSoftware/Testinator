@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testinator.Server"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="350" Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Border Padding="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.RowSpan="2">
+                <TextBlock Text="Ip:"
+                           Margin="0 0 0 5"/>
+                <TextBox Text="127.0.0.1" x:Name="txtIp"/>
+                <TextBlock Text="Port:"
+                           Margin="0 20 0 5"/>
+                <TextBox Text="3333" x:Name="txtPort"/>
+
+                <Button Margin="0 20 0 0" 
+                        Content="Start" 
+                        Click="StartButton_Click" 
+                        x:Name="StartButton"/>
+                <Button Margin="0 5 0 0" 
+                        Content="Stop" 
+                        x:Name="StopButton"
+                        IsEnabled="False"
+                        Click="StopButton_Click"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="5 10 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Message:" Grid.Column="1" Margin="0 12"/>
+                
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="txtRec"/>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

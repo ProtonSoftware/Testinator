@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Testinator.Network.Server\Testinator.Network.Server.csproj">
+      <Project>{8d6c748d-3e62-44f6-baa0-4258a8d04c15}</Project>
+      <Name>Testinator.Network.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

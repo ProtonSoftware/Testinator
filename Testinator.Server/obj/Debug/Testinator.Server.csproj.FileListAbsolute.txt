@@ -13,3 +13,5 @@ C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server\obj\Debug\Testinato
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server\obj\Debug\Testinator.Server.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server\obj\Debug\Testinator.Server.exe
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server\obj\Debug\Testinator.Server.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server\bin\Debug\Testinator.Network.Server.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server\bin\Debug\Testinator.Network.Server.pdb
