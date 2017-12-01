@@ -45,7 +45,7 @@ namespace Testinator.Network.Server
         public static int BufferSize { get; set; } = 2048;
 
         /// <summary>
-        /// Defaylt port the server listens for
+        /// Default port the server listens for
         /// </summary>
         public static int Port { get; set; } = 3333;
 
