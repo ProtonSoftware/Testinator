@@ -226,10 +226,12 @@ namespace Testinator.Network.Server
             catch(SocketException)
             {
                 clientSocket.Close();
-                Clients.Remove(clientSocket);
 
                 // Let them know the client has disconnected
                 ClientDisconnectedCallback(Clients[clientSocket]);
+
+                // NOTE: remove client after calling the event method above
+                Clients.Remove(clientSocket);
 
                 return;
             }
