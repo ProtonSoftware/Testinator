@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Testinator.UICore"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://application:,,,/Testinator.UICore;component/Fonts/#FontAwesome</FontFamily>
     <FontFamily x:Key="FontMontserratBold">pack://application;,,,/Fonts/#Montserrat Bold</FontFamily>
     <FontFamily x:Key="FontMontserratRegular">pack://application;,,,/Fonts/#Montserrat Medium</FontFamily>
     <FontFamily x:Key="FontMontserratThin">pack://application;,,,/Fonts/#Montserrat Thin</FontFamily>
