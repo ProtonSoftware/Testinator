@@ -4,17 +4,26 @@
 winexe
 C#
 .cs
-C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\
 Testinator.Server
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml
+5-1044856943
+
+11-1208176669
+16215331916
+Controls\PageHost.xaml;Controls\SideMenuControl.xaml;MainWindow.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;
+=======
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml
 11151548125
 
 6-1784770314
-151697891814
+15-1438058831
 MainWindow.xaml;
+>>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
 
 False
 

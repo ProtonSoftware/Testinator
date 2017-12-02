@@ -102,6 +102,10 @@
       <Project>{f592fa60-030d-440b-bb00-ed4ea5a919f6}</Project>
       <Name>Testinator.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Testinator.Server.Core\Testinator.Server.Core.csproj">
+      <Project>{0629C245-6D61-4749-99B8-8123D14A53AA}</Project>
+      <Name>Testinator.Server.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 using System;
 using Testinator.Core;
 using System.ComponentModel;
+using Testinator.Server.Core;
 
 namespace Testinator.UICore
 {
@@ -190,7 +190,7 @@ namespace Testinator.UICore
         public BasePage() : base()
         {
             // Create a default view model
-            ViewModel = IoC.Get<VM>();
+            ViewModel = IoCServer.Get<VM>();
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Testinator.UICore
                 ViewModel = specificViewModel;
             else
                 // Create a default view model
-                ViewModel = IoC.Get<VM>();
+                ViewModel = IoCServer.Get<VM>();
         }
 
         #endregion

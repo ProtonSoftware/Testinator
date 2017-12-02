@@ -1,12 +1,11 @@
 ﻿using Ninject;
-using System;
 
-namespace Testinator.Core
+namespace Testinator.Server.Core
 {
     /// <summary>
-    /// The IoC container for our application
+    /// The IoC container for the server application
     /// </summary>
-    public static class IoC
+    public static class IoCServer
     {
         #region Public Properties
 
@@ -14,6 +13,11 @@ namespace Testinator.Core
         /// The kernel for our IoC container
         /// </summary>
         public static IKernel Kernel { get; private set; } = new StandardKernel();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ApplicationViewModel"/>
+        /// </summary>
+        public static ApplicationViewModel Application => IoCServer.Get<ApplicationViewModel>();
 
         /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>

@@ -17,3 +17,27 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Te
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Ninject.dll
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Core.pdb
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Ninject.xml
+<<<<<<< HEAD
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Server.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Server.Core.pdb
+=======
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.UICore.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.UICore.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Ninject.xml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.csprojResolveAssemblyReference.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore_MarkupCompile.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore_MarkupCompile.lref
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Styles\Buttons.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Styles\Colors.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Styles\Fonts.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Styles\Texts.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.g.resources
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.Properties.Resources.resources
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.csproj.GenerateResource.Cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.pdb
+>>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
