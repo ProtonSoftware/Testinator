@@ -47,6 +47,10 @@
 =======
 <<<<<<< HEAD
 =======
+                                   
+                                   Visibility="{Binding IsMenuExpanded, Converter={local:BooleanToVisiblityConverter}}"
+>>>>>>> 42d2051a17b39533966938d216ff8ee4de3b682f
+>>>>>>> ff1d64691378c92dc65eb5663ea0e0bf7c231944
                                    />
                     </Grid>
 
