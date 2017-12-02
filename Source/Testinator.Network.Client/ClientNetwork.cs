@@ -50,7 +50,7 @@ namespace Testinator.Network.Client
         /// <summary>
         /// Default server IP address
         /// </summary>
-        public IPAddress IPAddress { get; set; } = IPAddress.Any;
+        public IPAddress IPAddress { get; set; } = IPAddress.Parse("127.0.0.1");
 
         /// <summary>
         /// Default port the clients try to connect server at
@@ -147,6 +147,7 @@ namespace Testinator.Network.Client
                 return;
 
             clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            ReceiverBuffer = new byte[BufferSize];
 
             Thread connectingThread = new Thread(new ThreadStart(TryConnecting))
             {
@@ -171,6 +172,14 @@ namespace Testinator.Network.Client
             Connecting = false;
         }
 
+        public void SendData(DataPackage data)
+        {
+            if (DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data))
+            {
+                clientSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);
+            }
+        }
+
         #endregion
 
         #region Private Members
@@ -180,7 +189,7 @@ namespace Testinator.Network.Client
         /// </summary>
         private void TryConnecting()
         {
-            while (IsConnected && Connecting)
+            while (!IsConnected && Connecting)
             {
                 try
                 {
@@ -193,6 +202,9 @@ namespace Testinator.Network.Client
             if(IsConnected)
             {
                 clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
+                
+                // Let them know we have connected to the server
+                ConnectedCallback();
             }
             Connecting = false;
         }
@@ -209,7 +221,7 @@ namespace Testinator.Network.Client
             {
                 recived = clientSocket.EndReceive(ar);
             }
-            catch(SocketException)
+            catch
             {
                 Disconnect();
                 
@@ -222,7 +234,7 @@ namespace Testinator.Network.Client
             byte[] recBuf = new byte[recived];
             Array.Copy(ReceiverBuffer, recBuf, recived);
 
-            if(DataPackageDescriptor.TryDescript(recBuf, out DataPackage PackageReceived))
+            if(DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
             {
                 // Call the subscribed method only if the package description was successful
                 DataRecivedCallback(PackageReceived);

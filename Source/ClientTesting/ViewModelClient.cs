@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
 using Testinator.Core;
+using Testinator.Network.Client;
+using Testinator.Network.Server;
 
 namespace ClientTesting
 {
@@ -14,9 +16,17 @@ namespace ClientTesting
 
         public ICommand StopCommand { get; set; }
 
+        public ICommand SendCommand { get; set; }
+
         public bool StartPossible { get; set; } = true;
 
         public bool StopPossible { get; set; } = false;
+
+        private ClientNetwork client = new ClientNetwork();
+
+        public string Connected { get; set; } = "Disconnected!";
+        
+        public int Attempt => client.Attempt;
 
         #region Constructor
 
@@ -27,17 +37,49 @@ namespace ClientTesting
         {
             StartCommand = new RelayCommand(Start);
             StopCommand = new RelayCommand(Stop);
-                
+            SendCommand = new RelayCommand(Send);
+            Ip = client.IPAddress.ToString();
+            Port = client.Port;
+            client.ConnectedCallback = ConnectedCallback;
+            client.DataRecivedCallback = DataRecivedCallabck;
+            client.DisconnectedCallback = DisconnectCallback;
+                            
+        }
+
+        private void Send()
+        {
+            if (client.IsConnected)
+            {
+                client.SendData(new DataPackage("me", PackageType.Info, new InfoPackage("me", Environment.MachineName)));
+            }
+        }
+
+        private void DisconnectCallback()
+        {
+            Connected = "Disconnected";
+        }
+
+        private void DataRecivedCallabck(DataPackage data)
+        {
+        }
+
+        private void ConnectedCallback()
+        {
+            Connected = "Connected";
         }
 
         private void Stop()
         {
-            throw new NotImplementedException();
+            StartPossible = true;
+            StopPossible = false;
+            client.Disconnect();
         }
 
         private void Start()
         {
-            throw new NotImplementedException();
+            StartPossible = false;
+            StopPossible = true;
+            client.StartConnecting();
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Testinator.Core
@@ -6,6 +7,7 @@ namespace Testinator.Core
     /// <summary>
     /// Defines a package that is send between client and server
     /// </summary>
+    [Serializable]
     public class DataPackage
     {
 
@@ -41,20 +43,5 @@ namespace Testinator.Core
         }
 
         #endregion
-        
-        /// <summary>
-        /// Gets the binary of this class
-        /// Usefull for sending operation
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetBinary()
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                bf.Serialize(ms, this);
-                return ms.ToArray();
-            }
-        }
     }
 }

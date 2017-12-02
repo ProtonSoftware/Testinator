@@ -56,6 +56,7 @@
     <Compile Include="Base\RelayParameterizedCommand.cs" />
     <Compile Include="DataModels\DataPackage.cs" />
     <Compile Include="DataModels\DataPackageDescriptor.cs" />
+    <Compile Include="DataModels\InfoPackage.cs" />
     <Compile Include="DataModels\PackageContent.cs" />
     <Compile Include="DataModels\PackageType.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />

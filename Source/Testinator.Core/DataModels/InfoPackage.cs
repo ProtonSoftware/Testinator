@@ -1,7 +1,9 @@
-﻿using Testinator.Core;
+﻿using System;
+using Testinator.Core;
 
 namespace Testinator.Network.Server
 {
+    [Serializable]
     public class InfoPackage : PackageContent
     {
         /// <summary>

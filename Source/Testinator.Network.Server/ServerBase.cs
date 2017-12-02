@@ -239,7 +239,7 @@ namespace Testinator.Network.Server
             byte[] recBuf = new byte[recived];
             Array.Copy(ReceiverBuffer, recBuf, recived);
             
-            if(DataPackageDescriptor.TryDescript(recBuf, out DataPackage PackageReceived))
+            if(DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
             {
                 
                 // Everything exepct from info packet is going to the higher level layer of appliaction

@@ -15,7 +15,7 @@ namespace Testinator.Core
         /// <param name="Bytes">Bytes to be converted</param>
         /// <param name="output">Formated data package</param>
         /// <returns>True is operation was sucessfull, otherwise false</returns>
-        public static bool TryDescript(byte[] Bytes, out DataPackage output)
+        public static bool TryConvertToObj(byte[] Bytes, out DataPackage output)
         {
             try
             {
@@ -28,6 +28,32 @@ namespace Testinator.Core
             catch
             {
                 output = null;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Gets the binary of this class
+        /// Usefull for sending operation
+        /// </summary>
+        /// <param name="Bytes">Output binary</param>
+        /// <param name="input">Object to be converted</param>
+        /// <returns>True is operation was sucessfull, otherwise false</returns>
+        public static bool TryConvertToBin(out byte[] Bytes, DataPackage input)
+        {
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bf.Serialize(ms, input);
+                    Bytes = ms.ToArray();
+                }
+            }
+            catch
+            {
+                Bytes = new byte[0];
                 return false;
             }
             return true;
