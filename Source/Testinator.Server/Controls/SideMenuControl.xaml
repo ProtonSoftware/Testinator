@@ -32,6 +32,7 @@
 
                         <Button Content="{StaticResource FontAwesomeHamburgerMenuIcon}"
                                 Style="{StaticResource IconButton}"
+                                FontFamily="{StaticResource FontAwesome}"
                                 Command="{Binding MenuExpandCommand}"
                                 Height="45"
                                 />
@@ -39,9 +40,13 @@
                         <TextBlock Text="Dashboard"
                                    Grid.Column="1"
                                    Style="{StaticResource MenuTextBlock}"
+<<<<<<< HEAD
                                    Visibility="{Binding ApplicationViewModel.ShouldSideMenuBeExpanded,
                                                         Source={x:Static local:ViewModelLocator.Instance}, 
                                                         Converter={local:BooleanToVisiblityConverter}}"
+=======
+<<<<<<< HEAD
+=======
                                    />
                     </Grid>
 

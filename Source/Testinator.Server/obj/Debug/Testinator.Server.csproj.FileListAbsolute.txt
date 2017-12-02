@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.exe.config
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.exe
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.pdb
@@ -35,3 +36,41 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Co
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListItemControl.g.cs
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListControl.baml
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListItemControl.baml
+<<<<<<< HEAD
+=======
+=======
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.exe.config
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.exe
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.UICore.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Ninject.xml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csprojResolveAssemblyReference.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\PageHost.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\SideMenuControl.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\MainWindow.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\HomePage.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\LoginPage.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\App.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server_MarkupCompile.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server_MarkupCompile.lref
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\App.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\PageHost.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\SideMenuControl.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\MainWindow.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\HomePage.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\LoginPage.baml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.g.resources
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.Properties.Resources.resources
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csproj.GenerateResource.Cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.exe
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.UICore.pdb
+>>>>>>> 42d2051a17b39533966938d216ff8ee4de3b682f
+>>>>>>> ff1d64691378c92dc65eb5663ea0e0bf7c231944
