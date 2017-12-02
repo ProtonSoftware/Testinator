@@ -52,7 +52,7 @@ namespace Testinator.Network.Server
         public int Port { get; set; } = 3333;
 
         /// <summary>
-        /// Default server IP
+        /// Default server IP address
         /// </summary>
         public IPAddress IPAddress { get; set; } = IPAddress.Any;
 
@@ -82,9 +82,9 @@ namespace Testinator.Network.Server
         public delegate void ClientDisconnectedDelegate(ClientModel sender);
 
         /// <summary>
-        /// Method to be called any data is received from a client
+        /// Method to be called any data is recived from a client
         /// </summary>
-        public DataReceivedDelegate ReceiverCallback { get; set; }
+        public DataReceivedDelegate DataRecivedCallback { get; set; }
 
         /// <summary>
         /// Method to be called when a new client is connected
@@ -211,17 +211,17 @@ namespace Testinator.Network.Server
         }
 
         /// <summary>
-        /// Called when when data is received 
+        /// Called when data is recived 
         /// </summary>
         /// <param name="ar"></param>
         private void ReceiveCallback(IAsyncResult ar)
         {
             Socket clientSocket = (Socket)ar.AsyncState;
-            int received;
+            int recived;
             
             try
             {
-                received = clientSocket.EndReceive(ar);
+                recived = clientSocket.EndReceive(ar);
             }
             catch(SocketException)
             {
@@ -236,8 +236,8 @@ namespace Testinator.Network.Server
                 return;
             }
 
-            byte[] recBuf = new byte[received];
-            Array.Copy(ReceiverBuffer, recBuf, received);
+            byte[] recBuf = new byte[recived];
+            Array.Copy(ReceiverBuffer, recBuf, recived);
             
             if(DataPackageDescriptor.TryDescript(recBuf, out DataPackage PackageReceived))
             {
@@ -255,7 +255,7 @@ namespace Testinator.Network.Server
                 else
                 {
                     // Call the subscribed method only if the package description was successful
-                    ReceiverCallback(Clients[clientSocket], PackageReceived);
+                    DataRecivedCallback(Clients[clientSocket], PackageReceived);
                 }
             }
 

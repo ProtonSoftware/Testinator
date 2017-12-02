@@ -27,7 +27,6 @@ namespace Testinator.Network.Server
 
         #endregion
 
-
         #region Constructor
 
         /// <summary>

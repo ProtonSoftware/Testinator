@@ -62,7 +62,7 @@ namespace ServerTesting
         {
             Server.SetIP(Ip);
             Server.Port = Port;
-            Server.ReceiverCallback = Receive;
+            Server.DataRecivedCallback = Receive;
             Server.ClientConnectedCallback = ClientConnected;
             Server.ClientDisconnectedCallback = ClientDisconnected;
             Server.Start();
