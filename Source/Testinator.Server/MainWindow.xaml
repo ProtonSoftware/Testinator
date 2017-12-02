@@ -11,7 +11,7 @@
         x:Name="AppWindow"
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
-        Title="TestinatorServer" Height="800" Width="720">
+        Title="TestinatorServer" Height="720" Width="1024">
     
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
@@ -70,7 +70,7 @@
             />
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource BlackDarkBrush}">
+    <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

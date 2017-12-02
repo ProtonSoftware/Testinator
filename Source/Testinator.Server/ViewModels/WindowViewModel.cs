@@ -39,12 +39,12 @@ namespace Testinator.Server
         /// <summary>
         /// The smallest width the window can go to
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 720;
+        public double WindowMinimumWidth { get; set; } = 800;
 
         /// <summary>
         /// The smallest height the window can go to
         /// </summary>
-        public double WindowMinimumHeight { get; set; } = 800;
+        public double WindowMinimumHeight { get; set; } = 720;
 
         /// <summary>
         /// True if the window should be borderless because it is docked or maximized
