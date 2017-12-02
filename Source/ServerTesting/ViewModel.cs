@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Testinator.Core;
 using Testinator.Network.Server;
 
@@ -28,6 +30,14 @@ namespace ServerTesting
         public int ClientNumber => Server.ConnectedClientCount;
 
         public ICommand ClearCommand { get; set; }
+
+
+        private ObservableCollection<Client> _Clients = new ObservableCollection<Client>();
+        public ObservableCollection<Client> Clients
+        {
+            get { return _Clients; }
+            set { _Clients = value; }
+        }
 
         #region Constructor
 
@@ -61,14 +71,17 @@ namespace ServerTesting
             StopPossible = true;
         }
 
-        private void ClientDisconnected()
+        private void ClientDisconnected(Client sender)
         {
             OnPropertyChanged(nameof(ClientNumber));
+            App.Current.Dispatcher.Invoke(() => { Clients.Remove(sender); });
         }
 
-        private void ClientConnected()
+        private void ClientConnected(Client sender)
         {
             OnPropertyChanged(nameof(ClientNumber));
+            App.Current.Dispatcher.Invoke(() => { Clients.Add(sender); });
+
         }
 
         private void Stop()
@@ -79,10 +92,9 @@ namespace ServerTesting
             StopPossible = false;
         }
 
-        private void Receive(byte[] data)
+        private void Receive(Client sender, DataPackage data)
         {
-            string msg = Encoding.ASCII.GetString(data);
-            Message += msg + "\n";            
+            
         }
     }
 }

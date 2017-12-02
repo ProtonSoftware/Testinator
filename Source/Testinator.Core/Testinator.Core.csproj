@@ -54,6 +54,10 @@
     <Compile Include="Base\IHavePassword.cs" />
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\RelayParameterizedCommand.cs" />
+    <Compile Include="DataModels\DataPackage.cs" />
+    <Compile Include="DataModels\DataPackageDescriptor.cs" />
+    <Compile Include="DataModels\PackageContent.cs" />
+    <Compile Include="DataModels\PackageType.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="IoC\Base\IoC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,9 +67,7 @@
     <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

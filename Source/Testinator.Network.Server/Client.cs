@@ -1,15 +1,42 @@
-﻿namespace Testinator.Network.Server
+﻿using System.Net;
+using System.Net.Sockets;
+
+namespace Testinator.Network.Server
 {
+    /// <summary>
+    /// Defines the structure of the clinet connected to the sever
+    /// </summary>
     public class Client
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Clinet id
+        /// </summary>
+        public string ID { get; set; }
+
+        /// <summary>
+        /// The client's machine name
+        /// </summary>
+        public string MachineName { get; set; }
+
+        /// <summary>
+        /// The client's ip address
+        /// </summary>
+        public string IpAddress { get; set; }
+
+        #endregion
+
+
         #region Constructor
 
         /// <summary>
-        /// Default constructor
+        /// Constructs a client from the given socket
         /// </summary>
-        public Client()
+        public Client(string id, string ip)
         {
-
+            ID = id;
+            IpAddress = ip;
         }
 
         #endregion

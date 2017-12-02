@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Testinator.Core;
 
 namespace Testinator.Network.Server
 {
@@ -24,7 +25,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Conatins all connected clients
         /// </summary>
-        protected readonly ObservableCollection<Socket> clientSockets = new ObservableCollection<Socket>();
+        protected readonly Dictionary<Socket, Client> Clients = new Dictionary<Socket, Client>();
 
         /// <summary>
         /// Buffer for received data
@@ -43,7 +44,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Default buffer size 
         /// </summary>
-        public int BufferSize { get; set; } = 2048;
+        public int BufferSize { get; set; } = 32768;
 
         /// <summary>
         /// Default port the server listens for
@@ -58,7 +59,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Number of clients curently connected
         /// </summary>
-        public int ConnectedClientCount => clientSockets.Count;
+        public int ConnectedClientCount => Clients.Count;
 
         #endregion
 
@@ -68,17 +69,17 @@ namespace Testinator.Network.Server
         /// Delegate to the method to be called when data is received
         /// </summary>
         /// <param name="data">Data received</param>
-        public delegate void DataReceivedDelegate(byte[] data);
+        public delegate void DataReceivedDelegate(Client sender, DataPackage data);
 
         /// <summary>
         /// Fired when a new client is connected
         /// </summary>
-        public delegate void ClientConnectedDelegate();
+        public delegate void ClientConnectedDelegate(Client sender);
 
         /// <summary>
         /// Fired when a client disconnects
         /// </summary>
-        public delegate void ClientDisconnectedDelegate();
+        public delegate void ClientDisconnectedDelegate(Client sender);
 
         /// <summary>
         /// Method to be called any data is received from a client
@@ -167,11 +168,11 @@ namespace Testinator.Network.Server
                 return;
 
             // Close all connections
-            foreach (Socket socket in clientSockets)
+            foreach (KeyValuePair<Socket, Client> item in Clients)
             {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
-                clientSockets.Remove(socket);
+                item.Key.Shutdown(SocketShutdown.Both);
+                item.Key.Close();
+                Clients.Remove(item.Key);
             }
 
             serverSocket.Close();
@@ -188,23 +189,24 @@ namespace Testinator.Network.Server
         /// <param name="ar">Parameters</param>
         private void AcceptCallback(IAsyncResult ar)
         {
-            Socket client;
+            Socket clientSocket;
 
             try
             {
-                client = serverSocket.EndAccept(ar);
+                clientSocket = serverSocket.EndAccept(ar);
             }
             catch
             {
                 return;
             }
 
-            clientSockets.Add(client);
-            client.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, client);
+            string clientsIp = ((IPEndPoint)(clientSocket.RemoteEndPoint)).Address.ToString();
+            Clients.Add(clientSocket, new Client(ClientIdProvider.GetId(), clientsIp));
+            clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
             serverSocket.BeginAccept(AcceptCallback, null);
 
             // Let them know client has connected
-            ClientConnectedCallback();
+            ClientConnectedCallback(Clients[clientSocket]);
 
         }
 
@@ -214,31 +216,48 @@ namespace Testinator.Network.Server
         /// <param name="ar"></param>
         private void ReceiveCallback(IAsyncResult ar)
         {
-            Socket client = (Socket)ar.AsyncState;
+            Socket clientSocket = (Socket)ar.AsyncState;
             int received;
             
             try
             {
-                received = client.EndReceive(ar);
+                received = clientSocket.EndReceive(ar);
             }
             catch(SocketException)
             {
-                client.Close();
-                clientSockets.Remove(client);
+                clientSocket.Close();
+                Clients.Remove(clientSocket);
 
                 // Let them know the client has disconnected
-                ClientDisconnectedCallback();
+                ClientDisconnectedCallback(Clients[clientSocket]);
 
                 return;
             }
 
             byte[] recBuf = new byte[received];
             Array.Copy(ReceiverBuffer, recBuf, received);
+            
+            if(DataPackageDescriptor.TryDescript(recBuf, out DataPackage PackageReceived))
+            {
+                
+                // Everything exepct from info packet is going to the higher level layer of appliaction
+                if (PackageReceived.PackageType == PackageType.Info)
+                {
+                    var content = (PackageReceived.Content as InfoPackage);
+                    if (content == null)
+                        return;
 
-            // Calle the subscribed method
-            ReceiverCallback(recBuf);
+                    Clients[clientSocket].ID = content.ID;
+                    Clients[clientSocket].MachineName = content.MachineName;
+                }
+                else
+                {
+                    // Call the subscribed method only if the package description was successful
+                    ReceiverCallback(Clients[clientSocket], PackageReceived);
+                }
+            }
 
-            client.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, client);
+            clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
 
         }
 
