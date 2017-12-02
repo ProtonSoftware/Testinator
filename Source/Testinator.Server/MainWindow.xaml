@@ -76,9 +76,13 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <local:SideMenuControl MaxWidth="200"
-                               HorizontalAlignment="Left" />
+                               HorizontalAlignment="Left">
+
+            <local:MenuListControl />
+
+        </local:SideMenuControl>
 
         <local:PageHost Grid.Column="1"
                         CurrentPage="{Binding ApplicationViewModel.CurrentPage,

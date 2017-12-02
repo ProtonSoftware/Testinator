@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml
-5-1044856943
+7-362208134
 
-13-1400679312
+15840800846
 70-1247366954
-Controls\PageHost.xaml;Controls\SideMenuControl.xaml;MainWindow.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;
+Controls\Menu\MenuListControl.xaml;Controls\Menu\MenuListItemControl.xaml;Controls\PageHost.xaml;Controls\SideMenuControl.xaml;MainWindow.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;
 
 False
 

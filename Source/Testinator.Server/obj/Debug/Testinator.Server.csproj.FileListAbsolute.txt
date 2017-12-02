@@ -31,3 +31,7 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Te
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csproj.CoreCompileInputs.cache
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.exe
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListControl.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListItemControl.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListControl.baml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListItemControl.baml
