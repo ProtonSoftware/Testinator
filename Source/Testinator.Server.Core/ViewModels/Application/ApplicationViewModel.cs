@@ -21,6 +21,11 @@ namespace Testinator.Server.Core
         public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
+        /// A flag indicating whether side menu should be expanded to its full width or not
+        /// </summary>
+        public bool ShouldSideMenuBeExpanded { get; set; } = true;
+
+        /// <summary>
         /// Navigates to the specified page
         /// </summary>
         /// <param name="page">The page to go to</param>

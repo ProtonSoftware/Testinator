@@ -39,7 +39,9 @@
                         <TextBlock Text="Dashboard"
                                    Grid.Column="1"
                                    Style="{StaticResource MenuTextBlock}"
-                                   Visibility="{Binding IsMenuExpanded, Converter={local:BooleanToVisiblityConverter}}"
+                                   Visibility="{Binding ApplicationViewModel.ShouldSideMenuBeExpanded,
+                                                        Source={x:Static local:ViewModelLocator.Instance}, 
+                                                        Converter={local:BooleanToVisiblityConverter}}"
                                    />
                     </Grid>
 
@@ -62,100 +64,5 @@
 
         </ControlTemplate>
     </UserControl.Template>
-
-    <!-- Top dashboard button -->
-    <Grid VerticalAlignment="Top">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Margin="5" VerticalAlignment="Center">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button Content="{StaticResource FontAwesomeHomeIcon}"
-                Style="{StaticResource IconButton}"
-                FontFamily="{StaticResource FontAwesome}"
-                Command="{Binding MenuExpandCommand}"
-                Height="45"
-                />
-
-            <TextBlock Text="HomePage"
-                   Grid.Column="1"
-                   Style="{StaticResource MenuTextBlock}"
-                   Visibility="{Binding IsMenuExpanded, Converter={local:BooleanToVisiblityConverter}}"
-                   />
-        </Grid>
-
-        <Grid Grid.Row="1" Margin="5" VerticalAlignment="Center">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button Content="{StaticResource FontAwesomeHomeIcon}"
-                Style="{StaticResource IconButton}"
-                FontFamily="{StaticResource FontAwesome}"
-                Command="{Binding MenuExpandCommand}"
-                Height="45"
-                />
-
-            <TextBlock Text="HomePage"
-                   Grid.Column="1"
-                   Style="{StaticResource MenuTextBlock}"
-                   Visibility="{Binding IsMenuExpanded, Converter={local:BooleanToVisiblityConverter}}"
-                   />
-        </Grid>
-
-        <Grid Grid.Row="2" Margin="5" VerticalAlignment="Center">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button Content="{StaticResource FontAwesomeHomeIcon}"
-                Style="{StaticResource IconButton}"
-                FontFamily="{StaticResource FontAwesome}"
-                Command="{Binding MenuExpandCommand}"
-                Height="45"
-                />
-
-            <TextBlock Text="HomePage"
-                   Grid.Column="1"
-                   Style="{StaticResource MenuTextBlock}"
-                   Visibility="{Binding IsMenuExpanded, Converter={local:BooleanToVisiblityConverter}}"
-                   />
-        </Grid>
-
-        <Grid Grid.Row="3" Margin="5" VerticalAlignment="Center">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Button Content="{StaticResource FontAwesomeHomeIcon}"
-                Style="{StaticResource IconButton}"
-                FontFamily="{StaticResource FontAwesome}"
-                Command="{Binding MenuExpandCommand}"
-                Height="45"
-                />
-
-        <TextBlock Text="HomePage"
-                   Grid.Column="1"
-                   Style="{StaticResource MenuTextBlock}"
-                   Visibility="{Binding IsMenuExpanded, Converter={local:BooleanToVisiblityConverter}}"
-                   />
-        </Grid>
-
-    </Grid>
 
 </UserControl>

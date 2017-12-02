@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Testinator.UICore">
 
-    <!-- Coolors website - https://coolors.co/fefdfe-34363c-d7d5d7-57a598-54565c -->
+    <!-- Coolors website - https://coolors.co/fefdfe-34363c-d7d5d7-57a598-64666c -->
 
     <Color x:Key="WhitePure">#ffffff</Color>
     <SolidColorBrush x:Key="WhitePureBrush" Color="{StaticResource WhitePure}" />
@@ -16,7 +16,7 @@
     <Color x:Key="GreenLight">#57A598</Color>
     <SolidColorBrush x:Key="GreenLightBrush" Color="{StaticResource GreenLight}" />
 
-    <Color x:Key="BlackLight">#54565C</Color>
+    <Color x:Key="BlackLight">#64666C</Color>
     <SolidColorBrush x:Key="BlackLightBrush" Color="{StaticResource BlackLight}" />
 
     <Color x:Key="BlackDark">#34363C</Color>
