@@ -32,7 +32,6 @@
 
                         <Button Content="{StaticResource FontAwesomeHamburgerMenuIcon}"
                                 Style="{StaticResource IconButton}"
-                                FontFamily="{StaticResource FontAwesome}"
                                 Command="{Binding MenuExpandCommand}"
                                 Height="45"
                                 />
