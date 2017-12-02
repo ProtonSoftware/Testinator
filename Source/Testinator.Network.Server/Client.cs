@@ -4,9 +4,9 @@ using System.Net.Sockets;
 namespace Testinator.Network.Server
 {
     /// <summary>
-    /// Defines the structure of the clinet connected to the sever
+    /// Defines the structure of the client connected to the sever
     /// </summary>
-    public class Client
+    public class ClientModel
     {
         #region Public Properties
 
@@ -33,7 +33,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Constructs a client from the given socket
         /// </summary>
-        public Client(string id, string ip)
+        public ClientModel(string id, string ip)
         {
             ID = id;
             IpAddress = ip;

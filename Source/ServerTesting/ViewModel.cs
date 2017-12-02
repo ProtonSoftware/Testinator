@@ -32,8 +32,8 @@ namespace ServerTesting
         public ICommand ClearCommand { get; set; }
 
 
-        private ObservableCollection<Client> _Clients = new ObservableCollection<Client>();
-        public ObservableCollection<Client> Clients
+        private ObservableCollection<ClientModel> _Clients = new ObservableCollection<ClientModel>();
+        public ObservableCollection<ClientModel> Clients
         {
             get { return _Clients; }
             set { _Clients = value; }
@@ -71,13 +71,13 @@ namespace ServerTesting
             StopPossible = true;
         }
 
-        private void ClientDisconnected(Client sender)
+        private void ClientDisconnected(ClientModel sender)
         {
             OnPropertyChanged(nameof(ClientNumber));
             App.Current.Dispatcher.Invoke(() => { Clients.Remove(sender); });
         }
 
-        private void ClientConnected(Client sender)
+        private void ClientConnected(ClientModel sender)
         {
             OnPropertyChanged(nameof(ClientNumber));
             App.Current.Dispatcher.Invoke(() => { Clients.Add(sender); });
@@ -92,7 +92,7 @@ namespace ServerTesting
             StopPossible = false;
         }
 
-        private void Receive(Client sender, DataPackage data)
+        private void Receive(ClientModel sender, DataPackage data)
         {
             
         }

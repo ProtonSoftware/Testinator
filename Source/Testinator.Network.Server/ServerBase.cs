@@ -25,7 +25,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Conatins all connected clients
         /// </summary>
-        protected readonly Dictionary<Socket, Client> Clients = new Dictionary<Socket, Client>();
+        protected readonly Dictionary<Socket, ClientModel> Clients = new Dictionary<Socket, ClientModel>();
 
         /// <summary>
         /// Buffer for received data
@@ -69,17 +69,17 @@ namespace Testinator.Network.Server
         /// Delegate to the method to be called when data is received
         /// </summary>
         /// <param name="data">Data received</param>
-        public delegate void DataReceivedDelegate(Client sender, DataPackage data);
+        public delegate void DataReceivedDelegate(ClientModel sender, DataPackage data);
 
         /// <summary>
         /// Fired when a new client is connected
         /// </summary>
-        public delegate void ClientConnectedDelegate(Client sender);
+        public delegate void ClientConnectedDelegate(ClientModel sender);
 
         /// <summary>
         /// Fired when a client disconnects
         /// </summary>
-        public delegate void ClientDisconnectedDelegate(Client sender);
+        public delegate void ClientDisconnectedDelegate(ClientModel sender);
 
         /// <summary>
         /// Method to be called any data is received from a client
@@ -168,7 +168,7 @@ namespace Testinator.Network.Server
                 return;
 
             // Close all connections
-            foreach (KeyValuePair<Socket, Client> item in Clients)
+            foreach (KeyValuePair<Socket, ClientModel> item in Clients)
             {
                 item.Key.Shutdown(SocketShutdown.Both);
                 item.Key.Close();
@@ -201,7 +201,7 @@ namespace Testinator.Network.Server
             }
 
             string clientsIp = ((IPEndPoint)(clientSocket.RemoteEndPoint)).Address.ToString();
-            Clients.Add(clientSocket, new Client(ClientIdProvider.GetId(), clientsIp));
+            Clients.Add(clientSocket, new ClientModel(ClientIdProvider.GetId(), clientsIp));
             clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
             serverSocket.BeginAccept(AcceptCallback, null);
 
