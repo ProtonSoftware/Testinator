@@ -73,15 +73,18 @@
     <Grid Background="{StaticResource BlackDarkBrush}">
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         
         <local:SideMenuControl MaxWidth="200"
-                               Grid.Column="0"
                                HorizontalAlignment="Left" />
 
-        <local:PageHost Grid.Column="1" />
+        <local:PageHost Grid.Column="1"
+                        CurrentPage="{Binding ApplicationViewModel.CurrentPage,
+                                        Source={x:Static local:ViewModelLocator.Instance}}"
+                        CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel,
+                                        Source={x:Static local:ViewModelLocator.Instance}}"      />
 
     </Grid>
 </Window>

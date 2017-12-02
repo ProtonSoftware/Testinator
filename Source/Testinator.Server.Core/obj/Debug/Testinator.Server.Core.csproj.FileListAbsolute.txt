@@ -5,7 +5,6 @@ C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Test
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.pdb
 <<<<<<< HEAD
-<<<<<<< HEAD
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Server.Core.dll
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Server.Core.pdb
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Ninject.dll
@@ -17,7 +16,6 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Deb
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.dll
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.pdb
 =======
-=======
 >>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Server.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Server.Core.pdb
@@ -25,7 +23,3 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Deb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.pdb
-<<<<<<< HEAD
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
-=======
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d

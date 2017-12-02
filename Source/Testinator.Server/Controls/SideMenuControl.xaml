@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Testinator.Server"
              mc:Ignorable="d">
     
-    <Border Background="{StaticResource WhiteLightBrush}">
-        <TextBlock Text="I am side menu" />
-    </Border>
+    <Grid Width="{Binding CurrentWidth}" Background="{StaticResource WhiteLightBrush}">
+        <Button Content="I am side menu" Command="{Binding MenuExpandCommand}" />
+    </Grid>
     
 </UserControl>

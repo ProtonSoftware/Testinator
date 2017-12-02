@@ -37,7 +37,6 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Te
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.exe
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.pdb
 <<<<<<< HEAD
-<<<<<<< HEAD
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\SideMenuControl.g.cs
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\SideMenuControl.baml
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\PageHost.g.cs
@@ -48,7 +47,6 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Te
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\PageHost.baml
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\HomePage.baml
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\LoginPage.baml
-=======
 =======
 >>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\bin\Debug\Testinator.Server.exe.config
@@ -74,7 +72,3 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Te
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.exe
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Testinator.Server.pdb
-<<<<<<< HEAD
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
-=======
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d

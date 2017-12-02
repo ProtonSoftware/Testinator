@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Testinator.Server.Core;
 
 namespace Testinator.Server
 {
@@ -10,6 +11,9 @@ namespace Testinator.Server
         public SideMenuControl()
         {
             InitializeComponent();
+
+            // Set the data context to dedicated view model
+            DataContext = new SideMenuViewModel();
         }
     }
 }

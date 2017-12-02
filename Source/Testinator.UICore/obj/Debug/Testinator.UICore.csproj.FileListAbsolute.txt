@@ -18,10 +18,8 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Ni
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Core.pdb
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Ninject.xml
 <<<<<<< HEAD
-<<<<<<< HEAD
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Server.Core.dll
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Server.Core.pdb
-=======
 =======
 >>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.UICore.dll
@@ -43,7 +41,3 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Te
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.pdb
-<<<<<<< HEAD
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
-=======
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d

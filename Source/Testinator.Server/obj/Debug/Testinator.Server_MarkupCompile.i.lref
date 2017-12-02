@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿
-
+﻿C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\GeneratedInternalTypeHelper.g.i.cs
+FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml;;
+FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Controls\PageHost.xaml;;
+FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Controls\SideMenuControl.xaml;;
+FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\MainWindow.xaml;;
 FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Pages\HomePage.xaml;;
-=======
-﻿C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\GeneratedInternalTypeHelper.g.i.cs
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\MainWindow.xaml;;
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
-=======
-﻿C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\GeneratedInternalTypeHelper.g.i.cs
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\MainWindow.xaml;;
->>>>>>> 493b0087917c509274ca1d190224a61bfba1a99d
+FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Pages\LoginPage.xaml;;
 
