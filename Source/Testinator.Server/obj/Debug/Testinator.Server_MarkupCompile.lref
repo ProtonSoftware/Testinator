@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ff1d64691378c92dc65eb5663ea0e0bf7c231944
 ﻿C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\GeneratedInternalTypeHelper.g.cs
 FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml;;
 FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Controls\Menu\MenuListControl.xaml;;
@@ -11,13 +7,4 @@ FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Controls\Si
 FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\MainWindow.xaml;;
 FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Pages\HomePage.xaml;;
 FC:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\Pages\LoginPage.xaml;;
-=======
-﻿C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\GeneratedInternalTypeHelper.g.cs
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\Controls\PageHost.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\Controls\SideMenuControl.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\MainWindow.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\Pages\HomePage.xaml;;
-FC:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\Pages\LoginPage.xaml;;
->>>>>>> 42d2051a17b39533966938d216ff8ee4de3b682f
 
