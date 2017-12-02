@@ -74,9 +74,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+<<<<<<< HEAD
     <Resource Include="Fonts\Montserrat-Bold.ttf" />
     <Resource Include="Fonts\Montserrat-Medium.ttf" />
     <Resource Include="Fonts\Montserrat-Thin.ttf" />
+=======
+>>>>>>> 42d2051a17b39533966938d216ff8ee4de3b682f
     <Resource Include="Fonts\fontawesome-webfont.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
