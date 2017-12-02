@@ -54,10 +54,16 @@ namespace ServerTesting
             Server.Port = Port;
             Server.ReceiverCallback = Receive;
             Server.ClientConnectedCallback = ClientConnected;
+            Server.ClientDisconnectedCallback = ClientDisconnected;
             Server.Start();
 
             StartPossible = false;
             StopPossible = true;
+        }
+
+        private void ClientDisconnected()
+        {
+            OnPropertyChanged(nameof(ClientNumber));
         }
 
         private void ClientConnected()

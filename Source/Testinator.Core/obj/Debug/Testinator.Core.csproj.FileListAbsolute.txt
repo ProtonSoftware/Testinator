@@ -5,3 +5,4 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Core\bin\Debug\Ninj
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Core\obj\Debug\Testinator.Core.csprojResolveAssemblyReference.cache

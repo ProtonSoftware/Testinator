@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -23,7 +24,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Conatins all connected clients
         /// </summary>
-        protected readonly List<Socket> clientSockets = new List<Socket>();
+        protected readonly ObservableCollection<Socket> clientSockets = new ObservableCollection<Socket>();
 
         /// <summary>
         /// Buffer for received data
@@ -59,27 +60,42 @@ namespace Testinator.Network.Server
         /// </summary>
         public int ConnectedClientCount => clientSockets.Count;
 
+        #endregion
+
+        #region Public Delegates
+
         /// <summary>
         /// Delegate to the method to be called when data is received
         /// </summary>
         /// <param name="data">Data received</param>
-        public delegate void ReceiverDelegate(byte[] data);
+        public delegate void DataReceivedDelegate(byte[] data);
 
         /// <summary>
         /// Fired when a new client is connected
         /// </summary>
-        public delegate void ClientDelegate();
+        public delegate void ClientConnectedDelegate();
+
+        /// <summary>
+        /// Fired when a client disconnects
+        /// </summary>
+        public delegate void ClientDisconnectedDelegate();
 
         /// <summary>
         /// Method to be called any data is received from a client
         /// </summary>
-        public ReceiverDelegate ReceiverCallback {get; set;}
+        public DataReceivedDelegate ReceiverCallback { get; set; }
 
         /// <summary>
-        /// Method to be called any data is received from a client
+        /// Method to be called when a new client is connected
         /// </summary>
-        public ClientDelegate ClientConnectedCallback { get; set; }
-        #endregion
+        public ClientConnectedDelegate ClientConnectedCallback { get; set; }
+
+        /// <summary>
+        /// Method to be called when a client is disconnected
+        /// </summary>
+        public ClientDisconnectedDelegate ClientDisconnectedCallback { get; set; }
+
+        #endregion 
 
         #region Public Methods
 
@@ -207,9 +223,12 @@ namespace Testinator.Network.Server
             }
             catch(SocketException)
             {
-                // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 client.Close();
                 clientSockets.Remove(client);
+
+                // Let them know the client has disconnected
+                ClientDisconnectedCallback();
+
                 return;
             }
 
