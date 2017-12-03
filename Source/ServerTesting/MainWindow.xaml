@@ -25,10 +25,10 @@
             <StackPanel Grid.Column="0" Grid.Row="0">
                 <TextBlock Text="Ip:"
                            Margin="0 0 0 5"/>
-                <TextBox Text="{Binding Ip, Mode=TwoWay}" x:Name="txtIp"/>
+                <TextBox Text="{Binding Ip, Mode=TwoWay}"/>
                 <TextBlock Text="Port:"
                            Margin="0 20 0 5"/>
-                <TextBox Text="{Binding Port, Mode=TwoWay}" x:Name="txtPort"/>
+                <TextBox Text="{Binding Port, Mode=TwoWay}"/>
 
                 <Button Margin="0 20 0 0" 
                         Content="Start" 

@@ -108,6 +108,7 @@ namespace Testinator.Network.Client
                 SendData(new DataPackage("me", PackageType.DisconnectRequest, null));
                 clientSocket.Shutdown(SocketShutdown.Both);
                 clientSocket.Close();
+                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             }
             _Connecting = false;
         }

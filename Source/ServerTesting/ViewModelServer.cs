@@ -13,9 +13,9 @@ namespace ServerTesting
 
         public Server Server { get; set; } = new Server();
 
-        public string Ip { get; set; } = "127.0.0.1";
+        public string Ip { get; set; }
 
-        public int Port { get; set; } = 3333;
+        public int Port { get; set; }
 
         public ICommand StartCommand { get; set; }
 
@@ -49,6 +49,8 @@ namespace ServerTesting
             StartCommand = new RelayCommand(Start);
             StopCommand = new RelayCommand(Stop);
             ClearCommand = new RelayCommand(Clear);
+            Ip = Server.Ip;
+            Port = Server.Port;
         }
 
         private void Clear()
@@ -61,6 +63,7 @@ namespace ServerTesting
         private void Start()
         {
             Server.Port = Port;
+            Server.Ip = Ip;
             Server.DataRecivedCallback = Receive;
             Server.ClientConnectedCallback = ClientConnected;
             Server.ClientDisconnectedCallback = ClientDisconnected;

@@ -93,9 +93,22 @@ namespace Testinator.Network.Server
         }
 
         /// <summary>
-        /// Gets server ip as a string
+        /// Gets and sets server ip
+        /// NOTE: If server is running ip change will NOT be saved
+        /// If ip is incorrect no changed will be made
         /// </summary>
-        public string Ip => IPAddress.ToString();
+        public string Ip
+        {
+            get => IPAddress.ToString();
+            set
+            {
+                try
+                {
+                    IPAddress = IPAddress.Parse(value);
+                }
+                catch { }
+            }
+        }
 
         /// <summary>
         /// Gets and sets server port

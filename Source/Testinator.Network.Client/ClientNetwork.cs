@@ -49,8 +49,8 @@ namespace Testinator.Network.Client
                 // Call the subscribed method only if the package description was successful
                 DataRecivedCallback(PackageReceived);
             }
-
-            clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
+            if (IsConnected)
+                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
         }
 
         #endregion
