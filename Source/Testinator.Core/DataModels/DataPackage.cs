@@ -14,11 +14,6 @@ namespace Testinator.Core
         #region Public Properties
 
         /// <summary>
-        /// The sender's id
-        /// </summary>
-        public string SenderId { get; set; }
-        
-        /// <summary>
         /// The type of this package
         /// </summary>
         public PackageType PackageType { get; set; }
@@ -35,9 +30,8 @@ namespace Testinator.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DataPackage(string SenderId, PackageType Type, PackageContent Content)
+        public DataPackage( PackageType Type, PackageContent Content)
         {
-            this.SenderId = SenderId;
             PackageType = Type;
             this.Content = Content;
         }

@@ -105,7 +105,7 @@ namespace Testinator.Network.Client
         {
             if (IsConnected)
             {
-                SendData(new DataPackage("me", PackageType.DisconnectRequest, null));
+                SendData(new DataPackage(PackageType.DisconnectRequest, null));
                 clientSocket.Shutdown(SocketShutdown.Both);
                 clientSocket.Close();
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

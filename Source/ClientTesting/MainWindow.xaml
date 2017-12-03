@@ -24,8 +24,16 @@
                            Margin="0 0 0 5"/>
                 <TextBox Text="{Binding Ip, Mode=TwoWay}" x:Name="txtIp"/>
                 <TextBlock Text="Port:"
-                           Margin="0 20 0 5"/>
+                           Margin="0 5 0 5"/>
                 <TextBox Text="{Binding Port, Mode=TwoWay}" x:Name="txtPort"/>
+
+                <TextBlock Text="Name:"
+                           Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+
+                <TextBlock Text="Surname"
+                           Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Surname, Mode=TwoWay}"/>
 
                 <Button Margin="0 20 0 0" 
                         Content="Begin Connecting" 

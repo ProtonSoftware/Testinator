@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Testinator.Core;
+using Testinator.Core.Network;
 using Testinator.Network.Client;
 using Testinator.Network.Server;
 
@@ -22,6 +23,10 @@ namespace ClientTesting
 
         public bool StopPossible { get; set; } = false;
 
+        public string Name { get; set; }
+
+        public string Surname{ get; set; }
+
         private ClientNetwork client = new ClientNetwork();
 
         public string Connected { get; set; } = "Disconnected!";
@@ -40,6 +45,8 @@ namespace ClientTesting
             SendCommand = new RelayCommand(Send);
             Ip = client.IPAddress.ToString();
             Port = client.Port;
+            Name = "Jack";
+            Surname = "Sparrow";
             client.ConnectedCallback = ConnectedCallback;
             client.DataRecivedCallback = DataRecivedCallabck;
             client.DisconnectedCallback = DisconnectCallback;
@@ -50,7 +57,7 @@ namespace ClientTesting
         {
             if (client.IsConnected)
             {
-                client.SendData(new DataPackage("me", PackageType.Info, new InfoPackage("me", Environment.MachineName)));
+                client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
             }
         }
 

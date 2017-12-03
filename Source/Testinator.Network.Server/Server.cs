@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using Testinator.Core;
@@ -10,6 +11,15 @@ namespace Testinator.Network.Server
     /// </summary>
     public class Server : ServerBase
     {
+        #region Private Members
+
+        /// <summary>
+        /// Keeps track of id's given to each user
+        /// </summary>
+        private Dictionary<string, string> MacId = new Dictionary<string, string>();
+
+        #endregion
+
         #region Private Methods
 
         /// <summary>
@@ -29,13 +39,10 @@ namespace Testinator.Network.Server
                 return;
             }
 
-            string clientsIp = ((IPEndPoint)(clientSocket.RemoteEndPoint)).Address.ToString();
-            Clients.Add(clientSocket, new ClientModel(ClientIdProvider.GetId(), clientsIp));
+            // Accept this client and start reciving, but until the client doesn't not provide an info package, dont call the higher appliaction level
+            Clients.Add(clientSocket, null);
             clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
             serverSocket.BeginAccept(AcceptCallback, null);
-
-            // Let them know client has connected
-            ClientConnectedCallback(Clients[clientSocket]);
         }
 
         /// <summary>
@@ -72,18 +79,54 @@ namespace Testinator.Network.Server
             if(DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
             {
                 
-                // Everything exepct from info packet is going to the higher level layer of appliaction
+                // Everything exepct from info packet and disconnect request packet is going to the higher level layer of the appliaction
                 if (PackageReceived.PackageType == PackageType.Info)
                 {
                     var content = (PackageReceived.Content as InfoPackage);
                     if (content == null)
                         return;
 
-                    Clients[clientSocket].ID = content.ID;
-                    Clients[clientSocket].MachineName = content.MachineName;
-                }
+                    string clientId = string.Empty;
 
-                if (PackageReceived.PackageType == PackageType.DisconnectRequest)
+                    // If this client provides information about themselves for the first time...
+                    if (Clients[clientSocket] == null)
+
+                        // If the user is known to the server don't make new id for them
+                        if (MacId.TryGetValue(content.MacAddress, out string givenId))
+                            clientId = givenId;
+
+                        // If the user is connecting for the first time get them new id and save it
+                        else
+                        {
+                            clientId = ClientIdProvider.GetId();
+                            MacId.Add(content.MacAddress, clientId);
+                        }
+
+                    else
+                        clientId = Clients[clientSocket].ID;
+
+                    // Construct new client model to either update information about the client or create new client
+                    var model = new ClientModel()
+                    {
+                        ID = clientId,
+                        MachineName = content.MachineName,
+                        ClientName = content.ClientName,
+                        ClientSurname = content.ClientSurname,
+                        IpAddress = clientSocket.GetIp(),
+                        MacAddress = content.MacAddress,
+                    };
+
+                    // New client
+                    if (Clients[clientSocket] == null)
+                    {
+                        // Tell listeners that we got a new client
+                        ClientConnectedCallback(model);
+                    }
+                    
+                    // Update client model
+                    Clients[clientSocket] = model;
+                }
+                else if (PackageReceived.PackageType == PackageType.DisconnectRequest)
                 {
                     clientSocket.Shutdown(SocketShutdown.Both);
                     clientSocket.Close();
@@ -94,12 +137,12 @@ namespace Testinator.Network.Server
                     // NOTE: remove client after calling the event method above
                     Clients.Remove(clientSocket);
 
-                    // Prevents from running callback to the higher level of the app
+                    // Prevents running callback and starting reciving from not existing socket
                     return;
                 }
-
-                // Call the subscribed method only if the package description was successful
-                DataRecivedCallback(Clients[clientSocket], PackageReceived);
+                else
+                    // Call the subscribed method only if the package description was successful
+                    DataRecivedCallback(Clients[clientSocket], PackageReceived);
             }
 
             clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);

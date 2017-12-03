@@ -16,6 +16,12 @@ namespace Testinator.Network.Server
         public string ID { get; set; }
 
         /// <summary>
+        /// Mac address of the client's ethernet card.
+        /// Helps to distinguish clients 
+        /// </summary>
+        public string MacAddress { get; set; }
+
+        /// <summary>
         /// The client's machine name
         /// </summary>
         public string MachineName { get; set; }
@@ -25,18 +31,24 @@ namespace Testinator.Network.Server
         /// </summary>
         public string IpAddress { get; set; }
 
+        /// <summary>
+        /// Client's name
+        /// </summary>
+        public string ClientName { get; set; }
+
+        /// <summary>
+        /// Client's surname
+        /// </summary>
+        public string ClientSurname { get; set; }
+
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Constructs a client from the given socket
+        /// Default construcotr
         /// </summary>
-        public ClientModel(string id, string ip)
-        {
-            ID = id;
-            IpAddress = ip;
-        }
+        public ClientModel() { }
 
         #endregion
     }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -51,6 +53,17 @@ namespace ServerTesting
             ClearCommand = new RelayCommand(Clear);
             Ip = Server.Ip;
             Port = Server.Port;
+
+            string macAddress = string.Empty;
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet) continue;
+                if (nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    macAddress += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
         }
 
         private void Clear()
@@ -96,8 +109,8 @@ namespace ServerTesting
 
         private void Receive(ClientModel sender, DataPackage data)
         {
-            App.Current.Dispatcher.Invoke(() => { Clients[Clients.IndexOf(sender)].MachineName = sender.MachineName; });
-            App.Current.Dispatcher.Invoke(() => { Clients.Add(sender); });
+            //App.Current.Dispatcher.Invoke(() => { Clients[Clients.IndexOf(sender)].MachineName = sender.MachineName; });
+            //App.Current.Dispatcher.Invoke(() => { Clients.Add(sender); });
         }
     }
 }

@@ -7,26 +7,41 @@ namespace Testinator.Network.Server
     public class InfoPackage : PackageContent
     {
         /// <summary>
-        /// Sender's id
-        /// </summary>
-        public string ID { get; set; }
-
-        /// <summary>
         /// The sender's machine name
         /// </summary>
         public string MachineName { get; set; }
 
+        /// <summary>
+        /// Mac address of the client's ethernet card.
+        /// Helps to distinguish clients 
+        /// </summary>
+        public string MacAddress { get; set; }
+
+        /// <summary>
+        /// Client's name
+        /// </summary>
+        public string ClientName { get; set; }
+
+        /// <summary>
+        /// Client's surname
+        /// </summary>
+        public string ClientSurname { get; set; }
+
         #region Constructor
-        
+
         /// <summary>
         /// Default construcotr
         /// </summary>
-        /// <param name="id">Sender's id</param>
         /// <param name="MachineName">Sedner's machine name</param>
-        public InfoPackage(string id, string MachineName)
+        /// <param name="mac">PC mac address</param>
+        /// <param name="name">Clients name</param>
+        /// <param name="surname">Clients surname</param>
+        public InfoPackage(string MachineName, string mac, string name, string surname)
         {
-            ID = id;
+            ClientName = name;
+            ClientSurname = surname;
             this.MachineName = MachineName;
+            MacAddress = mac;
         }
 
         #endregion
