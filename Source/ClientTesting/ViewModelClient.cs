@@ -56,6 +56,7 @@ namespace ClientTesting
 
         private void Send()
         {
+            client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
 
         }
 

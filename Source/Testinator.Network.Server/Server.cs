@@ -68,7 +68,7 @@ namespace Testinator.Network.Server
                 // Let them know the client has disconnected
                 ClientDisconnectedCallback(Clients[clientSocket]);
 
-                // NOTE: remove client after calling the event method above
+                // NOTE: remove client after calling the callback method above
                 Clients.Remove(clientSocket);
 
                 return;
@@ -121,13 +121,20 @@ namespace Testinator.Network.Server
                         MacAddress = content.MacAddress,
                     };
 
-                    // New client
+                    // If it's a new client...
                     if (Clients[clientSocket] == null)
                     {
                         // Tell listeners that we got a new client
                         ClientConnectedCallback(model);
                     }
-                    
+
+                    // The model is updated...
+                    if(Clients[clientSocket] != null && !Clients[clientSocket].Equals(model))
+                    {
+                        // Call the subscribed method
+                        ClientDataUpdatedCallback(Clients[clientSocket], model);
+                    }
+
                     // Update client model
                     Clients[clientSocket] = model;
                 }
@@ -174,8 +181,6 @@ namespace Testinator.Network.Server
             this.IPAddress = IPAddress.Parse(Ip);
             this.Port = port;
             this.BufferSize = bufferSize;
-
-            ReciverBuffer = new byte[BufferSize];
         }
 
         #endregion

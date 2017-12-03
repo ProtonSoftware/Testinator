@@ -151,19 +151,31 @@ namespace Testinator.Network.Server
         public delegate void ClientDisconnectedDelegate(ClientModel sender);
 
         /// <summary>
-        /// Method to be called any data is recived from a client
+        /// Fired when client's data is updated by the client 
+        /// </summary>
+        /// <param name="old">Old data</param>
+        /// <param name="updated">New data</param>
+        public delegate void ClientDataUpdatedDelegate(ClientModel old, ClientModel updated);
+
+        /// <summary>
+        /// Method to be called any data has been recived from a client
         /// </summary>
         public DataReceivedDelegate DataRecivedCallback { get; set; }
 
         /// <summary>
-        /// Method to be called when a new client is connected
+        /// Method to be called when a new client has connected
         /// </summary>
         public ClientConnectedDelegate ClientConnectedCallback { get; set; }
 
         /// <summary>
-        /// Method to be called when a client is disconnected
+        /// Method to be called when a client has disconnected
         /// </summary>
         public ClientDisconnectedDelegate ClientDisconnectedCallback { get; set; }
+
+        /// <summary>
+        /// Method to be called when a client's data had beed updated
+        /// </summary>
+        public ClientDataUpdatedDelegate ClientDataUpdatedCallback { get; set; }
 
         #endregion
 
@@ -228,6 +240,26 @@ namespace Testinator.Network.Server
             serverSocket.Close();
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _IsRunning = false;
+        }
+
+        public void SendData(ClientModel target, DataPackage data)
+        {
+            // If not possible to convert object return
+            if (!DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data))
+                return;
+
+            var targetSocket = Clients.FirstOrDefault(x => x.Value == target).Key;
+
+            // It target does not exist return
+            if (targetSocket == null)
+                return;
+
+            try
+            {
+                targetSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);
+            }
+            catch { }
+            // TODO: error handling 
         }
 
         #endregion

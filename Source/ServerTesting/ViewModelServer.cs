@@ -53,17 +53,6 @@ namespace ServerTesting
             ClearCommand = new RelayCommand(Clear);
             Ip = Server.Ip;
             Port = Server.Port;
-
-            string macAddress = string.Empty;
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet) continue;
-                if (nic.OperationalStatus == OperationalStatus.Up)
-                {
-                    macAddress += nic.GetPhysicalAddress().ToString();
-                    break;
-                }
-            }
         }
 
         private void Clear()
@@ -80,10 +69,20 @@ namespace ServerTesting
             Server.DataRecivedCallback = Receive;
             Server.ClientConnectedCallback = ClientConnected;
             Server.ClientDisconnectedCallback = ClientDisconnected;
+            Server.ClientDataUpdatedCallback = ClientUpdated;
             Server.Start();
 
             StartPossible = false;
             StopPossible = true;
+        }
+
+        private void ClientUpdated(ClientModel old, ClientModel New)
+        {
+            int idx = Clients.IndexOf(old);
+            if (idx != -1)
+            {
+                App.Current.Dispatcher.Invoke(() => { Clients[idx] = New; });               
+            }
         }
 
         private void ClientDisconnected(ClientModel sender)
