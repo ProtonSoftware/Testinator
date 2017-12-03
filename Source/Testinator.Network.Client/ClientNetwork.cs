@@ -58,7 +58,7 @@ namespace Testinator.Network.Client
         #region Construcotrs
 
         /// <summary>
-        /// Sets server up with default settings
+        /// Sets server up with default settings [recommended]
         /// </summary>
         public ClientNetwork() { }
 

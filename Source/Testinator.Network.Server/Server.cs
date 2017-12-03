@@ -111,7 +111,7 @@ namespace Testinator.Network.Server
         #region Construcotrs
 
         /// <summary>
-        /// Sets server up with default settings
+        /// Sets server up with default settings [recommended]
         /// </summary>
         public Server() { }
 
