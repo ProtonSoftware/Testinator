@@ -4,6 +4,7 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <FontFamily x:Key="FontMontserratBold">pack://application;,,,/Testinator.UICore;component/Fonts/#Montserrat Bold</FontFamily>
+    <FontFamily x:Key="FontMontserratExtraBold">pack://application;,,,/Testinator.UICore;component/Fonts/#Montserrat ExtraBold</FontFamily>
     <FontFamily x:Key="FontMontserratRegular">pack://application;,,,/Testinator.UICore;component/Fonts/#Montserrat Medium</FontFamily>
     <FontFamily x:Key="FontMontserratThin">pack://application;,,,/Testinator.UICore;component/Fonts/#Montserrat Thin</FontFamily>
     <FontFamily x:Key="FontAwesome">pack://application;,,,/Testinator.UICore;component/Fonts/#FontAwesome</FontFamily>
@@ -29,7 +30,8 @@
     <system:Double x:Key="FontSizeRegular">14</system:Double>
     <system:Double x:Key="FontSizeLarge">20</system:Double>
     <system:Double x:Key="FontSizeXLarge">24</system:Double>
-    <system:Double x:Key="FontSizeXXLarge">30</system:Double>
+    <system:Double x:Key="FontSizeXXLarge">32</system:Double>
+    <system:Double x:Key="FontSizeTitleLarge">38</system:Double>
 
     <system:String x:Key="FontAwesomeHamburgerMenuIcon">&#xf0c9;</system:String>
     <system:String x:Key="FontAwesomeHomeIcon">&#xf015;</system:String>

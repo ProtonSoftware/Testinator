@@ -121,6 +121,60 @@ namespace Testinator.UICore
 
         #endregion
 
+        #region Width Animations
+
+        /// <summary>
+        /// Expands the element's width by animating from left
+        /// </summary>
+        /// <param name="storyboard">The storyboard to add the animation to</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="offset">The distance to the left to start from</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
+        public static void AddExpandFromLeft(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
+        {
+            // Create the margin animate from right 
+            var animation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = 55,
+                To = 200
+            };
+
+            // Set the target property name
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+
+            // Add this to the storyboard
+            storyboard.Children.Add(animation);
+        }
+
+        /// <summary>
+        /// Lowers the element's width by animating to left
+        /// </summary>
+        /// <param name="storyboard">The storyboard to add the animation to</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="offset">The distance to the left to end at</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
+        public static void AddHideToLeft(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
+        {
+            // Create the margin animate from right 
+            var animation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = 200,
+                To = 55
+            };
+
+            // Set the target property name
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+
+            // Add this to the storyboard
+            storyboard.Children.Add(animation);
+        }
+
+        #endregion
+
         #region Sliding To/From Top
 
         /// <summary>

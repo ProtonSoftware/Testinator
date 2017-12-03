@@ -23,9 +23,10 @@
                             </Border.InputBindings>
 
                             <Grid x:Name="container" 
-                                      Height="50" 
-                                      Margin="5" 
-                                      Background="{StaticResource BlackDarkBrush}">
+                                  Height="50" 
+                                  Margin="5"
+                                  Cursor="Hand"
+                                  Background="{StaticResource BlackDarkBrush}">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />

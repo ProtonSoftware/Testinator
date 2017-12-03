@@ -5,7 +5,7 @@
     <Style x:Key="MenuTextBlock" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource FontMontserratBold}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratExtraBold}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Padding" Value="10" />

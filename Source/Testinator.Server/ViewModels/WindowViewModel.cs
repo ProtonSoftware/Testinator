@@ -111,7 +111,7 @@ namespace Testinator.Server
         /// <summary>
         /// The height of the title bar / caption of the window
         /// </summary>
-        public int TitleHeight { get; set; } = 32;
+        public int TitleHeight { get; set; } = 20;
         /// <summary>
         /// The height of the title bar / caption of the window
         /// </summary>

@@ -11,7 +11,8 @@
         <ControlTemplate TargetType="UserControl">
 
             <!-- Main background -->
-            <Border Background="{StaticResource BlackDarkBrush}">
+            <Border Background="{StaticResource BlackDarkBrush}" 
+                    local:AnimateSideMenuWidthProperty.Value="{Binding Expanded}">
 
                 <!-- Content -->
                 <Grid>
@@ -23,7 +24,11 @@
                     </Grid.RowDefinitions>
 
                     <!-- Top dashboard button -->
-                    <Grid Height="50" Margin="5">
+                    <Grid x:Name="container" 
+                          Height="50" 
+                          Margin="5"
+                          Cursor="Hand"
+                          Background="{StaticResource BlackDarkBrush}">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -31,16 +36,16 @@
                         </Grid.ColumnDefinitions>
 
                         <Button Content="{StaticResource FontAwesomeHamburgerMenuIcon}"
-                                Style="{StaticResource IconButton}"
+                                Style="{StaticResource IconGrowButton}"
                                 Command="{Binding MenuExpandCommand}"
                                 Height="45"
                                 />
 
                         <TextBlock Text="Dashboard"
+                                   FontSize="{StaticResource FontSizeLarge}"
                                    Grid.Column="1"
                                    Style="{StaticResource MenuTextBlock}"
-                                   Visibility="{Binding ApplicationViewModel.ShouldSideMenuBeExpanded,
-                                                        Source={x:Static local:ViewModelLocator.Instance}, 
+                                   Visibility="{Binding Expanded, 
                                                         Converter={local:BooleanToVisiblityConverter}}"
                                    />
                     </Grid>

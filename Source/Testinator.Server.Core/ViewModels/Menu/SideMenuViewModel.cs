@@ -11,14 +11,9 @@ namespace Testinator.Server.Core
         #region Public Properties
 
         /// <summary>
-        /// Indicates if the side menu is expanded (default as true)
+        /// Indicates if side menu should be expanded
         /// </summary>
-        public bool IsMenuExpanded { get; set; } = true;
-
-        /// <summary>
-        /// Current width of the side menu which depends on whether menu is expanded or not
-        /// </summary>
-        public int CurrentWidth => IsMenuExpanded ? 200 : 50;
+        public bool Expanded { get; set; } = true;
 
         #endregion
 
@@ -52,7 +47,7 @@ namespace Testinator.Server.Core
         private void ExpandMenu()
         {
             // Toogle the expanded menu flag
-            IsMenuExpanded ^= true;
+            Expanded ^= true;
         }
 
         #endregion

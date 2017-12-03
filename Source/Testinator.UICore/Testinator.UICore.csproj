@@ -78,6 +78,7 @@
     <Resource Include="Fonts\Montserrat-Medium.ttf" />
     <Resource Include="Fonts\Montserrat-Thin.ttf" />
     <Resource Include="Fonts\fontawesome-webfont.ttf" />
+    <Resource Include="Fonts\Montserrat-ExtraBold.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

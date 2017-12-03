@@ -175,6 +175,84 @@ namespace Testinator.UICore
 
         #endregion
 
+        #region Width Animation
+
+        /// <summary>
+        /// Expands a width of an element to its full value
+        /// </summary>
+        /// <param name="element">The element to animate</param>
+        /// <param name="direction">The direction of the slide</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
+        /// <param name="size">The animation width/height to animate to. If not specified the elements size is used</param>
+        /// <param name="firstLoad">Indicates if this is the first load</param>
+        /// <returns></returns>
+        public static async Task ExpandSideMenuWidthAsync(this FrameworkElement element, AnimationSlideInDirection direction, bool firstLoad, float seconds = 0.3f, bool keepMargin = true, int size = 0)
+        {
+            // Create the storyboard
+            var sb = new Storyboard();
+
+            // Slide in the correct direction
+            switch (direction)
+            {
+                // Add slide from left animation
+                case AnimationSlideInDirection.Left:
+                    sb.AddExpandFromLeft(seconds, size == 0 ? element.ActualWidth : size, keepMargin: keepMargin);
+                    break;
+                // Add slide from right animation
+                case AnimationSlideInDirection.Right:
+                    sb.AddSlideFromRight(seconds, size == 0 ? element.ActualWidth : size, keepMargin: keepMargin);
+                    break;
+            }
+
+            // Start animating
+            sb.Begin(element);
+            
+                element.Visibility = Visibility.Visible;
+
+            // Wait for it to finish
+            await Task.Delay((int)(seconds * 1000));
+        }
+
+        /// <summary>
+        /// Hides a width of an element
+        /// </summary>
+        /// <param name="element">The element to animate</param>
+        /// <param name="direction">The direction of the slide</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
+        /// <param name="size">The animation width/height to animate to. If not specified the elements size is used</param>
+        /// <param name="firstLoad">Indicates if this is the first load</param>
+        /// <returns></returns>
+        public static async Task HideSideMenuWidthAsync(this FrameworkElement element, AnimationSlideInDirection direction, float seconds = 0.3f, bool keepMargin = true, int size = 0)
+        {
+            // Create the storyboard
+            var sb = new Storyboard();
+
+            // Slide in the correct direction
+            switch (direction)
+            {
+                // Add slide from left animation
+                case AnimationSlideInDirection.Left:
+                    sb.AddHideToLeft(seconds, size == 0 ? element.ActualWidth : size, keepMargin: keepMargin);
+                    break;
+                // Add slide from right animation
+                case AnimationSlideInDirection.Right:
+                    sb.AddSlideFromRight(seconds, size == 0 ? element.ActualWidth : size, keepMargin: keepMargin);
+                    break;
+            }
+
+            // Start animating
+            sb.Begin(element);
+
+            element.Visibility = Visibility.Visible;
+
+            // Wait for it to finish
+            await Task.Delay((int)(seconds * 1000));
+        }
+
+        #endregion
+
         #region Marquee
 
         /// <summary>
