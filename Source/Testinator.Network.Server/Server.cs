@@ -62,6 +62,7 @@ namespace Testinator.Network.Server
             {
                 // Client is forcefully disconnected
                 clientSocket.Shutdown(SocketShutdown.Both);
+                
                 clientSocket.Close();
 
                 // Let them know the client has disconnected
@@ -70,6 +71,10 @@ namespace Testinator.Network.Server
                 // NOTE: remove client after calling the event method above
                 Clients.Remove(clientSocket);
 
+                return;
+            }
+            catch(Exception)
+            {
                 return;
             }
 
@@ -146,7 +151,7 @@ namespace Testinator.Network.Server
             }
 
             clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
-
+            
         }
 
         #endregion

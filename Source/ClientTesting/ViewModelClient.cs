@@ -61,6 +61,8 @@ namespace ClientTesting
 
         private void DisconnectCallback()
         {
+            StartPossible = true;
+            StopPossible = false;
             Connected = "Disconnected";
         }
 

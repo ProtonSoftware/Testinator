@@ -46,8 +46,19 @@ namespace Testinator.Network.Client
 
             if(DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
             {
-                // Call the subscribed method only if the package description was successful
-                DataRecivedCallback(PackageReceived);
+                if (PackageReceived.PackageType == PackageType.DisconnectRequest)
+                {
+                    clientSocket.Shutdown(SocketShutdown.Both);
+                    clientSocket.Close();
+                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    DisconnectedCallback();
+                }
+                else
+                {
+                    // Call the subscribed method only if the package description was successful
+                    DataRecivedCallback(PackageReceived);
+                }
+                
             }
             if (IsConnected)
                 clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);

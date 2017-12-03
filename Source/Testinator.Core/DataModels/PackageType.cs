@@ -6,7 +6,7 @@
     public enum PackageType
     { 
         /// <summary>
-        /// Arrival of this package mean that client wants to disconnect
+        /// Arrival of this package means that client wants to disconnect or server is shutting down
         /// </summary>
         DisconnectRequest,
         

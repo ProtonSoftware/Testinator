@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Testinator.Core;
@@ -185,7 +186,7 @@ namespace Testinator.Network.Server
         #region Public Methods
 
         /// <summary>
-        /// Start the server
+        /// Starts the server
         /// </summary>
         public void Start()
         {
@@ -212,17 +213,23 @@ namespace Testinator.Network.Server
             if (!_IsRunning)
                 return;
 
+            if (!DataPackageDescriptor.TryConvertToBin(out byte[] buf, new DataPackage(PackageType.DisconnectRequest, null)))
+                throw new NotImplementedException();
+
             // Close all connections
-            foreach (KeyValuePair<Socket, ClientModel> item in Clients)
+            foreach (Socket item in Clients.Keys.ToList())
             {
-                item.Key.Shutdown(SocketShutdown.Both);
-                item.Key.Close();
-                Clients.Remove(item.Key);
+                item.Send(buf, 0, buf.Length, SocketFlags.None);
+                item.Shutdown(SocketShutdown.Both);
+                item.Close();
+                Clients.Remove(item);
             }
 
             serverSocket.Close();
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _IsRunning = false;
         }
+
         #endregion
 
         #region Constructors

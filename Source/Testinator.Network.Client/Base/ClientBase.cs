@@ -152,7 +152,7 @@ namespace Testinator.Network.Client
         public ConnectedDelegate ConnectedCallback { get; set; }
 
         /// <summary>
-        /// Method to be called when client dissconnects from the server
+        /// Method to be called when client disconnects from the server
         /// </summary>
         public ClientDisconnectedDelegate DisconnectedCallback { get; set; }
 

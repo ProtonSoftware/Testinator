@@ -103,6 +103,7 @@ namespace ServerTesting
         {
 
             Server.Stop();
+            Clients.Clear();
             StartPossible = true;
             StopPossible = false;
         }
