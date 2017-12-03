@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Testinator.Core;
+using Testinator.Network.Server;
 
 namespace Testinator.Network.Client
 {
@@ -166,6 +167,7 @@ namespace Testinator.Network.Client
         {
             if (IsConnected)
             {
+                SendData(new DataPackage("me", PackageType.DisconnectRequest, null));
                 clientSocket.Shutdown(SocketShutdown.Both);
                 clientSocket.Close();
             }

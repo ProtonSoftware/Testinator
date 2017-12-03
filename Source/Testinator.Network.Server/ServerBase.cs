@@ -225,6 +225,8 @@ namespace Testinator.Network.Server
             }
             catch(SocketException)
             {
+                // Client is forcefully disconnected
+                clientSocket.Shutdown(SocketShutdown.Both);
                 clientSocket.Close();
 
                 // Let them know the client has disconnected
@@ -252,11 +254,24 @@ namespace Testinator.Network.Server
                     Clients[clientSocket].ID = content.ID;
                     Clients[clientSocket].MachineName = content.MachineName;
                 }
-                else
+
+                if (PackageReceived.PackageType == PackageType.DisconnectRequest)
                 {
-                    // Call the subscribed method only if the package description was successful
-                    DataRecivedCallback(Clients[clientSocket], PackageReceived);
+                    clientSocket.Shutdown(SocketShutdown.Both);
+                    clientSocket.Close();
+
+                    // Let them know the client has disconnected
+                    ClientDisconnectedCallback(Clients[clientSocket]);
+
+                    // NOTE: remove client after calling the event method above
+                    Clients.Remove(clientSocket);
+
+                    // Prevents from running callback to the higher level of the app
+                    return;
                 }
+
+                // Call the subscribed method only if the package description was successful
+                DataRecivedCallback(Clients[clientSocket], PackageReceived);
             }
 
             clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);

@@ -54,6 +54,7 @@
     <Compile Include="Base\IHavePassword.cs" />
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\RelayParameterizedCommand.cs" />
+    <Compile Include="DataModels\ClientModel.cs" />
     <Compile Include="DataModels\DataPackage.cs" />
     <Compile Include="DataModels\DataPackageDescriptor.cs" />
     <Compile Include="DataModels\InfoPackage.cs" />

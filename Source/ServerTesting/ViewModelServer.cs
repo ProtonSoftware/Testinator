@@ -8,7 +8,7 @@ using Testinator.Network.Server;
 
 namespace ServerTesting
 {
-    public class ViewModel : BaseViewModel
+    public class ViewModelServer : BaseViewModel
     { 
 
         public ServerBase Server { get; set; } = new ServerBase();
@@ -44,7 +44,7 @@ namespace ServerTesting
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ViewModel()
+        public ViewModelServer()
         {
             StartCommand = new RelayCommand(Start);
             StopCommand = new RelayCommand(Stop);
@@ -94,7 +94,8 @@ namespace ServerTesting
 
         private void Receive(ClientModel sender, DataPackage data)
         {
-            
+            App.Current.Dispatcher.Invoke(() => { Clients[Clients.IndexOf(sender)].MachineName = sender.MachineName; });
+            App.Current.Dispatcher.Invoke(() => { Clients.Add(sender); });
         }
     }
 }

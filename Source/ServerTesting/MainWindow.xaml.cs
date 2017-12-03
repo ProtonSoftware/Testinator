@@ -10,13 +10,13 @@ namespace ServerTesting
     { 
         public MainWindow()
         {
-            this.DataContext = new ViewModel();
+            this.DataContext = new ViewModelServer();
             InitializeComponent();
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
         {
-            (DataContext as ViewModel).StopCommand.Execute(null);
+            (DataContext as ViewModelServer).StopCommand.Execute(null);
         }
     }
 }

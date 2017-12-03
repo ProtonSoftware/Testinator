@@ -6,6 +6,11 @@
     public enum PackageType
     { 
         /// <summary>
+        /// Arrival of this package mean that client wants to disconnect
+        /// </summary>
+        DisconnectRequest,
+        
+        /// <summary>
         /// The package contains information about the sender
         /// Used by the client to provide information about themselves
         /// </summary>
