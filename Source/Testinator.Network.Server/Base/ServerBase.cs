@@ -71,7 +71,10 @@ namespace Testinator.Network.Server
             set
             {
                 if (!IsRunning)
+                {
                     _BufferSize = value;
+                    ReciverBuffer = new byte[BufferSize];
+                }
             }
         }
 
@@ -180,7 +183,6 @@ namespace Testinator.Network.Server
                 serverSocket.Bind(new IPEndPoint(IPAddress, Port));
                 serverSocket.Listen(0);
                 serverSocket.BeginAccept(AcceptCallback, null);
-                ReciverBuffer = new byte[BufferSize];
                 _IsRunning = true;
             }
             catch
@@ -217,7 +219,7 @@ namespace Testinator.Network.Server
         /// </summary>
         public ServerBase()
         {
-            // Default values
+            // Create default values
             BufferSize = 32768;
             Port = 3333;
             IPAddress = IPAddress.Parse("127.0.0.1");

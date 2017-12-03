@@ -116,7 +116,7 @@ namespace Testinator.Network.Server
         public Server() { }
 
         /// <summary>
-        /// Sets server up with the given ip, port and buffer size
+        /// Sets server up with the given ip, port and default buffer size if not specified
         /// </summary>
         /// <param name="I">Server ip</param>
         /// <param name="port">Server port</param>

@@ -39,6 +39,7 @@
                 <Button Margin="0 5 0 0"
                         Content="Send"
                         Command="{Binding SendCommand}"
+                        IsEnabled="{Binding StopPossible}"
                         />
             </StackPanel>
 
@@ -46,7 +47,7 @@
 
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <TextBlock Text="Attempt: "/>
-                <TextBlock Text="{Binding Attempt}"/>
+                <TextBlock Text="{Binding Attempts}"/>
                 <TextBlock Text="{Binding Connected}"/>
             </StackPanel>
 

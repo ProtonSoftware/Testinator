@@ -26,7 +26,7 @@ namespace ClientTesting
 
         public string Connected { get; set; } = "Disconnected!";
         
-        public int Attempt => client.Attempt;
+        public int Attempts => client.Attempts;
 
         #region Constructor
 
