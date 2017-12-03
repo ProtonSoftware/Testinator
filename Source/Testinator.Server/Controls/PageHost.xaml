@@ -7,18 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <!-- Non-animated page title -->
-        <TextBlock Text="Title" />
 
         <!-- New page animates onto old one -->
         <ContentControl Grid.Row="1" x:Name="OldPage" />
         <ContentControl Grid.Row="1" x:Name="NewPage" />
     
     </Grid>
+    
 </UserControl>

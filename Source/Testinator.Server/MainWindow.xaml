@@ -70,25 +70,77 @@
             />
     </WindowChrome.WindowChrome>
 
+    <!-- Window content -->
     <Grid>
 
         <Grid.ColumnDefinitions>
+            
+            <!-- Side menu -->
             <ColumnDefinition Width="Auto" />
+            
             <ColumnDefinition Width="*" />
+            
         </Grid.ColumnDefinitions>
 
         <local:SideMenuControl MaxWidth="200"
+                               Panel.ZIndex="50"
                                HorizontalAlignment="Left">
 
             <local:MenuListControl />
 
         </local:SideMenuControl>
 
-        <local:PageHost Grid.Column="1"
-                        CurrentPage="{Binding ApplicationViewModel.CurrentPage,
-                                        Source={x:Static local:ViewModelLocator.Instance}}"
-                        CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel,
-                                        Source={x:Static local:ViewModelLocator.Instance}}"      />
+        <Grid Grid.Column="1">
+            
+            <Grid.RowDefinitions>
+                
+                <!-- Top title bar -->
+                <RowDefinition Height="{Binding TitleHeightGridLength}" />
+                
+                <!-- Content -->
+                <RowDefinition Height="*" />
+                
+            </Grid.RowDefinitions>
+            
+            <!-- Top title bar -->
+            <Grid Grid.Column="0" Panel.ZIndex="1">
+
+                <Grid.ColumnDefinitions>
+                    
+                    <!-- Title -->
+                    <ColumnDefinition Width="*" />
+                    
+                    <!-- Windows Button -->
+                    <ColumnDefinition Width="Auto" />
+
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+
+                    <!-- Non-animated page title -->
+                    <TextBlock Text="{Binding ApplicationViewModel.CurrentPage,
+                                  Source={x:Static local:ViewModelLocator.Instance}}" />
+
+                </Viewbox>
+
+                <!-- Window Buttons -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Command="{Binding MinimizeCommand}" Style="{StaticResource IconButton}" Content="_" />
+                    <Button Command="{Binding MaximizeCommand}" Style="{StaticResource IconButton}" Content="[ ]" />
+                    <Button Command="{Binding CloseCommand}" Style="{StaticResource IconButton}" Content="X" />
+                </StackPanel>
+
+            </Grid>
+
+            <!-- Content -->
+            <local:PageHost Grid.Row="1"
+                            CurrentPage="{Binding ApplicationViewModel.CurrentPage,
+                                          Source={x:Static local:ViewModelLocator.Instance}}"
+                            CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel,
+                                                   Source={x:Static local:ViewModelLocator.Instance}}" />
+            
+        </Grid>
 
     </Grid>
 </Window>

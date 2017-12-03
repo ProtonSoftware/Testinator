@@ -45,8 +45,6 @@
                                    FontSize="{StaticResource FontSizeLarge}"
                                    Grid.Column="1"
                                    Style="{StaticResource MenuTextBlock}"
-                                   Visibility="{Binding Expanded, 
-                                                        Converter={local:BooleanToVisiblityConverter}}"
                                    />
                     </Grid>
 

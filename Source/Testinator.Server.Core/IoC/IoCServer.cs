@@ -46,9 +46,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // How to bind a view model
-            // Just an example
-            //Kernel.Bind<SettingsViewModel>().ToConstant(new SettingsViewModel());
+            // Bind to a single instance of Application view model
+            Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
         }
 
         #endregion
