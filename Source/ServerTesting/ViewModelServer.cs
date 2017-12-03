@@ -11,7 +11,7 @@ namespace ServerTesting
     public class ViewModelServer : BaseViewModel
     { 
 
-        public ServerBase Server { get; set; } = new ServerBase();
+        public Server Server { get; set; } = new Server();
 
         public string Ip { get; set; } = "127.0.0.1";
 
@@ -60,7 +60,6 @@ namespace ServerTesting
 
         private void Start()
         {
-            Server.SetIP(Ip);
             Server.Port = Port;
             Server.DataRecivedCallback = Receive;
             Server.ClientConnectedCallback = ClientConnected;

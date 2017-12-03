@@ -6,7 +6,6 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Testin
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Testinator.Network.Client.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Ninject.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Testinator.Client.Core.pdb
-C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Testinator.Core.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Testinator.Network.Client.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Ninject.xml
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\obj\Debug\ClientTesting.csprojResolveAssemblyReference.cache
@@ -21,3 +20,4 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\obj\Debug\Client
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\obj\Debug\ClientTesting.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\obj\Debug\ClientTesting.exe
 C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\obj\Debug\ClientTesting.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\ClientTesting\bin\Debug\Testinator.Core.pdb

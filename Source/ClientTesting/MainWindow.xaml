@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClientTesting"
         xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Client" Height="350" Width="525">
     <Border Padding="5">
         <Grid>
             <Grid.ColumnDefinitions>

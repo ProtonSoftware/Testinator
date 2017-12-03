@@ -3,8 +3,8 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Ninject.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Ninject.xml
-C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.csprojResolveAssemblyReference.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.csprojResolveAssemblyReference.cache
