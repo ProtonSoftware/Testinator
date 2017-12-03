@@ -16,4 +16,14 @@
 
     </Style>
 
+    <Style x:Key="TitleText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+        
+        <Setter Property="FontSize" Value="{StaticResource FontSizeTitleLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratExtraBold}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        
+        <Setter Property="Foreground" Value="{StaticResource WhiteDarkBrush}" />
+
+    </Style>
+    
 </ResourceDictionary>

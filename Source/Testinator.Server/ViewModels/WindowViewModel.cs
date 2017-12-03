@@ -111,9 +111,10 @@ namespace Testinator.Server
         /// <summary>
         /// The height of the title bar / caption of the window
         /// </summary>
-        public int TitleHeight { get; set; } = 20;
+        public int TitleHeight { get; set; } = 32;
+
         /// <summary>
-        /// The height of the title bar / caption of the window
+        /// The height of the title bar / caption of the window converted to the grid length
         /// </summary>
         public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight + ResizeBorder); } }
 

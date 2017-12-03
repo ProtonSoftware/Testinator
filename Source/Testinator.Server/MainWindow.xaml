@@ -95,7 +95,7 @@
             <Grid.RowDefinitions>
                 
                 <!-- Top title bar -->
-                <RowDefinition Height="{Binding TitleHeightGridLength}" />
+                <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=32}" />
                 
                 <!-- Content -->
                 <RowDefinition Height="*" />
@@ -103,7 +103,7 @@
             </Grid.RowDefinitions>
             
             <!-- Top title bar -->
-            <Grid Grid.Column="0" Panel.ZIndex="1">
+            <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource BlackDarkBrush}">
 
                 <Grid.ColumnDefinitions>
                     
@@ -118,17 +118,17 @@
                 <!-- Title -->
                 <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
 
-                    <!-- Non-animated page title -->
                     <TextBlock Text="{Binding ApplicationViewModel.CurrentPage,
-                                  Source={x:Static local:ViewModelLocator.Instance}}" />
+                                      Source={x:Static local:ViewModelLocator.Instance}}"
+                               Style="{StaticResource TitleText}"/>
 
                 </Viewbox>
 
                 <!-- Window Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Command="{Binding MinimizeCommand}" Style="{StaticResource IconButton}" Content="_" />
-                    <Button Command="{Binding MaximizeCommand}" Style="{StaticResource IconButton}" Content="[ ]" />
-                    <Button Command="{Binding CloseCommand}" Style="{StaticResource IconButton}" Content="X" />
+                    <Button Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButton}" Content="_" />
+                    <Button Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButton}" Content="[ ]" />
+                    <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="X" />
                 </StackPanel>
 
             </Grid>

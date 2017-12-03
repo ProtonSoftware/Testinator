@@ -27,17 +27,17 @@ namespace Testinator.UICore
         /// <summary>
         /// The animation the play when the page is first loaded
         /// </summary>
-        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideAndFadeInFromRight;
+        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideFromLeft;
 
         /// <summary>
         /// The animation the play when the page is unloaded
         /// </summary>
-        public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.SlideAndFadeOutToLeft;
+        public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.None;
 
         /// <summary>
         /// The time any slide animation takes to complete
         /// </summary>
-        public float SlideSeconds { get; set; } = 0.4f;
+        public float SlideSeconds { get; set; } = 0.7f;
 
         /// <summary>
         /// A flag to indicate if this page should animate out on load.

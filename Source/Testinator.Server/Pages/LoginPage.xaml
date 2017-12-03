@@ -8,7 +8,7 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Border Background="Red" Width="500">
+    <Border Background="Red">
         <TextBlock Text="Login page" />
     </Border>
     
