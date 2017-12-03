@@ -9,7 +9,7 @@
              mc:Ignorable="d">
     
     <Border Background="Red">
-        <TextBlock Text="Login page" />
+        <TextBlock Text="Login page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Border>
     
 </UICore:BasePage>

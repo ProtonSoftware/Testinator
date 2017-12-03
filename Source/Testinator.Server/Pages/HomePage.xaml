@@ -9,7 +9,7 @@
              mc:Ignorable="d">
     
     <Border Background="Blue">
-        <TextBlock Text="Home page" />
+        <TextBlock Text="Home page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Border>
     
 </UICore:BasePage>

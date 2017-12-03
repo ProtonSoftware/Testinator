@@ -25,12 +25,12 @@ namespace Testinator.UICore
         #region Public Properties
 
         /// <summary>
-        /// The animation the play when the page is first loaded
+        /// The animation to play when the page is first loaded
         /// </summary>
         public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideFromLeft;
 
         /// <summary>
-        /// The animation the play when the page is unloaded
+        /// The animation to play when the page is unloaded
         /// </summary>
         public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.None;
 
@@ -126,6 +126,13 @@ namespace Testinator.UICore
 
                     // Start the animation
                     await this.SlideAndFadeInAsync(AnimationSlideInDirection.Right, false, SlideSeconds, size: (int)Application.Current.MainWindow.Width);
+
+                    break;
+
+                case PageAnimation.SlideFromLeft:
+
+                    // Start the animation
+                    await this.SlideInAsync(AnimationSlideInDirection.Left, false, SlideSeconds, size: (int)Application.Current.MainWindow.Width);
 
                     break;
             }
