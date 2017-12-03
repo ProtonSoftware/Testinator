@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Input;
 using Testinator.Core;
 using Testinator.Core.Network;
@@ -55,10 +56,7 @@ namespace ClientTesting
 
         private void Send()
         {
-            if (client.IsConnected)
-            {
-                client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
-            }
+
         }
 
         private void DisconnectCallback()
@@ -73,6 +71,7 @@ namespace ClientTesting
         private void ConnectedCallback()
         {
             Connected = "Connected";
+            client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
         }
 
         private void Stop()
@@ -86,6 +85,8 @@ namespace ClientTesting
         {
             StartPossible = false;
             StopPossible = true;
+            client.IPAddress = IPAddress.Parse(Ip);
+            client.Port = Port;
             client.StartConnecting();
         }
 
