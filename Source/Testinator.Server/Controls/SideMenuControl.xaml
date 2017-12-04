@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Testinator.Server.SideMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testinator.Server"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="200">
+
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+
+            <!-- Main background -->
+            <Border Background="{StaticResource BlackDarkBrush}" 
+                    local:AnimateSideMenuWidthProperty.Value="{Binding Expanded}">
+
+                <!-- Content -->
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Top dashboard button -->
+                    <Grid x:Name="container" 
+                          Height="50" 
+                          Margin="5"
+                          Cursor="Hand"
+                          Background="{StaticResource BlackDarkBrush}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="{StaticResource FontAwesomeHamburgerMenuIcon}"
+                                Style="{StaticResource IconGrowButton}"
+                                Command="{Binding MenuExpandCommand}"
+                                Height="45"
+                                />
+
+                        <TextBlock Text="Menu"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   Grid.Column="1"
+                                   Style="{StaticResource MenuTextBlock}"
+                                   />
+                    </Grid>
+
+                    <!-- Small aesthetic underline -->
+                    <Border Grid.Row="1" Padding="2">
+                        <Rectangle Fill="{StaticResource BlackPureBrush}"
+                                   RadiusX="2"
+                                   RadiusY="2"
+                                   />
+                    </Border>
+
+                    <!-- The user content -->
+                    <Border Grid.Row="2">
+                        <ContentPresenter />
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+        </ControlTemplate>
+    </UserControl.Template>
+
+</UserControl>
