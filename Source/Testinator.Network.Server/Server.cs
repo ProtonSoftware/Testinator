@@ -132,7 +132,7 @@ namespace Testinator.Network.Server
                     if(Clients[clientSocket] != null && !Clients[clientSocket].Equals(model))
                     {
                         // Call the subscribed method
-                        ClientDataUpdatedCallback(Clients[clientSocket], model);
+                        //ClientDataUpdatedCallback(Clients[clientSocket], model);
                     }
 
                     // Update client model

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Testinator.Core;
 using Testinator.Network.Server;
 
@@ -12,7 +7,6 @@ namespace ServerTesting
 {
     public class ViewModelServer : BaseViewModel
     { 
-
         public Server Server { get; set; } = new Server();
 
         public string Ip { get; set; }
@@ -66,10 +60,10 @@ namespace ServerTesting
         {
             Server.Port = Port;
             Server.Ip = Ip;
-            Server.DataRecivedCallback = Receive;
-            Server.ClientConnectedCallback = ClientConnected;
-            Server.ClientDisconnectedCallback = ClientDisconnected;
-            Server.ClientDataUpdatedCallback = ClientUpdated;
+            Server.OnDataRecived += Receive;
+            Server.OnClientConnected += ClientConnected;
+            Server.OnClientDisconnected += ClientDisconnected;
+            Server.OnClientDataUpdated += ClientUpdated;
             Server.Start();
 
             StartPossible = false;

@@ -4,34 +4,36 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Testinator.Core;
+using Testinator.Network.Server.Base;
 
 namespace Testinator.Network.Server
 {
     /// <summary>
     /// Provides basic functionalities for network server
     /// </summary>
-    public abstract class ServerBase
+    public class ServerBase
     {
-        #region Protected Members
+        #region Private Members
 
         /// <summary>
         /// The <see cref="Socket"/> for server
         /// </summary>
-        protected Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         /// <summary>
         /// Conatins all connected clients
         /// </summary>
-        protected readonly Dictionary<Socket, ClientModel> Clients = new Dictionary<Socket, ClientModel>();
+        private readonly Dictionary<Socket, ClientModel> Clients = new Dictionary<Socket, ClientModel>();
+
+        /// <summary>
+        /// Keeps track of id's given to each user
+        /// </summary>
+        private Dictionary<string, string> MacId = new Dictionary<string, string>();
 
         /// <summary>
         /// Buffer for received data
         /// </summary>
-        protected byte[] ReciverBuffer;
-
-        #endregion
-
-        #region Private Members
+        private byte[] ReciverBuffer;
 
         /// <summary>
         /// Indicates if the server is currently running
@@ -52,6 +54,149 @@ namespace Testinator.Network.Server
         /// Server port
         /// </summary>
         private int _Port;
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Gets called when there is a client to be accepted
+        /// </summary>
+        /// <param name="ar">Parameters</param>
+        private void AcceptCallback(IAsyncResult ar)
+        {
+            Socket clientSocket;
+
+            try
+            {
+                clientSocket = serverSocket.EndAccept(ar);
+            }
+            catch
+            {
+                return;
+            }
+
+            // Accept this client and start reciving, but until the client doesn't not provide an info package, dont call the higher appliaction level
+            Clients.Add(clientSocket, null);
+            clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
+            serverSocket.BeginAccept(AcceptCallback, null);
+        }
+
+        /// <summary>
+        /// Called when data is recived 
+        /// </summary>
+        /// <param name="ar"></param>
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            Socket clientSocket = (Socket)ar.AsyncState;
+            int recived;
+
+            try
+            {
+                recived = clientSocket.EndReceive(ar);
+            }
+            catch (SocketException)
+            {
+                // Client is forcefully disconnected
+                clientSocket.Shutdown(SocketShutdown.Both);
+
+                clientSocket.Close();
+
+                // Let them know the client has disconnected
+                OnClientDisconnected(Clients[clientSocket]);
+
+                // NOTE: remove client after calling the callback method above
+                Clients.Remove(clientSocket);
+
+                return;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            byte[] recBuf = new byte[recived];
+            Array.Copy(ReciverBuffer, recBuf, recived);
+
+            if (DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
+            {
+
+                // Everything exepct from info packet and disconnect request packet is going to the higher level layer of the appliaction
+                if (PackageReceived.PackageType == PackageType.Info)
+                {
+                    var content = (PackageReceived.Content as InfoPackage);
+                    if (content == null)
+                        return;
+
+                    string clientId = string.Empty;
+
+                    // If this client provides information about themselves for the first time...
+                    if (Clients[clientSocket] == null)
+
+                        // If the user is known to the server don't make new id for them
+                        if (MacId.TryGetValue(content.MacAddress, out string givenId))
+                            clientId = givenId;
+
+                        // If the user is connecting for the first time get them new id and save it
+                        else
+                        {
+                            clientId = ClientIdProvider.GetId();
+                            MacId.Add(content.MacAddress, clientId);
+                        }
+
+                    else
+                        clientId = Clients[clientSocket].ID;
+
+                    // Construct new client model to either update information about the client or create new client
+                    var model = new ClientModel()
+                    {
+                        ID = clientId,
+                        MachineName = content.MachineName,
+                        ClientName = content.ClientName,
+                        ClientSurname = content.ClientSurname,
+                        IpAddress = clientSocket.GetIp(),
+                        MacAddress = content.MacAddress,
+                    };
+
+                    // If it's a new client...
+                    if (Clients[clientSocket] == null)
+                    {
+                        // Tell listeners that we got a new client
+                        OnClientConnected(model);
+                    }
+
+                    // The model is updated...
+                    if (Clients[clientSocket] != null && !Clients[clientSocket].Equals(model))
+                    {
+                        // Call the subscribed method
+                        //ClientDataUpdatedCallback(Clients[clientSocket], model);
+                    }
+
+                    // Update client model
+                    Clients[clientSocket] = model;
+                }
+                else if (PackageReceived.PackageType == PackageType.DisconnectRequest)
+                {
+                    clientSocket.Shutdown(SocketShutdown.Both);
+                    clientSocket.Close();
+
+                    // Let them know the client has disconnected
+                    OnClientDisconnected(Clients[clientSocket]);
+
+                    // NOTE: remove client after calling the event method above
+                    Clients.Remove(clientSocket);
+
+                    // Prevents running callback and starting reciving from not existing socket
+                    return;
+                }
+                else
+                    // Call the subscribed method only if the package description was successful
+                    OnDataRecived(Clients[clientSocket], PackageReceived);
+            }
+
+            clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
+
+        }
 
         #endregion
 
@@ -132,50 +277,53 @@ namespace Testinator.Network.Server
 
         #endregion
 
-        #region Public Delegates
+        #region Public Events
 
         /// <summary>
-        /// Delegate to the method to be called when data is received
+        /// Handler to the method to be called when data is received
         /// </summary>
+        /// <param name="sender">Client that raised this event</param>
         /// <param name="data">Data received</param>
-        public delegate void DataReceivedDelegate(ClientModel sender, DataPackage data);
+        public delegate void DataReceivedHandler(ClientModel sender, DataPackage data);
 
         /// <summary>
         /// Fired when a new client is connected
+        /// <param name="sender">Client that raised this event</param>
         /// </summary>
-        public delegate void ClientConnectedDelegate(ClientModel sender);
+        public delegate void ClientConnectedHandler(ClientModel sender);
 
         /// <summary>
-        /// Fired when a client disconnects
+        /// Handler to the method to be called when a client disconnects
         /// </summary>
-        public delegate void ClientDisconnectedDelegate(ClientModel sender);
+        /// <param name="sender">Client that raised this event</param>
+        public delegate void ClientDisconnectedHandler(ClientModel sender);
 
         /// <summary>
-        /// Fired when client's data is updated by the client 
+        /// Handler to the method to be called when a client's data is updated
         /// </summary>
-        /// <param name="old">Old data</param>
-        /// <param name="updated">New data</param>
-        public delegate void ClientDataUpdatedDelegate(ClientModel old, ClientModel updated);
+        /// <param name="oldModel">Old data</param>
+        /// <param name="newModel">New data</param>
+        public delegate void ClientDataUpdatedHandler(ClientModel oldModel, ClientModel newModel);
 
         /// <summary>
-        /// Method to be called any data has been recived from a client
+        /// The event that is fired when any data has been recived from a client
         /// </summary>
-        public DataReceivedDelegate DataRecivedCallback { get; set; }
+        public event DataReceivedHandler OnDataRecived = (sender, data) => { };
 
         /// <summary>
-        /// Method to be called when a new client has connected
+        /// The event that is fired when a new client has connected
         /// </summary>
-        public ClientConnectedDelegate ClientConnectedCallback { get; set; }
+        public event ClientConnectedHandler OnClientConnected = (sender) => { };
 
         /// <summary>
-        /// Method to be called when a client has disconnected
+        /// The event that is fired when a client has disconnected
         /// </summary>
-        public ClientDisconnectedDelegate ClientDisconnectedCallback { get; set; }
+        public event ClientDisconnectedHandler OnClientDisconnected = (sender) => { };
 
         /// <summary>
-        /// Method to be called when a client's data had beed updated
+        /// The event that is fired when a client's data had beed updated
         /// </summary>
-        public ClientDataUpdatedDelegate ClientDataUpdatedCallback { get; set; }
+        public event ClientDataUpdatedHandler OnClientDataUpdated = (oldModel, newModel) => { };
 
         #endregion
 
@@ -185,13 +333,13 @@ namespace Testinator.Network.Server
         /// Called when there is a client to be accepted
         /// </summary>
         /// <param name="ar">Parameters</param>
-        protected abstract void AcceptCallback(IAsyncResult ar);
+        //protected abstract void AcceptCallback(IAsyncResult ar);
 
         /// <summary>
         /// Called when data is recived 
         /// </summary>
         /// <param name="ar"></param>
-        protected abstract void ReceiveCallback(IAsyncResult ar);
+        //protected abstract void ReceiveCallback(IAsyncResult ar);
 
         #endregion
 
@@ -206,6 +354,7 @@ namespace Testinator.Network.Server
                 return;
             try
             {
+                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 serverSocket.Bind(new IPEndPoint(IPAddress, Port));
                 serverSocket.Listen(0);
                 serverSocket.BeginAccept(AcceptCallback, null);
@@ -214,6 +363,7 @@ namespace Testinator.Network.Server
             catch
             {
                 _IsRunning = false;
+                // TODO: error handling
             }
         }
 
@@ -225,29 +375,30 @@ namespace Testinator.Network.Server
             if (!_IsRunning)
                 return;
 
-            if (!DataPackageDescriptor.TryConvertToBin(out byte[] buf, new DataPackage(PackageType.DisconnectRequest, null)))
-                throw new NotImplementedException();
+            // Create a package that contains disconnect info 
+            // Sent to the clients
+            var data = new DataPackage(PackageType.DisconnectRequest, null);
 
             // Close all connections
             foreach (Socket item in Clients.Keys.ToList())
             {
-                item.Send(buf, 0, buf.Length, SocketFlags.None);
+                item.SendPackage(data);
                 item.Shutdown(SocketShutdown.Both);
                 item.Close();
                 Clients.Remove(item);
             }
 
             serverSocket.Close();
-            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _IsRunning = false;
         }
 
+        /// <summary>
+        /// Sends data to the client 
+        /// </summary>
+        /// <param name="target">Target client</param>
+        /// <param name="data">Data to be sent</param>
         public void SendData(ClientModel target, DataPackage data)
         {
-            // If not possible to convert object return
-            if (!DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data))
-                return;
-
             var targetSocket = Clients.FirstOrDefault(x => x.Value == target).Key;
 
             // It target does not exist return
@@ -256,7 +407,7 @@ namespace Testinator.Network.Server
 
             try
             {
-                targetSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);
+                targetSocket.SendPackage(data);
             }
             catch { }
             // TODO: error handling 
