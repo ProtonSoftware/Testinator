@@ -1,0 +1,91 @@
+﻿<Window x:Class="ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW"
+        mc:Ignorable="d"
+        Title="Server" Height="400" Width="700"
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed">
+
+    <Border Padding="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.Row="0">
+                <TextBlock Text="Ip:"
+                           Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Ip, Mode=TwoWay}"/>
+                <TextBlock Text="Port:"
+                           Margin="0 20 0 5"/>
+                <TextBox Text="{Binding Port, Mode=TwoWay}"/>
+
+                <Button Margin="0 20 0 0" 
+                        Content="Start" 
+                        Command="{Binding StartCommand}" 
+                        IsEnabled="{Binding StartPossible}"
+                        x:Name="StartButton"/>
+                <Button Margin="0 5 0 0" 
+                        Content="Stop" 
+                        x:Name="StopButton"
+                        Command="{Binding StopCommand}"
+                        IsEnabled="{Binding StopPossible}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.Column="1" Margin="0 5">
+                <ScrollViewer Padding="0 0 2 0">
+                    <DataGrid AutoGenerateColumns="False" 
+                              ItemsSource="{Binding Clients}" 
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="Auto" IsReadOnly="True" Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Width="*" IsReadOnly="True" Header="Machine Name" Binding="{Binding MachineName}"/>
+                            <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding IpAddress}"/>
+                            <DataGridTextColumn Width="*" IsReadOnly="True" Header="Name" Binding="{Binding ClientName}"/>
+                            <DataGridTextColumn Width="*" IsReadOnly="True" Header="Surname" Binding="{Binding ClientSurname}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </Grid>
+
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Connected clients: "/>
+                <TextBlock Text="{Binding ClientNumber}"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="5 10 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <TextBlock Grid.Row="0" Text="Message:" Grid.Column="1" Margin="0 12"/>
+                    <Button Content="clear" 
+                            HorizontalAlignment="Right" 
+                            Height="22" 
+                            Margin="0 0 5 0"
+                            Command="{Binding ClearCommand}"/>
+
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="txtRec" Text="{Binding Message}"/>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

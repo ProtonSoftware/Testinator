@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Testinator.Core;
-using Testinator.Network.Server.Base;
 
 namespace Testinator.Network.Server
 {

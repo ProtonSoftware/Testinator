@@ -1,0 +1,5 @@
+C:\Users\minor\Documents\GitHub\Testinator\Source\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW\obj\Debug\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW.csprojResolveAssemblyReference.cache
+C:\Users\minor\Documents\GitHub\Testinator\Source\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW\obj\Debug\MainWindow.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW\obj\Debug\App.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW\obj\Debug\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW_MarkupCompile.cache
+C:\Users\minor\Documents\GitHub\Testinator\Source\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW\obj\Debug\ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW_MarkupCompile.lref
