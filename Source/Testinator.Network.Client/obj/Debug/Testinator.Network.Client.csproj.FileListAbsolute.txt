@@ -1,0 +1,10 @@
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\bin\Debug\Testinator.Network.Client.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\bin\Debug\Testinator.Network.Client.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\bin\Debug\Testinator.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\bin\Debug\Ninject.xml
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\obj\Debug\Testinator.Network.Client.csprojResolveAssemblyReference.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\obj\Debug\Testinator.Network.Client.csproj.CoreCompileInputs.cache
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\obj\Debug\Testinator.Network.Client.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\obj\Debug\Testinator.Network.Client.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Client\bin\Debug\Testinator.Core.pdb
