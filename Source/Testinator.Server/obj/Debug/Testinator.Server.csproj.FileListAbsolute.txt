@@ -35,3 +35,13 @@ C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Co
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListItemControl.g.cs
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListControl.baml
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Controls\Menu\MenuListItemControl.baml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\TestEditorPage.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\ScreenStreamPage.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\BeginTestPage.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\AboutPage.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\SettingsPage.g.cs
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\TestEditorPage.baml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\ScreenStreamPage.baml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\BeginTestPage.baml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\AboutPage.baml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Server\obj\Debug\Pages\SettingsPage.baml

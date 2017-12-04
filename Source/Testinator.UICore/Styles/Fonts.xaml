@@ -34,6 +34,6 @@
     <system:Double x:Key="FontSizeTitleLarge">38</system:Double>
 
     <system:String x:Key="FontAwesomeHamburgerMenuIcon">&#xf0c9;</system:String>
-    <system:String x:Key="FontAwesomeHomeIcon">&#xf015;</system:String>
+    <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
 
 </ResourceDictionary>

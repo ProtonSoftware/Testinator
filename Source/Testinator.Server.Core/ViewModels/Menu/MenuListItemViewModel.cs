@@ -19,7 +19,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The icon for this item
         /// </summary>
-        public string Icon { get; set; }
+        public IconType Icon { get; set; }
 
         /// <summary>
         /// The page that this item leads to

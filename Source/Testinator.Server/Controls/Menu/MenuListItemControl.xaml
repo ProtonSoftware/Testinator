@@ -33,7 +33,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Content="{StaticResource FontAwesomeHomeIcon}"
+                                <Button Content="{Binding Icon, Converter={local:IconTypeToFontAwesomeConverter}}"
                                         Style="{StaticResource IconButton}"
                                         Command="{Binding MenuExpandCommand}"
                                         Height="45"

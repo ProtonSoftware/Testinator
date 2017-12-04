@@ -37,39 +37,39 @@ namespace Testinator.Server.Core
             {
                 new MenuListItemViewModel
                 {
-                    Name = "Home page",
-                    Icon = "&#xf015;",
+                    Name = "Start",
+                    Icon = IconType.Home,
                     TargetPage = ApplicationPage.Home
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Login page",
-                    Icon = "&#xf015;",
-                    TargetPage = ApplicationPage.Login
+                    Name = "Rozpocznij test",
+                    Icon = IconType.Test,
+                    TargetPage = ApplicationPage.BeginTest
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Home page",
-                    Icon = "&#xf015;",
-                    TargetPage = ApplicationPage.Home
+                    Name = "Edytor testów",
+                    Icon = IconType.Editor,
+                    TargetPage = ApplicationPage.TestEditor
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Home page",
-                    Icon = "&#xf015;",
-                    TargetPage = ApplicationPage.Home
+                    Name = "Screen stream",
+                    Icon = IconType.Screen,
+                    TargetPage = ApplicationPage.ScreenStream
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Login page",
-                    Icon = "&#xf015;",
-                    TargetPage = ApplicationPage.Login
+                    Name = "Ustawienia",
+                    Icon = IconType.Settings,
+                    TargetPage = ApplicationPage.Settings
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Home page",
-                    Icon = "&#xf015;",
-                    TargetPage = ApplicationPage.Home
+                    Name = "Informacje",
+                    Icon = IconType.InfoCircle,
+                    TargetPage = ApplicationPage.About
                 }
             };
         }

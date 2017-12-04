@@ -41,7 +41,7 @@
                                 Height="45"
                                 />
 
-                        <TextBlock Text="Dashboard"
+                        <TextBlock Text="Menu"
                                    FontSize="{StaticResource FontSizeLarge}"
                                    Grid.Column="1"
                                    Style="{StaticResource MenuTextBlock}"

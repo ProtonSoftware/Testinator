@@ -26,6 +26,21 @@ namespace Testinator.Server
                 case ApplicationPage.Home:
                     return new HomePage(viewModel as HomeViewModel);
 
+                case ApplicationPage.BeginTest:
+                    return new BeginTestPage(viewModel as BeginTestViewModel);
+
+                case ApplicationPage.TestEditor:
+                    return new TestEditorPage(viewModel as TestEditorViewModel);
+
+                case ApplicationPage.ScreenStream:
+                    return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
+
+                case ApplicationPage.Settings:
+                    return new SettingsPage(viewModel as SettingsViewModel);
+
+                case ApplicationPage.About:
+                    return new AboutPage();
+
                 default:
                     Debugger.Break();
                     return null;
@@ -45,6 +60,21 @@ namespace Testinator.Server
 
             if (page is HomePage)
                 return ApplicationPage.Home;
+
+            if (page is BeginTestPage)
+                return ApplicationPage.BeginTest;
+
+            if (page is TestEditorPage)
+                return ApplicationPage.TestEditor;
+
+            if (page is ScreenStreamPage)
+                return ApplicationPage.ScreenStream;
+
+            if (page is SettingsPage)
+                return ApplicationPage.Settings;
+
+            if (page is AboutPage)
+                return ApplicationPage.About;
 
             // Alert developer of issue
             Debugger.Break();
