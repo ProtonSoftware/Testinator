@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using Testinator.Core;
 
-namespace Testinator.Network.Server.Base
+namespace Testinator.Network.Server
 {
     /// <summary>
     /// Provides helper methods for <see cref="Socket"/>

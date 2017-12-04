@@ -23,3 +23,7 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Deb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\obj\Debug\Testinator.Server.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Ninject.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Testinator.Core.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server.Core\bin\Debug\Ninject.xml

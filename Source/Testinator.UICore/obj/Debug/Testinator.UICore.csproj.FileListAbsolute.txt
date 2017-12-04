@@ -41,3 +41,5 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Te
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\obj\Debug\Testinator.UICore.pdb
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Server.Core.dll
+C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.UICore\bin\Debug\Testinator.Server.Core.pdb
