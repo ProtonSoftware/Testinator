@@ -41,8 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Base\ClientBase.cs" />
+    <Compile Include="ClientNetwork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Testinator.Client.Core\Testinator.Client.Core.csproj">
+      <Project>{72edaab3-63a8-46a2-8426-fb26d379ae67}</Project>
+      <Name>Testinator.Client.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Testinator.Core\Testinator.Core.csproj">
+      <Project>{f592fa60-030d-440b-bb00-ed4ea5a919f6}</Project>
+      <Name>Testinator.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

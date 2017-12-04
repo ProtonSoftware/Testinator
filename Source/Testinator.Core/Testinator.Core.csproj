@@ -51,7 +51,16 @@
     <Compile Include="Base\IHavePassword.cs" />
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\RelayParameterizedCommand.cs" />
+    <Compile Include="DataModels\ClientModel.cs" />
+    <Compile Include="DataModels\DataPackage.cs" />
+    <Compile Include="DataModels\InfoPackage.cs" />
+    <Compile Include="DataModels\PackageContent.cs" />
+    <Compile Include="DataModels\PackageType.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
+    <Compile Include="Network\DataPackageDescriptor.cs" />
+    <Compile Include="Network\IpHelpers.cs" />
+    <Compile Include="Network\MacAddressHelpers.cs" />
+    <Compile Include="Network\SocketHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />
   </ItemGroup>
