@@ -16,5 +16,5 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Server\App.xaml
 712016320711
 Controls\Menu\MenuListControl.xaml;Controls\Menu\MenuListItemControl.xaml;Controls\PageHost.xaml;Controls\SideMenuControl.xaml;MainWindow.xaml;Pages\HomePage.xaml;Pages\TestEditorPage.xaml;Pages\ScreenStreamPage.xaml;Pages\BeginTestPage.xaml;Pages\AboutPage.xaml;Pages\SettingsPage.xaml;Pages\LoginPage.xaml;
 
-True
+False
 
