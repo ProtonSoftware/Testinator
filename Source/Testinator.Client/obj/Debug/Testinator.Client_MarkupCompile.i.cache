@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client\App.xaml
-11151548125
+380095028
 
-101140588458
-701613565383
-MainWindow.xaml;
+14487915488
+71-322104378
+Controls\PageHost.xaml;MainWindow.xaml;Pages\LoginPage.xaml;
 
 True
 
