@@ -10,3 +10,8 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Deb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Debug\Testinator.Client.Core.csproj.CoreCompileInputs.cache
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Debug\Testinator.Client.Core.dll
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Debug\Testinator.Client.Core.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client.Core\bin\Debug\Testinator.Client.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client.Core\bin\Debug\Testinator.Client.Core.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Debug\Testinator.Client.Core.csproj.CoreCompileInputs.cache
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Debug\Testinator.Client.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client.Core\obj\Debug\Testinator.Client.Core.pdb

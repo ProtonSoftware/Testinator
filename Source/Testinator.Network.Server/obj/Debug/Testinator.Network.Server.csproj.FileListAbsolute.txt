@@ -18,3 +18,13 @@ C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Core.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Server.Core.pdb
 C:\Users\maxus\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Ninject.xml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Network.Server.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Network.Server.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Server.Core.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Ninject.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Core.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Testinator.Server.Core.pdb
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\bin\Debug\Ninject.xml
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.dll
+C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Network.Server\obj\Debug\Testinator.Network.Server.pdb
