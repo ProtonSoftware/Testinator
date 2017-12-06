@@ -41,6 +41,16 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand TryConnectingCommand { get; private set; }
 
+        /// <summary>
+        /// The command to expand the settings menu
+        /// </summary>
+        public ICommand SettingsMenuExpandCommand { get; private set; }
+
+        /// <summary>
+        /// The command to hide the settings menu
+        /// </summary>
+        public ICommand SettingsMenuHideCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -52,6 +62,8 @@ namespace Testinator.Client.Core
         {
             // Create commands
             TryConnectingCommand = new RelayCommand(async () => await Connect());
+            SettingsMenuExpandCommand = new RelayCommand(ExpandMenu);
+            SettingsMenuHideCommand = new RelayCommand(HideMenu);
         }
 
         #endregion
@@ -71,6 +83,21 @@ namespace Testinator.Client.Core
                 // Go to next page
                 //IoCClient.Application.GoToPage(ApplicationPage.Something);
             });
+        }
+
+        /// <summary>
+        /// Expands the settings menu
+        /// </summary>
+        private void ExpandMenu()
+        {
+            // Simply togle the expanded menu flag
+            IsSettingsMenuOpened = true;
+        }
+
+        private void HideMenu()
+        {
+            // Simply togle the expanded menu flag
+            IsSettingsMenuOpened = false;
         }
 
         #endregion

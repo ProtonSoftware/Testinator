@@ -9,14 +9,55 @@
              mc:Ignorable="d">
     
     <Grid Background="{StaticResource WhiteDarkBrush}">
-
-        <!-- Settings button (IP, Port changes) -->
-        <Button Content="{StaticResource FontAwesomeCogIcon}"
-                Style="{StaticResource BaseUIButton}"
-                FontFamily="{StaticResource FontAwesome}"
-                VerticalAlignment="Top"
+        
+        <!-- Settings bubble (IP, Port changes) -->
+        <Border VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="10"/>
+                Padding="10"
+                Width="100">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    
+                    <!-- Buttons row -->
+                    <RowDefinition Height="Auto" />
+                    <!-- Menu content row -->
+                    <RowDefinition Height="*" />
+                    
+                </Grid.RowDefinitions>
+                
+                <!-- Settings cog button (Expands the menu) -->
+                <Button Content="{StaticResource FontAwesomeCogIcon}"
+                        Command="{Binding SettingsMenuExpandCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        FontFamily="{StaticResource FontAwesome}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="10"
+                        Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}" />
+
+                <!-- Settings close button (hides the menu) -->
+                <Button Content="{StaticResource FontAwesomeXIcon}"
+                        Command="{Binding SettingsMenuHideCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        FontFamily="{StaticResource FontAwesome}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="10"
+                        Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
+
+                <StackPanel Grid.Row="1" Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
+                    
+                    <TextBlock Text="IP" FontFamily="{StaticResource FontMontserratBold}" />
+                    <TextBox Style="{StaticResource SmallInputTextBox}" />
+                    <TextBlock Text="Port" FontFamily="{StaticResource FontMontserratBold}" />
+                    <TextBox Style="{StaticResource SmallInputTextBox}" />
+                    
+                </StackPanel>
+                
+            </Grid>
+            
+        </Border>
 
         <!-- Content -->
         <StackPanel VerticalAlignment="Center"
