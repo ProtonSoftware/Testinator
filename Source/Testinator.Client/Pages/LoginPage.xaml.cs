@@ -1,5 +1,6 @@
 ﻿using Testinator.Client.Core;
 using Testinator.UICore;
+using System.Windows;
 
 namespace Testinator.Client
 {
@@ -16,6 +17,10 @@ namespace Testinator.Client
         public LoginPage() : base()
         {
             InitializeComponent();
+
+            // Disable animation on this page
+            PageLoadAnimation = PageAnimation.None;
+            Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -25,6 +30,10 @@ namespace Testinator.Client
         public LoginPage(LoginViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
+
+            // Disable animation on this page
+            PageLoadAnimation = PageAnimation.None;
+            Visibility = Visibility.Visible;
         }
 
         #endregion

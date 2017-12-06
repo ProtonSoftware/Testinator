@@ -35,5 +35,8 @@
 
     <system:String x:Key="FontAwesomeHamburgerMenuIcon">&#xf0c9;</system:String>
     <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeXIcon">&#xf00d;</system:String>
+    <system:String x:Key="FontAwesomeUnderscoreIcon">&#xf2d1;</system:String>
+    <system:String x:Key="FontAwesomeSquareIcon">&#xf096;</system:String>
 
 </ResourceDictionary>

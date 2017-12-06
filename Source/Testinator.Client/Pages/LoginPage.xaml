@@ -6,10 +6,51 @@
              xmlns:local="clr-namespace:Testinator.Client"
              xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="Pink">
-        <TextBlock Text="LOGIN" FontSize="50" />
+             mc:Ignorable="d">
+    
+    <Grid Background="{StaticResource WhiteDarkBrush}">
+
+        <!-- Settings button (IP, Port changes) -->
+        <Button Content="{StaticResource FontAwesomeCogIcon}"
+                Style="{StaticResource BaseUIButton}"
+                FontFamily="{StaticResource FontAwesome}"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="10"/>
+
+        <!-- Content -->
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center">
+
+            <!-- Title -->
+            <TextBlock Text="Uzupełnij dane" 
+                       FontFamily="{StaticResource FontMontserratBold}"
+                       FontSize="{StaticResource FontSizeTitleLarge}" />
+
+            <!-- User name input -->
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                     Tag="Wpisz imię"
+                     Margin="0 25"
+                     local:IsFocusedProperty.Value="True"
+                     Style="{StaticResource BigInputTextBox}" />
+
+            <!-- User surname input -->
+            <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
+                     Tag="Wpisz nazwisko"
+                     Margin="0 0 0 25"
+                     Style="{StaticResource BigInputTextBox}" />
+            
+            <!-- Submit button -->
+            <Button Content="Zatwierdź"
+                    Command="{Binding TryConnectingCommand}"
+                    IsDefault="True"
+                    Style="{StaticResource BaseUIButton}"
+                    local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
+                    />
+
+        </StackPanel>
+        
     </Grid>
     
 </UICore:BasePage>

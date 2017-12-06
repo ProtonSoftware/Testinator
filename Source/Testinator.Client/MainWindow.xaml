@@ -81,9 +81,9 @@
 
                                         <!-- Window Buttons -->
                                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <Button Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButton}" Content="_" />
-                                            <Button Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButton}" Content="[ ]" />
-                                            <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="X" />
+                                            <Button Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButton}" Content="{StaticResource FontAwesomeUnderscoreIcon}" />
+                                            <Button Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButton}" Content="{StaticResource FontAwesomeSquareIcon}" />
+                                            <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="{StaticResource FontAwesomeXIcon}" />
                                         </StackPanel>
 
                                     </Grid>
