@@ -14,7 +14,7 @@
         <Border VerticalAlignment="Top"
                 HorizontalAlignment="Right"
                 Padding="10"
-                Width="100">
+                Width="170">
             
             <Grid>
                 <Grid.RowDefinitions>
@@ -46,12 +46,21 @@
                         Margin="10"
                         Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
 
-                <StackPanel Grid.Row="1" Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
+                <StackPanel Grid.Row="1"
+                            local:AnimateSlideInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
+                            Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
                     
-                    <TextBlock Text="IP" FontFamily="{StaticResource FontMontserratBold}" />
-                    <TextBox Style="{StaticResource SmallInputTextBox}" />
-                    <TextBlock Text="Port" FontFamily="{StaticResource FontMontserratBold}" />
-                    <TextBox Style="{StaticResource SmallInputTextBox}" />
+                    <TextBlock Text="IP"
+                               FontFamily="{StaticResource FontMontserratBold}" />
+                    
+                    <TextBox Text="{Binding ServerIP, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SmallInputTextBox}" />
+                    
+                    <TextBlock Text="Port" 
+                               FontFamily="{StaticResource FontMontserratBold}" />
+
+                    <TextBox Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SmallInputTextBox}" />
                     
                 </StackPanel>
                 
@@ -85,6 +94,7 @@
             <!-- Submit button -->
             <Button Content="Zatwierdź"
                     Command="{Binding TryConnectingCommand}"
+                    Margin="0"
                     IsDefault="True"
                     Style="{StaticResource BaseUIButton}"
                     local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"

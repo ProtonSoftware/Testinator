@@ -23,6 +23,16 @@ namespace Testinator.Client.Core
         public string Surname { get; set; }
 
         /// <summary>
+        /// IP of the server we are connecting to
+        /// </summary>
+        public string ServerIP { get; set; } = "197.129.102.70";
+
+        /// <summary>
+        /// Port of the server we are connecting to
+        /// </summary>
+        public string ServerPort { get; set; } = "3333";
+
+        /// <summary>
         /// Indicates if settings menu is opened
         /// </summary>
         public bool IsSettingsMenuOpened { get; set; } = false;
