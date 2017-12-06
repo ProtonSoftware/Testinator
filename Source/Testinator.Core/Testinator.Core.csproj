@@ -59,8 +59,10 @@
     <Compile Include="DataModels\QuestionModel\Base\QuestionBase.cs" />
     <Compile Include="DataModels\QuestionModel\Questions\Exceptions\QuestionExceptions.cs" />
     <Compile Include="DataModels\QuestionModel\Questions\Exceptions\QuestionExceptionTypes.cs" />
-    <Compile Include="DataModels\QuestionModel\Questions\MultipleChoiceQuestion.cs" />
+    <Compile Include="DataModels\QuestionModel\Questions\Types\MultipleCheckboxesQuestion.cs" />
+    <Compile Include="DataModels\QuestionModel\Questions\Types\MultipleChoiceQuestion.cs" />
     <Compile Include="DataModels\QuestionModel\Base\QuestionTypes.cs" />
+    <Compile Include="DataModels\QuestionModel\Questions\Types\SingleTextBoxQuestion.cs" />
     <Compile Include="DataModels\TestModel\Test.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Network\DataPackageDescriptor.cs" />

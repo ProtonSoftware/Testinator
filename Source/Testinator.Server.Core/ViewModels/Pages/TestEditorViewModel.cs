@@ -33,11 +33,12 @@ namespace Testinator.Server.Core
         public string Punkty3 { get; set; } = "12";
 
         public string Pytanie4 { get; set; } = "agsdfdg";
-        public string A4 { get; set; } = "fdf";
-        public string B4 { get; set; } = "fff";
-        public string C4 { get; set; } = "as";
-        public string D4 { get; set; } = "oweo";
-        public string PoprawnaIdx4 { get; set; } = "3";
+        public bool A4 { get; set; } = true;
+        public bool B4 { get; set; } = false;
+        public bool C4 { get; set; } = true;
+        public string OptionA4 { get; set; } = "opcja1";
+        public string OptionB4 { get; set; } = "opcja2";
+        public string OptionC4 { get; set; } = "opcja3";
         public string Punkty4 { get; set; } = "12";
 
         public string Pytanie5 { get; set; } = "dfklsdf";
@@ -69,7 +70,6 @@ namespace Testinator.Server.Core
                     
             int pop1;
             int pop3;
-            int pop4;
             int pop5;
             
             try
@@ -83,7 +83,6 @@ namespace Testinator.Server.Core
 
                 pop1 = Int32.Parse(PoprawnaIdx1);
                 pop3 = Int32.Parse(PoprawnaIdx3);
-                pop4 = Int32.Parse(PoprawnaIdx4);
                 pop5 = Int32.Parse(PoprawnaIdx5);
 
             }
@@ -91,14 +90,81 @@ namespace Testinator.Server.Core
             {
                 return;
             }
+
+            var q1 = new MultipleChoiceQuestion();
+            var q2 = new SingleTextBoxQuestion();
+            var q3 = new MultipleChoiceQuestion();
+            var q4 = new MultipleCheckboxesQuestion();
+            var q5 = new MultipleChoiceQuestion();
+
             try
             {
-                var q1 = new MultipleChoiceQuestion()
+                q1 = new MultipleChoiceQuestion()
                 {
                     PointScore = pkt1,
                     Task = Pytanie1,
                     CorrectAnswerIndex = pop1,
                     Options = new List<string>() { A1, B1, C1, D1},
+                };
+            }
+            catch (QuestionException ex)
+            {
+            }
+
+            try
+            {
+                q2 = new SingleTextBoxQuestion()
+                {
+                    PointScore = pkt2,
+                    Task = Pytanie2,
+                    CorrectAnswer = "pomidor",
+                };
+            }
+            catch (QuestionException ex)
+            {
+            }
+
+            try
+            {
+                q3 = new MultipleChoiceQuestion()
+                {
+                    PointScore = pkt3,
+                    Task = Pytanie3,
+                    CorrectAnswerIndex = pop3,
+                    Options = new List<string>() { A3, B3, C3, D3 },
+                };
+            }
+            catch (QuestionException ex)
+            {
+            }
+
+            try
+            {
+                q4 = new MultipleCheckboxesQuestion()
+                {
+                    PointScore = pkt4,
+                    Task = Pytanie4,
+                    OptionsAndAnswers = new Dictionary<string, bool>()
+                    {
+                        { OptionA4, A4 },
+                        { OptionB4, B4 },
+                        { OptionC4, C4 },
+                    },
+                
+                };
+            }
+            catch (QuestionException ex)
+            {
+            }
+
+            try
+            {
+                q5 = new MultipleChoiceQuestion()
+                {
+                    PointScore = pkt5,
+                    Task = Pytanie5,
+                    CorrectAnswerIndex = pop5,
+                    Options = new List<string>() { A5, B5, C5, D5 },
                 };
             }
             catch (QuestionException ex)
@@ -155,11 +221,11 @@ namespace Testinator.Server.Core
                     },
                 },
             };
-
+            */
             var test = new Test(Name, time)
             {
                 Questions = new List<Question>() { q1, q2, q3, q4, q5 }
-            };*/
+            };
 
         }
 

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Testinator.Core
 {
     /// <summary>
-    /// A multiple choice question, A, B, C...
+    /// A multiple chceckboxes question type
     /// </summary>
-    public class MultipleChoiceQuestion : Question
+    public class MultipleCheckboxesQuestion : Question
     {
         #region Private Properties
-
-        /// <summary>
-        /// Index of the correct answer in options list
-        /// </summary>
-        private int mCorrectIdx;
 
         /// <summary>
         /// Question value in points
@@ -25,7 +20,12 @@ namespace Testinator.Core
         /// </summary>
         private string mTask;
 
-        private List<string> mOptions;
+        /// <summary>
+        /// Options for the question and at this same type model answer
+        /// 'false' means that it should be unchecked
+        /// 'ture' that checked
+        /// </summary>
+        private Dictionary<string,bool> mOptionsAndAnswers;
 
         #endregion
 
@@ -40,22 +40,22 @@ namespace Testinator.Core
             set
             {
                 if (value < 0)
-                    throw new QuestionException(QuestionExceptionTypes.PointScoreLessThan0);
+                    throw new QuestionException(QuestionExceptionTypes.PointScoreLessThanZero);
                 mScore = value;
             }
         }
 
         /// <summary>
-        /// Options for the question like, A, B, C etc.
+        /// Options for the question to be checked or not
         /// </summary>
-        public List<string> Options
+        public Dictionary<string, bool> OptionsAndAnswers
         {
-            get => mOptions;
+            get => mOptionsAndAnswers;
             set
             {
-                if (value.Count < 2)
+                if (value.Count < 1)
                     throw new QuestionException(QuestionExceptionTypes.NotEnoughOptions);
-                mOptions = value;
+                mOptionsAndAnswers = value;
             }
         }
 
@@ -73,21 +73,17 @@ namespace Testinator.Core
             }
         }
 
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
-        /// Gets or sets the correct answer 
-        /// WARNING: indexing starts at 1 NOT 0
-        /// A is 1, B is 2, etc.
+        /// Gets the options for the question as list
         /// </summary>
-        public int CorrectAnswerIndex
+        /// <returns>The options as a list</returns>
+        public List<string> OptionList()
         {
-            get => mCorrectIdx;
-            set
-            {
-                // <= because we presume that indexing starts at 1 not 0
-                if (value > Options.Count || value <= 0)
-                    throw new QuestionException(QuestionExceptionTypes.WrongIndex);
-                mCorrectIdx = value - 1;
-            }
+            return OptionsAndAnswers.Keys.ToList();
         }
 
         #endregion
@@ -97,14 +93,13 @@ namespace Testinator.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MultipleChoiceQuestion()
+        public MultipleCheckboxesQuestion()
         {
-            Type = QuestionTypes.MultipleChoice;
+            Type = QuestionTypes.MultipleCheckboxes;
 
             // Create defaults
             Task = "Wpisz pytanie";
-            Options = new List<string>() { "Odpowiedź A", "Odpowiedź B" };
-            CorrectAnswerIndex = 1;
+            OptionsAndAnswers = new Dictionary<string, bool>() { { "opcja1", true } };
             PointScore = 1;
         }
 

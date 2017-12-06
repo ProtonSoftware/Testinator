@@ -22,6 +22,7 @@ namespace Testinator.Core
         /// The list of all questions in the test
         /// </summary>
         public List<Question> Questions { get; set; } = new List<Question>();
+        // TODO: question cannot be null, exception here ^^^^
 
         #region Constructor
 

@@ -13,7 +13,7 @@
         /// <summary>
         /// Select multiple answers from a list
         /// </summary>
-        CheckBoxes,
+        MultipleCheckboxes,
 
         /// <summary>
         /// The answer to the question is a string

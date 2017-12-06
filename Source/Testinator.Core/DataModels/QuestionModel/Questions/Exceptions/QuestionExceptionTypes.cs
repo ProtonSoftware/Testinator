@@ -13,7 +13,7 @@
         /// <summary>
         /// Point score for the question is less than 0
         /// </summary>
-        PointScoreLessThan0,
+        PointScoreLessThanZero,
 
         /// <summary>
         /// String used for the task, or anything else is null or empty
@@ -21,7 +21,9 @@
         NullOrEmptyString,
 
         /// <summary>
-        /// For multiple choice there must be at leats 2 options
+        /// Not enough options for the question
+        /// At least 2 for multiple choice question
+        /// At least 1 for multiple chcekboxes question
         /// </summary>
         NotEnoughOptions,
     }

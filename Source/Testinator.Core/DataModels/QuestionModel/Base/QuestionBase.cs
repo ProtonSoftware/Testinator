@@ -8,6 +8,6 @@
         /// <summary>
         /// The type of this question
         /// </summary>
-        public QuestionTypes Type { get; set; }
+        public QuestionTypes Type { get; protected set; }
     }
 }

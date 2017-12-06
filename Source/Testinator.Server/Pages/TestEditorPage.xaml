@@ -114,24 +114,28 @@
                 <TextBlock Text="Pytanie 4:" FontSize="20"/>
                 <TextBox Width="300" HorizontalAlignment="Left" FontSize="20" Text="{Binding Pytanie4, Mode=TwoWay}"/>
                 <DockPanel Margin="0 10 0 0" LastChildFill="True">
-                    <TextBlock Text="A: " FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-                    <TextBox Width="Auto" FontSize="20" Text="{Binding A4, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding OptionA4}" FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <CheckBox Width="Auto" FontSize="20" IsChecked="{Binding A4, Mode=TwoWay}" HorizontalAlignment="Right">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
                 </DockPanel>
                 <DockPanel Margin="0 10 0 0" LastChildFill="True">
-                    <TextBlock Text="B: " FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-                    <TextBox Width="Auto" FontSize="20" Text="{Binding B4, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding OptionB4}" FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <CheckBox Width="Auto" FontSize="20" IsChecked="{Binding B4, Mode=TwoWay}" HorizontalAlignment="Right">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
                 </DockPanel>
                 <DockPanel Margin="0 10 0 0" LastChildFill="True">
-                    <TextBlock Text="C: " FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-                    <TextBox Width="Auto" FontSize="20" Text="{Binding C4, Mode=TwoWay}"/>
-                </DockPanel>
-                <DockPanel Margin="0 10 0 0" LastChildFill="True">
-                    <TextBlock Text="D: " FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-                    <TextBox Width="Auto" FontSize="20" Text="{Binding D4, Mode=TwoWay}"/>
-                </DockPanel>
-                <DockPanel Margin="0 10 0 0" LastChildFill="True">
-                    <TextBlock Text="Poprawna odp. [idx]: " FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-                    <TextBox Width="Auto" FontSize="20" Text="{Binding PoprawnaIdx4, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding OptionC4}" FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <CheckBox Width="Auto" FontSize="20" IsChecked="{Binding C4, Mode=TwoWay}" HorizontalAlignment="Right">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
                 </DockPanel>
                 <DockPanel Margin="0 10 0 0" LastChildFill="True">
                     <TextBlock Text="Punkty: " FontSize="20" DockPanel.Dock="Left" VerticalAlignment="Center"/>
