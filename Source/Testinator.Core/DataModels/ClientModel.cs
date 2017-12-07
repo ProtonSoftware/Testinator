@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 
-namespace Testinator.Network.Server
+namespace Testinator.Core
 {
     /// <summary>
     /// Defines the structure of the client connected to the sever
@@ -11,7 +11,7 @@ namespace Testinator.Network.Server
         #region Public Properties
 
         /// <summary>
-        /// Clinet id
+        /// Client id
         /// </summary>
         public string ID { get; set; }
 
@@ -34,12 +34,12 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Client's name
         /// </summary>
-        public string ClientName { get; set; }
+        public string ClientName { get; set; } = "";
 
         /// <summary>
         /// Client's surname
         /// </summary>
-        public string ClientSurname { get; set; }
+        public string ClientSurname { get; set; } = "";
 
         #endregion
 

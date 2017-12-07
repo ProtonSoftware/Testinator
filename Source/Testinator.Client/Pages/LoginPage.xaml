@@ -68,10 +68,11 @@
             
         </Border>
 
-        <!-- Content -->
+        <!-- Main input boxes -->
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center">
+                    TextBlock.TextAlignment="Center"
+                    Visibility="{Binding ConnectionIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
 
             <!-- Title -->
             <TextBlock Text="Uzupełnij dane" 
@@ -90,7 +91,13 @@
                      Tag="Wpisz nazwisko"
                      Margin="0 0 0 25"
                      Style="{StaticResource BigInputTextBox}" />
-            
+
+            <!-- Error if input values are not valid -->
+            <TextBlock Text="Wartości w polach nie są poprawne."
+                       Margin="0 0 0 10"
+                       Foreground="Red"
+                       Visibility="{Binding ErrorShouldBeShown, Converter={local:BooleanToVisiblityConverter}}" />
+
             <!-- Submit button -->
             <Button Content="Zatwierdź"
                     Command="{Binding TryConnectingCommand}"
@@ -99,6 +106,27 @@
                     Style="{StaticResource BaseUIButton}"
                     local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
                     />
+
+        </StackPanel>
+
+        <!-- Trying to connect content -->
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center"
+                    Visibility="{Binding ConnectionIsRunning, Converter={local:BooleanToVisiblityConverter}}">
+
+            <TextBlock Text="Oczekiwanie na połączenie"
+                       Style="{StaticResource TitleText}"
+                       Foreground="{StaticResource BlackDarkBrush}"
+                       Margin="15" />
+
+            <TextBlock Style="{StaticResource SpinningText}"
+                       FontSize="{StaticResource FontSizeTitleLarge}"
+                       Margin="0 20" />
+
+            <Button Content="Anuluj"
+                    Style="{StaticResource BaseUIButton}"
+                    Margin="15" />
 
         </StackPanel>
         

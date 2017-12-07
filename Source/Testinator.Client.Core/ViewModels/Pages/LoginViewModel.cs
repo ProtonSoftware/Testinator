@@ -15,12 +15,26 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Name of app's user specified at the start
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get => IoCClient.Client.ClientName;
+            set
+            {
+                IoCClient.Client.ClientName = value;
+            }
+        }
 
         /// <summary>
         /// Surname of app's user specified at the start
         /// </summary>
-        public string Surname { get; set; }
+        public string Surname
+        {
+            get => IoCClient.Client.ClientSurname;
+            set
+            {
+                IoCClient.Client.ClientSurname = value;
+            }
+        }
 
         /// <summary>
         /// IP of the server we are connecting to
@@ -41,6 +55,11 @@ namespace Testinator.Client.Core
         /// A flag indicating if the connect command is running
         /// </summary>
         public bool ConnectionIsRunning { get; set; }
+
+        /// <summary>
+        /// A flag indicating if the not valid data error should be shown
+        /// </summary>
+        public bool ErrorShouldBeShown { get; set; }
 
         #endregion
 
@@ -85,13 +104,24 @@ namespace Testinator.Client.Core
         /// </summary>
         private async Task Connect()
         {
+            // Disable errors if something was shown before
+            ErrorShouldBeShown = false;
+
+            // If input data isn't valid, show an error and stop doing anything
+            if (!IsInputDataValid())
+            {
+                ErrorShouldBeShown = true;
+                await Task.Delay(5);
+                return;
+            }
+
             await RunCommandAsync(() => ConnectionIsRunning, async () =>
             {
-                // TODO: Fake a connect...
+                // TODO: Try to connect to the server
                 await Task.Delay(1000);
 
                 // Go to next page
-                //IoCClient.Application.GoToPage(ApplicationPage.Something);
+                IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
             });
         }
 
@@ -108,6 +138,24 @@ namespace Testinator.Client.Core
         {
             // Simply togle the expanded menu flag
             IsSettingsMenuOpened = false;
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Validates the user's input data
+        /// </summary>
+        /// <returns></returns>
+        private bool IsInputDataValid()
+        {
+            // For now, check if user have specified at least two character for each input
+            if (Name.Length < 2) return false;
+            if (Surname.Length < 2) return false;
+
+            // Otherwise, return true
+            return true;
         }
 
         #endregion

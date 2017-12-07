@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using Testinator.Core;
 
 namespace Testinator.Client.Core
 {
@@ -18,6 +19,11 @@ namespace Testinator.Client.Core
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
         public static ApplicationViewModel Application => IoCClient.Get<ApplicationViewModel>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ClientModel"/>
+        /// </summary>
+        public static ClientModel Client => IoCClient.Get<ClientModel>();
 
         /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
@@ -48,6 +54,9 @@ namespace Testinator.Client.Core
         {
             // Bind to a single instance of Application view model
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
+
+            // Bind to a single instance of Client model
+            Kernel.Bind<ClientModel>().ToConstant(new ClientModel());
         }
 
         #endregion

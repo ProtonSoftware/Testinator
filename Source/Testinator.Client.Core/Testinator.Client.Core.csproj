@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\Pages\WaitingForTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,9 @@ namespace Testinator.Client
                 case ApplicationPage.Login:
                     return new LoginPage(viewModel as LoginViewModel);
 
+                case ApplicationPage.WaitingForTest:
+                    return new WaitingForTestPage(viewModel as WaitingForTestViewModel);
+
                 default:
                     Debugger.Break();
                     return null;

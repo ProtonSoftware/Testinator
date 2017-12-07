@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\minor\Documents\GitHub\Testinator\Source\Testinator.Client\App.xaml
-380095028
+5979824212
 
-141840011936
+16-651029403
 71-322104378
-Controls\PageHost.xaml;MainWindow.xaml;Pages\LoginPage.xaml;
+Controls\PageHost.xaml;MainWindow.xaml;Pages\QuestionMultipleChoicePage.xaml;Pages\WaitingForTestPage.xaml;Pages\LoginPage.xaml;
 
 False
 

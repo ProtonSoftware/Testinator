@@ -21,6 +21,9 @@ namespace Testinator.Client
             // Disable animation on this page
             PageLoadAnimation = PageAnimation.None;
             Visibility = Visibility.Visible;
+
+            // Set the default unload animation
+            PageUnloadAnimation = PageAnimation.SlideAndFadeOutToLeft;
         }
 
         /// <summary>
@@ -31,9 +34,12 @@ namespace Testinator.Client
         {
             InitializeComponent();
 
-            // Disable animation on this page
+            // Disable load animation on this page
             PageLoadAnimation = PageAnimation.None;
             Visibility = Visibility.Visible;
+
+            // Set the default unload animation
+            PageUnloadAnimation = PageAnimation.SlideAndFadeOutToLeft;
         }
 
         #endregion
