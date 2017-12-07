@@ -10,7 +10,7 @@
         /// <summary>
         /// Keeps this answer connected with the question
         /// </summary>
-        public int ID { get; set; }
+        public int ID { get; private set; }
 
         /// <summary>
         /// Index of the selected answer
@@ -25,10 +25,12 @@
         /// Default construcotr
         /// </summary>
         /// <param name="question">The question this answer is for</param>
-        public MultipleChoiceAnswer(MultipleChoiceQuestion question)
+        /// <param name="AnswerIdx">The answer for this question</param>
+        public MultipleChoiceAnswer(MultipleChoiceQuestion question, int AnswerIdx) 
         {
             Type = QuestionTypes.MultipleChoice;
             ID = question.ID;
+            SelectedAnswerIdx = AnswerIdx;
         }
         
         #endregion

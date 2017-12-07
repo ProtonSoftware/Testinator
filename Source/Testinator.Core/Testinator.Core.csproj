@@ -57,11 +57,11 @@
     <Compile Include="DataModels\DataPackage\PackageContent.cs" />
     <Compile Include="DataModels\DataPackage\PackageType.cs" />
     <Compile Include="DataModels\Questions\AnswerModel\Base\Answer.cs" />
-    <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleChexboxesAnswer.cs" />
+    <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleCheckboxesAnswer.cs" />
     <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleChoiceAnswer.cs" />
     <Compile Include="DataModels\Questions\AnswerModel\Types\SingleTextBoxAnswer.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionBase.cs" />
-    <Compile Include="DataModels\Questions\Exceptions\QuestionExceptions.cs" />
+    <Compile Include="DataModels\Questions\Exceptions\QuestionException.cs" />
     <Compile Include="DataModels\Questions\Exceptions\QuestionExceptionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleCheckboxesQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />

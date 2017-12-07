@@ -179,11 +179,8 @@ namespace Testinator.Server.Core
             };
             test.AddQuestion(q5);
 
-            var a = new MultipleChoiceAnswer(q3)
-            {
-                SelectedAnswerIdx = 2
-            };
-
+            var a = new MultipleChoiceAnswer(q3, 2);
+            var aa = new MultipleChoiceQuestionViewModel(q3);
         }
 
         #endregion

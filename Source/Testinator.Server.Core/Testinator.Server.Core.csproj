@@ -66,6 +66,9 @@
     <Compile Include="ViewModels\Pages\LoginViewModel.cs" />
     <Compile Include="ViewModels\Menu\SideMenuViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditorViewModel.cs" />
+    <Compile Include="ViewModels\Questions\MultipleCheckboxesQuestionViewModel.cs" />
+    <Compile Include="ViewModels\Questions\MultipleChoiceQuestionViewModel.cs" />
+    <Compile Include="ViewModels\Questions\SingleTextBoxQuestionViewModel.cs" />
     <Compile Include="ViewModels\Server\ViewModelServerTESTOWY.cs" />
   </ItemGroup>
   <ItemGroup>

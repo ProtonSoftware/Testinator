@@ -5,7 +5,7 @@ namespace Testinator.Core
     /// <summary>
     /// The answer for multiple checkboxes question
     /// </summary>
-    public class MultipleChexboxesAnswer : Answer
+    public class MultipleCheckboxesAnswer : Answer
     {
         #region Public Properties
 
@@ -27,11 +27,12 @@ namespace Testinator.Core
         /// Default construcotr
         /// </summary>
         /// <param name="question">The question this answer is for</param>
-        public MultipleChexboxesAnswer(MultipleCheckboxesQuestion question)
+        /// <param name="answer">The answer given by the user</param>
+        public MultipleCheckboxesAnswer(MultipleCheckboxesQuestion question, List<bool> answer)
         {
             Type = QuestionTypes.MultipleCheckboxes;
             ID = question.ID;
-
+            Answers = answer;
         }
         
         #endregion
