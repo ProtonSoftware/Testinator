@@ -171,60 +171,17 @@ namespace Testinator.Server.Core
             {
             }
 
-            /*var q2 = new Question(QuestionTypes.SingleTextBox, pkt2)
+            var test = new Test()
             {
-                Content = new QuestionContent()
-                {
-                    Task = Pytanie2,
-                    Options = new TextEntryOptions()
-                    {
-                        CorrectAnswer = Odp2,
-                    },
-                },
+                Name = Name,
+                Duration = time,
+                Questions = new List<Question>() { q1, q2, q3, q4 }
             };
+            test.AddQuestion(q5);
 
-            var q3 = new Question(QuestionTypes.MultipleChoice, pkt3)
+            var a = new MultipleChoiceAnswer(q3)
             {
-                Content = new QuestionContent()
-                {
-                    Task = Pytanie3,
-                    Options = new MultipleChoiceOptions()
-                    {
-                        CorrectAnswerIndex = pop3,
-                        Options = new List<string>() { A3, B3, C3, D3 },
-                    },
-                },
-            };
-
-            var q4 = new Question(QuestionTypes.MultipleChoice, pkt4)
-            {
-                Content = new QuestionContent()
-                {
-                    Task = Pytanie4,
-                    Options = new MultipleChoiceOptions()
-                    {
-                        CorrectAnswerIndex = pop1,
-                        Options = new List<string>() { A4, B4, C4, D4 },
-                    },
-                },
-            };
-
-            var q5 = new Question(QuestionTypes.MultipleChoice, pkt5)
-            {
-                Content = new QuestionContent()
-                {
-                    Task = Pytanie5,
-                    Options = new MultipleChoiceOptions()
-                    {
-                        CorrectAnswerIndex = pop5,
-                        Options = new List<string>() { A5, B5, C5, D5 },
-                    },
-                },
-            };
-            */
-            var test = new Test(Name, time)
-            {
-                Questions = new List<Question>() { q1, q2, q3, q4, q5 }
+                SelectedAnswerIdx = 2
             };
 
         }
