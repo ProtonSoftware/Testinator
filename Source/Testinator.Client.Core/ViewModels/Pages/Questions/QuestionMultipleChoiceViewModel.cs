@@ -10,15 +10,6 @@ namespace Testinator.Client.Core
     /// </summary>
     public class QuestionMultipleChoiceViewModel : BaseViewModel
     {
-        #region Singleton
-
-        /// <summary>
-        /// Single instance of this view model
-        /// </summary>
-        public QuestionMultipleChoiceViewModel Instance => new QuestionMultipleChoiceViewModel(mQuestion);
-
-        #endregion
-
         #region Private Members
 
         /// <summary>
@@ -94,6 +85,11 @@ namespace Testinator.Client.Core
 
             // Save the question
             mQuestion = question;
+        }
+
+        public QuestionMultipleChoiceViewModel()
+        {
+
         }
 
         #endregion

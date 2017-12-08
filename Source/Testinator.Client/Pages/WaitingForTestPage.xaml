@@ -14,23 +14,14 @@
         <Border VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Padding="10"
-                Width="170">
+                Width="330">
 
             <Grid>
 
-                <StackPanel>
+                <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
 
-                    <TextBlock Text="Imię"
-                               FontFamily="{StaticResource FontMontserratBold}" />
-
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SmallInputTextBox}" />
-
-                    <TextBlock Text="Nazwisko" 
-                               FontFamily="{StaticResource FontMontserratBold}" />
-
-                    <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SmallInputTextBox}" />
+                    <local:TextEntryControl DataContext="{Binding Name}" />
+                    <local:TextEntryControl DataContext="{Binding Surname}" />
 
                 </StackPanel>
 

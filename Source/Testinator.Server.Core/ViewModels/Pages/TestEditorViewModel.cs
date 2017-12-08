@@ -178,9 +178,6 @@ namespace Testinator.Server.Core
                 Questions = new List<Question>() { q1, q2, q3, q4 }
             };
             test.AddQuestion(q5);
-
-            var a = new MultipleChoiceAnswer(q3, 2);
-            var aa = new MultipleChoiceQuestionViewModel(q3);
         }
 
         #endregion

@@ -38,5 +38,7 @@
     <system:String x:Key="FontAwesomeXIcon">&#xf00d;</system:String>
     <system:String x:Key="FontAwesomeUnderscoreIcon">&#xf2d1;</system:String>
     <system:String x:Key="FontAwesomeSquareIcon">&#xf096;</system:String>
+    <system:String x:Key="FontAwesomeEllipsisIcon">&#xf141;</system:String>
+    <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
 
 </ResourceDictionary>
