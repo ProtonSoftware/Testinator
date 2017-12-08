@@ -66,8 +66,14 @@
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
+    <Compile Include="Controls\Questions\MultipleChoiceAnswersList.xaml.cs">
+      <DependentUpon>MultipleChoiceAnswersList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\SimpleAnswerControl.xaml.cs">
+      <DependentUpon>SimpleAnswerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\QuestionMultipleChoicePage.xaml.cs">
       <DependentUpon>QuestionMultipleChoicePage.xaml</DependentUpon>
@@ -83,7 +89,15 @@
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Page Include="Controls\Questions\MultipleChoiceAnswersList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PageHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Questions\SimpleAnswerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
