@@ -95,8 +95,17 @@ namespace Testinator.Client.Core
         /// </summary>
         public void Save()
         {
-            // TODO:Save content
+            // Save content
             OriginalText = EditedText;
+            switch (Label)
+            {
+                case "Imię": IoCClient.Client.ClientName = EditedText;
+                    break;
+
+                case "Nazwisko": IoCClient.Client.ClientSurname = EditedText;
+                    break;
+
+            }
 
             // Get out of editing mode
             Editing = false;

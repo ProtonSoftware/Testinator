@@ -51,7 +51,7 @@
                    Margin="15 12"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   FontFamily="{StaticResource FontMontserratRegular}"
+                   FontFamily="{StaticResource FontMontserratBold}"
                    />
 
         <!-- Edit Content -->
@@ -67,6 +67,7 @@
 
         <!-- Content -->
         <TextBlock Text="{Binding OriginalText}" 
+                   FontFamily="{StaticResource FontMontserratRegular}"
                    Grid.Column="1"
                    local:AnimateFadeInProperty.Value="{Binding Editing, Converter={local:BooleanInvertConverter}}"
                    Margin="15 8"
