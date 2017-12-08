@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Testinator.Client.SimpleAnswerControl"
+﻿<UserControl x:Class="Testinator.Client.ABCAnswerItemControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -24,7 +24,18 @@
 
                             <Grid x:Name="container" Background="Transparent">
 
-                                <TextBlock Text="JAKAS TAM ODPOWIEDZ" />
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Text="{Binding Letter}"
+                                           Style="{StaticResource TitleText}"
+                                           Foreground="{StaticResource BlackDarkBrush}" />
+
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Text}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
 
                             </Grid>
                         </Border>
@@ -33,7 +44,7 @@
                         <ControlTemplate.Triggers>
 
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource BlackDarkBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource GreenLightBrush}"/>
                             </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">

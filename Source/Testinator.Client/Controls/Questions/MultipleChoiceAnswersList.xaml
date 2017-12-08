@@ -13,7 +13,7 @@
             <ItemsControl ItemsSource="{Binding Options}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SimpleAnswerControl />
+                        <local:ABCAnswerItemControl />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

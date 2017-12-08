@@ -3,11 +3,11 @@
 namespace Testinator.Client
 {
     /// <summary>
-    /// Interaction logic for SimpleAnswerControl.xaml
+    /// Interaction logic for ABCAnswerItemControl.xaml
     /// </summary>
-    public partial class SimpleAnswerControl : UserControl
+    public partial class ABCAnswerItemControl : UserControl
     {
-        public SimpleAnswerControl()
+        public ABCAnswerItemControl()
         {
             InitializeComponent();
         }

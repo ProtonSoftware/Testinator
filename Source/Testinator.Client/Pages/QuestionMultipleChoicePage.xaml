@@ -14,13 +14,16 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 CornerRadius="3"
-                Padding="15 50 15 15"
+                Padding="15 30"
                 Width="600"
-                Margin="50 50 50 0">
+                Margin="50">
 
             <StackPanel>
 
-                <TextBlock Text="{Binding Task}" />
+                <TextBlock Text="{Binding Task}"
+                           Style="{StaticResource QuestionTextBlockStyle}"
+                           FontSize="{StaticResource FontSizeLarge}" />
+                
                 <local:MultipleChoiceAnswersList DataContext="{Binding}" />
 
             </StackPanel>

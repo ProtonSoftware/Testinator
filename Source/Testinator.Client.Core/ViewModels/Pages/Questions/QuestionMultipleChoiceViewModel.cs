@@ -29,7 +29,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
         /// </summary>
-        public List<string> Options => mQuestion.Options;
+        public List<ABCAnswerItemViewModel> Options { get; set; }
 
         /// <summary>
         /// Index of answer currently selected
@@ -68,21 +68,6 @@ namespace Testinator.Client.Core
         /// NOTE: command parameter MUST be the answer index, look at <see cref="CurrentlySelecedIdx"/>
         /// </summary>
         public ICommand SelectCommand { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Adds question this view model will be based on
-        /// NOTE: needs to be done before attaching this view model to the page
-        /// </summary>
-        /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(MultipleChoiceQuestion question)
-        {
-            // Save the question
-            mQuestion = question;
-        }
 
         #endregion
 
@@ -131,6 +116,72 @@ namespace Testinator.Client.Core
 
             var answer = new MultipleChoiceAnswer(mQuestion, CurrentlySelectedIdx);
             // TODO: save the answer and show the next question
+        }
+
+        #endregion
+
+        #region Public Helpers
+
+        /// <summary>
+        /// Adds question this view model will be based on
+        /// NOTE: needs to be done before attaching this view model to the page
+        /// </summary>
+        /// <param name="question">The question to be attached to this viewmodel</param>
+        public void AttachQuestion(MultipleChoiceQuestion question)
+        {
+            // Save the question
+            mQuestion = question;
+
+            // Convert the list of string to list of ABCAnswerItemViewModel
+            Options = ListConvertFromStringQuestion(mQuestion.Options);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Takes in a list of strings and converts it to actual list of answer items
+        /// </summary>
+        /// <param name="options">Possible answers to the question as list of string</param>
+        /// <returns></returns>
+        private List<ABCAnswerItemViewModel> ListConvertFromStringQuestion(List<string> options)
+        {
+            // Initialize the list that we are willing to return 
+            var FinalList = new List<ABCAnswerItemViewModel>();
+
+            // Loop each answer to create answer item from it
+            int answerCounter = 1;
+            foreach (var option in options)
+            {
+                // Create new answer item
+                var answerItem = new ABCAnswerItemViewModel();
+
+                // Attach proper letter to it
+                switch(answerCounter)
+                {
+                    case 1: answerItem.Letter = "A"; break;
+                    case 2: answerItem.Letter = "B"; break;
+                    case 3: answerItem.Letter = "C"; break;
+                    case 4: answerItem.Letter = "D"; break;
+                    case 5: answerItem.Letter = "E"; break;
+                }
+
+                // Rewrite answer string content
+                answerItem.Text = option;
+
+                // Don't select any answer at the start
+                answerItem.IsSelected = false;
+
+                // Add this item to the list
+                FinalList.Add(answerItem);
+
+                // Go to the next answer
+                answerCounter++;
+            }
+
+            // We have our list done, return it
+            return FinalList;
         }
 
         #endregion

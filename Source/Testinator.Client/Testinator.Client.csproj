@@ -76,8 +76,8 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Questions\SimpleAnswerControl.xaml.cs">
-      <DependentUpon>SimpleAnswerControl.xaml</DependentUpon>
+    <Compile Include="Controls\Questions\ABCAnswerItemControl.xaml.cs">
+      <DependentUpon>ABCAnswerItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\QuestionMultipleCheckboxesPage.xaml.cs">
       <DependentUpon>QuestionMultipleCheckboxesPage.xaml</DependentUpon>
@@ -112,7 +112,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Questions\SimpleAnswerControl.xaml">
+    <Page Include="Controls\Questions\ABCAnswerItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

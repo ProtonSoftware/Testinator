@@ -26,6 +26,18 @@
 
     </Style>
 
+    <Style x:Key="QuestionTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratBold}" />
+
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+
+        <Setter Property="Foreground" Value="{StaticResource BlackDarkBrush}" />
+
+    </Style>
+
     <Style x:Key="BigInputTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
