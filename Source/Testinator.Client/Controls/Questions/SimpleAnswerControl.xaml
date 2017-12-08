@@ -24,7 +24,7 @@
 
                             <Grid x:Name="container" Background="Transparent">
 
-                                
+                                <TextBlock Text="JAKAS TAM ODPOWIEDZ" />
 
                             </Grid>
                         </Border>

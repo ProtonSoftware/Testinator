@@ -20,9 +20,9 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <DoubleAnimation To="1" 
-                                             Duration="0:0:0.4" 
-                                             Storyboard.TargetName="EditButton"
-                                             Storyboard.TargetProperty="Opacity" />
+                                         Duration="0:0:0.4" 
+                                         Storyboard.TargetName="EditButton"
+                                         Storyboard.TargetProperty="Opacity" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -30,9 +30,9 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <DoubleAnimation To="0" 
-                                             Duration="0:0:0.4" 
-                                             Storyboard.TargetName="EditButton"
-                                             Storyboard.TargetProperty="Opacity" />
+                                         Duration="0:0:0.4" 
+                                         Storyboard.TargetName="EditButton"
+                                         Storyboard.TargetProperty="Opacity" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>

@@ -91,6 +91,20 @@ namespace Testinator.Client.Core
             mQuestion = question;
         }
 
+        public QuestionMultipleCheckboxesViewModel()
+        {
+            // Create commands
+            SubmitCommand = new RelayCommand(Submit);
+            SelectCommand = new RelayParameterizedCommand(Select);
+
+            // Save the question
+            mQuestion = new MultipleCheckboxesQuestion();
+
+            // Make all the answers unchecked
+            for (int i = 0; i < mQuestion.OptionList().Count; i++)
+                CurrentlyChecked.Add(false);
+        }
+
         #endregion
 
         #region Command Methods

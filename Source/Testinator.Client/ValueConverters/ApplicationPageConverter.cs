@@ -26,6 +26,19 @@ namespace Testinator.Client
                 case ApplicationPage.WaitingForTest:
                     return new WaitingForTestPage(viewModel as WaitingForTestViewModel);
 
+                #region Question Pages
+
+                case ApplicationPage.QuestionMultipleCheckboxes:
+                    return new QuestionMultipleCheckboxesPage(viewModel as QuestionMultipleCheckboxesViewModel);
+
+                case ApplicationPage.QuestionMultipleChoice:
+                    return new QuestionMultipleChoicePage(viewModel as QuestionMultipleChoiceViewModel);
+
+                case ApplicationPage.QuestionSingleTextBox:
+                    return new QuestionSingleTextBoxPage(viewModel as QuestionSingleTextBoxViewModel);
+
+                #endregion
+
                 default:
                     Debugger.Break();
                     return null;
@@ -42,6 +55,15 @@ namespace Testinator.Client
             // Find application page that matches the base page
             if (page is LoginPage)
                 return ApplicationPage.Login;
+            if (page is WaitingForTestPage)
+                return ApplicationPage.WaitingForTest;
+            if (page is QuestionMultipleChoicePage)
+                return ApplicationPage.QuestionMultipleChoice;
+            if (page is QuestionMultipleCheckboxesPage)
+                return ApplicationPage.QuestionMultipleCheckboxes;
+            if (page is QuestionSingleTextBoxPage)
+                return ApplicationPage.QuestionSingleTextBox;
+
 
             // Alert developer of issue
             Debugger.Break();

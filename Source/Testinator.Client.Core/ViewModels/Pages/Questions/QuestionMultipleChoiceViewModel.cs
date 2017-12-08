@@ -89,7 +89,12 @@ namespace Testinator.Client.Core
 
         public QuestionMultipleChoiceViewModel()
         {
+            // Create commands
+            SubmitCommand = new RelayCommand(Submit);
+            SelectCommand = new RelayParameterizedCommand(Select);
 
+            // Save the question
+            mQuestion = new MultipleChoiceQuestion();
         }
 
         #endregion

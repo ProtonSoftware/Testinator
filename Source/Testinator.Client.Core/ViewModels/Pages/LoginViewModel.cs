@@ -140,7 +140,7 @@ namespace Testinator.Client.Core
 
                 IoCClient.Network.ConnectedCallback = ConnectedEvent;
 
-                // Until the client is not connected or untile the user cancels connecting
+                // Until the client is not connected or until the user cancels connecting
                 while(!IoCClient.Network.IsConnected && ConnectionIsRunning)
                 {
                     // One attempt takes usually 0,5 sec so update attempts every half a second

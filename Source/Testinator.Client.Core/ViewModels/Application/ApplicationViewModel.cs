@@ -1,4 +1,5 @@
-﻿using Testinator.Core;
+﻿using System;
+using Testinator.Core;
 using Testinator.Network.Client;
 
 namespace Testinator.Client.Core
@@ -8,10 +9,21 @@ namespace Testinator.Client.Core
     /// </summary>
     public class ApplicationViewModel : BaseViewModel
     {
+        #region Private Members
+
+        /// <summary>
+        /// The test received from server
+        /// </summary>
+        private Test mTest;
+
+        #endregion
+
+        #region Public Properties
+
         /// <summary>
         /// The current page of the application
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Login;
+        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.WaitingForTest;
 
         /// <summary>
         /// The view model to use for the current page when the CurrentPage changes
@@ -24,17 +36,47 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the test is in progress
         /// </summary>
-        public bool IsTestInProgeess { get; set; }
+        public bool IsTestInProgress { get; set; }
 
         /// <summary>
-        /// Indicates if the clinet is currently connected to the server
+        /// Indicates if the client is currently connected to the server
         /// </summary>
         public bool IsConnected { get; set; }
 
         /// <summary>
-        /// 
+        /// Indicates if the client has received test
         /// </summary>
-        public Test Test { get; set; }
+        public bool IsTestReceived { get; set; }
+
+        /// <summary>
+        /// An event to fire whenever client receives test from server
+        /// </summary>
+        public event Action<bool> TestReceived = (s) => { };
+
+        /// <summary>
+        /// The test user has to complete
+        /// </summary>
+        public Test Test
+        {
+            get => mTest;
+            set
+            {
+                // If client hasn't received any test yet
+                if (!IsTestReceived)
+                {
+                    // Get this test
+                    mTest = value;
+
+                    // Indicate that we have received it
+                    IsTestReceived = true;
+                    TestReceived.Invoke(IsTestReceived);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Application Methods
 
         /// <summary>
         /// Navigates to the specified page
@@ -52,5 +94,7 @@ namespace Testinator.Client.Core
             // Fire off a CurrentPage changed event
             OnPropertyChanged(nameof(CurrentPage));
         }
+
+    #endregion
     }
 }

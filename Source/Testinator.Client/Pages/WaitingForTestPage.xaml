@@ -16,16 +16,12 @@
                 Padding="10"
                 Width="330">
 
-            <Grid>
+            <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
 
-                <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
+                <local:TextEntryControl DataContext="{Binding Name}" />
+                <local:TextEntryControl DataContext="{Binding Surname}" />
 
-                    <local:TextEntryControl DataContext="{Binding Name}" />
-                    <local:TextEntryControl DataContext="{Binding Surname}" />
-
-                </StackPanel>
-
-            </Grid>
+            </StackPanel>
 
         </Border>
 

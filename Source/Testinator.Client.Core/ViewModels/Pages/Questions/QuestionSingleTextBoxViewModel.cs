@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
-namespace Testinator.Server.Core
+namespace Testinator.Client.Core
 {
     /// <summary>
     /// A viewmodel for <see cref="SingleTextBoxQuestion"/>
@@ -66,6 +66,15 @@ namespace Testinator.Server.Core
 
             // Save the question
             mQuestion = question;
+        }
+
+        public QuestionSingleTextBoxViewModel()
+        {
+            // Create commands
+            SubmitCommand = new RelayCommand(Submit);
+
+            // Save the question
+            mQuestion = new SingleTextBoxQuestion();
         }
 
         #endregion

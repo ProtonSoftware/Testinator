@@ -79,6 +79,12 @@
     <Compile Include="Controls\Questions\SimpleAnswerControl.xaml.cs">
       <DependentUpon>SimpleAnswerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\QuestionMultipleCheckboxesPage.xaml.cs">
+      <DependentUpon>QuestionMultipleCheckboxesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\QuestionSingleTextBoxPage.xaml.cs">
+      <DependentUpon>QuestionSingleTextBoxPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\QuestionMultipleChoicePage.xaml.cs">
       <DependentUpon>QuestionMultipleChoicePage.xaml</DependentUpon>
     </Compile>
@@ -122,6 +128,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\QuestionMultipleCheckboxesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\QuestionSingleTextBoxPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\QuestionMultipleChoicePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
