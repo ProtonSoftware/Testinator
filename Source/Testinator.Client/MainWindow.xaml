@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testinator.Client"
-        xmlns:UICore="clr-namespace:Testinator.UICore"
+        xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -42,13 +42,54 @@
                                 <!-- The main window content -->
                                 <Grid>
 
+                                    <Grid.RowDefinitions>
+
+                                        <!-- Top title bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=32}" />
+
+                                        <!-- Content -->
+                                        <RowDefinition Height="*" />
+
+                                    </Grid.RowDefinitions>
+
                                     <!-- Corner clipping -->
                                     <Grid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Container}" />
                                     </Grid.OpacityMask>
+                                    
+                                    <!-- Top title bar -->
+                                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource BlackDarkBrush}">
 
+                                        <Grid.ColumnDefinitions>
+
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*" />
+
+                                            <!-- Windows Button -->
+                                            <ColumnDefinition Width="Auto" />
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Title -->
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+
+                                            <TextBlock Text="{Binding ApplicationViewModel.CurrentPage,
+                                                              Source={x:Static local:ViewModelLocator.Instance}}"
+                                                       Style="{StaticResource TitleText}"/>
+
+                                        </Viewbox>
+
+                                        <!-- Window Buttons -->
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <Button Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButton}" Content="{StaticResource FontAwesomeUnderscoreIcon}" />
+                                            <Button Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButton}" Content="{StaticResource FontAwesomeSquareIcon}" />
+                                            <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="{StaticResource FontAwesomeXIcon}" />
+                                        </StackPanel>
+
+                                    </Grid>
+                                    
                                     <!-- Page Content -->
-                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
 
@@ -72,6 +113,13 @@
     </WindowChrome.WindowChrome>
 
     <Grid Background="{StaticResource BlackDarkBrush}">
-        
+
+        <!-- Content -->
+        <local:PageHost Grid.Row="1"
+                        CurrentPage="{Binding ApplicationViewModel.CurrentPage,
+                                        Source={x:Static local:ViewModelLocator.Instance}}"
+                        CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel,
+                                                   Source={x:Static local:ViewModelLocator.Instance}}" />
+
     </Grid>
 </Window>

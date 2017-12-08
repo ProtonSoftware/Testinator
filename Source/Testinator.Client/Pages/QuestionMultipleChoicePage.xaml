@@ -1,0 +1,17 @@
+﻿<UICore:BasePage x:TypeArguments="Core:LoginViewModel" x:Class="Testinator.Client.QuestionMultipleChoicePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testinator.Client"
+             xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+             mc:Ignorable="d">
+    
+    <Grid Background="{StaticResource WhiteDarkBrush}">
+        
+       
+        
+    </Grid>
+    
+</UICore:BasePage>

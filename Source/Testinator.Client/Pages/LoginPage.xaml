@@ -1,0 +1,135 @@
+﻿<UICore:BasePage x:TypeArguments="Core:LoginViewModel" x:Class="Testinator.Client.LoginPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testinator.Client"
+             xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+             mc:Ignorable="d">
+    
+    <Grid Background="{StaticResource WhiteDarkBrush}">
+        
+        <!-- Settings bubble (IP, Port changes) -->
+        <Border VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Padding="10"
+                Width="170">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    
+                    <!-- Buttons row -->
+                    <RowDefinition Height="Auto" />
+                    <!-- Menu content row -->
+                    <RowDefinition Height="*" />
+                    
+                </Grid.RowDefinitions>
+                
+                <!-- Settings cog button (Expands the menu) -->
+                <Button Content="{StaticResource FontAwesomeCogIcon}"
+                        Command="{Binding SettingsMenuExpandCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        FontFamily="{StaticResource FontAwesome}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="10"
+                        Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}" />
+
+                <!-- Settings close button (hides the menu) -->
+                <Button Content="{StaticResource FontAwesomeXIcon}"
+                        Command="{Binding SettingsMenuHideCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        FontFamily="{StaticResource FontAwesome}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="10"
+                        Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
+
+                <StackPanel Grid.Row="1"
+                            local:AnimateSlideInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
+                            Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
+                    
+                    <TextBlock Text="IP"
+                               FontFamily="{StaticResource FontMontserratBold}" />
+                    
+                    <TextBox Text="{Binding ServerIP, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SmallInputTextBox}" />
+                    
+                    <TextBlock Text="Port" 
+                               FontFamily="{StaticResource FontMontserratBold}" />
+
+                    <TextBox Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SmallInputTextBox}" />
+                    
+                </StackPanel>
+                
+            </Grid>
+            
+        </Border>
+
+        <!-- Main input boxes -->
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center"
+                    Visibility="{Binding ConnectionIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
+
+            <!-- Title -->
+            <TextBlock Text="Uzupełnij dane" 
+                       FontFamily="{StaticResource FontMontserratBold}"
+                       FontSize="{StaticResource FontSizeTitleLarge}" />
+
+            <!-- User name input -->
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                     Tag="Wpisz imię"
+                     Margin="0 25"
+                     local:IsFocusedProperty.Value="True"
+                     Style="{StaticResource BigInputTextBox}" />
+
+            <!-- User surname input -->
+            <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
+                     Tag="Wpisz nazwisko"
+                     Margin="0 0 0 25"
+                     Style="{StaticResource BigInputTextBox}" />
+
+            <!-- Error if input values are not valid -->
+            <TextBlock Text="Wartości w polach nie są poprawne."
+                       Margin="0 0 0 10"
+                       Foreground="Red"
+                       Visibility="{Binding ErrorShouldBeShown, Converter={local:BooleanToVisiblityConverter}}" />
+
+            <!-- Submit button -->
+            <Button Content="Zatwierdź"
+                    Command="{Binding TryConnectingCommand}"
+                    Margin="0"
+                    IsDefault="True"
+                    Style="{StaticResource BaseUIButton}"
+                    local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
+                    />
+
+        </StackPanel>
+
+        <!-- Trying to connect content -->
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center"
+                    Visibility="{Binding ConnectionIsRunning, Converter={local:BooleanToVisiblityConverter}}">
+
+            <TextBlock Text="Oczekiwanie na połączenie"
+                       Style="{StaticResource TitleText}"
+                       Foreground="{StaticResource BlackDarkBrush}"
+                       Margin="15" />
+
+            <TextBlock Style="{StaticResource SpinningText}"
+                       FontSize="{StaticResource FontSizeTitleLarge}"
+                       Margin="0 20" />
+
+            <Button Content="Anuluj"
+                    Style="{StaticResource BaseUIButton}"
+                    Margin="15" />
+
+        </StackPanel>
+        
+    </Grid>
+    
+</UICore:BasePage>

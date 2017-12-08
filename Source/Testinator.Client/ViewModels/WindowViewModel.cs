@@ -39,12 +39,12 @@ namespace Testinator.Client
         /// <summary>
         /// The smallest width the window can go to
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 400;
+        public double WindowMinimumWidth { get; set; } = 800;
 
         /// <summary>
         /// The smallest height the window can go to
         /// </summary>
-        public double WindowMinimumHeight { get; set; } = 400;
+        public double WindowMinimumHeight { get; set; } = 720;
 
         /// <summary>
         /// True if the window should be borderless because it is docked or maximized
@@ -112,8 +112,9 @@ namespace Testinator.Client
         /// The height of the title bar / caption of the window
         /// </summary>
         public int TitleHeight { get; set; } = 32;
+
         /// <summary>
-        /// The height of the title bar / caption of the window
+        /// The height of the title bar / caption of the window converted to the grid length
         /// </summary>
         public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight + ResizeBorder); } }
 
