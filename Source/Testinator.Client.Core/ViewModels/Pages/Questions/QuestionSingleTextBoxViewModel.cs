@@ -15,7 +15,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The question this view model is based on
         /// </summary>
-        private SingleTextBoxQuestion mQuestion;
+        private SingleTextBoxQuestion mQuestion = new SingleTextBoxQuestion();
 
         #endregion
 
@@ -44,6 +44,21 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        #region Pulic Methods
+
+        /// <summary>
+        /// Adds question this view model will be based on
+        /// NOTE: needs to be done before attaching this view model to the page
+        /// </summary>
+        /// <param name="question">The question to be attached to this viewmodel</param>
+        public void AttachQuestion(SingleTextBoxQuestion question)
+        {
+            // Save the question
+            mQuestion = question;
+        }
+
+        #endregion
+
         #region Commands
 
         /// <summary>
@@ -54,27 +69,14 @@ namespace Testinator.Client.Core
         #endregion
 
         #region Constructor
-
+        
         /// <summary>
-        /// Creates view model from the given question
+        /// Default constructor
         /// </summary>
-        /// <param name="question">The question this view model will be based on</param>
-        public QuestionSingleTextBoxViewModel(SingleTextBoxQuestion question)
-        {
-            // Create commands
-            SubmitCommand = new RelayCommand(Submit);
-
-            // Save the question
-            mQuestion = question;
-        }
-
         public QuestionSingleTextBoxViewModel()
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
-
-            // Save the question
-            mQuestion = new SingleTextBoxQuestion();
         }
 
         #endregion

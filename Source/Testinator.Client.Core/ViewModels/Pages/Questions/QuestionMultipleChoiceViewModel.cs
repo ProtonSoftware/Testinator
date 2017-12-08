@@ -15,7 +15,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The question this view model is based on
         /// </summary>
-        private MultipleChoiceQuestion mQuestion;
+        private MultipleChoiceQuestion mQuestion = new MultipleChoiceQuestion();
 
         #endregion
 
@@ -71,30 +71,31 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Constructor
+        #region Public Methods
 
         /// <summary>
-        /// Creates view model from the given question
+        /// Adds question this view model will be based on
+        /// NOTE: needs to be done before attaching this view model to the page
         /// </summary>
-        /// <param name="question">The question this view model will be based on</param>
-        public QuestionMultipleChoiceViewModel(MultipleChoiceQuestion question)
+        /// <param name="question">The question to be attached to this viewmodel</param>
+        public void AttachQuestion(MultipleChoiceQuestion question)
         {
-            // Create commands
-            SubmitCommand = new RelayCommand(Submit);
-            SelectCommand = new RelayParameterizedCommand(Select);
-
             // Save the question
             mQuestion = question;
         }
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default construcotr
+        /// </summary>
         public QuestionMultipleChoiceViewModel()
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
             SelectCommand = new RelayParameterizedCommand(Select);
-
-            // Save the question
-            mQuestion = new MultipleChoiceQuestion();
         }
 
         #endregion

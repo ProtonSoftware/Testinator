@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Testinator.Core;
@@ -57,10 +58,27 @@ namespace Testinator.Client.Core
         /// <param name="obj"></param>
         private void Application_TestReceived(bool obj)
         {
-            // TODO: Randomize question order etc.
+            // TODO: Randomize question order etc. 
+            
+            // Create a dummy question 
+            var viewmodel1 = new QuestionMultipleCheckboxesViewModel();
+            viewmodel1.AttachQuestion(new MultipleCheckboxesQuestion()
+            {
+                PointScore = 1,
+                Task = "Co robi kot?",
+                OptionsAndAnswers = new Dictionary<string, bool>() { { "nic", true }, { "miau", true }, { "hau", false } },
+            });
+
+            var viewmodel2 = new QuestionMultipleChoiceViewModel();
+            viewmodel2.AttachQuestion(new MultipleChoiceQuestion());
+
+            var viewmodel3 = new QuestionSingleTextBoxViewModel();
+            viewmodel3.AttachQuestion(new SingleTextBoxQuestion());
 
             // Change page to the first question page
-            IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice);
+            //IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, viewmodel1);
+            IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, viewmodel2);
+            //IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, viewmodel3);
         }
 
         /// <summary>

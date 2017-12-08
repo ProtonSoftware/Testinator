@@ -36,7 +36,7 @@ namespace Testinator.Client.Core
         /// Indexs of answer currently checked and unchecked
         /// false means unchecked, true means unchecked
         /// </summary>
-        public ObservableCollection<bool>CurrentlyChecked { get; set; }
+        public ObservableCollection<bool> CurrentlyChecked { get; set; }
 
         /// <summary>
         /// Number of options available
@@ -71,38 +71,36 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Adds question this view model will be based on
+        /// NOTE: needs to be done before attaching this view model to the page
+        /// </summary>
+        /// <param name="question">The question to be attached to this viewmodel</param>
+        public void AttachQuestion(MultipleCheckboxesQuestion question)
+        {
+            mQuestion = question;
+
+            CurrentlyChecked = new ObservableCollection<bool>();
+
+            // Make all the answers unchecked
+            for (int i = 0; i < mQuestion.OptionList().Count; i++)
+                CurrentlyChecked.Add(false);
+        }
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
-        /// Creates view model from the given question
+        /// Default constructor
         /// </summary>
-        /// <param name="question">The question this view model will be based on</param>
-        public QuestionMultipleCheckboxesViewModel(MultipleCheckboxesQuestion question)
-        {
-            // Create commands
-            SubmitCommand = new RelayCommand(Submit);
-            SelectCommand = new RelayParameterizedCommand(Select);
-
-            // Make all the answers unchecked
-            for (int i = 0; i < question.OptionList().Count; i++)
-                CurrentlyChecked.Add(false);
-
-            // Save the question
-            mQuestion = question;
-        }
-
         public QuestionMultipleCheckboxesViewModel()
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
             SelectCommand = new RelayParameterizedCommand(Select);
-
-            // Save the question
-            mQuestion = new MultipleCheckboxesQuestion();
-
-            // Make all the answers unchecked
-            for (int i = 0; i < mQuestion.OptionList().Count; i++)
-                CurrentlyChecked.Add(false);
         }
 
         #endregion

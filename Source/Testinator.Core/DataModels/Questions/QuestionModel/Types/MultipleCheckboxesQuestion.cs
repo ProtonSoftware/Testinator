@@ -25,7 +25,7 @@ namespace Testinator.Core
         /// 'false' means that it should be unchecked
         /// 'ture' that checked
         /// </summary>
-        private Dictionary<string,bool> mOptionsAndAnswers;
+        private Dictionary<string,bool> mOptionsAndAnswers = new Dictionary<string, bool>();
 
         #endregion
 
