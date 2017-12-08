@@ -125,6 +125,8 @@ namespace Testinator.Network.Client
 
         #region Public Delegates
 
+        // TODO: change this to event system
+
         /// <summary>
         /// Delegate to the method to be called when data is received
         /// </summary>
@@ -224,14 +226,16 @@ namespace Testinator.Network.Client
                 catch (SocketException)
                 { }
             }
+
+            _Connecting = false;
+
             if (IsConnected)
             {
                 clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
-
+                
                 // Let them know we have connected to the server
                 ConnectedCallback();
             }
-            _Connecting = false;
         }
 
         #endregion
@@ -246,7 +250,7 @@ namespace Testinator.Network.Client
             // Create default values
             BufferSize = 32768;
             Port = 3333;
-            IPAddress = IpHelpers.GetLocalIPAddress();
+            IPAddress = NetworkHelpers.GetLocalIPAddress();
 
             _Connecting = false;
             _Attempts = 0;

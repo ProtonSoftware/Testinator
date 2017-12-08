@@ -424,7 +424,7 @@ namespace Testinator.Network.Server
             // Create default values
             BufferSize = 32768;
             Port = 3333;
-            IPAddress = IpHelpers.GetLocalIPAddress();
+            IPAddress = NetworkHelpers.GetLocalIPAddress();
         }
 
         #endregion

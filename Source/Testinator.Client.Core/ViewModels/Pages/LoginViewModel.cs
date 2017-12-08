@@ -61,6 +61,16 @@ namespace Testinator.Client.Core
         /// </summary>
         public bool ErrorShouldBeShown { get; set; }
 
+        /// <summary>
+        /// A flag indicating if server port or ip is incorrect
+        /// </summary>
+        public bool IpOrPortError { get; set; }
+
+        /// <summary>
+        /// Number of attempts taken to connect to the server
+        /// </summary>
+        public int Attempts => IoCClient.Network.Attempts;
+
         #endregion
 
         #region Commands
@@ -80,6 +90,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand SettingsMenuHideCommand { get; private set; }
 
+        /// <summary>
+        /// The command to stop connecting to the server
+        /// </summary>
+        public ICommand StopConnectingCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -93,6 +108,7 @@ namespace Testinator.Client.Core
             TryConnectingCommand = new RelayCommand(async () => await Connect());
             SettingsMenuExpandCommand = new RelayCommand(ExpandMenu);
             SettingsMenuHideCommand = new RelayCommand(HideMenu);
+            StopConnectingCommand = new RelayCommand(StopConnecting);
         }
 
         #endregion
@@ -117,12 +133,39 @@ namespace Testinator.Client.Core
 
             await RunCommandAsync(() => ConnectionIsRunning, async () =>
             {
-                // TODO: Try to connect to the server
-                await Task.Delay(1000);
+                IoCClient.Network.Initialize(ServerIP, ServerPort);
+
+                IoCClient.Network.StartConnecting();
+
+
+                IoCClient.Network.ConnectedCallback = ConnectedEvent;
+
+                // Until the client is not connected or untile the user cancels connecting
+                while(!IoCClient.Network.IsConnected && ConnectionIsRunning)
+                {
+                    // One attempt takes usually 0,5 sec so update attempts every half a second
+                    await Task.Delay(500);
+                    OnPropertyChanged(nameof(Attempts));
+                }
+
+                // Means that the user stop connecting, dont change the page then
+                if (!IoCClient.Network.IsConnected)
+                    return;
+
+                // Send info package
+                IoCClient.Network.SendData(new DataPackage(PackageType.Info, new InfoPackage(IoCClient.Client)));
+
+                IoCClient.Application.IsConnected = true;
 
                 // Go to next page
                 IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
             });
+        }
+
+        
+        private void ConnectedEvent()
+        {
+            // TODO: delete this later
         }
 
         /// <summary>
@@ -130,14 +173,34 @@ namespace Testinator.Client.Core
         /// </summary>
         private void ExpandMenu()
         {
+            // Dont show the menu if connecting is running
+            if (ConnectionIsRunning)
+                return;
+
             // Simply togle the expanded menu flag
             IsSettingsMenuOpened = true;
         }
 
         private void HideMenu()
         {
+            // Verify the data
+            if (!NetworkHelpers.IsAddresCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
+            {
+                IpOrPortError = true;
+                return;
+            }
+
             // Simply togle the expanded menu flag
             IsSettingsMenuOpened = false;
+        }
+
+        /// <summary>
+        /// Stops connecting to the server
+        /// </summary>
+        private void StopConnecting()
+        {
+            IoCClient.Network.Disconnect();
+            ConnectionIsRunning = false;
         }
 
         #endregion
@@ -153,8 +216,7 @@ namespace Testinator.Client.Core
             // For now, check if user have specified at least two character for each input
             if (Name.Length < 2) return false;
             if (Surname.Length < 2) return false;
-
-            // Otherwise, return true
+            
             return true;
         }
 

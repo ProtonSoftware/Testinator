@@ -1,5 +1,6 @@
 ﻿using Ninject;
 using Testinator.Core;
+using Testinator.Network.Client;
 
 namespace Testinator.Client.Core
 {
@@ -24,6 +25,11 @@ namespace Testinator.Client.Core
         /// A shortcut to access the <see cref="ClientModel"/>
         /// </summary>
         public static ClientModel Client => IoCClient.Get<ClientModel>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ClientNetwork"/>
+        /// </summary>
+        public static ClientNetwork Network => IoCClient.Get<ClientNetwork>();
 
         /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
@@ -52,10 +58,9 @@ namespace Testinator.Client.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // Bind to a single instance of Application view model
+            // Bind to a single instance of Application view model, client network  and client model
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
-
-            // Bind to a single instance of Client model
+            Kernel.Bind<ClientNetwork>().ToConstant(new ClientNetwork());
             Kernel.Bind<ClientModel>().ToConstant(new ClientModel());
         }
 

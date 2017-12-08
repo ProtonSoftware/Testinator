@@ -44,7 +44,9 @@ namespace Testinator.Network.Client
                     clientSocket.Shutdown(SocketShutdown.Both);
                     clientSocket.Close();
                     clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    DisconnectedCallback();
+                    
+                    //DisconnectedCallback();
+                    // TODO: uncomment this when callback system is changed to event system
                 }
                 else
                 {
@@ -55,6 +57,23 @@ namespace Testinator.Network.Client
             }
             if (IsConnected)
                 clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Initializes the object with the given data
+        /// </summary>
+        /// <param name="ip">Ip address of the host</param>
+        /// <param name="port">The port of the host</param>
+        public void Initialize(string ip, string port)
+        {
+            IPAddress = IPAddress.Parse(ip);
+            Port = Int32.Parse(port);
+            // TODO: potential error handling
+            // Should not be any problems here however. 
         }
 
         #endregion
@@ -74,9 +93,9 @@ namespace Testinator.Network.Client
         /// <param name="bufferSize">Size of the reciver buffer</param>
         public ClientNetwork(string Ip, int port, int bufferSize = 32768)
         {
-            this.IPAddress = IPAddress.Parse(Ip);
-            this.Port = port;
-            this.BufferSize = bufferSize;
+            IPAddress = IPAddress.Parse(Ip);
+            Port = port;
+            BufferSize = bufferSize;
         }
 
         #endregion

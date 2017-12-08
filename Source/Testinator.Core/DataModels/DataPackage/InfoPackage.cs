@@ -29,13 +29,13 @@ namespace Testinator.Core
         #region Constructor
 
         /// <summary>
-        /// Default construcotr
+        /// Constructs the info package
         /// </summary>
         /// <param name="MachineName">Sedner's machine name</param>
         /// <param name="mac">PC mac address</param>
         /// <param name="name">Clients name</param>
         /// <param name="surname">Clients surname</param>
-        public InfoPackage(string MachineName, string mac, string name, string surname)
+        public InfoPackage(string name, string surname, string MachineName, string mac)
         {
             ClientName = name;
             ClientSurname = surname;
@@ -43,6 +43,15 @@ namespace Testinator.Core
             MacAddress = mac;
         }
 
+        /// <summary>
+        /// Constructs the package from a model
+        /// </summary>
+        /// <param name="model">The model this package is based on</param>
+        public InfoPackage(ClientModel model)
+        {
+            ClientName = model.ClientName;
+            ClientSurname = model.ClientSurname;
+        }
         #endregion
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
+using Testinator.Core.Network;
 
 namespace Testinator.Core
 {
@@ -48,7 +50,12 @@ namespace Testinator.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ClientModel() { }
+        public ClientModel()
+        {
+            // Create defaults
+            MacAddress = MacAddressHelpers.GetMac();
+            MachineName = Environment.MachineName;
+        }
 
         #endregion
     }

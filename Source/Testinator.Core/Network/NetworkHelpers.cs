@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 
 namespace Testinator.Core
@@ -6,7 +7,7 @@ namespace Testinator.Core
     /// <summary>
     /// Helper class for managing IP addresses
     /// </summary>
-    public static class IpHelpers
+    public static class NetworkHelpers
     {
         /// <summary>
         /// Gets machine local ip address
@@ -40,6 +41,32 @@ namespace Testinator.Core
                 }
             }
             return IPAddress.Parse("127.0.0.1");
+        }
+
+        /// <summary>
+        /// Chcecks if the address if a correct ip address
+        /// </summary>
+        /// <param name="ip">The address to chceck</param>
+        /// <returns>True if address is correct, false if not</returns>
+        public static bool IsAddresCorrect(string ip)
+        {
+            return IPAddress.TryParse(ip, out IPAddress ipa);
+        }
+
+        /// <summary>
+        /// Checks if the string contains valid srver port
+        /// </summary>
+        /// <param name="port"></param>
+        /// <returns></returns>
+        public static bool IsPortCorrect(string port)
+        {
+            if (!Int32.TryParse(port, out int mport))
+                return false;
+
+            if (mport < 0 || mport > 9999)
+                return false;
+
+            return true;
         }
     }
 }

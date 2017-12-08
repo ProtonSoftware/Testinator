@@ -70,6 +70,10 @@
       <Project>{F592FA60-030D-440B-BB00-ED4EA5A919F6}</Project>
       <Name>Testinator.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Testinator.Network.Client\Testinator.Network.Client.csproj">
+      <Project>{189ab7cb-dd5d-48a6-87b8-c7cbfec4c27e}</Project>
+      <Name>Testinator.Network.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

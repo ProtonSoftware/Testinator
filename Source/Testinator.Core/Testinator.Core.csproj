@@ -69,7 +69,7 @@
     <Compile Include="DataModels\TestModel\Test.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Network\DataPackageDescriptor.cs" />
-    <Compile Include="Network\IpHelpers.cs" />
+    <Compile Include="Network\NetworkHelpers.cs" />
     <Compile Include="Network\MacAddressHelpers.cs" />
     <Compile Include="Network\SocketHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

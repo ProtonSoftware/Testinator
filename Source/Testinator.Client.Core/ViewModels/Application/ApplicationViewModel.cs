@@ -1,4 +1,5 @@
 ﻿using Testinator.Core;
+using Testinator.Network.Client;
 
 namespace Testinator.Client.Core
 {
@@ -19,6 +20,21 @@ namespace Testinator.Client.Core
         ///       at the time it changes
         /// </summary>
         public BaseViewModel CurrentPageViewModel { get; set; }
+
+        /// <summary>
+        /// Indicates if the test is in progress
+        /// </summary>
+        public bool IsTestInProgeess { get; set; }
+
+        /// <summary>
+        /// Indicates if the clinet is currently connected to the server
+        /// </summary>
+        public bool IsConnected { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Test Test { get; set; }
 
         /// <summary>
         /// Navigates to the specified page

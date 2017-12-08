@@ -171,6 +171,10 @@
       <Project>{f592fa60-030d-440b-bb00-ed4ea5a919f6}</Project>
       <Name>Testinator.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Testinator.Network.Client\Testinator.Network.Client.csproj">
+      <Project>{189ab7cb-dd5d-48a6-87b8-c7cbfec4c27e}</Project>
+      <Name>Testinator.Network.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Testinator.UICore\Testinator.UICore.csproj">
       <Project>{90c0ca2b-3524-49da-a58a-0df92f7eaed8}</Project>
       <Name>Testinator.UICore</Name>

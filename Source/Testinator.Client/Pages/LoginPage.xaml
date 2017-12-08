@@ -126,6 +126,7 @@
 
             <Button Content="Anuluj"
                     Style="{StaticResource BaseUIButton}"
+                    Command="{Binding StopConnectingCommand}"
                     Margin="15" />
 
         </StackPanel>
