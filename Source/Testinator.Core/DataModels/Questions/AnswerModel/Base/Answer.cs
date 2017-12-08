@@ -1,7 +1,7 @@
 ﻿namespace Testinator.Core
 {
     /// <summary>
-    /// A base model for all the answers for the questions
+    /// The base model for all the answers for the questions
     /// </summary>
     public abstract class Answer
     {

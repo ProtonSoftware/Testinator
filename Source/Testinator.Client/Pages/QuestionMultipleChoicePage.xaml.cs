@@ -7,7 +7,7 @@ namespace Testinator.Client
     /// <summary>
     /// Interaction logic for QuestionMultipleChoicePage.xaml
     /// </summary>
-    public partial class QuestionMultipleChoicePage : BasePage<LoginViewModel>
+    public partial class QuestionMultipleChoicePage : BasePage<QuestionMultipleChoiceViewModel>
     {
         #region Constructor
 
@@ -15,7 +15,7 @@ namespace Testinator.Client
         /// Constructor with specific view model
         /// </summary>
         /// <param name="specificViewModel">The specific view model to use for this page</param>
-        public QuestionMultipleChoicePage(LoginViewModel specificViewModel) : base(specificViewModel)
+        public QuestionMultipleChoicePage(QuestionMultipleChoiceViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
 

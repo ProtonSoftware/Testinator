@@ -8,7 +8,7 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Grid Background="{StaticResource WhiteDarkBrush}">
+    <Grid Background="{StaticResource WhiteLightBrush}">
         
         <!-- Settings bubble (IP, Port changes) -->
         <Border VerticalAlignment="Top"

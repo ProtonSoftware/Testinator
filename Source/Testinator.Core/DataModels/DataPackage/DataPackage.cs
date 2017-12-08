@@ -10,7 +10,6 @@ namespace Testinator.Core
     [Serializable]
     public class DataPackage
     {
-
         #region Public Properties
 
         /// <summary>

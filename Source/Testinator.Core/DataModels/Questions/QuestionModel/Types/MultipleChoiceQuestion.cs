@@ -8,7 +8,7 @@ namespace Testinator.Core
     /// </summary>
     public class MultipleChoiceQuestion : Question
     {
-        #region Private Properties
+        #region Private Members
 
         /// <summary>
         /// Index of the correct answer in options list

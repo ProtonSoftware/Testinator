@@ -8,14 +8,14 @@ namespace Testinator.Server.Core
     /// <summary>
     /// A viewmodel for <see cref="SingleTextBoxQuestion"/>
     /// </summary>
-    public class SingleTextBoxQuestionViewModel : BaseViewModel
+    public class QuestionSingleTextBoxViewModel : BaseViewModel
     {
-        #region Private Properties
+        #region Private Members
 
         /// <summary>
         /// The question this view model is based on
         /// </summary>
-        private SingleTextBoxQuestion mQuestion { get; set; }
+        private SingleTextBoxQuestion mQuestion;
 
         #endregion
 
@@ -42,6 +42,10 @@ namespace Testinator.Server.Core
         /// </summary>
         public int PointScore => mQuestion.PointScore;
 
+        #endregion
+
+        #region Commands
+
         /// <summary>
         /// Submits the current question and procceds to the next question
         /// </summary>
@@ -55,7 +59,7 @@ namespace Testinator.Server.Core
         /// Creates view model from the given question
         /// </summary>
         /// <param name="question">The question this view model will be based on</param>
-        public SingleTextBoxQuestionViewModel(SingleTextBoxQuestion question)
+        public QuestionSingleTextBoxViewModel(SingleTextBoxQuestion question)
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
@@ -66,7 +70,7 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Public Methods
+        #region Command Methods
 
         /// <summary>
         /// Submits the current question

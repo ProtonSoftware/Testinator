@@ -5,7 +5,7 @@
     /// </summary>
     public class SingleTextBoxQuestion : Question
     {
-        #region Private Properies 
+        #region Private Members 
 
         /// <summary>
         /// Question value in points

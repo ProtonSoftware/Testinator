@@ -4,11 +4,11 @@ using System.Linq;
 namespace Testinator.Core
 {
     /// <summary>
-    /// A multiple chceckboxes question type
+    /// A multiple checkboxes question type
     /// </summary>
     public class MultipleCheckboxesQuestion : Question
     {
-        #region Private Properties
+        #region Private Members
 
         /// <summary>
         /// Question value in points
@@ -75,19 +75,6 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Public Methods
-
-        /// <summary>
-        /// Gets the options for the question as list
-        /// </summary>
-        /// <returns>The options as a list</returns>
-        public List<string> OptionList()
-        {
-            return OptionsAndAnswers.Keys.ToList();
-        }
-
-        #endregion
-
         #region Constructor
 
         /// <summary>
@@ -101,6 +88,19 @@ namespace Testinator.Core
             Task = "Wpisz pytanie";
             OptionsAndAnswers = new Dictionary<string, bool>() { { "opcja1", true } };
             PointScore = 1;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the options for the question as list
+        /// </summary>
+        /// <returns>The options as a list</returns>
+        public List<string> OptionList()
+        {
+            return OptionsAndAnswers.Keys.ToList();
         }
 
         #endregion

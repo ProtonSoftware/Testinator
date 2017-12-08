@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
 
-namespace Testinator.Server.Core
+namespace Testinator.Client.Core
 {
     /// <summary>
-    /// A viewmodel for <see cref="MultipleCheckboxesQuestion"/>
+    /// The view model for <see cref="MultipleChoiceQuestion"/>
     /// </summary>
-    public class MultipleCheckboxesQuestionViewModel : BaseViewModel
+    public class QuestionMultipleChoiceViewModel : BaseViewModel
     {
-        #region Private Properties
+        #region Singleton
+
+        /// <summary>
+        /// Single instance of this view model
+        /// </summary>
+        public QuestionMultipleChoiceViewModel Instance => new QuestionMultipleChoiceViewModel(mQuestion);
+
+        #endregion
+
+        #region Private Members
 
         /// <summary>
         /// The question this view model is based on
         /// </summary>
-        private MultipleCheckboxesQuestion mQuestion { get; set; }
+        private MultipleChoiceQuestion mQuestion;
 
         #endregion
 
@@ -28,15 +36,16 @@ namespace Testinator.Server.Core
         public string Task => mQuestion.Task;
 
         /// <summary>
-        /// Options for the questions to check or uncheck
+        /// Options for the questions to choose from eg. A, B, C...
         /// </summary>
-        public List<string> Options => mQuestion.OptionList();
+        public List<string> Options => mQuestion.Options;
 
         /// <summary>
-        /// Indexs of answer currently checked and unchecked
-        /// false means unchecked, true means unchecked
+        /// Index of answer currently selected
+        /// IMPORTANT: 1 means that the first option in the list is seleced, 2 that second, etc.
+        /// 0 means that no answer is selected
         /// </summary>
-        public ObservableCollection<bool>CurrentlyChecked { get; set; }
+        public int CurrentlySelectedIdx { get; set; } = 0;
 
         /// <summary>
         /// Number of options available
@@ -44,7 +53,7 @@ namespace Testinator.Server.Core
         public int Count => Options.Count;
 
         /// <summary>
-        /// Sets the visibility of the no-answer warning
+        /// Sets the visibility of the no answer warning
         /// When user chooses the answer automatically is set to false
         /// </summary>
         public bool NoAnswerWarning { get; set; } = false;
@@ -54,14 +63,18 @@ namespace Testinator.Server.Core
         /// </summary>
         public int PointScore => mQuestion.PointScore;
 
+        #endregion
+
+        #region Commands
+
         /// <summary>
         /// Submits the current question and procceds to the next question
         /// </summary>
         public ICommand SubmitCommand { get; set; }
 
         /// <summary>
-        /// Check or unchecks the option
-        /// NOTE: command parameter MUST be the answer index, INDEXING STARTS AT 1!
+        /// Makes the answer selected,
+        /// NOTE: command parameter MUST be the answer index, look at <see cref="CurrentlySelecedIdx"/>
         /// </summary>
         public ICommand SelectCommand { get; set; }
 
@@ -73,15 +86,11 @@ namespace Testinator.Server.Core
         /// Creates view model from the given question
         /// </summary>
         /// <param name="question">The question this view model will be based on</param>
-        public MultipleCheckboxesQuestionViewModel(MultipleCheckboxesQuestion question)
+        public QuestionMultipleChoiceViewModel(MultipleChoiceQuestion question)
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
             SelectCommand = new RelayParameterizedCommand(Select);
-
-            // Make all the answers unchecked
-            for (int i = 0; i < question.OptionList().Count; i++)
-                CurrentlyChecked.Add(false);
 
             // Save the question
             mQuestion = question;
@@ -89,7 +98,7 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Public Methods
+        #region Command Methods
 
         /// <summary>
         /// Select the answer
@@ -102,8 +111,7 @@ namespace Testinator.Server.Core
             if (!Int32.TryParse(idxStr, out int idx))
                 throw new NotImplementedException();
 
-            // idx - 1 because indexing starts at 1 not 0 !
-            CurrentlyChecked[idx - 1] = true;
+            CurrentlySelectedIdx = idx;
 
             NoAnswerWarning = false;
         }
@@ -113,13 +121,13 @@ namespace Testinator.Server.Core
         /// </summary>
         private void Submit()
         {
-            // If none of the options is checked show the warning to the user
-            if (!CurrentlyChecked.Contains(true))
+            if (CurrentlySelectedIdx == 0)
             {
                 NoAnswerWarning = true;
                 return;
             }
-            var answer = new MultipleCheckboxesAnswer(mQuestion, new List<bool>(CurrentlyChecked));
+
+            var answer = new MultipleChoiceAnswer(mQuestion, CurrentlySelectedIdx);
             // TODO: save the answer and show the next question
         }
 

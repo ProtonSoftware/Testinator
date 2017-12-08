@@ -1,4 +1,4 @@
-﻿<UICore:BasePage x:TypeArguments="Core:LoginViewModel" x:Class="Testinator.Client.QuestionMultipleChoicePage"
+﻿<UICore:BasePage x:TypeArguments="Core:QuestionMultipleChoiceViewModel" x:Class="Testinator.Client.QuestionMultipleChoicePage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,10 +8,28 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Grid Background="{StaticResource WhiteDarkBrush}">
-        
-       
-        
+    <Grid Background="{StaticResource WhiteLightBrush}"
+          VerticalAlignment="Center"
+          HorizontalAlignment="Center">
+
+        <Border Background="{StaticResource WhiteDarkBrush}" 
+                CornerRadius="3"
+                Padding="15 50 15 15"
+                Width="600"
+                Margin="50 50 50 0">
+
+            <StackPanel>
+
+                <TextBlock Text="{Binding Task}" />
+                <local:MultipleChoiceAnswersList DataContext="{Binding Instance}">
+                    
+                </local:MultipleChoiceAnswersList>
+
+            </StackPanel>
+            
+            
+        </Border>
+
     </Grid>
     
 </UICore:BasePage>
