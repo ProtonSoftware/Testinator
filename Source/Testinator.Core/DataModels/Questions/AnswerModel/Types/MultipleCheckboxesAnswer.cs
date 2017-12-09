@@ -24,7 +24,7 @@ namespace Testinator.Core
         #region Constructor
 
         /// <summary>
-        /// Default construcotr
+        /// Default constructor
         /// </summary>
         /// <param name="question">The question this answer is for</param>
         /// <param name="answer">The answer given by the user</param>

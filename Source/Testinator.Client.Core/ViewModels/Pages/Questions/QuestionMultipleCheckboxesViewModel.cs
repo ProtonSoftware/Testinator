@@ -30,7 +30,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Options for the questions to check or uncheck
         /// </summary>
-        public List<string> Options => mQuestion.OptionList();
+        public List<CheckboxAnswerItemViewModel> Options;
 
         /// <summary>
         /// Indexs of answer currently checked and unchecked
@@ -50,7 +50,7 @@ namespace Testinator.Client.Core
         public bool NoAnswerWarning { get; set; } = false;
 
         /// <summary>
-        /// Points gained for the correct answer
+        /// Points gained for each correct answer
         /// </summary>
         public int PointScore => mQuestion.PointScore;
 
@@ -71,26 +71,6 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Public Methods
-
-        /// <summary>
-        /// Adds question this view model will be based on
-        /// NOTE: needs to be done before attaching this view model to the page
-        /// </summary>
-        /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(MultipleCheckboxesQuestion question)
-        {
-            mQuestion = question;
-
-            CurrentlyChecked = new ObservableCollection<bool>();
-
-            // Make all the answers unchecked
-            for (int i = 0; i < mQuestion.OptionList().Count; i++)
-                CurrentlyChecked.Add(false);
-        }
-
-        #endregion
-
         #region Constructor
 
         /// <summary>
@@ -108,9 +88,9 @@ namespace Testinator.Client.Core
         #region Command Methods
 
         /// <summary>
-        /// Select the answer
+        /// Selects/unselects the answer
         /// </summary>
-        /// <param name="obj">The index of the answer, also look at <see cref="CurrentlySelecedIdx"/>/></param>
+        /// <param name="obj">The index of the answer, also look at <see cref="CurrentlySelectedItdx"/></param>
         private void Select(object obj)
         {
             // Cast parameter
@@ -119,7 +99,7 @@ namespace Testinator.Client.Core
                 throw new NotImplementedException();
 
             // idx - 1 because indexing starts at 1 not 0 !
-            CurrentlyChecked[idx - 1] = true;
+            CurrentlyChecked[idx - 1] ^= true;
 
             NoAnswerWarning = false;
         }
@@ -135,8 +115,104 @@ namespace Testinator.Client.Core
                 NoAnswerWarning = true;
                 return;
             }
+
+            // Save the answer
             var answer = new MultipleCheckboxesAnswer(mQuestion, new List<bool>(CurrentlyChecked));
-            // TODO: save the answer and show the next question
+            IoCClient.Application.Test.AddAnswer(answer);
+
+            // Go to next page
+            var question = IoCClient.Application.Test.GetNextQuestion();
+
+            // Based on type...
+            switch(question.Type)
+            {
+                case QuestionTypes.MultipleChoice:
+                    {
+                        // Get the view model of a question and pass it as a parameter to new site
+                        var questionViewModel = new QuestionMultipleChoiceViewModel();
+                        questionViewModel.AttachQuestion(question as MultipleChoiceQuestion);
+                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
+                        break;
+                    }
+
+                case QuestionTypes.MultipleCheckboxes:
+                    {
+                        // Get the view model of a question and pass it as a parameter to new site
+                        var questionViewModel = new QuestionMultipleCheckboxesViewModel();
+                        questionViewModel.AttachQuestion(question as MultipleCheckboxesQuestion);
+                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
+                        break;
+                    }
+
+                case QuestionTypes.SingleTextBox:
+                    {
+                        // Get the view model of a question and pass it as a parameter to new site
+                        var questionViewModel = new QuestionSingleTextBoxViewModel();
+                        questionViewModel.AttachQuestion(question as SingleTextBoxQuestion);
+                        IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
+                        break;
+                    }
+            }
+        }
+
+        #endregion
+
+        #region Public Helpers
+
+        /// <summary>
+        /// Adds question this view model will be based on
+        /// NOTE: needs to be done before attaching this view model to the page
+        /// </summary>
+        /// <param name="question">The question to be attached to this viewmodel</param>
+        public void AttachQuestion(MultipleCheckboxesQuestion question)
+        {
+            // Get the question
+            mQuestion = question;
+
+            // Convert from dictionary to answer items list
+            ListConvertFromDictionaryQuestion(mQuestion.OptionsAndAnswers);
+
+            // Make all the answers unchecked
+            CurrentlyChecked = new ObservableCollection<bool>();
+            for (int i = 0; i < Options.Count; i++)
+                CurrentlyChecked.Add(false);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Takes in a list of strings and converts it to actual list of answer items
+        /// </summary>
+        /// <param name="options">Possible answers to the question as list of string</param>
+        /// <returns></returns>
+        private List<CheckboxAnswerItemViewModel> ListConvertFromDictionaryQuestion(Dictionary<string, bool> options)
+        {
+            // Initialize the list that we are willing to return 
+            var FinalList = new List<CheckboxAnswerItemViewModel>();
+
+            // Loop each answer to create answer item from it
+            foreach (var option in options)
+            {
+                // Create new answer item
+                var answerItem = new CheckboxAnswerItemViewModel();
+
+                // Rewrite answer string content
+                answerItem.Text = option.Key.ToString();
+
+                // If answer should be checked, indicate that
+                answerItem.ShouldBeChecked = option.Value;
+
+                // Don't select any answer at the start
+                answerItem.IsChecked = false;
+
+                // Add this item to the list
+                FinalList.Add(answerItem);
+            }
+
+            // We have our list done, return it
+            return FinalList;
         }
 
         #endregion

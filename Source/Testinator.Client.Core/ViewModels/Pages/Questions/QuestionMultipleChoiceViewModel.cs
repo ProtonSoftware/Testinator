@@ -114,8 +114,43 @@ namespace Testinator.Client.Core
                 return;
             }
 
+            // Save the answer
             var answer = new MultipleChoiceAnswer(mQuestion, CurrentlySelectedIdx);
-            // TODO: save the answer and show the next question
+            IoCClient.Application.Test.AddAnswer(answer);
+
+            // Go to next page
+            var question = IoCClient.Application.Test.GetNextQuestion();
+
+            // Based on type...
+            switch (question.Type)
+            {
+                case QuestionTypes.MultipleChoice:
+                    {
+                        // Get the view model of a question and pass it as a parameter to new site
+                        var questionViewModel = new QuestionMultipleChoiceViewModel();
+                        questionViewModel.AttachQuestion(question as MultipleChoiceQuestion);
+                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
+                        break;
+                    }
+
+                case QuestionTypes.MultipleCheckboxes:
+                    {
+                        // Get the view model of a question and pass it as a parameter to new site
+                        var questionViewModel = new QuestionMultipleCheckboxesViewModel();
+                        questionViewModel.AttachQuestion(question as MultipleCheckboxesQuestion);
+                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
+                        break;
+                    }
+
+                case QuestionTypes.SingleTextBox:
+                    {
+                        // Get the view model of a question and pass it as a parameter to new site
+                        var questionViewModel = new QuestionSingleTextBoxViewModel();
+                        questionViewModel.AttachQuestion(question as SingleTextBoxQuestion);
+                        IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
+                        break;
+                    }
+            }
         }
 
         #endregion
@@ -129,7 +164,7 @@ namespace Testinator.Client.Core
         /// <param name="question">The question to be attached to this viewmodel</param>
         public void AttachQuestion(MultipleChoiceQuestion question)
         {
-            // Save the question
+            // Get the question
             mQuestion = question;
 
             // Convert the list of string to list of ABCAnswerItemViewModel

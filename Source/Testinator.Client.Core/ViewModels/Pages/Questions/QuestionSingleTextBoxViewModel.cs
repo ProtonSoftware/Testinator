@@ -44,21 +44,6 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Pulic Methods
-
-        /// <summary>
-        /// Adds question this view model will be based on
-        /// NOTE: needs to be done before attaching this view model to the page
-        /// </summary>
-        /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(SingleTextBoxQuestion question)
-        {
-            // Save the question
-            mQuestion = question;
-        }
-
-        #endregion
-
         #region Commands
 
         /// <summary>
@@ -97,6 +82,21 @@ namespace Testinator.Client.Core
 
             var answer = new SingleTextBoxAnswer(mQuestion, CurrentAnswer);
             // TODO: save the answer and show the next question
+        }
+
+        #endregion
+
+        #region Public Helpers
+
+        /// <summary>
+        /// Adds question this view model will be based on
+        /// NOTE: needs to be done before attaching this view model to the page
+        /// </summary>
+        /// <param name="question">The question to be attached to this viewmodel</param>
+        public void AttachQuestion(SingleTextBoxQuestion question)
+        {
+            // Save the question
+            mQuestion = question;
         }
 
         #endregion

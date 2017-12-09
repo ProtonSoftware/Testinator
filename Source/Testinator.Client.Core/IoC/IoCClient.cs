@@ -31,20 +31,13 @@ namespace Testinator.Client.Core
         /// </summary>
         public static ClientNetwork Network => IoCClient.Get<ClientNetwork>();
 
-        /// <summary>
-        /// A shortcut to access the <see cref="IUIManager"/>
-        /// </summary>
-        /// Just an exaple
-        /// Can be deleted anytime
-        //public static IUIManager UI => IoC.Get<IUIManager>();
-
         #endregion
 
         #region Construction
 
         /// <summary>
         /// Sets up the IoC container, binds all information required and is ready for use
-        /// NOTE: Must be called as soon as your application starts up to ensure all 
+        /// NOTE: Must be called as soon as our application starts up to ensure all 
         ///       services can be found
         /// </summary>
         public static void Setup()
@@ -58,7 +51,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // Bind to a single instance of Application view model, client network  and client model
+            // Bind to a single instance of every model here
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
             Kernel.Bind<ClientNetwork>().ToConstant(new ClientNetwork());
             Kernel.Bind<ClientModel>().ToConstant(new ClientModel());

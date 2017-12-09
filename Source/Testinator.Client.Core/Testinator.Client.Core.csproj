@@ -57,6 +57,7 @@
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Input\TextEntryViewModel.cs" />
     <Compile Include="ViewModels\ListItems\ABCAnswerItemViewModel.cs" />
+    <Compile Include="ViewModels\ListItems\CheckboxAnswerItemViewModel.cs" />
     <Compile Include="ViewModels\Pages\Questions\QuestionMultipleCheckboxesViewModel.cs" />
     <Compile Include="ViewModels\Pages\Questions\QuestionMultipleChoiceViewModel.cs" />
     <Compile Include="ViewModels\Pages\Questions\QuestionSingleTextBoxViewModel.cs" />

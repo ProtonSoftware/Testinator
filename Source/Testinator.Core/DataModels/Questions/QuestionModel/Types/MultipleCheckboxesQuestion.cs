@@ -32,7 +32,7 @@ namespace Testinator.Core
         #region Public Properties
 
         /// <summary>
-        /// Number of points given for a good answer
+        /// Number of points given for each right answer
         /// </summary>
         public int PointScore
         {
@@ -88,19 +88,6 @@ namespace Testinator.Core
             Task = "Wpisz pytanie";
             OptionsAndAnswers = new Dictionary<string, bool>() { { "opcja1", true } };
             PointScore = 1;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Gets the options for the question as list
-        /// </summary>
-        /// <returns>The options as a list</returns>
-        public List<string> OptionList()
-        {
-            return OptionsAndAnswers.Keys.ToList();
         }
 
         #endregion

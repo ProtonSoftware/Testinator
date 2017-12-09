@@ -19,7 +19,7 @@
 
                             <!-- Click to select this answer -->
                             <Border.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding SelectAnswerCommand}" />
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding SelectItemCommand}" />
                             </Border.InputBindings>
 
                             <Grid x:Name="container" Background="Transparent">

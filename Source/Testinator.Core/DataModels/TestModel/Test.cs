@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Testinator.Core
 {
     /// <summary>
-    /// Model of a test
+    /// The model of a test
     /// </summary>
     public class Test
     {
@@ -13,12 +13,17 @@ namespace Testinator.Core
         /// <summary>
         /// Provides indexes for the question
         /// </summary>
-        private int IdProvider = 0;
+        private int mIdProvider = 0;
 
         /// <summary>
         /// The list of all questions in the test
         /// </summary>
         private List<Question> mQuestions = new List<Question>();
+
+        /// <summary>
+        /// The list of all answers in the test
+        /// </summary>
+        private List<Answer> mAnswers = new List<Answer>();
 
         #endregion
 
@@ -35,6 +40,16 @@ namespace Testinator.Core
         public TimeSpan Duration { get; set; }
 
         /// <summary>
+        /// How much questions in the test
+        /// </summary>
+        public int QuestionCount => Questions.Count;
+
+        /// <summary>
+        /// Indicates which question is displayed now
+        /// </summary>
+        public int QuestionCounter { get; set; } = 1;
+
+        /// <summary>
         /// The list of all questions in the test
         /// </summary>
         public List<Question> Questions
@@ -46,31 +61,35 @@ namespace Testinator.Core
                     return;
 
                 // Reset the indexer 
-                IdProvider = 0;
-                for (int i = 0; i < value.Count; i++, IdProvider++)
-                    value[i].ID = IdProvider;
+                mIdProvider = 0;
+                for (int i = 0; i < value.Count; i++, mIdProvider++)
+                    value[i].ID = mIdProvider;
 
                 mQuestions = value;
             }
         }
         // TODO: question cannot be null, exception here ^^^^
 
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
-        /// Adds a question to this test
+        /// The list of all answers in the test
         /// </summary>
-        /// <param name="question">The question to be added</param>
-        public void AddQuestion(Question question)
+        public List<Answer> Answers
         {
-            if (mQuestions == null || question == null)
-                return;
-            question.ID = IdProvider;
-            IdProvider++;
-            mQuestions.Add(question);
+            get => mAnswers;
+            set
+            {
+                if (value == null)
+                    return;
+
+                // Reset the indexer 
+                mIdProvider = 0;
+                for (int i = 0; i < value.Count; i++, mIdProvider++)
+                    value[i].ID = mIdProvider;
+
+                mAnswers = value;
+            }
         }
+        // TODO: answer cannot be null, exception here ^^^^
 
         #endregion
 
@@ -81,6 +100,64 @@ namespace Testinator.Core
         /// </summary>
         public Test()
         { }
+
+        #endregion
+
+        #region Public Helpers
+
+        /// <summary>
+        /// Adds a question to this test
+        /// </summary>
+        /// <param name="question">The question being added</param>
+        public void AddQuestion(Question question)
+        {
+            if (mQuestions == null || question == null)
+                return;
+            question.ID = mIdProvider;
+            mIdProvider++;
+            mQuestions.Add(question);
+        }
+
+        /// <summary>
+        /// Adds an answer to this test
+        /// </summary>
+        /// <param name="question">The answer being added</param>
+        public void AddAnswer(Answer answer)
+        {
+            if (mAnswers == null || answer == null)
+                return;
+            answer.ID = mIdProvider;
+            mIdProvider++;
+            mAnswers.Add(answer);
+        }
+
+        /// <summary>
+        /// Gets next question
+        /// </summary>
+        public Question GetNextQuestion()
+        {
+            // We try to get next question, so lets move the counter
+            QuestionCounter++;
+
+            // Check if last question was the last one
+            if (QuestionCounter == Questions.Count)
+            {
+                // Then end the test and don't show any question
+                EndTest();
+                return null;
+            }
+
+            // Return next question
+            return Questions[QuestionCounter - 1];
+        }
+
+        /// <summary>
+        /// Ends the test
+        /// </summary>
+        public void EndTest()
+        {
+            return;
+        }
 
         #endregion
     }
