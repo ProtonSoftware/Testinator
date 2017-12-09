@@ -47,7 +47,8 @@
                 Grid.Row="1"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
-                HorizontalAlignment="Right" />
+                HorizontalAlignment="Right" 
+                Margin="50" />
 
     </Grid>
     

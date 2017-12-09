@@ -24,7 +24,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + mQuestion.ID;
+        public string QuestionPageCounter => "Pytanie " + (mQuestion.ID + 1).ToString();
 
         /// <summary>
         /// The task of the question

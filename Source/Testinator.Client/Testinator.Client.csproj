@@ -73,6 +73,12 @@
     <Compile Include="Controls\Input\TextEntryControl.xaml.cs">
       <DependentUpon>TextEntryControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Questions\CheckboxAnswerItemControl.xaml.cs">
+      <DependentUpon>CheckboxAnswerItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\MultipleCheckboxesAnswersList.xaml.cs">
+      <DependentUpon>MultipleCheckboxesAnswersList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Questions\MultipleChoiceAnswersList.xaml.cs">
       <DependentUpon>MultipleChoiceAnswersList.xaml</DependentUpon>
     </Compile>
@@ -104,6 +110,14 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="Controls\Input\TextEntryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Questions\CheckboxAnswerItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Questions\MultipleCheckboxesAnswersList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

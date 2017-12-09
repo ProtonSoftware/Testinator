@@ -7,26 +7,49 @@
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d">
-    
-    <Grid Background="{StaticResource WhiteLightBrush}"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center">
 
-        <Border Background="{StaticResource WhiteDarkBrush}" 
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Background="{StaticResource WhiteDarkBrush}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
                 CornerRadius="3"
-                Padding="15 50 15 15"
+                Padding="25 30"
                 Width="600"
-                Margin="50 50 50 0">
+                Margin="50">
 
             <StackPanel>
 
-                <TextBlock Text="{Binding Task}" />
+                <TextBlock Text="{Binding QuestionPageCounter}"
+                           Style="{StaticResource TitleText}"
+                           Foreground="{StaticResource BlackDarkBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="10" />
+
+                <TextBlock Text="{Binding Task}"
+                           Style="{StaticResource QuestionTextBlockStyle}"
+                           FontSize="{StaticResource FontSizeLarge}"
+                           Margin="5" />
+
+                <local:MultipleCheckboxesAnswersList DataContext="{Binding}" />
 
             </StackPanel>
-            
-            
+
+
         </Border>
 
+        <Button Content="Następne pytanie"
+                Grid.Row="1"
+                Style="{StaticResource BaseUIButton}"
+                Command="{Binding SubmitCommand}"
+                HorizontalAlignment="Right"
+                Margin="50" />
+
     </Grid>
-    
+
 </UICore:BasePage>
