@@ -10,6 +10,11 @@
     
     <Grid Background="{StaticResource WhiteLightBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <Border Background="{StaticResource WhiteDarkBrush}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -37,6 +42,12 @@
             
             
         </Border>
+
+        <Button Content="Następne pytanie"
+                Grid.Row="1"
+                Style="{StaticResource BaseUIButton}"
+                Command="{Binding SubmitCommand}"
+                HorizontalAlignment="Right" />
 
     </Grid>
     

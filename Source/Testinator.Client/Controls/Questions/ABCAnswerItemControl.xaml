@@ -30,6 +30,7 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <TextBlock Text="{Binding Letter}"
+                                           Padding="5"
                                            FontSize="{StaticResource FontSizeXLarge}"
                                            FontFamily="{StaticResource FontMontserratBold}"
                                            HorizontalAlignment="Center"
@@ -37,6 +38,7 @@
                                            Foreground="{StaticResource BlackDarkBrush}" />
 
                                 <TextBlock Grid.Column="1"
+                                           Padding="5"
                                            Text="{Binding Text}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
 

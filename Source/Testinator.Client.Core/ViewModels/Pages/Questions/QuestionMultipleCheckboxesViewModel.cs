@@ -170,11 +170,11 @@ namespace Testinator.Client.Core
             mQuestion = question;
 
             // Convert from dictionary to answer items list
-            ListConvertFromDictionaryQuestion(mQuestion.OptionsAndAnswers);
+            Options = ListConvertFromDictionaryQuestion(mQuestion.OptionsAndAnswers);
 
             // Make all the answers unchecked
             CurrentlyChecked = new ObservableCollection<bool>();
-            for (int i = 0; i < Options.Count; i++)
+            for (int i = 0; i < Count; i++)
                 CurrentlyChecked.Add(false);
         }
 

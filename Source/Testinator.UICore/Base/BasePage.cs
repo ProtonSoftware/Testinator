@@ -5,6 +5,7 @@ using System;
 using Testinator.Core;
 using System.ComponentModel;
 using Testinator.Server.Core;
+using Testinator.Client.Core;
 
 namespace Testinator.UICore
 {
@@ -197,7 +198,7 @@ namespace Testinator.UICore
         public BasePage() : base()
         {
             // Create a default view model
-            ViewModel = IoCServer.Get<VM>();
+            ViewModel = IoCClient.Get<VM>();
         }
 
         /// <summary>
@@ -211,7 +212,7 @@ namespace Testinator.UICore
                 ViewModel = specificViewModel;
             else
                 // Create a default view model
-                ViewModel = IoCServer.Get<VM>();
+                ViewModel = IoCClient.Get<VM>();
         }
 
         #endregion

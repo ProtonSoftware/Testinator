@@ -167,7 +167,7 @@ namespace Testinator.Client.Core
             for(int i = 1; i <= Count; i++)
             {
                 // Check if any item is selected
-                if (Options[i].IsSelected) index = i;
+                if (Options[i-1].IsSelected) index = i;
             }
 
             // Return index (if none items were selected, we return 0
