@@ -14,15 +14,22 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 CornerRadius="3"
-                Padding="15 30"
+                Padding="25 30"
                 Width="600"
                 Margin="50">
 
             <StackPanel>
 
+                <TextBlock Text="{Binding QuestionPageCounter}"
+                           Style="{StaticResource TitleText}"
+                           Foreground="{StaticResource BlackDarkBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="10" />
+
                 <TextBlock Text="{Binding Task}"
                            Style="{StaticResource QuestionTextBlockStyle}"
-                           FontSize="{StaticResource FontSizeLarge}" />
+                           FontSize="{StaticResource FontSizeLarge}"
+                           Margin="5" />
                 
                 <local:MultipleChoiceAnswersList DataContext="{Binding}" />
 

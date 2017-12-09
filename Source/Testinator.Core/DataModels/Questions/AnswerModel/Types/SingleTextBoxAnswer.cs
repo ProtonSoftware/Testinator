@@ -8,11 +8,6 @@
         #region Public Properties
 
         /// <summary>
-        /// Keeps this answer connected with the question
-        /// </summary>
-        public int ID { get; set; }
-
-        /// <summary>
         /// The answer itself
         /// </summary>
         public string Answer { get; set; }

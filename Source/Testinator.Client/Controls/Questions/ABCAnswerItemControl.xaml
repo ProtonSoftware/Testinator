@@ -30,7 +30,10 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <TextBlock Text="{Binding Letter}"
-                                           Style="{StaticResource TitleText}"
+                                           FontSize="{StaticResource FontSizeXLarge}"
+                                           FontFamily="{StaticResource FontMontserratBold}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
                                            Foreground="{StaticResource BlackDarkBrush}" />
 
                                 <TextBlock Grid.Column="1"
@@ -50,7 +53,7 @@
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="Blue" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation To="{StaticResource GreenLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

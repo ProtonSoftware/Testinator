@@ -29,10 +29,12 @@
     <Style x:Key="QuestionTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource FontMontserratBold}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
 
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="5" />
 
         <Setter Property="Foreground" Value="{StaticResource BlackDarkBrush}" />
 

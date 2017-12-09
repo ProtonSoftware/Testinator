@@ -22,6 +22,11 @@ namespace Testinator.Client.Core
         #region Public Properties
 
         /// <summary>
+        /// The title which shows question id
+        /// </summary>
+        public string QuestionPageCounter => "Pytanie " + mQuestion.ID;
+
+        /// <summary>
         /// The task of the question
         /// </summary>
         public string Task => mQuestion.Task;
@@ -30,13 +35,6 @@ namespace Testinator.Client.Core
         /// Options for the questions to choose from eg. A, B, C...
         /// </summary>
         public List<ABCAnswerItemViewModel> Options { get; set; }
-
-        /// <summary>
-        /// Index of answer currently selected
-        /// IMPORTANT: 1 means that the first option in the list is seleced, 2 that second, etc.
-        /// 0 means that no answer is selected
-        /// </summary>
-        public int CurrentlySelectedIdx { get; set; } = 0;
 
         /// <summary>
         /// Number of options available
@@ -63,12 +61,6 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand SubmitCommand { get; set; }
 
-        /// <summary>
-        /// Makes the answer selected,
-        /// NOTE: command parameter MUST be the answer index, look at <see cref="CurrentlySelecedIdx"/>
-        /// </summary>
-        public ICommand SelectCommand { get; set; }
-
         #endregion
 
         #region Constructor
@@ -80,7 +72,6 @@ namespace Testinator.Client.Core
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
-            SelectCommand = new RelayParameterizedCommand(Select);
         }
 
         #endregion
@@ -88,26 +79,14 @@ namespace Testinator.Client.Core
         #region Command Methods
 
         /// <summary>
-        /// Select the answer
-        /// </summary>
-        /// <param name="obj">The index of the answer, also look at <see cref="CurrentlySelecedIdx"/>/></param>
-        private void Select(object obj)
-        {
-            // Cast parameter
-            var idxStr = obj as string;
-            if (!Int32.TryParse(idxStr, out int idx))
-                throw new NotImplementedException();
-
-            CurrentlySelectedIdx = idx;
-
-            NoAnswerWarning = false;
-        }
-
-        /// <summary>
         /// Submits the current question
         /// </summary>
         private void Submit()
         {
+            // Check which answer is selected
+            int CurrentlySelectedIdx = CheckWhichAnswerIsSelected();
+
+            // If none, show error and don't submit
             if (CurrentlySelectedIdx == 0)
             {
                 NoAnswerWarning = true;
@@ -174,6 +153,26 @@ namespace Testinator.Client.Core
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Checks which item in the answers list is selected
+        /// </summary>
+        /// <returns></returns>
+        private int CheckWhichAnswerIsSelected()
+        {
+            // Keep track of the index of the item which is selected
+            int index = 0;
+
+            // Loop each item
+            for(int i = 1; i <= Count; i++)
+            {
+                // Check if any item is selected
+                if (Options[i].IsSelected) index = i;
+            }
+
+            // Return index (if none items were selected, we return 0
+            return index;
+        }
 
         /// <summary>
         /// Takes in a list of strings and converts it to actual list of answer items
