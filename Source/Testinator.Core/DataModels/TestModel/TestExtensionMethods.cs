@@ -7,7 +7,7 @@ namespace Testinator.Core
     /// <summary>
     /// Helps to build a <see cref="Test"/>
     /// </summary>
-    public static class TestHelpers
+    public static class TestExtensionMethods
     {
         #region Public Methods
 
