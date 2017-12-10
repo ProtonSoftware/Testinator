@@ -77,6 +77,12 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TestMenu\TestMenuListControl.xaml.cs">
+      <DependentUpon>TestMenuListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TestMenu\TestMenuListItemControl.xaml.cs">
+      <DependentUpon>TestMenuListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -102,6 +108,7 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageConverter.cs" />
+    <Compile Include="ValueConverters\AddQuestionConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\IconTypeToFontAwesomeConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -121,6 +128,14 @@
     <Page Include="Controls\SideMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TestMenu\TestMenuListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TestMenu\TestMenuListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

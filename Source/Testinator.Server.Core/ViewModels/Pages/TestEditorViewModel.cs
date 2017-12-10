@@ -10,6 +10,15 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestEditorViewModel : BaseViewModel
     {
+        #region Private Properties
+
+        // Displayed in combobox menu
+        private string MultipleChoiceTranslatedString => "Wielokrotny wybór (Jedna odpowiedź)";
+        private string MultipleCheckboxesTranslatedString => "Wielokrotny wybór (Wiele odpowiedzi)";
+        private string SingleTextBoxTranslatedString => "Wpisywana odpowiedź";
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -33,9 +42,42 @@ namespace Testinator.Server.Core
         public bool InvalidDataError { get; set; } = false;
 
         /// <summary>
+        /// Question type as string from combobox
+        /// </summary>
+        public string QuestionBeingAddedString { get; set; } = "";
+
+        /// <summary>
         /// The type of the question being added right now
         /// </summary>
-        public QuestionType QuestionBeingAddedType { get; set; } = QuestionType.None;
+        public QuestionType QuestionBeingAddedType
+        {
+            get
+            {
+                // Based on what is chosen in combobox
+                if (QuestionBeingAddedString == "System.Windows.Controls.ComboBoxItem: " + MultipleChoiceTranslatedString) return QuestionType.MultipleChoice;
+                if (QuestionBeingAddedString == "System.Windows.Controls.ComboBoxItem: " + MultipleCheckboxesTranslatedString) return QuestionType.MultipleCheckboxes;
+                if (QuestionBeingAddedString == "System.Windows.Controls.ComboBoxItem: " + SingleTextBoxTranslatedString) return QuestionType.SingleTextBox;
+
+                // None found, return default value
+                return QuestionType.None;
+            }
+        }
+
+        #region Multiple Choice Answers
+
+        public string AnswerA { get; set; }
+        public string AnswerB { get; set; }
+        public string AnswerC { get; set; }
+        public string AnswerD { get; set; }
+        public string AnswerE { get; set; }
+
+        public int HowManyAnswersVisible = 2;
+
+        public bool ShouldAnswerCBeVisible { get; set; } = false;
+        public bool ShouldAnswerDBeVisible { get; set; } = false;
+        public bool ShouldAnswerEBeVisible { get; set; } = false;
+
+        #endregion
 
         #endregion
 
@@ -51,6 +93,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand SubmitQuestionCommand { get; private set; }
 
+        /// <summary>
+        /// The command to add new answer to the multiple choice question
+        /// </summary>
+        public ICommand AddAnswerMultipleChoiceCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -63,6 +110,7 @@ namespace Testinator.Server.Core
             // Create commands
             AddingQuestionsPageChangeCommand = new RelayCommand(ChangePage);
             SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
+            AddAnswerMultipleChoiceCommand = new RelayCommand(AddAnswerMultipleChoice);
         }
 
         #endregion
@@ -93,6 +141,24 @@ namespace Testinator.Server.Core
 
             // Pass it to the next page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);
+        }
+
+        /// <summary>
+        /// Adds answer to the multiple choice question
+        /// </summary>
+        private void AddAnswerMultipleChoice()
+        {
+            // Show next answer
+            HowManyAnswersVisible++;
+            switch(HowManyAnswersVisible)
+            {
+                case 3: ShouldAnswerCBeVisible = true;
+                    break;
+                case 4: ShouldAnswerDBeVisible = true;
+                    break;
+                case 5: ShouldAnswerEBeVisible = true;
+                    break;
+            }
         }
 
         /// <summary>
