@@ -19,12 +19,10 @@
         /// <summary>
         /// Default construcotr
         /// </summary>
-        /// <param name="question">The question this answer is for</param>
-        /// <param name="answer">The answer for the question given by the user</param>
-        public SingleTextBoxAnswer(SingleTextBoxQuestion question, string answer)
+        /// <param name="answer">The answer for the question</param>
+        public SingleTextBoxAnswer(string answer)
         {
             Type = QuestionType.SingleTextBox;
-            ID = question.ID;
             Answer = answer;
         }
         

@@ -121,9 +121,10 @@ namespace Testinator.Client.Core
                 return;
             }
 
+            /*
             // Save the answer
             var answer = new MultipleCheckboxesAnswer(mQuestion, new List<bool>(CurrentlyChecked));
-            IoCClient.Application.Test.AddAnswer(answer);
+            //IoCClient.Application.Test.AddAnswer(answer);
 
             // Go to next page
             var question = IoCClient.Application.Test.GetNextQuestion();
@@ -158,6 +159,7 @@ namespace Testinator.Client.Core
                         break;
                     }
             }
+            */
         }
 
         #endregion

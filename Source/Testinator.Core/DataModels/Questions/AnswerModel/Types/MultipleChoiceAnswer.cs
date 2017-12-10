@@ -19,12 +19,10 @@
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="question">The question this answer is for</param>
         /// <param name="AnswerIdx">The answer for this question</param>
-        public MultipleChoiceAnswer(MultipleChoiceQuestion question, int AnswerIdx) 
+        public MultipleChoiceAnswer(int AnswerIdx) 
         {
             Type = QuestionType.MultipleChoice;
-            ID = question.ID;
             SelectedAnswerIdx = AnswerIdx;
         }
         

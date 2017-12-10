@@ -92,7 +92,7 @@ namespace Testinator.Client.Core
                 NoAnswerWarning = true;
                 return;
             }
-
+            /*
             // Save the answer
             var answer = new MultipleChoiceAnswer(mQuestion, CurrentlySelectedIdx);
             IoCClient.Application.Test.AddAnswer(answer);
@@ -130,6 +130,7 @@ namespace Testinator.Client.Core
                         break;
                     }
             }
+            */
         }
 
         #endregion

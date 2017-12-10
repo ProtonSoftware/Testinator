@@ -21,12 +21,10 @@ namespace Testinator.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="question">The question this answer is for</param>
-        /// <param name="answer">The answer given by the user</param>
-        public MultipleCheckboxesAnswer(MultipleCheckboxesQuestion question, List<bool> answer)
+        /// <param name="answer">The answer to the question</param>
+        public MultipleCheckboxesAnswer(List<bool> answer)
         {
             Type = QuestionType.MultipleCheckboxes;
-            ID = question.ID;
             Answers = answer;
         }
         

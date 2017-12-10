@@ -4,14 +4,16 @@ using System.Collections.Generic;
 namespace Testinator.Core
 {
     /// <summary>
-    /// The model of a test
+    /// The model of a test contaning only essential properties and functions
     /// </summary>
+    [Serializable]
     public class Test
     {
-        #region Private Members
-        
+        #region Protected Members
+
+        /*
         /// <summary>
-        /// Provides indexes for the question
+        /// Provides indexes for questions
         /// </summary>
         private int mIdProvider = 0;
 
@@ -21,9 +23,15 @@ namespace Testinator.Core
         private List<Question> mQuestions = new List<Question>();
 
         /// <summary>
-        /// The list of all answers in the test
+        /// The list of all correct answers in the test
         /// </summary>
         private List<Answer> mAnswers = new List<Answer>();
+        */
+
+        /// <summary>
+        /// Stores all questions and correct answers for them in this test
+        /// </summary>
+        protected Dictionary<Question,Answer> QuestionsAnswers = new Dictionary<Question, Answer>();
 
         #endregion
 
@@ -39,16 +47,13 @@ namespace Testinator.Core
         /// </summary>
         public TimeSpan Duration { get; set; }
 
+        /*
         /// <summary>
-        /// How much questions in the test
+        /// Number of questions in this test
         /// </summary>
         public int QuestionCount => Questions.Count;
 
-        /// <summary>
-        /// Indicates which question is displayed now
-        /// </summary>
-        public int QuestionCounter { get; set; } = 1;
-
+        
         /// <summary>
         /// The list of all questions in the test
         /// </summary>
@@ -90,6 +95,7 @@ namespace Testinator.Core
             }
         }
         // TODO: answer cannot be null, exception here ^^^^
+       */
 
         #endregion
 
@@ -103,62 +109,5 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Public Helpers
-
-        /// <summary>
-        /// Adds a question to this test
-        /// </summary>
-        /// <param name="question">The question being added</param>
-        public void AddQuestion(Question question)
-        {
-            if (mQuestions == null || question == null)
-                return;
-            question.ID = mIdProvider;
-            mIdProvider++;
-            mQuestions.Add(question);
-        }
-
-        /// <summary>
-        /// Adds an answer to this test
-        /// </summary>
-        /// <param name="question">The answer being added</param>
-        public void AddAnswer(Answer answer)
-        {
-            if (mAnswers == null || answer == null)
-                return;
-            answer.ID = mIdProvider;
-            mIdProvider++;
-            mAnswers.Add(answer);
-        }
-
-        /// <summary>
-        /// Gets next question
-        /// </summary>
-        public Question GetNextQuestion()
-        {
-            // We try to get next question, so lets move the counter
-            QuestionCounter++;
-
-            // Check if last question was the last one
-            if (QuestionCounter == Questions.Count)
-            {
-                // Then end the test and don't show any question
-                EndTest();
-                return null;
-            }
-
-            // Return next question
-            return Questions[QuestionCounter - 1];
-        }
-
-        /// <summary>
-        /// Ends the test
-        /// </summary>
-        public void EndTest()
-        {
-            return;
-        }
-
-        #endregion
     }
 }

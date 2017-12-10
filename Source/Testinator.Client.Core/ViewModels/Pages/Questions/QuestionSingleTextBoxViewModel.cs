@@ -80,7 +80,7 @@ namespace Testinator.Client.Core
                 return;
             }
 
-            var answer = new SingleTextBoxAnswer(mQuestion, CurrentAnswer);
+            var answer = new SingleTextBoxAnswer(CurrentAnswer);
             // TODO: save the answer and show the next question
         }
 

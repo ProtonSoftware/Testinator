@@ -9,10 +9,5 @@
         /// The type of the question this answer is for
         /// </summary>
         public QuestionType Type { get; protected set; }
-
-        /// <summary>
-        /// The ID to know which question is this answer attached to
-        /// </summary>
-        public int ID { get; set; }
     }
 }

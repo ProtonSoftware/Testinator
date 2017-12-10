@@ -67,6 +67,7 @@
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
     <Compile Include="DataModels\TestModel\Test.cs" />
+    <Compile Include="DataModels\TestModel\TestBuilder.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Network\DataPackageDescriptor.cs" />
     <Compile Include="Network\NetworkHelpers.cs" />
