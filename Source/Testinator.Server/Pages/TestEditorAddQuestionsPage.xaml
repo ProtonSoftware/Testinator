@@ -95,7 +95,7 @@
                             </StackPanel>
 
                             <Button Content="+ Dodaj odp"
-                                    Command="{Binding AddAnswerMultipleChoiceCommand}"
+                                    Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
@@ -104,8 +104,40 @@
                         <!-- Multiple checkboxes question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleCheckboxes}">
 
-                            <TextBlock Text="Checkbox" 
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer1}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer2}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer3}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer4}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer5}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <Button Content="+ Dodaj odp"
+                                    Command="{Binding AddAnswerCommand}"
+                                    Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                    Style="{StaticResource BaseUIButton}" />
 
 
                         </StackPanel>
@@ -113,8 +145,7 @@
                         <!-- Single textbox question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=SingleTextBox}">
 
-                            <TextBlock Text="Textblox" 
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                            <TextBox Style="{StaticResource SmallInputTextBox}" />
                             
                         </StackPanel>
 
