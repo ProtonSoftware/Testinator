@@ -104,7 +104,7 @@ namespace Testinator.Core
         /// </summary>
         public MultipleChoiceQuestion()
         {
-            Type = QuestionTypes.MultipleChoice;
+            Type = QuestionType.MultipleChoice;
 
             // Create defaults
             Task = "Wpisz pytanie";

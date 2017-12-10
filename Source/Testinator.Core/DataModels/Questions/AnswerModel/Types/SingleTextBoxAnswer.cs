@@ -23,7 +23,7 @@
         /// <param name="answer">The answer for the question given by the user</param>
         public SingleTextBoxAnswer(SingleTextBoxQuestion question, string answer)
         {
-            Type = QuestionTypes.SingleTextBox;
+            Type = QuestionType.SingleTextBox;
             ID = question.ID;
             Answer = answer;
         }

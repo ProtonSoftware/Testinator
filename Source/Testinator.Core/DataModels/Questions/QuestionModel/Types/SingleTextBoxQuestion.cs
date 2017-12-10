@@ -78,7 +78,7 @@
         /// </summary>
         public SingleTextBoxQuestion()
         {
-            Type = QuestionTypes.SingleTextBox;
+            Type = QuestionType.SingleTextBox;
 
             // Create defaults
             Task = "Wpisz pytanie";

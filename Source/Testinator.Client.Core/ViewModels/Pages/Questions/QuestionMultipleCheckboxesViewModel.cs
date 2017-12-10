@@ -131,7 +131,7 @@ namespace Testinator.Client.Core
             // Based on type...
             switch(question.Type)
             {
-                case QuestionTypes.MultipleChoice:
+                case QuestionType.MultipleChoice:
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleChoiceViewModel();
@@ -140,7 +140,7 @@ namespace Testinator.Client.Core
                         break;
                     }
 
-                case QuestionTypes.MultipleCheckboxes:
+                case QuestionType.MultipleCheckboxes:
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleCheckboxesViewModel();
@@ -149,7 +149,7 @@ namespace Testinator.Client.Core
                         break;
                     }
 
-                case QuestionTypes.SingleTextBox:
+                case QuestionType.SingleTextBox:
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionSingleTextBoxViewModel();

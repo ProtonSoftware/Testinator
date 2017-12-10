@@ -82,7 +82,7 @@ namespace Testinator.Core
         /// </summary>
         public MultipleCheckboxesQuestion()
         {
-            Type = QuestionTypes.MultipleCheckboxes;
+            Type = QuestionType.MultipleCheckboxes;
 
             // Create defaults
             Task = "Wpisz pytanie";

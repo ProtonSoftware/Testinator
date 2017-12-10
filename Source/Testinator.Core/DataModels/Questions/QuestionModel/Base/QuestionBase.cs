@@ -8,7 +8,7 @@
         /// <summary>
         /// The type of this question
         /// </summary>
-        public QuestionTypes Type { get; protected set; }
+        public QuestionType Type { get; protected set; }
 
         /// <summary>
         /// Identifier of this question

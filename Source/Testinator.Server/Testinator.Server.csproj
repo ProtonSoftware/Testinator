@@ -80,6 +80,9 @@
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TestEditorAddQuestionsPage.xaml.cs">
+      <DependentUpon>TestEditorAddQuestionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TestEditorPage.xaml.cs">
       <DependentUpon>TestEditorPage.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\TestEditorAddQuestionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

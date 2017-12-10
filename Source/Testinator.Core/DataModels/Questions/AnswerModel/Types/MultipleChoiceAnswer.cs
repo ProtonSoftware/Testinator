@@ -23,7 +23,7 @@
         /// <param name="AnswerIdx">The answer for this question</param>
         public MultipleChoiceAnswer(MultipleChoiceQuestion question, int AnswerIdx) 
         {
-            Type = QuestionTypes.MultipleChoice;
+            Type = QuestionType.MultipleChoice;
             ID = question.ID;
             SelectedAnswerIdx = AnswerIdx;
         }

@@ -31,18 +31,23 @@
         TestEditor = 4,
 
         /// <summary>
+        /// The page to add questions to previously created test on test editor page
+        /// </summary>
+        TestEditorAddQuestions = 5,
+
+        /// <summary>
         /// The screen stream page
         /// </summary>
-        ScreenStream = 5,
+        ScreenStream = 6,
 
         /// <summary>
         /// The settings page
         /// </summary>
-        Settings = 6,
+        Settings = 7,
 
         /// <summary>
         /// Info about the application
         /// </summary>
-        About = 7
+        About = 8
     }
 }

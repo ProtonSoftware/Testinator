@@ -1,10 +1,15 @@
 ﻿namespace Testinator.Core
 {
     /// <summary>
-    /// Question types as an enum
+    /// Question type as an enum
     /// </summary>
-    public enum QuestionTypes
+    public enum QuestionType
     {
+        /// <summary>
+        /// Default no question type (used when we wanna hide something which base on question type)
+        /// </summary>
+        None,
+
         /// <summary>
         /// Multiple choice question, mostly A, B, C or D
         /// </summary>

@@ -25,7 +25,7 @@ namespace Testinator.Core
         /// <param name="answer">The answer given by the user</param>
         public MultipleCheckboxesAnswer(MultipleCheckboxesQuestion question, List<bool> answer)
         {
-            Type = QuestionTypes.MultipleCheckboxes;
+            Type = QuestionType.MultipleCheckboxes;
             ID = question.ID;
             Answers = answer;
         }

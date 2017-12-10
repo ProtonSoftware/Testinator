@@ -8,7 +8,7 @@
         /// <summary>
         /// The type of the question this answer is for
         /// </summary>
-        public QuestionTypes Type { get; protected set; }
+        public QuestionType Type { get; protected set; }
 
         /// <summary>
         /// The ID to know which question is this answer attached to
