@@ -82,6 +82,20 @@ namespace Testinator.Core
             test.Questions.Clear();
         }
 
+        /// <summary>
+        /// Get maximum possible score from the test
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns>Max possible score</returns>
+        public static int MaxPossibleScore(this Test test)
+        {
+            int max = 0;
+            foreach (var q in test.Questions)
+                max += q.PointScore;
+
+            return max;
+        }
+
         #endregion
 
     }

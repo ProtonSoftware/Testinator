@@ -17,11 +17,6 @@ namespace Testinator.Core
         private int mCorrectIdx;
 
         /// <summary>
-        /// Question value in points
-        /// </summary>
-        private int mScore;
-
-        /// <summary>
         /// The task itself
         /// </summary>
         private string mTask;
@@ -35,20 +30,6 @@ namespace Testinator.Core
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        /// Number of points given for a good answer
-        /// </summary>
-        public int PointScore
-        {
-            get => mScore;
-            set
-            {
-                if (value < 0)
-                    throw new QuestionException(QuestionExceptionTypes.PointScoreLessThanZero);
-                mScore = value;
-            }
-        }
 
         /// <summary>
         /// Options for the question to chose from. 

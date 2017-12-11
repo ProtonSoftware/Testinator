@@ -158,10 +158,12 @@ namespace Testinator.Server.Core
             }
 
             // Save this view model
-            var viewModel = new TestEditorAddNewTestViewModel();
-            viewModel.Name = this.Name;
-            viewModel.Duration = this.Duration;
-            viewModel.Test = this.Test;
+            var viewModel = new TestEditorAddNewTestViewModel
+            {
+                Name = this.Name,
+                Duration = this.Duration,
+                Test = this.Test
+            };
 
             // Pass it to the next page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);

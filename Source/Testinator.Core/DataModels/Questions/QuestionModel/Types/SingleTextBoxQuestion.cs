@@ -11,11 +11,6 @@ namespace Testinator.Core
         #region Private Members 
 
         /// <summary>
-        /// Question value in points
-        /// </summary>
-        private int mScore;
-
-        /// <summary>
         /// The task itself
         /// </summary>
         private string mTask;
@@ -28,20 +23,6 @@ namespace Testinator.Core
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        /// Number of points given for a good answer
-        /// </summary>
-        public int PointScore
-        {
-            get => mScore;
-            set
-            {
-                if (value < 0)
-                    throw new QuestionException(QuestionExceptionTypes.PointScoreLessThanZero);
-                mScore = value;
-            }
-        }
 
         /// <summary>
         /// The task itself

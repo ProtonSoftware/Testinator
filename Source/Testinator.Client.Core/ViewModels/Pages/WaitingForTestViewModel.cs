@@ -36,15 +36,11 @@ namespace Testinator.Client.Core
         /// <summary>
         /// How much score can user get from this test
         /// </summary>
-        public string TestPossibleScore { get; set; }
+        public int TestPossibleScore { get; set; }
 
         /// <summary>
-        /// How many question this test has
-        /// </summary>
-        public int TestQuestionCount { get; set; }
-
-        /// <summary>
-        /// A flag indicating if we have any test to show
+        /// A flag indicating if we have any test to show,
+        /// to show corresponding content in the WaitingPage
         /// </summary>
         public bool ReceivedTest { get; set; }
 
@@ -63,9 +59,6 @@ namespace Testinator.Client.Core
 
             // Listen out for test package
             IoCClient.Application.TestReceived += Application_TestReceived;
-
-            // Fake test for now, TODO: delete it and wait for server to send test
-            FakeTest();
         }
 
         #endregion
@@ -75,32 +68,14 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Fired when the test from server has arrived
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="test"></param>
         private void Application_TestReceived(Test test)
         {
-            // Set the properties of the test we've received\
+            // Set the properties of the test we've received
             ReceivedTest = true;
             TestName = test.Name;
             TestDuration = test.Duration;
-            // TestPossibleScore = test.;
-            // TestQuestionCount = test.;
-
-            // TODO: Randomize question order etc. 
-
-            // Create a dummy question 
-            var viewmodel1 = new QuestionMultipleCheckboxesViewModel();
-            viewmodel1.AttachQuestion(new MultipleCheckboxesQuestion()
-            {
-                PointScore = 1,
-                Task = "Co robi kot?",
-                OptionsAndAnswers = new Dictionary<string, bool>() { { "nic", true }, { "miau", true }, { "hau", false } },
-            });
-
-            var viewmodel2 = new QuestionMultipleChoiceViewModel();
-            viewmodel2.AttachQuestion(new MultipleChoiceQuestion());
-
-            var viewmodel3 = new QuestionSingleTextBoxViewModel();
-            viewmodel3.AttachQuestion(new SingleTextBoxQuestion());
+            TestPossibleScore = test.MaxPossibleScore();
 
             // Change page to the first question page
             //IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, viewmodel1);
@@ -188,6 +163,8 @@ namespace Testinator.Client.Core
             test.AddQuestion(q2);
             test.AddQuestion(q3);
             test.AddQuestion(q4);
+
+            int max = test.MaxPossibleScore();
 
 
             if (DataPackageDescriptor.TryConvertToBin(out byte[] data, new DataPackage(PackageType.TestForm, test)))
