@@ -1,4 +1,4 @@
-﻿<UICore:BasePage x:TypeArguments="Core:TestEditorViewModel" x:Class="Testinator.Server.TestEditorAddQuestionsPage"
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorAddNewTestViewModel" x:Class="Testinator.Server.TestEditorAddQuestionsPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,10 +17,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <local:TestMenuListControl />
+        <local:TestMenuListControl DataContext="{Binding Questions}" />
 
         <TextBlock Text="Dodaj pytanie do testu"
-                   Grid.ColumnSpan="2"
+                   Grid.Column="1"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"

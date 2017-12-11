@@ -6,16 +6,16 @@ using Testinator.Core;
 namespace Testinator.Server.Core
 {
     /// <summary>
-    /// The view model for test editor(creator) page
+    /// The view model for adding new test in TestEditor page
     /// </summary>
-    public class TestEditorViewModel : BaseViewModel
+    public class TestEditorAddNewTestViewModel : BaseViewModel
     {
-        #region Private Properties
+        #region Private Members
 
         // Displayed in combobox menu
-        private string MultipleChoiceTranslatedString => "Wielokrotny wybór (Jedna odpowiedź)";
-        private string MultipleCheckboxesTranslatedString => "Wielokrotny wybór (Wiele odpowiedzi)";
-        private string SingleTextBoxTranslatedString => "Wpisywana odpowiedź";
+        private string mMultipleChoiceTranslatedString = "Wielokrotny wybór (Jedna odpowiedź)";
+        private string mMultipleCheckboxesTranslatedString = "Wielokrotny wybór (Wiele odpowiedzi)";
+        private string mSingleTextBoxTranslatedString = "Wpisywana odpowiedź";
 
         #endregion
 
@@ -53,10 +53,12 @@ namespace Testinator.Server.Core
         {
             get
             {
-                // Based on what is chosen in combobox
-                if (QuestionBeingAddedString == "System.Windows.Controls.ComboBoxItem: " + MultipleChoiceTranslatedString) return QuestionType.MultipleChoice;
-                if (QuestionBeingAddedString == "System.Windows.Controls.ComboBoxItem: " + MultipleCheckboxesTranslatedString) return QuestionType.MultipleCheckboxes;
-                if (QuestionBeingAddedString == "System.Windows.Controls.ComboBoxItem: " + SingleTextBoxTranslatedString) return QuestionType.SingleTextBox;
+                string windowsPrefix = "System.Windows.Controls.ComboBoxItem: ";
+
+                // Based on what is chosen in combobox...
+                if (QuestionBeingAddedString == windowsPrefix + mMultipleChoiceTranslatedString) return QuestionType.MultipleChoice;
+                if (QuestionBeingAddedString == windowsPrefix + mMultipleCheckboxesTranslatedString) return QuestionType.MultipleCheckboxes;
+                if (QuestionBeingAddedString == windowsPrefix + mSingleTextBoxTranslatedString) return QuestionType.SingleTextBox;
 
                 // None found, return default value
                 return QuestionType.None;
@@ -114,6 +116,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand AddAnswerCommand { get; private set; }
 
+        /// <summary>
+        /// The command to remove an additional answer from the question
+        /// </summary>
+        public ICommand RemoveAnswerCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -121,12 +128,13 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public TestEditorViewModel()
+        public TestEditorAddNewTestViewModel()
         {
             // Create commands
             AddingQuestionsPageChangeCommand = new RelayCommand(ChangePage);
             SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
             AddAnswerCommand = new RelayCommand(AddAnswer);
+            RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
         }
 
         #endregion
@@ -150,7 +158,7 @@ namespace Testinator.Server.Core
             }
 
             // Save this view model
-            var viewModel = new TestEditorViewModel();
+            var viewModel = new TestEditorAddNewTestViewModel();
             viewModel.Name = this.Name;
             viewModel.Duration = this.Duration;
             viewModel.Test = this.Test;
@@ -160,7 +168,7 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Adds answer to the multiple choice question
+        /// Adds an answer to the question
         /// </summary>
         private void AddAnswer()
         {
@@ -181,7 +189,7 @@ namespace Testinator.Server.Core
                         ShouldAnswerEBeVisible = true;
                         break;
                 }
-            }
+}
             else if (QuestionBeingAddedType == QuestionType.MultipleCheckboxes)
             {
                 // Show next answer
@@ -198,6 +206,52 @@ namespace Testinator.Server.Core
                         ShouldAnswer5BeVisible = true;
                         break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Removes an answer from the question
+        /// </summary>
+        private void RemoveAnswer()
+        {
+            // Check which question type is being created
+            if (QuestionBeingAddedType == QuestionType.MultipleChoice)
+            {
+                // Remove answer based on counter
+                switch (HowManyMultipleChoiceAnswersVisible)
+                {
+                    case 5:
+                        ShouldAnswerEBeVisible = false;
+                        break;
+                    case 4:
+                        ShouldAnswerDBeVisible = false;
+                        break;
+                    case 3:
+                        ShouldAnswerCBeVisible = false;
+                        break;
+                }
+
+                // Decrement the counter
+                HowManyMultipleChoiceAnswersVisible--;
+            }
+            else if (QuestionBeingAddedType == QuestionType.MultipleCheckboxes)
+            {
+                // Remove answer based on counter
+                switch (HowManyMultipleCheckboxesAnswersVisible)
+                {
+                    case 5:
+                        ShouldAnswer5BeVisible = false;
+                        break;
+                    case 4:
+                        ShouldAnswer4BeVisible = false;
+                        break;
+                    case 3:
+                        ShouldAnswer3BeVisible = false;
+                        break;
+                }
+
+                // Decrement the counter
+                HowManyMultipleCheckboxesAnswersVisible--;
             }
         }
 

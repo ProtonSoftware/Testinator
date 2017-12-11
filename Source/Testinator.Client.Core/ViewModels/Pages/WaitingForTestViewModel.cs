@@ -24,6 +24,26 @@ namespace Testinator.Client.Core
         public TextEntryViewModel Surname { get; set; }
 
         /// <summary>
+        /// The name of the test
+        /// </summary>
+        public string TestName { get; set; }
+
+        /// <summary>
+        /// The duration of the test
+        /// </summary>
+        public TimeSpan TestDuration { get; set; }
+
+        /// <summary>
+        /// How much score can user get from this test
+        /// </summary>
+        public string TestPossibleScore { get; set; }
+
+        /// <summary>
+        /// How many question this test has
+        /// </summary>
+        public int TestQuestionCount { get; set; }
+
+        /// <summary>
         /// A flag indicating if we have any test to show
         /// </summary>
         public bool ReceivedTest { get; set; }
@@ -56,10 +76,17 @@ namespace Testinator.Client.Core
         /// Fired when the test from server has arrived
         /// </summary>
         /// <param name="obj"></param>
-        private void Application_TestReceived(bool obj)
+        private void Application_TestReceived(Test test)
         {
+            // Set the properties of the test we've received\
+            ReceivedTest = true;
+            TestName = test.Name;
+            TestDuration = test.Duration;
+            // TestPossibleScore = test.;
+            // TestQuestionCount = test.;
+
             // TODO: Randomize question order etc. 
-            
+
             // Create a dummy question 
             var viewmodel1 = new QuestionMultipleCheckboxesViewModel();
             viewmodel1.AttachQuestion(new MultipleCheckboxesQuestion()
@@ -77,7 +104,7 @@ namespace Testinator.Client.Core
 
             // Change page to the first question page
             //IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, viewmodel1);
-            IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, viewmodel2);
+            //IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, viewmodel2);
             //IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, viewmodel3);
         }
 
@@ -97,7 +124,11 @@ namespace Testinator.Client.Core
             await Task.Delay(1500);
 
             // Fake test
-            IoCClient.Application.Test = new Test();
+            IoCClient.Application.Test = new Test
+            {
+                Name = "COS COS",
+                Duration = new TimeSpan(0, 5, 5)
+            };
         }
 
         #endregion

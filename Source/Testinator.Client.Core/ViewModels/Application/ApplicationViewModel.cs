@@ -16,6 +16,11 @@ namespace Testinator.Client.Core
         /// </summary>
         private Test mTest;
 
+        /// <summary>
+        /// Indicates if the test has started
+        /// </summary>
+        private bool mIsTestInProgress;
+
         #endregion
 
         #region Public Properties
@@ -36,7 +41,22 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the test is in progress
         /// </summary>
-        public bool IsTestInProgress { get; set; }
+        public bool IsTestInProgress
+        {
+            get => mIsTestInProgress;
+            set
+            {
+                // Check if we have any test
+                if (Test == null)
+                    return;
+
+                // If we do, fire an event to start doing the test
+                TestStarted.Invoke(true);
+
+                // And set this flag as true
+                mIsTestInProgress = true;
+            }
+        }
 
         /// <summary>
         /// Indicates if the client is currently connected to the server
@@ -51,7 +71,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// An event to fire whenever client receives test from server
         /// </summary>
-        public event Action<bool> TestReceived = (s) => { };
+        public event Action<Test> TestReceived = (s) => { };
+
+        /// <summary>
+        /// An event to fire when server send request to start the test (if we already have test of course)
+        /// </summary>
+        public event Action<bool> TestStarted = (s) => { };
 
         /// <summary>
         /// The test user has to complete
@@ -69,7 +94,7 @@ namespace Testinator.Client.Core
 
                     // Indicate that we have received it
                     IsTestReceived = true;
-                    TestReceived.Invoke(IsTestReceived);
+                    TestReceived.Invoke(mTest);
                 }
             }
         }
@@ -95,6 +120,6 @@ namespace Testinator.Client.Core
             OnPropertyChanged(nameof(CurrentPage));
         }
 
-    #endregion
+        #endregion
     }
 }

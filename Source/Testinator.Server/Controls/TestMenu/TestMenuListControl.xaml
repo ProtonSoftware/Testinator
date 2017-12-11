@@ -7,9 +7,18 @@
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <StackPanel>
+        <Border Height="40"
+                Width="100"
+                Background="LightBlue">
+
+            <Viewbox>
+                <TextBlock Text="NazwaTestu" />
+            </Viewbox>
+            
+        </Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Questions}">
+            <ItemsControl ItemsSource="{Binding}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:TestMenuListItemControl />
@@ -17,5 +26,5 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-    </Grid>
+    </StackPanel>
 </UserControl>

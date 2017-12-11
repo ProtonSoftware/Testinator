@@ -32,6 +32,46 @@
                    HorizontalAlignment="Center"
                    Margin="15" />
 
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Visibility="{Binding ReceivedTest, Converter={local:BooleanToVisiblityConverter}}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Otrzymałeś test!" 
+                       Grid.ColumnSpan="2"
+                       Style="{StaticResource MediumTitleText}" />
+
+            <TextBlock Text="Nazwa: "
+                       Grid.Row="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="{Binding TestName}"
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="Czas trwania: "
+                       Grid.Row="2"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="{Binding TestDuration}"
+                       Grid.Column="1"
+                       Grid.Row="2"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+            
+        </Grid>
+
     </Grid>
     
 </UICore:BasePage>

@@ -28,7 +28,8 @@
                                   Cursor="Hand"
                                   Background="{StaticResource BlackDarkBrush}">
 
-                                
+                                <TextBlock Text="I AM" />
+
                             </Grid>
                             
                         </Border>

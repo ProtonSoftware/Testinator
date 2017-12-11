@@ -88,13 +88,13 @@
     <Compile Include="Controls\Questions\ABCAnswerItemControl.xaml.cs">
       <DependentUpon>ABCAnswerItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\QuestionMultipleCheckboxesPage.xaml.cs">
+    <Compile Include="Pages\Questions\QuestionMultipleCheckboxesPage.xaml.cs">
       <DependentUpon>QuestionMultipleCheckboxesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\QuestionSingleTextBoxPage.xaml.cs">
+    <Compile Include="Pages\Questions\QuestionSingleTextBoxPage.xaml.cs">
       <DependentUpon>QuestionSingleTextBoxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\QuestionMultipleChoicePage.xaml.cs">
+    <Compile Include="Pages\Questions\QuestionMultipleChoicePage.xaml.cs">
       <DependentUpon>QuestionMultipleChoicePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WaitingForTestPage.xaml.cs">
@@ -108,6 +108,7 @@
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="Controls\Input\TextEntryControl.xaml">
       <SubType>Designer</SubType>
@@ -145,15 +146,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\QuestionMultipleCheckboxesPage.xaml">
+    <Page Include="Pages\Questions\QuestionMultipleCheckboxesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\QuestionSingleTextBoxPage.xaml">
+    <Page Include="Pages\Questions\QuestionSingleTextBoxPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\QuestionMultipleChoicePage.xaml">
+    <Page Include="Pages\Questions\QuestionMultipleChoicePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
