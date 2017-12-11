@@ -77,14 +77,23 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TestMenu\TestMenuListControl.xaml.cs">
+      <DependentUpon>TestMenuListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TestMenu\TestMenuListItemControl.xaml.cs">
+      <DependentUpon>TestMenuListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditorAddQuestionsPage.xaml.cs">
+    <Compile Include="Pages\TestEditor\TestEditorPage.xaml.cs">
+      <DependentUpon>TestEditorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TestEditor\TestEditorAddQuestionsPage.xaml.cs">
       <DependentUpon>TestEditorAddQuestionsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditorPage.xaml.cs">
-      <DependentUpon>TestEditorPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\TestEditorAddNewTestPage.xaml.cs">
+      <DependentUpon>TestEditorAddNewTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ScreenStreamPage.xaml.cs">
       <DependentUpon>ScreenStreamPage.xaml</DependentUpon>
@@ -102,6 +111,7 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageConverter.cs" />
+    <Compile Include="ValueConverters\AddQuestionConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\IconTypeToFontAwesomeConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -122,6 +132,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\TestMenu\TestMenuListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TestMenu\TestMenuListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,11 +156,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditorAddQuestionsPage.xaml">
+    <Page Include="Pages\TestEditor\TestEditorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditorPage.xaml">
+    <Page Include="Pages\TestEditor\TestEditorAddQuestionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\TestEditor\TestEditorAddNewTestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

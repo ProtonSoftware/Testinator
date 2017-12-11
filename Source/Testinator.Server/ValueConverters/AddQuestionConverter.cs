@@ -6,16 +6,19 @@ using Testinator.UICore;
 namespace Testinator.Server
 {
     /// <summary>
-    /// A converter that takes in a boolean and returns a <see cref="Visibility"/>
+    /// A converter that takes in a <see cref="QuestionType"/> and returns visibility based on it
     /// </summary>
-    public class BooleanToVisiblityConverter : BaseValueConverter<BooleanToVisiblityConverter>
+    public class QuestionTypeToVisibilityConverter : BaseValueConverter<QuestionTypeToVisibilityConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            // If question type is the same as parameter, make it visible
+            if (parameter.ToString() == value.ToString())
+                return Visibility.Visible;
+
+            // Otherwise, collapse it
             else
-                return (bool)value ? Visibility.Collapsed : Visibility.Visible;
+                return Visibility.Collapsed;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

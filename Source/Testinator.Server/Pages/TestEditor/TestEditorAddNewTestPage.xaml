@@ -1,4 +1,4 @@
-﻿<UICore:BasePage x:TypeArguments="Core:TestEditorViewModel" x:Class="Testinator.Server.TestEditorPage"
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorAddNewTestViewModel" x:Class="Testinator.Server.TestEditorAddNewTestPage"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

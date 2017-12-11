@@ -65,7 +65,8 @@
     <Compile Include="ViewModels\Pages\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Pages\LoginViewModel.cs" />
     <Compile Include="ViewModels\Menu\SideMenuViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewTestViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\TestEditorViewModel.cs" />
     <Compile Include="ViewModels\Server\ViewModelServerTESTOWY.cs" />
   </ItemGroup>
   <ItemGroup>

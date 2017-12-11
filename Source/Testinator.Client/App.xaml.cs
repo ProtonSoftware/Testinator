@@ -32,9 +32,6 @@ namespace Testinator.Client
         {
             // Setup IoC
             IoCClient.Setup();
-
-            // Bind a UI Manager (future feature)
-            //IoCClient.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
         }
     }
 }

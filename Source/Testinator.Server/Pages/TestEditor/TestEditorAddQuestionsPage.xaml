@@ -1,0 +1,177 @@
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorAddNewTestViewModel" x:Class="Testinator.Server.TestEditorAddQuestionsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testinator.Server"
+             xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+             mc:Ignorable="d"
+             d:DesignHeight="720"
+             d:DesignWidth="1024">
+
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <local:TestMenuListControl DataContext="{Binding Questions}" />
+
+        <TextBlock Text="Dodaj pytanie do testu"
+                   Grid.Column="1"
+                   Margin="0 40"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Style="{StaticResource TitleText}"
+                   Foreground="{StaticResource BlackDarkBrush}" />
+
+        <Grid Grid.Column="1">
+
+            <Border HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                CornerRadius="3"
+                Background="{StaticResource WhiteDarkBrush}"
+                MaxWidth="500"
+                Padding="30">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+
+                        <TextBlock Text="Wybierz typ pytania"
+                                   Margin="5"
+                                   Style="{StaticResource QuestionTextBlockStyle}" />
+
+                        <ComboBox SelectedValue="{Binding QuestionBeingAddedString}">
+                            <ComboBoxItem Content="Wielokrotny wybór (Jedna odpowiedź)" />
+                            <ComboBoxItem Content="Wielokrotny wybór (Wiele odpowiedzi)" />
+                            <ComboBoxItem Content="Wpisywana odpowiedź"
+                                          ToolTip="Uczeń wpisuje wynik w wyznaczone pole" />
+                        </ComboBox>
+
+                        <!-- Multiple choice question creator -->
+                        <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleChoice}">
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="A:"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerA}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="B:"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerB}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <TextBlock Text="C:"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerC}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <TextBlock Text="D:"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerD}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <TextBlock Text="E:"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerE}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <Button Content="+ Dodaj odp"
+                                    Command="{Binding AddAnswerCommand}"
+                                    Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                    Style="{StaticResource BaseUIButton}" />
+
+                        </StackPanel>
+
+                        <!-- Multiple checkboxes question creator -->
+                        <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleCheckboxes}">
+
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer1}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer2}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer3}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer4}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <CheckBox />
+                                <TextBox Text="{Binding Answer5}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <Button Content="+ Dodaj odp"
+                                    Command="{Binding AddAnswerCommand}"
+                                    Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                    Style="{StaticResource BaseUIButton}" />
+
+
+                        </StackPanel>
+
+                        <!-- Single textbox question creator -->
+                        <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=SingleTextBox}">
+
+                            <TextBox Style="{StaticResource SmallInputTextBox}" />
+                            
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Button Grid.Row="1"
+                            Content="Dodaj pytanie"
+                            Command="{Binding SubmitQuestionCommand}"
+                            Style="{StaticResource BaseUIButton}"
+                            HorizontalAlignment="Right" />
+
+                </Grid>
+
+
+            </Border>
+
+        </Grid>
+
+        <Button Content="Zakończ dodawanie testu"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Command="{Binding FinishTestCommand}"
+                Style="{StaticResource BaseUIButton}" />
+
+    </Grid>
+
+</UICore:BasePage>
