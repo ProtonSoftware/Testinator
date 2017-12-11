@@ -16,6 +16,11 @@ namespace Testinator.Client.Core
         /// </summary>
         private Test mTest;
 
+        /// <summary>
+        /// Indicates if the test has started
+        /// </summary>
+        private bool mIsTestInProgress;
+
         #endregion
 
         #region Public Properties
@@ -36,7 +41,22 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the test is in progress
         /// </summary>
-        public bool IsTestInProgress { get; set; }
+        public bool IsTestInProgress
+        {
+            get => mIsTestInProgress;
+            set
+            {
+                // Check if we have any test
+                if (Test == null)
+                    return;
+
+                // If we do, fire an event to start doing the test
+                TestStarted.Invoke(true);
+
+                // And set this flag as true
+                mIsTestInProgress = true;
+            }
+        }
 
         /// <summary>
         /// Indicates if the client is currently connected to the server
@@ -51,7 +71,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// An event to fire whenever client receives test from server
         /// </summary>
-        public event Action<bool> TestReceived = (s) => { };
+        public event Action<Test> TestReceived = (s) => { };
+
+        /// <summary>
+        /// An event to fire when server send request to start the test (if we already have test of course)
+        /// </summary>
+        public event Action<bool> TestStarted = (s) => { };
 
         /// <summary>
         /// Indicates how much time is left 
@@ -62,6 +87,27 @@ namespace Testinator.Client.Core
         /// Shows which question is currently shown
         /// </summary>
         public string QuestionNumber { get; set; }
+
+        /// <summary>
+        /// The test which user needs to complete
+        /// </summary>
+        public Test Test
+        {
+            get => mTest;
+            set
+            {
+                // If client hasn't received any test yet
+                if (!IsTestReceived)
+                {
+                    // Get this test
+                    mTest = value;
+
+                    // Indicate that we have received it
+                    IsTestReceived = true;
+                    TestReceived.Invoke(mTest);
+                }
+            }
+        }
 
         #endregion
 
@@ -84,6 +130,6 @@ namespace Testinator.Client.Core
             OnPropertyChanged(nameof(CurrentPage));
         }
 
-    #endregion
+        #endregion
     }
 }
