@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -37,6 +38,11 @@ namespace Testinator.Server.Core
         public Test Test { get; set; }
 
         /// <summary>
+        /// List of current questions in test converted to an observable collection
+        /// </summary>
+        public ObservableCollection<Question> Questions = new ObservableCollection<Question>();
+
+        /// <summary>
         /// A flag indicating if invalid data error should be shown
         /// </summary>
         public bool InvalidDataError { get; set; } = false;
@@ -65,6 +71,11 @@ namespace Testinator.Server.Core
             }
         }
 
+        /// <summary>
+        /// The task of the question
+        /// </summary>
+        public string QuestionTask { get; set; } = "";
+
         #region Multiple Choice Answers
 
         public string AnswerA { get; set; }
@@ -74,6 +85,8 @@ namespace Testinator.Server.Core
         public string AnswerE { get; set; }
 
         public int HowManyMultipleChoiceAnswersVisible = 2;
+        public string QuestionMultipleChoicePointScore { get; set; }
+        public string RightAnswerIdx { get; set; }
 
         public bool ShouldAnswerCBeVisible { get; set; } = false;
         public bool ShouldAnswerDBeVisible { get; set; } = false;
@@ -157,11 +170,24 @@ namespace Testinator.Server.Core
                 return;
             }
 
+            // Create new test and assign data to it
+            Test = new Test();
+            Test.Name = this.Name;
+            Test.Duration = new TimeSpan(0, time, 0);
+
+            // Save the view model and change page
+            SaveViewModelAndChangeToNewQuestion();
+        }
+
+        /// <summary>
+        /// Saves the current state of view model and changes page to the add new question page
+        /// </summary>
+        private void SaveViewModelAndChangeToNewQuestion()
+        {
             // Save this view model
             var viewModel = new TestEditorAddNewTestViewModel();
-            viewModel.Name = this.Name;
-            viewModel.Duration = this.Duration;
             viewModel.Test = this.Test;
+            foreach (var question in Test.Questions) viewModel.Questions.Add(question);
 
             // Pass it to the next page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);
@@ -260,7 +286,45 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitQuestion()
         {
-            return;
+            // Based on type
+            switch(QuestionBeingAddedType)
+            {
+                case QuestionType.MultipleChoice:
+                    {       //// TODO: Error handling!!!
+                        // Create and build a question based on values
+                        var question = new MultipleChoiceQuestion();
+                        question.Task = this.QuestionTask;
+                        if (!Int32.TryParse(this.QuestionMultipleChoicePointScore, out int pointScore))
+                        {
+                            // Wrong value in textbox input, show error
+                            return;
+                        }
+                        question.PointScore = pointScore;
+                        question.Options = new List<string>();
+                        question.Options.Add(AnswerA);
+                        question.Options.Add(AnswerB);
+                        if (ShouldAnswerCBeVisible) question.Options.Add(AnswerC);
+                        if (ShouldAnswerDBeVisible) question.Options.Add(AnswerD);
+                        if (ShouldAnswerEBeVisible) question.Options.Add(AnswerE);
+                        if (!Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx))
+                        {
+                            // Wrong value in textbox input, show error
+                            return;
+                        }
+                        question.CorrectAnswerIndex = rightAnswerIdx;
+
+                        // We have our question done, add it to the test
+                        Test.AddQuestion(question);
+
+                        // Go to adding next question
+                        SaveViewModelAndChangeToNewQuestion();
+                    }
+                    break;
+
+                default:
+                    // Question type not found, don't submit any question
+                    return;
+            }
         }
 
         #endregion

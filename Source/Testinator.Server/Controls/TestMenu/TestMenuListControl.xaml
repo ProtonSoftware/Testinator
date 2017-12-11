@@ -10,10 +10,13 @@
     <StackPanel>
         <Border Height="40"
                 Width="100"
+                BorderBrush="{StaticResource BlackDarkBrush}"
+                BorderThickness="2"
                 Background="LightBlue">
 
             <Viewbox>
-                <TextBlock Text="NazwaTestu" />
+                <TextBlock Text="NazwaTestu"
+                           Style="{StaticResource QuestionTextBlockStyle}" />
             </Viewbox>
             
         </Border>
