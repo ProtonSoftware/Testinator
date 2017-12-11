@@ -7,14 +7,14 @@ namespace Testinator.Core
     /// The model of a test contaning only essential properties and functions
     /// </summary>
     [Serializable]
-    public class Test
+    public class Test : PackageContent
     {
         #region Public Properties
-
+        
         /// <summary>
         /// Stores all questions and correct answers for them in this test
         /// </summary>
-        public Dictionary<Question,Answer> QuestionsAnswers { get; } = new Dictionary<Question, Answer>();
+        public List<Question> Questions { get; } = new List<Question>();
 
         /// <summary>
         /// The name of this test
@@ -37,6 +37,5 @@ namespace Testinator.Core
         { }
 
         #endregion
-
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace Testinator.Core
+﻿using System;
+
+namespace Testinator.Core
 {
     /// <summary>
     /// A question with a single box to write the answer in
     /// </summary>
+    [Serializable]
     public class SingleTextBoxQuestion : Question
     {
         #region Private Members 
@@ -67,6 +70,24 @@
 
                 mCorrectAnswer = value;
             }
+        }
+
+        #endregion
+
+        #region PublicMethods
+
+        /// <summary>
+        /// Clones the object
+        /// </summary>
+        /// <returns>A copy of the given object</returns>
+        public override Question Clone()
+        {
+            return new SingleTextBoxQuestion()
+            {
+                Task = this.Task,
+                CorrectAnswer = this.CorrectAnswer,
+                PointScore = this.PointScore,
+            };
         }
 
         #endregion

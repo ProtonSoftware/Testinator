@@ -92,6 +92,12 @@ namespace Testinator.Client.Core
                 NoAnswerWarning = true;
                 return;
             }
+
+            var answer = new MultipleChoiceAnswer(CurrentlySelectedIdx);
+
+            IoCClient.TestHost.SaveAnswer(answer);
+            IoCClient.TestHost.GoNextQuestion();
+
             /*
             // Save the answer
             var answer = new MultipleChoiceAnswer(mQuestion, CurrentlySelectedIdx);

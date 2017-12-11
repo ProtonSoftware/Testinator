@@ -31,6 +31,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public static ClientNetwork Network => IoCClient.Get<ClientNetwork>();
 
+        /// <summary>
+        /// A shortcut to access the <see cref="TestHost"/>
+        /// </summary>
+        public static TestHost TestHost => IoCClient.Get<TestHost>();
+
         #endregion
 
         #region Construction
@@ -55,6 +60,7 @@ namespace Testinator.Client.Core
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
             Kernel.Bind<ClientNetwork>().ToConstant(new ClientNetwork());
             Kernel.Bind<ClientModel>().ToConstant(new ClientModel());
+            Kernel.Bind<TestHost>().ToConstant(new TestHost());
         }
 
         #endregion

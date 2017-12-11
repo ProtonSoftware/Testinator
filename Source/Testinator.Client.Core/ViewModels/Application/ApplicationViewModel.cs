@@ -54,25 +54,14 @@ namespace Testinator.Client.Core
         public event Action<bool> TestReceived = (s) => { };
 
         /// <summary>
-        /// The test user has to complete
+        /// Indicates how much time is left 
         /// </summary>
-        public Test Test
-        {
-            get => mTest;
-            set
-            {
-                // If client hasn't received any test yet
-                if (!IsTestReceived)
-                {
-                    // Get this test
-                    mTest = value;
+        public TimeSpan TimeLeft { get; set; }
 
-                    // Indicate that we have received it
-                    IsTestReceived = true;
-                    TestReceived.Invoke(IsTestReceived);
-                }
-            }
-        }
+        /// <summary>
+        /// Shows which question is currently shown
+        /// </summary>
+        public string QuestionNumber { get; set; }
 
         #endregion
 

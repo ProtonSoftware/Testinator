@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
@@ -96,8 +96,84 @@ namespace Testinator.Client.Core
             // Wait a small delay
             await Task.Delay(1500);
 
-            // Fake test
-            IoCClient.Application.Test = new Test();
+
+            // Dummy test
+            var test = new Test()
+            {
+                Duration = new TimeSpan(0, 30, 0),
+                Name = "Sample name",
+            };
+
+            var q1 = new MultipleChoiceQuestion()
+            {
+                Task = "Co robi kot?",
+                PointScore = 1,
+                Options = new List<string>()
+                {
+                    "miau",
+                    "hau",
+                    "xaxaxaxaxaxax",
+                },
+                CorrectAnswerIndex = 1,
+            };
+
+            var q2 = new MultipleChoiceQuestion()
+            {
+                Task = "Co robi kot2222?",
+                PointScore = 1,
+                Options = new List<string>()
+                {
+                    "miau2222",
+                    "hau2222",
+                    "xaxaxaxaxaxax2222",
+                },
+                CorrectAnswerIndex = 1,
+            };
+
+            var q3 = new MultipleChoiceQuestion()
+            {
+                Task = "Co robi kot333?",
+                PointScore = 1,
+                Options = new List<string>()
+                {
+                    "miau333",
+                    "hau3333",
+                    "xaxaxaxaxaxax333",
+                },
+                CorrectAnswerIndex = 1,
+            };
+
+            var q4 = new MultipleChoiceQuestion()
+            {
+                Task = "Co robi kot4444?",
+                PointScore = 1,
+                Options = new List<string>()
+                {
+                    "miau444",
+                    "hau4444",
+                    "xaxaxaxaxaxax4444",
+                },
+                CorrectAnswerIndex = 1,
+            };
+
+            var a1 = new MultipleChoiceAnswer(1);
+
+            test.AddQuestion(q1);
+            test.AddQuestion(q2);
+            test.AddQuestion(q3);
+            test.AddQuestion(q4);
+
+
+            if (DataPackageDescriptor.TryConvertToBin(out byte[] data, new DataPackage(PackageType.TestForm, test)))
+            {
+                using (BinaryWriter writer = new BinaryWriter(File.Open("sample.dat", FileMode.Create)))
+                {
+                    writer.Write(data);
+                }
+            }
+
+            IoCClient.TestHost.BindTest(test);
+            IoCClient.TestHost.GoNextQuestion();
         }
 
         #endregion

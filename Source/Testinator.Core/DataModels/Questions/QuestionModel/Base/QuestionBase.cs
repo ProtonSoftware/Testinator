@@ -1,8 +1,11 @@
-﻿namespace Testinator.Core
+﻿using System;
+
+namespace Testinator.Core
 {
     /// <summary>
     /// A base model for all questions
     /// </summary>
+    [Serializable]
     public abstract class Question
     {
         /// <summary>
@@ -15,5 +18,11 @@
         /// Usefull for matching answers to questions
         /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Clones the object
+        /// </summary>
+        /// <returns>Return a clone</returns>
+        public abstract Question Clone();
     }
 }

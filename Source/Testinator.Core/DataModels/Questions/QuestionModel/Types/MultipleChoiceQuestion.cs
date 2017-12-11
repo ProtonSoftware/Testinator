@@ -6,6 +6,7 @@ namespace Testinator.Core
     /// <summary>
     /// A multiple choice question, A, B, C...
     /// </summary>
+    [Serializable]
     public class MultipleChoiceQuestion : Question
     {
         #region Private Members
@@ -91,8 +92,27 @@ namespace Testinator.Core
                 // <= because we presume that indexing starts at 1 not 0
                 if (value > Options.Count || value <= 0)
                     throw new QuestionException(QuestionExceptionTypes.WrongIndex);
-                mCorrectIdx = value - 1;
+                mCorrectIdx = value;
             }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Clones the object
+        /// </summary>
+        /// <returns>Return a clone</returns>
+        public override Question Clone( )
+        {
+            return new MultipleChoiceQuestion()
+            {
+                Task = this.Task,
+                CorrectAnswerIndex = this.CorrectAnswerIndex,
+                Options = this.Options,
+                PointScore = this.PointScore,
+            };
         }
 
         #endregion
