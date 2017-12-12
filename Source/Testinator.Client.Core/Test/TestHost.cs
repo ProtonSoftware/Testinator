@@ -15,7 +15,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        private Test mTest;
+        private Test _Test;
 
         /// <summary>
         /// Indicates current question
@@ -32,6 +32,37 @@ namespace Testinator.Client.Core
         /// </summary>
         private List<Answer> Answers = new List<Answer>();
 
+        /// <summary>
+        /// Indicates if the test is in progress
+        /// </summary>
+        private bool _IsTestInProgress = false;
+
+        /// <summary>
+        /// A flag indicating if we have any test to show,
+        /// to show corresponding content in the WaitingPage
+        /// </summary>
+        private bool _IsTestReceived = false;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// The test that is currently hosted
+        /// </summary>
+        public Test CurrentTest => _Test;
+
+        /// <summary>
+        /// Indicates if the test is in progress
+        /// </summary>
+        public bool IsTestInProgress => _IsTestInProgress;
+
+        /// <summary>
+        /// A flag indicating if we have any test to show,
+        /// to show corresponding content in the WaitingPage
+        /// </summary>
+        public bool IsTestReceived => _IsTestReceived;
+
         #endregion
 
         #region Public Methods
@@ -42,7 +73,7 @@ namespace Testinator.Client.Core
         /// <param name="test">Test to be hosted</param>
         public void BindTest(Test test)
         {
-            mTest = test;
+            _Test = test;
             IoCClient.Application.TimeLeft = test.Duration;
             Questions = test.Questions;
 

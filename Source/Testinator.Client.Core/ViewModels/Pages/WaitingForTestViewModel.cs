@@ -26,23 +26,23 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The name of the test
         /// </summary>
-        public string TestName { get; set; }
+        public string TestName => IoCClient.TestHost.CurrentTest.Name;
 
         /// <summary>
         /// The duration of the test
         /// </summary>
-        public TimeSpan TestDuration { get; set; }
+        public TimeSpan TestDuration => IoCClient.TestHost.CurrentTest.Duration;
 
         /// <summary>
         /// How much score can user get from this test
         /// </summary>
-        public int TestPossibleScore { get; set; }
+        public int TestPossibleScore => IoCClient.TestHost.CurrentTest.MaxPossibleScore();
 
         /// <summary>
         /// A flag indicating if we have any test to show,
         /// to show corresponding content in the WaitingPage
         /// </summary>
-        public bool ReceivedTest { get; set; }
+        public bool IsTestReceived => IoCClient.TestHost.IsTestReceived;
 
         #endregion
 
@@ -56,32 +56,11 @@ namespace Testinator.Client.Core
             // Set input data
             Name = new TextEntryViewModel { Label = "Imię", OriginalText = IoCClient.Client.ClientName };
             Surname = new TextEntryViewModel { Label = "Nazwisko", OriginalText = IoCClient.Client.ClientSurname };
-
-            // Listen out for test package
-            IoCClient.Application.TestReceived += Application_TestReceived;
         }
 
         #endregion
 
         #region Private Helpers
-
-        /// <summary>
-        /// Fired when the test from server has arrived
-        /// </summary>
-        /// <param name="test"></param>
-        private void Application_TestReceived(Test test)
-        {
-            // Set the properties of the test we've received
-            ReceivedTest = true;
-            TestName = test.Name;
-            TestDuration = test.Duration;
-            TestPossibleScore = test.MaxPossibleScore();
-
-            // Change page to the first question page
-            //IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, viewmodel1);
-            //IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, viewmodel2);
-            //IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, viewmodel3);
-        }
 
         /// <summary>
         /// TODO: delete it and wait for server to send test

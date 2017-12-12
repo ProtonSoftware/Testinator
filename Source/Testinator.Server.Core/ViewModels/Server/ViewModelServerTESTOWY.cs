@@ -63,7 +63,7 @@ namespace ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW
             Server.OnDataRecived += Receive;
             Server.OnClientConnected += ClientConnected;
             Server.OnClientDisconnected += ClientDisconnected;
-            Server.OnClientDataUpdated += ClientUpdated;
+            //Server.OnClientDataUpdated += ClientUpdated;
             Server.Start();
 
             StartPossible = false;

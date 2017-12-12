@@ -251,6 +251,16 @@ namespace Testinator.Network.Client
             }
         }
 
+        /// <summary>
+        /// Initializes the client with the given data
+        /// </summary>
+        /// <param name="ip">Ip of the sever the client will attempt to connect to</param>
+        /// <param name="port">Server port</param>
+        public void Initialize(string ip, int port)
+        {
+            IPAddress = IPAddress.Parse(ip);
+            Port = port;
+        }
         #endregion
 
         #region Public Events

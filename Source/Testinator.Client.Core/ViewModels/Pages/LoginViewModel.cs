@@ -39,7 +39,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// IP of the server we are connecting to
         /// </summary>
-        public string ServerIP { get; set; } = "197.129.102.70";
+        public string ServerIP { get; set; } = "192.168.1.14";
 
         /// <summary>
         /// Port of the server we are connecting to
@@ -54,7 +54,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// A flag indicating if the connect command is running
         /// </summary>
-        public bool ConnectionIsRunning { get; set; }
+        public bool ConnectionIsRunning => IoCClient.Network.Connecting;
 
         /// <summary>
         /// A flag indicating if the not valid data error should be shown
@@ -105,7 +105,7 @@ namespace Testinator.Client.Core
         public LoginViewModel()
         {
             // Create commands
-            TryConnectingCommand = new RelayCommand(async () => await Connect());
+            TryConnectingCommand = new RelayCommand(Connect);
             SettingsMenuExpandCommand = new RelayCommand(ExpandMenu);
             SettingsMenuHideCommand = new RelayCommand(HideMenu);
             StopConnectingCommand = new RelayCommand(StopConnecting);
@@ -118,7 +118,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Attempts to connect with the server
         /// </summary>
-        private async Task Connect()
+        private void Connect()
         {
             // Disable errors if something was shown before
             ErrorShouldBeShown = false;
@@ -127,45 +127,12 @@ namespace Testinator.Client.Core
             if (!IsInputDataValid())
             {
                 ErrorShouldBeShown = true;
-                await Task.Delay(5);
                 return;
             }
+            
+            IoCClient.Network.Initialize(ServerIP, Int32.Parse(ServerPort));
 
-            await RunCommandAsync(() => ConnectionIsRunning, async () =>
-            {
-                IoCClient.Network.Initialize(ServerIP, ServerPort);
-
-                IoCClient.Network.StartConnecting();
-
-
-                IoCClient.Network.ConnectedCallback = ConnectedEvent;
-
-                // Until the client is not connected or until the user cancels connecting
-                while(!IoCClient.Network.IsConnected && ConnectionIsRunning)
-                {
-                    // One attempt takes usually 0,5 sec so update attempts every half a second
-                    await Task.Delay(500);
-                    OnPropertyChanged(nameof(Attempts));
-                }
-
-                // Means that the user stop connecting, dont change the page then
-                if (!IoCClient.Network.IsConnected)
-                    return;
-
-                // Send info package
-                IoCClient.Network.SendData(new DataPackage(PackageType.Info, new InfoPackage(IoCClient.Client)));
-
-                IoCClient.Application.IsConnected = true;
-
-                // Go to next page
-                IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
-            });
-        }
-
-        
-        private void ConnectedEvent()
-        {
-            // TODO: delete this later
+            IoCClient.Network.StartConnecting();
         }
 
         /// <summary>
@@ -200,7 +167,6 @@ namespace Testinator.Client.Core
         private void StopConnecting()
         {
             IoCClient.Network.Disconnect();
-            ConnectionIsRunning = false;
         }
 
         #endregion

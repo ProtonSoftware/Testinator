@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Input;
+using Testinator.Client.Core;
 using Testinator.Core;
 using Testinator.Core.Network;
 using Testinator.Network.Client;
@@ -47,9 +48,9 @@ namespace ClientTesting
             Port = client.Port;
             Name = "Jack";
             Surname = "Sparrow";
-            client.ConnectedCallback = ConnectedCallback;
-            client.DataRecivedCallback = DataRecivedCallabck;
-            client.DisconnectedCallback = DisconnectCallback;
+            client.OnConnected += ConnectedCallback;
+            client.OnDataReceived += DataRecivedCallabck;
+            client.OnDisconnected += DisconnectCallback;
 
         }
 
