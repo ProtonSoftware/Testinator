@@ -59,8 +59,8 @@ namespace Testinator.Core
             get => mOptions;
             set
             {
-                if (value.Count < 2)
-                    throw new QuestionException(QuestionExceptionTypes.NotEnoughOptions);
+                //if (value.Count < 2)
+                //    throw new QuestionException(QuestionExceptionTypes.NotEnoughOptions);
                 mOptions = value;
             }
         }

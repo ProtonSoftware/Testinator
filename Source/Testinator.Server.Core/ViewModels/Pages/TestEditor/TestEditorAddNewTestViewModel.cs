@@ -40,7 +40,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// List of current questions in test converted to an observable collection
         /// </summary>
-        public ObservableCollection<Question> Questions = new ObservableCollection<Question>();
+        public ObservableCollection<Question> Questions { get; set; } = new ObservableCollection<Question>();
 
         /// <summary>
         /// A flag indicating if invalid data error should be shown
@@ -85,8 +85,8 @@ namespace Testinator.Server.Core
         public string AnswerE { get; set; }
 
         public int HowManyMultipleChoiceAnswersVisible = 2;
-        public string QuestionMultipleChoicePointScore { get; set; }
-        public string RightAnswerIdx { get; set; }
+        public string QuestionMultipleChoicePointScore { get; set; } = "1";
+        public string RightAnswerIdx { get; set; } = "1";
 
         public bool ShouldAnswerCBeVisible { get; set; } = false;
         public bool ShouldAnswerDBeVisible { get; set; } = false;

@@ -15,13 +15,13 @@
                 Background="LightBlue">
 
             <Viewbox>
-                <TextBlock Text="NazwaTestu"
+                <TextBlock Text="{Binding Test.Name}"
                            Style="{StaticResource QuestionTextBlockStyle}" />
             </Viewbox>
             
         </Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl ItemsSource="{Binding Questions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:TestMenuListItemControl />
