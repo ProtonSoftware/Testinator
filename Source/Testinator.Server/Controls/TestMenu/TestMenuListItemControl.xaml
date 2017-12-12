@@ -33,13 +33,25 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
                                 <TextBlock Text="{Binding ID}"
                                            Style="{StaticResource MediumTitleText}" />
 
-                                <TextBlock Text="{Binding Icon, Converter={local:IconTypeToFontAwesomeConverter}}"
+                                <TextBlock Text="{Binding Type, Converter={local:QuestionTypeToIconConverter}}"
                                            FontFamily="{StaticResource FontAwesome}"
                                            FontSize="20"
                                            Grid.Column="1" />
+
+                                <TextBlock Text="{Binding Task}"
+                                           Grid.Row="1"
+                                           Grid.ColumnSpan="2"
+                                           TextTrimming="CharacterEllipsis"
+                                           Style="{StaticResource QuestionTextBlockStyle}"
+                                           Foreground="{StaticResource BlackLightBrush}" />
 
                             </Grid>
                             

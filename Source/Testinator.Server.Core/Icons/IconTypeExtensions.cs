@@ -32,6 +32,15 @@
                 case IconType.Editor:
                     return "\uf044";
 
+                case IconType.MultipleChoiceQuestion:
+                    return "\uf031";
+
+                case IconType.MultipleCheckboxesQuestion:
+                    return "\uf046";
+
+                case IconType.SingleTextBoxQuestion:
+                    return "\uf096";
+
                 // If none found, return null
                 default:
                     return null;

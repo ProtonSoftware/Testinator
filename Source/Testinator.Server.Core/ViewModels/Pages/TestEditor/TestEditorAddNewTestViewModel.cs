@@ -85,7 +85,7 @@ namespace Testinator.Server.Core
         public string AnswerE { get; set; }
 
         public int HowManyMultipleChoiceAnswersVisible = 2;
-        public string QuestionMultipleChoicePointScore { get; set; } = "1";
+        public string QuestionMultipleChoicePointScore { get; set; }
         public string RightAnswerIdx { get; set; } = "1";
 
         public bool ShouldAnswerCBeVisible { get; set; } = false;
@@ -312,6 +312,26 @@ namespace Testinator.Server.Core
                             return;
                         }
                         question.CorrectAnswerIndex = rightAnswerIdx;
+
+                        // We have our question done, add it to the test
+                        Test.AddQuestion(question);
+
+                        // Go to adding next question
+                        SaveViewModelAndChangeToNewQuestion();
+                    }
+                    break;
+
+                case QuestionType.MultipleCheckboxes:
+                    {       //// TODO: Error handling!!!
+                        // Create and build a question based on values
+                        var question = new MultipleCheckboxesQuestion();
+                        question.Task = this.QuestionTask;
+                        question.OptionsAndAnswers = new Dictionary<string, bool>();
+                        question.OptionsAndAnswers.Add(Answer1, true);
+                        question.OptionsAndAnswers.Add(Answer2, true);
+                        if (ShouldAnswer3BeVisible) question.OptionsAndAnswers.Add(Answer3, true);
+                        if (ShouldAnswer4BeVisible) question.OptionsAndAnswers.Add(Answer4, true);
+                        if (ShouldAnswer5BeVisible) question.OptionsAndAnswers.Add(Answer5, true);
 
                         // We have our question done, add it to the test
                         Test.AddQuestion(question);

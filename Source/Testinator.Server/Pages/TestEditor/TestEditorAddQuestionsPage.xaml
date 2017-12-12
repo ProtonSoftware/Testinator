@@ -118,6 +118,13 @@
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Punkty:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
                         </StackPanel>
 
                         <!-- Multiple checkboxes question creator -->
