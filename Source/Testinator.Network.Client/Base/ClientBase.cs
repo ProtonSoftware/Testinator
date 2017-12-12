@@ -8,6 +8,86 @@ namespace Testinator.Network.Client
 {
     public abstract class ClientBase
     {
+        #region Private Members
+
+        /// <summary>
+        /// Indicates if the client is trying to connect to the server
+        /// </summary>
+        private bool _Connecting;
+
+        /// <summary>
+        /// Buffer size for incoming data
+        /// </summary>
+        private int _BufferSize;
+
+        /// <summary>
+        /// Client ip address
+        /// </summary>
+        private IPAddress _IPAddress;
+
+        /// <summary>
+        /// Port to connect to the server
+        /// </summary>
+        private int _Port;
+
+        /// <summary>
+        /// Number of attempts taken to connect to the server
+        /// </summary>
+        private int _Attempts;
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Tries to connected to the server
+        /// </summary>
+        private void TryConnecting()
+        {
+            while (!IsConnected && Connecting)
+            {
+                try
+                {
+                    _Attempts++;
+                    clientSocket.Connect(IPAddress, Port);
+                }
+                catch (SocketException)
+                { }
+            }
+
+            _Connecting = false;
+
+            if (IsConnected)
+            {
+                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
+
+                // Let them know we have connected to the server
+                ConnectedCallback();
+            }
+        }
+
+        #endregion
+
+        #region Protected Members
+
+        /// <summary>
+        /// Used to connect to the sever
+        /// </summary>
+        protected Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+        /// <summary>
+        /// Buffer for received data
+        /// </summary>
+        protected byte[] ReceiverBuffer;
+
+        #endregion
+
+        #region Protected Abstract Methods
+
+        protected abstract void ReciveCallback(IAsyncResult ar);
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -160,86 +240,6 @@ namespace Testinator.Network.Client
 
         #endregion
 
-        #region Protected Members
-
-        /// <summary>
-        /// Used to connect to the sever
-        /// </summary>
-        protected Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        /// <summary>
-        /// Buffer for received data
-        /// </summary>
-        protected byte[] ReceiverBuffer;
-
-        #endregion
-
-        #region Protected Abstract Methods
-
-        protected abstract void ReciveCallback(IAsyncResult ar);
-
-        #endregion
-
-        #region Private Members
-
-        /// <summary>
-        /// Indicates if the client is trying to connect to the server
-        /// </summary>
-        private bool _Connecting;
-
-        /// <summary>
-        /// Buffer size for incoming data
-        /// </summary>
-        private int _BufferSize;
-
-        /// <summary>
-        /// Client ip address
-        /// </summary>
-        private IPAddress _IPAddress;
-
-        /// <summary>
-        /// Port to connect to the server
-        /// </summary>
-        private int _Port;
-
-        /// <summary>
-        /// Number of attempts taken to connect to the server
-        /// </summary>
-        private int _Attempts;
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Tries to connected to the server
-        /// </summary>
-        private void TryConnecting()
-        {
-            while (!IsConnected && Connecting)
-            {
-                try
-                {
-                    _Attempts++;
-                    clientSocket.Connect(IPAddress, Port);
-                }
-                catch (SocketException)
-                { }
-            }
-
-            _Connecting = false;
-
-            if (IsConnected)
-            {
-                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
-                
-                // Let them know we have connected to the server
-                ConnectedCallback();
-            }
-        }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -257,6 +257,5 @@ namespace Testinator.Network.Client
         }
 
         #endregion
-
     }
 }

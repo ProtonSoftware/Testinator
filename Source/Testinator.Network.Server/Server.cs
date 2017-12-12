@@ -11,15 +11,6 @@ namespace Testinator.Network.Server
     /// </summary>
     public class Server : ServerBase
     {
-        #region Private Members
-
-        /// <summary>
-        /// Keeps track of id's given to each user
-        /// </summary>
-        private Dictionary<string, string> MacId = new Dictionary<string, string>();
-
-        #endregion
-
         #region Construcotrs
 
         /// <summary>
