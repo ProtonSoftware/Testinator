@@ -89,10 +89,12 @@ namespace Testinator.Network.Server
 
             try
             {
+                // Try to get the newly connected socket
                 clientSocket = serverSocket.EndAccept(ar);
             }
             catch
             {
+                // No need to handle any errors for now 
                 return;
             }
 
@@ -102,7 +104,7 @@ namespace Testinator.Network.Server
             // Begin reciving on this socket
             clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
 
-            // Continue accepting
+            // Continue accepting new clients
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 
@@ -170,11 +172,11 @@ namespace Testinator.Network.Server
                             MacAddress = content.MacAddress,
                         };
 
-                        // Tell listeners that we got a new client
-                        OnClientConnected.Invoke((model));
-
                         // Store client model
                         Clients[senderSocket] = model;
+
+                        // Tell listeners that we got a new client
+                        OnClientConnected.Invoke((model));
                     }
                     // Otherwise, update client model
                     else
@@ -182,12 +184,13 @@ namespace Testinator.Network.Server
                         // Update client model
                         UpdateClientModel(senderSocket, content);
 
-                        // Call the subscribed method
+                        // Call the subscribed methods
                         OnClientDataUpdated.Invoke(Clients[senderSocket]);
                     }
                 }
                 else if (PackageReceived.PackageType == PackageType.DisconnectRequest)
                 {
+                    // Close the socket
                     senderSocket.Shutdown(SocketShutdown.Both);
                     senderSocket.Close();
 
@@ -197,7 +200,7 @@ namespace Testinator.Network.Server
                     // NOTE: remove client after calling the event method above
                     Clients.Remove(senderSocket);
 
-                    // Prevents running callback and starting reciving from not existing socket
+                    // Return here to prevent running callback and starting reciving from not existing socket
                     return;
                 }
                 else
@@ -205,6 +208,7 @@ namespace Testinator.Network.Server
                     OnDataRecived(Clients[senderSocket], PackageReceived);
             }
 
+            // Continue reciving
             senderSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
 
         }

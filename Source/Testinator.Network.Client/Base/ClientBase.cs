@@ -35,6 +35,16 @@ namespace Testinator.Network.Client
         /// </summary>
         private int _Attempts;
 
+        /// <summary>
+        /// Socket that handles communication
+        /// </summary>
+        private Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+        /// <summary>
+        /// Buffer for received data
+        /// </summary>
+        private byte[] ReceiverBuffer;
+
         #endregion
 
         #region Private Methods
@@ -48,6 +58,7 @@ namespace Testinator.Network.Client
             {
                 try
                 {
+                    // Try to connect, if failed try again
                     _Attempts++;
                     clientSocket.Connect(IPAddress, Port);
                 }
@@ -59,32 +70,64 @@ namespace Testinator.Network.Client
 
             if (IsConnected)
             {
-                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReciveCallback, clientSocket);
+                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
 
                 // Let them know we have connected to the server
-                ConnectedCallback();
+                OnConnected.Invoke();
             }
         }
 
-        #endregion
-
-        #region Protected Members
-
         /// <summary>
-        /// Used to connect to the sever
+        /// Called when data is received
         /// </summary>
-        protected Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        /// <param name="ar"></param>
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            // Number of bytes received
+            int received;
 
-        /// <summary>
-        /// Buffer for received data
-        /// </summary>
-        protected byte[] ReceiverBuffer;
+            try
+            {
+                received = clientSocket.EndReceive(ar);
+            }
+            catch
+            {
+                Disconnect();
 
-        #endregion
+                // Let them know we have been disconnected
+                OnDisconnected.Invoke();
 
-        #region Protected Abstract Methods
+                return;
+            }
 
-        protected abstract void ReciveCallback(IAsyncResult ar);
+            // Copy the received buffer
+            byte[] recBuf = new byte[received];
+            Array.Copy(ReceiverBuffer, recBuf, received);
+
+            // Try to get the data
+            if (DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
+            {
+                // If we are told to disconnect
+                if (PackageReceived.PackageType == PackageType.DisconnectRequest)
+                {
+                    // Close the socket
+                    clientSocket.Shutdown(SocketShutdown.Both);
+
+                    // Let listeners know we have beed disconnected
+                    OnDisconnected.Invoke();
+                }
+                else
+                {
+                    // Call the subscribed method
+                    OnDataReceived.Invoke(PackageReceived);
+                }
+
+            }
+
+            // If we are still connected start receiving again
+            if (IsConnected)
+                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
+        }
 
         #endregion
 
@@ -167,7 +210,7 @@ namespace Testinator.Network.Client
             if (IsConnected || Connecting)
                 return;
 
-
+            // Start a new thread that handles the try-to-connect loop
             Thread connectingThread = new Thread(new ThreadStart(TryConnecting))
             {
                 IsBackground = true,
@@ -185,58 +228,47 @@ namespace Testinator.Network.Client
         {
             if (IsConnected)
             {
+                // Tell the server that we want to disconnect
                 SendData(new DataPackage(PackageType.DisconnectRequest, null));
+
+                // Shutdown the socket
                 clientSocket.Shutdown(SocketShutdown.Both);
-                clientSocket.Close();
-                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             }
             _Connecting = false;
         }
 
+        /// <summary>
+        /// Sets data to the server, if connected
+        /// </summary>
+        /// <param name="data">Data to be sent</param>
         public void SendData(DataPackage data)
         {
-            if (DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data))
+            // Try convert data to the binary array
+            if (DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data) && IsConnected)
             {
+                // Send it if conversion was successful
                 clientSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);
             }
         }
 
         #endregion
 
-        #region Public Delegates
-
-        // TODO: change this to event system
-
-        /// <summary>
-        /// Delegate to the method to be called when data is received
-        /// </summary>
-        /// <param name="data">Data received</param>
-        public delegate void DataReceivedDelegate(DataPackage data);
-
-        /// <summary>
-        /// Fired when the clinet connects to the server
-        /// </summary>
-        public delegate void ConnectedDelegate();
-
-        /// <summary>
-        /// Fired when a client disconnects
-        /// </summary>
-        public delegate void ClientDisconnectedDelegate();
+        #region Public Events
 
         /// <summary>
         /// Method to be called any data is received from a client
         /// </summary>
-        public DataReceivedDelegate DataRecivedCallback { get; set; }
+        public event Action<DataPackage> OnDataReceived = (data) => { };
 
         /// <summary>
         /// Method to be called when client connects to the server
         /// </summary>
-        public ConnectedDelegate ConnectedCallback { get; set; }
+        public event Action OnConnected = () => { };
 
         /// <summary>
         /// Method to be called when client disconnects from the server
         /// </summary>
-        public ClientDisconnectedDelegate DisconnectedCallback { get; set; }
+        public event Action OnDisconnected = () => { };
 
         #endregion
 
