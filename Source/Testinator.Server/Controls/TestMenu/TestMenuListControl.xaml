@@ -7,27 +7,42 @@
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <Border Height="40"
-                Width="100"
-                BorderBrush="{StaticResource BlackDarkBrush}"
-                BorderThickness="2"
-                Background="LightBlue">
+    <Border Width="160"
+            local:AnimateSideMenuWidthProperty.Value="{Binding IsTestMenuExpanded}">
+        <StackPanel>
+            <Border Height="50"
+                    BorderBrush="{StaticResource BlackDarkBrush}"
+                    BorderThickness="2"
+                    Background="{StaticResource GreenLightBrush}">
 
-            <Viewbox>
-                <TextBlock Text="{Binding Test.Name}"
-                           Style="{StaticResource QuestionTextBlockStyle}" />
-            </Viewbox>
-            
-        </Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Questions}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:TestMenuListItemControl />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </StackPanel>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="{StaticResource FontAwesomeHamburgerMenuIcon}"
+                            Style="{StaticResource IconGrowButton}"
+                            Command="{Binding TestMenuExpandCommand}"
+                            Height="50" />
+
+                    <Viewbox Grid.Column="1" Margin="5">
+                        <TextBlock Text="{Binding Test.Name}"
+                                   Style="{StaticResource QuestionTextBlockStyle}" />
+                    </Viewbox>
+                </Grid>
+
+            </Border>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Questions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:TestMenuListItemControl />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+    </Border>
 </UserControl>

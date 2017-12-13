@@ -48,6 +48,11 @@ namespace Testinator.Server.Core
         public bool InvalidDataError { get; set; } = false;
 
         /// <summary>
+        /// A flag indicating if test menu should be expanded
+        /// </summary>
+        public bool IsTestMenuExpanded { get; set; } = true;
+
+        /// <summary>
         /// Question type as string from combobox
         /// </summary>
         public string QuestionBeingAddedString { get; set; } = "";
@@ -102,11 +107,25 @@ namespace Testinator.Server.Core
         public string Answer4 { get; set; }
         public string Answer5 { get; set; }
 
+        public bool IsAnswer1Right { get; set; }
+        public bool IsAnswer2Right { get; set; }
+        public bool IsAnswer3Right { get; set; }
+        public bool IsAnswer4Right { get; set; }
+        public bool IsAnswer5Right { get; set; }
+
         public int HowManyMultipleCheckboxesAnswersVisible = 2;
+        public string QuestionMultipleCheckboxesPointScore { get; set; }
 
         public bool ShouldAnswer3BeVisible { get; set; } = false;
         public bool ShouldAnswer4BeVisible { get; set; } = false;
         public bool ShouldAnswer5BeVisible { get; set; } = false;
+
+        #endregion
+
+        #region Single TextBox Answers
+
+        public string TextBoxAnswer { get; set; }
+        public string QuestionSingleTextBoxPointScore { get; set; }
 
         #endregion
 
@@ -118,6 +137,11 @@ namespace Testinator.Server.Core
         /// The command to change page to question adding page
         /// </summary>
         public ICommand AddingQuestionsPageChangeCommand { get; private set; }
+
+        /// <summary>
+        /// The command to expand/hide the test menu
+        /// </summary>
+        public ICommand TestMenuExpandCommand { get; private set; }
 
         /// <summary>
         /// The command to submit newly created question and add it to the test
@@ -145,6 +169,7 @@ namespace Testinator.Server.Core
         {
             // Create commands
             AddingQuestionsPageChangeCommand = new RelayCommand(ChangePage);
+            TestMenuExpandCommand = new RelayCommand(ExpandMenu);
             SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
             AddAnswerCommand = new RelayCommand(AddAnswer);
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
@@ -177,6 +202,15 @@ namespace Testinator.Server.Core
 
             // Save the view model and change page
             SaveViewModelAndChangeToNewQuestion();
+        }
+
+        /// <summary>
+        /// Expands/hides the test menu
+        /// </summary>
+        private void ExpandMenu()
+        {
+            // Simply toogle the expanded flag
+            IsTestMenuExpanded ^= true;
         }
 
         /// <summary>
@@ -327,11 +361,38 @@ namespace Testinator.Server.Core
                         var question = new MultipleCheckboxesQuestion();
                         question.Task = this.QuestionTask;
                         question.OptionsAndAnswers = new Dictionary<string, bool>();
-                        question.OptionsAndAnswers.Add(Answer1, true);
-                        question.OptionsAndAnswers.Add(Answer2, true);
-                        if (ShouldAnswer3BeVisible) question.OptionsAndAnswers.Add(Answer3, true);
-                        if (ShouldAnswer4BeVisible) question.OptionsAndAnswers.Add(Answer4, true);
-                        if (ShouldAnswer5BeVisible) question.OptionsAndAnswers.Add(Answer5, true);
+                        question.OptionsAndAnswers.Add(Answer1, IsAnswer1Right);
+                        question.OptionsAndAnswers.Add(Answer2, IsAnswer2Right);
+                        if (ShouldAnswer3BeVisible) question.OptionsAndAnswers.Add(Answer3, IsAnswer3Right);
+                        if (ShouldAnswer4BeVisible) question.OptionsAndAnswers.Add(Answer4, IsAnswer4Right);
+                        if (ShouldAnswer5BeVisible) question.OptionsAndAnswers.Add(Answer5, IsAnswer5Right);
+                        if (!Int32.TryParse(this.QuestionMultipleCheckboxesPointScore, out int pointScore))
+                        {
+                            // Wrong value in textbox input, show error
+                            return;
+                        }
+                        question.PointScore = pointScore;
+
+                        // We have our question done, add it to the test
+                        Test.AddQuestion(question);
+
+                        // Go to adding next question
+                        SaveViewModelAndChangeToNewQuestion();
+                    }
+                    break;
+
+                case QuestionType.SingleTextBox:
+                    {       //// TODO: Error handling!!!
+                        // Create and build a question based on values
+                        var question = new SingleTextBoxQuestion();
+                        question.Task = this.QuestionTask;
+                        question.CorrectAnswer = this.TextBoxAnswer;
+                        if (!Int32.TryParse(this.QuestionSingleTextBoxPointScore, out int pointScore))
+                        {
+                            // Wrong value in textbox input, show error
+                            return;
+                        }
+                        question.PointScore = pointScore;
 
                         // We have our question done, add it to the test
                         Test.AddQuestion(question);

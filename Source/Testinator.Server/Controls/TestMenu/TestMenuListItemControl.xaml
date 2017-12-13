@@ -14,46 +14,34 @@
                     <ControlTemplate TargetType="{x:Type ContentControl}">
 
                         <!-- Content -->
-                        <Border x:Name="background" Background="{StaticResource BlackDarkBrush}">
+                        <Border x:Name="background" Background="{StaticResource WhiteDarkBrush}">
 
                             <!-- Click to edit question -->
                             <Border.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding EditQuestionCommand}" />
                             </Border.InputBindings>
 
-                            <Grid x:Name="container" 
-                                  Height="40"
-                                  Width="100"
-                                  Margin="1"
-                                  Cursor="Hand"
-                                  Background="{StaticResource GreenLightBrush}">
-                                
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal"
+                                        Height="50"
+                                        Width="160"
+                                        Margin="1">
 
                                 <TextBlock Text="{Binding ID}"
-                                           Style="{StaticResource MediumTitleText}" />
+                                           Margin="3"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
 
                                 <TextBlock Text="{Binding Type, Converter={local:QuestionTypeToIconConverter}}"
+                                           VerticalAlignment="Center"
                                            FontFamily="{StaticResource FontAwesome}"
-                                           FontSize="20"
-                                           Grid.Column="1" />
+                                           FontSize="{StaticResource FontSizeLarge}"
+                                           Margin="8 3" />
 
                                 <TextBlock Text="{Binding Task}"
-                                           Grid.Row="1"
-                                           Grid.ColumnSpan="2"
                                            TextTrimming="CharacterEllipsis"
                                            Style="{StaticResource QuestionTextBlockStyle}"
                                            Foreground="{StaticResource BlackLightBrush}" />
 
-                            </Grid>
+                            </StackPanel>
                             
                         </Border>
 
@@ -63,19 +51,19 @@
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="Green" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation To="{StaticResource WhiteLight}" Duration="0:0:0.3" Storyboard.TargetName="background" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource GreenLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="background" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" TargetName="container" Value="{StaticResource BlackLightBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource BlackLightBrush}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
 

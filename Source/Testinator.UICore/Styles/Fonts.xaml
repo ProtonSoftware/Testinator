@@ -34,6 +34,7 @@
     <system:Double x:Key="FontSizeTitleLarge">38</system:Double>
 
     <system:String x:Key="FontAwesomeHamburgerMenuIcon">&#xf0c9;</system:String>
+    <system:String x:Key="FontAwesomeTestIcon">&#xf15c;</system:String>
     <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
     <system:String x:Key="FontAwesomeXIcon">&#xf00d;</system:String>
     <system:String x:Key="FontAwesomeUnderscoreIcon">&#xf2d1;</system:String>

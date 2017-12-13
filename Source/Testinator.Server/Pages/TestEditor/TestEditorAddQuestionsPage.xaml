@@ -70,21 +70,21 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="A:"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerA}"
+                                <TextBox Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="B:"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerB}"
+                                <TextBox Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="C:"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerC}"
+                                <TextBox Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
@@ -95,7 +95,7 @@
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="D:"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerD}"
+                                <TextBox Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
@@ -106,7 +106,7 @@
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="E:"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerE}"
+                                <TextBox Text="{Binding AnswerE, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
@@ -139,32 +139,32 @@
                                      Style="{StaticResource SmallInputTextBox}" />
                             
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer1}"
+                                <CheckBox IsChecked="{Binding IsAnswer1Right}" />
+                                <TextBox Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer2}"
+                                <CheckBox IsChecked="{Binding IsAnswer2Right}" />
+                                <TextBox Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer3}"
+                                <CheckBox IsChecked="{Binding IsAnswer3Right}" />
+                                <TextBox Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer4}"
+                                <CheckBox IsChecked="{Binding IsAnswer4Right}" />
+                                <TextBox Text="{Binding Answer4, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer5}"
+                                <CheckBox IsChecked="{Binding IsAnswer5Right}" />
+                                <TextBox Text="{Binding Answer5, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
@@ -172,6 +172,13 @@
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Punkty:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionMultipleCheckboxesPointScore}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
 
 
                         </StackPanel>
@@ -186,9 +193,21 @@
 
                             <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{StaticResource SmallInputTextBox}" />
-                            
-                            <TextBox Style="{StaticResource SmallInputTextBox}" />
-                            
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Popr. odp:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding TextBoxAnswer, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Punkty:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionSingleTextBoxPointScore}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
                         </StackPanel>
 
                     </StackPanel>
