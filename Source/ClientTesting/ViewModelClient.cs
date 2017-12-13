@@ -44,19 +44,19 @@ namespace ClientTesting
             StartCommand = new RelayCommand(Start);
             StopCommand = new RelayCommand(Stop);
             SendCommand = new RelayCommand(Send);
-            Ip = client.IPAddress.ToString();
-            Port = client.Port;
+            //Ip = client.IPAddress.ToString();
+            //Port = client.Port;
             Name = "Jack";
             Surname = "Sparrow";
-            client.OnConnected += ConnectedCallback;
-            client.OnDataReceived += DataRecivedCallabck;
-            client.OnDisconnected += DisconnectCallback;
+            //client.OnConnected += ConnectedCallback;
+            //client.OnDataReceived += DataRecivedCallabck;
+            //client.OnDisconnected += DisconnectCallback;
 
         }
 
         private void Send()
         {
-            client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
+            //client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
 
         }
 
@@ -74,7 +74,7 @@ namespace ClientTesting
         private void ConnectedCallback()
         {
             Connected = "Connected";
-            client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
+            //client.SendData(new DataPackage(PackageType.Info, new InfoPackage(Environment.MachineName, MacAddressHelpers.GetMac(), Name, Surname)));
         }
 
         private void Stop()
@@ -88,8 +88,8 @@ namespace ClientTesting
         {
             StartPossible = false;
             StopPossible = true;
-            client.IPAddress = IPAddress.Parse(Ip);
-            client.Port = Port;
+            //client.IPAddress = IPAddress.Parse(Ip);
+            //client.Port = Port;
             client.StartConnecting();
         }
 

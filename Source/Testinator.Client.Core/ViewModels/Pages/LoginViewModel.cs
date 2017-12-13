@@ -54,7 +54,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// A flag indicating if the connect command is running
         /// </summary>
-        public bool ConnectionIsRunning => IoCClient.Network.Connecting;
+        public bool ConnectingIsRunning => IoCClient.Network.Connecting;
 
         /// <summary>
         /// A flag indicating if the not valid data error should be shown
@@ -120,19 +120,21 @@ namespace Testinator.Client.Core
         /// </summary>
         private void Connect()
         {
+
             // Disable errors if something was shown before
             ErrorShouldBeShown = false;
 
-            // If input data isn't valid, show an error and stop doing anything
+            // If input data isn't valid, show an error and don't try to connect
             if (!IsInputDataValid())
             {
                 ErrorShouldBeShown = true;
                 return;
             }
             
+            // Setup client and start connecting
             IoCClient.Network.Initialize(ServerIP, Int32.Parse(ServerPort));
-
             IoCClient.Network.StartConnecting();
+            OnPropertyChanged(nameof(ConnectingIsRunning));
         }
 
         /// <summary>
@@ -141,7 +143,7 @@ namespace Testinator.Client.Core
         private void ExpandMenu()
         {
             // Dont show the menu if connecting is running
-            if (ConnectionIsRunning)
+            if (ConnectingIsRunning)
                 return;
 
             // Simply togle the expanded menu flag
@@ -167,6 +169,7 @@ namespace Testinator.Client.Core
         private void StopConnecting()
         {
             IoCClient.Network.Disconnect();
+            OnPropertyChanged(nameof(ConnectingIsRunning));
         }
 
         #endregion

@@ -11,11 +11,6 @@ namespace Testinator.Network.Client
         #region Private Members
 
         /// <summary>
-        /// Indicates if the client is trying to connect to the server
-        /// </summary>
-        private bool _Connecting;
-
-        /// <summary>
         /// Buffer size for incoming data
         /// </summary>
         private int _BufferSize;
@@ -29,11 +24,6 @@ namespace Testinator.Network.Client
         /// Port to connect to the server
         /// </summary>
         private int _Port;
-
-        /// <summary>
-        /// Number of attempts taken to connect to the server
-        /// </summary>
-        private int _Attempts;
 
         /// <summary>
         /// Socket that handles communication
@@ -59,14 +49,14 @@ namespace Testinator.Network.Client
                 try
                 {
                     // Try to connect, if failed try again
-                    _Attempts++;
+                    Attempts++;
                     clientSocket.Connect(IPAddress, Port);
                 }
                 catch (SocketException)
                 { }
             }
 
-            _Connecting = false;
+            Connecting = false;
 
             if (IsConnected)
             {
@@ -136,7 +126,7 @@ namespace Testinator.Network.Client
         /// <summary>
         /// Indicates if the client is trying to connect to the server
         /// </summary>
-        public bool Connecting => _Connecting;
+        public bool Connecting { get; private set; }
 
         /// <summary>
         /// Indicates if the client is connected to the server
@@ -196,7 +186,7 @@ namespace Testinator.Network.Client
         /// <summary>
         /// Number of attempts taken to connect to the server
         /// </summary>
-        public int Attempts => _Attempts;
+        public int Attempts { get; private set; }
 
         #endregion
 
@@ -217,7 +207,7 @@ namespace Testinator.Network.Client
                 Name = "ConnectingThread"
             };
 
-            _Connecting = true;
+            Connecting = true;
             connectingThread.Start();
         }
 
@@ -234,7 +224,7 @@ namespace Testinator.Network.Client
                 // Shutdown the socket
                 clientSocket.Shutdown(SocketShutdown.Both);
             }
-            _Connecting = false;
+            Connecting = false;
         }
 
         /// <summary>
@@ -261,6 +251,7 @@ namespace Testinator.Network.Client
             IPAddress = IPAddress.Parse(ip);
             Port = port;
         }
+
         #endregion
 
         #region Public Events
@@ -294,8 +285,8 @@ namespace Testinator.Network.Client
             Port = 3333;
             IPAddress = NetworkHelpers.GetLocalIPAddress();
 
-            _Connecting = false;
-            _Attempts = 0;
+            Connecting = false;
+            Attempts = 0;
         }
 
         #endregion

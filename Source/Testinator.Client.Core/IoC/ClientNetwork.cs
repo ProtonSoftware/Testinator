@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using Testinator.Core;
+﻿using Testinator.Core;
 using Testinator.Network.Client;
 
 namespace Testinator.Client.Core
@@ -11,22 +8,13 @@ namespace Testinator.Client.Core
     /// </summary>
     public class ClientNetwork : ClientBase
     {
-        #region Private Members
-
-        /// <summary>
-        /// Indicates if the client has received test
-        /// </summary>
-        private bool _IsTestReceived = false;
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
         /// Indicates if the client has received test
         /// </summary>
-        public bool IsTestReceived => _IsTestReceived;
-
+        public bool IsTestReceived { get; private set; }
+        
         #endregion
 
         #region Construcotrs
@@ -48,7 +36,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void ClientNetwork_OnConnected()
         {
-            IoCClient.Application.PropertyChangedInvoke(nameof(IoCClient.Application.IsConnected));
+            IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest, new WaitingForTestViewModel());
         }
 
         #endregion

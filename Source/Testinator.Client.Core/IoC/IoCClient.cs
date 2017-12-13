@@ -26,9 +26,6 @@ namespace Testinator.Client.Core
         /// </summary>
         public static ClientModel Client => IoCClient.Get<ClientModel>();
 
-        /// <summary>
-        /// A shortcut to access the <see cref="ClientNetwork"/>
-        /// </summary>
         public static ClientNetwork Network => IoCClient.Get<ClientNetwork>();
 
         /// <summary>
@@ -58,8 +55,8 @@ namespace Testinator.Client.Core
         {
             // Bind to a single instance of every model here
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
-            Kernel.Bind<ClientNetwork>().ToConstant(new ClientNetwork());
             Kernel.Bind<ClientModel>().ToConstant(new ClientModel());
+            Kernel.Bind<ClientNetwork>().ToConstant(new ClientNetwork());
             Kernel.Bind<TestHost>().ToConstant(new TestHost());
         }
 

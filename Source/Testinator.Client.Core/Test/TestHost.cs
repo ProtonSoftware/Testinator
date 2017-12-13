@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
@@ -8,14 +6,14 @@ namespace Testinator.Client.Core
     /// <summary>
     /// Responsible for hosting a test
     /// </summary>
-    public class TestHost
+    public class TestHost : BaseViewModel
     {
         #region Private Members
 
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        private Test _Test;
+        private Test _Test = new Test();
 
         /// <summary>
         /// Indicates current question
@@ -32,17 +30,6 @@ namespace Testinator.Client.Core
         /// </summary>
         private List<Answer> Answers = new List<Answer>();
 
-        /// <summary>
-        /// Indicates if the test is in progress
-        /// </summary>
-        private bool _IsTestInProgress = false;
-
-        /// <summary>
-        /// A flag indicating if we have any test to show,
-        /// to show corresponding content in the WaitingPage
-        /// </summary>
-        private bool _IsTestReceived = false;
-
         #endregion
 
         #region Public Properties
@@ -55,13 +42,13 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the test is in progress
         /// </summary>
-        public bool IsTestInProgress => _IsTestInProgress;
+        public bool IsTestInProgress { get; private set; }
 
         /// <summary>
         /// A flag indicating if we have any test to show,
         /// to show corresponding content in the WaitingPage
         /// </summary>
-        public bool IsTestReceived => _IsTestReceived;
+        public bool IsTestReceived { get; private set; }
 
         #endregion
 
@@ -81,7 +68,6 @@ namespace Testinator.Client.Core
             Questions.Shuffle();
 
             CurrentQuestion = 1;
-
         }
 
         /// <summary>

@@ -26,7 +26,7 @@
         </Border>
 
         <TextBlock Text="Oczekiwanie na test"
-                   Visibility="{Binding ReceivedTest, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                   Visibility="{Binding IsTestReceived, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                    Style="{StaticResource TitleText}"
                    Foreground="{StaticResource BlackDarkBrush}"
                    HorizontalAlignment="Center"
@@ -34,7 +34,7 @@
 
         <Grid HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Visibility="{Binding ReceivedTest, Converter={local:BooleanToVisiblityConverter}}">
+              Visibility="{Binding IsTestReceived, Converter={local:BooleanToVisiblityConverter}}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

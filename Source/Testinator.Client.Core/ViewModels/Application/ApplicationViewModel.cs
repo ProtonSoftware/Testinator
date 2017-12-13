@@ -64,16 +64,6 @@ namespace Testinator.Client.Core
             // Fire off a CurrentPage changed event
             OnPropertyChanged(nameof(CurrentPage));
         }
-        
-        /// <summary>
-        /// Fires the property changed event
-        /// Required to update the view
-        /// </summary>
-        /// <param name="name">Variable name to be updated</param>
-        public void PropertyChangedInvoke(string name)
-        {
-            OnPropertyChanged(name);
-        }
 
         #endregion
     }
