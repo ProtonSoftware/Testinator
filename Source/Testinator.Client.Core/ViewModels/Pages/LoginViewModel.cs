@@ -134,6 +134,7 @@ namespace Testinator.Client.Core
             // Setup client and start connecting
             IoCClient.Network.Initialize(ServerIP, Int32.Parse(ServerPort));
             IoCClient.Network.StartConnecting();
+
             OnPropertyChanged(nameof(ConnectingIsRunning));
         }
 

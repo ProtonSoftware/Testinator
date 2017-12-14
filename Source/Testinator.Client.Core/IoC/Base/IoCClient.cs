@@ -22,6 +22,11 @@ namespace Testinator.Client.Core
         public static ApplicationViewModel Application => IoCClient.Get<ApplicationViewModel>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="IUIManager"/>
+        /// </summary>
+        public static IUIManager UI => IoCClient.Get<IUIManager>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="ClientModel"/>
         /// </summary>
         public static ClientModel Client => IoCClient.Get<ClientModel>();

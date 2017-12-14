@@ -32,6 +32,7 @@ namespace Testinator.Client
         {
             // Setup IoC
             IoCClient.Setup();
+            IoCClient.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
         }
     }
 }

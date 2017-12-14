@@ -52,7 +52,8 @@
   <ItemGroup>
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="IoC\ClientNetwork.cs" />
-    <Compile Include="IoC\IoCClient.cs" />
+    <Compile Include="IoC\Interfaces\IUIManager.cs" />
+    <Compile Include="IoC\Base\IoCClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />
     <Compile Include="Test\ListHelpers.cs" />

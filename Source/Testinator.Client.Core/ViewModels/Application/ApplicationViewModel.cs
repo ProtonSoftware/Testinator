@@ -55,6 +55,7 @@ namespace Testinator.Client.Core
         /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
         public void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
         {
+            
             // Set the view model
             CurrentPageViewModel = viewModel;
 

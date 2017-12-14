@@ -88,6 +88,7 @@
     <Compile Include="Controls\Questions\ABCAnswerItemControl.xaml.cs">
       <DependentUpon>ABCAnswerItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IoC\UIManager.cs" />
     <Compile Include="Pages\Questions\QuestionMultipleCheckboxesPage.xaml.cs">
       <DependentUpon>QuestionMultipleCheckboxesPage.xaml</DependentUpon>
     </Compile>

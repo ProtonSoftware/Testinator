@@ -1,4 +1,5 @@
-﻿using Testinator.Core;
+﻿using System.Threading;
+using Testinator.Core;
 using Testinator.Network.Client;
 
 namespace Testinator.Client.Core
@@ -36,7 +37,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void ClientNetwork_OnConnected()
         {
-            IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest, new WaitingForTestViewModel());
+            IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
         }
 
         #endregion

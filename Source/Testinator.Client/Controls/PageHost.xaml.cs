@@ -83,7 +83,7 @@ namespace Testinator.Client
             // Get the frames
             var newPageFrame = (d as PageHost).NewPage;
             var oldPageFrame = (d as PageHost).OldPage;
-
+            
             // If the current page hasn't changed
             // just update the view model
             if (newPageFrame.Content is BasePage page &&
@@ -94,7 +94,7 @@ namespace Testinator.Client
 
                 return value;
             }
-
+            
             // Store the current page content as the old page
             var oldPageContent = newPageFrame.Content;
 
