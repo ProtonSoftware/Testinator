@@ -29,6 +29,15 @@ namespace Testinator.Server
                 case ApplicationPage.BeginTest:
                     return new BeginTestPage(viewModel as BeginTestViewModel);
 
+                case ApplicationPage.BeginTestInitial:
+                    return new BeginTestInitialPage(viewModel as BeginTestViewModel);
+
+                case ApplicationPage.BeginTestChoose:
+                    return new BeginTestChoosePage(viewModel as BeginTestViewModel);
+
+                case ApplicationPage.BeginTestInfo:
+                    return new BeginTestInfoPage(viewModel as BeginTestViewModel);
+
                 case ApplicationPage.TestEditor:
                     return new TestEditorPage(viewModel as TestEditorViewModel);
 
@@ -37,6 +46,9 @@ namespace Testinator.Server
 
                 case ApplicationPage.TestEditorAddQuestions:
                     return new TestEditorAddQuestionsPage(viewModel as TestEditorAddNewTestViewModel);
+
+                case ApplicationPage.TestEditorAddCriteria:
+                    return new TestEditorAddCriteriaPage(viewModel as TestEditorAddNewTestViewModel);
 
                 case ApplicationPage.ScreenStream:
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
@@ -70,6 +82,15 @@ namespace Testinator.Server
             if (page is BeginTestPage)
                 return ApplicationPage.BeginTest;
 
+            if (page is BeginTestInitialPage)
+                return ApplicationPage.BeginTestInitial;
+
+            if (page is BeginTestChoosePage)
+                return ApplicationPage.BeginTestChoose;
+
+            if (page is BeginTestInfoPage)
+                return ApplicationPage.BeginTestInfo;
+
             if (page is TestEditorPage)
                 return ApplicationPage.TestEditor;
 
@@ -78,6 +99,9 @@ namespace Testinator.Server
 
             if (page is TestEditorAddQuestionsPage)
                 return ApplicationPage.TestEditorAddQuestions;
+
+            if (page is TestEditorAddCriteriaPage)
+                return ApplicationPage.TestEditorAddCriteria;
 
             if (page is ScreenStreamPage)
                 return ApplicationPage.ScreenStream;

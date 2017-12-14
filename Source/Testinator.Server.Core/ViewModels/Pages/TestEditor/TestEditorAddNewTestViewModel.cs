@@ -139,6 +139,11 @@ namespace Testinator.Server.Core
         public ICommand AddingQuestionsPageChangeCommand { get; private set; }
 
         /// <summary>
+        /// The command to change page to criteria adding page
+        /// </summary>
+        public ICommand AddingCriteriaPageChangeCommand { get; private set; }
+
+        /// <summary>
         /// The command to expand/hide the test menu
         /// </summary>
         public ICommand TestMenuExpandCommand { get; private set; }
@@ -147,6 +152,11 @@ namespace Testinator.Server.Core
         /// The command to submit newly created question and add it to the test
         /// </summary>
         public ICommand SubmitQuestionCommand { get; private set; }
+
+        /// <summary>
+        /// The command to submit newly created test
+        /// </summary>
+        public ICommand SubmitTestCommand { get; private set; }
 
         /// <summary>
         /// The command to add new answer to the question
@@ -168,9 +178,11 @@ namespace Testinator.Server.Core
         public TestEditorAddNewTestViewModel()
         {
             // Create commands
-            AddingQuestionsPageChangeCommand = new RelayCommand(ChangePage);
+            AddingQuestionsPageChangeCommand = new RelayCommand(ChangeQuestionsPage);
+            AddingCriteriaPageChangeCommand = new RelayCommand(ChangeCriteriaPage);
             TestMenuExpandCommand = new RelayCommand(ExpandMenu);
             SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
+            SubmitTestCommand = new RelayCommand(SubmitTest);
             AddAnswerCommand = new RelayCommand(AddAnswer);
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
         }
@@ -182,7 +194,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Changes page to question adding page
         /// </summary>
-        private void ChangePage()
+        private void ChangeQuestionsPage()
         {
             // Disable previous errors
             InvalidDataError = false;
@@ -205,11 +217,29 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
+        /// Changes page to question adding page
+        /// </summary>
+        private void ChangeCriteriaPage()
+        {
+            // Check if test has at least one question
+            if (Test.Questions.Count < 1)
+                // TODO: Error handling
+                return;
+
+            // Save this view model
+            var viewModel = new TestEditorAddNewTestViewModel();
+            viewModel.Test = this.Test;
+
+            // Pass it to the next page
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddCriteria, viewModel);
+        }
+
+        /// <summary>
         /// Expands/hides the test menu
         /// </summary>
         private void ExpandMenu()
         {
-            // Simply toogle the expanded flag
+            // Simply toggle the expanded flag
             IsTestMenuExpanded ^= true;
         }
 
@@ -406,6 +436,15 @@ namespace Testinator.Server.Core
                     // Question type not found, don't submit any question
                     return;
             }
+        }
+
+        /// <summary>
+        /// Finally submits the whole test we've created
+        /// </summary>
+        private void SubmitTest()
+        {
+            // TODO: Save it to binary file, add to list etc.
+            return;
         }
 
         #endregion

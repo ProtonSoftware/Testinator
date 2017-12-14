@@ -83,8 +83,20 @@
     <Compile Include="Controls\TestMenu\TestMenuListItemControl.xaml.cs">
       <DependentUpon>TestMenuListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BeginTest\BeginTestInfoPage.xaml.cs">
+      <DependentUpon>BeginTestInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BeginTest\BeginTestChoosePage.xaml.cs">
+      <DependentUpon>BeginTestChoosePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BeginTest\BeginTestInitialPage.xaml.cs">
+      <DependentUpon>BeginTestInitialPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TestEditor\TestEditorAddCriteriaPage.xaml.cs">
+      <DependentUpon>TestEditorAddCriteriaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TestEditor\TestEditorPage.xaml.cs">
       <DependentUpon>TestEditorPage.xaml</DependentUpon>
@@ -98,7 +110,7 @@
     <Compile Include="Pages\ScreenStreamPage.xaml.cs">
       <DependentUpon>ScreenStreamPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BeginTestPage.xaml.cs">
+    <Compile Include="Pages\BeginTest\BeginTestPage.xaml.cs">
       <DependentUpon>BeginTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AboutPage.xaml.cs">
@@ -153,7 +165,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\BeginTest\BeginTestInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\BeginTest\BeginTestChoosePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\BeginTest\BeginTestInitialPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\TestEditor\TestEditorAddCriteriaPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -173,7 +201,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\BeginTestPage.xaml">
+    <Page Include="Pages\BeginTest\BeginTestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

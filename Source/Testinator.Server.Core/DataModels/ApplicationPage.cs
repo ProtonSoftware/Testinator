@@ -13,46 +13,66 @@
         /// <summary>
         /// The initial login page
         /// </summary>
-        Login = 1,
+        Login,
 
         /// <summary>
         /// The home page shown after logging in
         /// </summary>
-        Home = 2,
+        Home,
 
         /// <summary>
         /// The page to begin the whole test system
         /// </summary>
-        BeginTest = 3,
+        BeginTest,
+
+        /// <summary>
+        /// The subpage of BeginTestPage for starting a test
+        /// </summary>
+        BeginTestInitial,
+
+        /// <summary>
+        /// The subpage for showing list of saved tests
+        /// </summary>
+        BeginTestChoose,
+
+        /// <summary>
+        /// The subpage for showing info about choosen test
+        /// </summary>
+        BeginTestInfo,
 
         /// <summary>
         /// The page to create/edit tests
         /// </summary>
-        TestEditor = 4,
+        TestEditor,
 
         /// <summary>
         /// The page to create new test
         /// </summary>
-        TestEditorAddTest = 5,
+        TestEditorAddTest,
 
         /// <summary>
         /// The page to add questions to previously created test on TestEditorAddTest page
         /// </summary>
-        TestEditorAddQuestions = 6,
+        TestEditorAddQuestions,
+
+        /// <summary>
+        /// The page to add criteria to previously created test
+        /// </summary>
+        TestEditorAddCriteria,
 
         /// <summary>
         /// The screen stream page
         /// </summary>
-        ScreenStream = 7,
+        ScreenStream,
 
         /// <summary>
         /// The settings page
         /// </summary>
-        Settings = 8,
+        Settings,
 
         /// <summary>
         /// Info about the application
         /// </summary>
-        About = 9
+        About
     }
 }
