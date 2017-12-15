@@ -16,9 +16,6 @@ namespace Testinator.Server.Core
         /// </summary>
         public ObservableCollection<ClientModel> ClientsConnected { get; set; }
 
-        // TODO: Fix that
-        //public BasePage CurrentTestPage { get; set; }
-
         /// <summary>
         /// A flag indicating whether server has started
         /// </summary>
@@ -75,14 +72,32 @@ namespace Testinator.Server.Core
             // Create commands
             StartServerCommand = new RelayCommand(() => IsServerStarted = true);
             StopServerCommand = new RelayCommand(() => IsServerStarted = false);
-            //ChangePageTestListCommand = new RelayCommand();
-            //ChangePageTestListCommand = new RelayCommand();
-            ChangePageTestListCommand = new RelayCommand(ChooseTest);
+            ChangePageTestListCommand = new RelayCommand(ChangePageList);
+            ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
+            ChooseTestCommand = new RelayCommand(ChooseTest);
         }
 
         #endregion
 
         #region Command Methods
+
+        /// <summary>
+        /// Changes the subpage to test choose page
+        /// </summary>
+        private void ChangePageList()
+        {
+            // Simply go to target page
+            IoCServer.Application.CurrentBeginTestPage = ApplicationPage.BeginTestChoose;
+        }
+
+        /// <summary>
+        /// Changes the subpage to test info page
+        /// </summary>
+        private void ChangePageInfo()
+        {
+            // Simply go to target page 
+            IoCServer.Application.CurrentBeginTestPage = ApplicationPage.BeginTestInfo;
+        }
 
         /// <summary>
         /// Chooses a test from the list
