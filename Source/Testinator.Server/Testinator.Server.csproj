@@ -77,6 +77,12 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TestList\TestListControl.xaml.cs">
+      <DependentUpon>TestListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TestList\TestListItemControl.xaml.cs">
+      <DependentUpon>TestListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TestMenu\TestMenuListControl.xaml.cs">
       <DependentUpon>TestMenuListControl.xaml</DependentUpon>
     </Compile>
@@ -142,6 +148,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SideMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TestList\TestListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TestList\TestListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

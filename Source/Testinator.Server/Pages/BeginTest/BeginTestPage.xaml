@@ -104,7 +104,7 @@
         </Grid.ColumnDefinitions>
         
         <!-- Server handling left half -->
-        <Grid>
+        <Grid Panel.ZIndex="2" Background="{StaticResource WhiteDarkBrush}">
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -167,7 +167,8 @@
         </Grid>
         
         <!-- Test handling right half -->
-        <local:PageHost CurrentPage="{Binding CurrentTestPage}"
+        <local:PageHost CurrentPage="{Binding ApplicationViewModel.CurrentBeginTestPage,
+                                          Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPageViewModel="{Binding}"
                         Grid.Column="1" />
 

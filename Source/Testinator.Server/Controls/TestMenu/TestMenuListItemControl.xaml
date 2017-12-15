@@ -41,8 +41,14 @@
                                            Style="{StaticResource QuestionTextBlockStyle}"
                                            Foreground="{StaticResource BlackLightBrush}" />
 
+                                <Button Content="-"
+                                        x:Name="DeleteButton"
+                                        Visibility="Hidden"
+                                        Command="{Binding DeleteQuestionCommand}"
+                                        Style="{StaticResource BaseUIButton}" />
+
                             </StackPanel>
-                            
+
                         </Border>
 
                         <!-- Hover effect -->
@@ -51,6 +57,9 @@
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DeleteButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                         <ColorAnimation To="{StaticResource WhiteLight}" Duration="0:0:0.3" Storyboard.TargetName="background" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -58,6 +67,9 @@
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DeleteButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                         <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="background" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>

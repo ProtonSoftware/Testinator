@@ -10,8 +10,24 @@
              d:DesignHeight="720"
              d:DesignWidth="1024">
 
-    <Border Background="Blue">
+    <Grid Background="Blue">
+
+        <!-- Container for test list -->
+        <Border Background="{StaticResource WhiteDarkBrush}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="600"
+                Width="300">
+
+            <local:TestListControl DataContext="{Binding TestList}" />
+
+        </Border>
         
-    </Border>
+        <Button Content="Wybierz test"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding ChangePageTestInfoCommand}"
+                Style="{StaticResource BaseUIButton}" />
+    </Grid>
     
 </UICore:BasePage>

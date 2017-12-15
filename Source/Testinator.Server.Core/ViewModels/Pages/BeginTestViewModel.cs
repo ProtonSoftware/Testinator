@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -15,6 +17,16 @@ namespace Testinator.Server.Core
         /// A list of connected clients
         /// </summary>
         public ObservableCollection<ClientModel> ClientsConnected { get; set; }
+
+        /// <summary>
+        /// The list of every test user can choose in the list
+        /// </summary>
+        public List<Test> TestList { get; set; }
+
+        /// <summary>
+        /// The test which is choosen by user on the list
+        /// </summary>
+        public Test CurrentTest { get; set; }
 
         /// <summary>
         /// A flag indicating whether server has started
@@ -70,8 +82,8 @@ namespace Testinator.Server.Core
         public BeginTestViewModel()
         {
             // Create commands
-            StartServerCommand = new RelayCommand(() => IsServerStarted = true);
-            StopServerCommand = new RelayCommand(() => IsServerStarted = false);
+            StartServerCommand = new RelayCommand(StartServer);
+            StopServerCommand = new RelayCommand(StopServer);
             ChangePageTestListCommand = new RelayCommand(ChangePageList);
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
             ChooseTestCommand = new RelayCommand(ChooseTest);
@@ -82,12 +94,34 @@ namespace Testinator.Server.Core
         #region Command Methods
 
         /// <summary>
+        /// Starts the server
+        /// </summary>
+        private void StartServer()
+        {
+            // Indicate that server is starting
+            IsServerStarted = true;
+
+            // Prepare for client connections
+            ClientsConnected = new ObservableCollection<ClientModel>();
+        }
+
+        /// <summary>
+        /// Stops the server
+        /// </summary>
+        private void StopServer()
+        {
+            // TODO: Advanced mechanic here
+            // For now - simply toggle the flag
+            IsServerStarted = false;
+        }
+
+        /// <summary>
         /// Changes the subpage to test choose page
         /// </summary>
         private void ChangePageList()
         {
             // Simply go to target page
-            IoCServer.Application.CurrentBeginTestPage = ApplicationPage.BeginTestChoose;
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
         }
 
         /// <summary>
@@ -95,8 +129,12 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePageInfo()
         {
-            // Simply go to target page 
-            IoCServer.Application.CurrentBeginTestPage = ApplicationPage.BeginTestInfo;
+            // Check if user has choosen any test
+            if (CurrentTest == null)
+                return;
+
+            // Then go to info page
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
         }
 
         /// <summary>

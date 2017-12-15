@@ -12,6 +12,9 @@
 
     <Border Background="Pink">
         <Button Content="Rozpocznij test"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding ChangePageTestListCommand}"
                 Style="{StaticResource BaseUIButton}" />
     </Border>
     

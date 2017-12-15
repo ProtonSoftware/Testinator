@@ -10,8 +10,14 @@
              d:DesignHeight="720"
              d:DesignWidth="1024">
 
-    <Border Background="Red">
-        
-    </Border>
+    <Grid Background="Red">
+
+        <Button Content="Wróc do listy testów"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding ChangePageTestListCommand}"
+                Style="{StaticResource BaseUIButton}" />
+
+    </Grid>
     
 </UICore:BasePage>
