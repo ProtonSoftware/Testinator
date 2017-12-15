@@ -81,6 +81,13 @@ namespace Testinator.Server.Core
         /// </summary>
         public string QuestionTask { get; set; } = "";
 
+        /// <summary>
+        /// Indicates if we are editing existing question or creating new one
+        /// 0 - means we are creating new one
+        /// 1,2,3... - means we are editing question with 1,2,3... index in the list
+        /// </summary>
+        public int EditingQuestion { get; set; } = 0;
+
         #region Multiple Choice Answers
 
         public string AnswerA { get; set; }
@@ -168,6 +175,16 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand RemoveAnswerCommand { get; private set; }
 
+        /// <summary>
+        /// The command to edit question in test
+        /// </summary>
+        public ICommand EditQuestionCommand { get; private set; }
+
+        /// <summary>
+        /// The command to delete question from test
+        /// </summary>
+        public ICommand DeleteQuestionCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -185,6 +202,8 @@ namespace Testinator.Server.Core
             SubmitTestCommand = new RelayCommand(SubmitTest);
             AddAnswerCommand = new RelayCommand(AddAnswer);
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
+            EditQuestionCommand = new RelayParameterizedCommand((param) => EditQuestion(param));
+            DeleteQuestionCommand = new RelayParameterizedCommand((param) => DeleteQuestion(param));
         }
 
         #endregion
@@ -377,8 +396,13 @@ namespace Testinator.Server.Core
                         }
                         question.CorrectAnswerIndex = rightAnswerIdx;
 
-                        // We have our question done, add it to the test
-                        Test.AddQuestion(question);
+                        // We have our question done, check if we were editing existing question or created new one
+                        if (EditingQuestion != 0)
+                            // We were editing existing question, replace old one with new one
+                            Test.ReplaceQuestion(EditingQuestion, question);
+                        else
+                            // Its new question, simply add it to the test
+                            Test.AddQuestion(question);
 
                         // Go to adding next question
                         SaveViewModelAndChangeToNewQuestion();
@@ -403,8 +427,13 @@ namespace Testinator.Server.Core
                         }
                         question.PointScore = pointScore;
 
-                        // We have our question done, add it to the test
-                        Test.AddQuestion(question);
+                        // We have our question done, check if we were editing existing question or created new one
+                        if (EditingQuestion != 0)
+                            // We were editing existing question, replace old one with new one
+                            Test.ReplaceQuestion(EditingQuestion, question);
+                        else
+                            // Its new question, simply add it to the test
+                            Test.AddQuestion(question);
 
                         // Go to adding next question
                         SaveViewModelAndChangeToNewQuestion();
@@ -424,8 +453,13 @@ namespace Testinator.Server.Core
                         }
                         question.PointScore = pointScore;
 
-                        // We have our question done, add it to the test
-                        Test.AddQuestion(question);
+                        // We have our question done, check if we were editing existing question or created new one
+                        if (EditingQuestion != 0)
+                            // We were editing existing question, replace old one with new one
+                            Test.ReplaceQuestion(EditingQuestion, question);
+                        else
+                            // Its new question, simply add it to the test
+                            Test.AddQuestion(question);
 
                         // Go to adding next question
                         SaveViewModelAndChangeToNewQuestion();
@@ -436,6 +470,33 @@ namespace Testinator.Server.Core
                     // Question type not found, don't submit any question
                     return;
             }
+
+            // We have submitted question, reset the editing flag
+            EditingQuestion = 0;
+        }
+
+        /// <summary>
+        /// Gets back to previous question so user can edit it and submit it again
+        /// </summary>
+        private void EditQuestion(object param)
+        {
+            // Cast parameter to integer index
+            int idx = (int)param;
+
+            // Indicate that we are now editing existing question
+            EditingQuestion = idx;
+        }
+
+        /// <summary>
+        /// Deletes the question from test
+        /// </summary>
+        private void DeleteQuestion(object param)
+        {
+            // Cast parameter to integer index
+            int idx = (int)param;
+
+            // Delete question from test with given index
+            Test.RemoveQuestion(idx);
         }
 
         /// <summary>

@@ -44,7 +44,10 @@
                                 <Button Content="-"
                                         x:Name="DeleteButton"
                                         Visibility="Hidden"
-                                        Command="{Binding DeleteQuestionCommand}"
+                                        Command="{Binding DeleteQuestionCommand,
+                                                          RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                         AncestorType=local:TestEditorAddQuestionsPage}}"
+                                        CommandParameter="{Binding ID}"
                                         Style="{StaticResource BaseUIButton}" />
 
                             </StackPanel>

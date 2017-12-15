@@ -10,7 +10,7 @@
                  d:DesignHeight="720"
                  d:DesignWidth="1024">
 
-    <Grid Background="{StaticResource WhiteLightBrush}">
+    <StackPanel Background="{StaticResource WhiteLightBrush}">
 
         <Button Content="Utwórz nowy test"
                 Command="{Binding CreateNewTestCommand}"
@@ -18,6 +18,12 @@
                 VerticalAlignment="Center"
                 Style="{StaticResource BaseUIButton}" />
 
-    </Grid>
+        <Button Content="Utwórz nowe kryteria"
+                Command="{Binding CreateNewCriteriaCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BaseUIButton}" />
+
+    </StackPanel>
     
 </UICore:BasePage>
