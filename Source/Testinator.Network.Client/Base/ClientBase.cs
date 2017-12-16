@@ -50,6 +50,7 @@ namespace Testinator.Network.Client
                 {
                     // Try to connect, if failed try again
                     Attempts++;
+                    OnAttemptUpdate.Invoke();
                     clientSocket.Connect(IPAddress, Port);
                 }
                 catch (SocketException)
@@ -60,6 +61,7 @@ namespace Testinator.Network.Client
 
             if (IsConnected)
             {
+                // Start receiving
                 clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
 
                 // Let them know we have connected to the server
@@ -186,7 +188,7 @@ namespace Testinator.Network.Client
         /// <summary>
         /// Number of attempts taken to connect to the server
         /// </summary>
-        public int Attempts { get; private set; }
+        public int Attempts { get; private set; } = 0;
 
         #endregion
 
@@ -200,6 +202,9 @@ namespace Testinator.Network.Client
             if (IsConnected || Connecting)
                 return;
 
+            // Create new client socket
+            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); ;
+
             // Start a new thread that handles the try-to-connect loop
             Thread connectingThread = new Thread(new ThreadStart(TryConnecting))
             {
@@ -208,6 +213,7 @@ namespace Testinator.Network.Client
             };
 
             Connecting = true;
+            Attempts = 0;
             connectingThread.Start();
         }
 
@@ -270,6 +276,11 @@ namespace Testinator.Network.Client
         /// Method to be called when client disconnects from the server
         /// </summary>
         public event Action OnDisconnected = () => { };
+
+        /// <summary>
+        /// Method to be called when Attempts counter is updated
+        /// /// </summary>
+        public event Action OnAttemptUpdate = () => { };
 
         #endregion
 

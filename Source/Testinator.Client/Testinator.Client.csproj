@@ -49,6 +49,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -97,6 +99,9 @@
     </Compile>
     <Compile Include="Pages\Questions\QuestionMultipleChoicePage.xaml.cs">
       <DependentUpon>QuestionMultipleChoicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ResultPage.xaml.cs">
+      <DependentUpon>ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WaitingForTestPage.xaml.cs">
       <DependentUpon>WaitingForTestPage.xaml</DependentUpon>
@@ -158,6 +163,10 @@
     <Page Include="Pages\Questions\QuestionMultipleChoicePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\WaitingForTestPage.xaml">
       <Generator>MSBuild:Compile</Generator>

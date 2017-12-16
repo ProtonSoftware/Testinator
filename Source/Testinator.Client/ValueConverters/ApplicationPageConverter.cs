@@ -26,6 +26,9 @@ namespace Testinator.Client
                 case ApplicationPage.WaitingForTest:
                     return new WaitingForTestPage(viewModel as WaitingForTestViewModel);
 
+                case ApplicationPage.ResultPage:
+                    return new ResultPage(viewModel as ResultViewModel);
+
                 #region Question Pages
 
                 case ApplicationPage.QuestionMultipleCheckboxes:
@@ -57,13 +60,14 @@ namespace Testinator.Client
                 return ApplicationPage.Login;
             if (page is WaitingForTestPage)
                 return ApplicationPage.WaitingForTest;
+            if (page is ResultPage)
+                return ApplicationPage.ResultPage;
             if (page is QuestionMultipleChoicePage)
                 return ApplicationPage.QuestionMultipleChoice;
             if (page is QuestionMultipleCheckboxesPage)
                 return ApplicationPage.QuestionMultipleCheckboxes;
             if (page is QuestionSingleTextBoxPage)
                 return ApplicationPage.QuestionSingleTextBox;
-
 
             // Alert developer of issue
             Debugger.Break();

@@ -27,8 +27,21 @@ namespace Testinator.Core
         #region Constructor
 
         /// <summary>
-        /// Default constructor
+        /// Creates a data package with the given type,
+        /// Content is set to null by default
         /// </summary>
+        /// <param name="Type">The type of this package</param>
+        public DataPackage(PackageType Type)
+        {
+            PackageType = Type;
+            Content = null;
+        }
+
+        /// <summary>
+        /// Creates a data package from the given data
+        /// </summary>
+        /// <param name="Type">The type of this package</param>
+        /// <param name="Content">The content of this package</param>
         public DataPackage(PackageType Type, PackageContent Content)
         {
             PackageType = Type;

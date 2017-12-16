@@ -45,6 +45,23 @@ namespace Testinator.Core
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Gets a <see cref="DataPackage"/> of type <see cref="PackageType.Info"/> initialized 
+        /// with the data stored in this client model
+        /// </summary>
+        /// <returns>Info package</returns>
+        public DataPackage GetPackage()
+        {
+            return new DataPackage(PackageType.Info)
+            {
+                Content = new InfoPackage(this),
+            };
+        }
+
+        #endregion
+
         #region Constructor
 
         /// <summary>

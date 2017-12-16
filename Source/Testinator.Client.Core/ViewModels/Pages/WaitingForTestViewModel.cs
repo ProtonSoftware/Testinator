@@ -56,6 +56,25 @@ namespace Testinator.Client.Core
             // Set input data
             Name = new TextEntryViewModel { Label = "Imię", OriginalText = IoCClient.Client.ClientName };
             Surname = new TextEntryViewModel { Label = "Nazwisko", OriginalText = IoCClient.Client.ClientSurname };
+            IoCClient.TestHost.OnTestReceived += TestHost_OnTestReceived;
+            FakeTest();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Updates this view model. As it's properties are bound to the IoC, changing 
+        /// something in IoC doesn't fire PropertyChanged event in this view model.
+        /// Therefore, properties need to be updated manually
+        /// </summary>
+        public void Update()
+        {
+            OnPropertyChanged(nameof(IsTestReceived));
+            OnPropertyChanged(nameof(TestName));
+            OnPropertyChanged(nameof(TestDuration));
+            OnPropertyChanged(nameof(TestPossibleScore));
         }
 
         #endregion
@@ -63,11 +82,21 @@ namespace Testinator.Client.Core
         #region Private Helpers
 
         /// <summary>
+        /// Fired when a test is recived so when can update the view
+        /// </summary>
+        private void TestHost_OnTestReceived()
+        {
+            // Update the view
+            Update();
+        }
+        
+        /// <summary>
         /// TODO: delete it and wait for server to send test
         /// </summary>
         /// <returns></returns>
         private async void FakeTest()
         {
+            await Task.Delay(2000);
             // Do a task
             await TaskFakeTest();
         }
@@ -75,12 +104,12 @@ namespace Testinator.Client.Core
         private async Task TaskFakeTest()
         {
             // Wait a small delay
-            await Task.Delay(1500);
+            await Task.Delay(1000);
 
-            // Dummy test
+            // Create a dummy test
             var test = new Test()
             {
-                Duration = new TimeSpan(0, 30, 0),
+                Duration = new TimeSpan(0, 0, 5),
                 Name = "Sample name",
             };
 
@@ -146,16 +175,19 @@ namespace Testinator.Client.Core
             int max = test.MaxPossibleScore();
 
 
-            if (DataPackageDescriptor.TryConvertToBin(out byte[] data, new DataPackage(PackageType.TestForm, test)))
+            /*if (DataPackageDescriptor.TryConvertToBin(out byte[] data, new DataPackage(PackageType.TestForm, test)))
             {
                 using (BinaryWriter writer = new BinaryWriter(File.Open("sample.dat", FileMode.Create)))
                 {
                     writer.Write(data);
                 }
-            }
+            }*/
 
             IoCClient.TestHost.BindTest(test);
-            IoCClient.TestHost.GoNextQuestion();
+
+            await Task.Delay(2000);
+            IoCClient.TestHost.Start();
+            //IoCClient.TestHost.GoNextQuestion();
 
         }
 

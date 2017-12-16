@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Testinator.Core;
+using System.Timers;
 
 namespace Testinator.Client.Core
 {
@@ -9,6 +11,8 @@ namespace Testinator.Client.Core
     public class TestHost : BaseViewModel
     {
         #region Private Members
+
+        private Timer TestTimer = new Timer(1000);
 
         /// <summary>
         /// The test that is currently hosted
@@ -50,9 +54,38 @@ namespace Testinator.Client.Core
         /// </summary>
         public bool IsTestReceived { get; private set; }
 
+        /// <summary>
+        /// Indicates how much time is left
+        /// </summary>
+        public TimeSpan TimeLeft { get; private set; }
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when a test is receievd
+        /// </summary>
+        public event Action OnTestReceived = () => { };
+
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Starts the test 
+        /// </summary>
+        public void Start()
+        {
+            // If there is no test to start or the test has already started don't do anything
+            if (IsTestInProgress || !IsTestReceived)
+                return;
+
+            IsTestInProgress = true;
+            ResetQuestionNumber();
+            TestTimer.Start();
+            GoNextQuestion();
+        }
 
         /// <summary>
         /// The test to be hosted
@@ -63,11 +96,34 @@ namespace Testinator.Client.Core
             _Test = test;
             IoCClient.Application.TimeLeft = test.Duration;
             Questions = test.Questions;
+            TimeLeft = test.Duration;
 
             // Randomize questions
             Questions.Shuffle();
 
-            CurrentQuestion = 1;
+            ResetQuestionNumber();
+
+            IsTestReceived = true;
+
+            OnTestReceived.Invoke();
+        }
+
+        /// <summary>
+        /// Stops the current test
+        /// </summary>
+        public void Stop()
+        {
+            // If there is no test to stop
+            if (!IsTestInProgress)
+                return;
+
+            TestTimer.Stop();
+            IsTestInProgress = false;
+
+            // TODO: change the page to the result page
+            IoCClient.UI.ChangePage(ApplicationPage.ResultPage);
+
+            // TODO: send results
         }
 
         /// <summary>
@@ -91,9 +147,8 @@ namespace Testinator.Client.Core
         public void GoNextQuestion()
         {
             if (CurrentQuestion >= Questions.Count)
-            {  
-                // TODO: change it to the result page
-                IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
+            {
+                Stop();
                 return;
             }
 
@@ -135,10 +190,36 @@ namespace Testinator.Client.Core
 
         #region Private Helpers
 
+        /// <summary>
+        /// Resets the question number
+        /// </summary>
+        private void ResetQuestionNumber()
+        {
+            CurrentQuestion = 1;
+            IoCClient.Application.QuestionNumber = CurrentQuestion + " / " + Questions.Count;
+        }
+
+        /// <summary>
+        /// Updates the current question number
+        /// </summary>
         private void UpdateQuestionNumber()
         {
             CurrentQuestion++;
             IoCClient.Application.QuestionNumber = CurrentQuestion + " / " + Questions.Count;
+        }
+
+        /// <summary>
+        /// Handles the cutdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleTimer(object sender, ElapsedEventArgs e)
+        {
+            TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
+            if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
+            {
+                Stop();
+            }
         }
 
         #endregion
@@ -149,7 +230,9 @@ namespace Testinator.Client.Core
         /// Default constructor
         /// </summary>
         public TestHost()
-        { }
+        {
+            TestTimer.Elapsed += HandleTimer;
+        }
 
         #endregion
     }

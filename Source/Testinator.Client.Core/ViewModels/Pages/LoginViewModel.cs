@@ -54,7 +54,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// A flag indicating if the connect command is running
         /// </summary>
-        public bool ConnectingIsRunning => IoCClient.Network.Connecting;
+        public bool ConnectingIsRunning => IoCClient.Application.Network.Connecting;
 
         /// <summary>
         /// A flag indicating if the not valid data error should be shown
@@ -69,7 +69,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Number of attempts taken to connect to the server
         /// </summary>
-        public int Attempts => IoCClient.Network.Attempts;
+        public int Attempts => IoCClient.Application.Network.Attempts;
 
         #endregion
 
@@ -109,6 +109,8 @@ namespace Testinator.Client.Core
             SettingsMenuExpandCommand = new RelayCommand(ExpandMenu);
             SettingsMenuHideCommand = new RelayCommand(HideMenu);
             StopConnectingCommand = new RelayCommand(StopConnecting);
+
+            IoCClient.Application.Network.OnAttemptUpdate += Network_OnAttemptUpdate;
         }
 
         #endregion
@@ -132,8 +134,8 @@ namespace Testinator.Client.Core
             }
             
             // Setup client and start connecting
-            IoCClient.Network.Initialize(ServerIP, Int32.Parse(ServerPort));
-            IoCClient.Network.StartConnecting();
+            IoCClient.Application.Network.Initialize(ServerIP, Int32.Parse(ServerPort));
+            IoCClient.Application.Network.StartConnecting();
 
             OnPropertyChanged(nameof(ConnectingIsRunning));
         }
@@ -169,13 +171,22 @@ namespace Testinator.Client.Core
         /// </summary>
         private void StopConnecting()
         {
-            IoCClient.Network.Disconnect();
+            IoCClient.Application.Network.Disconnect();
             OnPropertyChanged(nameof(ConnectingIsRunning));
         }
 
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Fired when attempt counter updates
+        /// </summary>
+        private void Network_OnAttemptUpdate()
+        {
+            // Update the view
+            OnPropertyChanged(nameof(Attempts));
+        }
 
         /// <summary>
         /// Validates the user's input data
