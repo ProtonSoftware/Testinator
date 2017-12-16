@@ -69,7 +69,7 @@
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="A:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
@@ -94,7 +94,7 @@
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="D:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
@@ -105,7 +105,7 @@
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="E:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerE, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
@@ -119,6 +119,44 @@
                                     Style="{StaticResource BaseUIButton}" />
 
                             <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Poprawna:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <Button Content="A"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="1"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=1}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="B"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="2"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=2}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="C"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="3"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=3}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="D"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="4"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=4}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
                                 <TextBlock Text="Punkty:"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleChoicePointScore}"

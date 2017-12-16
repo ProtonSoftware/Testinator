@@ -100,7 +100,7 @@ namespace Testinator.Server.Core
 
         public int HowManyMultipleChoiceAnswersVisible = 2;
         public string QuestionMultipleChoicePointScore { get; set; }
-        public string RightAnswerIdx { get; set; } = "1";
+        public string RightAnswerIdx { get; set; } = "0";
 
         public bool ShouldAnswerCBeVisible { get; set; } = false;
         public bool ShouldAnswerDBeVisible { get; set; } = false;
@@ -178,6 +178,11 @@ namespace Testinator.Server.Core
         public ICommand RemoveAnswerCommand { get; private set; }
 
         /// <summary>
+        /// The command to choose which answer in multiple choice question is the right one
+        /// </summary>
+        public ICommand ChooseRightAnswerMultipleChoiceCommand { get; private set; }
+
+        /// <summary>
         /// The command to edit question in test
         /// </summary>
         public ICommand EditQuestionCommand { get; private set; }
@@ -204,6 +209,7 @@ namespace Testinator.Server.Core
             SubmitTestCommand = new RelayCommand(SubmitTest);
             AddAnswerCommand = new RelayCommand(AddAnswer);
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
+            ChooseRightAnswerMultipleChoiceCommand = new RelayParameterizedCommand((param) => RightAnswerIdx = param.ToString());
             EditQuestionCommand = new RelayParameterizedCommand((param) => EditQuestion(param));
             DeleteQuestionCommand = new RelayParameterizedCommand((param) => DeleteQuestion(param));
         }
