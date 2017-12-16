@@ -71,7 +71,7 @@ namespace Testinator.Core
             set
             {
                 // <= because we presume that indexing starts at 1 not 0
-                if (value > Options.Count || value <= 0)
+                if (value <= 0)
                     throw new QuestionException(QuestionExceptionTypes.WrongIndex);
                 mCorrectIdx = value;
             }

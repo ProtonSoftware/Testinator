@@ -397,11 +397,8 @@ namespace Testinator.Server.Core
                         if (ShouldAnswerCBeVisible) question.Options.Add(AnswerC);
                         if (ShouldAnswerDBeVisible) question.Options.Add(AnswerD);
                         if (ShouldAnswerEBeVisible) question.Options.Add(AnswerE);
-                        if (!Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx))
-                        {
-                            // Wrong value in textbox input, show error
-                            return;
-                        }
+                        Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx);
+                        if (rightAnswerIdx == 0) return;
                         question.CorrectAnswerIndex = rightAnswerIdx;
 
                         // We have our question done, check if we were editing existing question or created new one
