@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Border Width="160"
+             mc:Ignorable="d">
+
+    <Border Width="200"
             local:AnimateSideMenuWidthProperty.Value="{Binding IsTestMenuExpanded}">
         <StackPanel>
             <Border Height="50"
+                    Width="160"
+                    HorizontalAlignment="Left"
                     BorderBrush="{StaticResource BlackDarkBrush}"
                     BorderThickness="2"
                     Background="{StaticResource GreenLightBrush}">
@@ -29,7 +31,7 @@
 
                     <Viewbox Grid.Column="1" Margin="5">
                         <TextBlock Text="{Binding Test.Name}"
-                                   Style="{StaticResource QuestionTextBlockStyle}" />
+                                    Style="{StaticResource QuestionTextBlockStyle}" />
                     </Viewbox>
                 </Grid>
 

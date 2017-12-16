@@ -27,7 +27,6 @@ namespace Testinator.Core
             int id = test.Questions.Count + 1;
             questionCopy.ID = id;
 
-
             // Save them
             test.Questions.Add(questionCopy);
         }

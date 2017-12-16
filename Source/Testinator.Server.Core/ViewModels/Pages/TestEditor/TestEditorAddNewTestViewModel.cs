@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -483,8 +485,105 @@ namespace Testinator.Server.Core
             // Cast parameter to integer index
             int idx = (int)param;
 
+            // Check if parameter is valid
+            if (idx <= 0)
+                return;
+
             // Indicate that we are now editing existing question
             EditingQuestion = idx;
+
+            // Get this question from the list
+            var baseQuestion = Test.Questions[idx-1];
+
+            // Load data from this question (based on type of course)
+            switch(baseQuestion.Type)
+            {
+                case QuestionType.MultipleChoice:
+                    {
+                        // Cast question to this type
+                        var question = baseQuestion as MultipleChoiceQuestion;
+
+                        // Set the combobox to this type
+                        QuestionBeingAddedString = "System.Windows.Controls.ComboBoxItem: " + mMultipleChoiceTranslatedString;
+
+                        // Load data to the view model
+                        QuestionTask = question.Task;
+                        HowManyMultipleChoiceAnswersVisible = question.Options.Count;
+                        AnswerA = question.Options[0];
+                        AnswerB = question.Options[1];
+                        if (HowManyMultipleChoiceAnswersVisible > 2)
+                        {
+                            ShouldAnswerCBeVisible = true;
+                            AnswerC = question.Options[2];
+                        }
+                        if (HowManyMultipleChoiceAnswersVisible > 3)
+                        {
+                            ShouldAnswerDBeVisible = true;
+                            AnswerD = question.Options[2];
+                        }
+                        if (HowManyMultipleChoiceAnswersVisible == 5)
+                        {
+                            ShouldAnswerEBeVisible = true;
+                            AnswerE = question.Options[4];
+                        }
+                        QuestionMultipleChoicePointScore = question.PointScore.ToString();
+                    }
+                    break;
+                case QuestionType.MultipleCheckboxes:
+                    {
+                        // Cast question to this type
+                        var question = baseQuestion as MultipleCheckboxesQuestion;
+
+                        // Set the combobox to this type
+                        QuestionBeingAddedString = "System.Windows.Controls.ComboBoxItem: " + mMultipleCheckboxesTranslatedString;
+
+                        // Load data to the view model
+                        QuestionTask = question.Task;
+                        HowManyMultipleCheckboxesAnswersVisible = question.OptionsAndAnswers.Count;
+                        Answer1 = question.OptionsAndAnswers.Keys.ElementAt(0);
+                        IsAnswer1Right = question.OptionsAndAnswers.Values.ElementAt(0);
+                        Answer2 = question.OptionsAndAnswers.Keys.ElementAt(1);
+                        IsAnswer2Right = question.OptionsAndAnswers.Values.ElementAt(1);
+                        if (HowManyMultipleCheckboxesAnswersVisible > 2)
+                        {
+                            ShouldAnswer3BeVisible = true;
+                            Answer3 = question.OptionsAndAnswers.Keys.ElementAt(2);
+                            IsAnswer3Right = question.OptionsAndAnswers.Values.ElementAt(2);
+                        }
+                        if (HowManyMultipleCheckboxesAnswersVisible > 3)
+                        {
+                            ShouldAnswer4BeVisible = true;
+                            Answer4 = question.OptionsAndAnswers.Keys.ElementAt(3);
+                            IsAnswer4Right = question.OptionsAndAnswers.Values.ElementAt(3);
+                        }
+                        if (HowManyMultipleCheckboxesAnswersVisible == 5)
+                        {
+                            ShouldAnswer5BeVisible = true;
+                            Answer5 = question.OptionsAndAnswers.Keys.ElementAt(4);
+                            IsAnswer5Right = question.OptionsAndAnswers.Values.ElementAt(4);
+                        }
+                        QuestionMultipleCheckboxesPointScore = question.PointScore.ToString();
+                    }
+                    break;
+                case QuestionType.SingleTextBox:
+                    {
+                        // Cast question to this type
+                        var question = baseQuestion as SingleTextBoxQuestion;
+
+                        // Set the combobox to this type
+                        QuestionBeingAddedString = "System.Windows.Controls.ComboBoxItem: " + mSingleTextBoxTranslatedString;
+
+                        // Load data to the view model
+                        QuestionTask = question.Task;
+                        TextBoxAnswer = question.CorrectAnswer;
+                        QuestionSingleTextBoxPointScore = question.PointScore.ToString();
+                    }
+                    break;
+                default:
+                    // Something went wrong
+                    Debugger.Break();
+                    return;
+            }
         }
 
         /// <summary>
@@ -497,6 +596,10 @@ namespace Testinator.Server.Core
 
             // Delete question from test with given index
             Test.RemoveQuestion(idx);
+
+            // Reload questions from test to this view model
+            this.Questions = new ObservableCollection<Question>();
+            foreach (var question in Test.Questions) this.Questions.Add(question);
         }
 
         /// <summary>
