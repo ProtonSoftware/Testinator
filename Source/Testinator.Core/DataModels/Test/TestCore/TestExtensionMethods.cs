@@ -1,5 +1,4 @@
-﻿
-namespace Testinator.Core
+﻿namespace Testinator.Core
 {
     /// <summary>
     /// Extension methods for <see cref="Test"/> class
@@ -96,6 +95,5 @@ namespace Testinator.Core
         }
 
         #endregion
-
     }
 }

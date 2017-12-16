@@ -66,8 +66,12 @@
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
-    <Compile Include="DataModels\Test\Test.cs" />
-    <Compile Include="DataModels\Test\TestExtensionMethods.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Grading.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\GradingExtensionMethods.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Mark.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Marks.cs" />
+    <Compile Include="DataModels\Test\TestCore\Test.cs" />
+    <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Network\DataPackageDescriptor.cs" />
     <Compile Include="Network\NetworkHelpers.cs" />

@@ -183,6 +183,14 @@ namespace Testinator.Client.Core
                 }
             }*/
 
+            test.Grading.AddMark(Marks.B, 25, 19);
+            test.Grading.AddMark(Marks.C, 20, 16);
+            test.Grading.AddMark(Marks.D, 15, 11);
+            test.Grading.AddMark(Marks.E, 10, 6);
+            test.Grading.AddMark(Marks.F, 5, 0);
+
+            var sddds = test.Grading.GetMark(6);
+
             IoCClient.TestHost.BindTest(test);
 
             await Task.Delay(2000);
