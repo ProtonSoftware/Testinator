@@ -276,18 +276,9 @@ namespace Testinator.Server.Core
         private void SaveViewModelAndChangeToNewQuestion()
         {
             // Save this view model
-<<<<<<< HEAD
-            var viewModel = new TestEditorAddNewTestViewModel
-            {
-                Name = this.Name,
-                Duration = this.Duration,
-                Test = this.Test
-            };
-=======
             var viewModel = new TestEditorAddNewTestViewModel();
             viewModel.Test = this.Test;
             foreach (var question in Test.Questions) viewModel.Questions.Add(question);
->>>>>>> MinorsTestEditorWork
 
             // Pass it to the next page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);
