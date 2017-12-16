@@ -22,63 +22,144 @@
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 CornerRadius="3"
+                Height="500"
+                Width="800"
                 Background="{StaticResource WhiteDarkBrush}"
-                MaxWidth="500"
                 Padding="30">
 
-            <StackPanel>
-                <TextBlock Text="Wpisz procentowe wartosci w tabele"
-                           Style="{StaticResource MediumTitleText}" />
-                <StackPanel Orientation="Horizontal">
-                    <TextBox />
-                    <TextBlock Text="-" />
-                    <TextBlock Text="100" />
-                    <TextBlock Text="Celujacy"
-                               Margin="2 0"/>
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+
+                    <TextBlock Text="MAX POINTS: 20"
+                               Style="{StaticResource MediumTitleText}" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="20" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="20" />
+                        <TextBlock Text="Celujacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="18" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="19" />
+                        <TextBlock Text="Bardzo dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="15" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="17" />
+                        <TextBlock Text="Dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="12" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="14" />
+                        <TextBlock Text="Dostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="8" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="11" />
+                        <TextBlock Text="Dopuszczajacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="0" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="7" />
+                        <TextBlock Text="Niedostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBox />
-                    <TextBlock Text="-" />
-                    <TextBox />
-                    <TextBlock Text="Bardzo dobry"
-                               Margin="2 0"/>
+                <Border Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
+                    <TextBlock Text="TUTAJ LISTA"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource MediumTitleText}" />
+                </Border>
+
+                <StackPanel Grid.Row="1" Grid.Column="1">
+
+                    <TextBlock Text="Wpisz % wartosci"
+                               Style="{StaticResource MediumTitleText}" />
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="100" />
+                        <TextBlock Text="Celujacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Bardzo dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Dostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Dopuszczajacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="0" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Niedostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <Button Content="Dodaj kryteria"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource BaseUIButton}" />
+
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBox />
-                    <TextBlock Text="-" />
-                    <TextBox />
-                    <TextBlock Text="Dobry"
-                               Margin="2 0"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <TextBox />
-                    <TextBlock Text="-" />
-                    <TextBox />
-                    <TextBlock Text="Dostateczny"
-                               Margin="2 0"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <TextBox />
-                    <TextBlock Text="-" />
-                    <TextBox />
-                    <TextBlock Text="Dopuszczajacy"
-                               Margin="2 0"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="0" />
-                    <TextBlock Text="-" />
-                    <TextBox />
-                    <TextBlock Text="Niedostateczny"
-                               Margin="2 0"/>
-                </StackPanel>
-
-            </StackPanel>
-
+            </Grid>
 
         </Border>
 

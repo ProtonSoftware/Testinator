@@ -140,6 +140,7 @@
                                         Foreground="{StaticResource BlackDarkBrush}"
                                         Style="{StaticResource IconGrowButton}" />
                                 <Button Content="C"
+                                        Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}"
                                         FontFamily="{StaticResource FontMontserratBold}"
                                         Height="30"
                                         Width="30"
@@ -149,12 +150,23 @@
                                         Foreground="{StaticResource BlackDarkBrush}"
                                         Style="{StaticResource IconGrowButton}" />
                                 <Button Content="D"
+                                        Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}"
                                         FontFamily="{StaticResource FontMontserratBold}"
                                         Height="30"
                                         Width="30"
                                         Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
                                         CommandParameter="4"
                                         Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=4}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="E"
+                                        Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="5"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=5}"
                                         Foreground="{StaticResource BlackDarkBrush}"
                                         Style="{StaticResource IconGrowButton}" />
                                 <TextBlock Text="Punkty:"
@@ -192,18 +204,29 @@
                                 <CheckBox IsChecked="{Binding IsAnswer3Right}" />
                                 <TextBox Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
+                                <Button Content="-"
+                                        Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                        Command="{Binding RemoveAnswerCommand}"
+                                        Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <CheckBox IsChecked="{Binding IsAnswer4Right}" />
                                 <TextBox Text="{Binding Answer4, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
+                                <Button Content="-"
+                                        Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                        Command="{Binding RemoveAnswerCommand}"
+                                        Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <CheckBox IsChecked="{Binding IsAnswer5Right}" />
                                 <TextBox Text="{Binding Answer5, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
+                                <Button Content="-"
+                                        Command="{Binding RemoveAnswerCommand}"
+                                        Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
                             <Button Content="+ Dodaj odp"
