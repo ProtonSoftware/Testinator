@@ -5,58 +5,98 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}">
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Content -->
+                            <Border x:Name="background"
+                                    Height="55"
+                                    Width="160"
+                                    BorderBrush="{StaticResource BlackDarkBrush}"
+                                    BorderThickness="1"
+                                    Background="{StaticResource WhiteDarkBrush}">
 
-                        <!-- Content -->
-                        <Border x:Name="background" Background="{StaticResource BlackDarkBrush}">
+                                <!-- Click to edit question -->
+                                <Border.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                            AncestorType=local:TestEditorAddQuestionsPage},
+                                                                                            Path=DataContext.EditQuestionCommand}"
+                                                                          CommandParameter="{Binding ID}" />
+                                </Border.InputBindings>
 
-                            <!-- Click to edit question -->
-                            <Border.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding EditQuestionCommand}" />
-                            </Border.InputBindings>
+                                <Grid>
 
-                            <Grid x:Name="container" 
-                                  Height="50" 
-                                  Margin="5"
-                                  Cursor="Hand"
-                                  Background="{StaticResource BlackDarkBrush}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="I AM" />
+                                    <TextBlock Text="{Binding ID}"
+                                               HorizontalAlignment="Center"
+                                               Style="{StaticResource QuestionTextBlockStyle}" />
 
-                            </Grid>
+                                    <TextBlock Text="{Binding Type, Converter={local:QuestionTypeToIconConverter}}"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="{StaticResource FontAwesome}"
+                                               FontSize="{StaticResource FontSizeLarge}" />
+
+                                    <TextBlock Text="{Binding Task}"
+                                               Grid.Column="2"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               Style="{StaticResource QuestionTextBlockStyle}"
+                                               Foreground="{StaticResource BlackLightBrush}" />
+
+                                </Grid>
+
+                            </Border>
                             
-                        </Border>
+                            <!-- Delete question button -->
+                            <Button Content="-"
+                                    Panel.ZIndex="1"
+                                    x:Name="DeleteButton"
+                                    Visibility="Hidden"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                      AncestorType=local:TestEditorAddQuestionsPage},
+                                                      Path=DataContext.DeleteQuestionCommand}"
+                                    CommandParameter="{Binding ID}"
+                                    Style="{StaticResource BaseUIButton}" />
 
+                        </StackPanel>
+                        
                         <!-- Hover effect -->
                         <ControlTemplate.Triggers>
-
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource BlackPureBrush}"/>
-                            </DataTrigger>
-
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource BlackPure}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DeleteButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ColorAnimation To="{StaticResource WhiteLight}" Duration="0:0:0.3" Storyboard.TargetName="background" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource BlackDark}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DeleteButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="background" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" TargetName="container" Value="{StaticResource BlackLightBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource BlackLightBrush}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
 

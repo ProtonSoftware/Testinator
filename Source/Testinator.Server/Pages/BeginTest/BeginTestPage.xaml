@@ -23,15 +23,7 @@
     -Menu wyboru testu
     -Lista połączonych klientów (datagrid) // data gird można stylizować
     
-    Całość rozmieszczona w jakiś sensowny sposób 
-    
-    Start testu można zrobić tak, że będzie button start test i taki jakby kreator step by step,
-    w którym się wybiera test itp. a po wystartowaniu powrót do tego page'a
-    
-    -->
-    
-    <Border Background="Pink">
-        <Grid>
+    <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
@@ -100,6 +92,86 @@
                 </Grid>
             </Grid>
         </Grid>
-    </Border>
+    
+    -->
+    
+    <!-- Main wrapper -->
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Server handling left half -->
+        <Grid Panel.ZIndex="2" Background="{StaticResource WhiteDarkBrush}">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Server status grid -->
+            <Grid HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <Button Content="Start"
+                            Command="{Binding StartServerCommand}"
+                            Style="{StaticResource BaseUIButton}" />
+                    <Button Content="Stop"
+                            Command="{Binding StopServerCommand}"
+                            IsEnabled="{Binding IsServerStarted}"
+                            Style="{StaticResource BaseUIButton}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Status servera"
+                               TextWrapping="WrapWithOverflow"
+                               Foreground="{StaticResource BlackDarkBrush}"
+                               Style="{StaticResource TitleText}" />
+                    <TextBlock Text="AKTYWNY"
+                               Foreground="{StaticResource GreenLightBrush}"
+                               Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}}"
+                               Style="{StaticResource MediumTitleText}" />
+                    <TextBlock Text="WYŁĄCZONY"
+                               Foreground="Red"
+                               Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                               Style="{StaticResource MediumTitleText}" />
+                </StackPanel>
+                
+            </Grid>
+            
+            <!-- Clients connected data grid -->
+            <ScrollViewer Grid.Row="1" Padding="0 0 2 0">
+                <DataGrid AutoGenerateColumns="False" 
+                          ItemsSource="{Binding ClientsConnected}" 
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="Auto" IsReadOnly="True" Header="ID" Binding="{Binding ID}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Progress" Binding="{Binding Progress}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding MachineName}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding IpAddress}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Name" Binding="{Binding ClientName}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Surname" Binding="{Binding ClientSurname}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+
+        </Grid>
+        
+        <!-- Test handling right half -->
+        <local:PageHost CurrentPage="{Binding ApplicationViewModel.CurrentBeginTestPage,
+                                          Source={x:Static local:ViewModelLocator.Instance}}"
+                        CurrentPageViewModel="{Binding}"
+                        Grid.Column="1" />
+
+    </Grid>
     
 </UICore:BasePage>

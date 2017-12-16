@@ -1,7 +1,6 @@
 ﻿using Testinator.Server.Core;
 using System;
 using System.Globalization;
-using System.Windows;
 using Testinator.UICore;
 
 namespace Testinator.Server

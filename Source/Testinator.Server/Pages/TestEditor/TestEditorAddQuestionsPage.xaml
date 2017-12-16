@@ -1,14 +1,14 @@
 ﻿<UICore:BasePage x:TypeArguments="Core:TestEditorAddNewTestViewModel" x:Class="Testinator.Server.TestEditorAddQuestionsPage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Testinator.Server"
-             xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
-             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
-             mc:Ignorable="d"
-             d:DesignHeight="720"
-             d:DesignWidth="1024">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 mc:Ignorable="d"
+                 d:DesignHeight="720"
+                 d:DesignWidth="1024">
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <local:TestMenuListControl DataContext="{Binding Questions}" />
+        <local:TestMenuListControl DataContext="{Binding}" />
 
         <TextBlock Text="Dodaj pytanie do testu"
                    Grid.Column="1"
@@ -30,11 +30,11 @@
         <Grid Grid.Column="1">
 
             <Border HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                CornerRadius="3"
-                Background="{StaticResource WhiteDarkBrush}"
-                MaxWidth="500"
-                Padding="30">
+                    VerticalAlignment="Center"
+                    CornerRadius="3"
+                    Background="{StaticResource WhiteDarkBrush}"
+                    Width="500"
+                    Padding="30">
 
                 <Grid>
 
@@ -59,39 +59,58 @@
                         <!-- Multiple choice question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleChoice}">
 
+                            <TextBlock Text="Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, która ma być poprawna."
+                                       TextWrapping="Wrap"
+                                       Margin="5"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SmallInputTextBox}" />
+
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="A:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerA}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="B:"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerB}"
+                                <TextBox Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="C:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerC}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
+                                <Button Content="-"
+                                        Command="{Binding RemoveAnswerCommand}"
+                                        Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                        Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="D:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerD}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
+                                <Button Content="-"
+                                        Command="{Binding RemoveAnswerCommand}"
+                                        Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                        Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
                                 <TextBlock Text="E:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding AnswerE}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding AnswerE, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
+                                <Button Content="-"
+                                        Command="{Binding RemoveAnswerCommand}"
+                                        Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
                             <Button Content="+ Dodaj odp"
@@ -99,38 +118,91 @@
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Poprawna:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <Button Content="A"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="1"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=1}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="B"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="2"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=2}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="C"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="3"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=3}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <Button Content="D"
+                                        FontFamily="{StaticResource FontMontserratBold}"
+                                        Height="30"
+                                        Width="30"
+                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
+                                        CommandParameter="4"
+                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=4}"
+                                        Foreground="{StaticResource BlackDarkBrush}"
+                                        Style="{StaticResource IconGrowButton}" />
+                                <TextBlock Text="Punkty:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
                         </StackPanel>
 
                         <!-- Multiple checkboxes question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleCheckboxes}">
 
+                            <TextBlock Text="Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, które mają być poprawne."
+                                       TextWrapping="Wrap"
+                                       Margin="5"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SmallInputTextBox}" />
+                            
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer1}"
+                                <CheckBox IsChecked="{Binding IsAnswer1Right}" />
+                                <TextBox Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer2}"
+                                <CheckBox IsChecked="{Binding IsAnswer2Right}" />
+                                <TextBox Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer3}"
+                                <CheckBox IsChecked="{Binding IsAnswer3Right}" />
+                                <TextBox Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer4}"
+                                <CheckBox IsChecked="{Binding IsAnswer4Right}" />
+                                <TextBox Text="{Binding Answer4, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <CheckBox />
-                                <TextBox Text="{Binding Answer5}"
+                                <CheckBox IsChecked="{Binding IsAnswer5Right}" />
+                                <TextBox Text="{Binding Answer5, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
@@ -139,14 +211,41 @@
                                     Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Punkty:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionMultipleCheckboxesPointScore}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
 
                         </StackPanel>
 
                         <!-- Single textbox question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=SingleTextBox}">
 
-                            <TextBox Style="{StaticResource SmallInputTextBox}" />
-                            
+                            <TextBlock Text="Wpisz treść pytania oraz oczekiwaną odpowiedź."
+                                       TextWrapping="Wrap"
+                                       Margin="5"
+                                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource SmallInputTextBox}" />
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Popr. odp:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding TextBoxAnswer, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Punkty:"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionSingleTextBoxPointScore}"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </StackPanel>
+
                         </StackPanel>
 
                     </StackPanel>
@@ -169,7 +268,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10"
-                Command="{Binding FinishTestCommand}"
+                Command="{Binding AddingCriteriaPageChangeCommand}"
                 Style="{StaticResource BaseUIButton}" />
 
     </Grid>

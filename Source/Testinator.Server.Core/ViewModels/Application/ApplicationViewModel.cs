@@ -21,6 +21,11 @@ namespace Testinator.Server.Core
         public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
+        /// The current subpage of the BeginTestPage
+        /// </summary>
+        public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
+
+        /// <summary>
         /// Navigates to the specified page
         /// </summary>
         /// <param name="page">The page to go to</param>
@@ -35,6 +40,19 @@ namespace Testinator.Server.Core
 
             // Fire off a CurrentPage changed event
             OnPropertyChanged(nameof(CurrentPage));
+        }
+
+        /// <summary>
+        /// Navigates to the specified BeginTestPage subpage
+        /// </summary>
+        /// <param name="page">The page to go to</param>
+        public void GoToBeginTestPage(ApplicationPage page)
+        {
+            // Set the current page
+            CurrentBeginTestPage = page;
+
+            // Fire off a CurrentBeginTestPage changed event
+            OnPropertyChanged(nameof(CurrentBeginTestPage));
         }
     }
 }

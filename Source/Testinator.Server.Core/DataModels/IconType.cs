@@ -39,5 +39,20 @@
         /// Info circle icon (i)
         /// </summary>
         InfoCircle = 6,
+
+        /// <summary>
+        /// Icon for the multiple choice question (ABCD)
+        /// </summary>
+        MultipleChoiceQuestion = 7,
+
+        /// <summary>
+        /// Icon for the multiple checkboxes question
+        /// </summary>
+        MultipleCheckboxesQuestion = 8,
+
+        /// <summary>
+        /// Icon for the single text box question (rectangle)
+        /// </summary>
+        SingleTextBoxQuestion = 9,
     }
 }

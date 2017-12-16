@@ -36,8 +36,6 @@ namespace Testinator.Core
             get => mOptionsAndAnswers;
             set
             {
-                if (value.Count < 1)
-                    throw new QuestionException(QuestionExceptionTypes.NotEnoughOptions);
                 mOptionsAndAnswers = value;
             }
         }
