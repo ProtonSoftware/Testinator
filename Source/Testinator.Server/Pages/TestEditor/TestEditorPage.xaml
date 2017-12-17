@@ -15,16 +15,16 @@
         <StackPanel  VerticalAlignment="Center">
 
             <Button Content="Utwórz nowy test"
-                Command="{Binding CreateNewTestCommand}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Style="{StaticResource BaseUIButton}" />
+                    Command="{Binding CreateNewTestCommand}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BaseUIButton}" />
 
             <Button Content="Utwórz nowe kryteria"
-                Command="{Binding CreateNewCriteriaCommand}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Style="{StaticResource BaseUIButton}" />
+                    Command="{Binding CreateNewCriteriaCommand}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BaseUIButton}" />
 
         </StackPanel>
         

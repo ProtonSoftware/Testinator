@@ -20,14 +20,23 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand CreateNewTestCommand { get; private set; }
 
+        /// <summary>
+        /// The command to create new criteria
+        /// </summary>
+        public ICommand CreateNewCriteriaCommand { get; private set; }
+
         #endregion
 
         #region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public TestEditorViewModel()
         {
             // Create commands
-            CreateNewTestCommand = new RelayCommand(CreateTest);
+            CreateNewTestCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddTest));
+            CreateNewCriteriaCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddNewCriteria));
         }
 
         #endregion
@@ -35,12 +44,12 @@ namespace Testinator.Server.Core
         #region Command Methods
 
         /// <summary>
-        /// Changes page to new test creator page
+        /// Changes page to the specyfied one
         /// </summary>
-        private void CreateTest()
+        private void ChangePage(ApplicationPage page)
         {
             // Simply change page
-            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddTest);
+            IoCServer.Application.GoToPage(page);
         }
 
         #endregion

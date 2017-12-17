@@ -1,0 +1,175 @@
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorAddNewTestViewModel" x:Class="Testinator.Server.TestEditorAttachCriteriaPage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 mc:Ignorable="d"
+                 d:DesignHeight="720"
+                 d:DesignWidth="1024">
+
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <TextBlock Text="Dodaj kryteria oceniania"
+                   Margin="0 40"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Style="{StaticResource TitleText}"
+                   Foreground="{StaticResource BlackDarkBrush}" />
+
+        <Border HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                CornerRadius="3"
+                Height="500"
+                Width="800"
+                Background="{StaticResource WhiteDarkBrush}"
+                Padding="30">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+
+                    <TextBlock Text="MAX POINTS: 20"
+                               Style="{StaticResource MediumTitleText}" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="20" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="20" />
+                        <TextBlock Text="Celujacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="18" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="19" />
+                        <TextBlock Text="Bardzo dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="15" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="17" />
+                        <TextBlock Text="Dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="12" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="14" />
+                        <TextBlock Text="Dostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="8" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="11" />
+                        <TextBlock Text="Dopuszczajacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="0" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="7" />
+                        <TextBlock Text="Niedostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <Border Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
+                    <TextBlock Text="TUTAJ LISTA"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource MediumTitleText}" />
+                </Border>
+
+                <StackPanel Grid.Row="1" Grid.Column="1">
+
+                    <TextBlock Text="Wpisz % wartosci"
+                               Style="{StaticResource MediumTitleText}" />
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBlock Text="100" />
+                        <TextBlock Text="Celujacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Bardzo dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Dobry"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Dostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="20" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Dopuszczajacy"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="0" />
+                        <TextBlock Text="-" />
+                        <TextBox Width="20" />
+                        <TextBlock Text="Niedostateczny"
+                                   Margin="2 0"/>
+                    </StackPanel>
+
+                    <Button Content="Dodaj kryteria"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource BaseUIButton}" />
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+        <Button Content="Zakończ tworzenie testu"
+                Margin="10"
+                Command="{Binding SubmitTestCommand}"
+                Style="{StaticResource BaseUIButton}"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" />
+
+    </Grid>
+    
+</UICore:BasePage>

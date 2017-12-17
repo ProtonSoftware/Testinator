@@ -41,14 +41,17 @@ namespace Testinator.Server
                 case ApplicationPage.TestEditor:
                     return new TestEditorPage(viewModel as TestEditorViewModel);
 
+                case ApplicationPage.TestEditorAddNewCriteria:
+                    return new TestEditorAddNewCriteriaPage(viewModel as TestEditorAddNewCriteriaViewModel);
+
                 case ApplicationPage.TestEditorAddTest:
                     return new TestEditorAddNewTestPage(viewModel as TestEditorAddNewTestViewModel);
 
                 case ApplicationPage.TestEditorAddQuestions:
                     return new TestEditorAddQuestionsPage(viewModel as TestEditorAddNewTestViewModel);
 
-                case ApplicationPage.TestEditorAddCriteria:
-                    return new TestEditorAddCriteriaPage(viewModel as TestEditorAddNewTestViewModel);
+                case ApplicationPage.TestEditorAttachCriteria:
+                    return new TestEditorAttachCriteriaPage(viewModel as TestEditorAddNewTestViewModel);
 
                 case ApplicationPage.ScreenStream:
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
@@ -94,14 +97,17 @@ namespace Testinator.Server
             if (page is TestEditorPage)
                 return ApplicationPage.TestEditor;
 
+            if (page is TestEditorAddNewCriteriaPage)
+                return ApplicationPage.TestEditorAddNewCriteria;
+
             if (page is TestEditorAddNewTestPage)
                 return ApplicationPage.TestEditorAddTest;
 
             if (page is TestEditorAddQuestionsPage)
                 return ApplicationPage.TestEditorAddQuestions;
 
-            if (page is TestEditorAddCriteriaPage)
-                return ApplicationPage.TestEditorAddCriteria;
+            if (page is TestEditorAttachCriteriaPage)
+                return ApplicationPage.TestEditorAttachCriteria;
 
             if (page is ScreenStreamPage)
                 return ApplicationPage.ScreenStream;

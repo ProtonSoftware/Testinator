@@ -235,9 +235,11 @@ namespace Testinator.Server.Core
             }
 
             // Create new test and assign data to it
-            Test = new Test();
-            Test.Name = this.Name;
-            Test.Duration = new TimeSpan(0, time, 0);
+            Test = new Test
+            {
+                Name = this.Name,
+                Duration = new TimeSpan(0, time, 0)
+            };
 
             // Save the view model and change page
             SaveViewModelAndChangeToNewQuestion();
@@ -258,7 +260,7 @@ namespace Testinator.Server.Core
             viewModel.Test = this.Test;
 
             // Pass it to the next page
-            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddCriteria, viewModel);
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);
         }
 
         /// <summary>

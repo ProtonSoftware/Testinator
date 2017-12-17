@@ -3,7 +3,7 @@
 namespace Testinator.Core
 {
     /// <summary>
-    /// Represents a singla mark
+    /// Represents a single mark
     /// </summary>
     [Serializable]
     public class Mark

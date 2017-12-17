@@ -101,8 +101,11 @@
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorAddCriteriaPage.xaml.cs">
-      <DependentUpon>TestEditorAddCriteriaPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\TestEditorAddNewCriteriaPage.xaml.cs">
+      <DependentUpon>TestEditorAddNewCriteriaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TestEditor\TestEditorAttachCriteriaPage.xaml.cs">
+      <DependentUpon>TestEditorAttachCriteriaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TestEditor\TestEditorPage.xaml.cs">
       <DependentUpon>TestEditorPage.xaml</DependentUpon>
@@ -196,7 +199,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorAddCriteriaPage.xaml">
+    <Page Include="Pages\TestEditor\TestEditorAddNewCriteriaPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\TestEditor\TestEditorAttachCriteriaPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -46,6 +46,11 @@
         TestEditor,
 
         /// <summary>
+        /// The page to create new criteria for future tests
+        /// </summary>
+        TestEditorAddNewCriteria,
+
+        /// <summary>
         /// The page to create new test
         /// </summary>
         TestEditorAddTest,
@@ -56,9 +61,9 @@
         TestEditorAddQuestions,
 
         /// <summary>
-        /// The page to add criteria to previously created test
+        /// The page to attach criteria to previously created test
         /// </summary>
-        TestEditorAddCriteria,
+        TestEditorAttachCriteria,
 
         /// <summary>
         /// The screen stream page

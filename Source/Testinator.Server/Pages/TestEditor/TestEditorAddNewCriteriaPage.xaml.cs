@@ -4,16 +4,16 @@ using Testinator.UICore;
 namespace Testinator.Server
 {
     /// <summary>
-    /// Interaction logic for TestEditorAddCriteriaPage.xaml
+    /// Interaction logic for TestEditorAddNewCriteriaPage.xaml
     /// </summary>
-    public partial class TestEditorAddCriteriaPage : BasePage<TestEditorAddNewTestViewModel>
+    public partial class TestEditorAddNewCriteriaPage : BasePage<TestEditorAddNewCriteriaViewModel>
     {
         #region Constructor
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public TestEditorAddCriteriaPage() : base()
+        public TestEditorAddNewCriteriaPage() : base()
         {
             InitializeComponent();
         }
@@ -22,7 +22,7 @@ namespace Testinator.Server
         /// Constructor with specific view model
         /// </summary>
         /// <param name="specificViewModel">The specific view model to use for this page</param>
-        public TestEditorAddCriteriaPage(TestEditorAddNewTestViewModel specificViewModel) : base(specificViewModel)
+        public TestEditorAddNewCriteriaPage(TestEditorAddNewCriteriaViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
         }
