@@ -16,6 +16,21 @@ namespace Testinator.Server.Core
         /// </summary>
         public Grading Criteria { get; set; } = new Grading();
 
+        /// <summary>
+        /// Name of the criteria used for identifying
+        /// </summary>
+        public string CriteriaName { get; set; } = "";
+
+        /// <summary>
+        /// Indicates if mark A (the best grade) is counted (specific test can resign from this mark)
+        /// </summary>
+        public bool IsMarkACounted { get; set; } = true;
+
+        /// <summary>
+        /// Indicates if invalid data error should be shown
+        /// </summary>
+        public bool InvalidDataError { get; set; } = false;
+
         public string TopValueMarkA { get; set; } = "100";
         public string BottomValueMarkA { get; set; } = "96";
         public string TopValueMarkB { get; set; } = "95";
@@ -75,8 +90,20 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitCriteria()
         {
-            // Add every mark
-            //Criteria.AddMark(Marks.A, top, bottom);
+            // Check if input data is correct
+            if (!ValidateInputData())
+                return;
+
+            // Add every mark to the criteria object
+            if (IsMarkACounted) Criteria.AddMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
+            Criteria.AddMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
+            Criteria.AddMark(Marks.C, Int32.Parse(TopValueMarkC), Int32.Parse(BottomValueMarkC));
+            Criteria.AddMark(Marks.D, Int32.Parse(TopValueMarkD), Int32.Parse(BottomValueMarkD));
+            Criteria.AddMark(Marks.E, Int32.Parse(TopValueMarkE), Int32.Parse(BottomValueMarkE));
+            Criteria.AddMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
+
+            // Send it to xml writer
+            FileWriters.XmlWriter.Write(CriteriaName, this.Criteria);
         }
 
         #endregion
@@ -86,9 +113,56 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Checks if input data is valid
         /// </summary>
-        private void ValidateInputData()
+        private bool ValidateInputData()
         {
+            try
+            {
+                // Parse every number value to integer
+                int topMarkA = 0;
+                int bottomMarkA = 0;
+                if (IsMarkACounted)
+                {
+                    topMarkA = Int32.Parse(TopValueMarkA);
+                    bottomMarkA = Int32.Parse(BottomValueMarkA);
+                }
+                int topMarkB = Int32.Parse(TopValueMarkB);
+                int bottomMarkB = Int32.Parse(BottomValueMarkB);
+                int topMarkC = Int32.Parse(TopValueMarkC);
+                int bottomMarkC = Int32.Parse(BottomValueMarkC);
+                int topMarkD = Int32.Parse(TopValueMarkD);
+                int bottomMarkD = Int32.Parse(BottomValueMarkD);
+                int topMarkE = Int32.Parse(TopValueMarkE);
+                int bottomMarkE = Int32.Parse(BottomValueMarkE);
+                int topMarkF = Int32.Parse(TopValueMarkF);
+                int bottomMarkF = Int32.Parse(BottomValueMarkF);
 
+                // Check if input data is in sequence
+                if (IsMarkACounted)
+                {
+                    // The highest value must be 100
+                    if (topMarkA != 100) throw new Exception();
+                    if (bottomMarkA <= topMarkB) throw new Exception();
+                }
+                else
+                {
+                    // The highest value must be 100
+                    if (topMarkB != 100) throw new Exception();
+                }
+                if (bottomMarkB <= topMarkC) throw new Exception();
+                if (bottomMarkC <= topMarkD) throw new Exception();
+                if (bottomMarkD <= topMarkE) throw new Exception();
+                if (bottomMarkE <= topMarkF) throw new Exception();
+                if (bottomMarkF != 0) throw new Exception();
+            }
+            catch
+            {
+                // Input data is invalid, show an error and return false
+                InvalidDataError = true;
+                return false;
+            }
+
+            // Everything works, return true
+            return true;
         }
 
         #endregion

@@ -10,9 +10,12 @@
                  d:DesignHeight="720"
                  d:DesignWidth="1024">
 
-    <Grid Background="{StaticResource WhiteLightBrush}">
+    <Grid Background="{StaticResource WhiteLightBrush}"
+          TextBlock.TextAlignment="Center">
 
-        <TextBlock Text="Dodaj kryteria oceniania"
+        <TextBlock Text="Stwórz nowe kryteria lub edytuj istniejące"
+                   TextWrapping="WrapWithOverflow"
+                   Panel.ZIndex="10"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
@@ -22,7 +25,7 @@
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 CornerRadius="3"
-                Height="500"
+                MaxHeight="1000"
                 Width="800"
                 Background="{StaticResource WhiteDarkBrush}"
                 Padding="30">
@@ -34,67 +37,118 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                <Grid Margin="20">
 
-                    <TextBlock Text="Wpisz % wartosci"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Wprowadz nazwę"
                                Style="{StaticResource MediumTitleText}" />
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <TextBox Text="{Binding CriteriaName, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Row="1"
+                             Style="{StaticResource SmallInputTextBox}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="2">
+                        <TextBlock Text="Z oceną 6?"
+                                   Style="{StaticResource QuestionTextBlockStyle}" />
+                        <CheckBox IsChecked="{Binding IsMarkACounted}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Wartosci w polach liczone w %:"
+                               TextWrapping="WrapWithOverflow"
+                               Grid.Row="3"
+                               Style="{StaticResource MediumTitleText}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding IsMarkACounted, Converter={local:BooleanToVisiblityConverter}}"
+                                Grid.Row="4">
+                        <TextBox Text="{Binding BottomValueMarkA, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="-" />
-                        <TextBlock Text="100" />
+                        <TextBox Text="{Binding TopValueMarkA, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="Celujacy"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="5">
+                        <TextBox Text="{Binding BottomValueMarkB, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding TopValueMarkB, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="Bardzo dobry"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="6">
+                        <TextBox Text="{Binding BottomValueMarkC, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding TopValueMarkC, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="Dobry"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="7">
+                        <TextBox Text="{Binding BottomValueMarkD, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding TopValueMarkD, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="Dostateczny"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="8">
+                        <TextBox Text="{Binding BottomValueMarkE, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding TopValueMarkE, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="Dopuszczajacy"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="0" />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="9">
+                        <TextBox Text="{Binding BottomValueMarkF, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding TopValueMarkF, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="30" />
                         <TextBlock Text="Niedostateczny"
                                    Margin="2 0"/>
                     </StackPanel>
 
                     <Button Content="Dodaj kryteria"
+                            Command="{Binding SubmitCriteriaCommand}"
+                            Grid.Row="10"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             Style="{StaticResource BaseUIButton}" />
+                    
+                </Grid>
 
-                </StackPanel>
-
-                <Border Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
+                <Border Margin="20" Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
                     <TextBlock Text="TUTAJ LISTA"
                                HorizontalAlignment="Center"
                                Style="{StaticResource MediumTitleText}" />

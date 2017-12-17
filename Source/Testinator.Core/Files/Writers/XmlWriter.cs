@@ -45,7 +45,7 @@ namespace Testinator.Core
             Directory.CreateDirectory(Settings.Path);
             try
             {
-                doc.Save(Settings.Path + FileName + ".xml");
+                doc.Save(Settings.Path + "Criteria\\" + FileName + ".xml");
 
             }
             catch
@@ -56,9 +56,16 @@ namespace Testinator.Core
 
         }
 
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public XmlWriter()
         {
             Settings = new WriterSettings();
         }
+
+        #endregion
     }
 }
