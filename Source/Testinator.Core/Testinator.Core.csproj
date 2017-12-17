@@ -73,6 +73,12 @@
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
     <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
+    <Compile Include="Files\Settings\Paths.cs" />
+    <Compile Include="Files\Settings\Settings.cs" />
+    <Compile Include="Files\Settings\SettingsBase.cs" />
+    <Compile Include="Files\Writers\FileWriters.cs" />
+    <Compile Include="Files\Writers\WriterBase.cs" />
+    <Compile Include="Files\Writers\XmlWriter.cs" />
     <Compile Include="Network\DataPackageDescriptor.cs" />
     <Compile Include="Network\NetworkHelpers.cs" />
     <Compile Include="Network\MacAddressHelpers.cs" />
@@ -83,6 +89,9 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\Readers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />

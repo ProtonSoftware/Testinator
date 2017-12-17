@@ -191,6 +191,8 @@ namespace Testinator.Client.Core
 
             var sddds = test.Grading.GetMark(6);
 
+            FileWriters.XmlWriter.Write("sample", test.Grading);
+
             IoCClient.TestHost.BindTest(test);
 
             await Task.Delay(2000);
