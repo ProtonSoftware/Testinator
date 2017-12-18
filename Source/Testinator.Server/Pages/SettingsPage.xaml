@@ -8,8 +8,9 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Border Background="Yellow">
+    <Grid Background="Yellow">
         <TextBlock Text="Settings page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
-    </Border>
+        <TextBlock Text="Zmiana pinu" />
+    </Grid>
     
 </UICore:BasePage>

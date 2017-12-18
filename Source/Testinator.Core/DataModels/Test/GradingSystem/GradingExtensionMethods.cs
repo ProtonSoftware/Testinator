@@ -39,7 +39,7 @@ namespace Testinator.Core
                 if (points >= mark.BottomLimit)
                     return mark.Value;
             }
-            throw new NotImplementedException();
+            throw new Exception("Wrong value");
         }
 
         #endregion
