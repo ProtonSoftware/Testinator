@@ -42,7 +42,7 @@ namespace Testinator.Core
                 BottomLimitNode.AppendChild(doc.CreateTextNode(mark.BottomLimit.ToString()));
                 MarkNode.AppendChild(BottomLimitNode);
             }
-            Directory.CreateDirectory(Settings.Path);
+            Directory.CreateDirectory(Settings.Path + "Criteria\\");
             try
             {
                 doc.Save(Settings.Path + "Criteria\\" + FileName + ".xml");
