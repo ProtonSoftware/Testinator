@@ -54,6 +54,11 @@ namespace Testinator.Server.Core
         public ICommand ChangePageTestEditorCommand { get; private set; }
 
         /// <summary>
+        /// The command to select and load criteria from the list
+        /// </summary>
+        public ICommand SelectCriteriaCommand { get; private set; }
+
+        /// <summary>
         /// The command to submit created criteria
         /// </summary>
         public ICommand SubmitCriteriaCommand { get; private set; }
@@ -69,6 +74,7 @@ namespace Testinator.Server.Core
         {
             // Create commands
             ChangePageTestEditorCommand = new RelayCommand(ChangePage);
+            SelectCriteriaCommand = new RelayParameterizedCommand((param) => SelectCriteria(param));
             SubmitCriteriaCommand = new RelayCommand(SubmitCriteria);
         }
 
@@ -83,6 +89,16 @@ namespace Testinator.Server.Core
         {
             // Simply change page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditor);
+        }
+
+        /// <summary>
+        /// Selects and loads the criteria from the list
+        /// </summary>
+        /// <param name="param">Name of the criteria</param>
+        private void SelectCriteria(object param)
+        {
+            // Cast parameter to string
+            string criteriaName = param.ToString();
         }
 
         /// <summary>
@@ -104,6 +120,9 @@ namespace Testinator.Server.Core
 
             // Send it to xml writer
             FileWriters.XmlWriter.Write(CriteriaName, this.Criteria);
+
+            // Reload the criteria list to include newly created criteria
+            CriteriaListViewModel.Instance.LoadItems();
         }
 
         #endregion

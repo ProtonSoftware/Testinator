@@ -15,7 +15,7 @@
                     <ControlTemplate TargetType="{x:Type ContentControl}">
 
                         <!-- Content -->
-                        <Border x:Name="background" Background="{StaticResource BlackDarkBrush}">
+                        <Border x:Name="background" Background="{StaticResource WhiteDarkBrush}">
 
                             <!-- Click to change page -->
                             <Border.InputBindings>
@@ -26,7 +26,7 @@
                                   Height="50" 
                                   Margin="5"
                                   Cursor="Hand"
-                                  Background="{StaticResource BlackDarkBrush}">
+                                  Background="{StaticResource WhiteDarkBrush}">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -50,14 +50,14 @@
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource BlackPure}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation To="{StaticResource BlackLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource BlackDark}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
