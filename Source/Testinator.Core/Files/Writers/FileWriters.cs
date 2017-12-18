@@ -6,5 +6,7 @@
     public static class FileWriters
     {
         public static XmlWriter XmlWriter = new XmlWriter();
+
+        public static BinaryWriter BinWriter = new BinaryWriter();
     }
 }

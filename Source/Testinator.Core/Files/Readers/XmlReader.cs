@@ -15,7 +15,7 @@ namespace Testinator.Core
         /// Gets all saved grading templates from the disc
         /// </summary>
         /// <returns>All gradings that have beed read from the application folder</returns>
-        public override List<GradingExtended> ReadXmlGrading()
+        public List<GradingExtended> ReadXmlGrading()
         {
             List<string> Files;
             try

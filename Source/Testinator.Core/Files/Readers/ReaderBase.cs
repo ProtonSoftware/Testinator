@@ -8,7 +8,5 @@ namespace Testinator.Core
         /// The settings for this reader
         /// </summary>
         protected ReaderSettings Settings { get; set; }
-
-        public abstract List<GradingExtended> ReadXmlGrading();
     }
 }

@@ -11,7 +11,7 @@ namespace Testinator.Core
     public class XmlWriter : WriterBase
     {
 
-        public override void Write(string FileName, object data)
+        public void Write(string FileName, object data)
         {
             if (!(data is Grading))
                 return;
@@ -52,8 +52,6 @@ namespace Testinator.Core
             {
                 // TODO: error handling xml
             }
-
-
         }
 
         #region Constructor

@@ -6,5 +6,7 @@
     public static class FileReaders
     {
         public static XmlReader XmlReader = new XmlReader();
+
+        public static BinaryReader BinReader = new BinaryReader();
     }
 }
