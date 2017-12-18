@@ -67,12 +67,16 @@
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
     <Compile Include="DataModels\Test\GradingSystem\Grading.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\GradingExtended.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingExtensionMethods.cs" />
     <Compile Include="DataModels\Test\GradingSystem\Mark.cs" />
     <Compile Include="DataModels\Test\GradingSystem\Marks.cs" />
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
     <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
+    <Compile Include="Files\Readers\FileReaders.cs" />
+    <Compile Include="Files\Readers\ReaderBase.cs" />
+    <Compile Include="Files\Readers\XmlReader.cs" />
     <Compile Include="Files\Settings\Paths.cs" />
     <Compile Include="Files\Settings\Settings.cs" />
     <Compile Include="Files\Settings\SettingsBase.cs" />
@@ -90,9 +94,7 @@
     <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Files\Readers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

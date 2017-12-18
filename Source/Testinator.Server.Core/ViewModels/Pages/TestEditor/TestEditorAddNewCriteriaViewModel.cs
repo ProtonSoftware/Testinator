@@ -104,6 +104,9 @@ namespace Testinator.Server.Core
 
             // Send it to xml writer
             FileWriters.XmlWriter.Write(CriteriaName, this.Criteria);
+
+            // Nie wiem gdzie to dać to dam tu.
+            var a = FileReaders.XmlReader.ReadXmlGrading();
         }
 
         #endregion
