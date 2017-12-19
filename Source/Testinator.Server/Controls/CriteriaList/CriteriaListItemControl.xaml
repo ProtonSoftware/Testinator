@@ -23,7 +23,7 @@
                             </Border.InputBindings>
 
                             <Grid x:Name="container" 
-                                  Height="50" 
+                                  Height="40" 
                                   Margin="5"
                                   Cursor="Hand"
                                   Background="{StaticResource WhiteDarkBrush}">
@@ -34,7 +34,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="{Binding Name}"
-                                           Style="{StaticResource QuestionTextBlockStyle}"
+                                           Style="{StaticResource MediumTitleText}"
                                            />
                             </Grid>
 
@@ -42,10 +42,6 @@
 
                         <!-- Hover effect -->
                         <ControlTemplate.Triggers>
-
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource BlackPureBrush}"/>
-                            </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
@@ -64,6 +60,7 @@
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Background" TargetName="container" Value="{StaticResource BlackLightBrush}"/>
                             </Trigger>
+                            
                         </ControlTemplate.Triggers>
 
                     </ControlTemplate>
