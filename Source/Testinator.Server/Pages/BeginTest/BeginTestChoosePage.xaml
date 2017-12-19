@@ -19,7 +19,7 @@
                 Height="600"
                 Width="300">
 
-            <local:TestListControl DataContext="{Binding TestList}" />
+            <local:TestListControl />
 
         </Border>
         

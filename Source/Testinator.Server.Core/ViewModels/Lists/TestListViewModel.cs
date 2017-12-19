@@ -4,25 +4,25 @@ using Testinator.Core;
 namespace Testinator.Server.Core
 {
     /// <summary>
-    /// The view model for the criteria list
+    /// The view model for the test list
     /// </summary>
-    public class CriteriaListViewModel : BaseViewModel
+    public class TestListViewModel : BaseViewModel
     {
         #region Singleton
 
         /// <summary>
         /// Single instance of this view model
         /// </summary>
-        public static CriteriaListViewModel Instance { get; private set; } = new CriteriaListViewModel();
+        public static TestListViewModel Instance { get; private set; } = new TestListViewModel();
 
         #endregion
 
         #region Public Properties
 
         /// <summary>
-        /// List of items (criterias) in this criteria list
+        /// List of items (tests) in this test list
         /// </summary>
-        public ObservableCollection<GradingExtended> Items { get; set; }
+        public ObservableCollection<Test> Items { get; set; }
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CriteriaListViewModel()
+        public TestListViewModel()
         {
             // Load every criteria at the start
             LoadItems();
@@ -46,12 +46,12 @@ namespace Testinator.Server.Core
         /// </summary>
         public void LoadItems()
         {
-            // Load the list every criteria from xml files
-            var list = FileReaders.XmlReader.ReadXmlGrading();
+            // Load the list every test from bin files
+            //var list = FileReaders.BinReader.ReadXmlGrading();
 
             // Rewrite list to the collection
-            Items = new ObservableCollection<GradingExtended>();
-            foreach (var item in list) Items.Add(item);
+            Items = new ObservableCollection<Test>();
+            //foreach (var item in list) Items.Add(item);
         }
 
         #endregion

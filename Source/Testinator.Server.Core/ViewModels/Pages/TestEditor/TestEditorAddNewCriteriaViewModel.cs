@@ -99,6 +99,20 @@ namespace Testinator.Server.Core
         {
             // Cast parameter to string
             string criteriaName = param.ToString();
+
+            // Search for the criteria with that name
+            foreach (var criteria in CriteriaListViewModel.Instance.Items)
+            {
+                // Check if name matches
+                if (criteria.Name == criteriaName)
+                {
+                    // Get values to the view model's properties
+                    if (criteria.IsMarkAIncluded)
+                    {
+                        //this.TopValueMarkA = criteria.Marks.A.TopLimitValue;
+                    }
+                }
+            }
         }
 
         /// <summary>
