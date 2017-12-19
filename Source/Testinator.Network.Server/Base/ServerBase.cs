@@ -75,6 +75,24 @@ namespace Testinator.Network.Server
             Clients[Client].MachineName = NewModel.MachineName;
         }
 
+        /// <summary>
+        /// Checks if the <see cref="InfoPackage"/>'s content is valid
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private bool InfoPackageIsValid(InfoPackage content)
+        {
+            if (content == null)
+                return false;
+            if (string.IsNullOrEmpty(content.ClientName) ||
+                string.IsNullOrEmpty(content.ClientSurname) ||
+                string.IsNullOrEmpty(content.MacAddress) ||
+                string.IsNullOrEmpty(content.MachineName))
+            { return false; }
+
+            return true;
+        }
+
         #endregion
 
         #region Private Methods
@@ -150,42 +168,44 @@ namespace Testinator.Network.Server
                 if (PackageReceived.PackageType == PackageType.Info)
                 {
                     var content = (PackageReceived.Content as InfoPackage);
-                    if (content == null)
-                        return;
 
-                    string clientId = string.Empty;
-
-                    // If it is a new user...
-                    if (!ClientModelExists(senderSocket))
+                    // If content is valid...
+                    if (InfoPackageIsValid(content))
                     {
-                        // Get them an id
-                        clientId = ClientIdProvider.GetId(content.MacAddress);
+                        string clientId = string.Empty;
 
-                        // Construct new client model 
-                        var model = new ClientModel()
+                        // If it is a new user...
+                        if (!ClientModelExists(senderSocket))
                         {
-                            ID = clientId,
-                            MachineName = content.MachineName,
-                            ClientName = content.ClientName,
-                            ClientSurname = content.ClientSurname,
-                            IpAddress = senderSocket.GetIp(),
-                            MacAddress = content.MacAddress,
-                        };
+                            // Get them an id
+                            clientId = ClientIdProvider.GetId(content.MacAddress);
 
-                        // Store client model
-                        Clients[senderSocket] = model;
+                            // Construct new client model 
+                            var model = new ClientModel()
+                            {
+                                ID = clientId,
+                                MachineName = content.MachineName,
+                                ClientName = content.ClientName,
+                                ClientSurname = content.ClientSurname,
+                                IpAddress = senderSocket.GetIp(),
+                                MacAddress = content.MacAddress,
+                            };
 
-                        // Tell listeners that we got a new client
-                        OnClientConnected.Invoke((model));
-                    }
-                    // Otherwise, update client model
-                    else
-                    {
-                        // Update client model
-                        UpdateClientModel(senderSocket, content);
+                            // Store client model
+                            Clients[senderSocket] = model;
 
-                        // Call the subscribed methods
-                        OnClientDataUpdated.Invoke(Clients[senderSocket]);
+                            // Tell listeners that we got a new client
+                            OnClientConnected.Invoke((model));
+                        }
+                        // Otherwise, update client model
+                        else
+                        {
+                            // Update client model
+                            UpdateClientModel(senderSocket, content);
+
+                            // Call the subscribed methods
+                            OnClientDataUpdated.Invoke(Clients[senderSocket]);
+                        }
                     }
                 }
                 else if (PackageReceived.PackageType == PackageType.DisconnectRequest)

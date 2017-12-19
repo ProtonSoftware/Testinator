@@ -51,6 +51,8 @@ namespace Testinator.Core
         {
             ClientName = model.ClientName;
             ClientSurname = model.ClientSurname;
+            MachineName = model.MachineName;
+            MacAddress = model.MacAddress;
         }
         #endregion
     }

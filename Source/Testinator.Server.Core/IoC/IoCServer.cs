@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using Testinator.Network.Server;
 
 namespace Testinator.Server.Core
 {
@@ -18,6 +19,11 @@ namespace Testinator.Server.Core
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
         public static ApplicationViewModel Application => IoCServer.Get<ApplicationViewModel>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ServerNetwork"/>
+        /// A sho/// </summary>
+        public static ServerNetwork Network => IoCServer.Get<ServerNetwork>();
 
         /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
@@ -48,6 +54,7 @@ namespace Testinator.Server.Core
         {
             // Bind to a single instance of Application view model
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
+            Kernel.Bind<ServerNetwork>().ToConstant(new ServerNetwork());
         }
 
         #endregion

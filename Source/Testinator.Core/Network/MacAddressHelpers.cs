@@ -3,10 +3,14 @@
 namespace Testinator.Core.Network
 {
     /// <summary>
-    /// Help with mac addresses
+    /// Helps with mac addresses
     /// </summary>
     public static class MacAddressHelpers
     {
+        /// <summary>
+        /// Gets the machine mac address
+        /// </summary>
+        /// <returns>This machine mac address</returns>
         public static string GetMac()
         {
             string macAddress = string.Empty;

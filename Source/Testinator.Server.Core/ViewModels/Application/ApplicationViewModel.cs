@@ -1,4 +1,5 @@
 ﻿using Testinator.Core;
+using Testinator.Network.Server;
 
 namespace Testinator.Server.Core
 {
@@ -7,6 +8,8 @@ namespace Testinator.Server.Core
     /// </summary>
     public class ApplicationViewModel : BaseViewModel
     {
+        #region Public Properties
+
         /// <summary>
         /// The current page of the application
         /// </summary>
@@ -24,6 +27,15 @@ namespace Testinator.Server.Core
         /// The current subpage of the BeginTestPage
         /// </summary>
         public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
+
+        /// <summary>
+        /// Indicates if there is any test in progress
+        /// </summary>
+        public bool IsTestInProgress { get; set; }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Navigates to the specified page
@@ -54,5 +66,18 @@ namespace Testinator.Server.Core
             // Fire off a CurrentBeginTestPage changed event
             OnPropertyChanged(nameof(CurrentBeginTestPage));
         }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ApplicationViewModel()
+        {
+        }
+
+        #endregion
     }
 }

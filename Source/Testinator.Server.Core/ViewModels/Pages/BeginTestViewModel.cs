@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -16,7 +17,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A list of connected clients
         /// </summary>
-        public ObservableCollection<ClientModel> ClientsConnected { get; set; }
+        public ObservableCollection<ClientModel> ClientsConnected { get; set; } = new ObservableCollection<ClientModel>();
 
         /// <summary>
         /// The list of every test user can choose in the list
@@ -31,7 +32,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A flag indicating whether server has started
         /// </summary>
-        public bool IsServerStarted { get; set; }
+        public bool IsServerStarted => IoCServer.Network.IsRunning;
 
         /// <summary>
         /// A flag indicating whether test has been sent to the clients
@@ -41,7 +42,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A flag indicating whether test has started
         /// </summary>
-        public bool IsTestStarted { get; set; }
+        public bool IsTestStarted => IoCServer.Application.IsTestInProgress;
 
         #endregion
 
@@ -87,6 +88,10 @@ namespace Testinator.Server.Core
             ChangePageTestListCommand = new RelayCommand(ChangePageList);
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
             ChooseTestCommand = new RelayCommand(ChooseTest);
+
+            // Subscribe to the server events
+            IoCServer.Network.OnClientConnected += ServerClientConnected;
+            IoCServer.Network.OnClientDisconnected += ServerClientDisconnected;
         }
 
         #endregion
@@ -98,8 +103,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StartServer()
         {
-            // Indicate that server is starting
-            IsServerStarted = true;
+            IoCServer.Network.Start();
+            OnPropertyChanged(nameof(IsServerStarted));
 
             // Prepare for client connections
             ClientsConnected = new ObservableCollection<ClientModel>();
@@ -110,9 +115,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StopServer()
         {
-            // TODO: Advanced mechanic here
-            // For now - simply toggle the flag
-            IsServerStarted = false;
+            IoCServer.Network.Stop();
+            OnPropertyChanged(nameof(IsServerStarted));
         }
 
         /// <summary>
@@ -145,6 +149,31 @@ namespace Testinator.Server.Core
 
         }
 
+        #endregion
+
+        #region Private Methods
+        
+        /// <summary>
+        /// Fired when a new user connectes to the server
+        /// </summary>
+        /// <param name="client">A model for this hte client</param>
+        private void ServerClientConnected(ClientModel client)
+        {
+            // Jump on the dispatcher thread
+            var uiContext = SynchronizationContext.Current;
+            uiContext.Send(x => ClientsConnected.Add(client), null);
+        }
+
+        /// <summary>
+        /// Fired when a client disconnected from the server
+        /// </summary>
+        /// <param name="client">The client that has disconnected</param>
+        private void ServerClientDisconnected(ClientModel client)
+        {           
+            // Jump on the dispatcher thread
+            var uiContext = SynchronizationContext.Current;
+            uiContext.Send(x => ClientsConnected.Remove(client), null);
+        }
         #endregion
     }
 }

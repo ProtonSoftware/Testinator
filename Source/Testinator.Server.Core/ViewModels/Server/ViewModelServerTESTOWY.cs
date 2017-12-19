@@ -7,7 +7,7 @@ namespace ServerTestingIMPLEMENTTHISINNORMALSERVERUINOW
 {
     public class ViewModelServer : BaseViewModel
     {
-        public Server Server { get; set; } = new Server();
+        public ServerNetwork Server { get; set; } = new ServerNetwork();
 
         public string Ip { get; set; }
 
