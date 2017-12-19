@@ -17,6 +17,8 @@ namespace Testinator.Core
         /// <returns>All gradings that have beed read from the application folder</returns>
         public List<GradingExtended> ReadXmlGrading()
         {
+            Directory.CreateDirectory(Settings.Path + "Criteria\\");
+
             List<string> Files;
             try
             {
