@@ -89,8 +89,9 @@ namespace Testinator.Client
             if (newPageFrame.Content is BasePage page &&
                 page.ToApplicationPage() == currentPage)
             {
-                // Just update the view model
-                page.ViewModelObject = currentPageViewModel;
+                // Just update the view model (if it isn't null)
+                if (currentPageViewModel != null)
+                    page.ViewModelObject = currentPageViewModel;
 
                 return value;
             }

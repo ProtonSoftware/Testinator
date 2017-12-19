@@ -65,6 +65,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\AnimationsProperty.cs" />
+    <Compile Include="Controls\CriteriaList\CriteriaListControl.xaml.cs">
+      <DependentUpon>CriteriaListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CriteriaList\CriteriaListItemControl.xaml.cs">
+      <DependentUpon>CriteriaListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Menu\MenuListControl.xaml.cs">
       <DependentUpon>MenuListControl.xaml</DependentUpon>
     </Compile>
@@ -139,6 +145,14 @@
     <Compile Include="ValueConverters\QuestionTypeToIconConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Page Include="Controls\CriteriaList\CriteriaListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CriteriaList\CriteriaListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Menu\MenuListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

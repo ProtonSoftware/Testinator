@@ -149,9 +149,7 @@
                 </Grid>
 
                 <Border Margin="20" Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
-                    <TextBlock Text="TUTAJ LISTA"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource MediumTitleText}" />
+                    <local:CriteriaListControl />
                 </Border>
                 
             </Grid>
