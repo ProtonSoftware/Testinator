@@ -12,11 +12,6 @@
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// Indicates if this criteria contains mark A
-        /// </summary>
-        public bool IsMarkAIncluded { get; set; }
-
         #endregion
 
         #region Constructor

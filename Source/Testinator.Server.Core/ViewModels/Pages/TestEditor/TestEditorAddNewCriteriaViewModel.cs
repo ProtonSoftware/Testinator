@@ -76,6 +76,9 @@ namespace Testinator.Server.Core
             ChangePageTestEditorCommand = new RelayCommand(ChangePage);
             SelectCriteriaCommand = new RelayParameterizedCommand((param) => SelectCriteria(param));
             SubmitCriteriaCommand = new RelayCommand(SubmitCriteria);
+
+            // Load the criteria list
+            CriteriaListViewModel.Instance.LoadItems();
         }
 
         #endregion
@@ -107,9 +110,48 @@ namespace Testinator.Server.Core
                 if (criteria.Name == criteriaName)
                 {
                     // Get values to the view model's properties
-                    if (criteria.IsMarkAIncluded)
+                    foreach (var mark in criteria.Marks)
                     {
-                        //this.TopValueMarkA = criteria.Marks.A.TopLimitValue;
+                        switch (mark.Value)
+                        {
+                            case Marks.A:
+                                {
+                                    this.TopValueMarkA = mark.TopLimit.ToString();
+                                    this.BottomValueMarkA = mark.BottomLimit.ToString();
+                                    this.IsMarkACounted = true;
+                                }
+                                break;
+                            case Marks.B:
+                                {
+                                    this.TopValueMarkB = mark.TopLimit.ToString();
+                                    this.BottomValueMarkB = mark.BottomLimit.ToString();
+                                }
+                                break;
+                            case Marks.C:
+                                {
+                                    this.TopValueMarkC = mark.TopLimit.ToString();
+                                    this.BottomValueMarkC = mark.BottomLimit.ToString();
+                                }
+                                break;
+                            case Marks.D:
+                                {
+                                    this.TopValueMarkD = mark.TopLimit.ToString();
+                                    this.BottomValueMarkD = mark.BottomLimit.ToString();
+                                }
+                                break;
+                            case Marks.E:
+                                {
+                                    this.TopValueMarkE = mark.TopLimit.ToString();
+                                    this.BottomValueMarkE = mark.BottomLimit.ToString();
+                                }
+                                break;
+                            case Marks.F:
+                                {
+                                    this.TopValueMarkF = mark.TopLimit.ToString();
+                                    this.BottomValueMarkF = mark.BottomLimit.ToString();
+                                }
+                                break;
+                        }
                     }
                 }
             }
