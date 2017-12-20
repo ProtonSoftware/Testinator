@@ -47,11 +47,11 @@ namespace Testinator.Server.Core
         public void LoadItems()
         {
             // Load the list every test from bin files
-            //var list = FileReaders.BinReader.ReadXmlGrading();
+            var list = FileReaders.BinReader.ReadAllTests();
 
             // Rewrite list to the collection
             Items = new ObservableCollection<Test>();
-            //foreach (var item in list) Items.Add(item);
+            list.ForEach(x => Items.Add(x));
         }
 
         #endregion
