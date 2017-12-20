@@ -14,7 +14,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The criteria being created
         /// </summary>
-        public Grading Criteria { get; set; } = new Grading();
+        public Grading Criteria { get; set; }
 
         /// <summary>
         /// Name of the criteria used for identifying
@@ -25,6 +25,11 @@ namespace Testinator.Server.Core
         /// Indicates if mark A (the best grade) is counted (specific test can resign from this mark)
         /// </summary>
         public bool IsMarkACounted { get; set; } = true;
+
+        /// <summary>
+        /// Indicates if we are in editing existing criteria mode
+        /// </summary>
+        public bool EditingCriteriaMode { get; set; } = false;
 
         /// <summary>
         /// Indicates if invalid data error should be shown
@@ -54,9 +59,14 @@ namespace Testinator.Server.Core
         public ICommand ChangePageTestEditorCommand { get; private set; }
 
         /// <summary>
-        /// The command to select and load criteria from the list
+        /// The command to edit criteria from the list
         /// </summary>
-        public ICommand SelectCriteriaCommand { get; private set; }
+        public ICommand EditCriteriaCommand { get; private set; }
+
+        /// <summary>
+        /// The command to cancel editing criteria
+        /// </summary>
+        public ICommand CancelEditCriteriaCommand { get; private set; }
 
         /// <summary>
         /// The command to submit created criteria
@@ -74,7 +84,8 @@ namespace Testinator.Server.Core
         {
             // Create commands
             ChangePageTestEditorCommand = new RelayCommand(ChangePage);
-            SelectCriteriaCommand = new RelayParameterizedCommand((param) => SelectCriteria(param));
+            EditCriteriaCommand = new RelayParameterizedCommand((param) => EditCriteria(param));
+            CancelEditCriteriaCommand = new RelayCommand(CancelEdit);
             SubmitCriteriaCommand = new RelayCommand(SubmitCriteria);
 
             // Load the criteria list
@@ -95,11 +106,14 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Selects and loads the criteria from the list
+        /// Selects and loads the criteria from the list so user can edit it
         /// </summary>
         /// <param name="param">Name of the criteria</param>
-        private void SelectCriteria(object param)
+        private void EditCriteria(object param)
         {
+            // Indicate that we will be editing criteria instead of adding new one
+            EditingCriteriaMode = true;
+
             // Cast parameter to string
             string criteriaName = param.ToString();
 
@@ -110,6 +124,8 @@ namespace Testinator.Server.Core
                 if (criteria.Name == criteriaName)
                 {
                     // Get values to the view model's properties
+                    CriteriaName = criteria.Name;
+                    this.IsMarkACounted = false;
                     foreach (var mark in criteria.Marks)
                     {
                         switch (mark.Value)
@@ -158,6 +174,15 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
+        /// Cancels editing mode and leads to brand new criteria
+        /// </summary>
+        private void CancelEdit()
+        {
+            // Indicate that we are no longer editing criteria
+            EditingCriteriaMode = false;
+        }
+
+        /// <summary>
         /// Submits the criteria to the list
         /// </summary>
         private void SubmitCriteria()
@@ -167,6 +192,7 @@ namespace Testinator.Server.Core
                 return;
 
             // Add every mark to the criteria object
+            Criteria = new Grading();
             if (IsMarkACounted) Criteria.AddMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
             Criteria.AddMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
             Criteria.AddMark(Marks.C, Int32.Parse(TopValueMarkC), Int32.Parse(BottomValueMarkC));

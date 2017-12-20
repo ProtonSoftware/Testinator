@@ -40,17 +40,18 @@
                 <Grid Margin="20">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Wprowadz nazwę"
@@ -139,13 +140,25 @@
                                    Margin="2 0"/>
                     </StackPanel>
 
+                    <TextBlock Text="Niepoprawne wartości"
+                               Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
+                               Grid.Row="10"
+                               Foreground="Red"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
                     <Button Content="Dodaj kryteria"
                             Command="{Binding SubmitCriteriaCommand}"
-                            Grid.Row="10"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
+                            Grid.Row="11"
+                            HorizontalAlignment="Right"
                             Style="{StaticResource BaseUIButton}" />
-                    
+
+                    <Button Content="Anuluj edycję"
+                            Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
+                            Command="{Binding CancelEditCriteriaCommand}"
+                            Grid.Row="11"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource BaseUIButton}" />
+
                 </Grid>
 
                 <Border Margin="20" Grid.Column="1" Background="{StaticResource WhiteLightBrush}">

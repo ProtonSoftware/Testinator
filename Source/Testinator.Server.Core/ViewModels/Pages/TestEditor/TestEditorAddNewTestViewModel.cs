@@ -89,6 +89,7 @@ namespace Testinator.Server.Core
         /// 1,2,3... - means we are editing question with 1,2,3... index in the list
         /// </summary>
         public int EditingQuestion { get; set; } = 0;
+        public bool IsEditModeOn => EditingQuestion == 0 ? false : true;
 
         #region Multiple Choice Answers
 
@@ -188,6 +189,11 @@ namespace Testinator.Server.Core
         public ICommand EditQuestionCommand { get; private set; }
 
         /// <summary>
+        /// The command to cancel editing question in test
+        /// </summary>
+        public ICommand CancelEditQuestionCommand { get; private set; }
+
+        /// <summary>
         /// The command to delete question from test
         /// </summary>
         public ICommand DeleteQuestionCommand { get; private set; }
@@ -211,6 +217,7 @@ namespace Testinator.Server.Core
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
             ChooseRightAnswerMultipleChoiceCommand = new RelayParameterizedCommand((param) => RightAnswerIdx = param.ToString());
             EditQuestionCommand = new RelayParameterizedCommand((param) => EditQuestion(param));
+            CancelEditQuestionCommand = new RelayCommand(CancelEditing);
             DeleteQuestionCommand = new RelayParameterizedCommand((param) => DeleteQuestion(param));
         }
 
@@ -390,6 +397,7 @@ namespace Testinator.Server.Core
                         if (!Int32.TryParse(this.QuestionMultipleChoicePointScore, out int pointScore))
                         {
                             // Wrong value in textbox input, show error
+                            InvalidDataError = true;
                             return;
                         }
                         question.PointScore = pointScore;
@@ -399,8 +407,11 @@ namespace Testinator.Server.Core
                         if (ShouldAnswerCBeVisible) question.Options.Add(AnswerC);
                         if (ShouldAnswerDBeVisible) question.Options.Add(AnswerD);
                         if (ShouldAnswerEBeVisible) question.Options.Add(AnswerE);
-                        Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx);
-                        if (rightAnswerIdx == 0) return;
+                        if (!Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx) || rightAnswerIdx == 0)
+                        {
+                            InvalidDataError = true;
+                            return;
+                        }
                         question.CorrectAnswerIndex = rightAnswerIdx;
 
                         // We have our question done, check if we were editing existing question or created new one
@@ -430,6 +441,7 @@ namespace Testinator.Server.Core
                         if (!Int32.TryParse(this.QuestionMultipleCheckboxesPointScore, out int pointScore))
                         {
                             // Wrong value in textbox input, show error
+                            InvalidDataError = true;
                             return;
                         }
                         question.PointScore = pointScore;
@@ -456,6 +468,7 @@ namespace Testinator.Server.Core
                         if (!Int32.TryParse(this.QuestionSingleTextBoxPointScore, out int pointScore))
                         {
                             // Wrong value in textbox input, show error
+                            InvalidDataError = true;
                             return;
                         }
                         question.PointScore = pointScore;
@@ -531,6 +544,7 @@ namespace Testinator.Server.Core
                             ShouldAnswerEBeVisible = true;
                             AnswerE = question.Options[4];
                         }
+                        RightAnswerIdx = question.CorrectAnswerIndex.ToString();
                         QuestionMultipleChoicePointScore = question.PointScore.ToString();
                     }
                     break;
@@ -589,6 +603,18 @@ namespace Testinator.Server.Core
                     Debugger.Break();
                     return;
             }
+        }
+
+        /// <summary>
+        /// Cancels the editing mode and leads to brand new question
+        /// </summary>
+        private void CancelEditing()
+        {
+            // We are no more editing any question
+            EditingQuestion = 0;
+
+            // Go to brand new question
+            SaveViewModelAndChangeToNewQuestion();
         }
 
         /// <summary>

@@ -271,10 +271,30 @@
 
                         </StackPanel>
 
+                        <TextBlock Text="Nieprawidlowe dane"
+                                   Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
+                                   Foreground="Red"
+                                   Style="{StaticResource QuestionTextBlockStyle}" />
+
                     </StackPanel>
 
                     <Button Grid.Row="1"
+                            Content="Anuluj edycję"
+                            Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
+                            Command="{Binding CancelEditQuestionCommand}"
+                            Style="{StaticResource BaseUIButton}"
+                            HorizontalAlignment="Left" />
+                    
+                    <Button Grid.Row="1"
                             Content="Dodaj pytanie"
+                            Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                            Command="{Binding SubmitQuestionCommand}"
+                            Style="{StaticResource BaseUIButton}"
+                            HorizontalAlignment="Right" />
+
+                    <Button Grid.Row="1"
+                            Content="Zapisz pytanie"
+                            Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                             Command="{Binding SubmitQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Right" />
