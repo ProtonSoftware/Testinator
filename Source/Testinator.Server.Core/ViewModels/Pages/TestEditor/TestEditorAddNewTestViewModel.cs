@@ -139,6 +139,11 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        /// <summary>
+        /// The view model for creating new criteria
+        /// </summary>
+        public TestEditorAddNewCriteriaViewModel CriteriaViewModel { get; set; } = new TestEditorAddNewCriteriaViewModel();
+
         #endregion
 
         #region Commands

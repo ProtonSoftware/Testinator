@@ -30,18 +30,20 @@
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
 
-                    <TextBlock Text="MAX POINTS: 20"
-                               Style="{StaticResource MediumTitleText}" />
+                    <TextBlock Style="{StaticResource MediumTitleText}">
+                        <Run Text="Max punktów do zdobycia: " />
+                        <Run Text="{Binding Test.TotalPointScore, Mode=OneWay}" />
+                    </TextBlock>
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="20" />
@@ -93,71 +95,133 @@
 
                 </StackPanel>
 
-                <Border Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
-                    <TextBlock Text="TUTAJ LISTA"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource MediumTitleText}" />
+                <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource WhiteLightBrush}">
+                    <local:CriteriaListControl />
                 </Border>
 
-                <StackPanel Grid.Row="1" Grid.Column="1">
+                <Grid Margin="20" Grid.Row="1">
 
-                    <TextBlock Text="Wpisz % wartosci"
-                               Style="{StaticResource MediumTitleText}" />
-                    
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Wprowadz nazwę"
+                            Style="{StaticResource MediumTitleText}" />
+
+                    <TextBox Text="{Binding CriteriaViewModel.CriteriaName, UpdateSourceTrigger=PropertyChanged}"
+                            Grid.Row="1"
+                            Style="{StaticResource SmallInputTextBox}" />
+
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="2">
+                        <TextBlock Text="Z oceną 6?"
+                                Style="{StaticResource QuestionTextBlockStyle}" />
+                        <CheckBox IsChecked="{Binding CriteriaViewModel.IsMarkACounted}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Wartosci w polach liczone w %:"
+                            TextWrapping="WrapWithOverflow"
+                            Grid.Row="3"
+                            Style="{StaticResource MediumTitleText}" />
+
+                    <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding CriteriaViewModel.IsMarkACounted, Converter={local:BooleanToVisiblityConverter}}"
+                            Grid.Row="4">
+                        <TextBox Text="{Binding CriteriaViewModel.BottomValueMarkA, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="-" />
-                        <TextBlock Text="100" />
+                        <TextBox Text="{Binding CriteriaViewModel.TopValueMarkA, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="Celujacy"
-                                   Margin="2 0"/>
+                                Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="5">
+                        <TextBox Text="{Binding CriteriaViewModel.BottomValueMarkB, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding CriteriaViewModel.TopValueMarkB, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="Bardzo dobry"
-                                   Margin="2 0"/>
+                                Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="6">
+                        <TextBox Text="{Binding CriteriaViewModel.BottomValueMarkC, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding CriteriaViewModel.TopValueMarkC, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="Dobry"
-                                   Margin="2 0"/>
+                                Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="7">
+                        <TextBox Text="{Binding CriteriaViewModel.BottomValueMarkD, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding CriteriaViewModel.TopValueMarkD, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="Dostateczny"
-                                   Margin="2 0"/>
+                                Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="20" />
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="8">
+                        <TextBox Text="{Binding CriteriaViewModel.BottomValueMarkE, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding CriteriaViewModel.TopValueMarkE, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="Dopuszczajacy"
-                                   Margin="2 0"/>
+                                Margin="2 0"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="0" />
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="9">
+                        <TextBox Text="{Binding CriteriaViewModel.BottomValueMarkF, UpdateSourceTrigger=PropertyChanged}" 
+                                Width="30" />
                         <TextBlock Text="-" />
-                        <TextBox Width="20" />
+                        <TextBox Text="{Binding CriteriaViewModel.TopValueMarkF, UpdateSourceTrigger=PropertyChanged}"
+                                Width="30" />
                         <TextBlock Text="Niedostateczny"
-                                   Margin="2 0"/>
+                                Margin="2 0"/>
                     </StackPanel>
+
+                    <TextBlock Text="Niepoprawne wartości"
+                            Visibility="{Binding CriteriaViewModel.InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
+                            Grid.Row="10"
+                            Foreground="Red"
+                            Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <Button Content="Dodaj kryteria"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
+                        Command="{Binding CriteriaViewModel.SubmitCriteriaCommand}"
+                        Grid.Row="11"
+                        HorizontalAlignment="Right"
                         Style="{StaticResource BaseUIButton}" />
 
-                </StackPanel>
+                    <Button Content="Anuluj edycję"
+                        Visibility="{Binding CriteriaViewModel.EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
+                        Command="{Binding CriteriaViewModel.CancelEditCriteriaCommand}"
+                        Grid.Row="11"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource BaseUIButton}" />
+
+                </Grid>
 
             </Grid>
 

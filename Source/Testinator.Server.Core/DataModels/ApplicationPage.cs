@@ -66,6 +66,11 @@
         TestEditorAttachCriteria,
 
         /// <summary>
+        /// The page for showing that test is created and proceed successfully
+        /// </summary>
+        TestEditorResult,
+
+        /// <summary>
         /// The screen stream page
         /// </summary>
         ScreenStream,
