@@ -7,10 +7,12 @@ namespace Testinator.Core
     public class BinaryReader : ReaderBase
     {
 
+        #region Public Methods
+
         /// <summary>
         /// Gets all tests from the directory
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of all available tests</returns>
         public List<Test> ReadAllTests()
         {
             List<string> Files;
@@ -45,6 +47,15 @@ namespace Testinator.Core
 
         }
 
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Gets a test object from file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         private Test GetTestFromBin(string file)
         {
             var data = File.ReadAllBytes(file);
@@ -55,6 +66,8 @@ namespace Testinator.Core
             return null;
         }
 
+        #endregion
+        
         #region Constructor
 
         /// <summary>

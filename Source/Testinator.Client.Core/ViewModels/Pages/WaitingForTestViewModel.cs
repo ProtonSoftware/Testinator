@@ -192,7 +192,7 @@ namespace Testinator.Client.Core
 
             var sddds = test.Grading.GetMark(6);
 
-            FileWriters.XmlWriter.Write("sample", test.Grading);
+            FileWriters.XmlWriter.SaveGrading("sample", test.Grading);
 
             IoCClient.TestHost.BindTest(test);
 

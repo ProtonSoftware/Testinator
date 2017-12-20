@@ -14,9 +14,7 @@ namespace Testinator.Core
         {
             if (test == null)
                 return;
-
-            Directory.CreateDirectory(Settings.Path + "Tests\\");
-
+            
             if (DataPackageDescriptor.TryConvertToBin(out byte[] dataBin, new DataPackage(PackageType.TestForm, test)))
             {
                 using (System.IO.BinaryWriter writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + CreateFileName() + ".dat", FileMode.Create)))

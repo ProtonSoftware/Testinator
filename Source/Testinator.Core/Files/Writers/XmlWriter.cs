@@ -10,12 +10,13 @@ namespace Testinator.Core
     /// </summary>
     public class XmlWriter : WriterBase
     {
-
-        public void Write(string FileName, object data)
+        /// <summary>
+        /// Saves <see cref="Grading"/> to xml file
+        /// </summary>
+        /// <param name="FileName">The name of the file</param>
+        /// <param name="data">The data to be saved</param>
+        public void SaveGrading(string FileName, Grading data)
         {
-            if (!(data is Grading))
-                return;
-
             var grades = data as Grading;
 
             var doc = new XmlDocument();
@@ -42,7 +43,6 @@ namespace Testinator.Core
                 BottomLimitNode.AppendChild(doc.CreateTextNode(mark.BottomLimit.ToString()));
                 MarkNode.AppendChild(BottomLimitNode);
             }
-            Directory.CreateDirectory(Settings.Path + "Criteria\\");
             try
             {
                 doc.Save(Settings.Path + "Criteria\\" + FileName + ".xml");
@@ -52,6 +52,19 @@ namespace Testinator.Core
             {
                 // TODO: error handling xml
             }
+        }
+
+        /// <summary>
+        /// Deletes xml file by filename
+        /// </summary>
+        /// <param name="FileName">Name of the file to be delted</param>
+        public void DeleteFile(string FileName)
+        {
+            try
+            {
+                File.Delete(Settings.Path + "Criteria\\" + FileName + ".xml");
+            }
+            catch { }
         }
 
         #region Constructor

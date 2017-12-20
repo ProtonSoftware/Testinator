@@ -201,7 +201,7 @@ namespace Testinator.Server.Core
             Criteria.AddMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
 
             // Send it to xml writer
-            FileWriters.XmlWriter.Write(CriteriaName, this.Criteria);
+            FileWriters.XmlWriter.SaveGrading(CriteriaName, this.Criteria);
 
             // Reload the criteria list to include newly created criteria
             CriteriaListViewModel.Instance.LoadItems();

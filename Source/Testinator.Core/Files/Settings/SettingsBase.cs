@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Testinator.Core
 {
@@ -38,6 +39,9 @@ namespace Testinator.Core
                     Path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Testinator\\";
                     break;
             }
+
+            Directory.CreateDirectory(Path + "Criteria\\");
+            Directory.CreateDirectory(Path + "Tests\\");
         }
 
         #endregion

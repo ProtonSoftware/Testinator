@@ -11,14 +11,14 @@ namespace Testinator.Core
     /// </summary>
     public class XmlReader : ReaderBase
     {
+        #region Public Methods
+
         /// <summary>
         /// Gets all saved grading templates from the disc
         /// </summary>
         /// <returns>All gradings that have beed read from the application folder</returns>
         public List<GradingExtended> ReadXmlGrading()
         {
-            Directory.CreateDirectory(Settings.Path + "Criteria\\");
-
             List<string> Files;
             try
             {
@@ -47,14 +47,20 @@ namespace Testinator.Core
             }
             return gradings;
         }
+        
+        #endregion
+
+        #region Private Methods
 
         private GradingExtended GetGradingFromXml(string file)
         {
             var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
             var reader = new XmlTextReader(file);
 
-            var result = new GradingExtended();
-            result.Name = Path.GetFileNameWithoutExtension(file);
+            var result = new GradingExtended
+            {
+                Name = Path.GetFileNameWithoutExtension(file),
+            };
 
 
             bool InsideMarkNode = false;
@@ -119,7 +125,9 @@ namespace Testinator.Core
 
             return result;
         }
-        
+
+        #endregion
+
         #region Constructor
 
         /// <summary>

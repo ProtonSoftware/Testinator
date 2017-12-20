@@ -119,8 +119,7 @@ namespace Testinator.Client.Core
 
             TestTimer.Stop();
             IsTestInProgress = false;
-
-            // TODO: change the page to the result page
+            
             IoCClient.UI.ChangePage(ApplicationPage.ResultPage);
 
             // TODO: send results
