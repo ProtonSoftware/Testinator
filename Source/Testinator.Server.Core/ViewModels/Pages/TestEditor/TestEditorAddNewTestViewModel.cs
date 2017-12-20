@@ -612,7 +612,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitTest()
         {
-            // TODO: Save it to binary file, add to list etc.
+            // Save the test
+            FileWriters.BinWriter.WriteTestToFile(Test);
             return;
         }
 

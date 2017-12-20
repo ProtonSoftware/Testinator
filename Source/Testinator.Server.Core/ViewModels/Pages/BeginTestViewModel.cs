@@ -92,6 +92,8 @@ namespace Testinator.Server.Core
             // Subscribe to the server events
             IoCServer.Network.OnClientConnected += ServerClientConnected;
             IoCServer.Network.OnClientDisconnected += ServerClientDisconnected;
+
+            TestList = FileReaders.BinReader.ReadAllTests();
         }
 
         #endregion
