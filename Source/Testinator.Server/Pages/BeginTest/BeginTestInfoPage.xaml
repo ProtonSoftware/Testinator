@@ -10,11 +10,73 @@
              d:DesignHeight="720"
              d:DesignWidth="1024">
 
-    <Grid Background="Red">
+    <Grid Background="{StaticResource WhiteDarkBrush}">
+
+        <Grid VerticalAlignment="Center"
+              HorizontalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Informacje o tescie"
+                       Grid.ColumnSpan="2"
+                       Style="{StaticResource MediumTitleText}" />
+
+            <TextBlock Text="Nazwa: "
+                       Grid.Row="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="{Binding Test.Name}"
+                       Grid.Row="1" Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="Czas trwania: "
+                       Grid.Row="2"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="{Binding Test.Duration}"
+                       Grid.Row="2" Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="Max pkt: "
+                       Grid.Row="3"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="{Binding Test.TotalPointScore}"
+                       Grid.Row="3" Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="Ilość pytań: "
+                       Grid.Row="4"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="{Binding Test.Questions.Count}"
+                       Grid.Row="4" Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+        </Grid>
+
+        <Button Content="Rozpocznij test"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Command="{Binding BeginTestCommand}"
+                Style="{StaticResource BaseUIButton}" />
 
         <Button Content="Wróc do listy testów"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
+                Margin="10"
                 Command="{Binding ChangePageTestListCommand}"
                 Style="{StaticResource BaseUIButton}" />
 

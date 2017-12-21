@@ -6,8 +6,70 @@
              xmlns:local="clr-namespace:Testinator.Server"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBlock Text="{Binding Name}"
-                   Style="{StaticResource QuestionTextBlockStyle}" />
-    </Grid>
+    <UserControl.Resources>
+        <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+
+                        <!-- Content -->
+                        <Border x:Name="background" Background="{StaticResource WhiteDarkBrush}">
+
+                            <!-- Click to change page -->
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" 
+                                              Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                               AncestorType=local:BeginTestChoosePage},
+                                                                                               Path=DataContext.ChooseTestCommand}"
+                                              CommandParameter="{Binding ID}" />
+                            </Border.InputBindings>
+
+                            <Grid x:Name="container" 
+                                  Height="40" 
+                                  Margin="5"
+                                  Cursor="Hand"
+                                  Background="{StaticResource WhiteDarkBrush}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding Name}"
+                                           Style="{StaticResource MediumTitleText}"
+                                           />
+                            </Grid>
+
+                        </Border>
+
+                        <!-- Hover effect -->
+                        <ControlTemplate.Triggers>
+
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="{StaticResource BlackLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource BlackLightBrush}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ContentControl Style="{StaticResource ContentStyle}" />
 </UserControl>

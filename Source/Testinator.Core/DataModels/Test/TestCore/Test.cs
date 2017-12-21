@@ -10,6 +10,12 @@ namespace Testinator.Core
     public class Test : PackageContent
     {
         #region Public Properties
+
+        /// <summary>
+        /// The unique ID of this test
+        /// NOTE: Counted from 1 (not 0)
+        /// </summary>
+        public int ID { get; set; }
         
         /// <summary>
         /// Stores all questions and correct answers for them in this test

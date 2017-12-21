@@ -20,11 +20,6 @@ namespace Testinator.Server.Core
         public ObservableCollection<ClientModel> ClientsConnected { get; set; } = new ObservableCollection<ClientModel>();
 
         /// <summary>
-        /// The list of every test user can choose in the list
-        /// </summary>
-        public List<Test> TestList { get; set; }
-
-        /// <summary>
         /// The test which is choosen by user on the list
         /// </summary>
         public Test CurrentTest { get; set; }
@@ -73,6 +68,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand ChooseTestCommand { get; private set; }
 
+        /// <summary>
+        /// The command to start choosen test
+        /// </summary>
+        public ICommand BeginTestCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -87,13 +87,15 @@ namespace Testinator.Server.Core
             StopServerCommand = new RelayCommand(StopServer);
             ChangePageTestListCommand = new RelayCommand(ChangePageList);
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
-            ChooseTestCommand = new RelayCommand(ChooseTest);
+            ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
+            BeginTestCommand = new RelayCommand(BeginTest);
 
             // Subscribe to the server events
             IoCServer.Network.OnClientConnected += ServerClientConnected;
             IoCServer.Network.OnClientDisconnected += ServerClientDisconnected;
 
-            TestList = FileReaders.BinReader.ReadAllTests();
+            // Load every test from files
+            TestListViewModel.Instance.LoadItems();
         }
 
         #endregion
@@ -146,15 +148,27 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Chooses a test from the list
         /// </summary>
-        private void ChooseTest()
+        private void ChooseTest(object param)
         {
+            // Cast the parameter
+            int testID = Int32.Parse(param.ToString());
 
+            // Load test based on that
+            CurrentTest = TestListViewModel.Instance.Items[testID-1];
+        }
+
+        /// <summary>
+        /// Starts the test
+        /// </summary>
+        private void BeginTest()
+        {
+            
         }
 
         #endregion
 
-        #region Private Methods
-        
+        #region Private Helpers
+
         /// <summary>
         /// Fired when a new user connectes to the server
         /// </summary>
