@@ -8,54 +8,21 @@ namespace Testinator.Core
     [Serializable]
     public class SingleTextBoxQuestion : Question
     {
-        #region Private Members 
-
-        /// <summary>
-        /// The task itself
-        /// </summary>
-        private string mTask;
-
-        /// <summary>
-        /// Index of the correct answer in options list
-        /// </summary>
-        private string mCorrectAnswer;
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
         /// The task itself
         /// </summary>
-        public string Task
-        {
-            get => mTask;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new QuestionException(QuestionExceptionTypes.NullOrEmptyString);
-                mTask = value;
-            }
-        }
+        public string Task { get; set; }
 
         /// <summary>
         /// Correct answer to the question as a string
         /// </summary>
-        public string CorrectAnswer
-        {
-            get => mCorrectAnswer;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new QuestionException(QuestionExceptionTypes.NullOrEmptyString);
-
-                mCorrectAnswer = value;
-            }
-        }
+        public string CorrectAnswer { get; set; }
 
         #endregion
 
-        #region PublicMethods
+        #region Public Methods
 
         /// <summary>
         /// Clones the object
@@ -80,12 +47,8 @@ namespace Testinator.Core
         /// </summary>
         public SingleTextBoxQuestion()
         {
+            // Set the type
             Type = QuestionType.SingleTextBox;
-
-            // Create defaults
-            Task = "Wpisz pytanie";
-            CorrectAnswer = "odpowiedz";
-            PointScore = 1;
         }
 
         #endregion

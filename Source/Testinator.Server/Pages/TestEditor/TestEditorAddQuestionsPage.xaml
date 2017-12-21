@@ -271,8 +271,7 @@
 
                         </StackPanel>
 
-                        <TextBlock Text="Nieprawidlowe dane"
-                                   Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
+                        <TextBlock Text="{Binding ErrorMessage}"
                                    Foreground="Red"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
 
