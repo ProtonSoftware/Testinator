@@ -42,6 +42,88 @@ namespace Testinator.Core
             throw new Exception("Wrong value");
         }
 
+        /// <summary>
+        /// Converts percentage values in grading to point values 
+        /// </summary>
+        /// <param name="Grades"></param>
+        /// <param name="maxPoints">Max points available</param>
+        /// <returns>New Grades with scale in points</returns>
+        public static Grading GetPoints(this Grading Grades, int maxPoints)
+        {
+            var result = new Grading();
+
+            int bottom = 0;
+            int top = 0;
+
+            bool FirstItem = true;
+
+            foreach (var mark in Grades.Marks)
+            {
+                if (FirstItem)
+                {
+                    top = PercentToPoint(mark.TopLimit, maxPoints);
+                    bottom = PercentToPoint(mark.BottomLimit, maxPoints);
+                    FirstItem = false;
+                }
+                else
+                {
+                    top = bottom - 1;
+                    bottom = PercentToPoint(mark.BottomLimit, maxPoints);
+                }
+
+                result.AddMark(mark.Value, top, bottom);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Converts values in points to percentage values
+        /// </summary>
+        /// <param name="Grades"></param>
+        /// <returns>New grading with value in percentage</returns>
+        public static Grading GetPercentage(this Grading Grades)
+        {
+            var result = new Grading();
+
+            bool FirstItem = true;
+
+            int bottom = 0;
+            int top = 0;
+            int maxPoints = 0;
+
+            foreach (var mark in Grades.Marks)
+            {
+                if (FirstItem)
+                {
+                    maxPoints = mark.TopLimit;
+
+                    top = PointsToPercent(mark.TopLimit, maxPoints);
+                    bottom = PointsToPercent(mark.BottomLimit, maxPoints);
+                    FirstItem = false;
+                }
+                else
+                {
+                    top = bottom - 1;
+                    bottom = PointsToPercent(mark.BottomLimit, maxPoints);
+                }
+
+                result.AddMark(mark.Value, top, bottom);
+
+            }
+
+            return result;
+        }
+
+        private static int PointsToPercent(int points, int maxPoints)
+        {
+            return (int)((points / (double)maxPoints) * 100);
+        }
+
+        private static int PercentToPoint(int percent, int maxPoint)
+        {
+            return (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
+        }
         #endregion
     }
 }

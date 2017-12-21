@@ -184,11 +184,14 @@ namespace Testinator.Client.Core
             }*/
 
 
-            test.Grading.AddMark(Marks.B, 25, 19);
-            test.Grading.AddMark(Marks.C, 20, 16);
-            test.Grading.AddMark(Marks.D, 15, 11);
-            test.Grading.AddMark(Marks.E, 10, 6);
-            test.Grading.AddMark(Marks.F, 5, 0);
+            test.Grading.AddMark(Marks.B, 100, 60);
+            test.Grading.AddMark(Marks.C, 59, 46);
+            test.Grading.AddMark(Marks.D, 45, 31);
+            test.Grading.AddMark(Marks.E, 30, 26);
+            test.Grading.AddMark(Marks.F, 25, 0);
+
+            var a = test.Grading.GetPoints(25);
+            var b = a.GetPercentage();
 
             var sddds = test.Grading.GetMark(6);
 
