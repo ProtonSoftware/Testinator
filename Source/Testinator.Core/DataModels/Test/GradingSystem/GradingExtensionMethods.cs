@@ -3,60 +3,27 @@
 namespace Testinator.Core
 {
     /// <summary>
-    /// Extension methods for <see cref="Grading"/> class
+    /// Extension methods for Grading system
     /// </summary>
     public static class GradingExtensionMethods
     {
         #region Public Methods
 
         /// <summary>
-        /// Adds a single grade condition to the scale
-        /// </summary>
-        /// <param name="Grades"></param>
-        /// <param name="mark">The mark to be added</param>
-        /// <param name="top">The top limit in points</param>
-        /// <param name="bottom">The bottom limit in points</param>
-        public static void AddMark(this Grading Grades, Marks mark, int top, int bottom)
-        {
-            Grades.Marks.Add(new Mark()
-            {
-                BottomLimit = bottom,
-                TopLimit = top,
-                Value = mark,
-            });
-        }
-
-        /// <summary>
-        /// Gets a mark based on a score 
-        /// </summary>
-        /// <param name="Grades"></param>
-        /// <param name="points">Points the user scored in the test</param>
-        /// <returns>The corresponding mark</returns>
-        public static Marks GetMark(this Grading Grades, int points)
-        {
-            foreach(var mark in Grades.Marks)
-            {
-                if (points >= mark.BottomLimit)
-                    return mark.Value;
-            }
-            throw new Exception("Wrong value");
-        }
-
-        /// <summary>
         /// Converts percentage values in grading to point values 
         /// </summary>
-        /// <param name="Grades"></param>
         /// <param name="maxPoints">Max points available</param>
         /// <returns>New Grades with scale in points</returns>
-        public static Grading GetPoints(this Grading Grades, int maxPoints)
+        public static GradingPoints ConvertToPoints(this GradingPercentage Grades, int maxPoints)
         {
-            var result = new Grading();
+            var result = new GradingPoints();
 
             int bottom = 0;
             int top = 0;
 
             bool FirstItem = true;
 
+            // Przerob logike tutaj :)
             foreach (var mark in Grades.Marks)
             {
                 if (FirstItem)
@@ -80,11 +47,10 @@ namespace Testinator.Core
         /// <summary>
         /// Converts values in points to percentage values
         /// </summary>
-        /// <param name="Grades"></param>
         /// <returns>New grading with value in percentage</returns>
-        public static Grading GetPercentage(this Grading Grades)
+        public static GradingPercentage ConvertToPercentage(this GradingPoints Grades)
         {
-            var result = new Grading();
+            var result = new GradingPercentage();
 
             bool FirstItem = true;
 
@@ -92,6 +58,7 @@ namespace Testinator.Core
             int top = 0;
             int maxPoints = 0;
 
+            // Logika tutaj przerob
             foreach (var mark in Grades.Marks)
             {
                 if (FirstItem)
@@ -115,6 +82,10 @@ namespace Testinator.Core
             return result;
         }
 
+        #endregion
+
+        #region Private Helpers
+
         private static int PointsToPercent(int points, int maxPoints)
         {
             return (int)((points / (double)maxPoints) * 100);
@@ -124,6 +95,7 @@ namespace Testinator.Core
         {
             return (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
         }
+
         #endregion
     }
 }

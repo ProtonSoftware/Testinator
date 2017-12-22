@@ -142,32 +142,14 @@ namespace Testinator.Server.Core
         #region Criteria Attaching
 
         /// <summary>
-        /// The view model for creating new criteria
-        /// </summary>
-        public TestEditorAddNewCriteriaViewModel CriteriaViewModel { get; set; } = new TestEditorAddNewCriteriaViewModel();
-
-        /// <summary>
         /// Current grading system attached to the test
         /// </summary>
-        public Grading CurrentGrading { get; set; }
+        public GradingPercentage CurrentGrading { get; set; }
 
         /// <summary>
         /// Current grading system converted to the points based values
         /// </summary>
-        public Grading PointsGrading { get; set; }
-
-        public string TopValuePointsA { get; set; }
-        public string BottomValuePointsA { get; set; }
-        public string TopValuePointsB { get; set; }
-        public string BottomValuePointsB { get; set; }
-        public string TopValuePointsC { get; set; }
-        public string BottomValuePointsC { get; set; }
-        public string TopValuePointsD { get; set; }
-        public string BottomValuePointsD { get; set; }
-        public string TopValuePointsE { get; set; }
-        public string BottomValuePointsE { get; set; }
-        public string TopValuePointsF { get; set; }
-        public string BottomValuePointsF { get; set; }
+        public GradingPoints PointsGrading { get; set; }
 
         #endregion
 
@@ -311,61 +293,9 @@ namespace Testinator.Server.Core
                     Test = this.Test
                 };
 
-                // Set default grading 
-                viewModel.CurrentGrading = new Grading();
-                viewModel.CurrentGrading.AddMark(Marks.A, 100, 96);
-                viewModel.CurrentGrading.AddMark(Marks.B, 95, 86);
-                viewModel.CurrentGrading.AddMark(Marks.C, 85, 70);
-                viewModel.CurrentGrading.AddMark(Marks.D, 69, 50);
-                viewModel.CurrentGrading.AddMark(Marks.E, 49, 30);
-                viewModel.CurrentGrading.AddMark(Marks.F, 29, 0);
-
-                // Convert this to points
+                // Set default points grading 
+                viewModel.CurrentGrading = new GradingPercentage();
                 viewModel.PointsGrading = viewModel.CurrentGrading.GetPoints(Test.TotalPointScore);
-
-                foreach (var mark in viewModel.PointsGrading.Marks)
-                {
-                    switch (mark.Value)
-                    {
-                        case Marks.A:
-                            {
-                                viewModel.TopValuePointsA = mark.TopLimit.ToString();
-                                viewModel.BottomValuePointsA = mark.BottomLimit.ToString();
-                                viewModel.CriteriaViewModel.IsMarkACounted = true;
-                            }
-                            break;
-                        case Marks.B:
-                            {
-                                viewModel.TopValuePointsB = mark.TopLimit.ToString();
-                                viewModel.BottomValuePointsB = mark.BottomLimit.ToString();
-                            }
-                            break;
-                        case Marks.C:
-                            {
-                                viewModel.TopValuePointsC = mark.TopLimit.ToString();
-                                viewModel.BottomValuePointsC = mark.BottomLimit.ToString();
-                            }
-                            break;
-                        case Marks.D:
-                            {
-                                viewModel.TopValuePointsD = mark.TopLimit.ToString();
-                                viewModel.BottomValuePointsD = mark.BottomLimit.ToString();
-                            }
-                            break;
-                        case Marks.E:
-                            {
-                                viewModel.TopValuePointsE = mark.TopLimit.ToString();
-                                viewModel.BottomValuePointsE = mark.BottomLimit.ToString();
-                            }
-                            break;
-                        case Marks.F:
-                            {
-                                viewModel.TopValuePointsF = mark.TopLimit.ToString();
-                                viewModel.BottomValuePointsF = mark.BottomLimit.ToString();
-                            }
-                            break;
-                    }
-                }
 
                 // Pass view model to the next page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);

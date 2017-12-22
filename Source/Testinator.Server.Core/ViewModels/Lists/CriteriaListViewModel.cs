@@ -22,7 +22,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// List of items (criterias) in this criteria list
         /// </summary>
-        public ObservableCollection<GradingExtended> Items { get; set; }
+        public ObservableCollection<GradingPercentage> Items { get; set; }
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace Testinator.Server.Core
             var list = FileReaders.XmlReader.ReadXmlGrading();
 
             // Rewrite list to the collection
-            Items = new ObservableCollection<GradingExtended>();
+            Items = new ObservableCollection<GradingPercentage>();
             foreach (var item in list) Items.Add(item);
         }
 
