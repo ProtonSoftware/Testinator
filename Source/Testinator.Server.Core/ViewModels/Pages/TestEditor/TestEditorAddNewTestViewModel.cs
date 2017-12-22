@@ -45,9 +45,9 @@ namespace Testinator.Server.Core
         public ObservableCollection<Question> Questions { get; set; } = new ObservableCollection<Question>();
 
         /// <summary>
-        /// A flag indicating if invalid data error should be shown
+        /// Keeps the message of an error to show, if any error occured
         /// </summary>
-        public bool InvalidDataError { get; set; } = false;
+        public string ErrorMessage { get; set; } = string.Empty;
 
         /// <summary>
         /// A flag indicating if test menu should be expanded
@@ -138,6 +138,11 @@ namespace Testinator.Server.Core
         public string QuestionSingleTextBoxPointScore { get; set; }
 
         #endregion
+
+        /// <summary>
+        /// The view model for creating new criteria
+        /// </summary>
+        public TestEditorAddNewCriteriaViewModel CriteriaViewModel { get; set; } = new TestEditorAddNewCriteriaViewModel();
 
         #endregion
 
@@ -230,26 +235,32 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangeQuestionsPage()
         {
-            // Disable previous errors
-            InvalidDataError = false;
+            // Remove previous errors
+            ErrorMessage = string.Empty;
 
-            // Check if input data is valid
-            if (this.Name.Length < 3 || !Int32.TryParse(Duration, out int time) || time > 500 || time <= 0)
+            try
             {
-                // Show error and dont change page
-                InvalidDataError = true;
-                return;
+                // Check if input data is valid
+                if (this.Name.Length < 3 || !Int32.TryParse(Duration, out int time) || time > 500 || time <= 0)
+                {
+                    // Show error and dont change page
+                    throw new Exception("Niepoprawne parametry testu.");
+                }
+
+                // Create new test and assign data to it
+                Test = new Test
+                {
+                    Name = this.Name,
+                    Duration = new TimeSpan(0, time, 0)
+                };
+
+                // Save the view model and change page
+                SaveViewModelAndChangeToNewQuestion();
             }
-
-            // Create new test and assign data to it
-            Test = new Test
+            catch(Exception ex)
             {
-                Name = this.Name,
-                Duration = new TimeSpan(0, time, 0)
-            };
-
-            // Save the view model and change page
-            SaveViewModelAndChangeToNewQuestion();
+                ErrorMessage = ex.Message;
+            }
         }
 
         /// <summary>
@@ -257,17 +268,25 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangeCriteriaPage()
         {
-            // Check if test has at least one question
-            if (Test.Questions.Count < 1)
-                // TODO: Error handling
-                return;
+            try
+            {
+                // Check if test has at least one question
+                if (Test.Questions.Count < 1)
+                    throw new Exception("Test nie ma pytań.");
 
-            // Save this view model
-            var viewModel = new TestEditorAddNewTestViewModel();
-            viewModel.Test = this.Test;
+                // Save this view model
+                var viewModel = new TestEditorAddNewTestViewModel
+                {
+                    Test = this.Test
+                };
 
-            // Pass it to the next page
-            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);
+                // Pass it to the next page
+                IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
         }
 
         /// <summary>
@@ -285,8 +304,10 @@ namespace Testinator.Server.Core
         private void SaveViewModelAndChangeToNewQuestion()
         {
             // Save this view model
-            var viewModel = new TestEditorAddNewTestViewModel();
-            viewModel.Test = this.Test;
+            var viewModel = new TestEditorAddNewTestViewModel
+            {
+                Test = this.Test
+            };
             foreach (var question in Test.Questions) viewModel.Questions.Add(question);
 
             // Pass it to the next page
@@ -386,111 +407,124 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitQuestion()
         {
-            // Based on type
-            switch(QuestionBeingAddedType)
-            {
-                case QuestionType.MultipleChoice:
-                    {       //// TODO: Error handling!!!
-                        // Create and build a question based on values
-                        var question = new MultipleChoiceQuestion();
-                        question.Task = this.QuestionTask;
-                        if (!Int32.TryParse(this.QuestionMultipleChoicePointScore, out int pointScore))
-                        {
-                            // Wrong value in textbox input, show error
-                            InvalidDataError = true;
-                            return;
+            try
+            { 
+                // Based on type
+                switch(QuestionBeingAddedType)
+                {
+                    case QuestionType.MultipleChoice:
+                        {       
+                            // Create and build a question based on values
+                            var question = new MultipleChoiceQuestion();
+
+                            if (this.QuestionTask.Length < 4)
+                                throw new Exception("Treść pytania jest za krótka.");
+                            question.Task = this.QuestionTask;
+                            
+                            // Try to chuck every answer to the dictionary - it will check if every answer is not empty and unique aswell
+                            var errorTestingList = new Dictionary<string,bool>();
+                            errorTestingList.Add(AnswerA, false);
+                            errorTestingList.Add(AnswerB, false);
+                            if (ShouldAnswerCBeVisible) errorTestingList.Add(AnswerC, false);
+                            if (ShouldAnswerDBeVisible) errorTestingList.Add(AnswerD, false);
+                            if (ShouldAnswerEBeVisible) errorTestingList.Add(AnswerE, false);
+                            // Everything is fine - convert it back to the list
+                            question.Options = errorTestingList.Keys.ToList();
+
+                            if (!Int32.TryParse(this.QuestionMultipleChoicePointScore, out int pointScore))
+                                throw new Exception("Zła wartość w polu punkty.");
+                            question.PointScore = pointScore;
+
+                            if (!Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx) || rightAnswerIdx == 0)
+                                throw new Exception("Nie wybrano poprawnej odpowiedzi.");
+                            question.CorrectAnswerIndex = rightAnswerIdx;
+
+                            // We have our question done, check if we were editing existing question or created new one
+                            if (EditingQuestion != 0)
+                                // We were editing existing question, replace old one with new one
+                                Test.ReplaceQuestion(EditingQuestion, question);
+                            else
+                                // Its new question, simply add it to the test
+                                Test.AddQuestion(question);
+
+                            // Go to adding next question
+                            SaveViewModelAndChangeToNewQuestion();
                         }
-                        question.PointScore = pointScore;
-                        question.Options = new List<string>();
-                        question.Options.Add(AnswerA);
-                        question.Options.Add(AnswerB);
-                        if (ShouldAnswerCBeVisible) question.Options.Add(AnswerC);
-                        if (ShouldAnswerDBeVisible) question.Options.Add(AnswerD);
-                        if (ShouldAnswerEBeVisible) question.Options.Add(AnswerE);
-                        if (!Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx) || rightAnswerIdx == 0)
+                        break;
+
+                    case QuestionType.MultipleCheckboxes:
                         {
-                            InvalidDataError = true;
-                            return;
+                            // Create and build a question based on values
+                            var question = new MultipleCheckboxesQuestion();
+
+                            if (this.QuestionTask.Length < 4)
+                                throw new Exception("Treść pytania jest za krótka.");
+                            question.Task = this.QuestionTask;
+                            
+                            question.OptionsAndAnswers = new Dictionary<string, bool>();
+                            question.OptionsAndAnswers.Add(Answer1, IsAnswer1Right);
+                            question.OptionsAndAnswers.Add(Answer2, IsAnswer2Right);
+                            if (ShouldAnswer3BeVisible) question.OptionsAndAnswers.Add(Answer3, IsAnswer3Right);
+                            if (ShouldAnswer4BeVisible) question.OptionsAndAnswers.Add(Answer4, IsAnswer4Right);
+                            if (ShouldAnswer5BeVisible) question.OptionsAndAnswers.Add(Answer5, IsAnswer5Right);
+
+                            if (!Int32.TryParse(this.QuestionMultipleCheckboxesPointScore, out int pointScore))
+                                throw new Exception("Zła wartość w polu punkty.");
+                            question.PointScore = pointScore;
+
+                            // We have our question done, check if we were editing existing question or created new one
+                            if (EditingQuestion != 0)
+                                // We were editing existing question, replace old one with new one
+                                Test.ReplaceQuestion(EditingQuestion, question);
+                            else
+                                // Its new question, simply add it to the test
+                                Test.AddQuestion(question);
+
+                            // Go to adding next question
+                            SaveViewModelAndChangeToNewQuestion();
                         }
-                        question.CorrectAnswerIndex = rightAnswerIdx;
+                        break;
 
-                        // We have our question done, check if we were editing existing question or created new one
-                        if (EditingQuestion != 0)
-                            // We were editing existing question, replace old one with new one
-                            Test.ReplaceQuestion(EditingQuestion, question);
-                        else
-                            // Its new question, simply add it to the test
-                            Test.AddQuestion(question);
+                    case QuestionType.SingleTextBox:
+                        {       
+                            // Create and build a question based on values
+                            var question = new SingleTextBoxQuestion();
 
-                        // Go to adding next question
-                        SaveViewModelAndChangeToNewQuestion();
-                    }
-                    break;
+                            if (this.QuestionTask.Length < 4)
+                                throw new Exception("Treść pytania jest za krótka.");
+                            question.Task = this.QuestionTask;
 
-                case QuestionType.MultipleCheckboxes:
-                    {       //// TODO: Error handling!!!
-                        // Create and build a question based on values
-                        var question = new MultipleCheckboxesQuestion();
-                        question.Task = this.QuestionTask;
-                        question.OptionsAndAnswers = new Dictionary<string, bool>();
-                        question.OptionsAndAnswers.Add(Answer1, IsAnswer1Right);
-                        question.OptionsAndAnswers.Add(Answer2, IsAnswer2Right);
-                        if (ShouldAnswer3BeVisible) question.OptionsAndAnswers.Add(Answer3, IsAnswer3Right);
-                        if (ShouldAnswer4BeVisible) question.OptionsAndAnswers.Add(Answer4, IsAnswer4Right);
-                        if (ShouldAnswer5BeVisible) question.OptionsAndAnswers.Add(Answer5, IsAnswer5Right);
-                        if (!Int32.TryParse(this.QuestionMultipleCheckboxesPointScore, out int pointScore))
-                        {
-                            // Wrong value in textbox input, show error
-                            InvalidDataError = true;
-                            return;
+                            if (this.TextBoxAnswer == string.Empty)
+                                throw new Exception("Wpisz poprawną odpowiedź.");
+                            question.CorrectAnswer = this.TextBoxAnswer;
+
+                            if (!Int32.TryParse(this.QuestionSingleTextBoxPointScore, out int pointScore))
+                                throw new Exception("Zła wartość w polu punkty.");
+                            question.PointScore = pointScore;
+
+                            // We have our question done, check if we were editing existing question or created new one
+                            if (EditingQuestion != 0)
+                                // We were editing existing question, replace old one with new one
+                                Test.ReplaceQuestion(EditingQuestion, question);
+                            else
+                                // Its new question, simply add it to the test
+                                Test.AddQuestion(question);
+
+                            // Go to adding next question
+                            SaveViewModelAndChangeToNewQuestion();
                         }
-                        question.PointScore = pointScore;
+                        break;
 
-                        // We have our question done, check if we were editing existing question or created new one
-                        if (EditingQuestion != 0)
-                            // We were editing existing question, replace old one with new one
-                            Test.ReplaceQuestion(EditingQuestion, question);
-                        else
-                            // Its new question, simply add it to the test
-                            Test.AddQuestion(question);
+                    default:
+                        // Question type not found, don't submit any question
+                        return;
+                }
 
-                        // Go to adding next question
-                        SaveViewModelAndChangeToNewQuestion();
-                    }
-                    break;
-
-                case QuestionType.SingleTextBox:
-                    {       //// TODO: Error handling!!!
-                        // Create and build a question based on values
-                        var question = new SingleTextBoxQuestion();
-                        question.Task = this.QuestionTask;
-                        question.CorrectAnswer = this.TextBoxAnswer;
-                        if (!Int32.TryParse(this.QuestionSingleTextBoxPointScore, out int pointScore))
-                        {
-                            // Wrong value in textbox input, show error
-                            InvalidDataError = true;
-                            return;
-                        }
-                        question.PointScore = pointScore;
-
-                        // We have our question done, check if we were editing existing question or created new one
-                        if (EditingQuestion != 0)
-                            // We were editing existing question, replace old one with new one
-                            Test.ReplaceQuestion(EditingQuestion, question);
-                        else
-                            // Its new question, simply add it to the test
-                            Test.AddQuestion(question);
-
-                        // Go to adding next question
-                        SaveViewModelAndChangeToNewQuestion();
-                    }
-                    break;
-
-                default:
-                    // Question type not found, don't submit any question
-                    return;
             }
-
+            catch(Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
             // We have submitted question, reset the editing flag
             EditingQuestion = 0;
         }

@@ -32,6 +32,13 @@ namespace Testinator.Server.Core
         public bool EditingCriteriaMode { get; set; } = false;
 
         /// <summary>
+        /// Name of the criteria which we are editing
+        /// if remain unchanged - we replace criterias
+        /// if user changes name - we create new one and delete old one
+        /// </summary>
+        public string EditingCriteriaOldName { get; set; }
+
+        /// <summary>
         /// Indicates if invalid data error should be shown
         /// </summary>
         public bool InvalidDataError { get; set; } = false;
@@ -124,7 +131,8 @@ namespace Testinator.Server.Core
                 if (criteria.Name == criteriaName)
                 {
                     // Get values to the view model's properties
-                    CriteriaName = criteria.Name;
+                    this.CriteriaName = criteria.Name;
+                    this.EditingCriteriaOldName = criteria.Name;
                     this.IsMarkACounted = false;
                     foreach (var mark in criteria.Marks)
                     {
@@ -189,10 +197,15 @@ namespace Testinator.Server.Core
         {
             // Check if input data is correct
             if (!ValidateInputData())
+            {
+                InvalidDataError = true;
                 return;
+            }
 
-            // Add every mark to the criteria object
+            // Prepare criteria object
             Criteria = new Grading();
+
+            // Add every mark to this
             if (IsMarkACounted) Criteria.AddMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
             Criteria.AddMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
             Criteria.AddMark(Marks.C, Int32.Parse(TopValueMarkC), Int32.Parse(BottomValueMarkC));
@@ -200,8 +213,19 @@ namespace Testinator.Server.Core
             Criteria.AddMark(Marks.E, Int32.Parse(TopValueMarkE), Int32.Parse(BottomValueMarkE));
             Criteria.AddMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
 
-            // Send it to xml writer
+            // Send it to xml writer and save it
             FileWriters.XmlWriter.SaveGrading(CriteriaName, this.Criteria);
+
+            // Check if we were editing existing one or not
+            if (EditingCriteriaMode)
+            {
+                // If user has changed the name of the criteria, delete old one
+                FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
+            }
+
+            // Get out of editing mode
+            EditingCriteriaMode = false;
+            EditingCriteriaOldName = string.Empty;
 
             // Reload the criteria list to include newly created criteria
             CriteriaListViewModel.Instance.LoadItems();

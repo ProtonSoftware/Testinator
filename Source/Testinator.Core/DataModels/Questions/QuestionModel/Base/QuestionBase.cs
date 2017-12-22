@@ -8,16 +8,6 @@ namespace Testinator.Core
     [Serializable]
     public abstract class Question
     {
-
-        #region Private Members
-
-        /// <summary>
-        /// Question value in points
-        /// </summary>
-        private int mScore;
-
-        #endregion
-
         #region Public Properties 
 
         /// <summary>
@@ -34,16 +24,7 @@ namespace Testinator.Core
         /// <summary>
         /// Number of points given for a good answer
         /// </summary>
-        public int PointScore
-        {
-            get => mScore;
-            set
-            {
-                if (value < 0)
-                    throw new QuestionException(QuestionExceptionTypes.PointScoreLessThanZero);
-                mScore = value;
-            }
-        }
+        public int PointScore { get; set; }
 
         #endregion
 

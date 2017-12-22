@@ -47,10 +47,9 @@
                     <TextBox Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource BigInputTextBox}" />
 
-                    <TextBlock Text="Dane w polach są niepoprawne."
+                    <TextBlock Text="{Binding ErrorMessage}"
                                Style="{StaticResource QuestionTextBlockStyle}"
-                               Foreground="Red"
-                               Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}" />
+                               Foreground="Red" />
 
                 </StackPanel>
 

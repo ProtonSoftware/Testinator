@@ -10,49 +10,17 @@ namespace Testinator.Core
     [Serializable]
     public class MultipleCheckboxesQuestion : Question
     {
-        #region Private Members
-
-        /// <summary>
-        /// The task itself
-        /// </summary>
-        private string mTask;
-
-        /// <summary>
-        /// Options for the question and at this same type model answer
-        /// 'false' means that it should be unchecked
-        /// 'ture' that checked
-        /// </summary>
-        private Dictionary<string,bool> mOptionsAndAnswers = new Dictionary<string, bool>();
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
         /// Options for the question to be checked or not
         /// </summary>
-        public Dictionary<string, bool> OptionsAndAnswers
-        {
-            get => mOptionsAndAnswers;
-            set
-            {
-                mOptionsAndAnswers = value;
-            }
-        }
+        public Dictionary<string, bool> OptionsAndAnswers { get; set; }
 
         /// <summary>
         /// The task itself
         /// </summary>
-        public string Task
-        {
-            get => mTask;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new QuestionException(QuestionExceptionTypes.NullOrEmptyString);
-                mTask = value;
-            }
-        }
+        public string Task { get; set; }
 
         #endregion
 
@@ -81,12 +49,8 @@ namespace Testinator.Core
         /// </summary>
         public MultipleCheckboxesQuestion()
         {
+            // Set the type
             Type = QuestionType.MultipleCheckboxes;
-
-            // Create defaults
-            Task = "Wpisz pytanie";
-            OptionsAndAnswers = new Dictionary<string, bool>() { { "opcja1", true } };
-            PointScore = 1;
         }
 
         #endregion
