@@ -12,8 +12,70 @@
 
     <Border Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="Pomyslnie dodano test!"
-                  Style="{StaticResource MediumTitleText}" />
+        <Border VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="40"
+                CornerRadius="3"
+                Background="{StaticResource WhiteDarkBrush}">
+
+            <Grid TextBlock.TextAlignment="Center">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Pomyślnie dodano test!"
+                       Grid.ColumnSpan="2"
+                       Style="{StaticResource MediumTitleText}" />
+
+                <TextBlock Text="Nazwa: "
+                       Grid.Row="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="{Binding Test.Name}"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="Czas trwania: "
+                       Grid.Row="2"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="{Binding Test.Duration}"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="Ilość pytań: "
+                       Grid.Row="3"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="{Binding Test.Questions.Count}"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="Liczba punktów: "
+                       Grid.Row="4"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+                <TextBlock Text="{Binding Test.TotalPointScore}"
+                       Grid.Row="4"
+                       Grid.Column="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            </Grid>
+
+        </Border>
 
     </Border>
     
