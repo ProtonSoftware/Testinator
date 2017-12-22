@@ -14,17 +14,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The criteria being created
         /// </summary>
-        public Grading Criteria { get; set; }
-
-        /// <summary>
-        /// Name of the criteria used for identifying
-        /// </summary>
-        public string CriteriaName { get; set; } = "";
-
-        /// <summary>
-        /// Indicates if mark A (the best grade) is counted (specific test can resign from this mark)
-        /// </summary>
-        public bool IsMarkACounted { get; set; } = true;
+        public GradingPercentage Criteria { get; set; }
 
         /// <summary>
         /// Indicates if we are in editing existing criteria mode
@@ -131,52 +121,25 @@ namespace Testinator.Server.Core
                 if (criteria.Name == criteriaName)
                 {
                     // Get values to the view model's properties
-                    this.CriteriaName = criteria.Name;
+                    this.Criteria.Name = criteria.Name;
                     this.EditingCriteriaOldName = criteria.Name;
-                    this.IsMarkACounted = false;
-                    foreach (var mark in criteria.Marks)
+                    this.Criteria.IsMarkAIncluded = false;
+                    if (criteria.IsMarkAIncluded)
                     {
-                        switch (mark.Value)
-                        {
-                            case Marks.A:
-                                {
-                                    this.TopValueMarkA = mark.TopLimit.ToString();
-                                    this.BottomValueMarkA = mark.BottomLimit.ToString();
-                                    this.IsMarkACounted = true;
-                                }
-                                break;
-                            case Marks.B:
-                                {
-                                    this.TopValueMarkB = mark.TopLimit.ToString();
-                                    this.BottomValueMarkB = mark.BottomLimit.ToString();
-                                }
-                                break;
-                            case Marks.C:
-                                {
-                                    this.TopValueMarkC = mark.TopLimit.ToString();
-                                    this.BottomValueMarkC = mark.BottomLimit.ToString();
-                                }
-                                break;
-                            case Marks.D:
-                                {
-                                    this.TopValueMarkD = mark.TopLimit.ToString();
-                                    this.BottomValueMarkD = mark.BottomLimit.ToString();
-                                }
-                                break;
-                            case Marks.E:
-                                {
-                                    this.TopValueMarkE = mark.TopLimit.ToString();
-                                    this.BottomValueMarkE = mark.BottomLimit.ToString();
-                                }
-                                break;
-                            case Marks.F:
-                                {
-                                    this.TopValueMarkF = mark.TopLimit.ToString();
-                                    this.BottomValueMarkF = mark.BottomLimit.ToString();
-                                }
-                                break;
-                        }
+                        this.TopValueMarkA = criteria.MarkA.TopLimit.ToString();
+                        this.BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
+                        this.Criteria.IsMarkAIncluded = true;
                     }
+                    this.TopValueMarkB = criteria.MarkB.TopLimit.ToString();
+                    this.BottomValueMarkB = criteria.MarkB.BottomLimit.ToString();
+                    this.TopValueMarkC = criteria.MarkC.TopLimit.ToString();
+                    this.BottomValueMarkC = criteria.MarkC.BottomLimit.ToString();
+                    this.TopValueMarkD = criteria.MarkD.TopLimit.ToString();
+                    this.BottomValueMarkD = criteria.MarkD.BottomLimit.ToString();
+                    this.TopValueMarkE = criteria.MarkE.TopLimit.ToString();
+                    this.BottomValueMarkE = criteria.MarkE.BottomLimit.ToString();
+                    this.TopValueMarkF = criteria.MarkF.TopLimit.ToString();
+                    this.BottomValueMarkF = criteria.MarkF.BottomLimit.ToString();
                 }
             }
         }
@@ -202,19 +165,16 @@ namespace Testinator.Server.Core
                 return;
             }
 
-            // Prepare criteria object
-            Criteria = new Grading();
-
-            // Add every mark to this
-            if (IsMarkACounted) Criteria.AddMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
-            Criteria.AddMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
-            Criteria.AddMark(Marks.C, Int32.Parse(TopValueMarkC), Int32.Parse(BottomValueMarkC));
-            Criteria.AddMark(Marks.D, Int32.Parse(TopValueMarkD), Int32.Parse(BottomValueMarkD));
-            Criteria.AddMark(Marks.E, Int32.Parse(TopValueMarkE), Int32.Parse(BottomValueMarkE));
-            Criteria.AddMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
+            // Update values in grading object
+            if (Criteria.IsMarkAIncluded) Criteria.UpdateMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
+            Criteria.UpdateMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
+            Criteria.UpdateMark(Marks.C, Int32.Parse(TopValueMarkC), Int32.Parse(BottomValueMarkC));
+            Criteria.UpdateMark(Marks.D, Int32.Parse(TopValueMarkD), Int32.Parse(BottomValueMarkD));
+            Criteria.UpdateMark(Marks.E, Int32.Parse(TopValueMarkE), Int32.Parse(BottomValueMarkE));
+            Criteria.UpdateMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
 
             // Send it to xml writer and save it
-            FileWriters.XmlWriter.SaveGrading(CriteriaName, this.Criteria);
+            FileWriters.XmlWriter.SaveGrading(this.Criteria.Name, this.Criteria);
 
             // Check if we were editing existing one or not
             if (EditingCriteriaMode)
@@ -245,7 +205,7 @@ namespace Testinator.Server.Core
                 // Parse every number value to integer
                 int topMarkA = 0;
                 int bottomMarkA = 0;
-                if (IsMarkACounted)
+                if (Criteria.IsMarkAIncluded)
                 {
                     topMarkA = Int32.Parse(TopValueMarkA);
                     bottomMarkA = Int32.Parse(BottomValueMarkA);
@@ -262,7 +222,7 @@ namespace Testinator.Server.Core
                 int bottomMarkF = Int32.Parse(BottomValueMarkF);
 
                 // Check if input data is in sequence
-                if (IsMarkACounted)
+                if (Criteria.IsMarkAIncluded)
                 {
                     // The highest value must be 100
                     if (topMarkA != 100) throw new Exception();

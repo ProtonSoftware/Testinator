@@ -20,11 +20,6 @@ namespace Testinator.Core
         /// </summary>
         public int BottomLimit { get; set; }
 
-        /// <summary>
-        /// The mark itself
-        /// </summary>
-        public Marks Value { get; set; }
-
         #endregion
     }
 }

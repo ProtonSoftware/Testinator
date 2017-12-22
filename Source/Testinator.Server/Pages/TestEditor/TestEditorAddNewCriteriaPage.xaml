@@ -57,7 +57,7 @@
                     <TextBlock Text="Wprowadz nazwę"
                                Style="{StaticResource MediumTitleText}" />
 
-                    <TextBox Text="{Binding CriteriaName, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding Criteria.Name, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="1"
                              Style="{StaticResource SmallInputTextBox}" />
 
@@ -65,7 +65,7 @@
                                 Grid.Row="2">
                         <TextBlock Text="Z oceną 6?"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
-                        <CheckBox IsChecked="{Binding IsMarkACounted}"/>
+                        <CheckBox IsChecked="{Binding Criteria.IsMarkAIncluded}"/>
                     </StackPanel>
 
                     <TextBlock Text="Wartosci w polach liczone w %:"
@@ -74,7 +74,7 @@
                                Style="{StaticResource MediumTitleText}" />
 
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding IsMarkACounted, Converter={local:BooleanToVisiblityConverter}}"
+                                Visibility="{Binding Criteria.IsMarkAIncluded, Converter={local:BooleanToVisiblityConverter}}"
                                 Grid.Row="4">
                         <TextBox Text="{Binding BottomValueMarkA, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />

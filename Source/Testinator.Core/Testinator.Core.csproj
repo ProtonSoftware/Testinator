@@ -64,8 +64,8 @@
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\Grading.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingExtended.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\GradingPoints.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\GradingPercentage.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingExtensionMethods.cs" />
     <Compile Include="DataModels\Test\GradingSystem\Mark.cs" />
     <Compile Include="DataModels\Test\GradingSystem\Marks.cs" />

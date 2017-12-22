@@ -139,10 +139,19 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        #region Criteria Attaching
+
         /// <summary>
-        /// The view model for creating new criteria
+        /// Current grading system attached to the test
         /// </summary>
-        public TestEditorAddNewCriteriaViewModel CriteriaViewModel { get; set; } = new TestEditorAddNewCriteriaViewModel();
+        public GradingPercentage CurrentGrading { get; set; }
+
+        /// <summary>
+        /// Current grading system converted to the points based values
+        /// </summary>
+        public GradingPoints PointsGrading { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -264,7 +273,7 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Changes page to question adding page
+        /// Changes page to attaching criteria page
         /// </summary>
         private void ChangeCriteriaPage()
         {
@@ -274,13 +283,21 @@ namespace Testinator.Server.Core
                 if (Test.Questions.Count < 1)
                     throw new Exception("Test nie ma pytań.");
 
+                // Check if test's max points allows to create criteria
+                if (Test.TotalPointScore < 5)
+                    throw new Exception("Punkty za test są niewystarczające.");
+
                 // Save this view model
                 var viewModel = new TestEditorAddNewTestViewModel
                 {
                     Test = this.Test
                 };
 
-                // Pass it to the next page
+                // Set default points grading 
+                viewModel.CurrentGrading = new GradingPercentage();
+                viewModel.PointsGrading = viewModel.CurrentGrading.GetPoints(Test.TotalPointScore);
+
+                // Pass view model to the next page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);
             }
             catch (Exception ex)
