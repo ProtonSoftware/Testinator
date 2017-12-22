@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\AnimationsProperty.cs" />
+    <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
     <Compile Include="Controls\CriteriaList\CriteriaListControl.xaml.cs">
       <DependentUpon>CriteriaListControl.xaml</DependentUpon>
     </Compile>

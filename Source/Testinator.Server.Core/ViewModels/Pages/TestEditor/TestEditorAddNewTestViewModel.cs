@@ -151,6 +151,24 @@ namespace Testinator.Server.Core
         /// </summary>
         public GradingPoints PointsGrading { get; set; }
 
+        /// <summary>
+        /// Indicates if user is editing criteria
+        /// </summary>
+        public bool IsCriteriaEditModeOn { get; set; } = false;
+
+        public string EditingTopValueA { get; set; }
+        public string EditingBottomValueA { get; set; }
+        public string EditingTopValueB { get; set; }
+        public string EditingBottomValueB { get; set; }
+        public string EditingTopValueC { get; set; }
+        public string EditingBottomValueC { get; set; }
+        public string EditingTopValueD { get; set; }
+        public string EditingBottomValueD { get; set; }
+        public string EditingTopValueE { get; set; }
+        public string EditingBottomValueE { get; set; }
+        public string EditingTopValueF { get; set; }
+        public string EditingBottomValueF { get; set; }
+
         #endregion
 
         #endregion
@@ -212,6 +230,26 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand DeleteQuestionCommand { get; private set; }
 
+        /// <summary>
+        /// The command to select pre-created criteria from the list
+        /// </summary>
+        public ICommand EditCriteriaCommand { get; private set; }
+
+        /// <summary>
+        /// The command to get into editing mode of points criteria
+        /// </summary>
+        public ICommand EditPointsCriteriaCommand { get; private set; }
+
+        /// <summary>
+        /// The command to cancel editing criteria in test
+        /// </summary>
+        public ICommand CancelEditPointsCommand { get; private set; }
+
+        /// <summary>
+        /// The command to submit criteria changes
+        /// </summary>
+        public ICommand SubmitEditPointsCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -231,8 +269,12 @@ namespace Testinator.Server.Core
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
             ChooseRightAnswerMultipleChoiceCommand = new RelayParameterizedCommand((param) => RightAnswerIdx = param.ToString());
             EditQuestionCommand = new RelayParameterizedCommand((param) => EditQuestion(param));
-            CancelEditQuestionCommand = new RelayCommand(CancelEditing);
+            CancelEditQuestionCommand = new RelayCommand(CancelEditingQuestion);
             DeleteQuestionCommand = new RelayParameterizedCommand((param) => DeleteQuestion(param));
+            EditCriteriaCommand = new RelayParameterizedCommand((param) => SelectCriteria(param));
+            EditPointsCriteriaCommand = new RelayCommand(EditCriteria);
+            CancelEditPointsCommand = new RelayCommand(() => IsCriteriaEditModeOn = false);
+            SubmitEditPointsCommand = new RelayCommand(SubmitCriteria);
         }
 
         #endregion
@@ -659,7 +701,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Cancels the editing mode and leads to brand new question
         /// </summary>
-        private void CancelEditing()
+        private void CancelEditingQuestion()
         {
             // We are no more editing any question
             EditingQuestion = 0;
@@ -685,13 +727,77 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
+        /// Selects pre-created criteria from the list and loads it into this view model
+        /// </summary>
+        /// <param name="param">Name of the selected criteria</param>
+        private void SelectCriteria(object param)
+        {
+            // Cast parameter to string
+            string criteriaName = param.ToString();
+
+            // Search for the criteria with that name
+            foreach (var criteria in CriteriaListViewModel.Instance.Items)
+            {
+                // Check if name matches
+                if (criteria.Name == criteriaName)
+                {
+                    // Catch this grading object
+                    this.CurrentGrading = criteria;
+
+                    // Convert it to points
+                    this.PointsGrading = this.CurrentGrading.ToPoints(Test.TotalPointScore);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Leads into editing point criteria mode
+        /// </summary>
+        private void EditCriteria()
+        {
+            // Indicate that we are in editing mode
+            IsCriteriaEditModeOn = true;
+
+            // Set properties to match with current criteria
+            EditingTopValueA = PointsGrading.MarkA.TopLimit.ToString();
+            EditingBottomValueA = PointsGrading.MarkA.BottomLimit.ToString();
+            EditingTopValueB = PointsGrading.MarkB.TopLimit.ToString();
+            EditingBottomValueB = PointsGrading.MarkB.BottomLimit.ToString();
+            EditingTopValueC = PointsGrading.MarkC.TopLimit.ToString();
+            EditingBottomValueC = PointsGrading.MarkC.BottomLimit.ToString();
+            EditingTopValueD = PointsGrading.MarkD.TopLimit.ToString();
+            EditingBottomValueD = PointsGrading.MarkD.BottomLimit.ToString();
+            EditingTopValueE = PointsGrading.MarkE.TopLimit.ToString();
+            EditingBottomValueE = PointsGrading.MarkE.BottomLimit.ToString();
+            EditingTopValueF = PointsGrading.MarkF.TopLimit.ToString();
+            EditingBottomValueF = PointsGrading.MarkF.BottomLimit.ToString();
+        }
+
+        /// <summary>
+        /// Submits newly edited criteria
+        /// </summary>
+        private void SubmitCriteria()
+        {
+            // Get away from editing mode
+            IsCriteriaEditModeOn = false;
+
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
+
+        /// <summary>
         /// Finally submits the whole test we've created
         /// </summary>
         private void SubmitTest()
         {
             // Save the test
             FileWriters.BinWriter.WriteTestToFile(Test);
-            return;
         }
 
         #endregion

@@ -29,31 +29,77 @@
 
             <Grid>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="3*" />
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                <Grid>
 
-                    <TextBlock Style="{StaticResource MediumTitleText}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.ColumnSpan="4" Style="{StaticResource MediumTitleText}">
                         <Run Text="Max punktów do zdobycia: " />
                         <Run Text="{Binding Test.TotalPointScore, Mode=OneWay}" />
                     </TextBlock>
+                    
+                    <TextBox Text="{Binding EditingTopValueA, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Row="1"
+                             Opacity="0"
+                             local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
+                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
+                             Style="{StaticResource SmallInputTextBox}"
+                             />
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding PointsGrading.MarkA.TopLimit}" />
-                        <TextBlock Text="-" />
-                        <TextBlock Text="{Binding PointsGrading.MarkA.TopLimit}" />
-                        <TextBlock Text="Celujacy"
-                                   Margin="2 0"/>
-                    </StackPanel>
+                    <TextBlock Text="{Binding PointsGrading.MarkA.TopLimit}" 
+                               Grid.Row="1"
+                               local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
+                               Style="{StaticResource QuestionTextBlockStyle}"
+                               />
+                    
+                    <TextBlock Text="-"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Style="{StaticResource QuestionTextBlockStyle}"/>
+                    
+                    <TextBox Text="{Binding EditingBottomValueA, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Row="1"
+                             Grid.Column="2"
+                             Opacity="0"
+                             local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
+                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
+                             Style="{StaticResource SmallInputTextBox}"
+                             />
 
-                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding PointsGrading.MarkA.BottomLimit}" 
+                               Grid.Row="1"
+                               Grid.Column="2"
+                               local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
+                               Style="{StaticResource QuestionTextBlockStyle}"
+                               />
+                    
+                    <TextBlock Text="Celujacy"
+                               Grid.Row="1"
+                               Grid.Column="3"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <!--<StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding PointsGrading.MarkB.TopLimit}" />
                         <TextBlock Text="-" />
                         <TextBlock Text="{Binding PointsGrading.MarkB.TopLimit}" />
@@ -91,135 +137,43 @@
                         <TextBlock Text="{Binding PointsGrading.MarkF.BottomLimit}" />
                         <TextBlock Text="Niedostateczny"
                                    Margin="2 0"/>
-                    </StackPanel>
+                    </StackPanel>-->
 
-                </StackPanel>
-
-                <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource WhiteLightBrush}">
-                    <local:CriteriaListControl />
-                </Border>
-
-                <Grid Margin="20" Grid.Row="1">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="Wprowadz nazwę"
-                            Style="{StaticResource MediumTitleText}" />
-
-                    <TextBox Text="{Binding CurrentGrading.Name, UpdateSourceTrigger=PropertyChanged}"
-                            Grid.Row="1"
-                            Style="{StaticResource SmallInputTextBox}" />
-
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="2">
-                        <TextBlock Text="Z oceną 6?"
-                                Style="{StaticResource QuestionTextBlockStyle}" />
-                        <CheckBox IsChecked="{Binding CurrentGrading.IsMarkAIncluded}"/>
-                    </StackPanel>
-
-                    <TextBlock Text="Wartosci w polach liczone w %:"
-                            TextWrapping="WrapWithOverflow"
-                            Grid.Row="3"
-                            Style="{StaticResource MediumTitleText}" />
-
-                    <StackPanel Orientation="Horizontal"
-                            Visibility="{Binding CurrentGrading.IsMarkAIncluded, Converter={local:BooleanToVisiblityConverter}}"
-                            Grid.Row="4">
-                        <TextBox Text="{Binding CurrentGrading.MarkA.TopLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="-" />
-                        <TextBox Text="{Binding CurrentGrading.MarkA.BottomLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="Celujacy"
-                                Margin="2 0"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="5">
-                        <TextBox Text="{Binding CurrentGrading.MarkB.TopLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="-" />
-                        <TextBox Text="{Binding CurrentGrading.MarkB.BottomLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="Bardzo dobry"
-                                Margin="2 0"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="6">
-                        <TextBox Text="{Binding CurrentGrading.MarkC.TopLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="-" />
-                        <TextBox Text="{Binding CurrentGrading.MarkC.BottomLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="Dobry"
-                                Margin="2 0"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="7">
-                        <TextBox Text="{Binding CurrentGrading.MarkD.TopLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="-" />
-                        <TextBox Text="{Binding CurrentGrading.MarkD.BottomLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="Dostateczny"
-                                Margin="2 0"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="8">
-                        <TextBox Text="{Binding CurrentGrading.MarkE.TopLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="-" />
-                        <TextBox Text="{Binding CurrentGrading.MarkE.BottomLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="Dopuszczajacy"
-                                Margin="2 0"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="9">
-                        <TextBox Text="{Binding CurrentGrading.MarkF.TopLimit, UpdateSourceTrigger=PropertyChanged}" 
-                                Width="30" />
-                        <TextBlock Text="-" />
-                        <TextBox Text="{Binding CurrentGrading.MarkF.BottomLimit, UpdateSourceTrigger=PropertyChanged}"
-                                Width="30" />
-                        <TextBlock Text="Niedostateczny"
-                                Margin="2 0"/>
-                    </StackPanel>
-
-                    <TextBlock Text="{Binding ErrorMessage}"
-                               Grid.Row="10"
+                    <TextBlock Grid.Row="7" Grid.ColumnSpan="4"
+                               Text="{Binding ErrorMessage}"
                                Foreground="Red"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <Button Content="Dodaj kryteria"
-                            Grid.Row="11"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource BaseUIButton}" />
+                    <Grid Grid.Row="8" Grid.ColumnSpan="4">
+                        
+                        <Button Content="Edytuj kryteria"
+                                Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                Command="{Binding EditPointsCriteriaCommand}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource BaseUIButton}" />
 
-                    <Button Content="Anuluj edycję"
-                            Visibility="Hidden"
-                            Command="{Binding CriteriaViewModel.CancelEditCriteriaCommand}"
-                            Grid.Row="11"
-                            HorizontalAlignment="Left"
-                            Style="{StaticResource BaseUIButton}" />
+                        <Button Content="Anuluj zmiany"
+                                Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
+                                Command="{Binding CancelEditPointsCommand}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource BaseUIButton}" />
+
+                        <Button Content="Potwierdź zmiany"
+                                Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
+                                Command="{Binding SubmitEditPointsCommand}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Style="{StaticResource BaseUIButton}" />
+
+                    </Grid>
 
                 </Grid>
+
+                <Border Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
+                    <local:CriteriaListControl />
+                </Border>
 
             </Grid>
 

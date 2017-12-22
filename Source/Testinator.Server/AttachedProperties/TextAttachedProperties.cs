@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Testinator.UICore;
 
-namespace Testinator.Client
+namespace Testinator.Server
 {
     /// <summary>
     /// Focuses (keyboard focus) this element on load
