@@ -40,7 +40,7 @@ namespace Testinator.Core
 
                     gradings.Add(GetGradingFromXml(file));
                 }
-                catch
+                catch (Exception ex)
                 { 
                     // No error handlig for now
                 }

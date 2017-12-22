@@ -184,18 +184,20 @@ namespace Testinator.Client.Core
             }*/
 
 
-            test.Grading.AddMark(Marks.B, 100, 60);
-            test.Grading.AddMark(Marks.C, 59, 46);
-            test.Grading.AddMark(Marks.D, 45, 31);
-            test.Grading.AddMark(Marks.E, 30, 26);
-            test.Grading.AddMark(Marks.F, 25, 0);
+            test.Grading.UpdateMark(Marks.B, 100, 60);
+            test.Grading.UpdateMark(Marks.C, 59, 46);
+            test.Grading.UpdateMark(Marks.D, 45, 31);
+            test.Grading.UpdateMark(Marks.E, 30, 26);
+            test.Grading.UpdateMark(Marks.F, 25, 0);
 
-            var a = test.Grading.GetPoints(25);
-            var b = a.GetPercentage();
+            var a = test.Grading.ConvertToPercentage();
+            var b = a.ToPoints(100);
 
             var sddds = test.Grading.GetMark(6);
 
-            FileWriters.XmlWriter.SaveGrading("sample", test.Grading);
+            var grad = new GradingPercentage();
+
+            FileWriters.XmlWriter.SaveGrading("sample", grad);
 
             IoCClient.TestHost.BindTest(test);
 
