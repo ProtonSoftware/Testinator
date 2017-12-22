@@ -29,14 +29,14 @@ namespace Testinator.Core
             // A
             if (data.IsMarkAIncluded)
             {
-                AddMarkXml(data.MarkA, MarksNode, doc);
+                AddMarkXml(data.MarkA, "A", MarksNode, doc);
             }
 
-            AddMarkXml(data.MarkB, MarksNode, doc);
-            AddMarkXml(data.MarkC, MarksNode, doc);
-            AddMarkXml(data.MarkD, MarksNode, doc);
-            AddMarkXml(data.MarkE, MarksNode, doc);
-            AddMarkXml(data.MarkF, MarksNode, doc);
+            AddMarkXml(data.MarkB, "B", MarksNode, doc);
+            AddMarkXml(data.MarkC, "C", MarksNode, doc);
+            AddMarkXml(data.MarkD, "D", MarksNode, doc);
+            AddMarkXml(data.MarkE, "E", MarksNode, doc);
+            AddMarkXml(data.MarkF, "F", MarksNode, doc);
             
             try
             {
@@ -76,13 +76,13 @@ namespace Testinator.Core
 
         #region Private Helpers
 
-        private void AddMarkXml(Mark mark, XmlElement rootElement, XmlDocument doc)
+        private void AddMarkXml(Mark mark, string MarkName, XmlElement rootElement, XmlDocument doc)
         {
             var MarkNode = doc.CreateElement("Mark");
             rootElement.AppendChild(MarkNode);
 
             var ValueNodeA = doc.CreateElement("Value");
-            ValueNodeA.AppendChild(doc.CreateTextNode("A"));
+            ValueNodeA.AppendChild(doc.CreateTextNode(MarkName));
             MarkNode.AppendChild(ValueNodeA);
 
             var TopLimitNodeA = doc.CreateElement("TopLimit");

@@ -60,9 +60,9 @@ namespace Testinator.Core
             var result = new GradingPercentage
             {
                 Name = Path.GetFileNameWithoutExtension(file),
+                IsMarkAIncluded = false,
             };
-
-
+            
             bool InsideMarkNode = false;
             bool InsideValueNode = false;
             bool InsideTopLimitNode = false;
@@ -100,6 +100,8 @@ namespace Testinator.Core
                         if (InsideValueNode)
                         {
                             Mark = (Marks)Enum.Parse(typeof(Marks), value);
+                            if (Mark == Marks.A)
+                                result.IsMarkAIncluded = true;
                             InsideValueNode = false;
                         }
 
@@ -122,7 +124,6 @@ namespace Testinator.Core
                         break;
                 }
             }
-
             return result;
         }
 

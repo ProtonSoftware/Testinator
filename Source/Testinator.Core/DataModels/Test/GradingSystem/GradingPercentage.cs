@@ -26,6 +26,7 @@ namespace Testinator.Core
         {
             // Set default values
             IsMarkAIncluded = true;
+            Name = "";
             UpdateMark(Marks.A, 100, 96);
             UpdateMark(Marks.B, 95, 86);
             UpdateMark(Marks.C, 85, 70);
@@ -55,11 +56,10 @@ namespace Testinator.Core
             else
             {
                 result.IsMarkAIncluded = false;
+                bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
+                top = PercentToPoint(MarkB.TopLimit, maxPoints);
+                result.UpdateMark(Marks.B, top, bottom);
             }
-
-            top = bottom - 1;
-            bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
-            result.UpdateMark(Marks.B, top, bottom);
 
             top = bottom - 1;
             bottom = PercentToPoint(MarkC.BottomLimit, maxPoints);

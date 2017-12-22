@@ -15,19 +15,19 @@ namespace Testinator.Core
         /// <summary>
         /// Indicates if <see cref="Marks.A"/> is included in this set
         /// </summary>
-        public bool IsMarkAIncluded { get; set; } 
+        public bool IsMarkAIncluded { get; set; }
 
-        public Mark MarkA { get; set; }
+        public Mark MarkA { get; set; } = new Mark();
 
-        public Mark MarkB { get; set; }
+        public Mark MarkB { get; set; } = new Mark();
 
-        public Mark MarkC { get; set; }
+        public Mark MarkC { get; set; } = new Mark();
 
-        public Mark MarkD { get; set; }
+        public Mark MarkD { get; set; } = new Mark();
 
-        public Mark MarkE { get; set; }
+        public Mark MarkE { get; set; } = new Mark();
 
-        public Mark MarkF { get; set; }
+        public Mark MarkF { get; set; } = new Mark();
 
         #endregion
 

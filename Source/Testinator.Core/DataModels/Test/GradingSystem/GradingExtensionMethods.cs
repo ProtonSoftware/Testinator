@@ -27,9 +27,11 @@ namespace Testinator.Core
                 top = PointsToPercent(Grades.MarkA.TopLimit, maxPoints);
                 bottom = PointsToPercent(Grades.MarkA.BottomLimit, maxPoints);
                 result.UpdateMark(Marks.A, top, bottom);
+                result.IsMarkAIncluded = true;
             }
             else
             {
+                result.IsMarkAIncluded = false;
                 maxPoints = Grades.MarkB.TopLimit;
                 top = PointsToPercent(Grades.MarkB.TopLimit, maxPoints);
                 bottom = PointsToPercent(Grades.MarkB.BottomLimit, maxPoints);

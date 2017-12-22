@@ -184,14 +184,14 @@ namespace Testinator.Client.Core
             }*/
 
 
-            test.Grading.UpdateMark(Marks.B, 100, 60);
-            test.Grading.UpdateMark(Marks.C, 59, 46);
-            test.Grading.UpdateMark(Marks.D, 45, 31);
-            test.Grading.UpdateMark(Marks.E, 30, 26);
-            test.Grading.UpdateMark(Marks.F, 25, 0);
+            test.Grading.UpdateMark(Marks.B, 25, 20);
+            test.Grading.UpdateMark(Marks.C, 19, 15);
+            test.Grading.UpdateMark(Marks.D, 14, 10);
+            test.Grading.UpdateMark(Marks.E, 9, 5);
+            test.Grading.UpdateMark(Marks.F, 4, 0);
 
             var a = test.Grading.ConvertToPercentage();
-            var b = a.ToPoints(100);
+            var b = a.ToPoints(25);
 
             var sddds = test.Grading.GetMark(6);
 

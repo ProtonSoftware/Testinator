@@ -14,7 +14,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The criteria being created
         /// </summary>
-        public GradingPercentage Criteria { get; set; }
+        public GradingPercentage Criteria { get; set; } = new GradingPercentage();
 
         /// <summary>
         /// Indicates if we are in editing existing criteria mode
@@ -123,13 +123,11 @@ namespace Testinator.Server.Core
                     // Get values to the view model's properties
                     this.Criteria.Name = criteria.Name;
                     this.EditingCriteriaOldName = criteria.Name;
-                    this.Criteria.IsMarkAIncluded = false;
-                    if (criteria.IsMarkAIncluded)
-                    {
-                        this.TopValueMarkA = criteria.MarkA.TopLimit.ToString();
-                        this.BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
-                        this.Criteria.IsMarkAIncluded = true;
-                    }
+                    this.Criteria.IsMarkAIncluded = criteria.IsMarkAIncluded;
+                    OnPropertyChanged(nameof(Criteria));
+
+                    this.TopValueMarkA = criteria.MarkA.TopLimit.ToString();
+                    this.BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
                     this.TopValueMarkB = criteria.MarkB.TopLimit.ToString();
                     this.BottomValueMarkB = criteria.MarkB.BottomLimit.ToString();
                     this.TopValueMarkC = criteria.MarkC.TopLimit.ToString();
@@ -140,6 +138,9 @@ namespace Testinator.Server.Core
                     this.BottomValueMarkE = criteria.MarkE.BottomLimit.ToString();
                     this.TopValueMarkF = criteria.MarkF.TopLimit.ToString();
                     this.BottomValueMarkF = criteria.MarkF.BottomLimit.ToString();
+
+                    // Object found, no need to iterate more
+                    break;
                 }
             }
         }
