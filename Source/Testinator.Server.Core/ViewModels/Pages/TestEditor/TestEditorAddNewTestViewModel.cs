@@ -778,12 +778,33 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitCriteria()
         {
-            // Get away from editing mode
-            IsCriteriaEditModeOn = false;
 
             try
             {
+                // Check if input data is valid
+                if (!ValidateInputData()) throw new Exception("Dane w polach są niepoprawne.");
 
+                // Everything is ok, convert strings to integers and edit grading object
+                if (this.PointsGrading.IsMarkAIncluded)
+                {
+                    this.PointsGrading.MarkA.TopLimit = Int32.Parse(EditingTopValueA);
+                    this.PointsGrading.MarkA.BottomLimit = Int32.Parse(EditingBottomValueA);
+                }
+                this.PointsGrading.MarkB.TopLimit = Int32.Parse(EditingTopValueB);
+                this.PointsGrading.MarkB.BottomLimit = Int32.Parse(EditingBottomValueB);
+                this.PointsGrading.MarkC.TopLimit = Int32.Parse(EditingTopValueC);
+                this.PointsGrading.MarkC.BottomLimit = Int32.Parse(EditingBottomValueC);
+                this.PointsGrading.MarkD.TopLimit = Int32.Parse(EditingTopValueD);
+                this.PointsGrading.MarkD.BottomLimit = Int32.Parse(EditingBottomValueD);
+                this.PointsGrading.MarkE.TopLimit = Int32.Parse(EditingTopValueE);
+                this.PointsGrading.MarkE.BottomLimit = Int32.Parse(EditingBottomValueE);
+                this.PointsGrading.MarkF.TopLimit = Int32.Parse(EditingTopValueF);
+                this.PointsGrading.MarkF.BottomLimit = Int32.Parse(EditingBottomValueF);
+
+                // Get away from editing mode
+                IsCriteriaEditModeOn = false;
+                ErrorMessage = string.Empty;
+                OnPropertyChanged(nameof(PointsGrading));
             }
             catch(Exception ex)
             {
@@ -796,8 +817,79 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitTest()
         {
-            // Save the test
+            // Attach criteria to the test
+            Test.Grading = this.PointsGrading;
+
+            // Save the test to file
             FileWriters.BinWriter.WriteTestToFile(Test);
+
+            // Save this view model
+            var viewModel = new TestEditorAddNewTestViewModel
+            {
+                Test = this.Test
+            };
+
+            // Change page to result page
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorResult, viewModel);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Checks if criteria input data is valid
+        /// </summary>
+        private bool ValidateInputData()
+        {
+            try
+            {
+                // Parse every number value to integer
+                int topMarkA = 0;
+                int bottomMarkA = 0;
+                if (PointsGrading.IsMarkAIncluded)
+                {
+                    topMarkA = Int32.Parse(EditingTopValueA);
+                    bottomMarkA = Int32.Parse(EditingBottomValueA);
+                }
+                int topMarkB = Int32.Parse(EditingTopValueB);
+                int bottomMarkB = Int32.Parse(EditingBottomValueB);
+                int topMarkC = Int32.Parse(EditingTopValueC);
+                int bottomMarkC = Int32.Parse(EditingBottomValueC);
+                int topMarkD = Int32.Parse(EditingTopValueD);
+                int bottomMarkD = Int32.Parse(EditingBottomValueD);
+                int topMarkE = Int32.Parse(EditingTopValueE);
+                int bottomMarkE = Int32.Parse(EditingBottomValueE);
+                int topMarkF = Int32.Parse(EditingTopValueF);
+                int bottomMarkF = Int32.Parse(EditingBottomValueF);
+
+                // Check if input data is in sequence
+                if (PointsGrading.IsMarkAIncluded)
+                {
+                    // The highest value must be test's max points
+                    if (topMarkA != Test.TotalPointScore) throw new Exception();
+                    if (bottomMarkA <= topMarkB) throw new Exception();
+                }
+                else
+                {
+                    // The highest value must be test's max points
+                    if (topMarkB != Test.TotalPointScore) throw new Exception();
+                }
+                if (bottomMarkB <= topMarkC) throw new Exception();
+                if (bottomMarkC <= topMarkD) throw new Exception();
+                if (bottomMarkD <= topMarkE) throw new Exception();
+                if (bottomMarkE <= topMarkF) throw new Exception();
+                if (bottomMarkF != 0) throw new Exception();
+            }
+            catch
+            {
+                // Input data is invalid, show an error and return false
+                ErrorMessage = "Dane w polach są niepoprawne.";
+                return false;
+            }
+
+            // Everything works, return true
+            return true;
         }
 
         #endregion

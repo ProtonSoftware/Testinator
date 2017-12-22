@@ -305,7 +305,7 @@
 
         </Grid>
 
-        <Button Content="Zakończ dodawanie testu"
+        <Button Content="Zakończ dodawanie pytań"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"

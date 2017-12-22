@@ -63,7 +63,6 @@
                              Grid.Row="1"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -83,7 +82,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -103,7 +101,6 @@
                              Grid.Row="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -123,7 +120,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -143,7 +139,6 @@
                              Grid.Row="3"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -163,7 +158,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -183,7 +177,6 @@
                              Grid.Row="4"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -203,7 +196,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -223,7 +215,6 @@
                              Grid.Row="5"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -243,7 +234,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -263,7 +253,6 @@
                              Grid.Row="6"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -283,7 +272,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -339,7 +327,7 @@
 
         </Border>
 
-        <Button Content="Zakończ tworzenie testu"
+        <Button Content="Zapisz test"
                 Margin="10"
                 Command="{Binding SubmitTestCommand}"
                 Style="{StaticResource BaseUIButton}"
