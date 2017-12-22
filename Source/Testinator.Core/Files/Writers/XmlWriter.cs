@@ -15,9 +15,9 @@ namespace Testinator.Core
         /// </summary>
         /// <param name="FileName">The name of the file</param>
         /// <param name="data">The data to be saved</param>
-        public void SaveGrading(string FileName, Grading data)
+        public void SaveGrading(string FileName, GradingPercentage data)
         {
-            var grades = data as Grading;
+            var grades = data as GradingPercentage;
 
             var doc = new XmlDocument();
             var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -25,24 +25,19 @@ namespace Testinator.Core
 
             var MarksNode = doc.CreateElement("Marks");
             doc.AppendChild(MarksNode);
-            
-            foreach (var mark in grades.Marks)
+
+            // A
+            if (data.IsMarkAIncluded)
             {
-                var MarkNode = doc.CreateElement("Mark");
-                MarksNode.AppendChild(MarkNode);
-
-                var ValueNode = doc.CreateElement("Value");
-                ValueNode.AppendChild(doc.CreateTextNode(mark.Value.ToString()));
-                MarkNode.AppendChild(ValueNode);
-
-                var TopLimitNode = doc.CreateElement("TopLimit");
-                TopLimitNode.AppendChild(doc.CreateTextNode(mark.TopLimit.ToString()));
-                MarkNode.AppendChild(TopLimitNode);
-
-                var BottomLimitNode = doc.CreateElement("BottomLimit");
-                BottomLimitNode.AppendChild(doc.CreateTextNode(mark.BottomLimit.ToString()));
-                MarkNode.AppendChild(BottomLimitNode);
+                AddMarkXml(data.MarkA, MarksNode, doc);
             }
+
+            AddMarkXml(data.MarkB, MarksNode, doc);
+            AddMarkXml(data.MarkC, MarksNode, doc);
+            AddMarkXml(data.MarkD, MarksNode, doc);
+            AddMarkXml(data.MarkE, MarksNode, doc);
+            AddMarkXml(data.MarkF, MarksNode, doc);
+            
             try
             {
                 doc.Save(Settings.Path + "Criteria\\" + FileName + ".xml");
@@ -75,6 +70,28 @@ namespace Testinator.Core
         public XmlWriter()
         {
             Settings = new WriterSettings();
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        private void AddMarkXml(Mark mark, XmlElement rootElement, XmlDocument doc)
+        {
+            var MarkNode = doc.CreateElement("Mark");
+            rootElement.AppendChild(MarkNode);
+
+            var ValueNodeA = doc.CreateElement("Value");
+            ValueNodeA.AppendChild(doc.CreateTextNode("A"));
+            MarkNode.AppendChild(ValueNodeA);
+
+            var TopLimitNodeA = doc.CreateElement("TopLimit");
+            TopLimitNodeA.AppendChild(doc.CreateTextNode(mark.TopLimit.ToString()));
+            MarkNode.AppendChild(TopLimitNodeA);
+
+            var BottomLimitNodeA = doc.CreateElement("BottomLimit");
+            BottomLimitNodeA.AppendChild(doc.CreateTextNode(mark.BottomLimit.ToString()));
+            MarkNode.AppendChild(BottomLimitNodeA);
         }
 
         #endregion

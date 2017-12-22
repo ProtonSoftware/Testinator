@@ -122,6 +122,7 @@
 
                 <StackPanel>
                     <Button Content="Start"
+                            IsEnabled="{Binding IsServerStarted, Converter={local:BooleanInvertConverter}}"
                             Command="{Binding StartServerCommand}"
                             Style="{StaticResource BaseUIButton}" />
                     <Button Content="Stop"

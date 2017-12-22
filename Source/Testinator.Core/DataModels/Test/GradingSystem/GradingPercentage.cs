@@ -1,10 +1,12 @@
-﻿namespace Testinator.Core
+﻿using System;
+
+namespace Testinator.Core
 {
     /// <summary>
     /// Grading (criteria) system which border values are in percents
     /// This class should be converted to <see cref="GradingPoints"/> and then attached to <see cref="Test"/>
     /// </summary>
-    public class GradingPercentage
+    public class GradingPercentage : GradingBase
     {
         #region Public Properties 
 
@@ -12,23 +14,6 @@
         /// Name of this grading set
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Indicates if <see cref="Marks.A"/> is included in this set
-        /// </summary>
-        public bool IsMarkAIncluded { get; set; }
-
-        public Mark MarkA { get; set; }
-
-        public Mark MarkB { get; set; }
-
-        public Mark MarkC { get; set; }
-
-        public Mark MarkD { get; set; }
-
-        public Mark MarkE { get; set; }
-
-        public Mark MarkF { get; set; }
 
         #endregion
 
@@ -53,55 +38,55 @@
 
         #region Public Methods
 
-        /// <summary>
-        /// Updates values of a mark
-        /// </summary>
-        /// <param name="mark">The mark which values we are updating</param>
-        /// <param name="top">The top limit in points</param>
-        /// <param name="bottom">The bottom limit in points</param>
-        public void UpdateMark(Marks mark, int top, int bottom)
+        public GradingPoints ToPoints(int maxPoints)
         {
-            // Based on mark...
-            switch(mark)
+            var result = new GradingPoints();
+
+            int top = 0;
+            int bottom = 0;
+
+            if (IsMarkAIncluded)
             {
-                // Update top and bottom values
-                case Marks.A:
-                    {
-                        MarkA.TopLimit = top;
-                        MarkA.BottomLimit = top;
-                    }
-                    break;
-                case Marks.B:
-                    {
-                        MarkB.TopLimit = top;
-                        MarkB.BottomLimit = top;
-                    }
-                    break;
-                case Marks.C:
-                    {
-                        MarkC.TopLimit = top;
-                        MarkC.BottomLimit = top;
-                    }
-                    break;
-                case Marks.D:
-                    {
-                        MarkD.TopLimit = top;
-                        MarkD.BottomLimit = top;
-                    }
-                    break;
-                case Marks.E:
-                    {
-                        MarkE.TopLimit = top;
-                        MarkE.BottomLimit = top;
-                    }
-                    break;
-                case Marks.F:
-                    {
-                        MarkF.TopLimit = top;
-                        MarkF.BottomLimit = top;
-                    }
-                    break;
+                result.IsMarkAIncluded = true;
+                top = PercentToPoint(MarkA.TopLimit, maxPoints);
+                bottom = PercentToPoint(MarkA.BottomLimit, maxPoints);
+                result.UpdateMark(Marks.A, top, bottom);
             }
+            else
+            {
+                result.IsMarkAIncluded = false;
+            }
+
+            top = bottom - 1;
+            bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
+            result.UpdateMark(Marks.B, top, bottom);
+
+            top = bottom - 1;
+            bottom = PercentToPoint(MarkC.BottomLimit, maxPoints);
+            result.UpdateMark(Marks.C, top, bottom);
+
+            top = bottom - 1;
+            bottom = PercentToPoint(MarkD.BottomLimit, maxPoints);
+            result.UpdateMark(Marks.D, top, bottom);
+
+            top = bottom - 1;
+            bottom = PercentToPoint(MarkE.BottomLimit, maxPoints);
+            result.UpdateMark(Marks.E, top, bottom);
+
+            top = bottom - 1;
+            bottom = PercentToPoint(MarkF.BottomLimit, maxPoints);
+            result.UpdateMark(Marks.F, top, bottom);
+
+            return result;
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        private static int PercentToPoint(int percent, int maxPoint)
+        {
+            return (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
         }
 
         #endregion

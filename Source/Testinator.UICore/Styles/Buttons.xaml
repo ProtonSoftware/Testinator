@@ -47,6 +47,12 @@
             </Setter.Value>
         </Setter>
 
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource BlackLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+        
     </Style>
 
     <!-- Window Control Button -->

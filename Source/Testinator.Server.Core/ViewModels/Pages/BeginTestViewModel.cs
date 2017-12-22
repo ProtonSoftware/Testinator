@@ -17,7 +17,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A list of connected clients
         /// </summary>
-        public ObservableCollection<ClientModel> ClientsConnected { get; set; } = new ObservableCollection<ClientModel>();
+        public ObservableCollection<ClientModel> ClientsConnected => IoCServer.Network.Clients;
 
         /// <summary>
         /// The test which is choosen by user on the list
@@ -30,14 +30,9 @@ namespace Testinator.Server.Core
         public bool IsServerStarted => IoCServer.Network.IsRunning;
 
         /// <summary>
-        /// A flag indicating whether test has been sent to the clients
-        /// </summary>
-        public bool IsTestSent { get; set; }
-
-        /// <summary>
         /// A flag indicating whether test has started
         /// </summary>
-        public bool IsTestStarted => IoCServer.Application.IsTestInProgress;
+        public bool IsTestInProgress => IoCServer.Application.IsTestInProgress;
 
         #endregion
 
@@ -89,10 +84,6 @@ namespace Testinator.Server.Core
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
             ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
             BeginTestCommand = new RelayCommand(BeginTest);
-
-            // Subscribe to the server events
-            IoCServer.Network.OnClientConnected += ServerClientConnected;
-            IoCServer.Network.OnClientDisconnected += ServerClientDisconnected;
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
@@ -156,12 +147,13 @@ namespace Testinator.Server.Core
             // Load test based on that
             CurrentTest = TestListViewModel.Instance.Items[testID - 1].Test;
             
+            // Mark all items not selected
             foreach (var item in TestListViewModel.Instance.Items)
             {
                 item.IsSelected =false;
             }
 
-            // Mark it selected
+            // Select the one that has been clicked
             TestListViewModel.Instance.Items[testID - 1].IsSelected = true;
         }
 
@@ -173,31 +165,6 @@ namespace Testinator.Server.Core
             
         }
 
-        #endregion
-
-        #region Private Helpers
-
-        /// <summary>
-        /// Fired when a new user connectes to the server
-        /// </summary>
-        /// <param name="client">A model for this hte client</param>
-        private void ServerClientConnected(ClientModel client)
-        {
-            // Jump on the dispatcher thread
-            var uiContext = SynchronizationContext.Current;
-            uiContext.Send(x => ClientsConnected.Add(client), null);
-        }
-
-        /// <summary>
-        /// Fired when a client disconnected from the server
-        /// </summary>
-        /// <param name="client">The client that has disconnected</param>
-        private void ServerClientDisconnected(ClientModel client)
-        {           
-            // Jump on the dispatcher thread
-            var uiContext = SynchronizationContext.Current;
-            uiContext.Send(x => ClientsConnected.Remove(client), null);
-        }
         #endregion
     }
 }

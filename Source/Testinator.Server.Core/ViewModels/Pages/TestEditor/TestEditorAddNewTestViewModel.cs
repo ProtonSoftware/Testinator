@@ -295,7 +295,7 @@ namespace Testinator.Server.Core
 
                 // Set default points grading 
                 viewModel.CurrentGrading = new GradingPercentage();
-                viewModel.PointsGrading = viewModel.CurrentGrading.GetPoints(Test.TotalPointScore);
+                viewModel.PointsGrading = viewModel.CurrentGrading.ToPoints(Test.TotalPointScore);
 
                 // Pass view model to the next page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);

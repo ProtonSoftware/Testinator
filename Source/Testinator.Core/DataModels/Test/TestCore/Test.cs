@@ -47,7 +47,7 @@ namespace Testinator.Core
         /// <summary>
         /// The grading system for this test
         /// </summary>
-        public Grading Grading { get; set; } = new Grading();
+        public GradingPoints Grading { get; set; } = new GradingPoints();
         
         #endregion
 
