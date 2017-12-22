@@ -33,10 +33,11 @@ namespace Testinator.Core
             {
                 result.IsMarkAIncluded = false;
                 maxPoints = Grades.MarkB.TopLimit;
-                top = PointsToPercent(Grades.MarkB.TopLimit, maxPoints);
-                bottom = PointsToPercent(Grades.MarkB.BottomLimit, maxPoints);
-                result.UpdateMark(Marks.B, top, bottom);
             }
+
+            top = PointsToPercent(Grades.MarkB.TopLimit, maxPoints);
+            bottom = PointsToPercent(Grades.MarkB.BottomLimit, maxPoints);
+            result.UpdateMark(Marks.B, top, bottom);
 
             top = bottom - 1;
             bottom = PointsToPercent(Grades.MarkC.BottomLimit, maxPoints);
