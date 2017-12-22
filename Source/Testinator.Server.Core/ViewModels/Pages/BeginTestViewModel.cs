@@ -109,9 +109,6 @@ namespace Testinator.Server.Core
         {
             IoCServer.Network.Start();
             OnPropertyChanged(nameof(IsServerStarted));
-
-            // Prepare for client connections
-            ClientsConnected = new ObservableCollection<ClientModel>();
         }
 
         /// <summary>
@@ -128,8 +125,11 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePageList()
         {
-            // Simply go to target page
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
+            if (IsServerStarted)
+            {
+                // Simply go to target page if the server has beed started
+                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
+            }
         }
 
         /// <summary>
@@ -152,9 +152,17 @@ namespace Testinator.Server.Core
         {
             // Cast the parameter
             int testID = Int32.Parse(param.ToString());
-
+            
             // Load test based on that
-            CurrentTest = TestListViewModel.Instance.Items[testID-1];
+            CurrentTest = TestListViewModel.Instance.Items[testID - 1].Test;
+            
+            foreach (var item in TestListViewModel.Instance.Items)
+            {
+                item.IsSelected =false;
+            }
+
+            // Mark it selected
+            TestListViewModel.Instance.Items[testID - 1].IsSelected = true;
         }
 
         /// <summary>

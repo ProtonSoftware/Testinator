@@ -22,7 +22,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// List of items (tests) in this test list
         /// </summary>
-        public ObservableCollection<Test> Items { get; set; }
+        public ObservableCollection<TestListItemViewModel> Items { get; set; }
 
         #endregion
 
@@ -50,8 +50,17 @@ namespace Testinator.Server.Core
             var list = FileReaders.BinReader.ReadAllTests();
 
             // Rewrite list to the collection
-            Items = new ObservableCollection<Test>();
-            list.ForEach(x => Items.Add(x));
+            Items = new ObservableCollection<TestListItemViewModel>();
+            int i = 1;
+            list.ForEach( (x) =>
+            {
+                Items.Add(new TestListItemViewModel()
+                {
+                    ID = i,
+                    Test = x,
+                });
+                i++;
+            });
         }
 
         #endregion

@@ -35,7 +35,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Name}"
+                                <TextBlock Text="{Binding Test.Name}"
                                            Style="{StaticResource MediumTitleText}"
                                            />
                             </Grid>
@@ -44,6 +44,10 @@
 
                         <!-- Hover effect -->
                         <ControlTemplate.Triggers>
+
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter TargetName="container" Property="Background" Value="{StaticResource GreenLightBrush}" />
+                            </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
@@ -55,7 +59,7 @@
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation From="{StaticResource BlackLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
