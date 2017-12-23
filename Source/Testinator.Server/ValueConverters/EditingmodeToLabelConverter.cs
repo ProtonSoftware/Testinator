@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Media;
 using Testinator.UICore;
 
 namespace Testinator.Server
 {
     /// <summary>
-    /// A converter that takes in a boolean and returns a <see cref="Visibility"/>
+    /// Converts boolean value to the corresponding string name
     /// </summary>
-    public class BooleanToVisiblityConverter : BaseValueConverter<BooleanToVisiblityConverter>
+    public class EditingmodeToLabelConverter : BaseValueConverter<EditingmodeToLabelConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                return (bool)value ? Visibility.Visible : Visibility.Hidden;
+            if ((bool)value)
+                return "Zapisz";
             else
-                return (bool)value ? Visibility.Hidden : Visibility.Visible;
+                return "Dodaj";
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -12,7 +12,7 @@ namespace Testinator.Server.Core
         #region Public Properties
 
         /// <summary>
-        /// The criteria being created
+        /// The criteria being created or edited
         /// </summary>
         public GradingPercentage Criteria { get; set; } = new GradingPercentage();
 
@@ -23,28 +23,31 @@ namespace Testinator.Server.Core
 
         /// <summary>
         /// Name of the criteria which we are editing
-        /// if remain unchanged - we replace criterias
-        /// if user changes name - we create new one and delete old one
         /// </summary>
         public string EditingCriteriaOldName { get; set; }
-
+        
         /// <summary>
         /// Indicates if invalid data error should be shown
         /// </summary>
         public bool InvalidDataError { get; set; } = false;
 
-        public string TopValueMarkA { get; set; } = "100";
-        public string BottomValueMarkA { get; set; } = "96";
-        public string TopValueMarkB { get; set; } = "95";
-        public string BottomValueMarkB { get; set; } = "86";
-        public string TopValueMarkC { get; set; } = "85";
-        public string BottomValueMarkC { get; set; } = "70";
-        public string TopValueMarkD { get; set; } = "69";
-        public string BottomValueMarkD { get; set; } = "50";
-        public string TopValueMarkE { get; set; } = "49";
-        public string BottomValueMarkE { get; set; } = "30";
-        public string TopValueMarkF { get; set; } = "29";
-        public string BottomValueMarkF { get; set; } = "0";
+        /// <summary>
+        /// Name of the criteria being edited or created
+        /// </summary>
+        public string Name { get; set; }
+
+        public string TopValueMarkA { get; set; }
+        public string BottomValueMarkA { get; set; }
+        public string TopValueMarkB { get; set; }
+        public string BottomValueMarkB { get; set; }
+        public string TopValueMarkC { get; set; }
+        public string BottomValueMarkC { get; set; }
+        public string TopValueMarkD { get; set; }
+        public string BottomValueMarkD { get; set; }
+        public string TopValueMarkE { get; set; }
+        public string BottomValueMarkE { get; set; }
+        public string TopValueMarkF { get; set; }
+        public string BottomValueMarkF { get; set; }
 
         #endregion
 
@@ -66,9 +69,14 @@ namespace Testinator.Server.Core
         public ICommand CancelEditCriteriaCommand { get; private set; }
 
         /// <summary>
-        /// The command to submit created criteria
+        /// The command to either save changes or add new criteria
         /// </summary>
         public ICommand SubmitCriteriaCommand { get; private set; }
+
+        /// <summary>
+        /// The command to delete criteria
+        /// </summary>
+        public ICommand DeleteCriteriaCommand { get; private set; }
 
         #endregion
 
@@ -84,13 +92,29 @@ namespace Testinator.Server.Core
             EditCriteriaCommand = new RelayParameterizedCommand((param) => EditCriteria(param));
             CancelEditCriteriaCommand = new RelayCommand(CancelEdit);
             SubmitCriteriaCommand = new RelayCommand(SubmitCriteria);
+            DeleteCriteriaCommand = new RelayCommand(DeleteCommand);
 
             // Load the criteria list
             CriteriaListViewModel.Instance.LoadItems();
+
+            // Load sample data
+            LoadCriteria(new GradingPercentage());
+            PropertyChanged += TestEditorAddNewCriteriaViewModel_PropertyChanged;
         }
 
-        #endregion
 
+
+        #endregion
+        private void TestEditorAddNewCriteriaViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (EditingCriteriaMode)
+            {
+                if (e.PropertyName == nameof(Name) || e.PropertyName == nameof(TopValueMarkA) || e.PropertyName == nameof(BottomValueMarkA) || e.PropertyName == nameof(TopValueMarkB) ||
+                    e.PropertyName == nameof(BottomValueMarkB) || e.PropertyName == nameof(TopValueMarkC) || e.PropertyName == nameof(BottomValueMarkC) || e.PropertyName == nameof(TopValueMarkD) ||
+                    e.PropertyName == nameof(BottomValueMarkD) || e.PropertyName == nameof(TopValueMarkE) || e.PropertyName == nameof(BottomValueMarkE) || e.PropertyName == nameof(TopValueMarkF) || e.PropertyName == nameof(BottomValueMarkF))
+                    CriteriaChanged = true;
+            }
+        }
         #region Command Methods
 
         /// <summary>
@@ -98,8 +122,15 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePage()
         {
-            // Simply change page
-            IoCServer.Application.GoToPage(ApplicationPage.TestEditor);
+            // If something is being edited show the warning...
+            if (EditingCriteriaMode)
+            {
+                // TODO: show message box to ask the user if they want to save changes or not
+            }
+            else
+                // Simply change page
+                IoCServer.Application.GoToPage(ApplicationPage.TestEditor);
+
         }
 
         /// <summary>
@@ -108,41 +139,44 @@ namespace Testinator.Server.Core
         /// <param name="param">Name of the criteria</param>
         private void EditCriteria(object param)
         {
-            // Indicate that we will be editing criteria instead of adding new one
-            EditingCriteriaMode = true;
-
             // Cast parameter to string
             string criteriaName = param.ToString();
 
-            // Search for the criteria with that name
-            foreach (var criteria in CriteriaListViewModel.Instance.Items)
+            // If we are in editing mode
+            if (EditingCriteriaMode)
             {
-                // Check if name matches
-                if (criteria.Name == criteriaName)
+                // If the user clicked on the criteria that is now edited, do nothing
+                if (criteriaName == EditingCriteriaOldName)
+                    return;
+
+                // If there are some unsaved changes
+                if (CriteriaChanged)
                 {
-                    // Get values to the view model's properties
-                    this.Criteria.Name = criteria.Name;
-                    this.EditingCriteriaOldName = criteria.Name;
-                    this.Criteria.IsMarkAIncluded = criteria.IsMarkAIncluded;
-                    OnPropertyChanged(nameof(Criteria));
+                    // TODO: Show the message box with the info that there are some unsaved changes
+                    // Base on the resopond decide what to do,
+                    // For now return without asking the user 
 
-                    this.TopValueMarkA = criteria.MarkA.TopLimit.ToString();
-                    this.BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
-                    this.TopValueMarkB = criteria.MarkB.TopLimit.ToString();
-                    this.BottomValueMarkB = criteria.MarkB.BottomLimit.ToString();
-                    this.TopValueMarkC = criteria.MarkC.TopLimit.ToString();
-                    this.BottomValueMarkC = criteria.MarkC.BottomLimit.ToString();
-                    this.TopValueMarkD = criteria.MarkD.TopLimit.ToString();
-                    this.BottomValueMarkD = criteria.MarkD.BottomLimit.ToString();
-                    this.TopValueMarkE = criteria.MarkE.TopLimit.ToString();
-                    this.BottomValueMarkE = criteria.MarkE.BottomLimit.ToString();
-                    this.TopValueMarkF = criteria.MarkF.TopLimit.ToString();
-                    this.BottomValueMarkF = criteria.MarkF.BottomLimit.ToString();
-
-                    // Object found, no need to iterate more
-                    break;
+                    // If user wants to save changes do so and proceed to the remaining part of the function
+                    //if (userRespond == true)
+                    //   SubmitCriteria();
                 }
             }
+
+            // Mark all criteria unchecked
+            CriteriaListViewModel.Instance.UncheckAll();
+
+            // Hide any errors
+            InvalidDataError = false;
+
+            // Disable editing mode for items loading time, because it will fire the 
+            // property changed event and the CriteriaChanged will be set, which we don't want for now
+            EditingCriteriaMode = false;
+
+            // Load the new data
+            LoadCriteriaByName(criteriaName, true);
+
+            // Enter editing mode again
+            EditingCriteriaMode = true;
         }
 
         /// <summary>
@@ -152,10 +186,26 @@ namespace Testinator.Server.Core
         {
             // Indicate that we are no longer editing criteria
             EditingCriteriaMode = false;
+
+            // Mark all criteria unchecked
+            CriteriaListViewModel.Instance.UncheckAll();
+
+            // If something was changed...
+            if (CriteriaChanged)
+            {
+                // Load the old criteria...
+                LoadCriteriaByName(EditingCriteriaOldName, false);
+            }
+            else
+            {
+                // Load brand new object
+                LoadCriteria(new GradingPercentage());
+                Name = "";
+            }
         }
 
         /// <summary>
-        /// Submits the criteria to the list
+        /// Submits the criteria or saves changes
         /// </summary>
         private void SubmitCriteria()
         {
@@ -166,6 +216,9 @@ namespace Testinator.Server.Core
                 return;
             }
 
+            // Hide any errors
+            InvalidDataError = false;
+
             // Update values in grading object
             if (Criteria.IsMarkAIncluded) Criteria.UpdateMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
             Criteria.UpdateMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
@@ -175,26 +228,86 @@ namespace Testinator.Server.Core
             Criteria.UpdateMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
 
             // Send it to xml writer and save it
-            FileWriters.XmlWriter.SaveGrading(this.Criteria.Name, this.Criteria);
+            FileWriters.XmlWriter.SaveGrading(this.Name, this.Criteria);
 
             // Check if we were editing existing one or not
             if (EditingCriteriaMode)
             {
                 // If user has changed the name of the criteria, delete old one
-                FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
+                if (Name != EditingCriteriaOldName)
+                    FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
             }
 
             // Get out of editing mode
             EditingCriteriaMode = false;
-            EditingCriteriaOldName = string.Empty;
+
+            // Mark all criteria unchecked
+            CriteriaListViewModel.Instance.UncheckAll();
 
             // Reload the criteria list to include newly created criteria
             CriteriaListViewModel.Instance.LoadItems();
+
+            // Load the viewmodel with the sample data
+            LoadCriteria(new GradingPercentage());
+            Name = "";
+        }
+
+        /// <summary>
+        /// Deletes selected criteria
+        /// </summary>
+        private void DeleteCommand()
+        {
+            // Delete this criteria by old name because the user may have changed it meanwhile
+            FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
+
+            // Reload items
+            CriteriaListViewModel.Instance.LoadItems();
+
+            // Load brand new criteria
+            LoadCriteria(new GradingPercentage());
+
+            // Hide all errors and flags
+            EditingCriteriaMode = false;
+            InvalidDataError = false;
+            CriteriaChanged = false;
+
+            // Mark all criteria unchecked
+            CriteriaListViewModel.Instance.UncheckAll();
         }
 
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Sets up the view with the given criteria object
+        /// </summary>
+        /// <param name="criteria">The criteria that the view should be loaded with</param>
+        private void LoadCriteria(GradingPercentage criteria)
+        {
+            // Hide errors and edit states
+            CriteriaChanged = false;
+            InvalidDataError = false;
+
+            // Get values to the view model's properties
+            this.Criteria = criteria;
+            this.Name = criteria.Name;
+            this.EditingCriteriaOldName = criteria.Name;
+
+            this.Criteria.IsMarkAIncluded = criteria.IsMarkAIncluded;
+            this.TopValueMarkA = criteria.MarkA.TopLimit.ToString();
+            this.BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
+            this.TopValueMarkB = criteria.MarkB.TopLimit.ToString();
+            this.BottomValueMarkB = criteria.MarkB.BottomLimit.ToString();
+            this.TopValueMarkC = criteria.MarkC.TopLimit.ToString();
+            this.BottomValueMarkC = criteria.MarkC.BottomLimit.ToString();
+            this.TopValueMarkD = criteria.MarkD.TopLimit.ToString();
+            this.BottomValueMarkD = criteria.MarkD.BottomLimit.ToString();
+            this.TopValueMarkE = criteria.MarkE.TopLimit.ToString();
+            this.BottomValueMarkE = criteria.MarkE.BottomLimit.ToString();
+            this.TopValueMarkF = criteria.MarkF.TopLimit.ToString();
+            this.BottomValueMarkF = criteria.MarkF.BottomLimit.ToString();
+        }
 
         /// <summary>
         /// Checks if input data is valid
@@ -239,6 +352,8 @@ namespace Testinator.Server.Core
                 if (bottomMarkD <= topMarkE) throw new Exception();
                 if (bottomMarkE <= topMarkF) throw new Exception();
                 if (bottomMarkF != 0) throw new Exception();
+
+                if (string.IsNullOrWhiteSpace(Name)) throw new Exception();
             }
             catch
             {
@@ -250,6 +365,43 @@ namespace Testinator.Server.Core
             // Everything works, return true
             return true;
         }
+
+        /// <summary>
+        /// Loads criteria by the given name
+        /// </summary>
+        /// <param name="criteriaName">Name of the criteria to be loaded</param>
+        /// <param name="ShouldBeMarkedSelected">Indicates if the newly loaded criteria should be marked selected on the list</param>
+        private void LoadCriteriaByName(string criteriaName, bool ShouldBeMarkedSelected)
+        {
+            // Search for the criteria with that name
+            foreach (var criteria in CriteriaListViewModel.Instance.Items)
+            {
+
+                // Check if name matches
+                if (criteria.Grading.Name == criteriaName)
+                {
+                    // Update the view
+                    LoadCriteria(criteria.Grading);
+
+                    if(ShouldBeMarkedSelected)
+                        criteria.IsSelected = true;     
+
+                    // Object found, no need to iterate more
+                    break;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private Properties
+
+        /// <summary>
+        /// Makes sense in editing mode.
+        /// If true: there are some changes to be saved,
+        /// if false: nothing was edited and there's nothing to replace
+        /// </summary>
+        public bool CriteriaChanged { get; set; }
 
         #endregion
     }

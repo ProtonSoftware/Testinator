@@ -24,7 +24,7 @@
                                               Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                                                AncestorType=UICore:BasePage},
                                                                                                Path=DataContext.EditCriteriaCommand}"
-                                              CommandParameter="{Binding Name}" />
+                                              CommandParameter="{Binding Grading.Name}" />
                             </Border.InputBindings>
 
                             <Grid x:Name="container" 
@@ -38,9 +38,18 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Name}"
+                                <TextBlock Text="{Binding Grading.Name}"
                                            Style="{StaticResource MediumTitleText}"
+                                           Grid.Column="0"
                                            />
+                                <Grid Grid.Column="1" Visibility="{Binding IsSelected, Converter={local:BooleanToVisiblityConverter}}">
+                                    <TextBlock Text="*"
+                                               Style="{StaticResource MediumTitleText}"
+                                               HorizontalAlignment="Left"
+                                               Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                    AncestorType=UICore:BasePage},
+                                                                    Path=DataContext.CriteriaChanged, Converter={local:BooleanToVisiblityConverter}}" />
+                                </Grid>
                             </Grid>
 
                         </Border>
@@ -58,10 +67,15 @@
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource WhiteDark}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation From="{StaticResource BlackLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
+
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource GreenLightBrush}" />
+                            </DataTrigger>
+                            
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Background" TargetName="container" Value="{StaticResource BlackLightBrush}"/>
                             </Trigger>

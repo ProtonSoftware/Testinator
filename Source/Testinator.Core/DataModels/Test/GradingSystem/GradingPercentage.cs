@@ -56,10 +56,11 @@ namespace Testinator.Core
             else
             {
                 result.IsMarkAIncluded = false;
-                bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
-                top = PercentToPoint(MarkB.TopLimit, maxPoints);
-                result.UpdateMark(Marks.B, top, bottom);
             }
+
+            bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
+            top = PercentToPoint(MarkB.TopLimit, maxPoints);
+            result.UpdateMark(Marks.B, top, bottom);
 
             top = bottom - 1;
             bottom = PercentToPoint(MarkC.BottomLimit, maxPoints);

@@ -51,15 +51,16 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Wprowadz nazwę"
                                Style="{StaticResource MediumTitleText}" />
 
-                    <TextBox Text="{Binding Criteria.Name, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="1"
-                             Style="{StaticResource SmallInputTextBox}" />
+                             Style="{StaticResource SmallInputTextBox}" 
+                             Tag="Wpisz nazwę..."/>
 
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2">
@@ -146,18 +147,31 @@
                                Foreground="Red"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <Button Content="Dodaj kryteria"
-                            Command="{Binding SubmitCriteriaCommand}"
-                            Grid.Row="11"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource BaseUIButton}" />
+                    <Grid Grid.Row="11">
 
-                    <Button Content="Anuluj edycję"
-                            Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
-                            Command="{Binding CancelEditCriteriaCommand}"
-                            Grid.Row="11"
-                            HorizontalAlignment="Left"
-                            Style="{StaticResource BaseUIButton}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                       
+                        <Button Content="Anuluj"
+                                Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
+                                Command="{Binding CancelEditCriteriaCommand}"
+                                Style="{StaticResource BaseUIButton}" 
+                                Grid.Column="0"/>
+
+                        <Button Content="Usuń"
+                                Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
+                                Command="{Binding DeleteCriteriaCommand}"
+                                Style="{StaticResource BaseUIButton}" 
+                                Grid.Column="1"/>
+
+                        <Button Content="{Binding EditingCriteriaMode, Converter={local:EditingmodeToLabelConverter}}"
+                                Command="{Binding SubmitCriteriaCommand}"
+                                Style="{StaticResource BaseUIButton}" 
+                                Grid.Column="2"/>
+                    </Grid>
 
                 </Grid>
 

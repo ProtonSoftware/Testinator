@@ -739,10 +739,10 @@ namespace Testinator.Server.Core
             foreach (var criteria in CriteriaListViewModel.Instance.Items)
             {
                 // Check if name matches
-                if (criteria.Name == criteriaName)
+                if (criteria.Grading.Name == criteriaName)
                 {
                     // Catch this grading object
-                    this.CurrentGrading = criteria;
+                    this.CurrentGrading = criteria.Grading;
 
                     // Convert it to points
                     this.PointsGrading = this.CurrentGrading.ToPoints(Test.TotalPointScore);

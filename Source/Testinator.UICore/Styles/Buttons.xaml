@@ -11,7 +11,7 @@
 
     <!-- Initial standard button style -->
     <Style TargetType="{x:Type Button}" x:Key="BaseButton" BasedOn="{StaticResource BaseStyle}">
-        
+
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
 
@@ -25,7 +25,7 @@
         </Style.Triggers>
 
     </Style>
-    
+
     <!-- Base UI Button -->
     <Style TargetType="{x:Type Button}" x:Key="BaseUIButton" BasedOn="{StaticResource BaseButton}">
 
@@ -52,12 +52,12 @@
                 <Setter Property="Background" Value="{StaticResource BlackLightBrush}"/>
             </Trigger>
         </Style.Triggers>
-        
+
     </Style>
 
     <!-- Window Control Button -->
     <Style TargetType="{x:Type Button}" x:Key="WindowControlButton" BasedOn="{StaticResource BaseButton}">
-        
+
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
