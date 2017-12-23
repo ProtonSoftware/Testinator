@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Testinator.UICore.Localization {
+namespace Testinator.UICore {
     using System;
     
     
@@ -124,6 +124,15 @@ namespace Testinator.UICore.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go back to test editor.
+        /// </summary>
+        public static string BackToTestEditor {
+            get {
+                return ResourceManager.GetString("BackToTestEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to test list.
         /// </summary>
         public static string BackToTestList {
@@ -187,11 +196,29 @@ namespace Testinator.UICore.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new criteria or edit existing one.
+        /// </summary>
+        public static string CreateNewCriteriaOrEditExisting {
+            get {
+                return ResourceManager.GetString("CreateNewCriteriaOrEditExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new test.
         /// </summary>
         public static string CreateNewTest {
             get {
                 return ResourceManager.GetString("CreateNewTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -237,6 +264,24 @@ namespace Testinator.UICore.Localization {
         public static string InfoAboutTest {
             get {
                 return ResourceManager.GetString("InfoAboutTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid data in inputs..
+        /// </summary>
+        public static string InvalidDataError {
+            get {
+                return ResourceManager.GetString("InvalidDataError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count Mark A?.
+        /// </summary>
+        public static string IsMarkACountedQuestion {
+            get {
+                return ResourceManager.GetString("IsMarkACountedQuestion", resourceCulture);
             }
         }
         
@@ -484,6 +529,15 @@ namespace Testinator.UICore.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input values are counted in %: .
+        /// </summary>
+        public static string ValuesCountedInPercent {
+            get {
+                return ResourceManager.GetString("ValuesCountedInPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waiting for connection with server.
         /// </summary>
         public static string WaitingForConnection {
@@ -498,6 +552,15 @@ namespace Testinator.UICore.Localization {
         public static string WaitingForTest {
             get {
                 return ResourceManager.GetString("WaitingForTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write name.
+        /// </summary>
+        public static string WriteName {
+            get {
+                return ResourceManager.GetString("WriteName", resourceCulture);
             }
         }
         

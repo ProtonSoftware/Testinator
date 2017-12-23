@@ -270,4 +270,25 @@
   <data name="WriteUserSurname" xml:space="preserve">
     <value>Wpisz nazwisko</value>
   </data>
+  <data name="BackToTestEditor" xml:space="preserve">
+    <value>Wróć do edytora testu</value>
+  </data>
+  <data name="CreateNewCriteriaOrEditExisting" xml:space="preserve">
+    <value>Stwórz nowe kryteria lub edytuj istniejące</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="InvalidDataError" xml:space="preserve">
+    <value>Niepoprawne wartości w polach.</value>
+  </data>
+  <data name="IsMarkACountedQuestion" xml:space="preserve">
+    <value>Z oceną 6?</value>
+  </data>
+  <data name="ValuesCountedInPercent" xml:space="preserve">
+    <value>Wartosci w polach liczone w %: </value>
+  </data>
+  <data name="WriteName" xml:space="preserve">
+    <value>Wpisz nazwę</value>
+  </data>
 </root>

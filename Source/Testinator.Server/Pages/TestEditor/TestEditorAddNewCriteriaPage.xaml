@@ -13,7 +13,7 @@
     <Grid Background="{StaticResource WhiteLightBrush}"
           TextBlock.TextAlignment="Center">
 
-        <TextBlock Text="Stwórz nowe kryteria lub edytuj istniejące"
+        <TextBlock Text="{x:Static UICore:LocalizationResource.CreateNewCriteriaOrEditExisting}"
                    TextWrapping="WrapWithOverflow"
                    Panel.ZIndex="10"
                    Margin="0 40"
@@ -33,8 +33,8 @@
             <Grid>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Grid Margin="20">
@@ -54,22 +54,22 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Wprowadz nazwę"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.WriteName}"
                                Style="{StaticResource MediumTitleText}" />
 
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="1"
                              Style="{StaticResource SmallInputTextBox}" 
-                             Tag="Wpisz nazwę..."/>
+                             Tag="{x:Static UICore:LocalizationResource.WriteName}" />
 
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2">
-                        <TextBlock Text="Z oceną 6?"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.IsMarkACountedQuestion}"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
                         <CheckBox IsChecked="{Binding Criteria.IsMarkAIncluded}"/>
                     </StackPanel>
 
-                    <TextBlock Text="Wartosci w polach liczone w %:"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.ValuesCountedInPercent}"
                                TextWrapping="WrapWithOverflow"
                                Grid.Row="3"
                                Style="{StaticResource MediumTitleText}" />
@@ -82,7 +82,7 @@
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkA, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />
-                        <TextBlock Text="Celujacy"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -93,7 +93,7 @@
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkB, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />
-                        <TextBlock Text="Bardzo dobry"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -104,7 +104,7 @@
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkC, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />
-                        <TextBlock Text="Dobry"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -115,7 +115,7 @@
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkD, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />
-                        <TextBlock Text="Dostateczny"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -126,7 +126,7 @@
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkE, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />
-                        <TextBlock Text="Dopuszczajacy"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -137,11 +137,11 @@
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkF, UpdateSourceTrigger=PropertyChanged}"
                                  Width="30" />
-                        <TextBlock Text="Niedostateczny"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <TextBlock Text="Niepoprawne wartości"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.InvalidDataError}"
                                Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
                                Grid.Row="10"
                                Foreground="Red"
@@ -150,27 +150,26 @@
                     <Grid Grid.Row="11">
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                       
-                        <Button Content="Anuluj"
+
+                        <Button Content="{x:Static UICore:LocalizationResource.Cancel}"
                                 Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding CancelEditCriteriaCommand}"
-                                Style="{StaticResource BaseUIButton}" 
-                                Grid.Column="0"/>
+                                Style="{StaticResource BaseUIButton}" />
 
-                        <Button Content="Usuń"
+                        <Button Content="{x:Static UICore:LocalizationResource.Delete}"
                                 Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding DeleteCriteriaCommand}"
                                 Style="{StaticResource BaseUIButton}" 
-                                Grid.Column="1"/>
+                                Grid.Column="1" />
 
                         <Button Content="{Binding EditingCriteriaMode, Converter={local:EditingmodeToLabelConverter}}"
                                 Command="{Binding SubmitCriteriaCommand}"
                                 Style="{StaticResource BaseUIButton}" 
-                                Grid.Column="2"/>
+                                Grid.Column="2" />
                     </Grid>
 
                 </Grid>
@@ -183,7 +182,7 @@
 
         </Border>
 
-        <Button Content="Wróc do edytora testu"
+        <Button Content="{x:Static UICore:LocalizationResource.BackToTestEditor}"
                 Margin="10"
                 Command="{Binding ChangePageTestEditorCommand}"
                 Style="{StaticResource BaseUIButton}"

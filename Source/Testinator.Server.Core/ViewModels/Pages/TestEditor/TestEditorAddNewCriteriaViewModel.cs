@@ -36,6 +36,13 @@ namespace Testinator.Server.Core
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Makes sense in editing mode.
+        /// If true: there are some changes to be saved,
+        /// if false: nothing was edited and there's nothing to replace
+        /// </summary>
+        public bool CriteriaChanged { get; set; }
+
         public string TopValueMarkA { get; set; }
         public string BottomValueMarkA { get; set; }
         public string TopValueMarkB { get; set; }
@@ -105,16 +112,7 @@ namespace Testinator.Server.Core
 
 
         #endregion
-        private void TestEditorAddNewCriteriaViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (EditingCriteriaMode)
-            {
-                if (e.PropertyName == nameof(Name) || e.PropertyName == nameof(TopValueMarkA) || e.PropertyName == nameof(BottomValueMarkA) || e.PropertyName == nameof(TopValueMarkB) ||
-                    e.PropertyName == nameof(BottomValueMarkB) || e.PropertyName == nameof(TopValueMarkC) || e.PropertyName == nameof(BottomValueMarkC) || e.PropertyName == nameof(TopValueMarkD) ||
-                    e.PropertyName == nameof(BottomValueMarkD) || e.PropertyName == nameof(TopValueMarkE) || e.PropertyName == nameof(BottomValueMarkE) || e.PropertyName == nameof(TopValueMarkF) || e.PropertyName == nameof(BottomValueMarkF))
-                    CriteriaChanged = true;
-            }
-        }
+
         #region Command Methods
 
         /// <summary>
@@ -392,16 +390,24 @@ namespace Testinator.Server.Core
             }
         }
 
-        #endregion
-
-        #region Private Properties
-
         /// <summary>
-        /// Makes sense in editing mode.
-        /// If true: there are some changes to be saved,
-        /// if false: nothing was edited and there's nothing to replace
+        /// Fired when any property in this view model changes
+        /// Used in editing mode
         /// </summary>
-        public bool CriteriaChanged { get; set; }
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TestEditorAddNewCriteriaViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            // If we are not in editing mode, don't bother doing anything
+            if (!EditingCriteriaMode)
+                return;
+
+            // TODO: Fetch it to list and then check if e.PropertyName is in the list
+            if (e.PropertyName == nameof(Name) || e.PropertyName == nameof(TopValueMarkA) || e.PropertyName == nameof(BottomValueMarkA) || e.PropertyName == nameof(TopValueMarkB) ||
+                e.PropertyName == nameof(BottomValueMarkB) || e.PropertyName == nameof(TopValueMarkC) || e.PropertyName == nameof(BottomValueMarkC) || e.PropertyName == nameof(TopValueMarkD) ||
+                e.PropertyName == nameof(BottomValueMarkD) || e.PropertyName == nameof(TopValueMarkE) || e.PropertyName == nameof(BottomValueMarkE) || e.PropertyName == nameof(TopValueMarkF) || e.PropertyName == nameof(BottomValueMarkF))
+                CriteriaChanged = true;
+        }
 
         #endregion
     }

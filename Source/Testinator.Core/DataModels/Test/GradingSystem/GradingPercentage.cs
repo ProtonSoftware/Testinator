@@ -58,15 +58,10 @@ namespace Testinator.Core
                 result.IsMarkAIncluded = false;
             }
 
-<<<<<<< HEAD
-            bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
-            top = PercentToPoint(MarkB.TopLimit, maxPoints);
-=======
             top = PercentToPoint(MarkB.TopLimit, maxPoints);
             bottom = PercentToPoint(MarkB.BottomLimit, maxPoints);
             if (top == result.MarkA.BottomLimit) top--;
             while (bottom > top) bottom--;
->>>>>>> AttachPageFinish
             result.UpdateMark(Marks.B, top, bottom);
 
             top = bottom - 1;

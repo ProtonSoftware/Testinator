@@ -270,4 +270,25 @@
   <data name="WriteUserSurname" xml:space="preserve">
     <value>Write your Surname</value>
   </data>
+  <data name="BackToTestEditor" xml:space="preserve">
+    <value>Go back to test editor</value>
+  </data>
+  <data name="CreateNewCriteriaOrEditExisting" xml:space="preserve">
+    <value>Create new criteria or edit existing one</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="InvalidDataError" xml:space="preserve">
+    <value>Invalid data in inputs.</value>
+  </data>
+  <data name="IsMarkACountedQuestion" xml:space="preserve">
+    <value>Count Mark A?</value>
+  </data>
+  <data name="ValuesCountedInPercent" xml:space="preserve">
+    <value>Input values are counted in %: </value>
+  </data>
+  <data name="WriteName" xml:space="preserve">
+    <value>Write name</value>
+  </data>
 </root>
