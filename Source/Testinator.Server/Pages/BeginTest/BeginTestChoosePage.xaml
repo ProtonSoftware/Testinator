@@ -23,7 +23,7 @@
 
         </Border>
         
-        <Button Content="Wyślij test"
+        <Button Content="{x:Static UICore:LocalizationResource.SendTest}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Command="{Binding ChangePageTestInfoCommand}"

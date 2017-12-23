@@ -21,6 +21,11 @@ namespace Testinator.Server.Core
         public ICommand CreateNewTestCommand { get; private set; }
 
         /// <summary>
+        /// The command to edit existing test
+        /// </summary>
+        public ICommand EditTestCommand { get; private set; }
+
+        /// <summary>
         /// The command to create new criteria
         /// </summary>
         public ICommand CreateNewCriteriaCommand { get; private set; }
@@ -36,6 +41,7 @@ namespace Testinator.Server.Core
         {
             // Create commands
             CreateNewTestCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddTest));
+            EditTestCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddTest)); // Change page here
             CreateNewCriteriaCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddNewCriteria));
         }
 

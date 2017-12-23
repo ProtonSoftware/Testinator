@@ -28,9 +28,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
         /// </summary>
-        /// Just an exaple
-        /// Can be deleted anytime
-        //public static IUIManager UI => IoC.Get<IUIManager>();
+        public static IUIManager UI => IoCServer.Get<IUIManager>();
 
         #endregion
 

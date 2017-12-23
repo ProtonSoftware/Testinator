@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAnswerButton" xml:space="preserve">
+    <value>+ Dodaj odp</value>
+  </data>
+  <data name="AddMultipleCheckboxesQuestionIntroduction" xml:space="preserve">
+    <value>Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, które z nich mają być poprawne.</value>
+  </data>
+  <data name="AddMultipleChoiceQuestionIntroduction" xml:space="preserve">
+    <value>Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, która ma być poprawna.</value>
+  </data>
+  <data name="AddNewQuestion" xml:space="preserve">
+    <value>Dodaj pytanie do testu</value>
+  </data>
+  <data name="AddQuestion" xml:space="preserve">
+    <value>Dodaj pytanie</value>
+  </data>
+  <data name="AddSingleTextboxQuestionIntroduction" xml:space="preserve">
+    <value>Wpisz treść pytania oraz oczekiwaną odpowiedź.</value>
+  </data>
+  <data name="AttachCriteriaTitle" xml:space="preserve">
+    <value>Dodaj kryteria oceniania</value>
+  </data>
+  <data name="BackToTestList" xml:space="preserve">
+    <value>Wróć do listy testów</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="CancelChanges" xml:space="preserve">
+    <value>Anuluj zmiany</value>
+  </data>
+  <data name="ChooseQuestionType" xml:space="preserve">
+    <value>Wybierz typ pytania</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="ConfirmChanges" xml:space="preserve">
+    <value>Potwierdź zmiany</value>
+  </data>
+  <data name="CreateNewCriteria" xml:space="preserve">
+    <value>Utwórz nowe kryteria</value>
+  </data>
+  <data name="CreateNewTest" xml:space="preserve">
+    <value>Utwórz nowy test</value>
+  </data>
+  <data name="EditCriteria" xml:space="preserve">
+    <value>Edytuj kryteria</value>
+  </data>
+  <data name="EditTest" xml:space="preserve">
+    <value>Edytuj istniejący test</value>
+  </data>
+  <data name="FillData" xml:space="preserve">
+    <value>Uzupełnij dane</value>
+  </data>
+  <data name="FinishQuestionAdding" xml:space="preserve">
+    <value>Zakończ dodawanie pytań</value>
+  </data>
+  <data name="InfoAboutTest" xml:space="preserve">
+    <value>Informacje o teście</value>
+  </data>
+  <data name="MarkAName" xml:space="preserve">
+    <value>Celujący</value>
+  </data>
+  <data name="MarkBName" xml:space="preserve">
+    <value>Bardzo dobry</value>
+  </data>
+  <data name="MarkCName" xml:space="preserve">
+    <value>Dobry</value>
+  </data>
+  <data name="MarkDName" xml:space="preserve">
+    <value>Dostateczny</value>
+  </data>
+  <data name="MarkEName" xml:space="preserve">
+    <value>Dopuszczający</value>
+  </data>
+  <data name="MarkFName" xml:space="preserve">
+    <value>Niedostateczny</value>
+  </data>
+  <data name="MaxPointsTitle" xml:space="preserve">
+    <value>Punkty za test: </value>
+  </data>
+  <data name="MultipleCheckboxesQuestion" xml:space="preserve">
+    <value>Wielokrotny wybór (Wiele odpowiedzi)</value>
+  </data>
+  <data name="MultipleChoiceQuestion" xml:space="preserve">
+    <value>Wielokrotny wybór (Jedna odpowiedź)</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nazwa: </value>
+  </data>
+  <data name="NextQuestion" xml:space="preserve">
+    <value>Następne pytanie</value>
+  </data>
+  <data name="PointsCount" xml:space="preserve">
+    <value>Ilość punktów: </value>
+  </data>
+  <data name="PointsSemicolon" xml:space="preserve">
+    <value>Punkty: </value>
+  </data>
+  <data name="QuestionCount" xml:space="preserve">
+    <value>Ilość pytań: </value>
+  </data>
+  <data name="RightAnswerSemicolon" xml:space="preserve">
+    <value>Poprawna: </value>
+  </data>
+  <data name="SaveQuestion" xml:space="preserve">
+    <value>Zapisz pytanie</value>
+  </data>
+  <data name="SaveTest" xml:space="preserve">
+    <value>Zapisz test</value>
+  </data>
+  <data name="SendTest" xml:space="preserve">
+    <value>Wyślij test</value>
+  </data>
+  <data name="SingleTextboxQuestion" xml:space="preserve">
+    <value>Wpisywana odpowiedź</value>
+  </data>
+  <data name="SingleTextboxQuestionTooltip" xml:space="preserve">
+    <value>Uczeń wpisuje wynik w wyznaczone pole</value>
+  </data>
+  <data name="StartTest" xml:space="preserve">
+    <value>Rozpocznij test</value>
+  </data>
+  <data name="SuccessfulTestAdd" xml:space="preserve">
+    <value>Pomyślnie dodano test!</value>
+  </data>
+  <data name="TestDurationInMinutes" xml:space="preserve">
+    <value>Czas trwania testu [min]</value>
+  </data>
+  <data name="TestEditorTitle" xml:space="preserve">
+    <value>Edytor Testu</value>
+  </data>
+  <data name="TestName" xml:space="preserve">
+    <value>Nazwa testu</value>
+  </data>
+  <data name="TestReceivedMessage" xml:space="preserve">
+    <value>Otrzymałeś test!</value>
+  </data>
+  <data name="TimeDuration" xml:space="preserve">
+    <value>Czas trwania: </value>
+  </data>
+  <data name="WaitingForConnection" xml:space="preserve">
+    <value>Oczekiwanie na połączenie</value>
+  </data>
+  <data name="WaitingForTest" xml:space="preserve">
+    <value>Oczekiwanie na test</value>
+  </data>
+  <data name="WriteUsername" xml:space="preserve">
+    <value>Wpisz imię</value>
+  </data>
+  <data name="WriteUserSurname" xml:space="preserve">
+    <value>Wpisz nazwisko</value>
+  </data>
+</root>

@@ -58,6 +58,11 @@
     <Compile Include="Animations\StoryboardHelpers.cs" />
     <Compile Include="Base\BaseAttachedProperty.cs" />
     <Compile Include="Base\BasePage.cs" />
+    <Compile Include="Localization\LocalizationResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizationResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,6 +78,11 @@
     </Compile>
     <Compile Include="Base\BaseValueConverter.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <EmbeddedResource Include="Localization\LocalizationResource.pl-PL.resx" />
+    <EmbeddedResource Include="Localization\LocalizationResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizationResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

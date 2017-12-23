@@ -19,7 +19,7 @@
 
         <local:TestMenuListControl DataContext="{Binding}" />
 
-        <TextBlock Text="Dodaj pytanie do testu"
+        <TextBlock Text="{x:Static UICore:LocalizationResource.AddNewQuestion}"
                    Grid.Column="1"
                    Margin="0 40"
                    HorizontalAlignment="Center"
@@ -45,21 +45,21 @@
 
                     <StackPanel>
 
-                        <TextBlock Text="Wybierz typ pytania"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.ChooseQuestionType}"
                                    Margin="5"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
 
                         <ComboBox SelectedValue="{Binding QuestionBeingAddedString}">
-                            <ComboBoxItem Content="Wielokrotny wybór (Jedna odpowiedź)" />
-                            <ComboBoxItem Content="Wielokrotny wybór (Wiele odpowiedzi)" />
-                            <ComboBoxItem Content="Wpisywana odpowiedź"
-                                          ToolTip="Uczeń wpisuje wynik w wyznaczone pole" />
+                            <ComboBoxItem Content="{x:Static UICore:LocalizationResource.MultipleChoiceQuestion}" />
+                            <ComboBoxItem Content="{x:Static UICore:LocalizationResource.MultipleCheckboxesQuestion}" />
+                            <ComboBoxItem Content="{x:Static UICore:LocalizationResource.SingleTextboxQuestion}"
+                                          ToolTip="{x:Static UICore:LocalizationResource.SingleTextboxQuestionTooltip}" />
                         </ComboBox>
 
                         <!-- Multiple choice question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleChoice}">
 
-                            <TextBlock Text="Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, która ma być poprawna."
+                            <TextBlock Text="{x:Static UICore:LocalizationResource.AddMultipleChoiceQuestionIntroduction}"
                                        TextWrapping="Wrap"
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
@@ -113,13 +113,13 @@
                                         Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
-                            <Button Content="+ Dodaj odp"
+                            <Button Content="{x:Static UICore:LocalizationResource.AddAnswerButton}"
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Poprawna:"
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <Button Content="A"
                                         FontFamily="{StaticResource FontMontserratBold}"
@@ -169,7 +169,7 @@
                                         Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=5}"
                                         Foreground="{StaticResource BlackDarkBrush}"
                                         Style="{StaticResource IconGrowButton}" />
-                                <TextBlock Text="Punkty:"
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
                                          Style="{StaticResource SmallInputTextBox}" />
@@ -180,7 +180,7 @@
                         <!-- Multiple checkboxes question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleCheckboxes}">
 
-                            <TextBlock Text="Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, które mają być poprawne."
+                            <TextBlock Text="{x:Static UICore:LocalizationResource.AddMultipleCheckboxesQuestionIntroduction}"
                                        TextWrapping="Wrap"
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
@@ -229,13 +229,13 @@
                                         Style="{StaticResource BaseUIButton}" />
                             </StackPanel>
 
-                            <Button Content="+ Dodaj odp"
+                            <Button Content="{x:Static UICore:LocalizationResource.AddAnswerButton}"
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Punkty:"
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleCheckboxesPointScore}"
                                          Style="{StaticResource SmallInputTextBox}" />
@@ -247,7 +247,7 @@
                         <!-- Single textbox question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=SingleTextBox}">
 
-                            <TextBlock Text="Wpisz treść pytania oraz oczekiwaną odpowiedź."
+                            <TextBlock Text="{x:Static UICore:LocalizationResource.AddSingleTextboxQuestionIntroduction}"
                                        TextWrapping="Wrap"
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
@@ -256,14 +256,14 @@
                                      Style="{StaticResource SmallInputTextBox}" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Popr. odp:"
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding TextBoxAnswer, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource SmallInputTextBox}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Punkty:"
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionSingleTextBoxPointScore}"
                                          Style="{StaticResource SmallInputTextBox}" />
@@ -278,21 +278,21 @@
                     </StackPanel>
 
                     <Button Grid.Row="1"
-                            Content="Anuluj edycję"
+                            Content="{x:Static UICore:LocalizationResource.CancelChanges}"
                             Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                             Command="{Binding CancelEditQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Left" />
                     
                     <Button Grid.Row="1"
-                            Content="Dodaj pytanie"
+                            Content="{x:Static UICore:LocalizationResource.AddQuestion}"
                             Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                             Command="{Binding SubmitQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Right" />
 
                     <Button Grid.Row="1"
-                            Content="Zapisz pytanie"
+                            Content="{x:Static UICore:LocalizationResource.SaveQuestion}"
                             Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                             Command="{Binding SubmitQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
@@ -305,7 +305,7 @@
 
         </Grid>
 
-        <Button Content="Zakończ dodawanie testu"
+        <Button Content="{x:Static UICore:LocalizationResource.FinishQuestionAdding}"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"

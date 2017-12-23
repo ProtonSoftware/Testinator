@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using Testinator.Server.Core;
+using Testinator.UICore;
 
 namespace Testinator.Server
 {
@@ -30,11 +32,14 @@ namespace Testinator.Server
         /// </summary>
         private void ApplicationSetup()
         {
+            // Set default language
+            LocalizationResource.Culture = new CultureInfo("pl-PL");
+
             // Setup IoC
             IoCServer.Setup();
 
-            // Bind a UI Manager (future feature)
-            //IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
+            // Bind a UI Manager
+            IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
         }
     }
 }

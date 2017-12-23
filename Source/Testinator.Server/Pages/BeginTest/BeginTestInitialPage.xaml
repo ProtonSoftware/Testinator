@@ -11,7 +11,7 @@
              d:DesignWidth="1024">
 
     <Border Background="Pink">
-        <Button Content="Rozpocznij test"
+        <Button Content="{x:Static UICore:LocalizationResource.StartTest}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding ChangePageTestListCommand}"

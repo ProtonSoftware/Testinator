@@ -12,7 +12,7 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="Dodaj kryteria oceniania"
+        <TextBlock Text="{x:Static UICore:LocalizationResource.AttachCriteriaTitle}"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
@@ -55,7 +55,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.ColumnSpan="4" Style="{StaticResource MediumTitleText}">
-                        <Run Text="Max punktów do zdobycia: " />
+                        <Run Text="{x:Static UICore:LocalizationResource.MaxPointsTitle}" />
                         <Run Text="{Binding Test.TotalPointScore, Mode=OneWay}" />
                     </TextBlock>
                     
@@ -63,7 +63,6 @@
                              Grid.Row="1"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -83,7 +82,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -94,7 +92,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
                     
-                    <TextBlock Text="Celujacy"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
                                Grid.Row="1"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -103,7 +101,6 @@
                              Grid.Row="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -123,7 +120,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -134,7 +130,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Bardzo dobry"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
                                Grid.Row="2"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -143,7 +139,6 @@
                              Grid.Row="3"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -163,7 +158,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -174,7 +168,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Dobry"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
                                Grid.Row="3"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -183,7 +177,6 @@
                              Grid.Row="4"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -203,7 +196,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -214,7 +206,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Dostateczny"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
                                Grid.Row="4"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -223,7 +215,6 @@
                              Grid.Row="5"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -243,7 +234,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -254,7 +244,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Dopuszczający"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
                                Grid.Row="5"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -263,7 +253,6 @@
                              Grid.Row="6"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -283,7 +272,6 @@
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             local:FocusAndSelectProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
@@ -294,7 +282,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Niedostateczny"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
                                Grid.Row="6"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -305,22 +293,22 @@
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <Grid Grid.Row="8" Grid.ColumnSpan="4">
-                        
-                        <Button Content="Edytuj kryteria"
+
+                        <Button Content="{x:Static UICore:LocalizationResource.EditCriteria}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                 Command="{Binding EditPointsCriteriaCommand}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource BaseUIButton}" />
 
-                        <Button Content="Anuluj zmiany"
+                        <Button Content="{x:Static UICore:LocalizationResource.CancelChanges}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding CancelEditPointsCommand}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource BaseUIButton}" />
 
-                        <Button Content="Potwierdź zmiany"
+                        <Button Content="{x:Static UICore:LocalizationResource.ConfirmChanges}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding SubmitEditPointsCommand}"
                                 VerticalAlignment="Center"
@@ -339,7 +327,7 @@
 
         </Border>
 
-        <Button Content="Zakończ tworzenie testu"
+        <Button Content="{x:Static UICore:LocalizationResource.SaveTest}"
                 Margin="10"
                 Command="{Binding SubmitTestCommand}"
                 Style="{StaticResource BaseUIButton}"

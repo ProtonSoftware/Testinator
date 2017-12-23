@@ -28,11 +28,11 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Informacje o tescie"
+            <TextBlock Text="{x:Static UICore:LocalizationResource.InfoAboutTest}"
                        Grid.ColumnSpan="2"
                        Style="{StaticResource MediumTitleText}" />
 
-            <TextBlock Text="Nazwa: "
+            <TextBlock Text="{x:Static UICore:LocalizationResource.Name}"
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -40,7 +40,7 @@
                        Grid.Row="1" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="Czas trwania: "
+            <TextBlock Text="{x:Static UICore:LocalizationResource.TimeDuration}"
                        Grid.Row="2"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -48,32 +48,32 @@
                        Grid.Row="2" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="Max pkt: "
+            <TextBlock Text="{x:Static UICore:LocalizationResource.QuestionCount}"
                        Grid.Row="3"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding Test.TotalPointScore}"
+            <TextBlock Text="{Binding Test.Questions.Count}"
                        Grid.Row="3" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="Ilość pytań: "
+            <TextBlock Text="{x:Static UICore:LocalizationResource.PointsCount}"
                        Grid.Row="4"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding Test.Questions.Count}"
+            <TextBlock Text="{Binding Test.TotalPointScore}"
                        Grid.Row="4" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
         </Grid>
 
-        <Button Content="Rozpocznij test"
+        <Button Content="{x:Static UICore:LocalizationResource.StartTest}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10"
                 Command="{Binding BeginTestCommand}"
                 Style="{StaticResource BaseUIButton}" />
 
-        <Button Content="Wróc do listy testów"
+        <Button Content="{x:Static UICore:LocalizationResource.BackToTestList}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="10"

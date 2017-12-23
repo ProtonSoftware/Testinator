@@ -25,7 +25,7 @@
 
         </Border>
 
-        <TextBlock Text="Oczekiwanie na test"
+        <TextBlock Text="{x:Static UICore:LocalizationResource.WaitingForTest}"
                    Visibility="{Binding IsTestReceived, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                    Style="{StaticResource TitleText}"
                    Foreground="{StaticResource BlackDarkBrush}"
@@ -48,11 +48,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Otrzymałeś test!" 
+            <TextBlock Text="{x:Static UICore:LocalizationResource.TestReceivedMessage}" 
                        Grid.ColumnSpan="2"
                        Style="{StaticResource MediumTitleText}" />
 
-            <TextBlock Text="Nazwa: "
+            <TextBlock Text="{x:Static UICore:LocalizationResource.Name}"
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -61,7 +61,7 @@
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="Czas trwania: "
+            <TextBlock Text="{x:Static UICore:LocalizationResource.TimeDuration}"
                        Grid.Row="2"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 

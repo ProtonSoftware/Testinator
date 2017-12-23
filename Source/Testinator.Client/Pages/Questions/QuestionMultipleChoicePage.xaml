@@ -43,7 +43,7 @@
             
         </Border>
 
-        <Button Content="Następne pytanie"
+        <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
                 Grid.Row="1"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
