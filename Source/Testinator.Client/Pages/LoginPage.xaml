@@ -75,31 +75,31 @@
                     Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
 
             <!-- Title -->
-            <TextBlock Text="Uzupełnij dane" 
+            <TextBlock Text="{x:Static UICore:LocalizationResource.FillData}" 
                        FontFamily="{StaticResource FontMontserratBold}"
                        FontSize="{StaticResource FontSizeTitleLarge}" />
 
             <!-- User name input -->
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                     Tag="Wpisz imię"
+                     Tag="{x:Static UICore:LocalizationResource.WriteUsername}"
                      Margin="0 25"
                      local:IsFocusedProperty.Value="True"
                      Style="{StaticResource BigInputTextBox}" />
 
             <!-- User surname input -->
             <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                     Tag="Wpisz nazwisko"
+                     Tag="{x:Static UICore:LocalizationResource.WriteUserSurname}"
                      Margin="0 0 0 25"
                      Style="{StaticResource BigInputTextBox}" />
 
             <!-- Error if input values are not valid -->
-            <TextBlock Text="Wartości w polach nie są poprawne."
+            <TextBlock Text="{Binding ErrorMessage}"
                        Margin="0 0 0 10"
                        Foreground="Red"
-                       Visibility="{Binding ErrorShouldBeShown, Converter={local:BooleanToVisiblityConverter}}" />
+                       Style="{StaticResource QuestionTextBlockStyle}" />
 
             <!-- Submit button -->
-            <Button Content="Zatwierdź"
+            <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
                     Command="{Binding TryConnectingCommand}"
                     Margin="0"
                     IsDefault="True"
@@ -115,7 +115,7 @@
                     TextBlock.TextAlignment="Center"
                     Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}}">
 
-            <TextBlock Text="Oczekiwanie na połączenie"
+            <TextBlock Text="{x:Static UICore:LocalizationResource.WaitingForConnection}"
                        Style="{StaticResource TitleText}"
                        Foreground="{StaticResource BlackDarkBrush}"
                        Margin="15" />
@@ -132,7 +132,7 @@
                            Text="{Binding Attempts}"/>
             </StackPanel>
 
-            <Button Content="Anuluj"
+            <Button Content="{x:Static UICore:LocalizationResource.Cancel}"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding StopConnectingCommand}"
                     Margin="15" />

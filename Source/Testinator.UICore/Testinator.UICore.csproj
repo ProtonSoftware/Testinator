@@ -58,7 +58,7 @@
     <Compile Include="Animations\StoryboardHelpers.cs" />
     <Compile Include="Base\BaseAttachedProperty.cs" />
     <Compile Include="Base\BasePage.cs" />
-    <Compile Include="LocalizationResource.Designer.cs">
+    <Compile Include="Localization\LocalizationResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalizationResource.resx</DependentUpon>
@@ -78,8 +78,8 @@
     </Compile>
     <Compile Include="Base\BaseValueConverter.cs" />
     <Compile Include="Window\WindowResizer.cs" />
-    <EmbeddedResource Include="LocalizationResource.pl-PL.resx" />
-    <EmbeddedResource Include="LocalizationResource.resx">
+    <EmbeddedResource Include="Localization\LocalizationResource.pl-PL.resx" />
+    <EmbeddedResource Include="Localization\LocalizationResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizationResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

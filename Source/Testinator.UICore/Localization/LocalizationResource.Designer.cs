@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Testinator.UICore {
+namespace Testinator.UICore.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Testinator.UICore {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Testinator.UICore.LocalizationResource", typeof(LocalizationResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Testinator.UICore.Localization.LocalizationResource", typeof(LocalizationResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -124,6 +124,24 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to test list.
+        /// </summary>
+        public static string BackToTestList {
+            get {
+                return ResourceManager.GetString("BackToTestList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelChanges {
@@ -138,6 +156,15 @@ namespace Testinator.UICore {
         public static string ChooseQuestionType {
             get {
                 return ResourceManager.GetString("ChooseQuestionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
             }
         }
         
@@ -187,11 +214,29 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill the data.
+        /// </summary>
+        public static string FillData {
+            get {
+                return ResourceManager.GetString("FillData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finish question adding.
         /// </summary>
         public static string FinishQuestionAdding {
             get {
                 return ResourceManager.GetString("FinishQuestionAdding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test informations.
+        /// </summary>
+        public static string InfoAboutTest {
+            get {
+                return ResourceManager.GetString("InfoAboutTest", resourceCulture);
             }
         }
         
@@ -286,6 +331,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next question.
+        /// </summary>
+        public static string NextQuestion {
+            get {
+                return ResourceManager.GetString("NextQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total points: .
         /// </summary>
         public static string PointsCount {
@@ -340,6 +394,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send test.
+        /// </summary>
+        public static string SendTest {
+            get {
+                return ResourceManager.GetString("SendTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single answer question.
         /// </summary>
         public static string SingleTextboxQuestion {
@@ -354,6 +417,15 @@ namespace Testinator.UICore {
         public static string SingleTextboxQuestionTooltip {
             get {
                 return ResourceManager.GetString("SingleTextboxQuestionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start test.
+        /// </summary>
+        public static string StartTest {
+            get {
+                return ResourceManager.GetString("StartTest", resourceCulture);
             }
         }
         
@@ -394,11 +466,56 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have received a test!.
+        /// </summary>
+        public static string TestReceivedMessage {
+            get {
+                return ResourceManager.GetString("TestReceivedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time: .
         /// </summary>
         public static string TimeDuration {
             get {
                 return ResourceManager.GetString("TimeDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for connection with server.
+        /// </summary>
+        public static string WaitingForConnection {
+            get {
+                return ResourceManager.GetString("WaitingForConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for the test.
+        /// </summary>
+        public static string WaitingForTest {
+            get {
+                return ResourceManager.GetString("WaitingForTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write your username.
+        /// </summary>
+        public static string WriteUsername {
+            get {
+                return ResourceManager.GetString("WriteUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write your Surname.
+        /// </summary>
+        public static string WriteUserSurname {
+            get {
+                return ResourceManager.GetString("WriteUserSurname", resourceCulture);
             }
         }
     }

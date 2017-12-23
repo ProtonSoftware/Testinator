@@ -118,117 +118,156 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddAnswerButton" xml:space="preserve">
-    <value>+ Add Answer</value>
+    <value>+ Dodaj odp</value>
   </data>
   <data name="AddMultipleCheckboxesQuestionIntroduction" xml:space="preserve">
-    <value>Write the question task and every answer and check which of them are right.</value>
+    <value>Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, które z nich mają być poprawne.</value>
   </data>
   <data name="AddMultipleChoiceQuestionIntroduction" xml:space="preserve">
-    <value>Write the question task and every answer and check which one is right.</value>
+    <value>Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, która ma być poprawna.</value>
   </data>
   <data name="AddNewQuestion" xml:space="preserve">
-    <value>Add new question</value>
+    <value>Dodaj pytanie do testu</value>
   </data>
   <data name="AddQuestion" xml:space="preserve">
-    <value>Add question</value>
+    <value>Dodaj pytanie</value>
   </data>
   <data name="AddSingleTextboxQuestionIntroduction" xml:space="preserve">
-    <value>Write the question task and an answer which is correct.</value>
+    <value>Wpisz treść pytania oraz oczekiwaną odpowiedź.</value>
   </data>
   <data name="AttachCriteriaTitle" xml:space="preserve">
-    <value>Attach criteria to the test</value>
+    <value>Dodaj kryteria oceniania</value>
+  </data>
+  <data name="BackToTestList" xml:space="preserve">
+    <value>Wróć do listy testów</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
   </data>
   <data name="CancelChanges" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anuluj zmiany</value>
   </data>
   <data name="ChooseQuestionType" xml:space="preserve">
-    <value>Choose question type</value>
+    <value>Wybierz typ pytania</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Zatwierdź</value>
   </data>
   <data name="ConfirmChanges" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Potwierdź zmiany</value>
   </data>
   <data name="CreateNewCriteria" xml:space="preserve">
-    <value>Create new criteria</value>
+    <value>Utwórz nowe kryteria</value>
   </data>
   <data name="CreateNewTest" xml:space="preserve">
-    <value>Create new test</value>
+    <value>Utwórz nowy test</value>
   </data>
   <data name="EditCriteria" xml:space="preserve">
-    <value>Edit criteria</value>
+    <value>Edytuj kryteria</value>
   </data>
   <data name="EditTest" xml:space="preserve">
-    <value>Edit test</value>
+    <value>Edytuj istniejący test</value>
+  </data>
+  <data name="FillData" xml:space="preserve">
+    <value>Uzupełnij dane</value>
   </data>
   <data name="FinishQuestionAdding" xml:space="preserve">
-    <value>Finish question adding</value>
+    <value>Zakończ dodawanie pytań</value>
+  </data>
+  <data name="InfoAboutTest" xml:space="preserve">
+    <value>Informacje o teście</value>
   </data>
   <data name="MarkAName" xml:space="preserve">
-    <value>Grade A</value>
+    <value>Celujący</value>
   </data>
   <data name="MarkBName" xml:space="preserve">
-    <value>Grade B</value>
+    <value>Bardzo dobry</value>
   </data>
   <data name="MarkCName" xml:space="preserve">
-    <value>Grade C</value>
+    <value>Dobry</value>
   </data>
   <data name="MarkDName" xml:space="preserve">
-    <value>Grade D</value>
+    <value>Dostateczny</value>
   </data>
   <data name="MarkEName" xml:space="preserve">
-    <value>Grade E</value>
+    <value>Dopuszczający</value>
   </data>
   <data name="MarkFName" xml:space="preserve">
-    <value>Grade F</value>
+    <value>Niedostateczny</value>
   </data>
   <data name="MaxPointsTitle" xml:space="preserve">
-    <value>Max points: </value>
+    <value>Punkty za test: </value>
   </data>
   <data name="MultipleCheckboxesQuestion" xml:space="preserve">
-    <value>Multiple checkboxes question</value>
+    <value>Wielokrotny wybór (Wiele odpowiedzi)</value>
   </data>
   <data name="MultipleChoiceQuestion" xml:space="preserve">
-    <value>Multiple choice question</value>
+    <value>Wielokrotny wybór (Jedna odpowiedź)</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name: </value>
+    <value>Nazwa: </value>
+  </data>
+  <data name="NextQuestion" xml:space="preserve">
+    <value>Następne pytanie</value>
   </data>
   <data name="PointsCount" xml:space="preserve">
-    <value>Total points: </value>
+    <value>Ilość punktów: </value>
   </data>
   <data name="PointsSemicolon" xml:space="preserve">
-    <value>Points: </value>
+    <value>Punkty: </value>
   </data>
   <data name="QuestionCount" xml:space="preserve">
-    <value>Questions: </value>
+    <value>Ilość pytań: </value>
   </data>
   <data name="RightAnswerSemicolon" xml:space="preserve">
-    <value>RightAnswer: </value>
+    <value>Poprawna: </value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
-    <value>Save the question</value>
+    <value>Zapisz pytanie</value>
   </data>
   <data name="SaveTest" xml:space="preserve">
-    <value>Save the test</value>
+    <value>Zapisz test</value>
+  </data>
+  <data name="SendTest" xml:space="preserve">
+    <value>Wyślij test</value>
   </data>
   <data name="SingleTextboxQuestion" xml:space="preserve">
-    <value>Single answer question</value>
+    <value>Wpisywana odpowiedź</value>
   </data>
   <data name="SingleTextboxQuestionTooltip" xml:space="preserve">
-    <value>User writes an answer in the textbox</value>
+    <value>Uczeń wpisuje wynik w wyznaczone pole</value>
+  </data>
+  <data name="StartTest" xml:space="preserve">
+    <value>Rozpocznij test</value>
   </data>
   <data name="SuccessfulTestAdd" xml:space="preserve">
-    <value>Successfully added the test!</value>
+    <value>Pomyślnie dodano test!</value>
   </data>
   <data name="TestDurationInMinutes" xml:space="preserve">
-    <value>Time for test [min]</value>
+    <value>Czas trwania testu [min]</value>
   </data>
   <data name="TestEditorTitle" xml:space="preserve">
-    <value>Test Editor</value>
+    <value>Edytor Testu</value>
   </data>
   <data name="TestName" xml:space="preserve">
-    <value>Name of the test</value>
+    <value>Nazwa testu</value>
+  </data>
+  <data name="TestReceivedMessage" xml:space="preserve">
+    <value>Otrzymałeś test!</value>
   </data>
   <data name="TimeDuration" xml:space="preserve">
-    <value>Time: </value>
+    <value>Czas trwania: </value>
+  </data>
+  <data name="WaitingForConnection" xml:space="preserve">
+    <value>Oczekiwanie na połączenie</value>
+  </data>
+  <data name="WaitingForTest" xml:space="preserve">
+    <value>Oczekiwanie na test</value>
+  </data>
+  <data name="WriteUsername" xml:space="preserve">
+    <value>Wpisz imię</value>
+  </data>
+  <data name="WriteUserSurname" xml:space="preserve">
+    <value>Wpisz nazwisko</value>
   </data>
 </root>

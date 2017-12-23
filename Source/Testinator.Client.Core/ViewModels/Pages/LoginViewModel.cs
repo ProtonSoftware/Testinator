@@ -57,9 +57,9 @@ namespace Testinator.Client.Core
         public bool ConnectingIsRunning => IoCClient.Application.Network.Connecting;
 
         /// <summary>
-        /// A flag indicating if the not valid data error should be shown
+        /// If any error occur, show this message
         /// </summary>
-        public bool ErrorShouldBeShown { get; set; }
+        public string ErrorMessage { get; set; } = string.Empty;
 
         /// <summary>
         /// A flag indicating if server port or ip is incorrect
@@ -122,14 +122,13 @@ namespace Testinator.Client.Core
         /// </summary>
         private void Connect()
         {
-
             // Disable errors if something was shown before
-            ErrorShouldBeShown = false;
+            ErrorMessage = "";
 
             // If input data isn't valid, show an error and don't try to connect
             if (!IsInputDataValid())
             {
-                ErrorShouldBeShown = true;
+                ErrorMessage = "Wprowadzone dane są niepoprawne.";
                 return;
             }
             
