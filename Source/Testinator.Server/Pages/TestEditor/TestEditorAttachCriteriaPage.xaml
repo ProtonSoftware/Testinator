@@ -12,7 +12,7 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="Dodaj kryteria oceniania"
+        <TextBlock Text="{x:Static UICore:LocalizationResource.AttachCriteriaTitle}"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
@@ -92,7 +92,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
                     
-                    <TextBlock Text="Celujacy"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
                                Grid.Row="1"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -130,7 +130,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Bardzo dobry"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
                                Grid.Row="2"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -168,7 +168,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Dobry"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
                                Grid.Row="3"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -206,7 +206,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Dostateczny"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
                                Grid.Row="4"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -244,7 +244,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Dopuszczający"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
                                Grid.Row="5"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -282,7 +282,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="Niedostateczny"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
                                Grid.Row="6"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
