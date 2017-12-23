@@ -53,10 +53,16 @@
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\IconType.cs" />
     <Compile Include="Icons\IconTypeExtensions.cs" />
+    <Compile Include="IoC\Interfaces\IUIManager.cs" />
     <Compile Include="IoC\IoCServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="ViewModels\Lists\CriteriaListItemViewModel.cs" />
+=======
+    <Compile Include="ViewModels\Dialogs\BaseDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\MessageBoxDialogViewModel.cs" />
+>>>>>>> AttachPageFinish
     <Compile Include="ViewModels\Lists\TestListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestListViewModel.cs" />
     <Compile Include="ViewModels\Lists\CriteriaListViewModel.cs" />
