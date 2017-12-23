@@ -14,16 +14,19 @@
 
         <StackPanel  VerticalAlignment="Center">
 
-            <Button Content="Utwórz nowy test"
+            <Button Content="{x:Static UICore:LocalizationResource.CreateNewTest}"
                     Command="{Binding CreateNewTestCommand}"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Style="{StaticResource BaseUIButton}" />
 
-            <Button Content="Utwórz nowe kryteria"
+            <Button Content="{x:Static UICore:LocalizationResource.EditTest}"
+                    Command="{Binding EditTestCommand}"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource BaseUIButton}" />
+
+            <Button Content="{x:Static UICore:LocalizationResource.CreateNewCriteria}"
                     Command="{Binding CreateNewCriteriaCommand}"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Style="{StaticResource BaseUIButton}" />
 
         </StackPanel>

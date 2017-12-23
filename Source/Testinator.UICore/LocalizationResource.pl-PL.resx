@@ -117,8 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAnswerButton" xml:space="preserve">
+    <value>+ Dodaj odp</value>
+  </data>
+  <data name="AddMultipleCheckboxesQuestionIntroduction" xml:space="preserve">
+    <value>Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, które z nich mają być poprawne.</value>
+  </data>
+  <data name="AddMultipleChoiceQuestionIntroduction" xml:space="preserve">
+    <value>Wpisz treść pytania oraz kolejne możliwe odpowiedzi oraz zaznacz, która ma być poprawna.</value>
+  </data>
+  <data name="AddNewQuestion" xml:space="preserve">
+    <value>Dodaj pytanie do testu</value>
+  </data>
+  <data name="AddQuestion" xml:space="preserve">
+    <value>Dodaj pytanie</value>
+  </data>
+  <data name="AddSingleTextboxQuestionIntroduction" xml:space="preserve">
+    <value>Wpisz treść pytania oraz oczekiwaną odpowiedź.</value>
+  </data>
   <data name="AttachCriteriaTitle" xml:space="preserve">
     <value>Dodaj kryteria oceniania</value>
+  </data>
+  <data name="CancelChanges" xml:space="preserve">
+    <value>Anuluj zmiany</value>
+  </data>
+  <data name="ChooseQuestionType" xml:space="preserve">
+    <value>Wybierz typ pytania</value>
+  </data>
+  <data name="ConfirmChanges" xml:space="preserve">
+    <value>Potwierdź zmiany</value>
+  </data>
+  <data name="CreateNewCriteria" xml:space="preserve">
+    <value>Utwórz nowe kryteria</value>
+  </data>
+  <data name="CreateNewTest" xml:space="preserve">
+    <value>Utwórz nowy test</value>
+  </data>
+  <data name="EditCriteria" xml:space="preserve">
+    <value>Edytuj kryteria</value>
+  </data>
+  <data name="EditTest" xml:space="preserve">
+    <value>Edytuj istniejący test</value>
+  </data>
+  <data name="FinishQuestionAdding" xml:space="preserve">
+    <value>Zakończ dodawanie pytań</value>
   </data>
   <data name="MarkAName" xml:space="preserve">
     <value>Celujący</value>
@@ -137,5 +179,56 @@
   </data>
   <data name="MarkFName" xml:space="preserve">
     <value>Niedostateczny</value>
+  </data>
+  <data name="MaxPointsTitle" xml:space="preserve">
+    <value>Punkty za test: </value>
+  </data>
+  <data name="MultipleCheckboxesQuestion" xml:space="preserve">
+    <value>Wielokrotny wybór (Wiele odpowiedzi)</value>
+  </data>
+  <data name="MultipleChoiceQuestion" xml:space="preserve">
+    <value>Wielokrotny wybór (Jedna odpowiedź)</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nazwa: </value>
+  </data>
+  <data name="PointsCount" xml:space="preserve">
+    <value>Ilość punktów: </value>
+  </data>
+  <data name="PointsSemicolon" xml:space="preserve">
+    <value>Punkty: </value>
+  </data>
+  <data name="QuestionCount" xml:space="preserve">
+    <value>Ilość pytań: </value>
+  </data>
+  <data name="RightAnswerSemicolon" xml:space="preserve">
+    <value>Poprawna: </value>
+  </data>
+  <data name="SaveQuestion" xml:space="preserve">
+    <value>Zapisz pytanie</value>
+  </data>
+  <data name="SaveTest" xml:space="preserve">
+    <value>Zapisz test</value>
+  </data>
+  <data name="SingleTextboxQuestion" xml:space="preserve">
+    <value>Wpisywana odpowiedź</value>
+  </data>
+  <data name="SingleTextboxQuestionTooltip" xml:space="preserve">
+    <value>Uczeń wpisuje wynik w wyznaczone pole</value>
+  </data>
+  <data name="SuccessfulTestAdd" xml:space="preserve">
+    <value>Pomyślnie dodano test!</value>
+  </data>
+  <data name="TestDurationInMinutes" xml:space="preserve">
+    <value>Czas trwania testu [min]</value>
+  </data>
+  <data name="TestEditorTitle" xml:space="preserve">
+    <value>Edytor Testu</value>
+  </data>
+  <data name="TestName" xml:space="preserve">
+    <value>Nazwa testu</value>
+  </data>
+  <data name="TimeDuration" xml:space="preserve">
+    <value>Czas trwania: </value>
   </data>
 </root>

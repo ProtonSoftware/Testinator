@@ -61,11 +61,137 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attach Criteria.
+        ///   Looks up a localized string similar to + Add Answer.
+        /// </summary>
+        public static string AddAnswerButton {
+            get {
+                return ResourceManager.GetString("AddAnswerButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write the question task and every answer and check which of them are right..
+        /// </summary>
+        public static string AddMultipleCheckboxesQuestionIntroduction {
+            get {
+                return ResourceManager.GetString("AddMultipleCheckboxesQuestionIntroduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write the question task and every answer and check which one is right..
+        /// </summary>
+        public static string AddMultipleChoiceQuestionIntroduction {
+            get {
+                return ResourceManager.GetString("AddMultipleChoiceQuestionIntroduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new question.
+        /// </summary>
+        public static string AddNewQuestion {
+            get {
+                return ResourceManager.GetString("AddNewQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add question.
+        /// </summary>
+        public static string AddQuestion {
+            get {
+                return ResourceManager.GetString("AddQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write the question task and an answer which is correct..
+        /// </summary>
+        public static string AddSingleTextboxQuestionIntroduction {
+            get {
+                return ResourceManager.GetString("AddSingleTextboxQuestionIntroduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attach criteria to the test.
         /// </summary>
         public static string AttachCriteriaTitle {
             get {
                 return ResourceManager.GetString("AttachCriteriaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CancelChanges {
+            get {
+                return ResourceManager.GetString("CancelChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose question type.
+        /// </summary>
+        public static string ChooseQuestionType {
+            get {
+                return ResourceManager.GetString("ChooseQuestionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string ConfirmChanges {
+            get {
+                return ResourceManager.GetString("ConfirmChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new criteria.
+        /// </summary>
+        public static string CreateNewCriteria {
+            get {
+                return ResourceManager.GetString("CreateNewCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new test.
+        /// </summary>
+        public static string CreateNewTest {
+            get {
+                return ResourceManager.GetString("CreateNewTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit criteria.
+        /// </summary>
+        public static string EditCriteria {
+            get {
+                return ResourceManager.GetString("EditCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit test.
+        /// </summary>
+        public static string EditTest {
+            get {
+                return ResourceManager.GetString("EditTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish question adding.
+        /// </summary>
+        public static string FinishQuestionAdding {
+            get {
+                return ResourceManager.GetString("FinishQuestionAdding", resourceCulture);
             }
         }
         
@@ -120,6 +246,159 @@ namespace Testinator.UICore {
         public static string MarkFName {
             get {
                 return ResourceManager.GetString("MarkFName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max points: .
+        /// </summary>
+        public static string MaxPointsTitle {
+            get {
+                return ResourceManager.GetString("MaxPointsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple checkboxes question.
+        /// </summary>
+        public static string MultipleCheckboxesQuestion {
+            get {
+                return ResourceManager.GetString("MultipleCheckboxesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple choice question.
+        /// </summary>
+        public static string MultipleChoiceQuestion {
+            get {
+                return ResourceManager.GetString("MultipleChoiceQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name: .
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total points: .
+        /// </summary>
+        public static string PointsCount {
+            get {
+                return ResourceManager.GetString("PointsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Points: .
+        /// </summary>
+        public static string PointsSemicolon {
+            get {
+                return ResourceManager.GetString("PointsSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Questions: .
+        /// </summary>
+        public static string QuestionCount {
+            get {
+                return ResourceManager.GetString("QuestionCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RightAnswer: .
+        /// </summary>
+        public static string RightAnswerSemicolon {
+            get {
+                return ResourceManager.GetString("RightAnswerSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the question.
+        /// </summary>
+        public static string SaveQuestion {
+            get {
+                return ResourceManager.GetString("SaveQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the test.
+        /// </summary>
+        public static string SaveTest {
+            get {
+                return ResourceManager.GetString("SaveTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single answer question.
+        /// </summary>
+        public static string SingleTextboxQuestion {
+            get {
+                return ResourceManager.GetString("SingleTextboxQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User writes an answer in the textbox.
+        /// </summary>
+        public static string SingleTextboxQuestionTooltip {
+            get {
+                return ResourceManager.GetString("SingleTextboxQuestionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully added the test!.
+        /// </summary>
+        public static string SuccessfulTestAdd {
+            get {
+                return ResourceManager.GetString("SuccessfulTestAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time for test [min].
+        /// </summary>
+        public static string TestDurationInMinutes {
+            get {
+                return ResourceManager.GetString("TestDurationInMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Editor.
+        /// </summary>
+        public static string TestEditorTitle {
+            get {
+                return ResourceManager.GetString("TestEditorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the test.
+        /// </summary>
+        public static string TestName {
+            get {
+                return ResourceManager.GetString("TestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time: .
+        /// </summary>
+        public static string TimeDuration {
+            get {
+                return ResourceManager.GetString("TimeDuration", resourceCulture);
             }
         }
     }
