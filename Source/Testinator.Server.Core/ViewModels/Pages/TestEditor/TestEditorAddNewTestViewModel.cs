@@ -13,15 +13,6 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestEditorAddNewTestViewModel : BaseViewModel
     {
-        #region Private Members
-
-        // Displayed in combobox menu
-        private string mMultipleChoiceTranslatedString = "Wielokrotny wybór (Jedna odpowiedź)";
-        private string mMultipleCheckboxesTranslatedString = "Wielokrotny wybór (Wiele odpowiedzi)";
-        private string mSingleTextBoxTranslatedString = "Wpisywana odpowiedź";
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -55,9 +46,10 @@ namespace Testinator.Server.Core
         public bool IsTestMenuExpanded { get; set; } = true;
 
         /// <summary>
-        /// Question type as string from combobox
+        /// Index of selected question type
+        /// None question type set at default, to leave combobox empty at the start
         /// </summary>
-        public string QuestionBeingAddedString { get; set; } = "";
+        public int QuestionBeingAddedIndex { get; set; } = (int)QuestionType.None;
 
         /// <summary>
         /// The type of the question being added right now
@@ -66,15 +58,17 @@ namespace Testinator.Server.Core
         {
             get
             {
-                string windowsPrefix = "System.Windows.Controls.ComboBoxItem: ";
-
                 // Based on what is chosen in combobox...
-                if (QuestionBeingAddedString == windowsPrefix + mMultipleChoiceTranslatedString) return QuestionType.MultipleChoice;
-                if (QuestionBeingAddedString == windowsPrefix + mMultipleCheckboxesTranslatedString) return QuestionType.MultipleCheckboxes;
-                if (QuestionBeingAddedString == windowsPrefix + mSingleTextBoxTranslatedString) return QuestionType.SingleTextBox;
+                switch(QuestionBeingAddedIndex)
+                {
+                    case 0: return QuestionType.MultipleChoice;
+                    case 1: return QuestionType.MultipleCheckboxes;
+                    case 2: return QuestionType.SingleTextBox;
 
-                // None found, return default value
-                return QuestionType.None;
+                    default:
+                        // None found, return default value
+                        return QuestionType.None;
+                }
             }
         }
 
@@ -584,6 +578,7 @@ namespace Testinator.Server.Core
             {
                 ErrorMessage = ex.Message;
             }
+
             // We have submitted question, reset the editing flag
             EditingQuestion = 0;
         }
@@ -615,7 +610,7 @@ namespace Testinator.Server.Core
                         var question = baseQuestion as MultipleChoiceQuestion;
 
                         // Set the combobox to this type
-                        QuestionBeingAddedString = "System.Windows.Controls.ComboBoxItem: " + mMultipleChoiceTranslatedString;
+                        QuestionBeingAddedIndex = (int)QuestionType.MultipleChoice;
 
                         // Load data to the view model
                         QuestionTask = question.Task;
@@ -647,7 +642,7 @@ namespace Testinator.Server.Core
                         var question = baseQuestion as MultipleCheckboxesQuestion;
 
                         // Set the combobox to this type
-                        QuestionBeingAddedString = "System.Windows.Controls.ComboBoxItem: " + mMultipleCheckboxesTranslatedString;
+                        QuestionBeingAddedIndex = (int)QuestionType.MultipleCheckboxes;
 
                         // Load data to the view model
                         QuestionTask = question.Task;
@@ -683,7 +678,7 @@ namespace Testinator.Server.Core
                         var question = baseQuestion as SingleTextBoxQuestion;
 
                         // Set the combobox to this type
-                        QuestionBeingAddedString = "System.Windows.Controls.ComboBoxItem: " + mSingleTextBoxTranslatedString;
+                        QuestionBeingAddedIndex = (int)QuestionType.SingleTextBox;
 
                         // Load data to the view model
                         QuestionTask = question.Task;

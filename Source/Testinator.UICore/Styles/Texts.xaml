@@ -16,12 +16,28 @@
 
     </Style>
 
+    <Style x:Key="FontAwesomeIconText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Margin" Value="2" />
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource WhiteDarkBrush}" />
+
+        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+
+    </Style>
+
     <Style x:Key="TitleText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
-        
+
         <Setter Property="FontSize" Value="{StaticResource FontSizeTitleLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratExtraBold}" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        
+
         <Setter Property="Foreground" Value="{StaticResource WhiteDarkBrush}" />
 
     </Style>

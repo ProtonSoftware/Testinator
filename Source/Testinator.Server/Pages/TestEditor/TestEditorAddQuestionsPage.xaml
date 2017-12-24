@@ -49,7 +49,7 @@
                                    Margin="5"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
 
-                        <ComboBox SelectedValue="{Binding QuestionBeingAddedString}">
+                        <ComboBox SelectedIndex="{Binding QuestionBeingAddedIndex}">
                             <ComboBoxItem Content="{x:Static UICore:LocalizationResource.MultipleChoiceQuestion}" />
                             <ComboBoxItem Content="{x:Static UICore:LocalizationResource.MultipleCheckboxesQuestion}" />
                             <ComboBoxItem Content="{x:Static UICore:LocalizationResource.SingleTextboxQuestion}"
