@@ -26,6 +26,11 @@ namespace Testinator.Server.Core
         public static ServerNetwork Network => IoCServer.Get<ServerNetwork>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="TestHost"/>
+        /// A sho/// </summary>
+        public static TestHost TestHost => IoCServer.Get<TestHost>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
         /// </summary>
         public static IUIManager UI => IoCServer.Get<IUIManager>();
@@ -53,6 +58,7 @@ namespace Testinator.Server.Core
             // Bind to a single instance of Application view model
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
             Kernel.Bind<ServerNetwork>().ToConstant(new ServerNetwork());
+            Kernel.Bind<TestHost>().ToConstant(new TestHost());
         }
 
         #endregion

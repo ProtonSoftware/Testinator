@@ -112,6 +112,9 @@
     <Compile Include="Pages\BeginTest\BeginTestInitialPage.xaml.cs">
       <DependentUpon>BeginTestInitialPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BeginTest\BeginTestInProgressPage.xaml.cs">
+      <DependentUpon>BeginTestInProgressPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
     <Page Include="Pages\BeginTest\BeginTestInitialPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\BeginTest\BeginTestInProgressPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>

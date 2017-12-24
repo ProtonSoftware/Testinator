@@ -34,5 +34,11 @@
         /// </summary>
         ResultForm,
 
+        /// <summary>
+        /// The package indicates the start of a test
+        /// Content should be empty in this context
+        /// </summary>
+        BeginTest,
+
     }
 }

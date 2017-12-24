@@ -57,7 +57,7 @@ namespace Testinator.Client.Core
             Name = new TextEntryViewModel { Label = "Imię", OriginalText = IoCClient.Client.ClientName };
             Surname = new TextEntryViewModel { Label = "Nazwisko", OriginalText = IoCClient.Client.ClientSurname };
             IoCClient.TestHost.OnTestReceived += TestHost_OnTestReceived;
-            FakeTest();
+            //FakeTest();
         }
 
         #endregion

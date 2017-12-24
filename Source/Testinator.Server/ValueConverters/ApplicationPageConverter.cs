@@ -38,6 +38,9 @@ namespace Testinator.Server
                 case ApplicationPage.BeginTestInfo:
                     return new BeginTestInfoPage(viewModel as BeginTestViewModel);
 
+                case ApplicationPage.BeginTestInProgress:
+                    return new BeginTestInProgressPage(viewModel as BeginTestViewModel);
+
                 case ApplicationPage.TestEditor:
                     return new TestEditorPage(viewModel as TestEditorViewModel);
 
@@ -96,6 +99,9 @@ namespace Testinator.Server
 
             if (page is BeginTestInfoPage)
                 return ApplicationPage.BeginTestInfo;
+
+            if (page is BeginTestInProgressPage)
+                return ApplicationPage.BeginTestInProgress;
 
             if (page is TestEditorPage)
                 return ApplicationPage.TestEditor;

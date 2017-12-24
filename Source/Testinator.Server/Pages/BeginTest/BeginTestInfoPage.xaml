@@ -8,7 +8,7 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
              mc:Ignorable="d"
              d:DesignHeight="720"
-             d:DesignWidth="1024">
+             d:DesignWidth="500">
 
     <Grid Background="{StaticResource WhiteDarkBrush}">
 
@@ -36,7 +36,7 @@
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding Test.Name}"
+            <TextBlock Text="{Binding CurrentTest.Name}"
                        Grid.Row="1" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -44,7 +44,7 @@
                        Grid.Row="2"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding Test.Duration}"
+            <TextBlock Text="{Binding CurrentTest.Duration}"
                        Grid.Row="2" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -52,7 +52,7 @@
                        Grid.Row="3"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding Test.Questions.Count}"
+            <TextBlock Text="{Binding CurrentTest.Questions.Count}"
                        Grid.Row="3" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -60,7 +60,7 @@
                        Grid.Row="4"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding Test.TotalPointScore}"
+            <TextBlock Text="{Binding CurrentTest.TotalPointScore}"
                        Grid.Row="4" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 

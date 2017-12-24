@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Testinator.Core;
 using System.Timers;
+using System.Threading;
 
 namespace Testinator.Client.Core
 {
@@ -12,7 +13,7 @@ namespace Testinator.Client.Core
     {
         #region Private Members
 
-        private Timer TestTimer = new Timer(1000);
+        private System.Timers.Timer TestTimer = new System.Timers.Timer(1000);
 
         /// <summary>
         /// The test that is currently hosted
@@ -119,7 +120,6 @@ namespace Testinator.Client.Core
 
             TestTimer.Stop();
             IsTestInProgress = false;
-            
             IoCClient.UI.ChangePage(ApplicationPage.ResultPage);
 
             // TODO: send results
@@ -158,7 +158,7 @@ namespace Testinator.Client.Core
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleChoiceViewModel();
                         questionViewModel.AttachQuestion(Questions[CurrentQuestion] as MultipleChoiceQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
+                        IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
                         break;
                     }
 
@@ -167,7 +167,7 @@ namespace Testinator.Client.Core
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleCheckboxesViewModel();
                         questionViewModel.AttachQuestion(Questions[CurrentQuestion] as MultipleCheckboxesQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
+                        IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
                         break;
                     }
 
@@ -176,18 +176,37 @@ namespace Testinator.Client.Core
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionSingleTextBoxViewModel();
                         questionViewModel.AttachQuestion(Questions[CurrentQuestion] as SingleTextBoxQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
+                        IoCClient.UI.ChangePage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
                         break;
                     }
             }
 
             UpdateQuestionNumber();
 
+            SendUpdate();
         }
 
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Sends the update to the server
+        /// </summary>
+        private void SendUpdate()
+        {
+            // Create package
+            var data = new DataPackage(PackageType.ReportStatus)
+            {
+                Content = new StatusPackage()
+                {
+                    QuestionSolved = true,  
+                },
+            };
+            
+            // Send it to the server
+            IoCClient.Application.Network.SendData(data);
+        }
 
         /// <summary>
         /// Resets the question number

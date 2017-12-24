@@ -28,11 +28,6 @@ namespace Testinator.Server.Core
         /// </summary>
         public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
 
-        /// <summary>
-        /// Indicates if there is any test in progress
-        /// </summary>
-        public bool IsTestInProgress { get; set; }
-
         #endregion
 
         #region Public Methods

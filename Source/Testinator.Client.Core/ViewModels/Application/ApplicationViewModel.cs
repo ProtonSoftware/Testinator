@@ -108,7 +108,11 @@ namespace Testinator.Client.Core
                     // Bind the newly received test
                     IoCClient.TestHost.BindTest(data.Content as Test);
                     break;
+                case PackageType.BeginTest:
                     
+                    // Start the test
+                    IoCClient.TestHost.Start();
+                    break;
             }
         }
 

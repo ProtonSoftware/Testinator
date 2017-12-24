@@ -121,6 +121,10 @@ namespace Testinator.Client.Core
                 return;
             }
 
+            // TODO: save the answer
+
+            IoCClient.TestHost.GoNextQuestion();
+
             /*
             // Save the answer
             var answer = new MultipleCheckboxesAnswer(mQuestion, new List<bool>(CurrentlyChecked));

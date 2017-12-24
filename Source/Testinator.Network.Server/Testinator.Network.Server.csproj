@@ -45,7 +45,6 @@
     <Compile Include="Base\SocketHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\ServerBase.cs" />
-    <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Testinator.Core\Testinator.Core.csproj">

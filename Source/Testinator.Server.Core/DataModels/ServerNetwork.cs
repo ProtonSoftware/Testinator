@@ -1,9 +1,9 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using Testinator.Core;
+using Testinator.Server.Core;
 
 namespace Testinator.Network.Server
 {
@@ -17,7 +17,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// A list of connected clients
         /// </summary>
-        public ObservableCollection<ClientModel> Clients { get; set; } = new ObservableCollection<ClientModel>();
+        public ObservableCollection<ClientModel> Clients { get; private set; } = new ObservableCollection<ClientModel>();
 
         #endregion
 
@@ -48,20 +48,35 @@ namespace Testinator.Network.Server
             // Jump on the dispatcher thread
             var uiContext = SynchronizationContext.Current;
             uiContext.Send(x => Clients.Remove(client), null);
+
+            // Notify test host that a client has disconnected
+            IoCServer.TestHost.OnClientDisconnected(client);
         }
 
+        /// <summary>
+        /// Fired when any data is resived from a client
+        /// </summary>
+        /// <param name="sender">The sender client</param>
+        /// <param name="data">The data received from the client</param>
+        private void ServerDataReceived(ClientModel sender, DataPackage data)
+        {
+            // Fire the test host
+            IoCServer.TestHost.OnDataRecived(sender, data);
+        }
+        
         #endregion
 
-        #region Construcotrs
+        #region Constructors
 
         /// <summary>
         /// Sets server up with default settings [recommended]
         /// </summary>
         public ServerNetwork()
-        {
+        { 
             // Subscribe to the server events
             OnClientConnected += ServerClientConnected;
             OnClientDisconnected += ServerClientDisconnected;
+            OnDataRecived += ServerDataReceived;
         }
 
         #endregion

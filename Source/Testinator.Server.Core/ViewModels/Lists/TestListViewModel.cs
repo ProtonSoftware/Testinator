@@ -42,6 +42,21 @@ namespace Testinator.Server.Core
         #region Public Methods
 
         /// <summary>
+        /// Checks if there is any test selected
+        /// </summary>
+        /// <returns>True if there is a test selected,
+        /// False if not</returns>
+        public bool IsAnyTestSelected()
+        {
+            foreach (var item in Items)
+            {
+                if (item.IsSelected)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Loads the criteria to the list
         /// </summary>
         public void LoadItems()

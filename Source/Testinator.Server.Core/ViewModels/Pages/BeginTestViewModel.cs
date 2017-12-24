@@ -20,9 +20,14 @@ namespace Testinator.Server.Core
         public ObservableCollection<ClientModel> ClientsConnected => IoCServer.Network.Clients;
 
         /// <summary>
+        /// All clients that are currently taking the test
+        /// </summary>
+        public ObservableCollection<ClientModelExtended> ClientsTakingTheTest => IoCServer.TestHost.Clients;
+
+        /// <summary>
         /// The test which is choosen by user on the list
         /// </summary>
-        public Test CurrentTest { get; set; }
+        public Test CurrentTest => IoCServer.TestHost.Test;
 
         /// <summary>
         /// A flag indicating whether server has started
@@ -32,7 +37,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A flag indicating whether test has started
         /// </summary>
-        public bool IsTestInProgress => IoCServer.Application.IsTestInProgress;
+        public bool IsTestInProgress => IoCServer.TestHost.IsTestInProgress;
+
+        /// <summary>
+        /// The time that is left to the end of the test
+        /// </summary>
+        public TimeSpan TimeLeft => IoCServer.TestHost.TimeLeft;
 
         #endregion
 
@@ -68,6 +78,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand BeginTestCommand { get; private set; }
 
+        /// <summary>
+        /// The command to stop the test
+        /// </summary>
+        public ICommand StopTestCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -84,6 +99,7 @@ namespace Testinator.Server.Core
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
             ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
             BeginTestCommand = new RelayCommand(BeginTest);
+            StopTestCommand = new RelayCommand(StopTest);
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
@@ -107,8 +123,20 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StopServer()
         {
+            if (IoCServer.TestHost.IsTestInProgress)
+            {
+                // TODO: show dialog asking the user that a test is in progress
+                // Based on the response decide what to do
+                // if (response == nieWyłączaj)
+                return;
+            }
+            
+            // Stop the server
             IoCServer.Network.Stop();
             OnPropertyChanged(nameof(IsServerStarted));
+
+            // Go to the initial page
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
         /// <summary>
@@ -129,11 +157,15 @@ namespace Testinator.Server.Core
         private void ChangePageInfo()
         {
             // Check if user has choosen any test
-            if (CurrentTest == null)
+            if (!TestListViewModel.Instance.IsAnyTestSelected())
                 return;
 
             // Then go to info page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
+
+            // Meanwhile lock the clients list and send them the test 
+            IoCServer.TestHost.LockClients();
+            IoCServer.TestHost.SendTest();
         }
 
         /// <summary>
@@ -145,12 +177,12 @@ namespace Testinator.Server.Core
             int testID = Int32.Parse(param.ToString());
             
             // Load test based on that
-            CurrentTest = TestListViewModel.Instance.Items[testID - 1].Test;
+            IoCServer.TestHost.BindTest(TestListViewModel.Instance.Items[testID - 1].Test);
             
             // Mark all items not selected
             foreach (var item in TestListViewModel.Instance.Items)
             {
-                item.IsSelected =false;
+                item.IsSelected = false;
             }
 
             // Select the one that has been clicked
@@ -162,7 +194,16 @@ namespace Testinator.Server.Core
         /// </summary>
         private void BeginTest()
         {
-            
+            IoCServer.TestHost.Start();
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInProgress);
+        }
+
+        /// <summary>
+        /// Stops the test
+        /// </summary>
+        private void StopTest()
+        {
+            IoCServer.TestHost.Stop();
         }
 
         #endregion

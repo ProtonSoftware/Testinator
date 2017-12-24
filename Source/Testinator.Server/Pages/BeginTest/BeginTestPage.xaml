@@ -156,11 +156,10 @@
                           HorizontalContentAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="Auto" IsReadOnly="True" Header="ID" Binding="{Binding ID}"/>
-                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Progress" Binding="{Binding Progress}"/>
-                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding MachineName}"/>
-                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding IpAddress}"/>
                         <DataGridTextColumn Width="*" IsReadOnly="True" Header="Name" Binding="{Binding ClientName}"/>
                         <DataGridTextColumn Width="*" IsReadOnly="True" Header="Surname" Binding="{Binding ClientSurname}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding IpAddress}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Machine Name" Binding="{Binding MachineName}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

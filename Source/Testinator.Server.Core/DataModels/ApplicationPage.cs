@@ -41,6 +41,11 @@
         BeginTestInfo,
 
         /// <summary>
+        /// The subpage for showing test in progress status
+        /// </summary>
+        BeginTestInProgress,
+
+        /// <summary>
         /// The page to create/edit tests
         /// </summary>
         TestEditor,

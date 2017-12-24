@@ -8,12 +8,12 @@ namespace Testinator.Core
     /// <summary>
     /// Defines the structure of the client connected to the sever
     /// </summary>
-    public class ClientModel
+    public class ClientModel : BaseViewModel
     {
         #region Public Properties
 
         /// <summary>
-        /// Client id
+        /// Client's id
         /// </summary>
         public string ID { get; set; }
 
