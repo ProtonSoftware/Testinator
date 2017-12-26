@@ -773,7 +773,6 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitCriteria()
         {
-
             try
             {
                 // Check if input data is valid
