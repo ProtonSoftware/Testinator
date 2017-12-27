@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -11,37 +10,22 @@ namespace Testinator.Client.Core
     /// </summary>
     public class QuestionMultipleCheckboxesViewModel : BaseViewModel
     {
-        #region Private Members
+        #region Public Properties
 
         /// <summary>
-        /// The question this view model is based on
+        /// The question for this view model to show
         /// </summary>
-        private MultipleCheckboxesQuestion mQuestion;
-
-        #endregion
-
-        #region Public Properties
+        public MultipleCheckboxesQuestion Question { get; set; }
 
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + (mQuestion.ID + 1).ToString();
-
-        /// <summary>
-        /// The task of the question
-        /// </summary>
-        public string Task => mQuestion.Task;
+        public string QuestionPageCounter => "Pytanie " + (Question.ID + 1).ToString();
 
         /// <summary>
         /// Options for the questions to check or uncheck
         /// </summary>
-        public List<CheckboxAnswerItemViewModel> Options;
-
-        /// <summary>
-        /// Indexs of answer currently checked and unchecked
-        /// false means unchecked, true means unchecked
-        /// </summary>
-        public ObservableCollection<bool> CurrentlyChecked { get; set; }
+        public List<CheckboxAnswerItemViewModel> Options { get; set; }
 
         /// <summary>
         /// Number of options available
@@ -53,11 +37,6 @@ namespace Testinator.Client.Core
         /// When user chooses the answer automatically is set to false
         /// </summary>
         public bool NoAnswerWarning { get; set; } = false;
-
-        /// <summary>
-        /// Points gained for each correct answer
-        /// </summary>
-        public int PointScore => mQuestion.PointScore;
 
         #endregion
 
@@ -100,12 +79,13 @@ namespace Testinator.Client.Core
         {
             // Cast parameter
             var idxStr = obj as string;
-            if (!Int32.TryParse(idxStr, out int idx))
-                throw new NotImplementedException();
+            if (!int.TryParse(idxStr, out var idx))
+                throw new ArgumentException();
 
-            // idx - 1 because indexing starts at 1 not 0 !
-            CurrentlyChecked[idx - 1] ^= true;
-
+            // Check the answer at idx - 1 because indexing starts at 1 not 0 !
+            Options[idx - 1].IsChecked ^= true;
+            
+            // Disable errors
             NoAnswerWarning = false;
         }
 
@@ -114,56 +94,27 @@ namespace Testinator.Client.Core
         /// </summary>
         private void Submit()
         {
+            // Get the list of answers
+            var checkedList = new List<bool>();
+            foreach (var item in Options)
+            {
+                if (item.IsChecked) checkedList.Add(true);
+                else checkedList.Add(false);
+            }
+
             // If none of the options is checked show the warning to the user
-            if (!CurrentlyChecked.Contains(true))
+            if (!checkedList.Contains(true))
             {
                 NoAnswerWarning = true;
                 return;
             }
 
-            // TODO: save the answer
-
-            IoCClient.TestHost.GoNextQuestion();
-
-            /*
             // Save the answer
-            var answer = new MultipleCheckboxesAnswer(mQuestion, new List<bool>(CurrentlyChecked));
-            //IoCClient.Application.Test.AddAnswer(answer);
+            var answer = new MultipleCheckboxesAnswer(checkedList);
+            IoCClient.TestHost.SaveAnswer(answer);
 
-            // Go to next page
-            var question = IoCClient.Application.Test.GetNextQuestion();
-
-            // Based on type...
-            switch(question.Type)
-            {
-                case QuestionType.MultipleChoice:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionMultipleChoiceViewModel();
-                        questionViewModel.AttachQuestion(question as MultipleChoiceQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
-                        break;
-                    }
-
-                case QuestionType.MultipleCheckboxes:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionMultipleCheckboxesViewModel();
-                        questionViewModel.AttachQuestion(question as MultipleCheckboxesQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
-                        break;
-                    }
-
-                case QuestionType.SingleTextBox:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionSingleTextBoxViewModel();
-                        questionViewModel.AttachQuestion(question as SingleTextBoxQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
-                        break;
-                    }
-            }
-            */
+            // Go to next question page
+            IoCClient.TestHost.GoNextQuestion();
         }
 
         #endregion
@@ -178,15 +129,14 @@ namespace Testinator.Client.Core
         public void AttachQuestion(MultipleCheckboxesQuestion question)
         {
             // Get the question
-            mQuestion = question;
+            Question = question;
 
             // Convert from dictionary to answer items list
-            Options = ListConvertFromDictionaryQuestion(mQuestion.OptionsAndAnswers);
+            Options = ListConvertFromDictionaryQuestion(Question.OptionsAndAnswers);
 
             // Make all the answers unchecked
-            CurrentlyChecked = new ObservableCollection<bool>();
-            for (int i = 0; i < Count; i++)
-                CurrentlyChecked.Add(false);
+            foreach (var item in Options)
+                item.IsChecked = false;
         }
 
         #endregion
@@ -207,16 +157,14 @@ namespace Testinator.Client.Core
             foreach (var option in options)
             {
                 // Create new answer item
-                var answerItem = new CheckboxAnswerItemViewModel();
+                var answerItem = new CheckboxAnswerItemViewModel
+                {
+                    // Rewrite answer string content
+                    Text = option.Key.ToString(),
 
-                // Rewrite answer string content
-                answerItem.Text = option.Key.ToString();
-
-                // If answer should be checked, indicate that
-                answerItem.ShouldBeChecked = option.Value;
-
-                // Don't select any answer at the start
-                answerItem.IsChecked = false;
+                    // Don't select any answer at the start
+                    IsChecked = false
+                };
 
                 // Add this item to the list
                 FinalList.Add(answerItem);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -10,26 +9,17 @@ namespace Testinator.Client.Core
     /// </summary>
     public class QuestionMultipleChoiceViewModel : BaseViewModel
     {
-        #region Private Members
+        #region Public Properties
 
         /// <summary>
-        /// The question this view model is based on
+        /// The question for this view model to show
         /// </summary>
-        private MultipleChoiceQuestion mQuestion = new MultipleChoiceQuestion();
-
-        #endregion
-
-        #region Public Properties
+        public MultipleChoiceQuestion Question { get; set; }
 
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + (mQuestion.ID + 1).ToString();
-
-        /// <summary>
-        /// The task of the question
-        /// </summary>
-        public string Task => mQuestion.Task;
+        public string QuestionPageCounter => "Pytanie " + (Question.ID + 1).ToString();
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
@@ -46,11 +36,6 @@ namespace Testinator.Client.Core
         /// When user chooses the answer automatically is set to false
         /// </summary>
         public bool NoAnswerWarning { get; set; } = false;
-
-        /// <summary>
-        /// Points gained for the correct answer
-        /// </summary>
-        public int PointScore => mQuestion.PointScore;
 
         #endregion
 
@@ -84,7 +69,7 @@ namespace Testinator.Client.Core
         private void Submit()
         {
             // Check which answer is selected
-            int CurrentlySelectedIdx = CheckWhichAnswerIsSelected();
+            var CurrentlySelectedIdx = CheckWhichAnswerIsSelected();
 
             // If none, show error and don't submit
             if (CurrentlySelectedIdx == 0)
@@ -93,50 +78,12 @@ namespace Testinator.Client.Core
                 return;
             }
 
-            var answer = new MultipleChoiceAnswer(CurrentlySelectedIdx);
-
-            IoCClient.TestHost.SaveAnswer(answer);
-            IoCClient.TestHost.GoNextQuestion();
-
-            /*
             // Save the answer
-            var answer = new MultipleChoiceAnswer(mQuestion, CurrentlySelectedIdx);
-            IoCClient.Application.Test.AddAnswer(answer);
+            var answer = new MultipleChoiceAnswer(CurrentlySelectedIdx);
+            IoCClient.TestHost.SaveAnswer(answer);
 
-            // Go to next page
-            var question = IoCClient.Application.Test.GetNextQuestion();
-
-            // Based on type...
-            switch (question.Type)
-            {
-                case QuestionType.MultipleChoice:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionMultipleChoiceViewModel();
-                        questionViewModel.AttachQuestion(question as MultipleChoiceQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
-                        break;
-                    }
-
-                case QuestionType.MultipleCheckboxes:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionMultipleCheckboxesViewModel();
-                        questionViewModel.AttachQuestion(question as MultipleCheckboxesQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
-                        break;
-                    }
-
-                case QuestionType.SingleTextBox:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionSingleTextBoxViewModel();
-                        questionViewModel.AttachQuestion(question as SingleTextBoxQuestion);
-                        IoCClient.Application.GoToPage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
-                        break;
-                    }
-            }
-            */
+            // Go to next question page
+            IoCClient.TestHost.GoNextQuestion();
         }
 
         #endregion
@@ -151,10 +98,10 @@ namespace Testinator.Client.Core
         public void AttachQuestion(MultipleChoiceQuestion question)
         {
             // Get the question
-            mQuestion = question;
+            Question = question;
 
             // Convert the list of string to list of ABCAnswerItemViewModel
-            Options = ListConvertFromStringQuestion(mQuestion.Options);
+            Options = ListConvertFromStringQuestion(Question.Options);
         }
 
         #endregion
@@ -168,10 +115,10 @@ namespace Testinator.Client.Core
         private int CheckWhichAnswerIsSelected()
         {
             // Keep track of the index of the item which is selected
-            int index = 0;
+            var index = 0;
 
             // Loop each item
-            for(int i = 1; i <= Count; i++)
+            for(var i = 1; i <= Count; i++)
             {
                 // Check if any item is selected
                 if (Options[i-1].IsSelected) index = i;
@@ -192,7 +139,7 @@ namespace Testinator.Client.Core
             var FinalList = new List<ABCAnswerItemViewModel>();
 
             // Loop each answer to create answer item from it
-            int answerCounter = 1;
+            var answerCounter = 1;
             foreach (var option in options)
             {
                 // Create new answer item

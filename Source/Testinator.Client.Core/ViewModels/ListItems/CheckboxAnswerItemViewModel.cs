@@ -17,11 +17,6 @@ namespace Testinator.Client.Core
         public string Text { get; set; }
 
         /// <summary>
-        /// Indicates if the checkbox should be checked to earn points
-        /// </summary>
-        public bool ShouldBeChecked { get; set; }
-
-        /// <summary>
         /// A flag indicating if the checkbox is checked
         /// </summary>
         public bool IsChecked { get; set; }
@@ -57,7 +52,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void SelectItem()
         {
-            // Simple toogle item checked flag 
+            // Simple toggle item checked flag 
             IsChecked ^= true;
         }
 

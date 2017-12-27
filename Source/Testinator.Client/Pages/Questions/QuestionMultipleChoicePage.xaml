@@ -31,12 +31,12 @@
                            HorizontalAlignment="Center"
                            Margin="10" />
 
-                <TextBlock Text="{Binding Task}"
+                <TextBlock Text="{Binding Question.Task}"
                            Style="{StaticResource QuestionTextBlockStyle}"
                            FontSize="{StaticResource FontSizeLarge}"
                            Margin="5" />
-                
-                <local:MultipleChoiceAnswersList DataContext="{Binding}" />
+
+                <local:MultipleChoiceAnswersList DataContext="{Binding Options}" />
 
             </StackPanel>
             

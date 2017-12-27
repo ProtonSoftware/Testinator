@@ -19,8 +19,17 @@
                 Margin="50 50 50 0">
 
             <StackPanel>
+                
+                <TextBlock Text="{Binding QuestionPageCounter}"
+                           Style="{StaticResource TitleText}"
+                           Foreground="{StaticResource BlackDarkBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="10" />
 
-                <TextBlock Text="{Binding Task}" />
+                <TextBlock Text="{Binding Question.Task}" />
+
+                <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource BigInputTextBox}"/>
 
             </StackPanel>
             
