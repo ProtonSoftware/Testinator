@@ -18,10 +18,7 @@ namespace Testinator.Client.Core
         public string Name
         {
             get => IoCClient.Client.ClientName;
-            set
-            {
-                IoCClient.Client.ClientName = value;
-            }
+            set => IoCClient.Client.ClientName = value;
         }
 
         /// <summary>
@@ -30,10 +27,8 @@ namespace Testinator.Client.Core
         public string Surname
         {
             get => IoCClient.Client.ClientSurname;
-            set
-            {
-                IoCClient.Client.ClientSurname = value;
-            }
+            set => IoCClient.Client.ClientSurname = value;
+
         }
 
         /// <summary>
@@ -133,7 +128,7 @@ namespace Testinator.Client.Core
             }
             
             // Setup client and start connecting
-            IoCClient.Application.Network.Initialize(ServerIP, Int32.Parse(ServerPort));
+            IoCClient.Application.Network.Initialize(ServerIP, int.Parse(ServerPort));
             IoCClient.Application.Network.StartConnecting();
 
             OnPropertyChanged(nameof(ConnectingIsRunning));

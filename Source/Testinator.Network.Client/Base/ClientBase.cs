@@ -13,27 +13,27 @@ namespace Testinator.Network.Client
         /// <summary>
         /// Buffer size for incoming data
         /// </summary>
-        private int _BufferSize;
+        private int mBufferSize;
 
         /// <summary>
         /// Client ip address
         /// </summary>
-        private IPAddress _IPAddress;
+        private IPAddress mIPAddress;
 
         /// <summary>
         /// Port to connect to the server
         /// </summary>
-        private int _Port;
+        private int mPort;
 
         /// <summary>
         /// Socket that handles communication
         /// </summary>
-        private Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private Socket mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         /// <summary>
         /// Buffer for received data
         /// </summary>
-        private byte[] ReceiverBuffer;
+        private byte[] mReceiverBuffer;
 
         #endregion
 
@@ -51,7 +51,7 @@ namespace Testinator.Network.Client
                     // Try to connect, if failed try again
                     Attempts++;
                     OnAttemptUpdate.Invoke();
-                    clientSocket.Connect(IPAddress, Port);
+                    mClientSocket.Connect(IPAddress, Port);
                 }
                 catch (SocketException)
                 { }
@@ -62,7 +62,7 @@ namespace Testinator.Network.Client
             if (IsConnected)
             {
                 // Start receiving
-                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
+                mClientSocket.BeginReceive(mReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, mClientSocket);
 
                 // Let them know we have connected to the server
                 OnConnected.Invoke();
@@ -80,7 +80,7 @@ namespace Testinator.Network.Client
 
             try
             {
-                received = clientSocket.EndReceive(ar);
+                received = mClientSocket.EndReceive(ar);
             }
             catch
             {
@@ -93,17 +93,17 @@ namespace Testinator.Network.Client
             }
 
             // Copy the received buffer
-            byte[] recBuf = new byte[received];
-            Array.Copy(ReceiverBuffer, recBuf, received);
+            var recBuf = new byte[received];
+            Array.Copy(mReceiverBuffer, recBuf, received);
 
             // Try to get the data
-            if (DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
+            if (DataPackageDescriptor.TryConvertToObj(recBuf, out var PackageReceived))
             {
                 // If we are told to disconnect
                 if (PackageReceived.PackageType == PackageType.DisconnectRequest)
                 {
                     // Close the socket
-                    clientSocket.Shutdown(SocketShutdown.Both);
+                    mClientSocket.Shutdown(SocketShutdown.Both);
 
                     // Let listeners know we have beed disconnected
                     OnDisconnected.Invoke();
@@ -118,7 +118,7 @@ namespace Testinator.Network.Client
 
             // If we are still connected start receiving again
             if (IsConnected)
-                clientSocket.BeginReceive(ReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
+                mClientSocket.BeginReceive(mReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, mClientSocket);
         }
 
         #endregion
@@ -133,7 +133,7 @@ namespace Testinator.Network.Client
         /// <summary>
         /// Indicates if the client is connected to the server
         /// </summary>
-        public bool IsConnected => clientSocket.Connected;
+        public bool IsConnected => mClientSocket.Connected;
 
         /// <summary>
         /// Gets and sets server buffer size
@@ -141,13 +141,13 @@ namespace Testinator.Network.Client
         /// </summary>
         public int BufferSize
         {
-            get => _BufferSize;
+            get => mBufferSize;
             set
             {
                 if (!Connecting && !IsConnected)
                 {
-                    _BufferSize = value;
-                    ReceiverBuffer = new byte[BufferSize];
+                    mBufferSize = value;
+                    mReceiverBuffer = new byte[BufferSize];
                 }
             }
         }
@@ -158,11 +158,11 @@ namespace Testinator.Network.Client
         /// </summary>
         public IPAddress IPAddress
         {
-            get => _IPAddress;
+            get => mIPAddress;
             set
             {
                 if (!Connecting && !IsConnected)
-                    _IPAddress = value;
+                    mIPAddress = value;
             }
         }
 
@@ -177,11 +177,11 @@ namespace Testinator.Network.Client
         /// </summary>
         public int Port
         {
-            get => _Port;
+            get => mPort;
             set
             {
                 if (!Connecting && !IsConnected)
-                    _Port = value;
+                    mPort = value;
             }
         }
 
@@ -203,10 +203,10 @@ namespace Testinator.Network.Client
                 return;
 
             // Create new client socket
-            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); ;
+            mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); ;
 
             // Start a new thread that handles the try-to-connect loop
-            Thread connectingThread = new Thread(new ThreadStart(TryConnecting))
+            var connectingThread = new Thread(new ThreadStart(TryConnecting))
             {
                 IsBackground = true,
                 Name = "ConnectingThread"
@@ -228,7 +228,7 @@ namespace Testinator.Network.Client
                 SendData(new DataPackage(PackageType.DisconnectRequest, null));
 
                 // Shutdown the socket
-                clientSocket.Shutdown(SocketShutdown.Both);
+                mClientSocket.Shutdown(SocketShutdown.Both);
             }
             Connecting = false;
         }
@@ -240,10 +240,10 @@ namespace Testinator.Network.Client
         public void SendData(DataPackage data)
         {
             // Try convert data to the binary array
-            if (DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data) && IsConnected)
+            if (DataPackageDescriptor.TryConvertToBin(out var sendBuffor, data) && IsConnected)
             {
                 // Send it if conversion was successful
-                clientSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);
+                mClientSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);
             }
         }
 

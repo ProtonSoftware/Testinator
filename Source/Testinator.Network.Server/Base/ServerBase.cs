@@ -17,37 +17,37 @@ namespace Testinator.Network.Server
         /// <summary>
         /// The <see cref="Socket"/> for server
         /// </summary>
-        private Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private Socket mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         /// <summary>
         /// Conatins all connected clients
         /// </summary>
-        private readonly Dictionary<Socket, ClientModel> Clients = new Dictionary<Socket, ClientModel>();
+        private readonly Dictionary<Socket, ClientModel> mClients = new Dictionary<Socket, ClientModel>();
 
         /// <summary>
         /// Buffer for received data
         /// </summary>
-        private byte[] ReciverBuffer;
+        private byte[] mReciverBuffer;
 
         /// <summary>
         /// Indicates if the server is currently running
         /// </summary>
-        private bool _IsRunning = false;
+        private bool mIsRunning = false;
 
         /// <summary>
         /// Buffer size for incoming data
         /// </summary>
-        private int _BufferSize;
+        private int mBufferSize;
 
         /// <summary>
         /// Server ip address
         /// </summary>
-        private IPAddress _IPAddress;
+        private IPAddress mIPAddress;
 
         /// <summary>
         /// Server port
         /// </summary>
-        private int _Port;
+        private int mPort;
 
         #endregion
 
@@ -60,7 +60,7 @@ namespace Testinator.Network.Server
         /// <returns>True it the model exists, false if it does not</returns>
         private bool ClientModelExists(Socket client)
         {
-            return Clients[client] != null;
+            return mClients[client] != null;
         }
         
         /// <summary>
@@ -70,9 +70,9 @@ namespace Testinator.Network.Server
         /// <param name="NewModel">New data as <see cref="InfoPackage"/></param>
         private void UpdateClientModel(Socket Client, InfoPackage NewModel)
         {
-            Clients[Client].ClientName = NewModel.ClientName;
-            Clients[Client].ClientSurname = NewModel.ClientSurname;
-            Clients[Client].MachineName = NewModel.MachineName;
+            mClients[Client].ClientName = NewModel.ClientName;
+            mClients[Client].ClientSurname = NewModel.ClientSurname;
+            mClients[Client].MachineName = NewModel.MachineName;
         }
 
         /// <summary>
@@ -108,22 +108,22 @@ namespace Testinator.Network.Server
             try
             {
                 // Try to get the newly connected socket
-                clientSocket = serverSocket.EndAccept(ar);
+                clientSocket = mServerSocket.EndAccept(ar);
             }
-            catch
+            catch (SocketException ex)
             {
                 // No need to handle any errors for now 
                 return;
             }
 
             // Accept this client and start reciving, but until the client doesn't not provide an info package, dont call the higher appliaction level
-            Clients.Add(clientSocket, null);
+            mClients.Add(clientSocket, null);
 
             // Begin reciving on this socket
-            clientSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
+            clientSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, clientSocket);
 
             // Continue accepting new clients
-            serverSocket.BeginAccept(AcceptCallback, null);
+            mServerSocket.BeginAccept(AcceptCallback, null);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Testinator.Network.Server
         /// <param name="ar"></param>
         private void ReceiveCallback(IAsyncResult ar)
         {
-            Socket senderSocket = (Socket)ar.AsyncState;
+            var senderSocket = (Socket)ar.AsyncState;
             int recivedCount;
 
             try
@@ -146,10 +146,10 @@ namespace Testinator.Network.Server
                 senderSocket.Close();
 
                 // Let them know the client has disconnected
-                OnClientDisconnected.Invoke((Clients[senderSocket]));
+                OnClientDisconnected.Invoke((mClients[senderSocket]));
 
                 // NOTE: remove client after calling the callback method above
-                Clients.Remove(senderSocket);
+                mClients.Remove(senderSocket);
 
                 return;
             }
@@ -159,10 +159,10 @@ namespace Testinator.Network.Server
             }
 
             // Get the recived data
-            byte[] recBuf = new byte[recivedCount];
-            Array.Copy(ReciverBuffer, recBuf, recivedCount);
+            var recBuf = new byte[recivedCount];
+            Array.Copy(mReciverBuffer, recBuf, recivedCount);
 
-            if (DataPackageDescriptor.TryConvertToObj(recBuf, out DataPackage PackageReceived))
+            if (DataPackageDescriptor.TryConvertToObj(recBuf, out var PackageReceived))
             {
                 // Everything exepct from info packet and disconnect request packet is going to the higher level layer of the appliaction
                 if (PackageReceived.PackageType == PackageType.Info)
@@ -172,7 +172,7 @@ namespace Testinator.Network.Server
                     // If content is valid...
                     if (InfoPackageIsValid(content))
                     {
-                        string clientId = string.Empty;
+                        var clientId = string.Empty;
 
                         // If it is a new user...
                         if (!ClientModelExists(senderSocket))
@@ -192,7 +192,7 @@ namespace Testinator.Network.Server
                             };
 
                             // Store client model
-                            Clients[senderSocket] = model;
+                            mClients[senderSocket] = model;
 
                             // Tell listeners that we got a new client
                             OnClientConnected.Invoke((model));
@@ -204,7 +204,7 @@ namespace Testinator.Network.Server
                             UpdateClientModel(senderSocket, content);
 
                             // Call the subscribed methods
-                            OnClientDataUpdated.Invoke(Clients[senderSocket]);
+                            OnClientDataUpdated.Invoke(mClients[senderSocket]);
                         }
                     }
                 }
@@ -215,21 +215,21 @@ namespace Testinator.Network.Server
                     senderSocket.Close();
 
                     // Let them know the client has disconnected
-                    OnClientDisconnected(Clients[senderSocket]);
+                    OnClientDisconnected(mClients[senderSocket]);
 
                     // NOTE: remove client after calling the event method above
-                    Clients.Remove(senderSocket);
+                    mClients.Remove(senderSocket);
 
                     // Return here to prevent running callback and starting reciving from not existing socket
                     return;
                 }
                 else
                     // Call the subscribed method only if the package description was successful
-                    OnDataRecived(Clients[senderSocket], PackageReceived);
+                    OnDataRecived(mClients[senderSocket], PackageReceived);
             }
 
             // Continue reciving
-            senderSocket.BeginReceive(ReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
+            senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
 
         }
 
@@ -240,7 +240,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// Indicates if the server is currently running
         /// </summary>
-        public bool IsRunning => _IsRunning;
+        public bool IsRunning => mIsRunning;
 
         /// <summary>
         /// Gets and sets server buffer size
@@ -248,13 +248,13 @@ namespace Testinator.Network.Server
         /// </summary>
         public int BufferSize
         {
-            get => _BufferSize;
+            get => mBufferSize;
             set
             {
                 if (!IsRunning)
                 {
-                    _BufferSize = value;
-                    ReciverBuffer = new byte[BufferSize];
+                    mBufferSize = value;
+                    mReciverBuffer = new byte[BufferSize];
                 }
             }
         }
@@ -265,11 +265,11 @@ namespace Testinator.Network.Server
         /// </summary>
         public IPAddress IPAddress
         {
-            get => _IPAddress;
+            get => mIPAddress;
             set
             {
                 if (!IsRunning)
-                    _IPAddress = value;
+                    mIPAddress = value;
             }
         }
 
@@ -297,18 +297,18 @@ namespace Testinator.Network.Server
         /// </summary>
         public int Port
         {
-            get => _Port;
+            get => mPort;
             set
             {
                 if (!IsRunning)
-                    _Port = value;
+                    mPort = value;
             }
         }
 
         /// <summary>
         /// Number of clients curently connected
         /// </summary>
-        public int ConnectedClientCount => Clients.Count;
+        public int ConnectedClientCount => mClients.Count;
 
         #endregion
 
@@ -343,19 +343,19 @@ namespace Testinator.Network.Server
         /// </summary>
         public void Start()
         {
-            if (_IsRunning)
+            if (mIsRunning)
                 return;
             try
             {
-                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                serverSocket.Bind(new IPEndPoint(IPAddress, Port));
-                serverSocket.Listen(0);
-                serverSocket.BeginAccept(AcceptCallback, null);
-                _IsRunning = true;
+                mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                mServerSocket.Bind(new IPEndPoint(IPAddress, Port));
+                mServerSocket.Listen(0);
+                mServerSocket.BeginAccept(AcceptCallback, null);
+                mIsRunning = true;
             }
             catch
             {
-                _IsRunning = false;
+                mIsRunning = false;
                 // TODO: error handling
             }
         }
@@ -365,7 +365,7 @@ namespace Testinator.Network.Server
         /// </summary>
         public void Stop()
         {
-            if (!_IsRunning)
+            if (!mIsRunning)
                 return;
 
             // Create a package that contains disconnect info 
@@ -373,16 +373,16 @@ namespace Testinator.Network.Server
             var data = new DataPackage(PackageType.DisconnectRequest, null);
 
             // Close all connections
-            foreach (Socket item in Clients.Keys.ToList())
+            foreach (var item in mClients.Keys.ToList())
             {
                 item.SendPackage(data);
                 item.Shutdown(SocketShutdown.Both);
                 item.Close();
-                Clients.Remove(item);
+                mClients.Remove(item);
             }
 
-            serverSocket.Close();
-            _IsRunning = false;
+            mServerSocket.Close();
+            mIsRunning = false;
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace Testinator.Network.Server
         /// <param name="data">Data to be sent</param>
         public void SendData(ClientModel target, DataPackage data)
         {
-            var targetSocket = Clients.FirstOrDefault(x => x.Value == target).Key;
+            var targetSocket = mClients.FirstOrDefault(x => x.Value == target).Key;
 
             // It target does not exist return
             if (targetSocket == null)

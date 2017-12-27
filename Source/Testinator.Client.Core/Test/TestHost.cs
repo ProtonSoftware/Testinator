@@ -13,27 +13,27 @@ namespace Testinator.Client.Core
     {
         #region Private Members
 
-        private System.Timers.Timer TestTimer = new System.Timers.Timer(1000);
+        private System.Timers.Timer mTestTimer = new System.Timers.Timer(1000);
 
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        private Test _Test = new Test();
+        private Test mTest = new Test();
 
         /// <summary>
         /// Indicates current question
         /// </summary>
-        private int CurrentQuestion = 0;
+        private int mCurrentQuestion = 0;
 
         /// <summary>
         /// List of all questions
         /// </summary>
-        private List<Question> Questions = new List<Question>();
+        private List<Question> mQuestions = new List<Question>();
 
         /// <summary>
         /// Answers given by the user
         /// </summary>
-        private List<Answer> Answers = new List<Answer>();
+        private List<Answer> mAnswers = new List<Answer>();
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        public Test CurrentTest => _Test;
+        public Test CurrentTest => mTest;
 
         /// <summary>
         /// Indicates if the test is in progress
@@ -84,7 +84,7 @@ namespace Testinator.Client.Core
 
             IsTestInProgress = true;
             ResetQuestionNumber();
-            TestTimer.Start();
+            mTestTimer.Start();
             GoNextQuestion();
         }
 
@@ -94,13 +94,13 @@ namespace Testinator.Client.Core
         /// <param name="test">Test to be hosted</param>
         public void BindTest(Test test)
         {
-            _Test = test;
+            mTest = test;
             IoCClient.Application.TimeLeft = test.Duration;
-            Questions = test.Questions;
+            mQuestions = test.Questions;
             TimeLeft = test.Duration;
 
             // Randomize questions
-            Questions.Shuffle();
+            mQuestions.Shuffle();
 
             ResetQuestionNumber();
 
@@ -118,7 +118,7 @@ namespace Testinator.Client.Core
             if (!IsTestInProgress)
                 return;
 
-            TestTimer.Stop();
+            mTestTimer.Stop();
             IsTestInProgress = false;
             IoCClient.UI.ChangePage(ApplicationPage.ResultPage);
 
@@ -132,10 +132,10 @@ namespace Testinator.Client.Core
         public void SaveAnswer(Answer answer)
         {
             // Make id of the question match the id of the answer
-            answer.ID = Questions[CurrentQuestion - 1].ID;
+            answer.ID = mQuestions[mCurrentQuestion - 1].ID;
 
             // Save the answer
-            Answers.Add(answer);
+            mAnswers.Add(answer);
         }
 
         /// <summary>
@@ -145,19 +145,19 @@ namespace Testinator.Client.Core
         /// </summary>
         public void GoNextQuestion()
         {
-            if (CurrentQuestion >= Questions.Count)
+            if (mCurrentQuestion > mQuestions.Count)
             {
                 Stop();
                 return;
             }
 
-            switch (Questions[CurrentQuestion].Type)
+            switch (mQuestions[mCurrentQuestion - 1].Type)
             {
                 case QuestionType.MultipleChoice:
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleChoiceViewModel();
-                        questionViewModel.AttachQuestion(Questions[CurrentQuestion] as MultipleChoiceQuestion);
+                        questionViewModel.AttachQuestion(mQuestions[mCurrentQuestion - 1] as MultipleChoiceQuestion);
                         IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
                         break;
                     }
@@ -166,7 +166,7 @@ namespace Testinator.Client.Core
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleCheckboxesViewModel();
-                        questionViewModel.AttachQuestion(Questions[CurrentQuestion] as MultipleCheckboxesQuestion);
+                        questionViewModel.AttachQuestion(mQuestions[mCurrentQuestion - 1] as MultipleCheckboxesQuestion);
                         IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
                         break;
                     }
@@ -175,7 +175,7 @@ namespace Testinator.Client.Core
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionSingleTextBoxViewModel();
-                        questionViewModel.AttachQuestion(Questions[CurrentQuestion] as SingleTextBoxQuestion);
+                        questionViewModel.AttachQuestion(mQuestions[mCurrentQuestion - 1] as SingleTextBoxQuestion);
                         IoCClient.UI.ChangePage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
                         break;
                     }
@@ -213,8 +213,8 @@ namespace Testinator.Client.Core
         /// </summary>
         private void ResetQuestionNumber()
         {
-            CurrentQuestion = 1;
-            IoCClient.Application.QuestionNumber = CurrentQuestion + " / " + Questions.Count;
+            mCurrentQuestion = 1;
+            IoCClient.Application.QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
         }
 
         /// <summary>
@@ -222,8 +222,8 @@ namespace Testinator.Client.Core
         /// </summary>
         private void UpdateQuestionNumber()
         {
-            CurrentQuestion++;
-            IoCClient.Application.QuestionNumber = CurrentQuestion + " / " + Questions.Count;
+            mCurrentQuestion++;
+            IoCClient.Application.QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
         }
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace Testinator.Client.Core
         /// </summary>
         public TestHost()
         {
-            TestTimer.Elapsed += HandleTimer;
+            mTestTimer.Elapsed += HandleTimer;
         }
 
         #endregion

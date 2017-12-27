@@ -174,7 +174,7 @@ namespace Testinator.Server.Core
         private void ChooseTest(object param)
         {
             // Cast the parameter
-            int testID = Int32.Parse(param.ToString());
+            var testID = int.Parse(param.ToString());
             
             // Load test based on that
             IoCServer.TestHost.BindTest(TestListViewModel.Instance.Items[testID - 1].Test);
