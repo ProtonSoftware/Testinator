@@ -58,65 +58,80 @@
                         <Run Text="{x:Static UICore:LocalizationResource.MaxPointsTitle}" />
                         <Run Text="{Binding Test.TotalPointScore, Mode=OneWay}" />
                     </TextBlock>
-                    
-                    <TextBox Text="{Binding EditingTopValueA, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="1"
-                             Opacity="0"
-                             local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             Style="{StaticResource SmallInputTextBox}"
-                             />
 
-                    <TextBlock Text="{Binding PointsGrading.MarkA.TopLimit}" 
-                               Grid.Row="1"
-                               local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
-                               Style="{StaticResource QuestionTextBlockStyle}"
-                               />
-                    
-                    <TextBlock Text="-"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               Style="{StaticResource QuestionTextBlockStyle}"/>
-                    
-                    <TextBox Text="{Binding EditingBottomValueA, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="1"
-                             Grid.Column="2"
-                             Opacity="0"
-                             local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
-                             Style="{StaticResource SmallInputTextBox}"
-                             />
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="4">
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.IsMarkACountedQuestion}"
+                                   Style="{StaticResource QuestionTextBlockStyle}" />
+                        <CheckBox IsChecked="{Binding CurrentGrading.IsMarkAIncluded}"/>
+                    </StackPanel>
 
-                    <TextBlock Text="{Binding PointsGrading.MarkA.BottomLimit}" 
-                               Grid.Row="1"
-                               Grid.Column="2"
-                               local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
-                               Style="{StaticResource QuestionTextBlockStyle}"
-                               />
-                    
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
-                               Grid.Row="1"
-                               Grid.Column="3"
-                               Style="{StaticResource QuestionTextBlockStyle}" />
+                    <Grid Grid.Row="2"
+                          Grid.ColumnSpan="4"
+                          Visibility="{Binding CurrentGrading.IsMarkAIncluded, Converter={local:BooleanToVisiblityConverter}}">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBox Text="{Binding EditingTopValueA, UpdateSourceTrigger=PropertyChanged}"
+                                 Opacity="0"
+                                 local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
+                                 Style="{StaticResource SmallInputTextBox}"
+                                 />
+
+                        <TextBlock Text="{Binding PointsGrading.MarkA.TopLimit}" 
+                                   local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   />
+
+                        <TextBlock Text="-"
+                                   Grid.Column="1"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                        <TextBox Text="{Binding EditingBottomValueA, UpdateSourceTrigger=PropertyChanged}"
+                                 Grid.Column="2"
+                                 Opacity="0"
+                                 local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
+                                 Style="{StaticResource SmallInputTextBox}"
+                                 />
+
+                        <TextBlock Text="{Binding PointsGrading.MarkA.BottomLimit}" 
+                                   Grid.Column="2"
+                                   local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   />
+
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
+                                   Grid.Column="3"
+                                   Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    </Grid>
 
                     <TextBox Text="{Binding EditingTopValueB, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="2"
+                             Grid.Row="3"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkB.TopLimit}" 
-                               Grid.Row="2"
+                               Grid.Row="3"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="-"
-                               Grid.Row="2"
+                               Grid.Row="3"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}"/>
 
                     <TextBox Text="{Binding EditingBottomValueB, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="2"
+                             Grid.Row="3"
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
@@ -124,37 +139,37 @@
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkB.BottomLimit}" 
-                               Grid.Row="2"
+                               Grid.Row="3"
                                Grid.Column="2"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
-                               Grid.Row="2"
+                               Grid.Row="3"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <TextBox Text="{Binding EditingTopValueC, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="3"
+                             Grid.Row="4"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkC.TopLimit}" 
-                               Grid.Row="3"
+                               Grid.Row="4"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="-"
-                               Grid.Row="3"
+                               Grid.Row="4"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}"/>
 
                     <TextBox Text="{Binding EditingBottomValueC, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="3"
+                             Grid.Row="4"
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
@@ -162,37 +177,37 @@
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkC.BottomLimit}" 
-                               Grid.Row="3"
+                               Grid.Row="4"
                                Grid.Column="2"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
-                               Grid.Row="3"
+                               Grid.Row="4"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <TextBox Text="{Binding EditingTopValueD, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="4"
+                             Grid.Row="5"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkD.TopLimit}" 
-                               Grid.Row="4"
+                               Grid.Row="5"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="-"
-                               Grid.Row="4"
+                               Grid.Row="5"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}"/>
 
                     <TextBox Text="{Binding EditingBottomValueD, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="4"
+                             Grid.Row="5"
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
@@ -200,37 +215,37 @@
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkD.BottomLimit}" 
-                               Grid.Row="4"
+                               Grid.Row="5"
                                Grid.Column="2"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
-                               Grid.Row="4"
+                               Grid.Row="5"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <TextBox Text="{Binding EditingTopValueE, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="5"
+                             Grid.Row="6"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkE.TopLimit}" 
-                               Grid.Row="5"
+                               Grid.Row="6"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="-"
-                               Grid.Row="5"
+                               Grid.Row="6"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}"/>
 
                     <TextBox Text="{Binding EditingBottomValueE, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="5"
+                             Grid.Row="6"
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
@@ -238,37 +253,37 @@
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkE.BottomLimit}" 
-                               Grid.Row="5"
+                               Grid.Row="6"
                                Grid.Column="2"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
-                               Grid.Row="5"
+                               Grid.Row="6"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <TextBox Text="{Binding EditingTopValueF, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="6"
+                             Grid.Row="7"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkF.TopLimit}" 
-                               Grid.Row="6"
+                               Grid.Row="7"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="-"
-                               Grid.Row="6"
+                               Grid.Row="7"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}"/>
 
                     <TextBox Text="{Binding EditingBottomValueF, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Row="6"
+                             Grid.Row="7"
                              Grid.Column="2"
                              Opacity="0"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
@@ -276,23 +291,23 @@
                              />
 
                     <TextBlock Text="{Binding PointsGrading.MarkF.BottomLimit}" 
-                               Grid.Row="6"
+                               Grid.Row="7"
                                Grid.Column="2"
                                local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn, Converter={local:BooleanInvertConverter}}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
                     <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
-                               Grid.Row="6"
+                               Grid.Row="7"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <TextBlock Grid.Row="7" Grid.ColumnSpan="4"
+                    <TextBlock Grid.Row="8" Grid.ColumnSpan="4"
                                Text="{Binding ErrorMessage}"
                                Foreground="Red"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <Grid Grid.Row="8" Grid.ColumnSpan="4">
+                    <Grid Grid.Row="9" Grid.ColumnSpan="4">
 
                         <Button Content="{x:Static UICore:LocalizationResource.EditCriteria}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"

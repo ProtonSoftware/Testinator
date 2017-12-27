@@ -6,24 +6,26 @@
     public enum QuestionType
     {
         /// <summary>
-        /// Default no question type (used when we wanna hide something which base on question type)
+        /// Default no question type 
+        /// NOTE: Used when we wanna hide something which base on question type
+        ///       Set at 5 because we have 3 question types and combobox base on integer number of type
         /// </summary>
-        None,
+        None = 5,
 
         /// <summary>
         /// Multiple choice question, mostly A, B, C or D
         /// </summary>
-        MultipleChoice,
+        MultipleChoice = 0,
 
         /// <summary>
         /// Select multiple answers from a list
         /// </summary>
-        MultipleCheckboxes,
+        MultipleCheckboxes = 1,
 
         /// <summary>
         /// The answer to the question is a string
         /// </summary>
-        SingleTextBox,
+        SingleTextBox = 2,
 
     }
 }

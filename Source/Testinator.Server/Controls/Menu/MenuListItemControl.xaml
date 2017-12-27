@@ -29,15 +29,12 @@
                                   Background="{StaticResource BlackDarkBrush}">
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Content="{Binding Icon, Converter={local:IconTypeToFontAwesomeConverter}}"
-                                        Style="{StaticResource IconButton}"
-                                        Command="{Binding MenuExpandCommand}"
-                                        Height="45"
-                                        />
+                                <TextBlock Text="{Binding Icon, Converter={local:IconTypeToFontAwesomeConverter}}"
+                                           Style="{StaticResource FontAwesomeIconText}" />
 
                                 <TextBlock Text="{Binding Name}"
                                            Grid.Column="1"
