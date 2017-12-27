@@ -13,6 +13,9 @@ namespace Testinator.Client.Core
     {
         #region Private Members
 
+        /// <summary>
+        /// Timer to handle cutdown
+        /// </summary>
         private System.Timers.Timer mTestTimer = new System.Timers.Timer(1000);
 
         /// <summary>
@@ -200,7 +203,7 @@ namespace Testinator.Client.Core
             {
                 Content = new StatusPackage()
                 {
-                    QuestionSolved = true,  
+                    QuestionSolved = mCurrentQuestion,
                 },
             };
             

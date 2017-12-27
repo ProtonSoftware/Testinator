@@ -8,6 +8,6 @@ namespace Testinator.Core
         /// <summary>
         /// Indicates if a question has been solved so the server can update status
         /// </summary>
-        public bool QuestionSolved { get; set; }
+        public int QuestionSolved { get; set; }
     }
 }

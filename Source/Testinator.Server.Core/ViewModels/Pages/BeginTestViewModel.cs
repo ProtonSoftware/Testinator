@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Timers;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -103,6 +104,8 @@ namespace Testinator.Server.Core
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
+
+            IoCServer.TestHost.OnTimerUpdated += TimerUpdated;
         }
 
         #endregion
@@ -204,8 +207,22 @@ namespace Testinator.Server.Core
         private void StopTest()
         {
             IoCServer.TestHost.Stop();
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
         #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Fired when timeleft timer is updated
+        /// </summary>
+        private void TimerUpdated()
+        {
+            OnPropertyChanged(nameof(TimeLeft));
+        }
+
+        #endregion
+
     }
 }

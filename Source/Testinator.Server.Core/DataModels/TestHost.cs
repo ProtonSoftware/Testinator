@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Testinator.Core;
-
+using System.Timers;
 namespace Testinator.Server.Core
 {
     /// <summary>
@@ -13,10 +13,15 @@ namespace Testinator.Server.Core
         #region Private Members 
 
         /// <summary>
+        /// Timer to handle cutdown
+        /// </summary>
+        private Timer mTestTimer = new Timer(1000);
+
+        /// <summary>
         /// Private list of all clients that are taking the test, 
         /// NOTE: data to the clients is sent by using <see cref="ClientModel"/>, therefore this list is essential
         /// </summary>
-        private List<ClientModel> _Clients = new List<ClientModel>();
+        private List<ClientModel> mClients = new List<ClientModel>();
 
         #endregion
 
@@ -59,6 +64,12 @@ namespace Testinator.Server.Core
             SendToAllClients(data);
 
             IsTestInProgress = true;
+
+            TimeLeft = Test.Duration;
+
+            // Start cutdown
+            mTestTimer.Start();
+            OnTimerUpdated.Invoke();
         }
 
         /// <summary>
@@ -66,6 +77,14 @@ namespace Testinator.Server.Core
         /// </summary>
         public void Stop()
         {
+            if (!IsTestInProgress)
+                return;
+
+            IsTestInProgress = false;
+
+            // Stop the timer
+            mTestTimer.Stop();
+            OnTimerUpdated.Invoke();
         }
 
         /// <summary>
@@ -95,10 +114,10 @@ namespace Testinator.Server.Core
 
             // Save all currently connected clients
             Clients = new ObservableCollection<ClientModelExtended>();
-            _Clients = new List<ClientModel>();
+            mClients = new List<ClientModel>();
             foreach (var client in IoCServer.Network.Clients)
             {
-                _Clients.Add(client);
+                mClients.Add(client);
                 Clients.Add(new ClientModelExtended(client));
             }
         }
@@ -120,6 +139,12 @@ namespace Testinator.Server.Core
         #region Public Events
 
         /// <summary>
+        /// Fired when time left value is updated
+        /// Used by viewmodels to update their values
+        /// </summary>
+        public Action OnTimerUpdated = () => { };
+
+        /// <summary>
         /// Fired when any data is resived from a client
         /// </summary>
         /// <param name="client">The sender client</param>
@@ -127,18 +152,16 @@ namespace Testinator.Server.Core
         public void OnDataRecived(ClientModel client, DataPackage dataPackage)
         {
             // If the data is from client we dont care about don't do anything
-            if (!_Clients.Contains(client))
+            if (!mClients.Contains(client))
                 return;
 
             switch (dataPackage.PackageType)
             {
                 case PackageType.ReportStatus:
                     var content = dataPackage.Content as StatusPackage;
-                    if (content.QuestionSolved)
-                    {
-                        int idx = _Clients.IndexOf(client);
-                        Clients[idx].QuestionsDone++;
-                    }
+                    var idx = mClients.IndexOf(client);
+                    Clients[idx].QuestionsDone = content.QuestionSolved;
+                    
 
                     break;
 
@@ -157,10 +180,10 @@ namespace Testinator.Server.Core
         public void OnClientDisconnected(ClientModel client)
         {
             // If the client that has disconnected is the one we dont care about don't do anything
-            if (!_Clients.Contains(client))
+            if (!mClients.Contains(client))
                 return;
 
-            int idx = _Clients.IndexOf(client);
+            var idx = mClients.IndexOf(client);
 
             // Indicate that we got connection problem with this client
             Clients[idx].ConnectionProblem = true;
@@ -175,6 +198,8 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestHost()
         {
+            // Initialize timer
+            mTestTimer.Elapsed += HandleTimer;
         }
 
         #endregion
@@ -188,8 +213,23 @@ namespace Testinator.Server.Core
         private void SendToAllClients(DataPackage data)
         {
             // Send it to all clients
-            foreach (var client in _Clients)
+            foreach (var client in mClients)
                 IoCServer.Network.SendData(client, data);
+        }
+
+        /// <summary>
+        /// Fired every time timer's cycle elapses
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleTimer(object sender, ElapsedEventArgs e)
+        {
+            TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
+            if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
+            {
+                Stop();
+            }
+            OnTimerUpdated.Invoke();
         }
 
         #endregion
