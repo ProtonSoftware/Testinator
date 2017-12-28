@@ -80,6 +80,7 @@
                         
                         <TextBox Text="{Binding EditingTopValueA, UpdateSourceTrigger=PropertyChanged}"
                                  Opacity="0"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                                  Style="{StaticResource SmallInputTextBox}"
                                  />
@@ -96,6 +97,7 @@
                         <TextBox Text="{Binding EditingBottomValueA, UpdateSourceTrigger=PropertyChanged}"
                                  Grid.Column="2"
                                  Opacity="0"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                                  Style="{StaticResource SmallInputTextBox}"
                                  />
@@ -115,6 +117,7 @@
                     <TextBox Text="{Binding EditingTopValueB, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="3"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -134,6 +137,7 @@
                              Grid.Row="3"
                              Grid.Column="2"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -153,6 +157,7 @@
                     <TextBox Text="{Binding EditingTopValueC, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="4"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -172,6 +177,7 @@
                              Grid.Row="4"
                              Grid.Column="2"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -191,6 +197,7 @@
                     <TextBox Text="{Binding EditingTopValueD, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="5"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -210,6 +217,7 @@
                              Grid.Row="5"
                              Grid.Column="2"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -229,6 +237,7 @@
                     <TextBox Text="{Binding EditingTopValueE, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="6"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -248,6 +257,7 @@
                              Grid.Row="6"
                              Grid.Column="2"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -267,6 +277,7 @@
                     <TextBox Text="{Binding EditingTopValueF, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="7"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
@@ -286,6 +297,7 @@
                              Grid.Row="7"
                              Grid.Column="2"
                              Opacity="0"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              local:AnimateFadeInProperty.Value="{Binding IsCriteriaEditModeOn}"
                              Style="{StaticResource SmallInputTextBox}"
                              />
