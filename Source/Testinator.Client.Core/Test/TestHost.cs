@@ -57,6 +57,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public TimeSpan TimeLeft { get; private set; }
 
+        /// <summary>
+        /// The user's score
+        /// </summary>
+        public int UserScore { get; private set; }
+
         #endregion
 
         #region Public Events
@@ -143,8 +148,6 @@ namespace Testinator.Client.Core
 
             // Change page to result page
             IoCClient.UI.ChangePage(ApplicationPage.ResultPage);
-
-            // TODO: Send results to the server
         }
 
         /// <summary>
@@ -167,10 +170,10 @@ namespace Testinator.Client.Core
         /// </summary>
         public void GoNextQuestion()
         {
-            // If last question was the last question, stop the test
+            // If last question was the last question, finish the test
             if (CurrentQuestion >= Questions.Count)
             {
-                StopTest();
+                TestFinished();
                 return;
             }
 
@@ -227,6 +230,21 @@ namespace Testinator.Client.Core
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Fired when the current test is finished
+        /// </summary>
+        private void TestFinished()
+        {
+
+            
+            StopTest();
+        }
+
+        private void CalculateScore()
+        { 
+
+        }
 
         /// <summary>
         /// Sends the update to the server
