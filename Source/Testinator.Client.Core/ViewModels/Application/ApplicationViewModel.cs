@@ -12,9 +12,9 @@ namespace Testinator.Client.Core
         #region Public Properties
 
         /// <summary>
-        /// Handles netowrk communication in the application
+        /// Handles network communication in the application
         /// </summary>
-        public ClientNetwork Network {get; } = new ClientNetwork();
+        public ClientNetwork Network { get; set; } = new ClientNetwork();
 
         /// <summary>
         /// The current page of the application
@@ -42,7 +42,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates how much time is left 
         /// </summary>
-        public TimeSpan TimeLeft { get; set; }
+        public TimeSpan TimeLeft => IoCClient.TestHost.TimeLeft;
 
         /// <summary>
         /// Indicates if the client has received test
@@ -66,7 +66,7 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Public Application Methods
+        #region Public Helpers
 
         /// <summary>
         /// Navigates to the specified page
@@ -75,7 +75,6 @@ namespace Testinator.Client.Core
         /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
         public void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
         {
-            
             // Set the view model
             CurrentPageViewModel = viewModel;
 
@@ -88,10 +87,10 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Private Application Methods
+        #region Private Helpers
 
         /// <summary>
-        /// Fired when data is recived from the server
+        /// Fired when data has been received from the server
         /// </summary>
         /// <param name="data"></param>
         private void NetworkDataReceived(DataPackage data)
@@ -99,14 +98,13 @@ namespace Testinator.Client.Core
             switch (data.PackageType)
             {
                 case PackageType.TestForm:
-                    
                     // Bind the newly received test
                     IoCClient.TestHost.BindTest(data.Content as Test);
                     break;
+
                 case PackageType.BeginTest:
-                    
                     // Start the test
-                    IoCClient.TestHost.Start();
+                    IoCClient.TestHost.StartTest();
                     break;
             }
         }
@@ -116,6 +114,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void NetworkDisconnect()
         {
+            // Simply go back to the initial login page
             IoCClient.UI.ChangePage(ApplicationPage.Login);
         }
 
@@ -124,15 +123,15 @@ namespace Testinator.Client.Core
         /// </summary>
         private void NetworkConnected()
         {
-            // If we are on the login page just switch to the waiting for test page
-            if (CurrentPage == ApplicationPage.Login)
-            {
-                // Change page
-                IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
+            // If we aren't on login page, don't bother doing anything
+            if (CurrentPage != ApplicationPage.Login)
+                return;
 
-                // Send info package
-                Network.SendData(IoCClient.Client.GetPackage());
-            }
+            // Change page to waiting for test page
+            IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
+
+            // Send info package with that information
+            Network.SendData(IoCClient.Client.GetPackage());
         }
 
         #endregion

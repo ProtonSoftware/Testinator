@@ -1,0 +1,53 @@
+﻿<UICore:BasePage x:TypeArguments="Core:ResultQuestionsViewModel" x:Class="Testinator.Client.ResultQuestionsPage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Client"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+                 mc:Ignorable="d" 
+                 d:DesignHeight="700" d:DesignWidth="1000">
+
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="Green" Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0 10 0 0"
+                   Foreground="{StaticResource BlackDarkBrush}"
+                   Style="{StaticResource TitleText}" />
+        </Border>
+        
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0"
+                          Panel.ZIndex="2">
+                <ItemsControl ItemsSource="{Binding Questions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:QuestionListItemControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+            <local:PageHost Grid.Column="1"
+                            CurrentPage="{Binding CurrentPage}"
+                            CurrentPageViewModel="{Binding CurrentPageViewModel}"/>
+
+        </Grid>
+        
+    </Grid>
+</UICore:BasePage>

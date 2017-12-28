@@ -38,6 +38,36 @@ namespace Testinator.Client.Core
         /// </summary>
         public bool NoAnswerWarning { get; set; } = false;
 
+        /// <summary>
+        /// Indicates whether the view should be enabled for changes
+        /// ReadOnly mode is used while presenting the result to the user
+        /// </summary>
+        public bool IsReadOnly { get; set; }
+
+        /// <summary>
+        /// Indicates if the answer given by the user is correct
+        /// Makes sense only if <see cref="IsReadOnly"/> is set to true
+        /// </summary>
+        public bool IsAnswerCorrect { get; set; }
+
+        /// <summary>
+        /// The answer give by the user 
+        /// Makes sense only if <see cref="IsReadOnly"/> is set to true
+        /// </summary>
+        public MultipleCheckboxesAnswer UserAnswer { get; set; }
+
+        /// <summary>
+        /// The index of the viewmodel in a viewmodels list
+        /// Usefull to match the click event
+        /// Used in ResultPage
+        /// </summary>
+        public int Index { get; set; }
+
+        /// <summary>
+        /// The type of this question
+        /// </summary>
+        public QuestionType Type => QuestionType.MultipleCheckboxes;
+
         #endregion
 
         #region Commands

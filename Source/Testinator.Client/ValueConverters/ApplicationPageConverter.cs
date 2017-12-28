@@ -26,8 +26,11 @@ namespace Testinator.Client
                 case ApplicationPage.WaitingForTest:
                     return new WaitingForTestPage(viewModel as WaitingForTestViewModel);
 
-                case ApplicationPage.ResultPage:
-                    return new ResultPage(viewModel as ResultViewModel);
+                case ApplicationPage.ResultOverviewPage:
+                    return new ResultOverviewPage(viewModel as ResultOverviewViewModel);
+
+                case ApplicationPage.ResultQuestionsPage:
+                    return new ResultQuestionsPage(viewModel as ResultQuestionsViewModel);
 
                 #region Question Pages
 
@@ -60,8 +63,10 @@ namespace Testinator.Client
                 return ApplicationPage.Login;
             if (page is WaitingForTestPage)
                 return ApplicationPage.WaitingForTest;
-            if (page is ResultPage)
-                return ApplicationPage.ResultPage;
+            if (page is ResultOverviewPage)
+                return ApplicationPage.ResultOverviewPage;
+            if (page is ResultQuestionsPage)
+                return ApplicationPage.ResultQuestionsPage;
             if (page is QuestionMultipleChoicePage)
                 return ApplicationPage.QuestionMultipleChoice;
             if (page is QuestionMultipleCheckboxesPage)

@@ -23,7 +23,12 @@
         /// <summary>
         /// The page that contains test results
         /// </summary>
-        ResultPage,
+        ResultOverviewPage,
+
+        /// <summary>
+        /// The page that show every question to the user so he can check in which he did well
+        /// </summary>
+        ResultQuestionsPage,
         
         #region Question Pages
 

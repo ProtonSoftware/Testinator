@@ -78,9 +78,11 @@
                                 Visibility="{Binding Criteria.IsMarkAIncluded, Converter={local:BooleanToVisiblityConverter}}"
                                 Grid.Row="4">
                         <TextBox Text="{Binding BottomValueMarkA, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkA, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
                                    Margin="2 0"/>
@@ -89,9 +91,11 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="5">
                         <TextBox Text="{Binding BottomValueMarkB, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkB, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
                                    Margin="2 0"/>
@@ -100,9 +104,11 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="6">
                         <TextBox Text="{Binding BottomValueMarkC, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkC, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
                                    Margin="2 0"/>
@@ -111,9 +117,11 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="7">
                         <TextBox Text="{Binding BottomValueMarkD, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkD, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
                                    Margin="2 0"/>
@@ -122,9 +130,11 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="8">
                         <TextBox Text="{Binding BottomValueMarkE, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkE, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
                                    Margin="2 0"/>
@@ -133,9 +143,11 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="9">
                         <TextBox Text="{Binding BottomValueMarkF, UpdateSourceTrigger=PropertyChanged}" 
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="-" />
                         <TextBox Text="{Binding TopValueMarkF, UpdateSourceTrigger=PropertyChanged}"
+                                 local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
                         <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
                                    Margin="2 0"/>

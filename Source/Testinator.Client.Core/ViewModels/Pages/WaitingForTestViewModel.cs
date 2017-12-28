@@ -202,7 +202,7 @@ namespace Testinator.Client.Core
             IoCClient.TestHost.BindTest(test);
 
             await Task.Delay(2000);
-            IoCClient.TestHost.Start();
+            IoCClient.TestHost.StartTest();
             //IoCClient.TestHost.GoNextQuestion();
 
         }

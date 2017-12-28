@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="DataModels\IconType.cs" />
+    <Compile Include="DataModels\IconTypeExtensions.cs" />
     <Compile Include="IoC\ClientNetwork.cs" />
     <Compile Include="IoC\Interfaces\IUIManager.cs" />
     <Compile Include="IoC\Base\IoCClient.cs" />
@@ -65,7 +67,8 @@
     <Compile Include="ViewModels\Pages\Questions\QuestionMultipleCheckboxesViewModel.cs" />
     <Compile Include="ViewModels\Pages\Questions\QuestionMultipleChoiceViewModel.cs" />
     <Compile Include="ViewModels\Pages\Questions\QuestionSingleTextBoxViewModel.cs" />
-    <Compile Include="ViewModels\Pages\ResultViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ResultQuestionsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ResultOverviewViewModel.cs" />
     <Compile Include="ViewModels\Pages\WaitingForTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\LoginViewModel.cs" />
   </ItemGroup>

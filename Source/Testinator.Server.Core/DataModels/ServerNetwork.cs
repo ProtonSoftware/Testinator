@@ -61,7 +61,7 @@ namespace Testinator.Network.Server
         private void ServerDataReceived(ClientModel sender, DataPackage data)
         {
             // Fire the test host
-            IoCServer.TestHost.OnDataRecived(sender, data);
+            IoCServer.TestHost.OnDataReceived(sender, data);
         }
         
         #endregion

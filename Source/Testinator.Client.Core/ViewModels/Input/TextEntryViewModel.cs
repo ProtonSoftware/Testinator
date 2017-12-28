@@ -32,7 +32,7 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Public Commands
+        #region Commands
 
         /// <summary>
         /// Puts the control into edit mode
@@ -104,7 +104,6 @@ namespace Testinator.Client.Core
 
                 case "Nazwisko": IoCClient.Client.ClientSurname = EditedText;
                     break;
-
             }
 
             // Get out of editing mode

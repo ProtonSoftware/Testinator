@@ -29,7 +29,8 @@
                 <TextBlock Text="{Binding Question.Task}" />
 
                 <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource BigInputTextBox}"/>
+                         Style="{StaticResource BigInputTextBox}"
+                         IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"/>
 
             </StackPanel>
             
@@ -39,6 +40,7 @@
                 Grid.Row="1"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
+                Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="50" />
