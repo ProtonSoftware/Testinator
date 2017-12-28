@@ -17,6 +17,16 @@ namespace Testinator.Client.Core
         /// </summary>
         private System.Timers.Timer mTestTimer = new System.Timers.Timer(1000);
 
+        /// <summary>
+        /// Indicates current question
+        /// </summary>
+        private int mCurrentQuestion = 0;
+
+        /// <summary>
+        /// Answers given by the user
+        /// </summary>
+        private List<Answer> mAnswers = new List<Answer>();
+
         #endregion
 
         #region Public Properties
@@ -25,11 +35,6 @@ namespace Testinator.Client.Core
         /// The test that is currently hosted
         /// </summary>
         public Test CurrentTest { get; set; } = new Test();
-
-        /// <summary>
-        /// Indicates current question user is facing
-        /// </summary>
-        public int CurrentQuestion { get; private set; } = 0;
 
         /// <summary>
         /// List of all questions in the test
@@ -58,11 +63,9 @@ namespace Testinator.Client.Core
         public TimeSpan TimeLeft { get; private set; }
 
         /// <summary>
-<<<<<<< HEAD
         /// Shows which question is currently shown
         /// </summary>
         public string QuestionNumber { get; set; }
-=======
         /// The user's score
         /// </summary>
         public int UserScore { get; private set; }
@@ -76,7 +79,6 @@ namespace Testinator.Client.Core
         /// The viewmodels for the result page, contaning question, user answer and the correct answer
         /// </summary>
         public List<BaseViewModel> QuestionViewModels { get; set; } = new List<BaseViewModel>();
->>>>>>> ResultPage
 
         #endregion
 
@@ -173,7 +175,7 @@ namespace Testinator.Client.Core
         public void SaveAnswer(Answer answer)
         {
             // Make id of the question match the id of the answer
-            answer.ID = Questions[CurrentQuestion - 1].ID;
+            answer.ID = Questions[mCurrentQuestion - 1].ID;
 
             // Save the answer
             UserAnswers.Add(answer);
@@ -187,7 +189,7 @@ namespace Testinator.Client.Core
         public void GoNextQuestion()
         {
             // If last question was the last question, finish the test
-            if (CurrentQuestion >= Questions.Count)
+            if (mCurrentQuestion >= Questions.Count)
             {
                 TestFinished();
                 return;
@@ -200,13 +202,13 @@ namespace Testinator.Client.Core
             SendUpdate();
 
             // Based on next question type...
-            switch (Questions[CurrentQuestion - 1].Type)
+            switch (Questions[mCurrentQuestion - 1].Type)
             {
                 case QuestionType.MultipleChoice:
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleChoiceViewModel();
-                        questionViewModel.AttachQuestion(Questions[CurrentQuestion - 1] as MultipleChoiceQuestion);
+                        questionViewModel.AttachQuestion(Questions[mCurrentQuestion - 1] as MultipleChoiceQuestion);
                         IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
                         break;
                     }
@@ -215,7 +217,7 @@ namespace Testinator.Client.Core
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionMultipleCheckboxesViewModel();
-                        questionViewModel.AttachQuestion(Questions[CurrentQuestion - 1] as MultipleCheckboxesQuestion);
+                        questionViewModel.AttachQuestion(Questions[mCurrentQuestion - 1] as MultipleCheckboxesQuestion);
                         IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
                         break;
                     }
@@ -224,7 +226,7 @@ namespace Testinator.Client.Core
                     {
                         // Get the view model of a question and pass it as a parameter to new site
                         var questionViewModel = new QuestionSingleTextBoxViewModel();
-                        questionViewModel.AttachQuestion(Questions[CurrentQuestion - 1] as SingleTextBoxQuestion);
+                        questionViewModel.AttachQuestion(Questions[mCurrentQuestion - 1] as SingleTextBoxQuestion);
                         IoCClient.UI.ChangePage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
                         break;
                     }
@@ -376,7 +378,7 @@ namespace Testinator.Client.Core
                 Content = new StatusPackage()
                 {
                     // Send progress user has made
-                    QuestionSolved = CurrentQuestion,
+                    QuestionSolved = mCurrentQuestion,
                 },
             };
             
@@ -385,36 +387,27 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
-<<<<<<< HEAD
         /// Resets the question number
         /// </summary>
         private void ResetQuestionNumber()
         {
             mCurrentQuestion = 0;
-            QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
+            QuestionNumber = mCurrentQuestion + " / " + Questions.Count;
         }
 
         /// <summary>
-=======
->>>>>>> ResultPage
         /// Updates the current question number
         /// Or resets it if requested
         /// </summary>
         private void UpdateQuestionNumber(bool reset)
         {
-<<<<<<< HEAD
             mCurrentQuestion++;
-            QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
-=======
+            QuestionNumber = mCurrentQuestion + " / " + Questions.Count;
             // If sender wants to reset the counter, set it to 0
-            if (reset) CurrentQuestion = 0;
+            if (reset) mCurrentQuestion = 0;
 
             // Otherwise, increment it
-            else CurrentQuestion++;
-
-            // Update the question number display in the view
-            IoCClient.Application.QuestionNumber = CurrentQuestion + " / " + Questions.Count;
->>>>>>> ResultPage
+            else mCurrentQuestion++;
         }
 
         /// <summary>
