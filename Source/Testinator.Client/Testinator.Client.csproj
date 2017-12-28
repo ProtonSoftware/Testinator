@@ -100,8 +100,11 @@
     <Compile Include="Pages\Questions\QuestionMultipleChoicePage.xaml.cs">
       <DependentUpon>QuestionMultipleChoicePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ResultPage.xaml.cs">
-      <DependentUpon>ResultPage.xaml</DependentUpon>
+    <Compile Include="Pages\ResultQuestionsPage.xaml.cs">
+      <DependentUpon>ResultQuestionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ResultOverviewPage.xaml.cs">
+      <DependentUpon>ResultOverviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WaitingForTestPage.xaml.cs">
       <DependentUpon>WaitingForTestPage.xaml</DependentUpon>
@@ -165,7 +168,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\ResultPage.xaml">
+    <Page Include="Pages\ResultQuestionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ResultOverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

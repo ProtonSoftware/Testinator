@@ -147,7 +147,7 @@ namespace Testinator.Client.Core
             IsTestInProgress = false;
 
             // Change page to result page
-            IoCClient.UI.ChangePage(ApplicationPage.ResultPage);
+            IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);
         }
 
         /// <summary>
@@ -225,6 +225,86 @@ namespace Testinator.Client.Core
 
             // Indicate that we are out of test now
             IsTestReceived = false;
+        }
+
+        /// <summary>
+        /// Compares the both answers and questions lists and calculates user point score based on that
+        /// </summary>
+        public void CompareUserAnswersAndCalculatePoints()
+        {
+            // Keep track of user total point score
+            var totalScore = 0;
+
+            // For each question...
+            foreach (var question in Questions)
+            {
+                // Look for the match answer
+                foreach (var answer in UserAnswers)
+                    if (answer.ID == question.ID)
+                    {
+                        // Based on question type...
+                        switch (question.Type)
+                        {
+                            case QuestionType.MultipleChoice:
+                                {
+                                    // Cast the answer and question objects
+                                    var multipleChoiceAnswer = answer as MultipleChoiceAnswer;
+                                    var multipleChoiceQuestion = question as MultipleChoiceQuestion;
+
+                                    // Check if user has answered correctly
+                                    if (multipleChoiceQuestion.CorrectAnswerIndex == multipleChoiceAnswer.SelectedAnswerIdx)
+                                        // Give him points for this question
+                                        totalScore += multipleChoiceQuestion.PointScore;
+                                }
+                                break;
+
+                            case QuestionType.MultipleCheckboxes:
+                                {
+                                    // Cast the answer and question objects
+                                    var multipleCheckboxesAnswer = answer as MultipleCheckboxesAnswer;
+                                    var multipleCheckboxesQuestion = question as MultipleCheckboxesQuestion;
+
+                                    // TODO: Advanced checkboxes logic (giving points for every good answer, or only for the whole set etc.)
+                                }
+                                break;
+
+                            case QuestionType.SingleTextBox:
+                                {
+                                    // Cast the answer and question objects
+                                    var singleTextBoxAnswer = answer as SingleTextBoxAnswer;
+                                    var singleTextBoxQuestion = question as SingleTextBoxQuestion;
+
+                                    // Catch the right answer string and user answer string
+                                    var rightAnswer = singleTextBoxAnswer.Answer;
+                                    var userAnswer = singleTextBoxQuestion.CorrectAnswer;
+
+                                    // Remove white spaces from them
+                                    rightAnswer = rightAnswer.Trim();
+                                    userAnswer = userAnswer.Trim();
+
+                                    // TODO: Check in settings if it the answer has to be case sensitive
+                                    if (!false)//isCaseSensitivityImportant?
+                                    {
+                                        // Answer doesn't have to be case sensitive, make every string as lowercase
+                                        rightAnswer = rightAnswer.ToLower();
+                                        userAnswer = userAnswer.ToLower();
+                                    }
+
+                                    // Check if answer matches
+                                    if (rightAnswer == userAnswer)
+                                        // Give user points for this question
+                                        totalScore += singleTextBoxQuestion.PointScore;
+                                }
+                                break;
+                        }
+
+                        // We have handled answer for this question, go to the next one
+                        break;
+                    }
+            }
+
+            // Set calculated point score to the property
+            UserScore = totalScore;
         }
 
         #endregion
