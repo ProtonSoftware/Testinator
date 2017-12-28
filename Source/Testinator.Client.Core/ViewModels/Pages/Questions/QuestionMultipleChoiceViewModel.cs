@@ -19,7 +19,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + (Question.ID + 1).ToString();
+        public string QuestionPageCounter => "Pytanie " + (Question?.ID + 1).ToString();
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...

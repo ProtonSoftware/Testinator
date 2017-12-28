@@ -57,7 +57,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void SelectItem()
         {
-            // Simple toogle item selected flag 
+            // Simple toggle item selected flag 
             IsSelected ^= true;
         }
 

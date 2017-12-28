@@ -158,7 +158,7 @@ namespace Testinator.Network.Server
 
                 return;
             }
-            catch (Exception ex)
+            catch
             {
                 return;
             }

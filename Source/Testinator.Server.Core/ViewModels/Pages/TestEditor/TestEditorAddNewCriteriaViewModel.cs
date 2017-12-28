@@ -104,12 +104,12 @@ namespace Testinator.Server.Core
             // Load the criteria list
             CriteriaListViewModel.Instance.LoadItems();
 
-            // Load sample data
+            // Load default data
             LoadCriteria(new GradingPercentage());
+
+            // Update the view
             PropertyChanged += TestEditorAddNewCriteriaViewModel_PropertyChanged;
         }
-
-
 
         #endregion
 
@@ -128,7 +128,6 @@ namespace Testinator.Server.Core
             else
                 // Simply change page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditor);
-
         }
 
         /// <summary>
@@ -138,7 +137,7 @@ namespace Testinator.Server.Core
         private void EditCriteria(object param)
         {
             // Cast parameter to string
-            string criteriaName = param.ToString();
+            var criteriaName = param.ToString();
 
             // If we are in editing mode
             if (EditingCriteriaMode)
@@ -218,15 +217,15 @@ namespace Testinator.Server.Core
             InvalidDataError = false;
 
             // Update values in grading object
-            if (Criteria.IsMarkAIncluded) Criteria.UpdateMark(Marks.A, Int32.Parse(TopValueMarkA), Int32.Parse(BottomValueMarkA));
-            Criteria.UpdateMark(Marks.B, Int32.Parse(TopValueMarkB), Int32.Parse(BottomValueMarkB));
-            Criteria.UpdateMark(Marks.C, Int32.Parse(TopValueMarkC), Int32.Parse(BottomValueMarkC));
-            Criteria.UpdateMark(Marks.D, Int32.Parse(TopValueMarkD), Int32.Parse(BottomValueMarkD));
-            Criteria.UpdateMark(Marks.E, Int32.Parse(TopValueMarkE), Int32.Parse(BottomValueMarkE));
-            Criteria.UpdateMark(Marks.F, Int32.Parse(TopValueMarkF), Int32.Parse(BottomValueMarkF));
+            if (Criteria.IsMarkAIncluded) Criteria.UpdateMark(Marks.A, int.Parse(TopValueMarkA), int.Parse(BottomValueMarkA));
+            Criteria.UpdateMark(Marks.B, int.Parse(TopValueMarkB), int.Parse(BottomValueMarkB));
+            Criteria.UpdateMark(Marks.C, int.Parse(TopValueMarkC), int.Parse(BottomValueMarkC));
+            Criteria.UpdateMark(Marks.D, int.Parse(TopValueMarkD), int.Parse(BottomValueMarkD));
+            Criteria.UpdateMark(Marks.E, int.Parse(TopValueMarkE), int.Parse(BottomValueMarkE));
+            Criteria.UpdateMark(Marks.F, int.Parse(TopValueMarkF), int.Parse(BottomValueMarkF));
 
             // Send it to xml writer and save it
-            FileWriters.XmlWriter.SaveGrading(this.Name, this.Criteria);
+            FileWriters.XmlWriter.SaveGrading(Name, Criteria);
 
             // Check if we were editing existing one or not
             if (EditingCriteriaMode)
@@ -315,23 +314,23 @@ namespace Testinator.Server.Core
             try
             {
                 // Parse every number value to integer
-                int topMarkA = 0;
-                int bottomMarkA = 0;
+                var topMarkA = 0;
+                var bottomMarkA = 0;
                 if (Criteria.IsMarkAIncluded)
                 {
-                    topMarkA = Int32.Parse(TopValueMarkA);
-                    bottomMarkA = Int32.Parse(BottomValueMarkA);
+                    topMarkA = int.Parse(TopValueMarkA);
+                    bottomMarkA = int.Parse(BottomValueMarkA);
                 }
-                int topMarkB = Int32.Parse(TopValueMarkB);
-                int bottomMarkB = Int32.Parse(BottomValueMarkB);
-                int topMarkC = Int32.Parse(TopValueMarkC);
-                int bottomMarkC = Int32.Parse(BottomValueMarkC);
-                int topMarkD = Int32.Parse(TopValueMarkD);
-                int bottomMarkD = Int32.Parse(BottomValueMarkD);
-                int topMarkE = Int32.Parse(TopValueMarkE);
-                int bottomMarkE = Int32.Parse(BottomValueMarkE);
-                int topMarkF = Int32.Parse(TopValueMarkF);
-                int bottomMarkF = Int32.Parse(BottomValueMarkF);
+                var topMarkB = int.Parse(TopValueMarkB);
+                var bottomMarkB = int.Parse(BottomValueMarkB);
+                var topMarkC = int.Parse(TopValueMarkC);
+                var bottomMarkC = int.Parse(BottomValueMarkC);
+                var topMarkD = int.Parse(TopValueMarkD);
+                var bottomMarkD = int.Parse(BottomValueMarkD);
+                var topMarkE = int.Parse(TopValueMarkE);
+                var bottomMarkE = int.Parse(BottomValueMarkE);
+                var topMarkF = int.Parse(TopValueMarkF);
+                var bottomMarkF = int.Parse(BottomValueMarkF);
 
                 // Check if input data is in sequence
                 if (Criteria.IsMarkAIncluded)

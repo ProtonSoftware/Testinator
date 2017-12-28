@@ -19,8 +19,8 @@ namespace Testinator.Core
         {
             try
             {
-                MemoryStream ms = new MemoryStream();
-                BinaryFormatter bf = new BinaryFormatter();
+                var ms = new MemoryStream();
+                var bf = new BinaryFormatter();
                 ms.Write(Bytes, 0, Bytes.Length);
                 ms.Seek(0, SeekOrigin.Begin);
                 output = (DataPackage)bf.Deserialize(ms);
@@ -44,8 +44,8 @@ namespace Testinator.Core
         {
             try
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                using (MemoryStream ms = new MemoryStream())
+                var bf = new BinaryFormatter();
+                using (var ms = new MemoryStream())
                 {
                     bf.Serialize(ms, input);
                     Bytes = ms.ToArray();

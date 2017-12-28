@@ -15,12 +15,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The question for this view model to show
         /// </summary>
-        public MultipleCheckboxesQuestion Question { get; set; }
+        public MultipleCheckboxesQuestion Question { get; set; } 
 
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + (Question.ID + 1).ToString();
+        public string QuestionPageCounter => "Pytanie " + (Question?.ID + 1).ToString();
 
         /// <summary>
         /// Options for the questions to check or uncheck

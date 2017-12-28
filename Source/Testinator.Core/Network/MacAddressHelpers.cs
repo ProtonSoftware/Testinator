@@ -13,8 +13,8 @@ namespace Testinator.Core.Network
         /// <returns>This machine mac address</returns>
         public static string GetMac()
         {
-            string macAddress = string.Empty;
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            var macAddress = string.Empty;
+            foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 //if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet) continue;
                 if (nic.OperationalStatus == OperationalStatus.Up)

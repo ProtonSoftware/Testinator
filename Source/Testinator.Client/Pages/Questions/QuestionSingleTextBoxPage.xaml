@@ -8,11 +8,11 @@
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d">
     
-    <Grid Background="{StaticResource WhiteLightBrush}"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center">
+    <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <Border Background="{StaticResource WhiteDarkBrush}" 
+        <Border Background="{StaticResource WhiteDarkBrush}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center" 
                 CornerRadius="3"
                 Padding="15 50 15 15"
                 Width="600"

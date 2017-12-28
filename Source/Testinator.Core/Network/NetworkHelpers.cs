@@ -50,7 +50,7 @@ namespace Testinator.Core
         /// <returns>True if address is correct, false if not</returns>
         public static bool IsAddresCorrect(string ip)
         {
-            return IPAddress.TryParse(ip, out IPAddress ipa);
+            return IPAddress.TryParse(ip, out var ipa);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Testinator.Core
         /// <returns></returns>
         public static bool IsPortCorrect(string port)
         {
-            if (!Int32.TryParse(port, out int mport))
+            if (!int.TryParse(port, out var mport))
                 return false;
 
             if (mport < 0 || mport > 9999)
