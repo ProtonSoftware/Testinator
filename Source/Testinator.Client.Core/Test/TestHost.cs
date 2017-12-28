@@ -62,6 +62,16 @@ namespace Testinator.Client.Core
         /// </summary>
         public int UserScore { get; private set; }
 
+        /// <summary>
+        /// The user's mark
+        /// </summary>
+        public Marks UserMark { get; private set; }
+
+        /// <summary>
+        /// The viewmodels for the result page, contaning question, user answer and the correct answer
+        /// </summary>
+        public List<BaseViewModel> QuestionViewModels { get; set; } = new List<BaseViewModel>();
+
         #endregion
 
         #region Public Events
@@ -230,81 +240,109 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Compares the both answers and questions lists and calculates user point score based on that
         /// </summary>
-        public void CompareUserAnswersAndCalculatePoints()
+        public void CalculateScore()
         {
-            // Keep track of user total point score
+            // Total point score
             var totalScore = 0;
 
-            // For each question...
-            foreach (var question in Questions)
-            {
-                // Look for the match answer
-                foreach (var answer in UserAnswers)
-                    if (answer.ID == question.ID)
-                    {
-                        // Based on question type...
-                        switch (question.Type)
+            // We can iterate like this because the question list and answer list are in the same order
+            for (var i = 0; i < Questions.Count; i++)
+            {   
+                // Based on question type...
+                switch (Questions[i].Type)
+                {
+                    case QuestionType.MultipleChoice:
                         {
-                            case QuestionType.MultipleChoice:
-                                {
-                                    // Cast the answer and question objects
-                                    var multipleChoiceAnswer = answer as MultipleChoiceAnswer;
-                                    var multipleChoiceQuestion = question as MultipleChoiceQuestion;
+                            // Cast the answer and question objects
+                            var multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
+                            var multipleChoiceQuestion = Questions[i] as MultipleChoiceQuestion;
 
-                                    // Check if user has answered correctly
-                                    if (multipleChoiceQuestion.CorrectAnswerIndex == multipleChoiceAnswer.SelectedAnswerIdx)
-                                        // Give him points for this question
-                                        totalScore += multipleChoiceQuestion.PointScore;
-                                }
-                                break;
+                            var isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
 
-                            case QuestionType.MultipleCheckboxes:
-                                {
-                                    // Cast the answer and question objects
-                                    var multipleCheckboxesAnswer = answer as MultipleCheckboxesAnswer;
-                                    var multipleCheckboxesQuestion = question as MultipleCheckboxesQuestion;
+                            // Check if user has answered correctly
+                            if (isAnswerCorrect)
+                                // Give them points for this question
+                                totalScore += multipleChoiceQuestion.PointScore;
 
-                                    // TODO: Advanced checkboxes logic (giving points for every good answer, or only for the whole set etc.)
-                                }
-                                break;
+                            // Create view model for the future use by the result page
+                            var viewmodel = new QuestionMultipleChoiceViewModel()
+                            {
+                                IsAnswerCorrect = isAnswerCorrect,
+                                UserAnswer = multipleChoiceAnswer,
+                                IsReadOnly = true,
+                                Index = i,
+                            };
 
-                            case QuestionType.SingleTextBox:
-                                {
-                                    // Cast the answer and question objects
-                                    var singleTextBoxAnswer = answer as SingleTextBoxAnswer;
-                                    var singleTextBoxQuestion = question as SingleTextBoxQuestion;
+                            // Attach the question and the correct answer flag
+                            viewmodel.AttachQuestion(multipleChoiceQuestion);
 
-                                    // Catch the right answer string and user answer string
-                                    var rightAnswer = singleTextBoxAnswer.Answer;
-                                    var userAnswer = singleTextBoxQuestion.CorrectAnswer;
-
-                                    // Remove white spaces from them
-                                    rightAnswer = rightAnswer.Trim();
-                                    userAnswer = userAnswer.Trim();
-
-                                    // TODO: Check in settings if it the answer has to be case sensitive
-                                    if (!false)//isCaseSensitivityImportant?
-                                    {
-                                        // Answer doesn't have to be case sensitive, make every string as lowercase
-                                        rightAnswer = rightAnswer.ToLower();
-                                        userAnswer = userAnswer.ToLower();
-                                    }
-
-                                    // Check if answer matches
-                                    if (rightAnswer == userAnswer)
-                                        // Give user points for this question
-                                        totalScore += singleTextBoxQuestion.PointScore;
-                                }
-                                break;
+                            QuestionViewModels.Add(viewmodel);
                         }
-
-                        // We have handled answer for this question, go to the next one
                         break;
-                    }
+
+                    case QuestionType.MultipleCheckboxes:
+                        {
+                            // Cast the answer and question objects
+                            var multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
+                            var multipleCheckboxesQuestion = Questions[i] as MultipleCheckboxesQuestion;
+
+                            var isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesQuestion);
+
+                            // Check if user has answered correctly
+                            if (isAnswerCorrect)
+                                // Give them points for this question
+                                totalScore += multipleCheckboxesQuestion.PointScore;
+
+                            // Create view model for the future use by the result page
+                            var viewmodel = new QuestionMultipleCheckboxesViewModel()
+                            {
+                                IsAnswerCorrect = isAnswerCorrect,
+                                UserAnswer = multipleCheckboxesAnswer,
+                                IsReadOnly = true,
+                                Index = i,
+                            };
+
+                            // Attach the question and the correct answer flag
+                            viewmodel.AttachQuestion(multipleCheckboxesQuestion);
+
+                            QuestionViewModels.Add(viewmodel);
+                        }
+                        break;
+
+                    case QuestionType.SingleTextBox:
+                        {
+                            // Cast the answer and question objects
+                            var singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
+                            var singleTextBoxQuestion = Questions[i] as SingleTextBoxQuestion;
+
+                            var isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
+
+                            // Check if user has answered correctly
+                            if (isAnswerCorrect)
+                                // Give them multipleCheckboxesAnswer for this question
+                                totalScore += singleTextBoxQuestion.PointScore;
+
+                            // Create view model for the future use by the result page
+                            var viewmodel = new QuestionSingleTextBoxViewModel()
+                            {
+                                IsAnswerCorrect = isAnswerCorrect,
+                                UserAnswer = singleTextBoxAnswer.Answer,
+                                IsReadOnly = true,
+                                Index = i,
+                            };
+
+                            // Attach the question and the correct answer flag
+                            viewmodel.AttachQuestion(singleTextBoxQuestion);
+
+                            QuestionViewModels.Add(viewmodel);
+                        }
+                        break;
+                }
             }
 
-            // Set calculated point score to the property
+            // Set calculated point score to the property and set the corresponding mark
             UserScore = totalScore;
+            UserMark = CurrentTest.Grading.GetMark(UserScore);
         }
 
         #endregion
@@ -316,14 +354,9 @@ namespace Testinator.Client.Core
         /// </summary>
         private void TestFinished()
         {
-
+            CalculateScore();
             
             StopTest();
-        }
-
-        private void CalculateScore()
-        { 
-
         }
 
         /// <summary>

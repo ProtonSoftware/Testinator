@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="DataModels\IconType.cs" />
+    <Compile Include="DataModels\IconTypeExtensions.cs" />
     <Compile Include="IoC\ClientNetwork.cs" />
     <Compile Include="IoC\Interfaces\IUIManager.cs" />
     <Compile Include="IoC\Base\IoCClient.cs" />

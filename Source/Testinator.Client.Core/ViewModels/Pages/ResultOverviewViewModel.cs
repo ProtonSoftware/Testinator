@@ -13,24 +13,9 @@ namespace Testinator.Client.Core
         #region Public Properties
 
         /// <summary>
-        /// The original test received from server
-        /// </summary>
-        public Test Test { get; private set; }
-
-        /// <summary>
-        /// List of questions in the test user has accomplished
-        /// </summary>
-        public List<Question> Questions { get; private set; }
-
-        /// <summary>
-        /// List of answers user has sent
-        /// </summary>
-        public List<Answer> UserAnswers { get; private set; }
-
-        /// <summary>
         /// The time in which user has completed the test
         /// </summary>
-        public TimeSpan CompletionTime => Test.Duration - IoCClient.Application.TimeLeft;
+        public TimeSpan CompletionTime => IoCClient.TestHost.CurrentTest.Duration - IoCClient.Application.TimeLeft;
 
         /// <summary>
         /// The score user achieved
@@ -40,7 +25,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The mark user has achieved by doing the test
         /// </summary>
-        public Marks UserMark => Test.Grading.GetMark(UserScore);
+        public Marks UserMark => IoCClient.TestHost.CurrentTest.Grading.GetMark(UserScore);
 
         #endregion
 
@@ -51,6 +36,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand ExitCommand { get; private set; }
 
+        /// <summary>
+        /// The command to open question list with answers
+        /// </summary>
+        public ICommand GoToQuestionsCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -60,14 +50,9 @@ namespace Testinator.Client.Core
         /// </summary>
         public ResultOverviewViewModel()
         {
-            // Load data from TestHost
-            LoadTestHostData();
-
-            // Calculate user's score
-            IoCClient.TestHost.CompareUserAnswersAndCalculatePoints();
-
             // Create commands
             ExitCommand = new RelayCommand(Exit);
+            GoToQuestionsCommand = new RelayCommand(GoToQuestions);
         }
 
         #endregion
@@ -86,25 +71,15 @@ namespace Testinator.Client.Core
             IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
         }
 
-        #endregion
-
-        #region Private Helpers
-
         /// <summary>
-        /// Loads data from TestHost to this view model
+        /// Changes page to the question list with answers
         /// </summary>
-        private void LoadTestHostData()
+        private void GoToQuestions()
         {
-            // Get the original test
-            Test = IoCClient.TestHost.CurrentTest;
-
-            // Get the list of questions
-            Questions = IoCClient.TestHost.Questions;
-
-            // Get user answers
-            UserAnswers = IoCClient.TestHost.UserAnswers;
+            IoCClient.Application.GoToPage(ApplicationPage.ResultQuestionsPage);
         }
 
         #endregion
+
     }
 }

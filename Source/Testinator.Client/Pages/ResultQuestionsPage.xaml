@@ -11,57 +11,43 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="Green" Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
-                   Margin="20"
+                   Margin="0 10 0 0"
                    Foreground="{StaticResource BlackDarkBrush}"
                    Style="{StaticResource TitleText}" />
-
-        <Border Background="{StaticResource WhiteDarkBrush}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Padding="30">
-
-            <Grid>
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Grid>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    
-
-                </Grid>
-
-                <Grid Grid.Column="1">
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    
-                
-                </Grid>
-
-            </Grid>
-            
         </Border>
+        
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0"
+                          Panel.ZIndex="2">
+                <ItemsControl ItemsSource="{Binding Questions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:QuestionListItemControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+            <local:PageHost Grid.Column="1"
+                            CurrentPage="{Binding CurrentPage}"
+                            CurrentPageViewModel="{Binding CurrentPageViewModel}"/>
+
+        </Grid>
         
     </Grid>
 </UICore:BasePage>

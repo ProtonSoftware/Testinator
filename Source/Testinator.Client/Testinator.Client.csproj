@@ -90,6 +90,9 @@
     <Compile Include="Controls\Questions\ABCAnswerItemControl.xaml.cs">
       <DependentUpon>ABCAnswerItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Questions\QuestionListItemControl.xaml.cs">
+      <DependentUpon>QuestionListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IoC\UIManager.cs" />
     <Compile Include="Pages\Questions\QuestionMultipleCheckboxesPage.xaml.cs">
       <DependentUpon>QuestionMultipleCheckboxesPage.xaml</DependentUpon>
@@ -117,6 +120,7 @@
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\MarkToTextConverter.cs" />
+    <Compile Include="ValueConverters\QuestionTypeToIconConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -141,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Questions\ABCAnswerItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Questions\QuestionListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

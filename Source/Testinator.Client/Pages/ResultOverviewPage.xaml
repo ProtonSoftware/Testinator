@@ -88,7 +88,8 @@
                     </Grid.RowDefinitions>
 
                     <Button Content="Zobacz pytania"
-                            Style="{StaticResource BaseUIButton}" />
+                            Style="{StaticResource BaseUIButton}"
+                            Command="{Binding GoToQuestionsCommand}"/>
 
                     <Button Content="Zakończ"
                             Grid.Row="1"

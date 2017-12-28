@@ -48,6 +48,7 @@
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
                 HorizontalAlignment="Right" 
+                Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                 Margin="50" />
 
     </Grid>

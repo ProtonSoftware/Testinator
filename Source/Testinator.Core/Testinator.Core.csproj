@@ -60,6 +60,7 @@
     <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleCheckboxesAnswer.cs" />
     <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleChoiceAnswer.cs" />
     <Compile Include="DataModels\Questions\AnswerModel\Types\SingleTextBoxAnswer.cs" />
+    <Compile Include="DataModels\Questions\QuestionHelpers.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionBase.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleCheckboxesQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />
