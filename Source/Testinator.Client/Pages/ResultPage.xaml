@@ -63,7 +63,7 @@
                                Grid.Row="2"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <TextBlock Text="Celujący"
+                    <TextBlock Text="{Binding UserMark, Converter={local:MarkToTextConverter}}"
                                Grid.Row="2"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}" />
