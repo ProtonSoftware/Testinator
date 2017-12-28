@@ -93,7 +93,7 @@ namespace Testinator.Client.Core
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
-            SelectCommand = new RelayParameterizedCommand(Select);            
+            SelectCommand = new RelayParameterizedCommand(Select); 
         }
 
         #endregion
@@ -129,6 +129,10 @@ namespace Testinator.Client.Core
         /// <param name="idx">The index of the answer being cliked (int)</param>
         private void Select(object idx)
         {
+            // If read only dont let the user select answer
+            if (IsReadOnly)
+                return;
+
             // Get the index
             var index = (int)idx;
 
@@ -145,7 +149,7 @@ namespace Testinator.Client.Core
         #endregion
 
         #region Public Helpers
-
+        
         /// <summary>
         /// Adds question this view model will be based on
         /// NOTE: needs to be done before attaching this view model to the page
@@ -158,6 +162,14 @@ namespace Testinator.Client.Core
 
             // Convert the list of string to list of ABCAnswerItemViewModel
             Options = ListConvertFromStringQuestion(Question.Options);
+
+            if (IsReadOnly)
+            {
+                Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
+                Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
+
+                Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
+            }
         }
 
         #endregion

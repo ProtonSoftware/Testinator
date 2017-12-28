@@ -31,6 +31,11 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 
                                 <TextBlock Text="{Binding Letter}"
                                            Padding="5"
@@ -44,6 +49,11 @@
                                            Padding="5"
                                            Text="{Binding Text}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBlock Text="Twoja odpowiedź" 
+                                           Visibility="{Binding IsAnswerGivenByTheUser, Converter={local:BooleanToVisiblityConverter}}"
+                                           Grid.Row="1" 
+                                           Grid.Column="1"
+                                           Margin="5 0 0 5"/>
 
                             </Grid>
                         </Border>
@@ -53,6 +63,10 @@
 
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                 <Setter Property="Background" TargetName="background" Value="{StaticResource GreenLightBrush}"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding RedBackground}" Value="True">
+                                <Setter Property="Background" TargetName="background" Value="Red"/>
                             </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">

@@ -31,6 +31,24 @@ namespace Testinator.Client.Core
         /// </summary>
         public int Index { get; set; }
 
+        /// <summary>
+        /// Indicates if the answer given by the user is forrect
+        /// Makes sense only if the read only mode is enabled
+        /// </summary>
+        public bool IsAnswerCorrect { get; set; }
+
+        /// <summary>
+        /// Indicates if this answer was given by the user
+        /// Makes sense only if the read only mode is enabled
+        /// </summary>
+        public bool IsAnswerGivenByTheUser { get; set; }
+
+        /// <summary>
+        /// Indicates if this item's background should be red
+        /// When the answer is given by the user and is not correct
+        /// </summary>
+        public bool RedBackground => IsAnswerGivenByTheUser && !IsAnswerCorrect;
+
         #endregion
 
         #region Constructor

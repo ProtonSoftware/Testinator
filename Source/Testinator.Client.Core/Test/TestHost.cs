@@ -278,7 +278,7 @@ namespace Testinator.Client.Core
                                 Index = i,
                             };
 
-                            // Attach the question and the correct answer flag
+                            // Attach the question
                             viewmodel.AttachQuestion(multipleChoiceQuestion);
 
                             QuestionViewModels.Add(viewmodel);
@@ -307,7 +307,7 @@ namespace Testinator.Client.Core
                                 Index = i,
                             };
 
-                            // Attach the question and the correct answer flag
+                            // Attach the question
                             viewmodel.AttachQuestion(multipleCheckboxesQuestion);
 
                             QuestionViewModels.Add(viewmodel);
@@ -336,7 +336,7 @@ namespace Testinator.Client.Core
                                 Index = i,
                             };
 
-                            // Attach the question and the correct answer flag
+                            // Attach the question
                             viewmodel.AttachQuestion(singleTextBoxQuestion);
 
                             QuestionViewModels.Add(viewmodel);

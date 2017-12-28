@@ -20,7 +20,7 @@
                 HorizontalAlignment="Center"
                 CornerRadius="3"
                 Padding="25 30"
-                Width="600"
+                Width="500"
                 Margin="50">
 
             <StackPanel>
