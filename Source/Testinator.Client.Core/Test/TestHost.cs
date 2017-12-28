@@ -66,6 +66,7 @@ namespace Testinator.Client.Core
         /// Shows which question is currently shown
         /// </summary>
         public string QuestionNumber { get; set; }
+
         /// The user's score
         /// </summary>
         public int UserScore { get; private set; }
@@ -116,9 +117,6 @@ namespace Testinator.Client.Core
 
             // Indicate that test is starting
             IsTestInProgress = true;
-
-            // Reset question number, so user starts from first question
-            UpdateQuestionNumber(true);
 
             // Initialize the answer list so user can add his answer to it
             UserAnswers = new List<Answer>();
@@ -195,10 +193,9 @@ namespace Testinator.Client.Core
                 return;
             }
 
-            // Update the question number
-            UpdateQuestionNumber(false);
+            UpdateQuestionNumber();
 
-            // Send to the server that client has passed the previous question
+            // Send the update
             SendUpdate();
 
             // Based on next question type...
@@ -397,17 +394,11 @@ namespace Testinator.Client.Core
 
         /// <summary>
         /// Updates the current question number
-        /// Or resets it if requested
         /// </summary>
-        private void UpdateQuestionNumber(bool reset)
+        private void UpdateQuestionNumber()
         {
             mCurrentQuestion++;
             QuestionNumber = mCurrentQuestion + " / " + Questions.Count;
-            // If sender wants to reset the counter, set it to 0
-            if (reset) mCurrentQuestion = 0;
-
-            // Otherwise, increment it
-            else mCurrentQuestion++;
         }
 
         /// <summary>
