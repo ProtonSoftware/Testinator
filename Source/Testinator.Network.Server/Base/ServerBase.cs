@@ -103,8 +103,10 @@ namespace Testinator.Network.Server
         /// <param name="ar">Parameters</param>
         private void AcceptCallback(IAsyncResult ar)
         {
-            Socket clientSocket;
+            if (!IsRunning)
+                return;
 
+            Socket clientSocket;
             try
             {
                 // Try to get the newly connected socket
@@ -132,6 +134,9 @@ namespace Testinator.Network.Server
         /// <param name="ar"></param>
         private void ReceiveCallback(IAsyncResult ar)
         {
+            if (!IsRunning)
+                return;
+
             var senderSocket = (Socket)ar.AsyncState;
             int recivedCount;
 
@@ -139,7 +144,7 @@ namespace Testinator.Network.Server
             {
                 recivedCount = senderSocket.EndReceive(ar);
             }
-            catch (SocketException)
+            catch (SocketException ex)
             {
                 // Client is forcefully disconnected
                 senderSocket.Shutdown(SocketShutdown.Both);
@@ -153,7 +158,7 @@ namespace Testinator.Network.Server
 
                 return;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return;
             }
@@ -382,6 +387,7 @@ namespace Testinator.Network.Server
             }
 
             mServerSocket.Close();
+
             mIsRunning = false;
         }
 

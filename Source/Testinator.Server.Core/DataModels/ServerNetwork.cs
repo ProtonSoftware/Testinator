@@ -79,6 +79,15 @@ namespace Testinator.Network.Server
             OnDataRecived += ServerDataReceived;
         }
 
+        /// <summary>
+        /// Stops the server
+        /// </summary>
+        public new void Stop()
+        {
+            Clients.Clear();
+            base.Stop();
+        }
+
         #endregion
     }
 }

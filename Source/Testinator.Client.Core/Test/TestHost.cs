@@ -148,11 +148,13 @@ namespace Testinator.Client.Core
         /// </summary>
         public void GoNextQuestion()
         {
-            if (mCurrentQuestion > mQuestions.Count)
+            if (mCurrentQuestion >= mQuestions.Count)
             {
                 Stop();
                 return;
             }
+
+            UpdateQuestionNumber();
 
             switch (mQuestions[mCurrentQuestion - 1].Type)
             {
@@ -183,10 +185,8 @@ namespace Testinator.Client.Core
                         break;
                     }
             }
-
-            UpdateQuestionNumber();
-
             SendUpdate();
+
         }
 
         #endregion
@@ -216,7 +216,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void ResetQuestionNumber()
         {
-            mCurrentQuestion = 1;
+            mCurrentQuestion = 0;
             IoCClient.Application.QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
         }
 
