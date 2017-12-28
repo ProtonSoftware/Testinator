@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Testinator.UICore;
 
-namespace Testinator.Client
+namespace Testinator.Server
 {
     /// <summary>
     /// Focuses (keyboard focus) this element on load

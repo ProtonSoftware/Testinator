@@ -60,6 +60,7 @@
                                FontFamily="{StaticResource FontMontserratBold}" />
 
                     <TextBox Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"
+                             local:IntegerOnlyTextBoxProperty.Value="True"
                              Style="{StaticResource SmallInputTextBox}" />
                     
                 </StackPanel>
