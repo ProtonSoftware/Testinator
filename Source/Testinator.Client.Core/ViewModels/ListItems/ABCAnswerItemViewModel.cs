@@ -7,7 +7,7 @@ namespace Testinator.Client.Core
     /// <summary>
     /// The view model for multiple choice (ABCD) question item
     /// </summary>
-    public class ABCAnswerItemViewModel
+    public class ABCAnswerItemViewModel : BaseViewModel
     {
         #region Public Properties
 
@@ -26,14 +26,10 @@ namespace Testinator.Client.Core
         /// </summary>
         public bool IsSelected { get; set; }
 
-        #endregion
-
-        #region Commands
-
         /// <summary>
-        /// The command to mark/unmark this item as selected
+        /// The index of this option, starts at 1
         /// </summary>
-        public ICommand SelectItemCommand { get; private set; }
+        public int Index { get; set; }
 
         #endregion
 
@@ -44,23 +40,9 @@ namespace Testinator.Client.Core
         /// </summary>
         public ABCAnswerItemViewModel()
         {
-            // Create commands
-            SelectItemCommand = new RelayCommand(SelectItem);
         }
 
         #endregion
 
-        #region Command Methods
-
-        /// <summary>
-        /// Marks/unmarks this item as selected
-        /// </summary>
-        private void SelectItem()
-        {
-            // Simple toggle item selected flag 
-            IsSelected ^= true;
-        }
-
-        #endregion
     }
 }

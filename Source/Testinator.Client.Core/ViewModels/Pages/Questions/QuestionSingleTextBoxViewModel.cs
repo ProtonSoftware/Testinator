@@ -20,7 +20,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + (Question?.ID + 1).ToString();
+        public string QuestionPageCounter => "Pytanie " + IoCClient.TestHost.QuestionNumber;
 
         /// <summary>
         /// Current answer written by the user

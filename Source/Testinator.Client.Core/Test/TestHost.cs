@@ -63,6 +63,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public TimeSpan TimeLeft { get; private set; }
 
+        /// <summary>
+        /// Shows which question is currently shown
+        /// </summary>
+        public string QuestionNumber { get; set; }
+
         #endregion
 
         #region Public Events
@@ -217,7 +222,7 @@ namespace Testinator.Client.Core
         private void ResetQuestionNumber()
         {
             mCurrentQuestion = 0;
-            IoCClient.Application.QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
+            QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
         }
 
         /// <summary>
@@ -226,7 +231,7 @@ namespace Testinator.Client.Core
         private void UpdateQuestionNumber()
         {
             mCurrentQuestion++;
-            IoCClient.Application.QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
+            QuestionNumber = mCurrentQuestion + " / " + mQuestions.Count;
         }
 
         /// <summary>

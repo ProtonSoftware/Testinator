@@ -45,11 +45,6 @@ namespace Testinator.Client.Core
         public TimeSpan TimeLeft { get; set; }
 
         /// <summary>
-        /// Shows which question is currently shown
-        /// </summary>
-        public string QuestionNumber { get; set; }
-
-        /// <summary>
         /// Indicates if the client has received test
         /// </summary>
         public bool IsTestReceived { get; private set; }

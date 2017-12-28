@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Client"
              xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -19,7 +20,9 @@
 
                             <!-- Click to select this answer -->
                             <Border.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding SelectItemCommand}" />
+                                <MouseBinding MouseAction="LeftClick" 
+                                              Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.SelectCommand}" 
+                                              CommandParameter="{Binding Index}"/>
                             </Border.InputBindings>
 
                             <Grid x:Name="container" Background="Transparent">

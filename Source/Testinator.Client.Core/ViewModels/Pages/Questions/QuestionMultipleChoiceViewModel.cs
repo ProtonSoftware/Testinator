@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -19,7 +20,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + (Question?.ID + 1).ToString();
+        public string QuestionPageCounter => "Pytanie " + IoCClient.TestHost.QuestionNumber;
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
@@ -46,6 +47,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand SubmitCommand { get; set; }
 
+        /// <summary>
+        /// Selects an answer
+        /// </summary>
+        public ICommand SelectCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -57,6 +63,7 @@ namespace Testinator.Client.Core
         {
             // Create commands
             SubmitCommand = new RelayCommand(Submit);
+            SelectCommand = new RelayParameterizedCommand(Select);            
         }
 
         #endregion
@@ -84,6 +91,25 @@ namespace Testinator.Client.Core
 
             // Go to next question page
             IoCClient.TestHost.GoNextQuestion();
+        }
+
+        /// <summary>
+        /// Fired when the user clicks on an answer
+        /// </summary>
+        /// <param name="idx">The index of the answer being cliked (int)</param>
+        private void Select(object idx)
+        {
+            // Get the index
+            var index = (int)idx;
+
+            // If the user clicks on the answer that is already selected don't do anything
+            if (Options[index - 1].IsSelected == true)
+                return;
+
+            UnCheckAllAnswers();
+
+            // Select the answer
+            Options[index - 1].IsSelected = true;
         }
 
         #endregion
@@ -142,8 +168,11 @@ namespace Testinator.Client.Core
             var answerCounter = 1;
             foreach (var option in options)
             {
-                // Create new answer item
-                var answerItem = new ABCAnswerItemViewModel();
+                // Create new answer item with appropriate index
+                var answerItem = new ABCAnswerItemViewModel()
+                {
+                    Index = answerCounter,
+                };
 
                 // Attach proper letter to it
                 switch(answerCounter)
@@ -170,6 +199,18 @@ namespace Testinator.Client.Core
 
             // We have our list done, return it
             return FinalList;
+        }
+
+        /// <summary>
+        /// Marks all the answers not selected
+        /// </summary>
+        private void UnCheckAllAnswers()
+        {
+            // Uncheck all the answers
+            foreach (var option in Options)
+            {
+                option.IsSelected = false;
+            }
         }
 
         #endregion
