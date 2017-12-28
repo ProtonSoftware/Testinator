@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Testinator.Core;
 using System.Timers;
+
 namespace Testinator.Server.Core
 {
     /// <summary>
@@ -142,14 +143,14 @@ namespace Testinator.Server.Core
         /// Fired when time left value is updated
         /// Used by viewmodels to update their values
         /// </summary>
-        public Action OnTimerUpdated = () => { };
+        public event Action OnTimerUpdated = () => { };
 
         /// <summary>
         /// Fired when any data is resived from a client
         /// </summary>
         /// <param name="client">The sender client</param>
         /// <param name="dataPackage">The data received from the client</param>
-        public void OnDataRecived(ClientModel client, DataPackage dataPackage)
+        public void OnDataReceived(ClientModel client, DataPackage dataPackage)
         {
             // If the data is from client we dont care about don't do anything
             if (!mClients.Contains(client))

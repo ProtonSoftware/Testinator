@@ -7,12 +7,89 @@
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
                  mc:Ignorable="d" 
-                  d:DesignHeight="700" d:DesignWidth="1000">
+                 d:DesignHeight="700" d:DesignWidth="1000">
 
-    <Grid>
-        <TextBlock Text="Result Page" FontSize="30" HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-        <Button Height="50" Width="200" Margin="0 250 0 0" Content="Go WaitingForTest"
-                Command="{Binding GoBackCommand}"/>
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="20"
+                   Foreground="{StaticResource BlackDarkBrush}"
+                   Style="{StaticResource TitleText}" />
+
+        <Border Background="{StaticResource WhiteDarkBrush}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Padding="30">
+
+            <Grid>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Nazwa testu: "
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <TextBlock Text="{Binding Test.Name}"
+                               Grid.Column="1"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <TextBlock Text="Czas: "
+                               Grid.Row="1"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <TextBlock Text="{Binding CompletionTime}"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <TextBlock Text="Ocena: "
+                               Grid.Row="2"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <TextBlock Text="Celujący"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Button Content="Zobacz pytania"
+                            Style="{StaticResource BaseUIButton}" />
+
+                    <Button Content="Zakończ"
+                            Grid.Row="1"
+                            Command="{Binding ExitCommand}"
+                            Style="{StaticResource BaseUIButton}" />
+                
+                </Grid>
+
+            </Grid>
+            
+        </Border>
+        
     </Grid>
 </UICore:BasePage>

@@ -291,4 +291,7 @@
   <data name="WriteName" xml:space="preserve">
     <value>Wpisz nazwę</value>
   </data>
+  <data name="ResultTitle" xml:space="preserve">
+    <value>Wyniki testu</value>
+  </data>
 </root>

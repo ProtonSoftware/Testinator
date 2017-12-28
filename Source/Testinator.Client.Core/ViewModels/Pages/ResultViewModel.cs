@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -9,12 +10,36 @@ namespace Testinator.Client.Core
     /// </summary>
     public class ResultViewModel : BaseViewModel
     {
-        #region Public Commands
+        #region Public Properties
 
         /// <summary>
-        /// Goes back to the waiting for test screen
+        /// The original test received from server
         /// </summary>
-        public ICommand GoBackCommand { get; set; }
+        public Test Test { get; private set; }
+
+        /// <summary>
+        /// List of questions in the test user has accomplished
+        /// </summary>
+        public List<Question> Questions { get; private set; }
+
+        /// <summary>
+        /// List of answers user has sent
+        /// </summary>
+        public List<Answer> UserAnswers { get; private set; }
+
+        /// <summary>
+        /// The time in which user has completed the test
+        /// </summary>
+        public TimeSpan CompletionTime => Test.Duration - IoCClient.Application.TimeLeft;
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// The command to exit the result page and go back to waiting for test page
+        /// </summary>
+        public ICommand ExitCommand { get; private set; }
 
         #endregion
 
@@ -25,8 +50,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public ResultViewModel()
         {
+            // Load data from TestHost
+            LoadTestHostData();
+
             // Create commands
-            GoBackCommand = new RelayCommand(GoBack);
+            ExitCommand = new RelayCommand(Exit);
         }
 
         #endregion
@@ -34,13 +62,36 @@ namespace Testinator.Client.Core
         #region Command Methods
 
         /// <summary>
-        /// Goes back to the waiting for test screen
+        /// Cleans the previous test and goes back to the waiting for test page
         /// </summary>
-        private void GoBack()
+        private void Exit()
         {
+            // Clean previous test from this application
+            IoCClient.TestHost.UnloadTest();
+
+            // Go to the waiting for test page
             IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
         }
-        
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Loads data from TestHost to this view model
+        /// </summary>
+        private void LoadTestHostData()
+        {
+            // Get the original test
+            Test = IoCClient.TestHost.CurrentTest;
+
+            // Get the list of questions
+            Questions = IoCClient.TestHost.Questions;
+
+            // Get user answers
+            UserAnswers = IoCClient.TestHost.UserAnswers;
+        }
+
         #endregion
     }
 }

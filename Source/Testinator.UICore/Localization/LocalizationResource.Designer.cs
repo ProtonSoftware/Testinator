@@ -412,6 +412,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test results.
+        /// </summary>
+        public static string ResultTitle {
+            get {
+                return ResourceManager.GetString("ResultTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RightAnswer: .
         /// </summary>
         public static string RightAnswerSemicolon {
