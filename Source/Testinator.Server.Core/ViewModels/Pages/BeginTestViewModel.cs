@@ -45,6 +45,16 @@ namespace Testinator.Server.Core
         /// </summary>
         public TimeSpan TimeLeft => IoCServer.TestHost.TimeLeft;
 
+        /// <summary>
+        /// The server's ip
+        /// </summary>
+        public string ServerIpAddress { get; set; } = IoCServer.Network.Ip;
+
+        /// <summary>
+        /// The server's port
+        /// </summary>
+        public string ServerPort { get; set; } = IoCServer.Network.Port.ToString();
+
         #endregion
 
         #region Commands
@@ -117,6 +127,11 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StartServer()
         {
+            if (NetworkHelpers.IsAddresCorrect(ServerIpAddress) && NetworkHelpers.IsPortCorrect(ServerPort))
+            {
+                IoCServer.Network.Ip = ServerIpAddress;
+                IoCServer.Network.Port = int.Parse(ServerPort);
+            }
             IoCServer.Network.Start();
             OnPropertyChanged(nameof(IsServerStarted));
         }

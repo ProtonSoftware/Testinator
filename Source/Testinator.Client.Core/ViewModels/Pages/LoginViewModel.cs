@@ -34,12 +34,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// IP of the server we are connecting to
         /// </summary>
-        public string ServerIP { get; set; } = "192.168.1.14";
+        public string ServerIP { get; set; } = IoCClient.Application.Network.Ip;
 
         /// <summary>
         /// Port of the server we are connecting to
         /// </summary>
-        public string ServerPort { get; set; } = "3333";
+        public string ServerPort { get; set; } = IoCClient.Application.Network.Port.ToString();
 
         /// <summary>
         /// Indicates if settings menu is opened
