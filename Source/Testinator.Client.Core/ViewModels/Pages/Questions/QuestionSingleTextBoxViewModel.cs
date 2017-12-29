@@ -53,6 +53,18 @@ namespace Testinator.Client.Core
         public int Index { get; set; }
 
         /// <summary>
+        /// Indicates if the text field with correct answer should be visible
+        /// </summary>
+        public bool IsCorrectAnswerVisible => IsReadOnly && !IsAnswerCorrect;
+
+        /// <summary>
+        /// The color of the textbox background
+        /// Light White if not in readonly mode
+        /// Green if answer is correct, red if not
+        /// </summary>
+        public string TextBoxBackground => IsReadOnly ? (IsAnswerCorrect ? "57A598" : "FF0000" ) : "FEFDFE";
+
+        /// <summary>
         /// The type of this question
         /// </summary>
         public QuestionType Type => QuestionType.SingleTextBox;

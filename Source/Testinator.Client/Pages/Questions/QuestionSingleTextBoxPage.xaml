@@ -7,7 +7,7 @@
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d">
-    
+
     <Grid Background="{StaticResource WhiteLightBrush}">
 
         <Border Background="{StaticResource WhiteDarkBrush}"
@@ -19,21 +19,30 @@
                 Margin="50 50 50 0">
 
             <StackPanel>
-                
+
                 <TextBlock Text="{Binding QuestionPageCounter}"
                            Style="{StaticResource TitleText}"
                            Foreground="{StaticResource BlackDarkBrush}"
                            HorizontalAlignment="Center"
                            Margin="10" />
 
-                <TextBlock Text="{Binding Question.Task}" />
+                <TextBlock Text="{Binding Question.Task}" 
+                           Style="{StaticResource MediumTitleText}"/>
 
                 <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource BigInputTextBox}"
-                         IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"/>
+                         IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"
+                         Background="{Binding TextBoxBackground, Converter={local:StringRGBToBrushConverter}}"/>
 
+                <TextBlock Text="Poprawna odpowiedź: "
+                           Margin="0 10 0 5"/>
+                <TextBlock Text="{Binding Question.CorrectAnswer}"
+                           Background="{StaticResource GreenLightBrush}"
+                           Style="{StaticResource MediumTitleText}"
+                           Padding="5 10 0 10"
+                           Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
             </StackPanel>
-            
+
         </Border>
 
         <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"

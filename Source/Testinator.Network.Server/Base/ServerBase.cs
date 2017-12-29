@@ -112,7 +112,7 @@ namespace Testinator.Network.Server
                 // Try to get the newly connected socket
                 clientSocket = mServerSocket.EndAccept(ar);
             }
-            catch (SocketException ex)
+            catch
             {
                 // No need to handle any errors for now 
                 return;

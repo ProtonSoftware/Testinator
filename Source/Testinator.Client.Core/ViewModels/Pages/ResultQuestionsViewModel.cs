@@ -67,6 +67,7 @@ namespace Testinator.Client.Core
             // Create commands
             SelectQuestionCommand = new RelayParameterizedCommand(SelectQuestion);
 
+            // Show the first question
             if (Questions.Count != 0)
                 GoToPageByViewModel(Questions[0]);
             else
