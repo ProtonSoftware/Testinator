@@ -14,9 +14,9 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center" 
                 CornerRadius="3"
-                Padding="15 50 15 15"
+                Padding="30"
                 Width="600"
-                Margin="50 50 50 0">
+                Margin="50">
 
             <StackPanel>
                 
@@ -26,7 +26,10 @@
                            HorizontalAlignment="Center"
                            Margin="10" />
 
-                <TextBlock Text="{Binding Question.Task}" />
+                <TextBlock Text="{Binding Question.Task}"
+                           Style="{StaticResource QuestionTextBlockStyle}"
+                           FontSize="{StaticResource FontSizeLarge}" 
+                           Margin="5" />
 
                 <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource BigInputTextBox}"
@@ -37,7 +40,6 @@
         </Border>
 
         <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
-                Grid.Row="1"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
                 Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"

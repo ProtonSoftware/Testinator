@@ -298,7 +298,12 @@ namespace Testinator.UICore
             {
                 // Add slide from left animation
                 case AnimationSlideInDirection.Left:
-                    sb.AddExpandFromLeft(seconds, size == 0 ? element.ActualWidth : size, keepMargin: keepMargin);
+                    sb.AddExpand(seconds, 55, keepMargin: keepMargin);
+                    break;
+
+                // Add slide from right animation
+                case AnimationSlideInDirection.Right:
+                    sb.AddExpand(seconds, 75, keepMargin: keepMargin);
                     break;
             }
 
@@ -332,7 +337,12 @@ namespace Testinator.UICore
             {
                 // Add slide to left animation
                 case AnimationSlideInDirection.Left:
-                    sb.AddHideToLeft(seconds, size == 0 ? element.ActualWidth : size, keepMargin: keepMargin);
+                    sb.AddHide(seconds, 55, keepMargin: keepMargin);
+                    break;
+
+                // Add slide to right animation
+                case AnimationSlideInDirection.Right:
+                    sb.AddHide(seconds, 75, keepMargin: keepMargin);
                     break;
             }
 

@@ -21,6 +21,7 @@
         <Border Background="{StaticResource WhiteDarkBrush}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                CornerRadius="3"
                 Padding="30">
 
             <Grid>
@@ -88,11 +89,13 @@
                     </Grid.RowDefinitions>
 
                     <Button Content="Zobacz pytania"
+                            Margin="10"
                             Style="{StaticResource BaseUIButton}"
                             Command="{Binding GoToQuestionsCommand}"/>
 
                     <Button Content="Zakończ"
                             Grid.Row="1"
+                            Margin="10"
                             Command="{Binding ExitCommand}"
                             Style="{StaticResource BaseUIButton}" />
                 
