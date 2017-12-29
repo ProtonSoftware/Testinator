@@ -1,11 +1,8 @@
-﻿using System.Windows.Controls;
-using System.Windows;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
-using System;
+using System.Windows;
+using System.Windows.Controls;
 using Testinator.Core;
-using System.ComponentModel;
-using Testinator.Server.Core;
-using Testinator.Client.Core;
 
 namespace Testinator.UICore
 {
@@ -14,7 +11,7 @@ namespace Testinator.UICore
     /// </summary>
     public class BasePage : UserControl
     {
-        #region Private Member
+        #region Private Members
 
         /// <summary>
         /// The View Model associated with this page
@@ -197,8 +194,12 @@ namespace Testinator.UICore
         /// </summary>
         public BasePage() : base()
         {
+            // Don't bother doing anything in design time
+            if (DesignerProperties.GetIsInDesignMode(this))
+                return;
+
             // Create a default view model
-            ViewModel = IoCClient.Get<VM>();
+            ViewModel = IoC.Get<VM>();
         }
 
         /// <summary>
@@ -207,12 +208,16 @@ namespace Testinator.UICore
         /// <param name="specificViewModel">The specific view model to use, if any</param>
         public BasePage(VM specificViewModel = null) : base()
         {
+            // Don't bother doing anything in design time
+            if (DesignerProperties.GetIsInDesignMode(this))
+                return;
+
             // Set specific view model
             if (specificViewModel != null)
                 ViewModel = specificViewModel;
             else
                 // Create a default view model
-                ViewModel = IoCClient.Get<VM>();
+                ViewModel = IoC.Get<VM>();
         }
 
         #endregion

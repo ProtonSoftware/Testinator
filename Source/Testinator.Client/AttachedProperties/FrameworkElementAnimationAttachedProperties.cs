@@ -150,6 +150,22 @@ namespace Testinator.Client
     }
 
     /// <summary>
+    /// Animates the width of an element
+    /// </summary>
+    public class AnimateWidthProperty : AnimateBaseProperty<AnimateWidthProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (value)
+                // Animate in
+                await element.ExpandSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.1f, keepMargin: true);
+            else
+                // Animate out
+                await element.HideSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.1f, keepMargin: true);
+        }
+    }
+
+    /// <summary>
     /// Animates a framework element fading in on show
     /// and fading out on hide
     /// </summary>
@@ -169,9 +185,9 @@ namespace Testinator.Client
     /// <summary>
     /// Animates a framework element fading in on show
     /// and fading out on hide
-    /// Specyfic to textblock animation
+    /// Skips the "first load" mechanic
     /// </summary>
-    public class AnimateFadeInTextBlockProperty : AnimateBaseProperty<AnimateFadeInTextBlockProperty>
+    public class AnimateFadeInWithoutFirstLoadProperty : AnimateBaseProperty<AnimateFadeInWithoutFirstLoadProperty>
     {
         protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad = true)
         {

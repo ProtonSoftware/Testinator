@@ -294,4 +294,7 @@
   <data name="ResultTitle" xml:space="preserve">
     <value>Wyniki testu</value>
   </data>
+  <data name="TrySemicolon" xml:space="preserve">
+    <value>Próba: </value>
+  </data>
 </root>

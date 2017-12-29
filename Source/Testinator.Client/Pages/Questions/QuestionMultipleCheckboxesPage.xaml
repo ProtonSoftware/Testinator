@@ -10,16 +10,11 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
         <Border Background="{StaticResource WhiteDarkBrush}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 CornerRadius="3"
-                Padding="25 30"
+                Padding="30"
                 Width="600"
                 Margin="50">
 
@@ -44,11 +39,11 @@
         </Border>
 
         <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
-                Grid.Row="1"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
                 Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
                 Margin="50" />
 
     </Grid>

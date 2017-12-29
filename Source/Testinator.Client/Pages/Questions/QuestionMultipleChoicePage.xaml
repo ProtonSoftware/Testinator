@@ -7,19 +7,14 @@
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d">
-    
-    <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Grid Background="{StaticResource WhiteLightBrush}">
 
         <Border Background="{StaticResource WhiteDarkBrush}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 CornerRadius="3"
-                Padding="25 30"
+                Padding="30"
                 Width="500"
                 Margin="50">
 
@@ -44,10 +39,10 @@
         </Border>
 
         <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
-                Grid.Row="1"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
                 HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
                 Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                 Margin="50" />
 

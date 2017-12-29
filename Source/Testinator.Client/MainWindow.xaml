@@ -31,9 +31,9 @@
                                         Background="{StaticResource WhiteLightBrush}"
                                         CornerRadius="{Binding WindowCornerRadius, FallbackValue=3}" />
 
-                                <!-- Window border and dropshadown -->
+                                <!-- Window border and dropshadow -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=3}"
-                                    Background="{Binding WhiteLightBrush}">
+                                        Background="{Binding BlackLightBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
                                     </Border.Effect>
@@ -112,7 +112,7 @@
             />
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource BlackDarkBrush}">
+    <Grid Background="{StaticResource WhiteLightBrush}">
 
         <!-- Content -->
         <local:PageHost Grid.Row="1"

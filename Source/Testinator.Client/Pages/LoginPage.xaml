@@ -1,22 +1,25 @@
 ﻿<UICore:BasePage x:TypeArguments="Core:LoginViewModel" x:Class="Testinator.Client.LoginPage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Testinator.Client"
-             xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
-             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
-             mc:Ignorable="d">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Client"
+                 xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 mc:Ignorable="d">
     
     <Grid Background="{StaticResource WhiteLightBrush}">
         
         <!-- Settings bubble (IP, Port changes) -->
         <Border VerticalAlignment="Top"
                 HorizontalAlignment="Right"
+                Background="{StaticResource WhiteDarkBrush}"
+                CornerRadius="3"
                 Padding="10"
-                Width="170">
+                local:AnimateWidthProperty.Value="{Binding IsSettingsMenuOpened}">
             
             <Grid>
+                
                 <Grid.RowDefinitions>
                     
                     <!-- Buttons row -->
@@ -26,14 +29,15 @@
                     
                 </Grid.RowDefinitions>
                 
-                <!-- Settings cog button (Expands the menu) -->
+                <!-- Settings cog button (expands the menu) -->
                 <Button Content="{StaticResource FontAwesomeCogIcon}"
                         Command="{Binding SettingsMenuExpandCommand}"
                         Style="{StaticResource BaseUIButton}"
                         FontFamily="{StaticResource FontAwesome}"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right"
-                        Margin="10"
+                        Panel.ZIndex="2"
+                        Margin="5"
                         Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}" />
 
                 <!-- Settings close button (hides the menu) -->
@@ -43,7 +47,8 @@
                         FontFamily="{StaticResource FontAwesome}"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right"
-                        Margin="10"
+                        Panel.ZIndex="2"
+                        Margin="5"
                         Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
 
                 <StackPanel Grid.Row="1"
@@ -69,76 +74,84 @@
             
         </Border>
 
-        <!-- Main input boxes -->
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center"
-                    Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
+        <!-- Main container -->
+        <Border VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="{StaticResource WhiteDarkBrush}"
+                Padding="50"
+                CornerRadius="3"
+                TextBlock.TextAlignment="Center">
+            <Grid>
+                
+                <!-- Input boxes -->
+                <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
 
-            <!-- Title -->
-            <TextBlock Text="{x:Static UICore:LocalizationResource.FillData}" 
-                       FontFamily="{StaticResource FontMontserratBold}"
-                       FontSize="{StaticResource FontSizeTitleLarge}" />
+                    <!-- Title -->
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.FillData}" 
+                               FontFamily="{StaticResource FontMontserratBold}"
+                               FontSize="{StaticResource FontSizeTitleLarge}" />
 
-            <!-- User name input -->
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                     Tag="{x:Static UICore:LocalizationResource.WriteUsername}"
-                     Margin="0 25"
-                     local:IsFocusedProperty.Value="True"
-                     Style="{StaticResource BigInputTextBox}" />
+                    <!-- User name input -->
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="{x:Static UICore:LocalizationResource.WriteUsername}"
+                             Margin="0 25"
+                             local:IsFocusedProperty.Value="True"
+                             Style="{StaticResource BigInputTextBox}" />
 
-            <!-- User surname input -->
-            <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                     Tag="{x:Static UICore:LocalizationResource.WriteUserSurname}"
-                     Margin="0 0 0 25"
-                     Style="{StaticResource BigInputTextBox}" />
+                    <!-- User surname input -->
+                    <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="{x:Static UICore:LocalizationResource.WriteUserSurname}"
+                             Margin="0 0 0 25"
+                             Style="{StaticResource BigInputTextBox}" />
 
-            <!-- Error if input values are not valid -->
-            <TextBlock Text="{Binding ErrorMessage}"
-                       Margin="0 0 0 10"
-                       Foreground="Red"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                    <!-- Error if input values are not valid -->
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Margin="0 0 0 10"
+                               Foreground="Red"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <!-- Submit button -->
-            <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
-                    Command="{Binding TryConnectingCommand}"
-                    Margin="0"
-                    IsDefault="True"
-                    Style="{StaticResource BaseUIButton}"
-                    local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
-                    />
+                    <!-- Submit button -->
+                    <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
+                            Command="{Binding TryConnectingCommand}"
+                            Margin="0"
+                            IsDefault="True"
+                            Style="{StaticResource BaseUIButton}"
+                            local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
+                            />  
 
-        </StackPanel>
+                </StackPanel>
 
-        <!-- Trying to connect content -->
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center"
-                    Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}}">
+                <!-- Trying to connect content -->
+                <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}}">
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.WaitingForConnection}"
-                       Style="{StaticResource TitleText}"
-                       Foreground="{StaticResource BlackDarkBrush}"
-                       Margin="15" />
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.WaitingForConnection}"
+                               Style="{StaticResource TitleText}"
+                               Foreground="{StaticResource BlackDarkBrush}"
+                               Margin="15" />
 
-            <TextBlock Style="{StaticResource SpinningText}"
-                       FontSize="{StaticResource FontSizeTitleLarge}"
-                       Margin="0 20" />
-            <StackPanel Orientation="Horizontal" Margin="0 20" HorizontalAlignment="Center">
-                <TextBlock Style="{StaticResource TitleText}"
-                           FontSize="{StaticResource FontSizeTitleLarge}"
-                           Text="Próba: "/>
-                <TextBlock Style="{StaticResource TitleText}"
-                           FontSize="{StaticResource FontSizeTitleLarge}"
-                           Text="{Binding Attempts}"/>
-            </StackPanel>
+                    <TextBlock Style="{StaticResource SpinningText}"
+                               FontSize="{StaticResource FontSizeTitleLarge}"
+                               Margin="0 20" />
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0 20" HorizontalAlignment="Center">
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Foreground="{StaticResource BlackLightBrush}"
+                                   Text="{x:Static UICore:LocalizationResource.TrySemicolon}"/>
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Foreground="{StaticResource BlackLightBrush}"
+                                   Text="{Binding Attempts}"/>
+                    </StackPanel>
 
-            <Button Content="{x:Static UICore:LocalizationResource.Cancel}"
-                    Style="{StaticResource BaseUIButton}"
-                    Command="{Binding StopConnectingCommand}"
-                    Margin="15" />
+                    <Button Content="{x:Static UICore:LocalizationResource.Cancel}"
+                            Style="{StaticResource BaseUIButton}"
+                            Command="{Binding StopConnectingCommand}"
+                            Margin="15" />
 
-        </StackPanel>
+                </StackPanel>
+                
+            </Grid>
+        </Border>
+        
         
     </Grid>
     

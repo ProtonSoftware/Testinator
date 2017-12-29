@@ -538,6 +538,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try: .
+        /// </summary>
+        public static string TrySemicolon {
+            get {
+                return ResourceManager.GetString("TrySemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input values are counted in %: .
         /// </summary>
         public static string ValuesCountedInPercent {
