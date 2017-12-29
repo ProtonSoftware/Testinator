@@ -60,15 +60,14 @@
 
                         <!-- Hover effect -->
                         <ControlTemplate.Triggers>
-
+                            
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                 <Setter Property="Background" TargetName="background" Value="{StaticResource GreenLightBrush}"/>
                             </DataTrigger>
-
+                            
                             <DataTrigger Binding="{Binding RedBackground}" Value="True">
                                 <Setter Property="Background" TargetName="background" Value="Red"/>
                             </DataTrigger>
-
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>

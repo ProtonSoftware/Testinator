@@ -165,10 +165,15 @@ namespace Testinator.Client.Core
 
             if (IsReadOnly)
             {
+                // Set the user's answer and the correct answer selected so it's green initially
                 Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
                 Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
 
+                // Mark user's answer to display "Your answer" sign
                 Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
+
+                // Indicate if the user's answer is correct
+                Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerCorrect = IsAnswerCorrect;
             }
         }
 

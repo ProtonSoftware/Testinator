@@ -33,12 +33,6 @@ namespace Testinator.Client.Core
         public int Count => Options.Count;
 
         /// <summary>
-        /// Sets the visibility of the no-answer warning
-        /// When user chooses the answer automatically is set to false
-        /// </summary>
-        public bool NoAnswerWarning { get; set; } = false;
-
-        /// <summary>
         /// Indicates whether the view should be enabled for changes
         /// ReadOnly mode is used while presenting the result to the user
         /// </summary>
@@ -114,9 +108,6 @@ namespace Testinator.Client.Core
 
             // Check the answer at idx - 1 because indexing starts at 1 not 0 !
             Options[idx - 1].IsChecked ^= true;
-            
-            // Disable errors
-            NoAnswerWarning = false;
         }
 
         /// <summary>
@@ -130,13 +121,6 @@ namespace Testinator.Client.Core
             {
                 if (item.IsChecked) checkedList.Add(true);
                 else checkedList.Add(false);
-            }
-
-            // If none of the options is checked show the warning to the user
-            if (!checkedList.Contains(true))
-            {
-                NoAnswerWarning = true;
-                return;
             }
 
             // Save the answer
@@ -164,9 +148,13 @@ namespace Testinator.Client.Core
             // Convert from dictionary to answer items list
             Options = ListConvertFromDictionaryQuestion(Question.OptionsAndAnswers);
 
-            // Make all the answers unchecked
-            foreach (var item in Options)
-                item.IsChecked = false;
+            // If not in readonly mode...
+            if (!IsReadOnly)
+            {
+                // Make all the answers unchecked
+                foreach (var item in Options)
+                    item.IsChecked = false;
+            }
         }
 
         #endregion
@@ -183,6 +171,7 @@ namespace Testinator.Client.Core
             // Initialize the list that we are willing to return 
             var FinalList = new List<CheckboxAnswerItemViewModel>();
 
+            var i = 0;
             // Loop each answer to create answer item from it
             foreach (var option in options)
             {
@@ -192,12 +181,25 @@ namespace Testinator.Client.Core
                     // Rewrite answer string content
                     Text = option.Key.ToString(),
 
-                    // Don't select any answer at the start
-                    IsChecked = false
+                    // Set the read only property if required
+                    IsReadOnly = IsReadOnly,
+    
                 };
+
+                // In readonly mode set the check box
+                if (IsReadOnly)
+                {
+                    answerItem.IsChecked = UserAnswer.Answers[i];
+                    answerItem.IsCorrect = option.Value == UserAnswer.Answers[i];
+                }
+                else
+                    // Don't select any answer at the start
+                    answerItem.IsChecked = true;
 
                 // Add this item to the list
                 FinalList.Add(answerItem);
+
+                i++;
             }
 
             // We have our list done, return it

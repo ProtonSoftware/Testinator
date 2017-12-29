@@ -291,7 +291,7 @@ namespace Testinator.Client.Core
                             var multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
                             var multipleCheckboxesQuestion = Questions[i] as MultipleCheckboxesQuestion;
 
-                            var isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesQuestion);
+                            var isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
 
                             // Check if user has answered correctly
                             if (isAnswerCorrect)

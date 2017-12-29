@@ -30,7 +30,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <CheckBox IsChecked="{Binding IsChecked}"
-                                          Style="{StaticResource CheckboxStyle}" />
+                                          Style="{StaticResource CheckboxStyle}"/>
 
                                 <TextBlock Grid.Column="1"
                                            Padding="5"
@@ -42,6 +42,14 @@
 
                         <!-- Hover effect -->
                         <ControlTemplate.Triggers>
+
+                            <DataTrigger Binding="{Binding IsGreen}" Value="True">
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource GreenLightBrush}"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsRed}" Value="True">
+                                <Setter Property="Background" TargetName="container" Value="Red"/>
+                            </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>

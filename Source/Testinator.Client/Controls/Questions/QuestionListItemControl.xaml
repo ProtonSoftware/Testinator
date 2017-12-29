@@ -34,19 +34,26 @@
                                   Background="{StaticResource WhiteDarkBrush}">
                                 
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="25"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                
+
+                                <TextBlock Text="{Binding Index}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Style="{StaticResource MediumTitleText}"
+                                           Grid.Column="0"/>
+
                                 <TextBlock Text="{Binding Type, Converter={local:QuestionTypeToIconConverter}}"
-                                           Grid.Column="0"
+                                           Grid.Column="1"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            FontFamily="{StaticResource FontAwesome}"
                                            FontSize="{StaticResource FontSizeLarge}" />
                                 
                                 <TextBlock Text="{Binding Question.Task}"
-                                           Grid.Column="1"
+                                           Grid.Column="2"
                                            TextWrapping="Wrap"
                                            TextTrimming="CharacterEllipsis"
                                            VerticalAlignment="Center"/>

@@ -33,12 +33,14 @@
         /// <param name="question"></param>
         /// <param name="answer">The answer to check</param>
         /// <returns>True is correct, false otherwise</returns>
-        public static bool IsAnswerCorrect(this MultipleCheckboxesQuestion question, MultipleCheckboxesQuestion answer)
+        public static bool IsAnswerCorrect(this MultipleCheckboxesQuestion question, MultipleCheckboxesAnswer answer)
         {
+            var i = 0;
             foreach (var option in question.OptionsAndAnswers)
             {
-                if (option.Value != answer.OptionsAndAnswers[option.Key])
+                if (option.Value != answer.Answers[i])
                     return false;
+                i++;
             }
 
             return true;
