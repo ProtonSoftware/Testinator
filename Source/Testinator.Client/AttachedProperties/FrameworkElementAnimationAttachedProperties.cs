@@ -165,4 +165,27 @@ namespace Testinator.Client
                 await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
         }
     }
+
+    /// <summary>
+    /// Animates a framework element fading in on show
+    /// and fading out on hide
+    /// Specyfic to textblock animation
+    /// </summary>
+    public class AnimateFadeInTextBlockProperty : AnimateBaseProperty<AnimateFadeInTextBlockProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad = true)
+        {
+            if (value)
+                // Animate in
+                await element.FadeInAsync(firstLoad, firstLoad ? 0 : 0.3f);
+            else
+                // Animate out
+                await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
+        }
+
+        public override void OnValueUpdated(DependencyObject sender, object value)
+        {
+            DoAnimation(sender as FrameworkElement, (bool)value);
+        }
+    }
 }
