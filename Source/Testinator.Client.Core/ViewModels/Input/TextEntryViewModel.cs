@@ -28,7 +28,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the current text is in edit mode
         /// </summary>
-        public bool Editing { get; set; } = false;
+        public bool Editing { get; set; }
 
         #endregion
 

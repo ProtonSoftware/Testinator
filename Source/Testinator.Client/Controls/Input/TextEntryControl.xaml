@@ -70,6 +70,7 @@
                    FontFamily="{StaticResource FontMontserratRegular}"
                    Grid.Column="1"
                    local:AnimateFadeInProperty.Value="{Binding Editing, Converter={local:BooleanInvertConverter}}"
+                   x:Name="COOOOOOOOOOO"
                    Margin="15 8"
                    VerticalAlignment="Center"
                    ToolTip="{Binding OriginalText}"

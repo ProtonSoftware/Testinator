@@ -7,7 +7,7 @@ using Testinator.Core;
 namespace Testinator.Client.Core
 {
     /// <summary>
-    /// The view model for "waiting for test" page
+    /// The view model for the "waiting for test" page
     /// </summary>
     public class WaitingForTestViewModel : BaseViewModel
     {
@@ -56,13 +56,14 @@ namespace Testinator.Client.Core
             // Set input data
             Name = new TextEntryViewModel { Label = "Imię", OriginalText = IoCClient.Client.ClientName };
             Surname = new TextEntryViewModel { Label = "Nazwisko", OriginalText = IoCClient.Client.ClientSurname };
-            IoCClient.TestHost.OnTestReceived += TestHost_OnTestReceived;
-            //FakeTest();
+
+            // Listen out for test which will come from server
+            IoCClient.TestHost.OnTestReceived += Update;
         }
 
         #endregion
 
-        #region Public Methods
+        #region Public Helpers
 
         /// <summary>
         /// Updates this view model. As it's properties are bound to the IoC, changing 
@@ -75,136 +76,6 @@ namespace Testinator.Client.Core
             OnPropertyChanged(nameof(TestName));
             OnPropertyChanged(nameof(TestDuration));
             OnPropertyChanged(nameof(TestPossibleScore));
-        }
-
-        #endregion
-
-        #region Private Helpers
-
-        /// <summary>
-        /// Fired when a test is recived so when can update the view
-        /// </summary>
-        private void TestHost_OnTestReceived()
-        {
-            // Update the view
-            Update();
-        }
-        
-        /// <summary>
-        /// TODO: delete it and wait for server to send test
-        /// </summary>
-        /// <returns></returns>
-        private async void FakeTest()
-        {
-            await Task.Delay(2000);
-            // Do a task
-            await TaskFakeTest();
-        }
-
-        private async Task TaskFakeTest()
-        {
-            // Wait a small delay
-            await Task.Delay(1000);
-
-            // Create a dummy test
-            var test = new Test()
-            {
-                Duration = new TimeSpan(0, 0, 5),
-                Name = "Sample name",
-            };
-
-            var q1 = new MultipleChoiceQuestion()
-            {
-                Task = "Co robi kot?",
-                PointScore = 1,
-                Options = new List<string>()
-                {
-                    "miau",
-                    "hau",
-                    "xaxaxaxaxaxax",
-                },
-                CorrectAnswerIndex = 1,
-            };
-
-            var q2 = new MultipleChoiceQuestion()
-            {
-                Task = "Co robi kot2222?",
-                PointScore = 1,
-                Options = new List<string>()
-                {
-                    "miau2222",
-                    "hau2222",
-                    "xaxaxaxaxaxax2222",
-                },
-                CorrectAnswerIndex = 1,
-            };
-
-            var q3 = new MultipleChoiceQuestion()
-            {
-                Task = "Co robi kot333?",
-                PointScore = 1,
-                Options = new List<string>()
-                {
-                    "miau333",
-                    "hau3333",
-                    "xaxaxaxaxaxax333",
-                },
-                CorrectAnswerIndex = 1,
-            };
-
-            var q4 = new MultipleChoiceQuestion()
-            {
-                Task = "Co robi kot4444?",
-                PointScore = 1,
-                Options = new List<string>()
-                {
-                    "miau444",
-                    "hau4444",
-                    "xaxaxaxaxaxax4444",
-                },
-                CorrectAnswerIndex = 1,
-            };
-
-            var a1 = new MultipleChoiceAnswer(1);
-
-            test.AddQuestion(q1);
-            test.AddQuestion(q2);
-            test.AddQuestion(q3);
-            test.AddQuestion(q4);
-
-            int max = test.MaxPossibleScore();
-
-
-            /*if (DataPackageDescriptor.TryConvertToBin(out byte[] data, new DataPackage(PackageType.TestForm, test)))
-            {
-                using (BinaryWriter writer = new BinaryWriter(File.Open("sample.dat", FileMode.Create)))
-                {
-                    writer.Write(data);
-                }
-            }*/
-
-
-            test.Grading.UpdateMark(Marks.B, 25, 20);
-            test.Grading.UpdateMark(Marks.C, 19, 15);
-            test.Grading.UpdateMark(Marks.D, 14, 10);
-            test.Grading.UpdateMark(Marks.E, 9, 5);
-            test.Grading.UpdateMark(Marks.F, 4, 0);
-
-            var a = test.Grading.ConvertToPercentage();
-            var b = a.ToPoints(25);
-
-            var sddds = test.Grading.GetMark(6);
-
-            var grad = new GradingPercentage();
-
-            FileWriters.XmlWriter.SaveGrading("sample", grad);
-
-            IoCClient.TestHost.BindTest(test);
-
-            await Task.Delay(2000);
-            IoCClient.TestHost.StartTest();
-            //IoCClient.TestHost.GoNextQuestion();
-
         }
 
         #endregion
