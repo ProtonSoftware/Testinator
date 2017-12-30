@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using Testinator.Client.Core;
+using Testinator.Core;
+using Testinator.UICore;
 
 namespace Testinator.Client
 {
@@ -20,6 +23,9 @@ namespace Testinator.Client
             // Setup the main application 
             ApplicationSetup();
 
+            // Log that application is starting
+            IoCClient.Logger.Log("Application starting...");
+
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
@@ -30,8 +36,24 @@ namespace Testinator.Client
         /// </summary>
         private void ApplicationSetup()
         {
+            // Set default language
+            LocalizationResource.Culture = new CultureInfo("pl-PL");
+
             // Setup IoC
             IoCClient.Setup();
+
+            // Bind a logger
+            IoCClient.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(new[]
+            {
+                // TODO: Add ApplicationSettings so we can set/edit a log location
+                //       For now just log to the path where this application is running
+                new FileLogger("log.txt"),
+            }));
+
+            // Bind a File Writer
+            IoCClient.Kernel.Bind<FileWriterBase>().ToConstant(new LogsWriter());
+
+            // Bind a UI Manager
             IoCClient.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
         }
     }

@@ -116,6 +116,7 @@ namespace Testinator.Client.Core
                 return;
 
             // Indicate that test is starting
+            IoCClient.Logger.Log("Test is starting...");
             IsTestInProgress = true;
 
             // Initialize the answer list so user can add his answer to it
@@ -141,6 +142,7 @@ namespace Testinator.Client.Core
 
             // Randomize question order
             Questions.Shuffle();
+            IoCClient.Logger.Log("Shuffling question order");
 
             // Indicate that we have received test
             IsTestReceived = true;
@@ -160,6 +162,7 @@ namespace Testinator.Client.Core
             mTestTimer.Stop();
 
             // Indicate that test has ended
+            IoCClient.Logger.Log("Test is ending...");
             IsTestInProgress = false;
 
             // Change page to result page
@@ -177,6 +180,9 @@ namespace Testinator.Client.Core
 
             // Save the answer
             UserAnswers.Add(answer);
+
+            // Log it
+            IoCClient.Logger.Log("Add user answer");
         }
 
         /// <summary>
@@ -193,6 +199,8 @@ namespace Testinator.Client.Core
                 return;
             }
 
+            // Indicate that we are going to the next question
+            IoCClient.Logger.Log("Going to the next question");
             UpdateQuestionNumber();
 
             // Send the update
@@ -239,6 +247,7 @@ namespace Testinator.Client.Core
             CurrentTest = new Test();
 
             // Indicate that we are out of test now
+            IoCClient.Logger.Log("Test erasing");
             IsTestReceived = false;
         }
 
@@ -249,6 +258,9 @@ namespace Testinator.Client.Core
         {
             // Total point score
             var totalScore = 0;
+
+            // Log what we are doing
+            IoCClient.Logger.Log("Calculating user's score");
 
             // We can iterate like this because the question list and answer list are in the same order
             for (var i = 0; i < Questions.Count; i++)
@@ -359,8 +371,10 @@ namespace Testinator.Client.Core
         /// </summary>
         private void TestFinished()
         {
+            // Calculate the user's score
             CalculateScore();
             
+            // And stop the test
             StopTest();
         }
 
@@ -381,6 +395,9 @@ namespace Testinator.Client.Core
             
             // Send it to the server
             IoCClient.Application.Network.SendData(data);
+
+            // Log it
+            IoCClient.Logger.Log("Sending progress package to the server");
         }
 
         /// <summary>

@@ -3,21 +3,20 @@ using System.IO;
 
 namespace Testinator.Core
 {
-    public class BinaryWriter : WriterBase
+    public class BinaryWriter : FileWriterBase
     {
-
         /// <summary>
-        /// Writs a test to file
+        /// Writes a test to file
         /// </summary>
         /// <param name="test">The test to be written to file</param>
-        public void WriteTestToFile(Test test)
+        public override void WriteToFile(Test test)
         {
             if (test == null)
                 return;
             
-            if (DataPackageDescriptor.TryConvertToBin(out byte[] dataBin, new DataPackage(PackageType.TestForm, test)))
+            if (DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
             {
-                using (System.IO.BinaryWriter writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + CreateFileName() + ".dat", FileMode.Create)))
+                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + CreateFileName() + ".dat", FileMode.Create)))
                 {
                      writer.Write(dataBin);
                 }
@@ -26,9 +25,9 @@ namespace Testinator.Core
 
         private string CreateFileName()
         {
-            var restult = "test";
-            List<string> Files;
-            List<string> FileNames = new List<string>();
+            var result = "test";
+            var Files = new List<string>();
+            var FileNames = new List<string>();
             
             try
             {
@@ -47,16 +46,16 @@ namespace Testinator.Core
                 }
 
             }
-            int Index = 1;
+            var index = 1;
 
             foreach (var file in FileNames)
             {
-                if (file != restult + Index.ToString())
+                if (file != result + index.ToString())
                     break;
-                Index++;
+                index++;
             }
 
-            return restult + Index.ToString();
+            return result + index.ToString();
         }
 
         #region Constructor
@@ -68,6 +67,7 @@ namespace Testinator.Core
         {
             Settings = new WriterSettings();
         }
+
         #endregion
     }
 }

@@ -225,7 +225,7 @@ namespace Testinator.Server.Core
             Criteria.UpdateMark(Marks.F, int.Parse(TopValueMarkF), int.Parse(BottomValueMarkF));
 
             // Send it to xml writer and save it
-            FileWriters.XmlWriter.SaveGrading(Name, Criteria);
+            FileWriters.XmlWriter.WriteToFile(Name, Criteria);
 
             // Check if we were editing existing one or not
             if (EditingCriteriaMode)

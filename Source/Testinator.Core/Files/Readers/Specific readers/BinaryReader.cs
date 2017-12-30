@@ -4,9 +4,8 @@ using System.IO;
 
 namespace Testinator.Core
 {
-    public class BinaryReader : ReaderBase
+    public class BinaryReader : FileReaderBase
     {
-
         #region Public Methods
 
         /// <summary>

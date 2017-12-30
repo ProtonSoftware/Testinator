@@ -815,7 +815,7 @@ namespace Testinator.Server.Core
             Test.Grading = this.PointsGrading;
 
             // Save the test to file
-            FileWriters.BinWriter.WriteTestToFile(Test);
+            FileWriters.BinWriter.WriteToFile(Test);
 
             // Save this view model
             var viewModel = new TestEditorAddNewTestViewModel

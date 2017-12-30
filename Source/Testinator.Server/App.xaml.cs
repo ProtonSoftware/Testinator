@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using Testinator.Core;
 using Testinator.Server.Core;
 using Testinator.UICore;
 
@@ -22,6 +23,9 @@ namespace Testinator.Server
             // Setup the main application 
             ApplicationSetup();
 
+            // Log that application is starting
+            IoCServer.Logger.Log("Application starting...");
+
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
@@ -37,6 +41,17 @@ namespace Testinator.Server
 
             // Setup IoC
             IoCServer.Setup();
+
+            // Bind a logger
+            IoCServer.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(new[]
+            {
+                // TODO: Add ApplicationSettings so we can set/edit a log location
+                //       For now just log to the path where this application is running
+                new FileLogger("log.txt"),
+            }));
+
+            // Bind a File Writer
+            IoCServer.Kernel.Bind<FileWriterBase>().ToConstant(new LogsWriter());
 
             // Bind a UI Manager
             IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
