@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -8,22 +7,9 @@ namespace Testinator.Client.Core
     /// <summary>
     /// The view model for result questions page
     /// </summary>
-    public class ResultQuestionsViewModel : BaseViewModel
+    public class ResultQuestionsViewModel : PageHostViewModel
     {
         #region Public Properties
-
-        /// <summary>
-        /// The current page of the subpage
-        /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.None;
-
-        /// <summary>
-        /// The view model to use for the current page when the CurrentPage changes
-        /// NOTE: This is not a live up-to-date view model of the current page
-        ///       it is simply used to set the view model of the current page 
-        ///       at the time it changes
-        /// </summary>
-        public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
         /// Viewmodels for the questions
@@ -41,22 +27,6 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Page Methods
-
-        private void GoToPage(ApplicationPage page, BaseViewModel viewmodel)
-        {
-            // Set the view model
-            CurrentPageViewModel = viewmodel;
-
-            // Set the current page
-            CurrentPage = page;
-
-            // Fire off a CurrentPage changed event
-            OnPropertyChanged(nameof(CurrentPage));
-        }
-
-        #endregion
-
         #region Constructor
 
         /// <summary>
@@ -67,7 +37,9 @@ namespace Testinator.Client.Core
             // Create commands
             SelectQuestionCommand = new RelayParameterizedCommand(SelectQuestion);
 
+            // If we have any questions
             if (Questions.Count != 0)
+                // Go to the first one at the start
                 GoToPageByViewModel(Questions[0]);
             else
                 GoToPage(ApplicationPage.None, null);
@@ -83,12 +55,11 @@ namespace Testinator.Client.Core
         /// <param name="obj">The index of sender item</param>
         private void SelectQuestion(object obj)
         {
-            // get the index
+            // Get the index
             var index = (int)obj;
 
             // Go to the corresponding page
             GoToPageByViewModel(Questions[index]);
-
         }
 
         #endregion
@@ -117,6 +88,5 @@ namespace Testinator.Client.Core
         }
 
         #endregion
-
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.Core", "Testinator.Core\Testinator.Core.csproj", "{F592FA60-030D-440B-BB00-ED4EA5A919F6}"
 EndProject
@@ -22,8 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.Client", "Testinator.Client\Testinator.Client.csproj", "{83039784-E5D4-4C75-B213-F11D42FC36B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.UICore", "Testinator.UICore\Testinator.UICore.csproj", "{90C0CA2B-3524-49DA-A58A-0DF92F7EAED8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientTesting", "ClientTesting\ClientTesting.csproj", "{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,14 +109,6 @@ Global
 		{90C0CA2B-3524-49DA-A58A-0DF92F7EAED8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90C0CA2B-3524-49DA-A58A-0DF92F7EAED8}.Release|x86.ActiveCfg = Release|Any CPU
 		{90C0CA2B-3524-49DA-A58A-0DF92F7EAED8}.Release|x86.Build.0 = Release|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Debug|x86.Build.0 = Debug|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Release|x86.ActiveCfg = Release|Any CPU
-		{9F88981F-01E3-4C90-B6C9-CF5CA46DE88B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

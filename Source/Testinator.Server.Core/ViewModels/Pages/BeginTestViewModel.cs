@@ -127,7 +127,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StartServer()
         {
-            if (NetworkHelpers.IsAddresCorrect(ServerIpAddress) && NetworkHelpers.IsPortCorrect(ServerPort))
+            if (NetworkHelpers.IsAddressCorrect(ServerIpAddress) && NetworkHelpers.IsPortCorrect(ServerPort))
             {
                 IoCServer.Network.Ip = ServerIpAddress;
                 IoCServer.Network.Port = int.Parse(ServerPort);

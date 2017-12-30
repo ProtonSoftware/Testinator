@@ -7,7 +7,7 @@ namespace Testinator.Client.Core
     /// <summary>
     /// The application state as a view model
     /// </summary>
-    public class ApplicationViewModel : BaseViewModel
+    public class ApplicationViewModel : PageHostViewModel
     {
         #region Public Properties
 
@@ -15,19 +15,6 @@ namespace Testinator.Client.Core
         /// Handles network communication in the application
         /// </summary>
         public ClientNetwork Network { get; set; } = new ClientNetwork();
-
-        /// <summary>
-        /// The current page of the application
-        /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Login;
-
-        /// <summary>
-        /// The view model to use for the current page when the CurrentPage changes
-        /// NOTE: This is not a live up-to-date view model of the current page
-        ///       it is simply used to set the view model of the current page 
-        ///       at the time it changes
-        /// </summary>
-        public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
         /// Indicates if the test is in progress
@@ -66,27 +53,6 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Public Helpers
-
-        /// <summary>
-        /// Navigates to the specified page
-        /// </summary>
-        /// <param name="page">The page to go to</param>
-        /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-        public void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
-        {
-            // Set the view model
-            CurrentPageViewModel = viewModel;
-
-            // Set the current page
-            CurrentPage = page;
-
-            // Fire off a CurrentPage changed event
-            OnPropertyChanged(nameof(CurrentPage));
-        }
-
-        #endregion
-
         #region Private Helpers
 
         /// <summary>
@@ -114,6 +80,9 @@ namespace Testinator.Client.Core
         /// </summary>
         private void NetworkDisconnect()
         {
+            // Log it
+            IoCClient.Logger.Log("Network disconnected");
+
             // Simply go back to the initial login page
             IoCClient.UI.ChangePage(ApplicationPage.Login);
         }
@@ -126,6 +95,9 @@ namespace Testinator.Client.Core
             // If we aren't on login page, don't bother doing anything
             if (CurrentPage != ApplicationPage.Login)
                 return;
+
+            // Log it
+            IoCClient.Logger.Log("Network connected");
 
             // Change page to waiting for test page
             IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);

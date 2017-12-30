@@ -69,6 +69,7 @@
     <Compile Include="Test\ListHelpers.cs" />
     <Compile Include="Test\TestHost.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\Application\PageHostViewModel.cs" />
     <Compile Include="ViewModels\Input\TextEntryViewModel.cs" />
     <Compile Include="ViewModels\ListItems\ABCAnswerItemViewModel.cs" />
     <Compile Include="ViewModels\ListItems\CheckboxAnswerItemViewModel.cs" />

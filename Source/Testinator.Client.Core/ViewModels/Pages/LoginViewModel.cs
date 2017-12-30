@@ -130,6 +130,9 @@ namespace Testinator.Client.Core
             // Setup client and start connecting
             IoCClient.Application.Network.Initialize(ServerIP, int.Parse(ServerPort));
             IoCClient.Application.Network.StartConnecting();
+            
+            // Log it
+            IoCClient.Logger.Log("Attempting to connect to the server");
 
             OnPropertyChanged(nameof(ConnectingIsRunning));
         }
@@ -147,10 +150,13 @@ namespace Testinator.Client.Core
             IsSettingsMenuOpened = true;
         }
 
+        /// <summary>
+        /// Hides the settings menu
+        /// </summary>
         private void HideMenu()
         {
             // Verify the data
-            if (!NetworkHelpers.IsAddresCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
+            if (!NetworkHelpers.IsAddressCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
             {
                 IpOrPortError = true;
                 return;
@@ -165,7 +171,12 @@ namespace Testinator.Client.Core
         /// </summary>
         private void StopConnecting()
         {
+            // Disconnect
             IoCClient.Application.Network.Disconnect();
+
+            // Log it
+            IoCClient.Logger.Log("User disconnected");
+
             OnPropertyChanged(nameof(ConnectingIsRunning));
         }
 

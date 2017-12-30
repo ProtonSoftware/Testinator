@@ -17,7 +17,15 @@ namespace Testinator.Client
         /// <param name="viewmodel">Corresponding viewmodel</param>
         public void ChangePage(ApplicationPage page, BaseViewModel viewmodel = null)
         {
-            Application.Current.Dispatcher.Invoke(() => { IoCClient.Application.GoToPage(page, viewmodel); });
+            // Get back on UI thread
+            Application.Current.Dispatcher.Invoke(() => 
+            {
+                // Change page
+                IoCClient.Application.GoToPage(page, viewmodel);
+
+                // Log it
+                IoCClient.Logger.Log("Changing application page to " + page.ToString());
+            });
         }
     }
 }
