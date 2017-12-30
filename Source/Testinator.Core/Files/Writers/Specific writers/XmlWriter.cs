@@ -1,21 +1,19 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace Testinator.Core
 {
     /// <summary>
     /// The xml writer
     /// </summary>
-    public class XmlWriter : WriterBase
+    public class XmlWriter : FileWriterBase
     {
         /// <summary>
         /// Saves <see cref="Grading"/> to xml file
         /// </summary>
         /// <param name="FileName">The name of the file</param>
         /// <param name="data">The data to be saved</param>
-        public void SaveGrading(string FileName, GradingPercentage data)
+        public override void WriteToFile(string FileName, GradingPercentage data)
         {
             var grades = data as GradingPercentage;
 
@@ -41,7 +39,6 @@ namespace Testinator.Core
             try
             {
                 doc.Save(Settings.Path + "Criteria\\" + FileName + ".xml");
-
             }
             catch
             {

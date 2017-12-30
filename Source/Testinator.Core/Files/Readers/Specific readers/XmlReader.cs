@@ -9,7 +9,7 @@ namespace Testinator.Core
     /// <summary>
     /// The xml reader
     /// </summary>
-    public class XmlReader : ReaderBase
+    public class XmlReader : FileReaderBase
     {
         #region Public Methods
 

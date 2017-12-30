@@ -22,11 +22,6 @@ namespace Testinator.Client.Core
         public static ApplicationViewModel Application => IoCClient.Get<ApplicationViewModel>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="IUIManager"/>
-        /// </summary>
-        public static IUIManager UI => IoCClient.Get<IUIManager>();
-
-        /// <summary>
         /// A shortcut to access the <see cref="ClientModel"/>
         /// </summary>
         public static ClientModel Client => IoCClient.Get<ClientModel>();
@@ -35,6 +30,21 @@ namespace Testinator.Client.Core
         /// A shortcut to access the <see cref="TestHost"/>
         /// </summary>
         public static TestHost TestHost => IoCClient.Get<TestHost>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="FileWritersBase"/>
+        /// </summary>
+        public static FileWriterBase File => IoCClient.Get<FileWriterBase>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="IUIManager"/>
+        /// </summary>
+        public static IUIManager UI => IoCClient.Get<IUIManager>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ILogFactory"/>
+        /// </summary>
+        public static ILogFactory Logger => IoCClient.Get<ILogFactory>();
 
         #endregion
 

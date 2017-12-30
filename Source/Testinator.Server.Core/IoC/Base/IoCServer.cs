@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using Testinator.Core;
 using Testinator.Network.Server;
 
 namespace Testinator.Server.Core
@@ -31,9 +32,19 @@ namespace Testinator.Server.Core
         public static TestHost TestHost => IoCServer.Get<TestHost>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="FileWritersBase"/>
+        /// </summary>
+        public static FileWriterBase File => IoCServer.Get<FileWriterBase>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
         /// </summary>
         public static IUIManager UI => IoCServer.Get<IUIManager>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="ILogFactory"/>
+        /// </summary>
+        public static ILogFactory Logger => IoCServer.Get<ILogFactory>();
 
         #endregion
 
