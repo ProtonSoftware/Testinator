@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -25,6 +26,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand SelectQuestionCommand { get; set; }
 
+        /// <summary>
+        /// The command to go back to the result overview page
+        /// </summary>
+        public ICommand ReturnCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -36,7 +42,18 @@ namespace Testinator.Client.Core
         {
             // Create commands
             SelectQuestionCommand = new RelayParameterizedCommand(SelectQuestion);
+            ReturnCommand = new RelayCommand(Return);
+        }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Shows the first question from the list
+        /// </summary>
+        public void ShowFirstQuestion()
+        {
             // If we have any questions
             if (Questions.Count != 0)
                 // Go to the first one at the start
@@ -60,6 +77,14 @@ namespace Testinator.Client.Core
 
             // Go to the corresponding page
             GoToPageByViewModel(Questions[index]);
+        }
+
+        /// <summary>
+        /// Goes back to the overview page
+        /// </summary>
+        private void Return()
+        {
+            IoCClient.Application.GoToPage(ApplicationPage.ResultOverviewPage);
         }
 
         #endregion

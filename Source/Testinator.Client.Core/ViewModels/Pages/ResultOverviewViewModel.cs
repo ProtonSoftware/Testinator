@@ -64,11 +64,15 @@ namespace Testinator.Client.Core
         /// </summary>
         private void Exit()
         {
-            // Clean previous test from this application
-            IoCClient.TestHost.UnloadTest();
+            // Reset the test host
+            IoCClient.TestHost.Reset();
 
-            // Go to the waiting for test page
-            IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
+            // Go to the waiting for test page if still connected
+            if (IoCClient.Application.Network.IsConnected)
+                IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
+            else
+                // Or to the login page if we have been meanwhile disconnected  
+                IoCClient.Application.GoToPage(ApplicationPage.Login);
         }
 
         /// <summary>
@@ -76,7 +80,14 @@ namespace Testinator.Client.Core
         /// </summary>
         private void GoToQuestions()
         {
-            IoCClient.Application.GoToPage(ApplicationPage.ResultQuestionsPage);
+            // Create view model for the page
+            var viewmodel = new ResultQuestionsViewModel();
+
+            // Change page
+            IoCClient.Application.GoToPage(ApplicationPage.ResultQuestionsPage, viewmodel);
+
+            // And shot the first question
+            viewmodel.ShowFirstQuestion();
         }
 
         #endregion

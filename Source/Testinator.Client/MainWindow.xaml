@@ -114,8 +114,19 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding ApplicationViewModel.Network.AttemptingToReconnect,
+                   Source={x:Static local:ViewModelLocator.Instance}}"
+                   Grid.Row="0"
+                   Panel.ZIndex="100"/>
+        
         <!-- Content -->
-        <local:PageHost Grid.Row="1"
+        <local:PageHost Grid.Row="0"
+                        Grid.RowSpan="2"
                         CurrentPage="{Binding ApplicationViewModel.CurrentPage,
                                         Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel,

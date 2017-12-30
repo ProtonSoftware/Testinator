@@ -12,20 +12,26 @@
     <Grid Background="{StaticResource WhiteLightBrush}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <Grid Background="Green" Grid.Row="0">
+      
+            <Button Content="Powrót"
+                    Style="{StaticResource BaseUIButton}"
+                    HorizontalAlignment="Left"
+                    Command="{Binding ReturnCommand}"/>
 
-        <Border Background="Green" Grid.Row="0" Grid.Column="0">
             <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    Margin="0 10 0 0"
                    Foreground="{StaticResource BlackDarkBrush}"
                    Style="{StaticResource TitleText}" />
-        </Border>
+        </Grid>
         
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="175"/>
@@ -33,7 +39,8 @@
             </Grid.ColumnDefinitions>
 
             <ScrollViewer Grid.Column="0"
-                          Panel.ZIndex="2">
+                          Panel.ZIndex="2"
+                          Background="{StaticResource WhitePureBrush}">
                 <ItemsControl ItemsSource="{Binding Questions}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
