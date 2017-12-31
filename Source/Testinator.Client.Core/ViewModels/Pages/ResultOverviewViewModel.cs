@@ -71,8 +71,11 @@ namespace Testinator.Client.Core
             if (IoCClient.Application.Network.IsConnected)
                 IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
             else
-                // Or to the login page if we have been meanwhile disconnected  
+            {
+                // Or to the login page if we have been meanwhile disconnected 
+                IoCClient.Application.Network.Disconnect();
                 IoCClient.Application.GoToPage(ApplicationPage.Login);
+            }
         }
 
         /// <summary>

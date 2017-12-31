@@ -28,7 +28,13 @@ namespace Testinator.Client.Core
         }
 
         #endregion
-       
+
+        public new void Disconnect()
+        {
+            base.Disconnect();
+            AttemptingToReconnect = false;
+        }
+
         #region Private Helpers
 
         /// <summary>
