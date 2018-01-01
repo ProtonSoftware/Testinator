@@ -6,8 +6,8 @@ namespace Testinator.Core
     public class StatusPackage : PackageContent
     {
         /// <summary>
-        /// Indicates if a question has been solved so the server can update status
+        /// The question number the client is solving right now
         /// </summary>
-        public int QuestionSolved { get; set; }
+        public int CurrentQuestion { get; set; }
     }
 }

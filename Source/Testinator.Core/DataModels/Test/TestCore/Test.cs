@@ -11,6 +11,8 @@ namespace Testinator.Core
     {
         #region Public Properties
 
+        public int ID { get; set; } = -1;
+
         /// <summary>
         /// Stores all questions and correct answers for them in this test
         /// </summary>

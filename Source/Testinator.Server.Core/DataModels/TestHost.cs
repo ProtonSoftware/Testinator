@@ -23,7 +23,7 @@ namespace Testinator.Server.Core
         /// NOTE: data to the clients is sent by using <see cref="ClientModel"/>, therefore this list is essential
         /// </summary>
         private List<ClientModel> mClients = new List<ClientModel>();
-
+        
         #endregion
 
         #region Public Properties
@@ -156,20 +156,36 @@ namespace Testinator.Server.Core
             if (!mClients.Contains(client))
                 return;
 
+            var ClientIdx = mClients.IndexOf(client);
             switch (dataPackage.PackageType)
             {
                 case PackageType.ReportStatus:
                     var content = dataPackage.Content as StatusPackage;
-                    var idx = mClients.IndexOf(client);
-                    Clients[idx].QuestionsDone = content.QuestionSolved;
-                    
+                    Clients[ClientIdx].CurrentQuestion = content.CurrentQuestion;
 
+                    // Check if every user has completed the test
+                    if(TestFinished())
+                    {
+                        // Stop the test
+                        Stop();
+                    }
                     break;
 
                 case PackageType.ResultForm:
-                    // TODO: store the result
-                    // Don't know what this will look like yet
+                    
+                    // Get the content
+                    var result = dataPackage.Content as ResultFormPackage;
 
+                    // Store the result
+                    Clients[ClientIdx].Answers = result.Answers;
+                    Clients[ClientIdx].PointsScored = result.PointsScored;
+                    Clients[ClientIdx].Mark = result.Mark;
+
+                    // If the test is not in progress save the answers
+                    if(!IsTestInProgress)
+                    {
+
+                    }
                     break;                    
             }
         }
@@ -206,6 +222,21 @@ namespace Testinator.Server.Core
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Checks if there is any user still taking the test
+        /// </summary>
+        /// <returns></returns>
+        private bool TestFinished()
+        {
+            foreach (var client in Clients)
+            {
+                if (client.CurrentQuestion < Test.Questions.Count + 1)
+                    return false;
+            }
+
+            return true;
+        }
 
         /// <summary>
         /// Sends data to all clients

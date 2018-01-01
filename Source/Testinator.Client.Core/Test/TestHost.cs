@@ -218,6 +218,9 @@ namespace Testinator.Client.Core
             // Update question number
             UpdateQuestionNumber();
 
+            // Send the update
+            SendUpdate();
+
             // If last question was the last question, finish the test
             if (mCurrentQuestion > Questions.Count)
             {
@@ -227,9 +230,6 @@ namespace Testinator.Client.Core
 
             // Indicate that we are going to the next question
             IoCClient.Logger.Log("Going to the next question");
-
-            // Send the update
-            SendUpdate();
 
             // Based on next question type...
             switch (Questions[mCurrentQuestion - 1].Type)
@@ -415,6 +415,19 @@ namespace Testinator.Client.Core
         /// </summary>
         private void TrySendResult()
         {
+            // Create the data package
+            var data = new DataPackage(PackageType.ResultForm)
+            {
+                Content = new ResultFormPackage()
+                {
+                    Answers = UserAnswers,
+                    PointsScored = UserScore,
+                    Mark = UserMark,
+                },
+            };
+
+            // Send it
+            IoCClient.Application.Network.SendData(data);
             // TODO: set the flag if successful
             IsResultSent = true;
         }
@@ -451,7 +464,7 @@ namespace Testinator.Client.Core
                 Content = new StatusPackage()
                 {
                     // Send progress user has made
-                    QuestionSolved = mCurrentQuestion,
+                    CurrentQuestion = mCurrentQuestion,
                 },
             };
             

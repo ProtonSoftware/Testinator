@@ -54,6 +54,7 @@
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\RelayParameterizedCommand.cs" />
     <Compile Include="DataModels\Client\ClientModel.cs" />
+    <Compile Include="DataModels\DataPackage\Content\ResultFormPackage.cs" />
     <Compile Include="DataModels\DataPackage\Content\StatusPackage.cs" />
     <Compile Include="DataModels\DataPackage\DataPackage.cs" />
     <Compile Include="DataModels\DataPackage\Content\InfoPackage.cs" />

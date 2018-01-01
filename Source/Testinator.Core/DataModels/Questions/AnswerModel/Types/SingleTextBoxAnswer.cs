@@ -1,8 +1,11 @@
-﻿namespace Testinator.Core
+﻿using System;
+
+namespace Testinator.Core
 {
     /// <summary>
     /// The answer for multiple choice question
     /// </summary>
+    [Serializable]
     public class SingleTextBoxAnswer : Answer
     {
         #region Public Properties

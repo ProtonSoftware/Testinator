@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Testinator.Core
 {
     /// <summary>
     /// The answer for multiple checkboxes question
     /// </summary>
+    [Serializable]
     public class MultipleCheckboxesAnswer : Answer
     {
         #region Public Properties
