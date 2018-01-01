@@ -22,11 +22,6 @@ namespace Testinator.Client.Core
         /// </summary>
         private int mCurrentQuestion = 0;
 
-        /// <summary>
-        /// Answers given by the user
-        /// </summary>
-        private List<Answer> mAnswers = new List<Answer>();
-
         #endregion
 
         #region Public Properties
@@ -34,12 +29,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        public Test CurrentTest { get; set; } = new Test();
+        public Test CurrentTest { get; set; }
 
         /// <summary>
         /// List of all questions in the test
         /// </summary>
-        public List<Question> Questions { get; private set; }
+        public List<Question> Questions => CurrentTest.Questions;
 
         /// <summary>
         /// List of every answer given by the user throughout the test
@@ -58,14 +53,29 @@ namespace Testinator.Client.Core
         public bool IsTestReceived { get; private set; }
 
         /// <summary>
+        /// Indicated if the test result has been sucesfully sent for this session
+        /// </summary>
+        public bool IsResultSent { get; private set; }
+
+        /// <summary>
+        /// Indicates if the user has completed the test
+        /// </summary>
+        public bool IsTestCompleted => mCurrentQuestion > Questions.Count;
+
+        /// <summary>
         /// Indicates how much time is left
         /// </summary>
         public TimeSpan TimeLeft { get; private set; }
 
         /// <summary>
+        /// Indicates if the applicating is currently showing any of the result pages
+        /// </summary>
+        public bool IsShowingResultPage { get; private set; }
+
+        /// <summary>
         /// Shows which question is currently shown
         /// </summary>
-        public string QuestionNumber { get; set; }
+        public string QuestionNumber { get; private set; }
 
         /// The user's score
         /// </summary>
@@ -111,8 +121,8 @@ namespace Testinator.Client.Core
         /// </summary>
         public void StartTest()
         {
-            // If there is no test to start or the test has already started don't do anything
-            if (!IsTestReceived || IsTestInProgress)
+            // If there is no test to start or the test has already started or the result page is displayed don't do anything
+            if (!IsTestReceived || IsTestInProgress || IsShowingResultPage)
                 return;
 
             // Indicate that test is starting
@@ -125,7 +135,7 @@ namespace Testinator.Client.Core
             // Start the test timer
             mTestTimer.Start();
 
-            // Show first question
+            // Show the first question
             GoNextQuestion();
         }
 
@@ -135,14 +145,19 @@ namespace Testinator.Client.Core
         /// <param name="test">Test to be hosted</param>
         public void BindTest(Test test)
         {
-            // Get the test and save it in this view model
+            // Don't do anything in this case
+            if (IsTestInProgress || IsShowingResultPage)
+                return;
+            
+            // Save the test
             CurrentTest = test;
-            Questions = test.Questions;
+
+            // Set the timeleft to the duration time
             TimeLeft = test.Duration;
 
             // Randomize question order
             Questions.Shuffle();
-            IoCClient.Logger.Log("Shuffling question order");
+            IoCClient.Logger.Log("Shuffling questions");
 
             // Indicate that we have received test
             IsTestReceived = true;
@@ -150,23 +165,31 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
-        /// Stops the current test
+        /// Resets the test host and clear all the flags and properties
         /// </summary>
-        public void StopTest()
+        public void Reset()
         {
-            // If there is no test to stop, just return
-            if (!IsTestInProgress)
-                return;
+            IoCClient.Logger.Log("Reseting test host...");
 
-            // Stop the timer, we don't need it anymore
+            ResetQuestionNumber();
+
+            // Stop the timer
             mTestTimer.Stop();
 
-            // Indicate that test has ended
-            IoCClient.Logger.Log("Test is ending...");
-            IsTestInProgress = false;
+            // Clear all properties
+            CurrentTest = null;
+            UserAnswers = new List<Answer>();
+            UserScore = 0;
+            UserMark = Marks.F;
+            QuestionViewModels = new List<BaseViewModel>();
 
-            // Change page to result page
-            IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);
+            // Clear flags
+            IsTestInProgress = false;
+            IsShowingResultPage = false;
+            IsTestReceived = false;
+            IsResultSent = false;
+
+            IoCClient.Logger.Log("Reseting test host done.");
         }
 
         /// <summary>
@@ -192,8 +215,14 @@ namespace Testinator.Client.Core
         /// </summary>
         public void GoNextQuestion()
         {
+            // Update question number
+            UpdateQuestionNumber();
+
+            // Send the update
+            SendUpdate();
+
             // If last question was the last question, finish the test
-            if (mCurrentQuestion >= Questions.Count)
+            if (mCurrentQuestion > Questions.Count)
             {
                 TestFinished();
                 return;
@@ -201,10 +230,6 @@ namespace Testinator.Client.Core
 
             // Indicate that we are going to the next question
             IoCClient.Logger.Log("Going to the next question");
-            UpdateQuestionNumber();
-
-            // Send the update
-            SendUpdate();
 
             // Based on next question type...
             switch (Questions[mCurrentQuestion - 1].Type)
@@ -244,7 +269,7 @@ namespace Testinator.Client.Core
         public void UnloadTest()
         {
             // Erase the test
-            CurrentTest = new Test();
+            CurrentTest = null;
 
             // Indicate that we are out of test now
             IoCClient.Logger.Log("Test erasing");
@@ -362,9 +387,50 @@ namespace Testinator.Client.Core
             UserMark = CurrentTest.Grading.GetMark(UserScore);
         }
 
+        /// <summary>
+        /// Fired to indicated that connection has been re-established
+        /// </summary>
+        public void NetworkReconnected()
+        {
+            // Send update
+            SendUpdate();
+
+            // If the result has not been sent yet and the test is completed
+            if (!IsResultSent && IsTestCompleted)
+            {
+                TrySendResult();
+            }
+        }
+
+        public void NetworkDisconnected()
+        {
+        }
+
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Attempts to send the results to the server
+        /// </summary>
+        private void TrySendResult()
+        {
+            // Create the data package
+            var data = new DataPackage(PackageType.ResultForm)
+            {
+                Content = new ResultFormPackage()
+                {
+                    Answers = UserAnswers,
+                    PointsScored = UserScore,
+                    Mark = UserMark,
+                },
+            };
+
+            // Send it
+            IoCClient.Application.Network.SendData(data);
+            // TODO: set the flag if successful
+            IsResultSent = true;
+        }
 
         /// <summary>
         /// Fired when the current test is finished
@@ -373,9 +439,18 @@ namespace Testinator.Client.Core
         {
             // Calculate the user's score
             CalculateScore();
-            
-            // And stop the test
-            StopTest();
+
+            // Try to send the results
+            TrySendResult();
+
+            // Test is not in progress now
+            IsTestInProgress = false;
+
+            // Change page to the result page
+            IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);
+
+            // Indicate that we're in the result page
+            IsShowingResultPage = true;
         }
 
         /// <summary>
@@ -389,7 +464,7 @@ namespace Testinator.Client.Core
                 Content = new StatusPackage()
                 {
                     // Send progress user has made
-                    QuestionSolved = mCurrentQuestion,
+                    CurrentQuestion = mCurrentQuestion,
                 },
             };
             
@@ -430,7 +505,7 @@ namespace Testinator.Client.Core
 
             // If we reach 0, time has run out and so the test
             if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
-                StopTest();
+                TestFinished();
         }
 
         #endregion

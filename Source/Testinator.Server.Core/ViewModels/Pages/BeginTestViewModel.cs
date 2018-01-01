@@ -31,6 +31,11 @@ namespace Testinator.Server.Core
         public Test CurrentTest => IoCServer.TestHost.Test;
 
         /// <summary>
+        /// The number of the questions in the test
+        /// </summary>
+        public int QuestionsCount => CurrentTest.Questions.Count;
+
+        /// <summary>
         /// A flag indicating whether server has started
         /// </summary>
         public bool IsServerStarted => IoCServer.Network.IsRunning;

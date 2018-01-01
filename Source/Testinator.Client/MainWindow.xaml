@@ -114,8 +114,39 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Attempting to reconnect -->
+        <Border Grid.Row="0" 
+                Panel.ZIndex="100"
+                local:AnimateSlideInFromTopProperty.Value="{Binding ApplicationViewModel.Network.AttemptingToReconnect,
+                                                                    Source={x:Static local:ViewModelLocator.Instance}}"
+                BorderThickness="1"
+                BorderBrush="Black"
+                Padding="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                CornerRadius="0 0 5 5"
+                Background="{StaticResource NormalBorderBrush}">
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="10 0">
+
+                <TextBlock Text="Attempting to reconnect... "
+                           FontSize="{StaticResource FontSizeRegular}"/>
+                <TextBlock Style="{StaticResource SpinningText}"
+                           FontSize="{StaticResource FontSizeRegular}"
+                           Margin="0 1"/>
+
+            </StackPanel>
+        </Border>
+        
         <!-- Content -->
-        <local:PageHost Grid.Row="1"
+        <local:PageHost Grid.Row="0"
+                        Grid.RowSpan="2"
                         CurrentPage="{Binding ApplicationViewModel.CurrentPage,
                                         Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel,

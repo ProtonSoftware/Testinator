@@ -6,7 +6,7 @@ using Testinator.Core;
 
 namespace Testinator.Network.Client
 {
-    public abstract class ClientBase
+    public class ClientBase : BaseViewModel
     {
         #region Private Members
 
@@ -239,8 +239,8 @@ namespace Testinator.Network.Client
         /// <param name="data">Data to be sent</param>
         public void SendData(DataPackage data)
         {
-            // Try convert data to the binary array
-            if (DataPackageDescriptor.TryConvertToBin(out var sendBuffor, data) && IsConnected)
+            // Try convert data to the binary array and chceck if we are stil connected
+            if (IsConnected && DataPackageDescriptor.TryConvertToBin(out var sendBuffor, data))
             {
                 // Send it if conversion was successful
                 mClientSocket.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);

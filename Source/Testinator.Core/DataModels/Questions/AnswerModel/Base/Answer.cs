@@ -1,8 +1,11 @@
-﻿namespace Testinator.Core
+﻿using System;
+
+namespace Testinator.Core
 {
     /// <summary>
     /// The base class for every answer
     /// </summary>
+    [Serializable]
     public abstract class Answer
     {
         /// <summary>

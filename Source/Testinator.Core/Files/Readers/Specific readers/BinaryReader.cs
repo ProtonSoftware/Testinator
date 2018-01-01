@@ -8,6 +8,8 @@ namespace Testinator.Core
     {
         #region Public Methods
 
+        public static Dictionary<int, string> Tests { get; set; } = new Dictionary<int, string>();
+
         /// <summary>
         /// Gets all tests from the directory
         /// </summary>
@@ -15,6 +17,9 @@ namespace Testinator.Core
         public List<Test> ReadAllTests()
         {
             List<string> Files;
+
+            Tests = new Dictionary<int, string>();
+
             try
             {
                 Files = new List<string>(Directory.GetFiles(Settings.Path + "Tests\\"));
@@ -25,6 +30,7 @@ namespace Testinator.Core
             }
 
             var tests = new List<Test>();
+            var indexer = 0;
 
             foreach (var file in Files)
             {
@@ -35,7 +41,13 @@ namespace Testinator.Core
 
                     var filecontent = GetTestFromBin(file);
                     if (filecontent != null)
+                    {
+                        filecontent.ID = indexer;
+                        Tests.Add(indexer, Path.GetFileNameWithoutExtension(file));
                         tests.Add(filecontent);
+
+                        indexer++;
+                    }
                 }
                 catch
                 {

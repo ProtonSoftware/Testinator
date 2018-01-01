@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Testinator.Core
 {
@@ -13,21 +14,33 @@ namespace Testinator.Core
         {
             if (test == null)
                 return;
-            
+
+            string filename;
+            if (BinaryReader.Tests.ContainsKey(test.ID))
+            {
+                filename = BinaryReader.Tests[test.ID];
+            }
+            else
+            {
+                filename = CreateFileName();
+            }
+
             if (DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
             {
-                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + CreateFileName() + ".dat", FileMode.Create)))
+                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + filename + ".dat", FileMode.Create)))
                 {
                      writer.Write(dataBin);
                 }
             }
+            // Reload the test list
+            var c = FileReaders.BinReader.ReadAllTests();
         }
 
         private string CreateFileName()
         {
-            var result = "test";
+            var Name = "test";
             var Files = new List<string>();
-            var FileNames = new List<string>();
+            var FileIndexes = new List<int>();
             
             try
             {
@@ -42,20 +55,27 @@ namespace Testinator.Core
                 if (Path.GetExtension(file) == ".dat")
                 { 
                     var fileName = Path.GetFileNameWithoutExtension(file);
-                    FileNames.Add(fileName);
+
+                    // If the file name is in correct format
+                    if (fileName.StartsWith(Name))
+                    {
+                        var FileNumberStr = fileName.Substring(4);
+                        if (int.TryParse(FileNumberStr, out var fileNumber))
+                        {
+                            FileIndexes.Add(fileNumber);
+                        }
+                    }
+
                 }
 
             }
+
+            FileIndexes.Sort();
             var index = 1;
-
-            foreach (var file in FileNames)
-            {
-                if (file != result + index.ToString())
-                    break;
+            while (FileIndexes.Contains(index))
                 index++;
-            }
 
-            return result + index.ToString();
+            return Name + index.ToString();
         }
 
         #region Constructor

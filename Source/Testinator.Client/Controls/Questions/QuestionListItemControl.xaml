@@ -39,11 +39,12 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Index}"
+                                <TextBlock Text="{Binding DisplayIndex}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                            Style="{StaticResource MediumTitleText}"
-                                           Grid.Column="0"/>
+                                           Grid.Column="0"
+                                           Margin="5 0 0 0"/>
 
                                 <TextBlock Text="{Binding Type, Converter={local:QuestionTypeToIconConverter}}"
                                            Grid.Column="1"

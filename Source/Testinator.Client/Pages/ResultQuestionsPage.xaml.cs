@@ -28,7 +28,7 @@ namespace Testinator.Client
             InitializeComponent();
 
             // Set the default page load/unload animation
-            PageLoadAnimation = PageAnimation.SlideAndFadeInFromRight;
+            //PageLoadAnimation = PageAnimation.SlideAndFadeInFromRight;
             PageUnloadAnimation = PageAnimation.SlideAndFadeOutToLeft;
         }
 

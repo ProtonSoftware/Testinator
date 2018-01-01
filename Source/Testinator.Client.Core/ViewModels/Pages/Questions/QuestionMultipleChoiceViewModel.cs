@@ -20,7 +20,8 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "Pytanie " + IoCClient.TestHost.QuestionNumber;
+        public string QuestionPageCounter => 
+            IsReadOnly ? "Pytanie " + DisplayIndex +  " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.QuestionNumber;
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
@@ -62,6 +63,13 @@ namespace Testinator.Client.Core
         /// Used in ResultPage
         /// </summary>
         public int Index { get; set; }
+
+        /// <summary>
+        /// The index of the question displayed on the list
+        /// (Just index+1 to start indexing from 1 not from 0)
+        /// Makes sense if ReadOnly mode is active
+        /// </summary>
+        public int DisplayIndex => Index + 1;
 
         /// <summary>
         /// The type of this question
