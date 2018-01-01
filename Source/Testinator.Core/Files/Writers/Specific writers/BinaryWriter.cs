@@ -9,6 +9,32 @@ namespace Testinator.Core
     public class BinaryWriter : FileWriterBase
     {
         /// <summary>
+        /// Deletes a test
+        /// </summary>
+        /// <param name="test">Test to be deleted</param>
+        public override void DeleteFile(Test test)
+        {
+            if (test == null)
+                return;
+
+            var filename = string.Empty;
+            if (BinaryReader.Tests.ContainsKey(test.ID))
+                filename = BinaryReader.Tests[test.ID];
+            else
+                return;
+
+            try
+            {
+                File.Delete(Settings.Path + "Tests\\" + filename + ".dat");
+            }
+            catch
+            {
+                // TODO: file protected etc.
+            }
+
+        }
+
+        /// <summary>
         /// Writes a test to file
         /// </summary>
         /// <param name="test">The test to be written to file</param>
@@ -36,6 +62,8 @@ namespace Testinator.Core
             FileReaders.BinReader.ReadAllTests();
         }
 
+        #region Private Helpers
+        
         private string CreateFileName()
         {
             var Name = "test";
@@ -75,6 +103,8 @@ namespace Testinator.Core
 
             return Name + index.ToString();
         }
+
+        #endregion
 
         #region Constructor
 
