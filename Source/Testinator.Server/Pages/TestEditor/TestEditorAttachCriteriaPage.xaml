@@ -347,7 +347,7 @@
                 </Grid>
 
                 <Border Grid.Column="1" Background="{StaticResource WhiteLightBrush}">
-                    <local:CriteriaListControl />
+                    <local:CriteriaListControl DataContext="{x:Static Core:CriteriaListViewModel.Instance}"/>
                 </Border>
 
             </Grid>
