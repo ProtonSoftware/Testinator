@@ -8,6 +8,18 @@ namespace Testinator.Core
     /// </summary>
     public class BinaryWriter : FileWriterBase
     {
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public BinaryWriter()
+        {
+            Settings = new WriterSettings();
+        }
+
+        #region Public Helpers
+
         /// <summary>
         /// Deletes a test
         /// </summary>
@@ -49,12 +61,12 @@ namespace Testinator.Core
                 filename = BinaryReader.Tests[test.ID];
             else
                 filename = CreateFileName();
-            
+
             if (DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
             {
                 using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + filename + ".dat", FileMode.Create)))
                 {
-                     writer.Write(dataBin);
+                    writer.Write(dataBin);
                 }
             }
 
@@ -62,8 +74,12 @@ namespace Testinator.Core
             FileReaders.BinReader.ReadAllTests();
         }
 
+        #endregion
+
+        #endregion
+
         #region Private Helpers
-        
+
         private string CreateFileName()
         {
             var Name = "test";
@@ -102,18 +118,6 @@ namespace Testinator.Core
                 index++;
 
             return Name + index.ToString();
-        }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BinaryWriter()
-        {
-            Settings = new WriterSettings();
         }
 
         #endregion

@@ -17,15 +17,25 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Height="500"
-                Width="300">
+                Width="300"
+                CornerRadius="3"
+                Padding="10">
 
             <local:TestListControl />
 
         </Border>
-        
+
+        <Button Content="Usuń test"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="30"
+                Command="{Binding DeleteTestCommand}"
+                Style="{StaticResource BaseUIButton}" />
+
         <Button Content="Edytuj test"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
+                Margin="30"
                 Command="{Binding ChangePageCommand}"
                 Style="{StaticResource BaseUIButton}" />
     </Grid>

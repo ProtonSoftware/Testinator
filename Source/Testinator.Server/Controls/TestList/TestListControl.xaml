@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
              mc:Ignorable="d">
-    <Grid DataContext="{x:Static Core:TestListViewModel.Instance}">
+    <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>

@@ -328,9 +328,9 @@ namespace Testinator.Server.Core
                 var viewModel = new TestEditorAddNewTestViewModel(Test)
                 {
                     // Set default points grading 
-                    CurrentGrading = new GradingPercentage(),
-                    PointsGrading = CurrentGrading.ToPoints(Test.TotalPointScore)
+                    CurrentGrading = new GradingPercentage()
                 };
+                viewModel.PointsGrading = viewModel.CurrentGrading.ToPoints(Test.TotalPointScore);
 
                 // Pass view model to the next page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);

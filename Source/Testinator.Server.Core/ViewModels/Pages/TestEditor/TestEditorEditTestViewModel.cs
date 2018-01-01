@@ -24,6 +24,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand ChangePageCommand { get; private set; }
 
+        /// <summary>
+        /// The command to delete test which is choosen in the list
+        /// </summary>
+        public ICommand DeleteTestCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -32,6 +37,10 @@ namespace Testinator.Server.Core
         {
             // Create commands
             ChangePageCommand = new RelayCommand(ChangePage);
+            DeleteTestCommand = new RelayCommand(DeleteTest);
+
+            // Make sure that test list is up to date
+            TestListViewModel.Instance.LoadItems();
         }
 
         #endregion
@@ -59,6 +68,27 @@ namespace Testinator.Server.Core
 
             // Go to test editor add new test page, where user can edit this test
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddTest, viewModel);
+        }
+
+        /// <summary>
+        /// Deletes test from the list
+        /// </summary>
+        private void DeleteTest()
+        {
+            // Check if user has selected any test
+            if (!TestListViewModel.Instance.IsAnyTestSelected())
+                return;
+
+            // Update the current test property to make sure its indicating the right test
+            OnPropertyChanged(nameof(CurrentTest));
+
+            // TODO: Show message box to user if he is sure he wants to delete the test
+
+            // Finally delete selected test
+            FileWriters.BinWriter.DeleteFile(CurrentTest);
+
+            // Update test list
+            TestListViewModel.Instance.LoadItems();
         }
 
         #endregion
