@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -26,6 +27,15 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        #region Commands
+
+        /// <summary>
+        /// The command to choose a test from the list
+        /// </summary>
+        public ICommand ChooseTestCommand { get; private set; }
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -33,13 +43,41 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestListViewModel()
         {
+            // Create commands
+            ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
+
             // Load every criteria at the start
             LoadItems();
         }
 
         #endregion
 
-        #region Public Methods
+        #region Command Methods
+
+        /// <summary>
+        /// Chooses a test from the list
+        /// </summary>
+        private void ChooseTest(object param)
+        {
+            // Cast the parameter
+            var testID = int.Parse(param.ToString());
+
+            // Load test based on that
+            IoCServer.TestHost.BindTest(Items[testID - 1].Test);
+
+            // Mark all items not selected
+            foreach (var item in Items)
+            {
+                item.IsSelected = false;
+            }
+
+            // Select the one that has been clicked
+            Items[testID - 1].IsSelected = true;
+        }
+
+        #endregion
+
+        #region Public Helpers
 
         /// <summary>
         /// Checks if there is any test selected
@@ -57,7 +95,7 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Loads the criteria to the list
+        /// Loads tests to the list
         /// </summary>
         public void LoadItems()
         {
@@ -66,14 +104,15 @@ namespace Testinator.Server.Core
 
             // Rewrite list to the collection
             Items = new ObservableCollection<TestListItemViewModel>();
-            int i = 1;
-            list.ForEach( (x) =>
+            var i = 1;
+            list.ForEach((x) =>
             {
                 Items.Add(new TestListItemViewModel()
                 {
                     ID = i,
                     Test = x,
                 });
+
                 i++;
             });
         }

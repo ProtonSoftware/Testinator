@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Testinator.Server.Core;
 
 namespace Testinator.Server
 {
@@ -10,6 +11,9 @@ namespace Testinator.Server
         public TestListControl()
         {
             InitializeComponent();
+
+            // Set data context
+            DataContext = TestListViewModel.Instance;
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Testinator.Server.Core
 {
     /// <summary>
-    /// View model for any <see cref="Test"/> to show it in list control
+    /// The view model for any <see cref="Test"/> to show it in the list control
     /// </summary>
     public class TestListItemViewModel : BaseViewModel
     {
@@ -24,18 +24,6 @@ namespace Testinator.Server.Core
         /// Indicates if this test is currently selected
         /// </summary>
         public bool IsSelected { get; set; } = false;
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public TestListItemViewModel()
-        {
-
-        }
 
         #endregion
     }

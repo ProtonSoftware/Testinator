@@ -44,8 +44,21 @@ namespace Testinator.Server.Core
         private void ChangePage()
         {
             // Check if user has selected any test
-            if (CurrentTest == null)
+            if (!TestListViewModel.Instance.IsAnyTestSelected())
                 return;
+
+            // Update the current test property to make sure its indicating the right test
+            OnPropertyChanged(nameof(CurrentTest));
+
+            // Create view model which contains selected test data
+            var viewModel = new TestEditorAddNewTestViewModel(CurrentTest)
+            {
+                Name = CurrentTest.Name,
+                Duration = CurrentTest.Duration.Minutes.ToString()
+            };
+
+            // Go to test editor add new test page, where user can edit this test
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddTest, viewModel);
         }
 
         #endregion

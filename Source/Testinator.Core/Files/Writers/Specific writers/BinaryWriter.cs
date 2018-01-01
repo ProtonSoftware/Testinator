@@ -3,6 +3,9 @@ using System.IO;
 
 namespace Testinator.Core
 {
+    /// <summary>
+    /// The file writer which writes in binary code
+    /// </summary>
     public class BinaryWriter : FileWriterBase
     {
         /// <summary>
@@ -11,19 +14,20 @@ namespace Testinator.Core
         /// <param name="test">The test to be written to file</param>
         public override void WriteToFile(Test test)
         {
+            // Make sure we have test to write
             if (test == null)
                 return;
             
             if (DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
             {
-                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + CreateFileName() + ".dat", FileMode.Create)))
+                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + CreateFileName(test) + ".dat", FileMode.Create)))
                 {
                      writer.Write(dataBin);
                 }
             }
         }
 
-        private string CreateFileName()
+        private string CreateFileName(Test test)
         {
             var result = "test";
             var Files = new List<string>();
@@ -44,15 +48,13 @@ namespace Testinator.Core
                     var fileName = Path.GetFileNameWithoutExtension(file);
                     FileNames.Add(fileName);
                 }
-
             }
-            var index = 1;
 
+            var index = 1;
             foreach (var file in FileNames)
             {
                 if (file != result + index.ToString())
                     break;
-                index++;
             }
 
             return result + index.ToString();

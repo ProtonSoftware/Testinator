@@ -17,7 +17,7 @@ namespace Testinator.Core
 
         /// <summary>
         /// Identifier of this question
-        /// Usefull for matching answers to questions
+        /// Useful for matching answers to questions
         /// </summary>
         public int ID { get; set; }
 
