@@ -117,4 +117,96 @@ namespace Testinator.Server
                 await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
         }
     }
+
+
+    /// <summary>
+    /// Animates a framework element sliding it in from the left on show
+    /// and sliding out to the left on hide
+    /// </summary>
+    public class AnimateSlideInFromLeftProperty : AnimateBaseProperty<AnimateSlideInFromLeftProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (value)
+                // Animate in
+                await element.SlideAndFadeInAsync(AnimationSlideInDirection.Left, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
+            else
+                // Animate out
+                await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Left, firstLoad ? 0 : 0.3f, keepMargin: false);
+        }
+    }
+
+    /// <summary>
+    /// Animates a framework element sliding it in from the top on show
+    /// and sliding out to the top on hide
+    /// </summary>
+    public class AnimateSlideInFromTopProperty : AnimateBaseProperty<AnimateSlideInFromTopProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (value)
+                // Animate in
+                await element.SlideAndFadeInAsync(AnimationSlideInDirection.Top, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
+            else
+                // Animate out
+                await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Top, firstLoad ? 0 : 0.3f, keepMargin: false);
+        }
+    }
+
+    /// <summary>
+    /// Animates a framework element sliding it in from the right on show
+    /// and sliding out to the right on hide
+    /// </summary>
+    public class AnimateSlideInFromRightProperty : AnimateBaseProperty<AnimateSlideInFromRightProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (value)
+                // Animate in
+                await element.SlideAndFadeInAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
+            else
+                // Animate out
+                await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.3f, keepMargin: false);
+        }
+    }
+
+    /// <summary>
+    /// Animates the width of an element
+    /// </summary>
+    public class AnimateWidthProperty : AnimateBaseProperty<AnimateWidthProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (value)
+                // Animate in
+                await element.ExpandSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.1f, keepMargin: true);
+            else
+                // Animate out
+                await element.HideSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.1f, keepMargin: true);
+        }
+    }
+
+
+    /// <summary>
+    /// Animates a framework element fading in on show
+    /// and fading out on hide
+    /// Skips the "first load" mechanic
+    /// </summary>
+    public class AnimateFadeInWithoutFirstLoadProperty : AnimateBaseProperty<AnimateFadeInWithoutFirstLoadProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad = true)
+        {
+            if (value)
+                // Animate in
+                await element.FadeInAsync(firstLoad, firstLoad ? 0 : 0.3f);
+            else
+                // Animate out
+                await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
+        }
+
+        public override void OnValueUpdated(DependencyObject sender, object value)
+        {
+            DoAnimation(sender as FrameworkElement, (bool)value);
+        }
+    }
 }

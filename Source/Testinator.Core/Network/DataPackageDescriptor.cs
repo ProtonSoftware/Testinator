@@ -40,7 +40,7 @@ namespace Testinator.Core
         /// <param name="Bytes">Output binary</param>
         /// <param name="input">Object to be converted</param>
         /// <returns>True is operation was sucessfull, otherwise false</returns>
-        public static bool TryConvertToBin(out byte[] Bytes, DataPackage input)
+        public static bool TryConvertToBin(out byte[] Bytes, object input)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Testinator.Core
                     Bytes = ms.ToArray();
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 Bytes = new byte[0];
                 return false;

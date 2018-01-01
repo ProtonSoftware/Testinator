@@ -34,6 +34,11 @@ namespace Testinator.Core
         public virtual void WriteToFile(string text, string path, bool append = true) { }
 
         /// <summary>
+        /// Writes test results to file
+        /// </summary>
+        public virtual void WriteToFile(TestResults tr) { }
+
+        /// <summary>
         /// Deletes a <see cref="Test"/>
         /// </summary>
         public virtual void DeleteFile(Test test) { }

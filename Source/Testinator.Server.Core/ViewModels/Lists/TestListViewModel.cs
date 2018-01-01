@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -25,7 +26,17 @@ namespace Testinator.Server.Core
         /// </summary>
         public ObservableCollection<TestListItemViewModel> Items { get; set; }
 
+        /// <summary>
+        /// Indicates if there is any test selected
+        /// </summary>
+        public bool IsAnySelected { get; private set; }
+
         #endregion
+
+        /// <summary>
+        /// Fired when an item from the list gets selected
+        /// </summary>
+        public event Action ItemSelected = () => { };
 
         #region Commands
 
@@ -73,26 +84,14 @@ namespace Testinator.Server.Core
 
             // Select the one that has been clicked
             Items[testID - 1].IsSelected = true;
+
+            IsAnySelected = true;
+            ItemSelected.Invoke();
         }
 
         #endregion
 
         #region Public Helpers
-
-        /// <summary>
-        /// Checks if there is any test selected
-        /// </summary>
-        /// <returns>True if there is a test selected,
-        /// False if not</returns>
-        public bool IsAnyTestSelected()
-        {
-            foreach (var item in Items)
-            {
-                if (item.IsSelected)
-                    return true;
-            }
-            return false;
-        }
 
         /// <summary>
         /// Loads tests to the list

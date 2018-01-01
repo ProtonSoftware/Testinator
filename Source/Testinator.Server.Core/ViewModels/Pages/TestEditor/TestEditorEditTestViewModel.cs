@@ -53,7 +53,7 @@ namespace Testinator.Server.Core
         private void ChangePage()
         {
             // Check if user has selected any test
-            if (!TestListViewModel.Instance.IsAnyTestSelected())
+            if (!TestListViewModel.Instance.IsAnySelected)
                 return;
 
             // Update the current test property to make sure its indicating the right test
@@ -76,7 +76,7 @@ namespace Testinator.Server.Core
         private void DeleteTest()
         {
             // Check if user has selected any test
-            if (!TestListViewModel.Instance.IsAnyTestSelected())
+            if (!TestListViewModel.Instance.IsAnySelected)
                 return;
 
             // Update the current test property to make sure its indicating the right test

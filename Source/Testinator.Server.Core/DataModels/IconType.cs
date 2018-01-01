@@ -8,51 +8,61 @@
         /// <summary>
         /// No icon
         /// </summary>
-        None = 0,
+        None,
 
         /// <summary>
         /// Home icon
         /// </summary>
-        Home = 1,
+        Home,
 
         /// <summary>
         /// Screen icon
         /// </summary>
-        Screen = 2,
+        Screen,
 
         /// <summary>
         /// Test icon
         /// </summary>
-        Test = 3,
+        Test,
 
         /// <summary>
         /// "Editor" icon
         /// </summary>
-        Editor = 4,
+        Editor,
 
         /// <summary>
         /// Cog icon
         /// </summary>
-        Settings = 5,
+        Settings,
 
         /// <summary>
         /// Info circle icon (i)
         /// </summary>
-        InfoCircle = 6,
+        InfoCircle,
 
         /// <summary>
         /// Icon for the multiple choice question (ABCD)
         /// </summary>
-        MultipleChoiceQuestion = 7,
+        MultipleChoiceQuestion,
 
         /// <summary>
         /// Icon for the multiple checkboxes question
         /// </summary>
-        MultipleCheckboxesQuestion = 8,
+        MultipleCheckboxesQuestion,
 
         /// <summary>
         /// Icon for the single text box question (rectangle)
         /// </summary>
-        SingleTextBoxQuestion = 9,
+        SingleTextBoxQuestion,
+
+        /// <summary>
+        /// fa-check
+        /// </summary>
+        Check,
+
+        /// <summary>
+        /// fa-times
+        /// </summary>
+        UnCheck,
     }
 }

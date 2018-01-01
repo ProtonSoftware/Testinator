@@ -119,7 +119,10 @@ namespace Testinator.Server.Core
             foreach (var client in IoCServer.Network.Clients)
             {
                 mClients.Add(client);
-                Clients.Add(new ClientModelExtended(client));
+                Clients.Add(new ClientModelExtended(client)
+                {
+                    QuestionsCount = Test.Questions.Count,
+                });
             }
         }
 
@@ -184,7 +187,7 @@ namespace Testinator.Server.Core
                     // If the test is not in progress save the answers
                     if(!IsTestInProgress)
                     {
-
+                        SaveResults();
                     }
                     break;                    
             }
@@ -247,6 +250,28 @@ namespace Testinator.Server.Core
             // Send it to all clients
             foreach (var client in mClients)
                 IoCServer.Network.SendData(client, data);
+        }
+
+        /// <summary>
+        /// Saves results to the file
+        /// </summary>
+        private void SaveResults()
+        {
+            var results = new TestResults()
+            {
+                Date = DateTime.Now,
+                Test = Test,
+            };
+            foreach (var client in Clients)
+                results.Results.Add(
+                    new ClientModelSerializable()
+                    {
+                        ClientName = client.ClientName,
+                        ClientSurname = client.ClientSurname,
+                        MachineName = client.MachineName,
+                    }, client.Answers);
+
+            FileWriters.BinWriter.WriteToFile(results);
         }
 
         /// <summary>

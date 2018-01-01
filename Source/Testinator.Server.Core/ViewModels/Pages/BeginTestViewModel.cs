@@ -13,6 +13,15 @@ namespace Testinator.Server.Core
     /// </summary>
     public class BeginTestViewModel : BaseViewModel
     {
+        #region Private Members
+
+        /// <summary>
+        /// View model for the test list control
+        /// </summary>
+        private TestListViewModel mTestListVM = new TestListViewModel();
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -29,6 +38,11 @@ namespace Testinator.Server.Core
         /// The test which is choosen by user on the list
         /// </summary>
         public Test CurrentTest => IoCServer.TestHost.Test;
+
+        /// <summary>
+        /// The number of connected clients
+        /// </summary>
+        public int ClientsNumber => IoCServer.Network.ConnectedClientCount;
 
         /// <summary>
         /// The number of the questions in the test
@@ -53,12 +67,36 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The server's ip
         /// </summary>
-        public string ServerIpAddress { get; set; } = IoCServer.Network.Ip;
+        public string ServerIpAddress => IoCServer.Network.Ip;
 
         /// <summary>
         /// The server's port
         /// </summary>
         public string ServerPort { get; set; } = IoCServer.Network.Port.ToString();
+
+        /// <summary>
+        /// The viewmodel for the test list control
+        /// </summary>
+        public TestListViewModel TestListViewModel => mTestListVM;
+
+        #region Error flags
+
+        /// <summary>
+        /// Indicates if there is not enough clients to start the test
+        /// </summary>
+        public bool NotEnoughClients => ClientsNumber == 0;
+
+        /// <summary>
+        /// Indicates if the test is not selected
+        /// </summary>
+        public bool TestNotSelected => !TestListViewModel.IsAnySelected;
+
+        /// <summary>
+        /// Indicates if the test can be sent to the clients
+        /// </summary>
+        public bool CanSendTest => !NotEnoughClients && !TestNotSelected;
+
+        #endregion
 
         #endregion
 
@@ -112,10 +150,17 @@ namespace Testinator.Server.Core
             StopTestCommand = new RelayCommand(StopTest);
 
             // Load every test from files
-            TestListViewModel.Instance.LoadItems();
+            TestListViewModel.LoadItems();
 
             // Hook to timer event
             IoCServer.TestHost.OnTimerUpdated += TimerUpdated;
+
+            // Hook to the server event
+            IoCServer.Network.OnClientConnected += Network_OnClientConnected;
+            IoCServer.Network.OnClientDisconnected += Network_OnClientDisconnected;
+
+            // Hook to the test list event
+            TestListViewModel.ItemSelected += TestListViewModel_TestSelected;
         }
 
         #endregion
@@ -185,7 +230,7 @@ namespace Testinator.Server.Core
         private void ChangePageInfo()
         {
             // Check if user has choosen any test
-            if (!TestListViewModel.Instance.IsAnyTestSelected())
+            if (!TestListViewModel.IsAnySelected)
                 return;
 
             // Then go to info page
@@ -194,6 +239,7 @@ namespace Testinator.Server.Core
             // Meanwhile lock the clients list and send them the test 
             IoCServer.TestHost.LockClients();
             IoCServer.TestHost.SendTest();
+
         }
 
         /// <summary>
@@ -225,6 +271,41 @@ namespace Testinator.Server.Core
         {
             // Update the view
             OnPropertyChanged(nameof(TimeLeft));
+        }
+
+        #endregion
+
+        #region Private events
+
+        /// <summary>
+        /// Test select event
+        /// </summary>
+        private void TestListViewModel_TestSelected()
+        {
+            OnPropertyChanged(nameof(TestNotSelected));
+            OnPropertyChanged(nameof(CanSendTest));
+        }
+
+        /// <summary>
+        /// Fired when a client disconnects
+        /// </summary>
+        /// <param name="obj"></param>
+        private void Network_OnClientDisconnected(ClientModel obj)
+        {
+            OnPropertyChanged(nameof(ClientsNumber));
+            OnPropertyChanged(nameof(NotEnoughClients));
+            OnPropertyChanged(nameof(CanSendTest));
+        }
+
+        /// <summary>
+        /// Fired when a client connects
+        /// </summary>
+        /// <param name="obj"></param>
+        private void Network_OnClientConnected(ClientModel obj)
+        {
+            OnPropertyChanged(nameof(ClientsNumber));
+            OnPropertyChanged(nameof(NotEnoughClients));
+            OnPropertyChanged(nameof(CanSendTest));
         }
 
         #endregion

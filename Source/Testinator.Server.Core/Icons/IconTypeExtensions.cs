@@ -41,6 +41,12 @@
                 case IconType.SingleTextBoxQuestion:
                     return "\uf096";
 
+                case IconType.Check:
+                    return "\uf00c";
+
+                case IconType.UnCheck:
+                    return "\uf00d";
+
                 // If none found, return null
                 default:
                     return null;

@@ -8,26 +8,49 @@
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
                  mc:Ignorable="d"
                  d:DesignHeight="720"
-                 d:DesignWidth="1024">
+                 d:DesignWidth="512">
 
-    <Grid Background="Blue">
+    <Grid Background="DarkOliveGreen">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
         <!-- Container for test list -->
         <Border Background="{StaticResource WhiteDarkBrush}"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Height="500"
-                Width="300">
+                Margin="0 25"
+                Width="300"
+                Grid.Row="0">
 
-            <local:TestListControl />
+            <local:TestListControl DataContext="{Binding TestListViewModel}"/>
 
         </Border>
-        
+
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Zero połączonych użytkowników!"
+                       Foreground="Red"
+                       Style="{StaticResource QuestionTextBlockStyle}"
+                       local:AnimateSlideInFromTopProperty.Value="{Binding NotEnoughClients}"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="Nie wybrano żadnego testu!"
+                       Foreground="Red"
+                       Style="{StaticResource QuestionTextBlockStyle}"
+                       local:AnimateSlideInFromTopProperty.Value="{Binding TestNotSelected}"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+
         <Button Content="{x:Static UICore:LocalizationResource.SendTest}"
+                Grid.Row="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Command="{Binding ChangePageTestInfoCommand}"
-                Style="{StaticResource BaseUIButton}" />
+                Style="{StaticResource BaseUIButton}" 
+                IsEnabled="{Binding CanSendTest}"/>
     </Grid>
     
 </UICore:BasePage>

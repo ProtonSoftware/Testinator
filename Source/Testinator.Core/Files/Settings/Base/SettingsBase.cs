@@ -42,6 +42,7 @@ namespace Testinator.Core
 
             Directory.CreateDirectory(Path + "Criteria\\");
             Directory.CreateDirectory(Path + "Tests\\");
+            Directory.CreateDirectory(Path + "Results\\");
         }
 
         #endregion

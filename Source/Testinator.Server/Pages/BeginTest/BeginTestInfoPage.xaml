@@ -21,11 +21,11 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="{x:Static UICore:LocalizationResource.InfoAboutTest}"

@@ -157,6 +157,7 @@
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageConverter.cs" />
     <Compile Include="ValueConverters\AddQuestionConverter.cs" />
+    <Compile Include="ValueConverters\BooleanToAwesomeConverter.cs" />
     <Compile Include="ValueConverters\EditingmodeToLabelConverter.cs" />
     <Compile Include="ValueConverters\IndexToBackgroundConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />

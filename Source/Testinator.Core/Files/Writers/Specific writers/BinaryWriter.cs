@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Testinator.Core
 {
@@ -17,8 +18,9 @@ namespace Testinator.Core
         {
             Settings = new WriterSettings();
         }
+        #endregion
 
-        #region Public Helpers
+        #region Public Methods
 
         /// <summary>
         /// Deletes a test
@@ -73,12 +75,39 @@ namespace Testinator.Core
             // Reload the test list
             FileReaders.BinReader.ReadAllTests();
         }
+        
+        public override void WriteToFile(TestResults results)
+        {
+            if (results == null)
+                return;
 
-        #endregion
+            var filenameOriginal = CreateResultsFileName(results);
+            var filenameFinal = filenameOriginal;
+            var suffix = 1;
+            while(File.Exists(Settings.Path + "Results\\" + filenameFinal + ".dat"))
+            {
+                filenameFinal = filenameOriginal + "(" + suffix + ")";
+                suffix++;
+            }
 
+            if (DataPackageDescriptor.TryConvertToBin(out var dataBin, results))
+            {
+                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Results\\" + filenameFinal + ".dat", FileMode.Create)))
+                {
+                    writer.Write(dataBin);
+                }
+            }
+        }
         #endregion
 
         #region Private Helpers
+
+        private string CreateResultsFileName(TestResults result)
+        {
+            var hours = result.Date.ToShortTimeString().Replace(':', '-');
+            var date = result.Date.ToShortDateString().Replace('/', '-');
+            return "Result" + "-" + date + "-" + hours;
+        }
 
         private string CreateFileName()
         {

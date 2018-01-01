@@ -159,15 +159,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Ip: "  Margin="10"/>
-                <TextBox Grid.Column="1" Grid.Row="0"  Margin="10" Style="{StaticResource SmallInputTextBox}" 
-                         Text="{Binding ServerIpAddress}"/>
+                <TextBlock Grid.Column="1" Grid.Row="0"  Margin="10" Style="{StaticResource BaseTextBlockStyle}" 
+                           Text="{Binding ServerIpAddress}"/>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Port: " Margin="10"/>
                 <TextBox Grid.Column="1" Grid.Row="1"  Margin="10" Style="{StaticResource SmallInputTextBox}"
-                         Text="{Binding ServerPort}"/>
-
+                         Text="{Binding ServerPort}"
+                         IsEnabled="{Binding IsServerStarted, Converter={local:BooleanInvertConverter}}"/>
+                <TextBlock Text="Połączonych: "
+                           Grid.Row="2" Grid.Column="0"
+                           Margin="10"/>
+                <TextBlock Text="{Binding ClientsNumber}"
+                           Grid.Row="2" Grid.Column="1"
+                           Margin="10"/>
             </Grid>
             
             <!-- Clients connected data grid -->

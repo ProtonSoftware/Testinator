@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -6,6 +7,7 @@ namespace Testinator.Server.Core
     /// <summary>
     /// Extended version of <see cref="ClientModel"/> class
     /// </summary>
+    [Serializable]
     public class ClientModelExtended : ClientModel
     {
         #region Public Properties
@@ -16,9 +18,20 @@ namespace Testinator.Server.Core
         public int CurrentQuestion { get; set; }
 
         /// <summary>
+        /// The number of qustions in the test,
+        /// makes sense only if the test in progress 
+        /// </summary>
+        public int QuestionsCount { get; set; }
+
+        /// <summary>
         /// The value for the progress bar, substract one from the CurrentQuestion to show the progress correctly
         /// </summary>
         public int ProgressBarValue => CurrentQuestion - 1;
+
+        /// <summary>
+        /// The percentage value for the progress bar;
+        /// </summary>
+        public string ProgressBarPercentage => Math.Floor((double)ProgressBarValue / QuestionsCount * 100).ToString() + "%";
 
         /// <summary>
         /// Indicates if there is any connection problems with this client
@@ -39,7 +52,7 @@ namespace Testinator.Server.Core
         /// The client mark
         /// </summary>
         public Marks Mark { get; set; }
-
+        
         #endregion
 
         #region Constructor

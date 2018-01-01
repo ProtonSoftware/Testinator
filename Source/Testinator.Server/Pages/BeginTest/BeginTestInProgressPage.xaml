@@ -52,14 +52,27 @@
                                                          Maximum="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                                                        AncestorType=UICore:BasePage},
                                                                                        Path=DataContext.QuestionsCount}" 
-                                                         Value="{Binding ProgressBarValue, Mode=OneWay}"/>
+                                                         Value="{Binding ProgressBarValue, Mode=OneWay}"
+                                                         Foreground="{StaticResource GreenLightBrush}"/>
+                                            <TextBlock Text="{Binding ProgressBarPercentage}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="*" IsReadOnly="True" Header="Name" Binding="{Binding ClientName}"/>
                             <DataGridTextColumn Width="*" IsReadOnly="True" Header="Surname" Binding="{Binding ClientSurname}"/>
-                            <DataGridTextColumn Width="Auto" IsReadOnly="True" Header="Connection" Binding="{Binding ConnectionProblem}" />
+                            <DataGridTextColumn Width="Auto" IsReadOnly="True" Binding="{Binding ConnectionProblem, Converter={local:BooleanToAwesomeConverter}}" FontFamily="{StaticResource FontAwesome}">
+                                <DataGridTextColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{StaticResource FontAwesomeConnectionIcon}"
+                                                       FontFamily="{StaticResource FontAwesome}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTextColumn.HeaderTemplate>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
