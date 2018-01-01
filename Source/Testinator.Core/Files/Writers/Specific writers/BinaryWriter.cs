@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Testinator.Core
 {
+    /// <summary>
+    /// The file writer which writes in binary code
+    /// </summary>
     public class BinaryWriter : FileWriterBase
     {
         /// <summary>
@@ -12,19 +14,16 @@ namespace Testinator.Core
         /// <param name="test">The test to be written to file</param>
         public override void WriteToFile(Test test)
         {
+            // Make sure we have test to write
             if (test == null)
                 return;
 
-            string filename;
+            var filename = string.Empty;
             if (BinaryReader.Tests.ContainsKey(test.ID))
-            {
                 filename = BinaryReader.Tests[test.ID];
-            }
             else
-            {
                 filename = CreateFileName();
-            }
-
+            
             if (DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
             {
                 using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Tests\\" + filename + ".dat", FileMode.Create)))
@@ -32,8 +31,9 @@ namespace Testinator.Core
                      writer.Write(dataBin);
                 }
             }
+
             // Reload the test list
-            var c = FileReaders.BinReader.ReadAllTests();
+            FileReaders.BinReader.ReadAllTests();
         }
 
         private string CreateFileName()
@@ -65,9 +65,7 @@ namespace Testinator.Core
                             FileIndexes.Add(fileNumber);
                         }
                     }
-
                 }
-
             }
 
             FileIndexes.Sort();

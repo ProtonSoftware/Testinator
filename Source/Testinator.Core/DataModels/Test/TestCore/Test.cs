@@ -11,12 +11,10 @@ namespace Testinator.Core
     {
         #region Public Properties
 
-        public int ID { get; set; } = -1;
-
         /// <summary>
         /// Unique ID of this test used to recognise
         /// </summary>
-        public int ID { get; set; }
+        public int ID { get; set; } = -1;
 
         /// <summary>
         /// Stores all questions and correct answers for them in this test
@@ -41,7 +39,7 @@ namespace Testinator.Core
             get
             {
                 // Keep track of point score of every question
-                int finalPointScore = 0;
+                var finalPointScore = 0;
 
                 // Loop each question and add up it's pointscore
                 foreach (var question in Questions) finalPointScore += question.PointScore;
