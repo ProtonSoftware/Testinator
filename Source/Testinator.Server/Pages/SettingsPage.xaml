@@ -1,4 +1,4 @@
-﻿<UICore:BasePage x:TypeArguments="Core:SettingsViewModel" x:Class="Testinator.Server.SettingsPage"
+﻿<UICore:BasePage x:TypeArguments="Core:ApplicationSettingsViewModel" x:Class="Testinator.Server.SettingsPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,6 +11,7 @@
     <Grid Background="Yellow">
         <TextBlock Text="Settings page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <TextBlock Text="Zmiana pinu" />
+
     </Grid>
     
 </UICore:BasePage>

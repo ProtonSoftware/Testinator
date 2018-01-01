@@ -41,7 +41,7 @@ namespace Testinator.Server.Core
         {
             // Create commands
             CreateNewTestCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddTest));
-            EditTestCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddTest)); // Change page here
+            EditTestCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorEditTest));
             CreateNewCriteriaCommand = new RelayCommand(() => ChangePage(ApplicationPage.TestEditorAddNewCriteria));
         }
 
@@ -50,7 +50,7 @@ namespace Testinator.Server.Core
         #region Command Methods
 
         /// <summary>
-        /// Changes page to the specyfied one
+        /// Changes page to the specified one
         /// </summary>
         private void ChangePage(ApplicationPage page)
         {

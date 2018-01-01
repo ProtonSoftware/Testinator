@@ -14,6 +14,11 @@ namespace Testinator.Core
         public int ID { get; set; } = -1;
 
         /// <summary>
+        /// Unique ID of this test used to recognise
+        /// </summary>
+        public int ID { get; set; }
+
+        /// <summary>
         /// Stores all questions and correct answers for them in this test
         /// </summary>
         public List<Question> Questions { get; } = new List<Question>();

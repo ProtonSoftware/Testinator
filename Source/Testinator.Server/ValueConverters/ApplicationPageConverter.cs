@@ -53,6 +53,9 @@ namespace Testinator.Server
                 case ApplicationPage.TestEditorAddQuestions:
                     return new TestEditorAddQuestionsPage(viewModel as TestEditorAddNewTestViewModel);
 
+                case ApplicationPage.TestEditorEditTest:
+                    return new TestEditorEditTestPage(viewModel as TestEditorEditTestViewModel);
+
                 case ApplicationPage.TestEditorAttachCriteria:
                     return new TestEditorAttachCriteriaPage(viewModel as TestEditorAddNewTestViewModel);
 
@@ -63,7 +66,7 @@ namespace Testinator.Server
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
 
                 case ApplicationPage.Settings:
-                    return new SettingsPage(viewModel as SettingsViewModel);
+                    return new SettingsPage();
 
                 case ApplicationPage.About:
                     return new AboutPage();
@@ -114,6 +117,9 @@ namespace Testinator.Server
 
             if (page is TestEditorAddQuestionsPage)
                 return ApplicationPage.TestEditorAddQuestions;
+
+            if (page is TestEditorEditTestPage)
+                return ApplicationPage.TestEditorEditTest;
 
             if (page is TestEditorAttachCriteriaPage)
                 return ApplicationPage.TestEditorAttachCriteria;

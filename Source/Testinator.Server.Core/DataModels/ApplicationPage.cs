@@ -66,6 +66,11 @@
         TestEditorAddQuestions,
 
         /// <summary>
+        /// The page to edit existing test
+        /// </summary>
+        TestEditorEditTest,
+
+        /// <summary>
         /// The page to attach criteria to previously created test
         /// </summary>
         TestEditorAttachCriteria,

@@ -85,11 +85,6 @@ namespace Testinator.Server.Core
         public ICommand ChangePageTestInfoCommand { get; private set; }
 
         /// <summary>
-        /// The command to choose a test from the list
-        /// </summary>
-        public ICommand ChooseTestCommand { get; private set; }
-
-        /// <summary>
         /// The command to start choosen test
         /// </summary>
         public ICommand BeginTestCommand { get; private set; }
@@ -113,13 +108,13 @@ namespace Testinator.Server.Core
             StopServerCommand = new RelayCommand(StopServer);
             ChangePageTestListCommand = new RelayCommand(ChangePageList);
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
-            ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
             BeginTestCommand = new RelayCommand(BeginTest);
             StopTestCommand = new RelayCommand(StopTest);
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
 
+            // Hook to timer event
             IoCServer.TestHost.OnTimerUpdated += TimerUpdated;
         }
 
@@ -132,12 +127,18 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StartServer()
         {
-            if (NetworkHelpers.IsAddressCorrect(ServerIpAddress) && NetworkHelpers.IsPortCorrect(ServerPort))
-            {
-                IoCServer.Network.Ip = ServerIpAddress;
-                IoCServer.Network.Port = int.Parse(ServerPort);
-            }
+            // If ip and port is not valid, dont start the server
+            if (!NetworkHelpers.IsAddressCorrect(ServerIpAddress) && !NetworkHelpers.IsPortCorrect(ServerPort))
+                return;
+
+            // Set network data
+            IoCServer.Network.Ip = ServerIpAddress;
+            IoCServer.Network.Port = int.Parse(ServerPort);
+
+            // Start the server
             IoCServer.Network.Start();
+
+            // Inform the view
             OnPropertyChanged(nameof(IsServerStarted));
         }
 
@@ -156,6 +157,8 @@ namespace Testinator.Server.Core
             
             // Stop the server
             IoCServer.Network.Stop();
+
+            // Inform the view
             OnPropertyChanged(nameof(IsServerStarted));
 
             // Go to the initial page
@@ -167,11 +170,13 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePageList()
         {
-            if (IsServerStarted)
-            {
-                // Simply go to target page if the server has beed started
-                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
-            }
+            // If server isnt started, dont change the page
+            if (!IsServerStarted)
+                // TODO: Show message to the user
+                return;
+
+            // Simply go to target page
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
         }
 
         /// <summary>
@@ -189,27 +194,6 @@ namespace Testinator.Server.Core
             // Meanwhile lock the clients list and send them the test 
             IoCServer.TestHost.LockClients();
             IoCServer.TestHost.SendTest();
-        }
-
-        /// <summary>
-        /// Chooses a test from the list
-        /// </summary>
-        private void ChooseTest(object param)
-        {
-            // Cast the parameter
-            var testID = int.Parse(param.ToString());
-            
-            // Load test based on that
-            IoCServer.TestHost.BindTest(TestListViewModel.Instance.Items[testID - 1].Test);
-            
-            // Mark all items not selected
-            foreach (var item in TestListViewModel.Instance.Items)
-            {
-                item.IsSelected = false;
-            }
-
-            // Select the one that has been clicked
-            TestListViewModel.Instance.Items[testID - 1].IsSelected = true;
         }
 
         /// <summary>
@@ -232,17 +216,17 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Private Methods
+        #region Private Helpers
 
         /// <summary>
         /// Fired when timeleft timer is updated
         /// </summary>
         private void TimerUpdated()
         {
+            // Update the view
             OnPropertyChanged(nameof(TimeLeft));
         }
 
         #endregion
-
     }
 }

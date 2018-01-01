@@ -33,7 +33,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// List of current questions in test converted to an observable collection
         /// </summary>
-        public ObservableCollection<Question> Questions { get; set; } = new ObservableCollection<Question>();
+        public ObservableCollection<Question> Questions { get; set; }
 
         /// <summary>
         /// Keeps the message of an error to show, if any error occured
@@ -249,26 +249,30 @@ namespace Testinator.Server.Core
         #region Constructor
 
         /// <summary>
-        /// Default constructor
+        /// Default constructor which creates brand new test
         /// </summary>
         public TestEditorAddNewTestViewModel()
         {
+            // Create new test
+            Test = new Test();
+
             // Create commands
-            AddingQuestionsPageChangeCommand = new RelayCommand(ChangeQuestionsPage);
-            AddingCriteriaPageChangeCommand = new RelayCommand(ChangeCriteriaPage);
-            TestMenuExpandCommand = new RelayCommand(ExpandMenu);
-            SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
-            SubmitTestCommand = new RelayCommand(SubmitTest);
-            AddAnswerCommand = new RelayCommand(AddAnswer);
-            RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
-            ChooseRightAnswerMultipleChoiceCommand = new RelayParameterizedCommand((param) => RightAnswerIdx = param.ToString());
-            EditQuestionCommand = new RelayParameterizedCommand((param) => EditQuestion(param));
-            CancelEditQuestionCommand = new RelayCommand(CancelEditingQuestion);
-            DeleteQuestionCommand = new RelayParameterizedCommand((param) => DeleteQuestion(param));
-            EditCriteriaCommand = new RelayParameterizedCommand((param) => SelectCriteria(param));
-            EditPointsCriteriaCommand = new RelayCommand(EditCriteria);
-            CancelEditPointsCommand = new RelayCommand(() => IsCriteriaEditModeOn = false);
-            SubmitEditPointsCommand = new RelayCommand(SubmitCriteria);
+            CreateCommands();
+        }
+
+        /// <summary>
+        /// Constructor which allow editing existing test
+        /// </summary>
+        public TestEditorAddNewTestViewModel(Test test)
+        {
+            // Catch the test to this view model
+            Test = test;
+
+            // Reload questions from this test
+            ReloadQuestionsFromTest();
+
+            // Create commands
+            CreateCommands();
         }
 
         #endregion
@@ -286,18 +290,15 @@ namespace Testinator.Server.Core
             try
             {
                 // Check if input data is valid
-                if (this.Name.Length < 3 || !Int32.TryParse(Duration, out int time) || time > 500 || time <= 0)
+                if (Name.Length < 3 || !int.TryParse(Duration, out var time) || time > 500 || time <= 0)
                 {
                     // Show error and dont change page
                     throw new Exception("Niepoprawne parametry testu.");
                 }
 
-                // Create new test and assign data to it
-                Test = new Test
-                {
-                    Name = this.Name,
-                    Duration = new TimeSpan(0, time, 0)
-                };
+                // Assign data to the test
+                Test.Name = Name;
+                Test.Duration = new TimeSpan(0, time, 0);
 
                 // Save the view model and change page
                 SaveViewModelAndChangeToNewQuestion();
@@ -324,14 +325,12 @@ namespace Testinator.Server.Core
                     throw new Exception("Punkty za test są niewystarczające.");
 
                 // Save this view model
-                var viewModel = new TestEditorAddNewTestViewModel
+                var viewModel = new TestEditorAddNewTestViewModel(Test)
                 {
-                    Test = this.Test
+                    // Set default points grading 
+                    CurrentGrading = new GradingPercentage(),
+                    PointsGrading = CurrentGrading.ToPoints(Test.TotalPointScore)
                 };
-
-                // Set default points grading 
-                viewModel.CurrentGrading = new GradingPercentage();
-                viewModel.PointsGrading = viewModel.CurrentGrading.ToPoints(Test.TotalPointScore);
 
                 // Pass view model to the next page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);
@@ -349,22 +348,6 @@ namespace Testinator.Server.Core
         {
             // Simply toggle the expanded flag
             IsTestMenuExpanded ^= true;
-        }
-
-        /// <summary>
-        /// Saves the current state of view model and changes page to the add new question page
-        /// </summary>
-        private void SaveViewModelAndChangeToNewQuestion()
-        {
-            // Save this view model
-            var viewModel = new TestEditorAddNewTestViewModel
-            {
-                Test = this.Test
-            };
-            foreach (var question in Test.Questions) viewModel.Questions.Add(question);
-
-            // Pass it to the next page
-            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);
         }
 
         /// <summary>
@@ -470,9 +453,9 @@ namespace Testinator.Server.Core
                             // Create and build a question based on values
                             var question = new MultipleChoiceQuestion();
 
-                            if (this.QuestionTask.Length < 4)
+                            if (QuestionTask.Length < 4)
                                 throw new Exception("Treść pytania jest za krótka.");
-                            question.Task = this.QuestionTask;
+                            question.Task = QuestionTask;
                             
                             // Try to chuck every answer to the dictionary - it will check if every answer is not empty and unique aswell
                             var errorTestingList = new Dictionary<string,bool>();
@@ -484,11 +467,11 @@ namespace Testinator.Server.Core
                             // Everything is fine - convert it back to the list
                             question.Options = errorTestingList.Keys.ToList();
 
-                            if (!Int32.TryParse(this.QuestionMultipleChoicePointScore, out int pointScore))
+                            if (!int.TryParse(QuestionMultipleChoicePointScore, out var pointScore))
                                 throw new Exception("Zła wartość w polu punkty.");
                             question.PointScore = pointScore;
 
-                            if (!Int32.TryParse(this.RightAnswerIdx, out int rightAnswerIdx) || rightAnswerIdx == 0)
+                            if (!int.TryParse(RightAnswerIdx, out var rightAnswerIdx) || rightAnswerIdx == 0)
                                 throw new Exception("Nie wybrano poprawnej odpowiedzi.");
                             question.CorrectAnswerIndex = rightAnswerIdx;
 
@@ -510,9 +493,9 @@ namespace Testinator.Server.Core
                             // Create and build a question based on values
                             var question = new MultipleCheckboxesQuestion();
 
-                            if (this.QuestionTask.Length < 4)
+                            if (QuestionTask.Length < 4)
                                 throw new Exception("Treść pytania jest za krótka.");
-                            question.Task = this.QuestionTask;
+                            question.Task = QuestionTask;
                             
                             question.OptionsAndAnswers = new Dictionary<string, bool>();
                             question.OptionsAndAnswers.Add(Answer1, IsAnswer1Right);
@@ -521,7 +504,7 @@ namespace Testinator.Server.Core
                             if (ShouldAnswer4BeVisible) question.OptionsAndAnswers.Add(Answer4, IsAnswer4Right);
                             if (ShouldAnswer5BeVisible) question.OptionsAndAnswers.Add(Answer5, IsAnswer5Right);
 
-                            if (!Int32.TryParse(this.QuestionMultipleCheckboxesPointScore, out int pointScore))
+                            if (!int.TryParse(QuestionMultipleCheckboxesPointScore, out var pointScore))
                                 throw new Exception("Zła wartość w polu punkty.");
                             question.PointScore = pointScore;
 
@@ -543,15 +526,15 @@ namespace Testinator.Server.Core
                             // Create and build a question based on values
                             var question = new SingleTextBoxQuestion();
 
-                            if (this.QuestionTask.Length < 4)
+                            if (QuestionTask.Length < 4)
                                 throw new Exception("Treść pytania jest za krótka.");
-                            question.Task = this.QuestionTask;
+                            question.Task = QuestionTask;
 
-                            if (this.TextBoxAnswer == string.Empty)
+                            if (TextBoxAnswer == string.Empty)
                                 throw new Exception("Wpisz poprawną odpowiedź.");
-                            question.CorrectAnswer = this.TextBoxAnswer;
+                            question.CorrectAnswer = TextBoxAnswer;
 
-                            if (!Int32.TryParse(this.QuestionSingleTextBoxPointScore, out int pointScore))
+                            if (!int.TryParse(QuestionSingleTextBoxPointScore, out var pointScore))
                                 throw new Exception("Zła wartość w polu punkty.");
                             question.PointScore = pointScore;
 
@@ -589,7 +572,7 @@ namespace Testinator.Server.Core
         private void EditQuestion(object param)
         {
             // Cast parameter to integer index
-            int idx = (int)param;
+            var idx = (int)param;
 
             // Check if parameter is valid
             if (idx <= 0)
@@ -711,14 +694,13 @@ namespace Testinator.Server.Core
         private void DeleteQuestion(object param)
         {
             // Cast parameter to integer index
-            int idx = (int)param;
+            var idx = (int)param;
 
             // Delete question from test with given index
             Test.RemoveQuestion(idx);
 
             // Reload questions from test to this view model
-            this.Questions = new ObservableCollection<Question>();
-            foreach (var question in Test.Questions) this.Questions.Add(question);
+            ReloadQuestionsFromTest();
         }
 
         /// <summary>
@@ -728,7 +710,7 @@ namespace Testinator.Server.Core
         private void SelectCriteria(object param)
         {
             // Cast parameter to string
-            string criteriaName = param.ToString();
+            var criteriaName = param.ToString();
 
             // Search for the criteria with that name
             foreach (var criteria in CriteriaListViewModel.Instance.Items)
@@ -737,10 +719,10 @@ namespace Testinator.Server.Core
                 if (criteria.Grading.Name == criteriaName)
                 {
                     // Catch this grading object
-                    this.CurrentGrading = criteria.Grading;
+                    CurrentGrading = criteria.Grading;
 
                     // Convert it to points
-                    this.PointsGrading = this.CurrentGrading.ToPoints(Test.TotalPointScore);
+                    PointsGrading = CurrentGrading.ToPoints(Test.TotalPointScore);
                 }
             }
         }
@@ -779,21 +761,21 @@ namespace Testinator.Server.Core
                 if (!ValidateInputData()) throw new Exception("Dane w polach są niepoprawne.");
 
                 // Everything is ok, convert strings to integers and edit grading object
-                if (this.PointsGrading.IsMarkAIncluded)
+                if (PointsGrading.IsMarkAIncluded)
                 {
-                    this.PointsGrading.MarkA.TopLimit = Int32.Parse(EditingTopValueA);
-                    this.PointsGrading.MarkA.BottomLimit = Int32.Parse(EditingBottomValueA);
+                    PointsGrading.MarkA.TopLimit = int.Parse(EditingTopValueA);
+                    PointsGrading.MarkA.BottomLimit = int.Parse(EditingBottomValueA);
                 }
-                this.PointsGrading.MarkB.TopLimit = Int32.Parse(EditingTopValueB);
-                this.PointsGrading.MarkB.BottomLimit = Int32.Parse(EditingBottomValueB);
-                this.PointsGrading.MarkC.TopLimit = Int32.Parse(EditingTopValueC);
-                this.PointsGrading.MarkC.BottomLimit = Int32.Parse(EditingBottomValueC);
-                this.PointsGrading.MarkD.TopLimit = Int32.Parse(EditingTopValueD);
-                this.PointsGrading.MarkD.BottomLimit = Int32.Parse(EditingBottomValueD);
-                this.PointsGrading.MarkE.TopLimit = Int32.Parse(EditingTopValueE);
-                this.PointsGrading.MarkE.BottomLimit = Int32.Parse(EditingBottomValueE);
-                this.PointsGrading.MarkF.TopLimit = Int32.Parse(EditingTopValueF);
-                this.PointsGrading.MarkF.BottomLimit = Int32.Parse(EditingBottomValueF);
+                PointsGrading.MarkB.TopLimit = int.Parse(EditingTopValueB);
+                PointsGrading.MarkB.BottomLimit = int.Parse(EditingBottomValueB);
+                PointsGrading.MarkC.TopLimit = int.Parse(EditingTopValueC);
+                PointsGrading.MarkC.BottomLimit = int.Parse(EditingBottomValueC);
+                PointsGrading.MarkD.TopLimit = int.Parse(EditingTopValueD);
+                PointsGrading.MarkD.BottomLimit = int.Parse(EditingBottomValueD);
+                PointsGrading.MarkE.TopLimit = int.Parse(EditingTopValueE);
+                PointsGrading.MarkE.BottomLimit = int.Parse(EditingBottomValueE);
+                PointsGrading.MarkF.TopLimit = int.Parse(EditingTopValueF);
+                PointsGrading.MarkF.BottomLimit = int.Parse(EditingBottomValueF);
 
                 // Get away from editing mode
                 IsCriteriaEditModeOn = false;
@@ -812,16 +794,13 @@ namespace Testinator.Server.Core
         private void SubmitTest()
         {
             // Attach criteria to the test
-            Test.Grading = this.PointsGrading;
+            Test.Grading = PointsGrading;
 
             // Save the test to file
             FileWriters.BinWriter.WriteToFile(Test);
 
             // Save this view model
-            var viewModel = new TestEditorAddNewTestViewModel
-            {
-                Test = this.Test
-            };
+            var viewModel = new TestEditorAddNewTestViewModel(Test);
 
             // Change page to result page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorResult, viewModel);
@@ -829,7 +808,57 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        #region Public Helpers
+
+        /// <summary>
+        /// Gets the list of test's questions and then rewrites it to the questions collection in this VM
+        /// </summary>
+        public void ReloadQuestionsFromTest()
+        {
+            // Create new collection
+            Questions = new ObservableCollection<Question>();
+
+            // For each question in the test, add it to the collection
+            foreach (var question in Test.Questions) Questions.Add(question);
+        }
+
+        #endregion
+
         #region Private Helpers
+
+        /// <summary>
+        /// Creates commands as we usually do in every constructor
+        /// </summary>
+        private void CreateCommands()
+        {
+            AddingQuestionsPageChangeCommand = new RelayCommand(ChangeQuestionsPage);
+            AddingCriteriaPageChangeCommand = new RelayCommand(ChangeCriteriaPage);
+            TestMenuExpandCommand = new RelayCommand(ExpandMenu);
+            SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
+            SubmitTestCommand = new RelayCommand(SubmitTest);
+            AddAnswerCommand = new RelayCommand(AddAnswer);
+            RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
+            ChooseRightAnswerMultipleChoiceCommand = new RelayParameterizedCommand((param) => RightAnswerIdx = param.ToString());
+            EditQuestionCommand = new RelayParameterizedCommand((param) => EditQuestion(param));
+            CancelEditQuestionCommand = new RelayCommand(CancelEditingQuestion);
+            DeleteQuestionCommand = new RelayParameterizedCommand((param) => DeleteQuestion(param));
+            EditCriteriaCommand = new RelayParameterizedCommand((param) => SelectCriteria(param));
+            EditPointsCriteriaCommand = new RelayCommand(EditCriteria);
+            CancelEditPointsCommand = new RelayCommand(() => IsCriteriaEditModeOn = false);
+            SubmitEditPointsCommand = new RelayCommand(SubmitCriteria);
+        }
+
+        /// <summary>
+        /// Saves the current state of view model and changes page to the add new question page
+        /// </summary>
+        private void SaveViewModelAndChangeToNewQuestion()
+        {
+            // Save this view model
+            var viewModel = new TestEditorAddNewTestViewModel(Test);
+
+            // Pass it to the next page
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);
+        }
 
         /// <summary>
         /// Checks if criteria input data is valid
@@ -839,23 +868,23 @@ namespace Testinator.Server.Core
             try
             {
                 // Parse every number value to integer
-                int topMarkA = 0;
-                int bottomMarkA = 0;
+                var topMarkA = 0;
+                var bottomMarkA = 0;
                 if (PointsGrading.IsMarkAIncluded)
                 {
-                    topMarkA = Int32.Parse(EditingTopValueA);
-                    bottomMarkA = Int32.Parse(EditingBottomValueA);
+                    topMarkA = int.Parse(EditingTopValueA);
+                    bottomMarkA = int.Parse(EditingBottomValueA);
                 }
-                int topMarkB = Int32.Parse(EditingTopValueB);
-                int bottomMarkB = Int32.Parse(EditingBottomValueB);
-                int topMarkC = Int32.Parse(EditingTopValueC);
-                int bottomMarkC = Int32.Parse(EditingBottomValueC);
-                int topMarkD = Int32.Parse(EditingTopValueD);
-                int bottomMarkD = Int32.Parse(EditingBottomValueD);
-                int topMarkE = Int32.Parse(EditingTopValueE);
-                int bottomMarkE = Int32.Parse(EditingBottomValueE);
-                int topMarkF = Int32.Parse(EditingTopValueF);
-                int bottomMarkF = Int32.Parse(EditingBottomValueF);
+                var topMarkB = int.Parse(EditingTopValueB);
+                var bottomMarkB = int.Parse(EditingBottomValueB);
+                var topMarkC = int.Parse(EditingTopValueC);
+                var bottomMarkC = int.Parse(EditingBottomValueC);
+                var topMarkD = int.Parse(EditingTopValueD);
+                var bottomMarkD = int.Parse(EditingBottomValueD);
+                var topMarkE = int.Parse(EditingTopValueE);
+                var bottomMarkE = int.Parse(EditingBottomValueE);
+                var topMarkF = int.Parse(EditingTopValueF);
+                var bottomMarkF = int.Parse(EditingBottomValueF);
 
                 // Check if input data is in sequence
                 if (PointsGrading.IsMarkAIncluded)

@@ -4,7 +4,7 @@ using System.Xml;
 namespace Testinator.Core
 {
     /// <summary>
-    /// The xml writer
+    /// The file writer which writes in xml files
     /// </summary>
     public class XmlWriter : FileWriterBase
     {

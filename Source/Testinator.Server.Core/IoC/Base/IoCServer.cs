@@ -22,6 +22,11 @@ namespace Testinator.Server.Core
         public static ApplicationViewModel Application => IoCServer.Get<ApplicationViewModel>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="ApplicationSettingsViewModel"/>
+        /// </summary>
+        public static ApplicationSettingsViewModel Settings => IoCServer.Get<ApplicationSettingsViewModel>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="ServerNetwork"/>
         /// A sho/// </summary>
         public static ServerNetwork Network => IoCServer.Get<ServerNetwork>();
@@ -66,8 +71,10 @@ namespace Testinator.Server.Core
         /// </summary>
         private static void BindViewModels()
         {
-            // Bind to a single instance of Application view model
+            // Bind to a single instance of every listed view model
+            // So there is only one instant of listed classes throughout the application
             Kernel.Bind<ApplicationViewModel>().ToConstant(new ApplicationViewModel());
+            Kernel.Bind<ApplicationSettingsViewModel>().ToConstant(new ApplicationSettingsViewModel());
             Kernel.Bind<ServerNetwork>().ToConstant(new ServerNetwork());
             Kernel.Bind<TestHost>().ToConstant(new TestHost());
         }
