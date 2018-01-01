@@ -66,7 +66,7 @@ namespace Testinator.Server
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
 
                 case ApplicationPage.Settings:
-                    return new SettingsPage(viewModel as SettingsViewModel);
+                    return new SettingsPage();
 
                 case ApplicationPage.About:
                     return new AboutPage();

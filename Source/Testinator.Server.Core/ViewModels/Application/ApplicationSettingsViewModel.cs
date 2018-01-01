@@ -9,7 +9,8 @@ namespace Testinator.Server.Core
     public class ApplicationSettingsViewModel : BaseViewModel
     {
         #region Public Properties
-
+        
+        // Tutaj ustawienia jakie maja byc na page'u
 
         #endregion
 
@@ -34,6 +35,12 @@ namespace Testinator.Server.Core
         private void SaveSettingsStateToFile(object sender, PropertyChangedEventArgs e)
         {
             // TODO: Collect data and send it to the XmlWriter
+
+            // Jak cos sie zmienia w ustawieniach to tutaj sie odpala ta funkcja
+            // Trzeba zrobic wysylanie do xmlwritera i do pliku z configuracja wyslac zmiane
+
+            // Przydaloby sie jeszcze wczytanie z configuracji na starcie applikacji zrobic
+            // Np. w app.xaml.cs onstartup dac IoCServer.Settings.ReadDataFromConfig() czy cos
         }
 
         #endregion

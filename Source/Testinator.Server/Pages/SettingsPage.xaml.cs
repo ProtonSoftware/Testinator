@@ -6,7 +6,7 @@ namespace Testinator.Server
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsPage : BasePage<SettingsViewModel>
+    public partial class SettingsPage : BasePage<ApplicationSettingsViewModel>
     {
         #region Constructor
 
@@ -16,15 +16,9 @@ namespace Testinator.Server
         public SettingsPage() : base()
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// Constructor with specific view model
-        /// </summary>
-        /// <param name="specificViewModel">The specific view model to use for this page</param>
-        public SettingsPage(SettingsViewModel specificViewModel) : base(specificViewModel)
-        {
-            InitializeComponent();
+            // Attach the single instance of IoC view model to this page
+            DataContext = IoCServer.Settings;
         }
 
         #endregion
