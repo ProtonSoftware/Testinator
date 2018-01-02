@@ -11,6 +11,9 @@ namespace Testinator.Server
         public TestListControl()
         {
             InitializeComponent();
+
+            // Set data context		
+            DataContext = TestListViewModel.Instance;
         }
     }
 }
