@@ -13,15 +13,6 @@ namespace Testinator.Server.Core
     /// </summary>
     public class BeginTestViewModel : BaseViewModel
     {
-        #region Private Members
-
-        /// <summary>
-        /// View model for the test list control
-        /// </summary>
-        private TestListViewModel mTestListVM = new TestListViewModel();
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -74,11 +65,6 @@ namespace Testinator.Server.Core
         /// </summary>
         public string ServerPort { get; set; } = IoCServer.Network.Port.ToString();
 
-        /// <summary>
-        /// The viewmodel for the test list control
-        /// </summary>
-        public TestListViewModel TestListViewModel => mTestListVM;
-
         #region Error flags
 
         /// <summary>
@@ -89,7 +75,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Indicates if the test is not selected
         /// </summary>
-        public bool TestNotSelected => !TestListViewModel.IsAnySelected;
+        public bool TestNotSelected => !TestListViewModel.Instance.IsAnySelected;
 
         /// <summary>
         /// Indicates if the test can be sent to the clients
@@ -150,7 +136,7 @@ namespace Testinator.Server.Core
             StopTestCommand = new RelayCommand(StopTest);
 
             // Load every test from files
-            TestListViewModel.LoadItems();
+            TestListViewModel.Instance.LoadItems();
 
             // Hook to timer event
             IoCServer.TestHost.OnTimerUpdated += TimerUpdated;
@@ -160,7 +146,7 @@ namespace Testinator.Server.Core
             IoCServer.Network.OnClientDisconnected += Network_OnClientDisconnected;
 
             // Hook to the test list event
-            TestListViewModel.ItemSelected += TestListViewModel_TestSelected;
+            TestListViewModel.Instance.ItemSelected += TestListViewModel_TestSelected;
         }
 
         #endregion
@@ -230,7 +216,7 @@ namespace Testinator.Server.Core
         private void ChangePageInfo()
         {
             // Check if user has choosen any test
-            if (!TestListViewModel.IsAnySelected)
+            if (!TestListViewModel.Instance.IsAnySelected)
                 return;
 
             // Then go to info page
@@ -275,10 +261,10 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Private events
+        #region Private Event Methods
 
         /// <summary>
-        /// Test select event
+        /// Fired when test is selected
         /// </summary>
         private void TestListViewModel_TestSelected()
         {

@@ -57,7 +57,7 @@ namespace Testinator.Server.Core
             // Create commands
             ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
 
-            // Load every criteria at the start
+            // Load every test at the start
             LoadItems();
         }
 
@@ -85,7 +85,10 @@ namespace Testinator.Server.Core
             // Select the one that has been clicked
             Items[testID - 1].IsSelected = true;
 
+            // Indicate that a test is now selected
             IsAnySelected = true;
+
+            // Fire an event
             ItemSelected.Invoke();
         }
 

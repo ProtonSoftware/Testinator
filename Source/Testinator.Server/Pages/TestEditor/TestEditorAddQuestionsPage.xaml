@@ -158,7 +158,7 @@
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
-                            <DockPanel>
+                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <Button Content="A"
@@ -213,7 +213,7 @@
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </DockPanel>
+                            </StackPanel>
 
                         </StackPanel>
 
@@ -271,7 +271,7 @@
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="1"
+                                        Grid.Column="2"
                                         Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Style="{StaticResource BaseUIButton}" />
                             </Grid>
@@ -352,8 +352,8 @@
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="42*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />

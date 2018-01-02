@@ -33,6 +33,9 @@ namespace Testinator.Server.Core
 
         #region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public TestEditorEditTestViewModel()
         {
             // Create commands

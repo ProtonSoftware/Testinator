@@ -330,7 +330,12 @@ namespace Testinator.Server.Core
                     // Set default points grading 
                     CurrentGrading = new GradingPercentage()
                 };
+
+                // Convert default grading to points in this view model
                 viewModel.PointsGrading = viewModel.CurrentGrading.ToPoints(Test.TotalPointScore);
+
+                // Set properties to match with criteria in this view model
+                viewModel.MatchPropertiesWithCriteria();
 
                 // Pass view model to the next page
                 IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, viewModel);
@@ -723,6 +728,9 @@ namespace Testinator.Server.Core
 
                     // Convert it to points
                     PointsGrading = CurrentGrading.ToPoints(Test.TotalPointScore);
+
+                    // Set properties to match with current criteria
+                    MatchPropertiesWithCriteria();
                 }
             }
         }
@@ -736,18 +744,7 @@ namespace Testinator.Server.Core
             IsCriteriaEditModeOn = true;
 
             // Set properties to match with current criteria
-            EditingTopValueA = PointsGrading.MarkA.TopLimit.ToString();
-            EditingBottomValueA = PointsGrading.MarkA.BottomLimit.ToString();
-            EditingTopValueB = PointsGrading.MarkB.TopLimit.ToString();
-            EditingBottomValueB = PointsGrading.MarkB.BottomLimit.ToString();
-            EditingTopValueC = PointsGrading.MarkC.TopLimit.ToString();
-            EditingBottomValueC = PointsGrading.MarkC.BottomLimit.ToString();
-            EditingTopValueD = PointsGrading.MarkD.TopLimit.ToString();
-            EditingBottomValueD = PointsGrading.MarkD.BottomLimit.ToString();
-            EditingTopValueE = PointsGrading.MarkE.TopLimit.ToString();
-            EditingBottomValueE = PointsGrading.MarkE.BottomLimit.ToString();
-            EditingTopValueF = PointsGrading.MarkF.TopLimit.ToString();
-            EditingBottomValueF = PointsGrading.MarkF.BottomLimit.ToString();
+            MatchPropertiesWithCriteria();
         }
 
         /// <summary>
@@ -920,6 +917,26 @@ namespace Testinator.Server.Core
 
             // Everything works, return true
             return true;
+        }
+
+        /// <summary>
+        /// Matches the string properties in this VM with actual PointsGrading values
+        /// </summary>
+        private void MatchPropertiesWithCriteria()
+        {
+            // Simply take values from PointsGrading to every property
+            EditingTopValueA = PointsGrading.MarkA.TopLimit.ToString();
+            EditingBottomValueA = PointsGrading.MarkA.BottomLimit.ToString();
+            EditingTopValueB = PointsGrading.MarkB.TopLimit.ToString();
+            EditingBottomValueB = PointsGrading.MarkB.BottomLimit.ToString();
+            EditingTopValueC = PointsGrading.MarkC.TopLimit.ToString();
+            EditingBottomValueC = PointsGrading.MarkC.BottomLimit.ToString();
+            EditingTopValueD = PointsGrading.MarkD.TopLimit.ToString();
+            EditingBottomValueD = PointsGrading.MarkD.BottomLimit.ToString();
+            EditingTopValueE = PointsGrading.MarkE.TopLimit.ToString();
+            EditingBottomValueE = PointsGrading.MarkE.BottomLimit.ToString();
+            EditingTopValueF = PointsGrading.MarkF.TopLimit.ToString();
+            EditingBottomValueF = PointsGrading.MarkF.BottomLimit.ToString();
         }
 
         #endregion
