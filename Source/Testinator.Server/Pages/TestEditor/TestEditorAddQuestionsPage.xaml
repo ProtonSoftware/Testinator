@@ -317,7 +317,8 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="6*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
@@ -364,7 +365,8 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="6*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />

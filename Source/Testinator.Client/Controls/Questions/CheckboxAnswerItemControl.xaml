@@ -29,8 +29,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox IsChecked="{Binding IsChecked}"
-                                          Style="{StaticResource CheckboxStyle}"/>
+                                <CheckBox IsChecked="{Binding IsChecked}" />
 
                                 <TextBlock Grid.Column="1"
                                            Padding="5"

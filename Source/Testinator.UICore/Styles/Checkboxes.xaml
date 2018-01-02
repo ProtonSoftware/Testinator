@@ -2,117 +2,130 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Testinator.UICore">
 
-    <Style x:Key="CheckBoxFocusVisual">
-        <Setter Property="Control.Template">
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource MyFocusVisualStyte}" />
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
-                    <Border>
-                        <Rectangle 
-                            Margin="15,0,0,0"
-                            StrokeThickness="1"
-                            Stroke="#60000000"
-                            StrokeDashArray="1 2"/>
-                    </Border>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <BulletDecorator>
+                        <BulletDecorator.Bullet>
+                            <Grid Height="{TemplateBinding Height}" Width="{Binding RelativeSource={RelativeSource Self}, Path=Height, UpdateSourceTrigger=PropertyChanged}"
+                              MinHeight="40" MinWidth="40" ShowGridLines="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                </Grid.RowDefinitions>
+
+                                <Border Name="MainBorder"
+                                    Grid.ColumnSpan="9" Grid.RowSpan="9"
+                                    CornerRadius="4"
+                                    BorderThickness="1"
+                                    Background="Transparent" />
+
+                                <Border Name="InnerBorder"
+                                    Grid.Column="1" Grid.ColumnSpan="5"
+                                    Grid.Row="2" Grid.RowSpan="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#808080" />
+
+                                <Path Name="InnerPath"
+                                  Grid.Column="1" Grid.ColumnSpan="5"
+                                  Grid.Row="2" Grid.RowSpan="5"
+                                  Data="M31,5 L19.5,5 19.5,19.5 34.5,19.5 34.5,11.75"
+                                  Stretch="Fill" Stroke="#808080"/>
+
+                                <Path Name="CheckMark"
+                                  Grid.Column="2" Grid.ColumnSpan="5"
+                                  Grid.Row="1" Grid.RowSpan="5"
+                                  Opacity="0"
+                                  Data="M9.07743946676476E-09,4.31805768640244L4.68740335877841,8.86361158398516C4.68740335877841,8.86361158398516,16.3281249985376,-2.42451336648723,16.3281249985376,-2.42451336648723L14.0622100581796,-4.77304938341948 4.68740335877846,4.31805791992662 2.22656251699567,1.93164208562579z"
+                                  Fill="#3babe3"
+                                  Stretch="Fill"
+                                  Stroke="#3babe3" />
+
+                                <Path Name="InderminateMark"
+                                  Grid.Column="3"
+                                  Grid.Row="4"
+                                  Data="M0,4 L1,5 5,1 4,0"
+                                  Opacity="0"
+                                  Stretch="Fill"
+                                  StrokeThickness="0"
+                                  Fill="#808080" />
+                            </Grid>
+                        </BulletDecorator.Bullet>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="CheckMark" Duration="0:0:0.2" To="1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked" >
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="CheckMark" Duration="0:0:0.2" To="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="InderminateMark" Duration="0:0:0.2" To="1" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter Margin="4,0,4,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        RecognizesAccessKey="True" />
+                    </BulletDecorator>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="InnerBorder" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="MainBorder" Property="Background" Value="#81d2eb" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="CheckMark" Property="Fill" Value="#cccccc" />
+                            <Setter TargetName="CheckMark" Property="Stroke" Value="#cccccc" />
+                            <Setter TargetName="InnerPath" Property="Stroke" Value="#cccccc" />
+                            <Setter TargetName="InderminateMark" Property="Fill" Value="#cccccc" />
+                            <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#cccccc" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <!-- Fill Brushes -->
-
-    <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#CCC" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-    
-    <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#AAA" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#BBB" Offset="0.0"/>
-                <GradientStop Color="#EEE" Offset="0.1"/>
-                <GradientStop Color="#EEE" Offset="0.9"/>
-                <GradientStop Color="#FFF" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-    
-    <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#CCC" Offset="0.0"/>
-                <GradientStop Color="#444" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="PressedBorderBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#444" Offset="0.0"/>
-                <GradientStop Color="#888" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
-    <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
-        <Setter Property="Template">
+    <Style x:Key="MyFocusVisualStyte" >
+        <Setter Property="Control.Template">
             <Setter.Value>
-                <ControlTemplate TargetType="CheckBox">
-                    <BulletDecorator Background="Transparent">
-                        <BulletDecorator.Bullet>
-                            <Border x:Name="Border"  
-                                          Width="13" 
-                                          Height="13" 
-                                          CornerRadius="0" 
-                                          Background="{StaticResource NormalBrush}"
-                                          BorderThickness="1"
-                                          BorderBrush="{StaticResource NormalBorderBrush}">
-                                <Path Width="7" Height="7" 
-                                          x:Name="CheckMark"
-                                          SnapsToDevicePixels="False" 
-                                          Stroke="#444"
-                                          StrokeThickness="2"
-                                          Data="M 0 0 L 7 7 M 0 7 L 7 0" />
-                            </Border>
-                        </BulletDecorator.Bullet>
-                        <ContentPresenter Margin="4,0,0,0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left"
-                                                RecognizesAccessKey="True"/>
-                    </BulletDecorator>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="false">
-                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="{x:Null}">
-                            <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PressedBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="Border" Property="Background" Value="#EEE" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="#AAA" />
-                            <Setter Property="Foreground" Value="#888"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+                <ControlTemplate>
+                    <Rectangle x:Name="FocusStyle" StrokeDashArray="4 4" RadiusX="5" RadiusY="5" Fill="Transparent"
+                           Stroke="#81d2eb" StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
