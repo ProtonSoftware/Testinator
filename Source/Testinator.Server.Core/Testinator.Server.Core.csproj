@@ -87,6 +87,7 @@
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorEditTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
     <Compile Include="ViewModels\Server\ViewModelServerTESTOWY.cs" />
   </ItemGroup>
   <ItemGroup>

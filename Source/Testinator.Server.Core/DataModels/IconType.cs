@@ -64,5 +64,10 @@
         /// fa-times
         /// </summary>
         UnCheck,
+
+        /// <summary>
+        /// Data base icon
+        /// </summary>
+        DataBase
     }
 }

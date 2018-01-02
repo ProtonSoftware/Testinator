@@ -47,6 +47,9 @@
                 case IconType.UnCheck:
                     return "\uf00d";
 
+                case IconType.DataBase:
+                    return "\uf1c0";
+
                 // If none found, return null
                 default:
                     return null;

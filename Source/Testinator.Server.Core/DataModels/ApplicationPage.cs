@@ -81,6 +81,11 @@
         TestEditorResult,
 
         /// <summary>
+        /// The test results initial page
+        /// </summary>
+        TestResultsInitial,
+
+        /// <summary>
         /// The screen stream page
         /// </summary>
         ScreenStream,

@@ -62,6 +62,9 @@ namespace Testinator.Server
                 case ApplicationPage.TestEditorResult:
                     return new TestEditorResultPage(viewModel as TestEditorAddNewTestViewModel);
 
+                case ApplicationPage.TestResultsInitial:
+                    return new TestResultsInitialPage(viewModel as TestResultsViewModel);
+
                 case ApplicationPage.ScreenStream:
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
 
@@ -126,6 +129,9 @@ namespace Testinator.Server
 
             if (page is TestEditorResultPage)
                 return ApplicationPage.TestEditorResult;
+
+            if (page is TestResultsInitialPage)
+                return ApplicationPage.TestResultsInitial;
 
             if (page is ScreenStreamPage)
                 return ApplicationPage.ScreenStream;

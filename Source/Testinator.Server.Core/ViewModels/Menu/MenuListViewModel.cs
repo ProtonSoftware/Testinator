@@ -55,6 +55,12 @@ namespace Testinator.Server.Core
                 },
                 new MenuListItemViewModel
                 {
+                    Name = "Wyniki testów",
+                    Icon = IconType.DataBase,
+                    TargetPage = ApplicationPage.TestResultsInitial,
+                },
+                new MenuListItemViewModel
+                {
                     Name = "Screen stream",
                     Icon = IconType.Screen,
                     TargetPage = ApplicationPage.ScreenStream
@@ -70,7 +76,7 @@ namespace Testinator.Server.Core
                     Name = "Informacje",
                     Icon = IconType.InfoCircle,
                     TargetPage = ApplicationPage.About
-                }
+                },
             };
         }
 
