@@ -1,0 +1,156 @@
+﻿<UICore:BasePage x:TypeArguments="Core:TestResultsViewModel" x:Class="Testinator.Server.TestResultsInitialPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testinator.Server"
+             xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+             mc:Ignorable="d"
+             d:DesignHeight="720"
+             d:DesignWidth="1024">
+    
+    <Border Background="LightBlue">
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                
+                <ColumnDefinition Width="1.3*" />
+                <ColumnDefinition Width="*" />
+                
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" 
+                    Background="{StaticResource WhiteDarkBrush}"
+                    Margin="10"
+                    Padding="10"
+                    CornerRadius="25" >
+
+                <!-- Left side menu-->
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Top info side -->
+                    <Grid Grid.Row="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    >
+                            <TextBlock Text="Wczytano: "
+                                       FontSize="{StaticResource FontSizeLarge}"
+                                       />
+                            <TextBlock Text="89"
+                                       FontSize="{StaticResource FontSizeLarge}"
+                                       />
+                            <TextBlock Text=" rezultatów"
+                                       FontSize="{StaticResource FontSizeLarge}"
+                                       />
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" 
+                                   Text="Wybierz, aby wywietlić więcej"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Results details -->
+                    <Grid Grid.Row="1">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Data:"
+                                   Grid.Row="0" Grid.Column="0"
+                                   Style="{StaticResource QuestionTextBlockStyle}" 
+                                   Margin="15"
+                                   />
+
+                        <TextBlock Text="01.01.2018r."
+                                   Grid.Row="0" Grid.Column="1"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   Margin="15"
+                                   
+                                   />
+
+
+                        <TextBlock Text="Godzina"
+                                   Grid.Row="1" Grid.Column="0"
+                                   Style="{StaticResource QuestionTextBlockStyle}" 
+                                   Margin="15"
+                                   
+                                   />
+
+                        <TextBlock Text="15:20"
+                                   Grid.Row="1" Grid.Column="1"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   Margin="15"
+                                   
+                                   />
+
+                        <TextBlock Text="Nazwa testu"
+                                   Grid.Row="2" Grid.Column="0"
+                                   Style="{StaticResource QuestionTextBlockStyle}" 
+                                   Margin="15"
+                                   
+                                   />
+
+                        <TextBlock Text="Test o html"
+                                   Grid.Row="2" Grid.Column="1"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   Margin="15"
+                                   
+                                   />
+
+                        <TextBlock Text="Bioracych udział"
+                                   Grid.Row="3" Grid.Column="0"
+                                   Style="{StaticResource QuestionTextBlockStyle}" 
+                                   Margin="15"
+                                   
+                                   />
+
+                        <TextBlock Text="10 osób"
+                                   Grid.Row="3" Grid.Column="1"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   Margin="15"
+                                   
+                                   />
+                    </Grid>
+
+                    <Button Grid.Row="2" 
+                            Content="Szczególy"
+                            Style="{StaticResource BaseUIButton}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"/>
+
+                </Grid>
+                
+            </Border>
+            
+        </Grid>
+        
+    </Border>
+    
+</UICore:BasePage>
