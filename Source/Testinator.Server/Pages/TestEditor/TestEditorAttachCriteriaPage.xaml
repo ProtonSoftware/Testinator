@@ -52,6 +52,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.ColumnSpan="4" Style="{StaticResource MediumTitleText}">
@@ -64,12 +65,12 @@
                                 Grid.ColumnSpan="4">
                         <TextBlock Text="{x:Static UICore:LocalizationResource.IsMarkACountedQuestion}"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
-                        <CheckBox IsChecked="{Binding CurrentGrading.IsMarkAIncluded}"/>
+                        <CheckBox IsChecked="{Binding PointsGrading.IsMarkAIncluded}"/>
                     </StackPanel>
 
                     <Grid Grid.Row="2"
                           Grid.ColumnSpan="4"
-                          Visibility="{Binding CurrentGrading.IsMarkAIncluded, Converter={local:BooleanToVisiblityConverter}}">
+                          Visibility="{Binding PointsGrading.IsMarkAIncluded, Converter={local:BooleanToVisiblityConverter}}">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />

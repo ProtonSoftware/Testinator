@@ -493,6 +493,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task: .
+        /// </summary>
+        public static string TaskSemicolon {
+            get {
+                return ResourceManager.GetString("TaskSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time for test [min].
         /// </summary>
         public static string TestDurationInMinutes {

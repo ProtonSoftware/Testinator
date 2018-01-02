@@ -9,8 +9,15 @@ namespace Testinator.Server.Core
     public class ApplicationSettingsViewModel : BaseViewModel
     {
         #region Public Properties
-        
+
         // Tutaj ustawienia jakie maja byc na page'u
+
+        /// <summary>
+        /// Indicates if next question after adding previous one in TestEditor
+        /// should be the same Type as it was in this previous one
+        /// If false - then next question is blank page and user can choose which Type he wants now
+        /// </summary>
+        public bool IsNextQuestionTypeTheSame { get; set; } = true; // Set this in UI, for now - true 
 
         #endregion
 

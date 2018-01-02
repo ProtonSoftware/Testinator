@@ -3,13 +3,13 @@
 
   <!-- Give product a unique ID per platform -->
   <?if $(var.Platform) = x64 ?>
-  <?define ProductCode = "{43EC8694-DBE5-4FFC-9C5D-0E617C9327B8}" ?>
+  <?define ProductCode = "{E9BFCEA3-2E10-4970-99E4-B7B59EB7B992}" ?>
   <?else?>
-  <?define ProductCode = "{A6F9A9AD-61E9-49BD-BAA4-1FFF7592CF00}" ?>
+  <?define ProductCode = "{15C9F846-4ED4-4634-9B3C-7FE03A6DD484}" ?>
   <?endif?>
 
   <!-- Fixed upgrade Id -->
-  <?define UpgradeCode = "{8A8E4FC8-C86C-48E4-A80A-E1F289413565}" ?>
+  <?define UpgradeCode = "{A0E99090-6551-441D-B215-7958A8290662}" ?>
 
   <!-- Define main product -->
   <Product Id="$(var.ProductCode)"
@@ -38,7 +38,7 @@
     <MediaTemplate EmbedCab="yes" />
 
     <!-- Define main app icon -->
-    <Icon Id="icon.ico" SourceFile="$(var.Testinator.Client.ProjectDir)\Assets\Logo\icon.ico" />
+    <Icon Id="icon.ico" SourceFile="$(var.Testinator.Server.ProjectDir)\Assets\Logo\icon.ico" />
 
     <!-- Use the icon.ico icon for this installer (shows up in Add/Remove programs) -->
     <Property Id="ARPPRODUCTICON">icon.ico</Property>
@@ -53,7 +53,7 @@
     <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Assets\Background.bmp" />
     <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Assets\Banner.bmp" />
 
-    <Feature Id="ProductFeature" Title="Testinator.Client" Level="1">
+    <Feature Id="ProductFeature" Title="Testinator.Server" Level="1">
 
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="PublishedComponents" />

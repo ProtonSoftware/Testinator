@@ -93,7 +93,7 @@ namespace Testinator.Server.Core
         public string AnswerD { get; set; }
         public string AnswerE { get; set; }
 
-        public int HowManyMultipleChoiceAnswersVisible = 2;
+        public int HowManyMultipleChoiceAnswersVisible { get; set; } = 2;
         public string QuestionMultipleChoicePointScore { get; set; }
         public string RightAnswerIdx { get; set; } = "0";
 
@@ -117,7 +117,7 @@ namespace Testinator.Server.Core
         public bool IsAnswer4Right { get; set; }
         public bool IsAnswer5Right { get; set; }
 
-        public int HowManyMultipleCheckboxesAnswersVisible = 2;
+        public int HowManyMultipleCheckboxesAnswersVisible { get; set; } = 2;
         public string QuestionMultipleCheckboxesPointScore { get; set; }
 
         public bool ShouldAnswer3BeVisible { get; set; } = false;
@@ -793,6 +793,10 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SubmitTest()
         {
+            // Check if data is correct
+            if (!ValidateInputData())
+                return;
+
             // Attach criteria to the test
             Test.Grading = PointsGrading;
 
@@ -855,6 +859,9 @@ namespace Testinator.Server.Core
         {
             // Save this view model
             var viewModel = new TestEditorAddNewTestViewModel(Test);
+
+            // If user wants to set next question type as it was in previous one, set it
+            if (IoCServer.Settings.IsNextQuestionTypeTheSame) viewModel.QuestionBeingAddedIndex = QuestionBeingAddedIndex;
 
             // Pass it to the next page
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorAddQuestions, viewModel);

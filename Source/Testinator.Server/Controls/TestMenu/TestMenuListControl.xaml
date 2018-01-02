@@ -9,7 +9,13 @@
 
     <Border Width="200"
             local:AnimateSideMenuWidthProperty.Value="{Binding IsTestMenuExpanded}">
-        <StackPanel>
+        <Grid>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
             <Border Height="50"
                     Width="160"
                     HorizontalAlignment="Left"
@@ -36,7 +42,8 @@
                 </Grid>
 
             </Border>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Grid.Row="1">
                 <ItemsControl ItemsSource="{Binding Questions}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -45,6 +52,6 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

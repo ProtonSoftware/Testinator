@@ -33,7 +33,7 @@
                     VerticalAlignment="Center"
                     CornerRadius="3"
                     Background="{StaticResource WhiteDarkBrush}"
-                    Width="500"
+                    MinWidth="600"
                     Padding="30">
 
                 <Grid>
@@ -64,61 +64,101 @@
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-                            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{StaticResource SmallInputTextBox}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.TaskSemicolon}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="A:"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="B:"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                            <Grid Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="C:"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
+                                        Grid.Column="2"
                                         Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Style="{StaticResource BaseUIButton}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                            <Grid Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="D:"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
+                                        Grid.Column="2"
                                         Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Style="{StaticResource BaseUIButton}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                            <Grid Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="E:"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding AnswerE, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
+                                        Grid.Column="2"
                                         Style="{StaticResource BaseUIButton}" />
-                            </StackPanel>
+                            </Grid>
 
                             <Button Content="{x:Static UICore:LocalizationResource.AddAnswerButton}"
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
-                            <StackPanel Orientation="Horizontal">
+                            <DockPanel>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <Button Content="A"
@@ -173,7 +213,7 @@
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </DockPanel>
 
                         </StackPanel>
 
@@ -185,61 +225,106 @@
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-                            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{StaticResource SmallInputTextBox}" />
-                            
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.TaskSemicolon}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <CheckBox IsChecked="{Binding IsAnswer1Right}" />
                                 <TextBox Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <CheckBox IsChecked="{Binding IsAnswer2Right}" />
                                 <TextBox Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                            <Grid Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <CheckBox IsChecked="{Binding IsAnswer3Right}" />
                                 <TextBox Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
-                                        Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Command="{Binding RemoveAnswerCommand}"
+                                        Grid.Column="1"
+                                        Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Style="{StaticResource BaseUIButton}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                            <Grid Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <CheckBox IsChecked="{Binding IsAnswer4Right}" />
                                 <TextBox Text="{Binding Answer4, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
-                                        Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Command="{Binding RemoveAnswerCommand}"
+                                        Grid.Column="2"
+                                        Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                         Style="{StaticResource BaseUIButton}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal" Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                            <Grid Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <CheckBox IsChecked="{Binding IsAnswer5Right}" />
                                 <TextBox Text="{Binding Answer5, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
                                 <Button Content="-"
                                         Command="{Binding RemoveAnswerCommand}"
+                                        Grid.Column="2"
                                         Style="{StaticResource BaseUIButton}" />
-                            </StackPanel>
+                            </Grid>
 
                             <Button Content="{x:Static UICore:LocalizationResource.AddAnswerButton}"
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleCheckboxesPointScore}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
 
                         </StackPanel>
@@ -252,22 +337,41 @@
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-                            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{StaticResource SmallInputTextBox}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static UICore:LocalizationResource.TaskSemicolon}"
+                                           Style="{StaticResource QuestionTextBlockStyle}" />
+                                <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
+                                         Style="{StaticResource SmallInputTextBox}" />
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding TextBoxAnswer, UpdateSourceTrigger=PropertyChanged}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8*" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionSingleTextBoxPointScore}"
+                                         Grid.Column="1"
                                          Style="{StaticResource SmallInputTextBox}" />
-                            </StackPanel>
+                            </Grid>
 
                         </StackPanel>
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+
+	<String Id="Company">ProtonSoftware</String>
+
+	<String Id="ProductNameFolder">Testinator.Client</String>
+	
+	<String Id="ProductName_x86">Testinator.Client (32bit)</String>
+	<String Id="ProductName_x64">Testinator.Client (64bit)</String>
+
+	<String Id="DowngradeErrorMessage">Newer version of Testinator.Client is installed already.</String>
+
+	<String Id="Description">Makes IT teachers' life easier!</String>
+	<String Id="Comments">Do a test for your apprentices</String>
+	<String Id="Keywords">test, quiz, questions</String>
+
+	<String Id="Language">1033</String>
+
+</WixLocalization>

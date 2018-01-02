@@ -297,4 +297,7 @@
   <data name="TrySemicolon" xml:space="preserve">
     <value>Try: </value>
   </data>
+  <data name="TaskSemicolon" xml:space="preserve">
+    <value>Task: </value>
+  </data>
 </root>

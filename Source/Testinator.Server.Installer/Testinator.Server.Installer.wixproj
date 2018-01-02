@@ -4,9 +4,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>{a91b0daf-7419-4004-8d20-d4b5abfa8c8f}</ProjectGuid>
+    <ProjectGuid>{6d071206-3dc3-4547-ac08-43345e3bf786}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Testinator.Client-$(Platform)</OutputName>
+    <OutputName>Testinator.Server-$(Platform)</OutputName>
     <OutputType>Package</OutputType>
     <Cultures>;</Cultures>
   </PropertyGroup>
@@ -51,8 +51,8 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Testinator.Client\Testinator.Client.csproj">
-      <Name>Testinator.Client</Name>
+    <ProjectReference Include="..\Testinator.Server\Testinator.Server.csproj">
+      <Name>Testinator.Server</Name>
       <Project>{b7570c08-bdb4-49c0-8a66-f8fdf56a3ea2}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
@@ -67,23 +67,23 @@
   </Target>
   <Target Name="BeforeBuild">
     <!-- Get assembly version -->
-    <GetAssemblyIdentity AssemblyFiles="..\Testinator.Client\bin\$(Configuration)\Testinator.Client.Core.dll">
+    <GetAssemblyIdentity AssemblyFiles="..\Testinator.Server\bin\$(Configuration)\Testinator.Server.Core.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
     <!-- Define some variables we need -->
     <PropertyGroup>
-      <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Testinator.Client\bin\$(Configuration)\</DefineConstants>
+      <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Testinator.Server\bin\$(Configuration)\</DefineConstants>
     </PropertyGroup>
     <!-- Harvest file components from publish folder -->
-    <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\Testinator.Client\bin\$(Configuration)\" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
+    <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\Testinator.Server\bin\$(Configuration)\" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
   </Target>
   <Target Name="AfterBuild">
     <!-- Get assembly version -->
-    <GetAssemblyIdentity AssemblyFiles="..\Testinator.Client\bin\$(Configuration)\Testinator.Client.Core.dll">
+    <GetAssemblyIdentity AssemblyFiles="..\Testinator.Server\bin\$(Configuration)\Testinator.Server.Core.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
     <!-- Rename and move final MSI -->
     <Exec Command="if not exist Installs mkdir Installs" />
-    <Exec Command="move bin\$(Configuration)\$(OutputName).msi Installs\Testinator.Client-%(AssemblyVersion.Version)-$(Platform).msi" />
+    <Exec Command="move bin\$(Configuration)\$(OutputName).msi Installs\Testinator.Server-%(AssemblyVersion.Version)-$(Platform).msi" />
   </Target>
 </Project>
