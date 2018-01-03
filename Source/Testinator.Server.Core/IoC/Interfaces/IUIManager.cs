@@ -13,5 +13,12 @@ namespace Testinator.Server.Core
         /// <param name="viewModel">The view model</param>
         /// <returns></returns>
         Task ShowMessage(MessageBoxDialogViewModel viewModel);
+
+        /// <summary>
+        /// Displays a result box to the user and catch the result
+        /// </summary>
+        /// <param name="viewModel">The view model</param>
+        /// <returns></returns>
+        Task ShowMessage(ref ResultBoxDialogViewModel viewModel);
     }
 }

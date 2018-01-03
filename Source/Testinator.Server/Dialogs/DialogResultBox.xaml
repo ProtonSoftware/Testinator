@@ -1,0 +1,45 @@
+﻿<local:BaseDialogUserControl x:Class="Testinator.Server.DialogResultBox"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                             xmlns:local="clr-namespace:Testinator.Server"
+                             xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                             mc:Ignorable="d">
+    
+    <StackPanel Background="{StaticResource WhiteLightBrush}">
+
+        <TextBlock Text="{Binding Message}"
+                   Padding="5"
+                   Style="{StaticResource QuestionTextBlockStyle}"
+                   />
+
+        <Grid>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="{Binding AgreeText}"
+                    Grid.Column="1"
+                    IsDefault="True"
+                    Style="{StaticResource BaseUIButton}"
+                    Command="{Binding AgreeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:BaseDialogUserControl}}}"
+                    HorizontalAlignment="Center"
+                    />
+
+            <Button Content="{Binding CancelText}"
+                    Grid.Column="2"
+                    IsCancel="True"
+                    Style="{StaticResource BaseUIButton}"
+                    Command="{Binding CancelCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:BaseDialogUserControl}}}"
+                    HorizontalAlignment="Center"
+                    />
+
+        </Grid>
+        
+    </StackPanel>
+</local:BaseDialogUserControl>

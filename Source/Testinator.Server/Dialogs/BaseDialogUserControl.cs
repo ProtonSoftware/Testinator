@@ -22,12 +22,49 @@ namespace Testinator.Server
 
         #endregion
 
-        #region Public Commands
+        private ResultBoxDialogViewModel mResultVM;
+
+        public ResultBoxDialogViewModel ResultVM
+        {
+            get => mResultVM;
+            set
+            {
+                mResultVM = value;
+
+                DataContext = value;
+            }
+        }
+
+        private MessageBoxDialogViewModel mMessageVM;
+
+        public MessageBoxDialogViewModel MessageVM
+        {
+            get => mMessageVM;
+            set
+            {
+                mMessageVM = value;
+
+                DataContext = value;
+            }
+        }
+
+
+        #region Commands
 
         /// <summary>
         /// Closes this dialog
         /// </summary>
         public ICommand CloseCommand { get; private set; }
+
+        /// <summary>
+        /// Closes this dialog and returns user's agree value
+        /// </summary>
+        public ICommand AgreeCommand { get; private set; }
+
+        /// <summary>
+        /// Closes this dialog and return user's cancel value
+        /// </summary>
+        public ICommand CancelCommand { get; private set; }
 
         #endregion
 
@@ -62,15 +99,32 @@ namespace Testinator.Server
         /// </summary>
         public BaseDialogUserControl()
         {
-            if (!DesignerProperties.GetIsInDesignMode(this))
-            {
-                // Create a new dialog window
-                mDialogWindow = new DialogWindow();
-                mDialogWindow.ViewModel = new DialogWindowViewModel(mDialogWindow);
+            // Dont do anything in design mode
+            if (DesignerProperties.GetIsInDesignMode(this))
+                return;
+            
+            // Create a new dialog window
+            mDialogWindow = new DialogWindow();
+            mDialogWindow.ViewModel = new DialogWindowViewModel(mDialogWindow);
 
-                // Create close command
-                CloseCommand = new RelayCommand(() => mDialogWindow.Close());
-            }
+            // Create commands
+            CloseCommand = new RelayCommand(() => mDialogWindow.Close());
+            AgreeCommand = new RelayCommand(() => 
+            {
+                // Save the user's answer
+                ResultVM.HasUserAgreed = true;
+
+                // Close the dialog window
+                mDialogWindow.Close();
+            });
+            CancelCommand = new RelayCommand(() =>
+            {
+                // Save the user's answer
+                ResultVM.HasUserAgreed = false;
+
+                // Close the dialog window
+                mDialogWindow.Close();
+            });
         }
 
         #endregion
@@ -104,7 +158,8 @@ namespace Testinator.Server
                     mDialogWindow.ViewModel.Content = this;
 
                     // Setup this controls data context binding to the view model
-                    DataContext = viewModel;
+                    if (viewModel is ResultBoxDialogViewModel) ResultVM = viewModel as ResultBoxDialogViewModel;
+                    else if (viewModel is MessageBoxDialogViewModel) MessageVM = viewModel as MessageBoxDialogViewModel;
 
                     // Show in the center of the parent
                     mDialogWindow.Owner = Application.Current.MainWindow;

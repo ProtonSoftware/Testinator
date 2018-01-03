@@ -96,6 +96,9 @@
       <DependentUpon>TestMenuListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\BaseDialogUserControl.cs" />
+    <Compile Include="Dialogs\DialogResultBox.xaml.cs">
+      <DependentUpon>DialogResultBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
       <DependentUpon>DialogMessageBox.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TestMenu\TestMenuListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\DialogResultBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -11,13 +11,13 @@
         
         <TextBlock Text="{Binding Message}"
                    Padding="5"
-                   Foreground="{StaticResource BlackDarkBrush}"
+                   Style="{StaticResource QuestionTextBlockStyle}"
                    />
 
         <Button Content="{Binding OkText}"
                 IsDefault="True"
                 IsCancel="True"
-                FontSize="{StaticResource FontSizeRegular}"
+                Style="{StaticResource BaseUIButton}"
                 Command="{Binding CloseCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:BaseDialogUserControl}}}"
                 HorizontalAlignment="Center"
                 />
