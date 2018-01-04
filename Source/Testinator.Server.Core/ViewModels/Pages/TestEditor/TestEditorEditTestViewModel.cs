@@ -85,7 +85,19 @@ namespace Testinator.Server.Core
             // Update the current test property to make sure its indicating the right test
             OnPropertyChanged(nameof(CurrentTest));
 
-            // TODO: Show message box to user if he is sure he wants to delete the test
+            // Show message box to user to ask if he is sure he wants to delete the test
+            var vm = new ResultBoxDialogViewModel
+            {
+                Title = "Czy usunąc test?",
+                Message = "Czy jesteś pewny, że chcesz usunąć ten test?",
+                AcceptText = "Tak",
+                CancelText = "Nie"
+            };
+            IoCServer.UI.ShowMessage(vm);
+
+            // If user has declined, don't delete anything
+            if (!vm.UserResponse)
+                return;
 
             // Finally delete selected test
             FileWriters.BinWriter.DeleteFile(CurrentTest);

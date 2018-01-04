@@ -1,9 +1,7 @@
-﻿using Testinator.Core;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Testinator.Server.Core;
 
 namespace Testinator.Server
@@ -11,60 +9,14 @@ namespace Testinator.Server
     /// <summary>
     /// The base class for any content that is being used inside of a <see cref="DialogWindow"/>
     /// </summary>
-    public class BaseDialogUserControl : UserControl
+    public abstract class BaseDialogUserControl : UserControl
     {
-        #region Private Members
+        #region Protected Members
 
         /// <summary>
         /// The dialog window we will be contained within
         /// </summary>
-        private DialogWindow mDialogWindow;
-
-        #endregion
-
-        private ResultBoxDialogViewModel mResultVM;
-
-        public ResultBoxDialogViewModel ResultVM
-        {
-            get => mResultVM;
-            set
-            {
-                mResultVM = value;
-
-                DataContext = value;
-            }
-        }
-
-        private MessageBoxDialogViewModel mMessageVM;
-
-        public MessageBoxDialogViewModel MessageVM
-        {
-            get => mMessageVM;
-            set
-            {
-                mMessageVM = value;
-
-                DataContext = value;
-            }
-        }
-
-
-        #region Commands
-
-        /// <summary>
-        /// Closes this dialog
-        /// </summary>
-        public ICommand CloseCommand { get; private set; }
-
-        /// <summary>
-        /// Closes this dialog and returns user's agree value
-        /// </summary>
-        public ICommand AgreeCommand { get; private set; }
-
-        /// <summary>
-        /// Closes this dialog and return user's cancel value
-        /// </summary>
-        public ICommand CancelCommand { get; private set; }
+        protected DialogWindow mDialogWindow;
 
         #endregion
 
@@ -73,17 +25,17 @@ namespace Testinator.Server
         /// <summary>
         /// The minimum width of this dialog
         /// </summary>
-        public int WindowMinimumWidth { get; set; } = 250;
+        public int WindowMinimumWidth { get; set; } = 500;
 
         /// <summary>
         /// The minimum height of this dialog
         /// </summary>
-        public int WindowMinimumHeight { get; set; } = 100;
+        public int WindowMinimumHeight { get; set; } = 200;
 
         /// <summary>
         /// The height of the title bar
         /// </summary>
-        public int TitleHeight { get; set; } = 30;
+        public int TitleHeight { get; set; } = 36;
 
         /// <summary>
         /// The title for this dialog
@@ -106,25 +58,6 @@ namespace Testinator.Server
             // Create a new dialog window
             mDialogWindow = new DialogWindow();
             mDialogWindow.ViewModel = new DialogWindowViewModel(mDialogWindow);
-
-            // Create commands
-            CloseCommand = new RelayCommand(() => mDialogWindow.Close());
-            AgreeCommand = new RelayCommand(() => 
-            {
-                // Save the user's answer
-                ResultVM.HasUserAgreed = true;
-
-                // Close the dialog window
-                mDialogWindow.Close();
-            });
-            CancelCommand = new RelayCommand(() =>
-            {
-                // Save the user's answer
-                ResultVM.HasUserAgreed = false;
-
-                // Close the dialog window
-                mDialogWindow.Close();
-            });
         }
 
         #endregion
@@ -157,9 +90,11 @@ namespace Testinator.Server
                     // Set this control to the dialog window content
                     mDialogWindow.ViewModel.Content = this;
 
-                    // Setup this controls data context binding to the view model
-                    if (viewModel is ResultBoxDialogViewModel) ResultVM = viewModel as ResultBoxDialogViewModel;
-                    else if (viewModel is MessageBoxDialogViewModel) MessageVM = viewModel as MessageBoxDialogViewModel;
+                    // Setup this controls data context binding to the specified view model depends on its type
+                    if (viewModel is ResultBoxDialogViewModel)
+                        SetDialogViewModel(viewModel as ResultBoxDialogViewModel);
+                    else if (viewModel is MessageBoxDialogViewModel)
+                        SetDialogViewModel(viewModel as MessageBoxDialogViewModel);
 
                     // Show in the center of the parent
                     mDialogWindow.Owner = Application.Current.MainWindow;
@@ -177,6 +112,22 @@ namespace Testinator.Server
 
             return tcs.Task;
         }
+
+        #endregion
+
+        #region Override Methods
+
+        /// <summary>
+        /// Sets the view model of a ResultDialog box
+        /// </summary>
+        /// <param name="viewModel">The view model to set</param>
+        public virtual void SetDialogViewModel(ResultBoxDialogViewModel viewModel) { }
+
+        /// <summary>
+        /// Sets the view model of a MessageDialog box
+        /// </summary>
+        /// <param name="viewModel">The view model to set</param>
+        public virtual void SetDialogViewModel(MessageBoxDialogViewModel viewModel) { }
 
         #endregion
     }

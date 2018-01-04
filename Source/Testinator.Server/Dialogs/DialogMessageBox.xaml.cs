@@ -3,7 +3,7 @@
     /// <summary>
     /// Interaction logic for DialogMessageBox.xaml
     /// </summary>
-    public partial class DialogMessageBox : BaseDialogUserControl
+    public partial class DialogMessageBox : MessageDialogUserControl
     {
         public DialogMessageBox()
         {

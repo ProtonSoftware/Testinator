@@ -25,7 +25,7 @@ namespace Testinator.Server
         /// </summary>
         /// <param name="viewModel">The view model</param>
         /// <returns></returns>
-        public Task ShowMessage(ref ResultBoxDialogViewModel viewModel)
+        public Task ShowMessage(ResultBoxDialogViewModel viewModel)
         {
             return new DialogResultBox().ShowDialog(viewModel);
         }

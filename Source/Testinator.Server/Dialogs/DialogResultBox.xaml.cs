@@ -3,7 +3,7 @@
     /// <summary>
     /// Interaction logic for DialogResultBox.xaml
     /// </summary>
-    public partial class DialogResultBox : BaseDialogUserControl
+    public partial class DialogResultBox : ResultDialogUserControl
     {
         public DialogResultBox()
         {

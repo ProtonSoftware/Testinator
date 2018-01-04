@@ -95,13 +95,15 @@
     <Compile Include="Controls\TestMenu\TestMenuListItemControl.xaml.cs">
       <DependentUpon>TestMenuListItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\BaseDialogUserControl.cs" />
+    <Compile Include="Dialogs\Base\BaseDialogUserControl.cs" />
     <Compile Include="Dialogs\DialogResultBox.xaml.cs">
       <DependentUpon>DialogResultBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
       <DependentUpon>DialogMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\Implementation\MessageDialogUserControl.cs" />
+    <Compile Include="Dialogs\Implementation\ResultDialogUserControl.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>

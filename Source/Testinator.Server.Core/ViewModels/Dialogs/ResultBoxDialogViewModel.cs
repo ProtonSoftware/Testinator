@@ -12,19 +12,21 @@
         public string Message { get; set; }
 
         /// <summary>
-        /// The text to use for the agree button
+        /// The text to use for the accept button
         /// </summary>
-        public string AgreeText { get; set; } = "Tak";
+        public string AcceptText { get; set; }
 
         /// <summary>
         /// The text to use for the cancel button
         /// </summary>
-        public string CancelText { get; set; } = "Nie";
+        public string CancelText { get; set; }
 
         /// <summary>
         /// Used after showing a message
         /// Keeps user's answer, whether he agreed with the statement or not
+        /// True means that he accept the message
+        /// False means that he declined
         /// </summary>
-        public bool HasUserAgreed { get; set; } = false;
+        public bool UserResponse { get; set; } 
     }
 }
