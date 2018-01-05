@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Testinator.Core;
 
-namespace Testinator.Server
+namespace Testinator.Client
 {
     /// <summary>
     /// The base class for any content that is being used inside of a <see cref="DialogWindow"/>

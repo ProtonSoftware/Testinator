@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {

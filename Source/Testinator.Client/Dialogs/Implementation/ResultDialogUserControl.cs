@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Testinator.Core;
 
-namespace Testinator.Server
+namespace Testinator.Client
 {
     /// <summary>
     /// The class for ResultDialog box with a view model for it

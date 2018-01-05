@@ -80,6 +80,9 @@
     <Compile Include="DataModels\Test\GradingSystem\Marks.cs" />
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
     <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
+    <Compile Include="Dialogs\Base\BaseDialogViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\ResultBoxDialogViewModel.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Files\Readers\Specific readers\BinaryReader.cs" />
     <Compile Include="Files\Readers\FileReaders.cs" />

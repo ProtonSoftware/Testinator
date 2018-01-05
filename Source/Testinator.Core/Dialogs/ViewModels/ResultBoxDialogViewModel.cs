@@ -1,4 +1,4 @@
-﻿namespace Testinator.Server.Core
+﻿namespace Testinator.Core
 {
     /// <summary>
     /// Details for a result box dialog

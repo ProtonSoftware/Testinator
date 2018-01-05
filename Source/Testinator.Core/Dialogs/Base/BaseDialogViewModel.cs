@@ -1,9 +1,7 @@
-﻿using Testinator.Core;
-
-namespace Testinator.Server.Core
+﻿namespace Testinator.Core
 {
     /// <summary>
-    /// A base view model for any dialogs
+    /// The base view model for any dialogs
     /// </summary>
     public class BaseDialogViewModel : BaseViewModel
     {

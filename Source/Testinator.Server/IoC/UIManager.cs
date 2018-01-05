@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Testinator.Server.Core;
 using System.Windows;
+using Testinator.Core;
 
 namespace Testinator.Server
 {

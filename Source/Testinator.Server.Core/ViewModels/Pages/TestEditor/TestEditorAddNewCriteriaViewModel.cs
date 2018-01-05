@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -123,11 +124,23 @@ namespace Testinator.Server.Core
             // If something is being edited show the warning...
             if (EditingCriteriaMode)
             {
-                // TODO: show message box to ask the user if they want to save changes or not
+                // Show message box to ask the user if he wants to save changes or not
+                var vm = new ResultBoxDialogViewModel
+                {
+                    Title = "Kryteria edytowane",
+                    Message = "Kryteria są aktualnie edytowane, zmiana strony odrzuci zmiany.\nKontynuować?",
+                    AcceptText = "Tak",
+                    CancelText = "Nie"
+                };
+                IoCServer.UI.ShowMessage(vm);
+
+                // If user has declined, don't do anything
+                if (!vm.UserResponse)
+                    return;
             }
-            else
-                // Simply change page
-                IoCServer.Application.GoToPage(ApplicationPage.TestEditor);
+
+            // Change the page
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditor);
         }
 
         /// <summary>
@@ -149,13 +162,19 @@ namespace Testinator.Server.Core
                 // If there are some unsaved changes
                 if (CriteriaChanged)
                 {
-                    // TODO: Show the message box with the info that there are some unsaved changes
-                    // Base on the resopond decide what to do,
-                    // For now return without asking the user 
+                    // Show the message box with the info that there are some unsaved changes
+                    var vm = new ResultBoxDialogViewModel
+                    {
+                        Title = "Niezapisane zmiany",
+                        Message = "Niektóre zmiany nie zostały zapisane.\nKontynuować?",
+                        AcceptText = "Tak",
+                        CancelText = "Nie"
+                    };
+                    IoCServer.UI.ShowMessage(vm);
 
-                    // If user wants to save changes do so and proceed to the remaining part of the function
-                    //if (userRespond == true)
-                    //   SubmitCriteria();
+                    // If user has declined, don't do anything
+                    if (!vm.UserResponse)
+                        return;
                 }
             }
 
@@ -254,6 +273,20 @@ namespace Testinator.Server.Core
         /// </summary>
         private void DeleteCommand()
         {
+            // Show message box to ask the user if he wants to delete criteria
+            var vm = new ResultBoxDialogViewModel
+            {
+                Title = "Usuwanie kryterii",
+                Message = "Wybrane kryteria zostaną usunięte.\nKontynuować?",
+                AcceptText = "Tak",
+                CancelText = "Nie"
+            };
+            IoCServer.UI.ShowMessage(vm);
+
+            // If user has declined, don't do anything
+            if (!vm.UserResponse)
+                return;
+
             // Delete this criteria by old name because the user may have changed it meanwhile
             FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
 
@@ -401,10 +434,27 @@ namespace Testinator.Server.Core
             if (!EditingCriteriaMode)
                 return;
 
-            // TODO: Fetch it to list and then check if e.PropertyName is in the list
-            if (e.PropertyName == nameof(Name) || e.PropertyName == nameof(TopValueMarkA) || e.PropertyName == nameof(BottomValueMarkA) || e.PropertyName == nameof(TopValueMarkB) ||
-                e.PropertyName == nameof(BottomValueMarkB) || e.PropertyName == nameof(TopValueMarkC) || e.PropertyName == nameof(BottomValueMarkC) || e.PropertyName == nameof(TopValueMarkD) ||
-                e.PropertyName == nameof(BottomValueMarkD) || e.PropertyName == nameof(TopValueMarkE) || e.PropertyName == nameof(BottomValueMarkE) || e.PropertyName == nameof(TopValueMarkF) || e.PropertyName == nameof(BottomValueMarkF))
+            // Make a list of every needed property names in this view model
+            var propertyNamesList = new List<string>()
+            {
+                nameof(Name),
+                nameof(TopValueMarkA),
+                nameof(BottomValueMarkA),
+                nameof(TopValueMarkB),
+                nameof(BottomValueMarkB),
+                nameof(TopValueMarkC),
+                nameof(BottomValueMarkC),
+                nameof(TopValueMarkD),
+                nameof(BottomValueMarkD),
+                nameof(TopValueMarkE),
+                nameof(BottomValueMarkE),
+                nameof(TopValueMarkF),
+                nameof(BottomValueMarkF)
+            };
+
+            // Check if e.PropertyName is in the list
+            if (propertyNamesList.Contains(e.PropertyName))
+                // It means that any of criteria property has changed, indicate that
                 CriteriaChanged = true;
         }
 

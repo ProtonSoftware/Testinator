@@ -1,5 +1,4 @@
-﻿using Testinator.Server.Core;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Testinator.Server
