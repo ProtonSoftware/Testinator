@@ -23,6 +23,11 @@ namespace Testinator.Server.Core
         /// NOTE: data to the clients is sent by using <see cref="ClientModel"/>, therefore this list is essential
         /// </summary>
         private List<ClientModel> mClients = new List<ClientModel>();
+
+        /// <summary>
+        /// The user results for the current test
+        /// </summary>
+        private TestResults mResults = new TestResults();
         
         #endregion
 
@@ -47,6 +52,11 @@ namespace Testinator.Server.Core
         /// All clients that are currently taking the test
         /// </summary>
         public ObservableCollection<ClientModelExtended> Clients { get; private set; } = new ObservableCollection<ClientModelExtended>();
+
+        /// <summary>
+        /// The user results for the current test
+        /// </summary>
+        public TestResults Results => mResults;
 
         #endregion
 
@@ -162,6 +172,11 @@ namespace Testinator.Server.Core
         public event Action OnTimerUpdated = () => { };
 
         /// <summary>
+        /// Fired when the test finishes
+        /// </summary>
+        public event Action TestFinished = () => { };
+
+        /// <summary>
         /// Fired when any data is resived from a client
         /// </summary>
         /// <param name="client">The sender client</param>
@@ -180,7 +195,7 @@ namespace Testinator.Server.Core
                     Clients[ClientIdx].CurrentQuestion = content.CurrentQuestion;
 
                     // Check if every user has completed the test
-                    if(TestFinished())
+                    if(IsTestFinished())
                     {
                         // Stop the test
                         TestStop();
@@ -201,6 +216,7 @@ namespace Testinator.Server.Core
                     if(!IsTestInProgress)
                     {
                         SaveResults();
+                        TestFinished.Invoke();
                     }
                     break;                    
             }
@@ -233,6 +249,24 @@ namespace Testinator.Server.Core
         {
             // Initialize timer
             mTestTimer.Elapsed += HandleTimer;
+
+            IoCServer.Network.OnClientDataUpdated += ServerNetwork_OnClientDataUpdated;
+
+        }
+
+        #endregion
+
+        #region Private Events
+
+        /// <summary>
+        /// Fired when the client data is updated
+        /// </summary>
+        /// <param name="OldModel"></param>
+        /// <param name="NewModel"></param>
+        private void ServerNetwork_OnClientDataUpdated(ClientModel OldModel, ClientModel NewModel)
+        {
+            // Lock the clients again
+            LockClients();
         }
 
         #endregion
@@ -243,7 +277,7 @@ namespace Testinator.Server.Core
         /// Checks if there is any user still taking the test
         /// </summary>
         /// <returns></returns>
-        private bool TestFinished()
+        private bool IsTestFinished()
         {
             foreach (var client in Clients)
             {
@@ -270,16 +304,16 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SaveResults()
         {
-            var results = new TestResults()
+            mResults = new TestResults()
             {
                 Date = DateTime.Now,
                 Test = Test,
             };
 
             foreach (var client in Clients)
-                results.Results.Add(new ClientModelSerializable(client), client.Answers);
+                mResults.Results.Add(new ClientModelSerializable(client), client.Answers);
 
-            FileWriters.BinWriter.WriteToFile(results);
+            FileWriters.BinWriter.WriteToFile(mResults);
         }
 
         /// <summary>

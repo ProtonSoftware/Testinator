@@ -120,6 +120,9 @@
     <Compile Include="Pages\BeginTest\BeginTestInProgressPage.xaml.cs">
       <DependentUpon>BeginTestInProgressPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BeginTest\BeginTestResultsPage.xaml.cs">
+      <DependentUpon>BeginTestResultsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\BeginTest\BeginTestInProgressPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BeginTest\BeginTestResultsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

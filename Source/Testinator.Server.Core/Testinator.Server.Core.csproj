@@ -53,8 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\Pages\TestResults\BeginTestResultsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="DataModels\ClientModelExtended.cs" />
     <Compile Include="DataModels\IconType.cs" />
     <Compile Include="DataModels\ServerNetwork.cs" />
     <Compile Include="DataModels\TestHost.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorEditTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
     <Compile Include="ViewModels\Server\ViewModelServerTESTOWY.cs" />
   </ItemGroup>
   <ItemGroup>

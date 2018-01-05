@@ -59,6 +59,32 @@ namespace Testinator.Client.Core
 
             // Listen out for test which will come from server
             IoCClient.TestHost.OnTestReceived += Update;
+
+            // Hook to the events
+            Name.ValueChanged += Name_ValueChanged;
+            Surname.ValueChanged += Surname_ValueChanged;
+        }
+
+        #endregion
+
+        #region Private Events
+
+        /// <summary>
+        /// Name value changes
+        /// </summary>
+        private void Name_ValueChanged()
+        {
+            IoCClient.Client.ClientName = Name.OriginalText;
+            IoCClient.Application.Network.SendClientModelUpdate();
+        }
+
+        /// <summary>
+        /// Surname value changes
+        /// </summary>
+        private void Surname_ValueChanged()
+        {
+            IoCClient.Client.ClientSurname = Surname.OriginalText;
+            IoCClient.Application.Network.SendClientModelUpdate();
         }
 
         #endregion

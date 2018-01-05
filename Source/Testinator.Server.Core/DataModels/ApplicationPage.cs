@@ -46,6 +46,11 @@
         BeginTestInProgress,
 
         /// <summary>
+        /// The subpage for showing the results
+        /// </summary>
+        BeginTestResults,
+
+        /// <summary>
         /// The page to create/edit tests
         /// </summary>
         TestEditor,
@@ -84,7 +89,7 @@
         /// The test results initial page
         /// </summary>
         TestResultsInitial,
-
+        
         /// <summary>
         /// The screen stream page
         /// </summary>

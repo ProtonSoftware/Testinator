@@ -90,6 +90,7 @@
                     Background="{StaticResource BlackDarkBrush}"
                     FontSize="{StaticResource FontSizeSmall}"
                     VerticalAlignment="Center"
+                    Visibility="{Binding EditAvailable, Converter={local:BooleanToVisiblityConverter}}"
                     />
         </Grid>
 

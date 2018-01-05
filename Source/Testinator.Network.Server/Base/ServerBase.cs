@@ -68,11 +68,16 @@ namespace Testinator.Network.Server
         /// </summary>
         /// <param name="Client">Socket whose model needs to be updated</param>
         /// <param name="NewModel">New data as <see cref="InfoPackage"/></param>
-        private void UpdateClientModel(Socket Client, InfoPackage NewModel)
+        /// <returns>Original model that has been replaced</returns>
+        private ClientModel UpdateClientModel(Socket Client, InfoPackage NewModel)
         {
+            var originalModel = new ClientModel(mClients[Client]);
+
             mClients[Client].ClientName = NewModel.ClientName;
             mClients[Client].ClientSurname = NewModel.ClientSurname;
             mClients[Client].MachineName = NewModel.MachineName;
+
+            return originalModel;
         }
 
         /// <summary>
@@ -206,10 +211,10 @@ namespace Testinator.Network.Server
                         else
                         {
                             // Update client model
-                            UpdateClientModel(senderSocket, content);
+                            var original = UpdateClientModel(senderSocket, content);
 
                             // Call the subscribed methods
-                            OnClientDataUpdated.Invoke(mClients[senderSocket]);
+                            OnClientDataUpdated.Invoke(original, mClients[senderSocket]);
                         }
                     }
                 }
@@ -337,7 +342,7 @@ namespace Testinator.Network.Server
         /// <summary>
         /// The event that is fired when a client's data had beed updated
         /// </summary>
-        public event Action<ClientModel> OnClientDataUpdated = (newModel) => { };
+        public event Action<ClientModel, ClientModel> OnClientDataUpdated = (oldmodel, newModel) => { };
 
         #endregion
 

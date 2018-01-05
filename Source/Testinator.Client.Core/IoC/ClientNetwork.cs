@@ -29,6 +29,8 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        #region Public Methods
+
         /// <summary>
         /// Disconnects from the server
         /// </summary>
@@ -37,6 +39,17 @@ namespace Testinator.Client.Core
             base.Disconnect();
             AttemptingToReconnect = false;
         }
+
+        /// <summary>
+        /// Sends update to the server about the user data
+        /// </summary>
+        public void SendClientModelUpdate()
+        {
+            var dataPackage = IoCClient.Client.GetPackage();
+            IoCClient.Application.Network.SendData(dataPackage);
+        }
+
+        #endregion
 
         #region Private Helpers
 

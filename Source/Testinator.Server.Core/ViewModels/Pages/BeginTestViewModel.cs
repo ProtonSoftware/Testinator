@@ -13,6 +13,7 @@ namespace Testinator.Server.Core
     /// </summary>
     public class BeginTestViewModel : BaseViewModel
     {
+
         #region Public Properties
 
         /// <summary>
@@ -118,6 +119,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand StopTestCommand { get; private set; }
 
+        /// <summary>
+        /// The command to exit from the resultpage
+        /// </summary>
+        public ICommand ResultPageExitCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -134,6 +140,7 @@ namespace Testinator.Server.Core
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
             BeginTestCommand = new RelayCommand(BeginTest);
             StopTestCommand = new RelayCommand(StopTest);
+            ResultPageExitCommand = new RelayCommand(ResultPageExit);
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
@@ -147,6 +154,9 @@ namespace Testinator.Server.Core
 
             // Hook to the test list event
             TestListViewModel.Instance.ItemSelected += TestListViewModel_TestSelected;
+
+            // Hook to the test host evet
+            IoCServer.TestHost.TestFinished += TestFinished;
         }
 
         #endregion
@@ -191,7 +201,7 @@ namespace Testinator.Server.Core
                 IoCServer.UI.ShowMessage(viewmodel);
                 
                 if (viewmodel.UserResponse)
-                    StopTest();
+                    StopTestForcefully();
                 else
                     return;
             }
@@ -266,8 +276,6 @@ namespace Testinator.Server.Core
             if (viewmodel.UserResponse)
             {
                 StopTestForcefully();
-                IoCServer.TestHost.TestStopForcefully();
-                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
             }
             else
                 return;
@@ -288,6 +296,16 @@ namespace Testinator.Server.Core
         #endregion
 
         #region Private Event Methods
+
+        /// <summary>
+        /// Fired when the test finishes
+        /// </summary>
+        private void TestFinished()
+        {
+            // Jump on the dispatcher thread to change page
+            var uiContext = SynchronizationContext.Current;
+            uiContext.Send(x => IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestResults), null);
+        }
 
         /// <summary>
         /// Fired when test is selected
@@ -336,6 +354,17 @@ namespace Testinator.Server.Core
         {
             IoCServer.TestHost.TestStopForcefully();
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+        }
+
+        /// <summary>
+        /// Exits from the result page
+        /// </summary>
+        private void ResultPageExit()
+        {
+            if (IoCServer.Network.IsRunning)
+                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
+            else
+                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
         #endregion

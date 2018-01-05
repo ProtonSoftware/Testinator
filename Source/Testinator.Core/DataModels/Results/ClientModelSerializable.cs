@@ -1,4 +1,5 @@
 ﻿using System;
+using Testinator.Core;
 
 namespace Testinator.Core
 {
@@ -25,16 +26,28 @@ namespace Testinator.Core
         /// </summary>
         public string MachineName { get; set; }
 
+        /// <summary>
+        /// Points scored by the user
+        /// </summary>
+        public int PointsScored { get; set; }
+
+        /// <summary>
+        /// The client mark
+        /// </summary>
+        public Marks Mark { get; set; }
+
         #region Constructor
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ClientModelSerializable(ClientModel model)
+        public ClientModelSerializable(ClientModelExtended model)
         {
             ClientName = model.ClientName;
             ClientSurname = model.ClientSurname;
             MachineName = model.MachineName;
+            PointsScored = model.PointsScored;
+            Mark = model.Mark;
         }
 
         #endregion

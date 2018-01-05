@@ -77,6 +77,17 @@ namespace Testinator.Network.Server
             OnClientConnected += ServerClientConnected;
             OnClientDisconnected += ServerClientDisconnected;
             OnDataRecived += ServerDataReceived;
+            OnClientDataUpdated += ServerNetwork_OnClientDataUpdated;
+        }
+
+        /// <summary>
+        /// Fired when the client data is updated
+        /// </summary>
+        /// <param name="OldModel"></param>
+        /// <param name="NewModel"></param>
+        private void ServerNetwork_OnClientDataUpdated(ClientModel OldModel, ClientModel NewModel)
+        {
+
         }
 
         /// <summary>

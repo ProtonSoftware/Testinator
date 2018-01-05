@@ -75,6 +75,23 @@ namespace Testinator.Core
             MachineName = Environment.MachineName;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ClientModel(ClientModel source)
+        {
+            // Create defaults
+            MacAddress = MacAddressHelpers.GetMac();
+            MachineName = Environment.MachineName;
+
+            ID = source.ID;
+            MacAddress = source.MacAddress;
+            MachineName = source.MachineName;
+            IpAddress = source.IpAddress;
+            ClientName = source.ClientName;
+            ClientSurname = source.ClientSurname;
+        }
+
         #endregion
     }
 }

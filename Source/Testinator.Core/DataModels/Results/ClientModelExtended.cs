@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Testinator.Core;
 
-namespace Testinator.Server.Core
+namespace Testinator.Core
 {
     /// <summary>
     /// Extended version of <see cref="ClientModel"/> class

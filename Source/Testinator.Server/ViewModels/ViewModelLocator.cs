@@ -19,6 +19,11 @@ namespace Testinator.Server
         /// </summary>
         public static ApplicationViewModel ApplicationViewModel => IoCServer.Application;
 
+        /// <summary>
+        /// The shortcut to the test host
+        /// </summary>
+        public static TestHost TestHost => IoCServer.TestHost;
+
         #endregion
     }
 }
