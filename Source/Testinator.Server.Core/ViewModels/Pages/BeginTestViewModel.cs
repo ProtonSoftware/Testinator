@@ -180,10 +180,20 @@ namespace Testinator.Server.Core
         {
             if (IoCServer.TestHost.IsTestInProgress)
             {
-                // TODO: show dialog asking the user that a test is in progress
-                // Based on the response decide what to do
-                // if (response == nieWyłączaj)
-                return;
+                var viewmodel = new ResultBoxDialogViewModel()
+                {
+                    Title = "",
+                    Message = "Test jest w trakcie! Czy chcesz go przerwać?",
+                    AcceptText = "Tak",
+                    CancelText ="Nie",
+                };
+
+                IoCServer.UI.ShowMessage(viewmodel);
+                
+                if (viewmodel.UserResponse)
+                    StopTest();
+                else
+                    return;
             }
             
             // Stop the server
@@ -191,6 +201,7 @@ namespace Testinator.Server.Core
 
             // Inform the view
             OnPropertyChanged(nameof(IsServerStarted));
+            OnPropertyChanged(nameof(ClientsConnected));
 
             // Go to the initial page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
@@ -225,7 +236,6 @@ namespace Testinator.Server.Core
             // Meanwhile lock the clients list and send them the test 
             IoCServer.TestHost.LockClients();
             IoCServer.TestHost.SendTest();
-
         }
 
         /// <summary>
@@ -233,7 +243,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void BeginTest()
         {
-            IoCServer.TestHost.Start();
+            IoCServer.TestHost.TestStart();
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInProgress);
         }
 
@@ -242,8 +252,25 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StopTest()
         {
-            IoCServer.TestHost.Stop();
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+
+            var viewmodel = new ResultBoxDialogViewModel()
+            {
+                Title = "",
+                Message = "Czy na pewno chcesz przerwać test?",
+                AcceptText = "Tak",
+                CancelText = "Nie",
+            };
+
+            IoCServer.UI.ShowMessage(viewmodel);
+
+            if (viewmodel.UserResponse)
+            {
+                StopTestForcefully();
+                IoCServer.TestHost.TestStopForcefully();
+                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+            }
+            else
+                return;
         }
 
         #endregion
@@ -255,8 +282,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void TimerUpdated()
         {
-            // Update the view
-            OnPropertyChanged(nameof(TimeLeft));
+            UpdateView();
         }
 
         #endregion
@@ -268,8 +294,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void TestListViewModel_TestSelected()
         {
-            OnPropertyChanged(nameof(TestNotSelected));
-            OnPropertyChanged(nameof(CanSendTest));
+            UpdateView();
         }
 
         /// <summary>
@@ -278,9 +303,7 @@ namespace Testinator.Server.Core
         /// <param name="obj"></param>
         private void Network_OnClientDisconnected(ClientModel obj)
         {
-            OnPropertyChanged(nameof(ClientsNumber));
-            OnPropertyChanged(nameof(NotEnoughClients));
-            OnPropertyChanged(nameof(CanSendTest));
+            UpdateView();
         }
 
         /// <summary>
@@ -289,9 +312,30 @@ namespace Testinator.Server.Core
         /// <param name="obj"></param>
         private void Network_OnClientConnected(ClientModel obj)
         {
+            UpdateView();
+        }
+
+        /// <summary>
+        /// Updates the view and all the properties
+        /// </summary>
+        private void UpdateView()
+        {
             OnPropertyChanged(nameof(ClientsNumber));
             OnPropertyChanged(nameof(NotEnoughClients));
             OnPropertyChanged(nameof(CanSendTest));
+            OnPropertyChanged(nameof(TestNotSelected));
+            OnPropertyChanged(nameof(CanSendTest));
+            OnPropertyChanged(nameof(TimeLeft));
+            OnPropertyChanged(nameof(TestNotSelected));
+        }
+
+        /// <summary>
+        /// Stops the test forcefully
+        /// </summary>
+        private void StopTestForcefully()
+        {
+            IoCServer.TestHost.TestStopForcefully();
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
         #endregion

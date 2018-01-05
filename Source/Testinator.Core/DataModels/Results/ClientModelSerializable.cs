@@ -30,9 +30,11 @@ namespace Testinator.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ClientModelSerializable()
+        public ClientModelSerializable(ClientModel model)
         {
-
+            ClientName = model.ClientName;
+            ClientSurname = model.ClientSurname;
+            MachineName = model.MachineName;
         }
 
         #endregion

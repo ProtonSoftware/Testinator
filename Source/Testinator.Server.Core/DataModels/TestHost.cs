@@ -55,7 +55,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Starts the test
         /// </summary>
-        public void Start()
+        public void TestStart()
         {
             if (IsTestInProgress)
                 return;
@@ -76,16 +76,29 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Stops the test
         /// </summary>
-        public void Stop()
+        public void TestStop()
         {
             if (!IsTestInProgress)
                 return;
 
             IsTestInProgress = false;
 
-            // Stop the timer
-            mTestTimer.Stop();
-            OnTimerUpdated.Invoke();
+            StopTimer();
+        }
+
+        /// <summary>
+        /// Stops the test forcefully
+        /// </summary>
+        public void TestStopForcefully()
+        {
+            if (!IsTestInProgress)
+                return;
+
+            SendToAllClients(new DataPackage(PackageType.StopTestForcefully));
+
+            IsTestInProgress = false;
+
+            StopTimer();
         }
 
         /// <summary>
@@ -170,7 +183,7 @@ namespace Testinator.Server.Core
                     if(TestFinished())
                     {
                         // Stop the test
-                        Stop();
+                        TestStop();
                     }
                     break;
 
@@ -199,7 +212,7 @@ namespace Testinator.Server.Core
         /// <param name="client">The client that has disconnected</param>
         public void OnClientDisconnected(ClientModel client)
         {
-            // If the client that has disconnected is the one we dont care about don't do anything
+            // If the client that has disconnected is the one who isn't taking the test right now, don't do anything
             if (!mClients.Contains(client))
                 return;
 
@@ -262,16 +275,28 @@ namespace Testinator.Server.Core
                 Date = DateTime.Now,
                 Test = Test,
             };
+
             foreach (var client in Clients)
-                results.Results.Add(
-                    new ClientModelSerializable()
-                    {
-                        ClientName = client.ClientName,
-                        ClientSurname = client.ClientSurname,
-                        MachineName = client.MachineName,
-                    }, client.Answers);
+                results.Results.Add(new ClientModelSerializable(client), client.Answers);
 
             FileWriters.BinWriter.WriteToFile(results);
+        }
+
+        /// <summary>
+        /// Stopes the timer
+        /// </summary>
+        private void StopTimer()
+        {
+            mTestTimer.Start();
+            OnTimerUpdated.Invoke();
+        }
+
+        /// <summary>
+        /// Handles the time out
+        /// </summary>
+        private void TimesUp()
+        {
+
         }
 
         /// <summary>
@@ -284,7 +309,7 @@ namespace Testinator.Server.Core
             TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
             if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
             {
-                Stop();
+                TimesUp();
             }
             OnTimerUpdated.Invoke();
         }

@@ -29,6 +29,9 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        /// <summary>
+        /// Disconnects from the server
+        /// </summary>
         public new void Disconnect()
         {
             base.Disconnect();
@@ -53,6 +56,10 @@ namespace Testinator.Client.Core
                 case PackageType.BeginTest:
                     // Start the test
                     IoCClient.TestHost.StartTest();
+                    break;
+
+                case PackageType.StopTestForcefully:
+                    IoCClient.TestHost.StopTestForcefully();
                     break;
             }
         }

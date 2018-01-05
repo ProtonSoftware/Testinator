@@ -140,6 +140,25 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
+        /// Stopes the test forcefully, if asked by the server
+        /// </summary>
+        public void StopTestForcefully()
+        {
+            // Stop the test only if it is in progress
+            if (IsTestInProgress)
+            {
+                IoCClient.Logger.Log("Test has beed stoped forcefully");
+                
+                // TODO: show a dialogbox with info about it
+
+                Reset();
+                
+                // Return to the main screen
+                IoCClient.Application.ReturnMainScreen();
+            }
+        }
+
+        /// <summary>
         /// Binds the test to this view model 
         /// </summary>
         /// <param name="test">Test to be hosted</param>

@@ -141,6 +141,7 @@
 
                     <Button Grid.Row="2" 
                             Content="Szczególy"
+                            Command="{Binding cmd}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"/>

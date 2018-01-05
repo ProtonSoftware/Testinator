@@ -130,7 +130,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 CornerRadius="0 0 5 5"
-                Background="{StaticResource NormalBorderBrush}">
+                Background="{StaticResource BlackLightBrush}">
 
             <StackPanel Orientation="Horizontal"
                         Margin="10 0">

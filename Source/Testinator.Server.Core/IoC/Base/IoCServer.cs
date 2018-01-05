@@ -28,12 +28,12 @@ namespace Testinator.Server.Core
 
         /// <summary>
         /// A shortcut to access the <see cref="ServerNetwork"/>
-        /// A sho/// </summary>
+        /// </summary>
         public static ServerNetwork Network => IoCServer.Get<ServerNetwork>();
 
         /// <summary>
         /// A shortcut to access the <see cref="TestHost"/>
-        /// A sho/// </summary>
+        /// </summary>
         public static TestHost TestHost => IoCServer.Get<TestHost>();
 
         /// <summary>

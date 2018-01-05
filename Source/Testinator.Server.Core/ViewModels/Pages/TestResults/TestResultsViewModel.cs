@@ -1,4 +1,6 @@
-﻿using Testinator.Core;
+﻿using System;
+using System.Windows.Input;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
@@ -11,7 +13,7 @@ namespace Testinator.Server.Core
 
 
         #endregion
-
+        public ICommand cmd { get; set; }
         #region Constructor
 
         /// <summary>
@@ -19,6 +21,19 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsViewModel()
         {
+            cmd = new RelayCommand(ds);
+        }
+
+        private void ds()
+        {
+            var vm = new ResultBoxDialogViewModel()
+            {
+                Message = "Hello there!",
+                AcceptText = "Yes",
+                CancelText = "No",
+                Title = "Obi-wan kenobi",
+            };
+            IoCServer.UI.ShowMessage(vm);
 
         }
 
