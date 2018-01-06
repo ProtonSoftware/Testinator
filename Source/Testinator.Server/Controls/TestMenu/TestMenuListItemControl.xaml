@@ -69,6 +69,8 @@
                                                       AncestorType=local:TestEditorAddQuestionsPage},
                                                       Path=DataContext.DeleteQuestionCommand}"
                                     CommandParameter="{Binding ID}"
+                                    Margin="2 5"
+                                    FontSize="{StaticResource FontSizeTitleLarge}"
                                     Style="{StaticResource BaseUIButton}" />
 
                         </StackPanel>

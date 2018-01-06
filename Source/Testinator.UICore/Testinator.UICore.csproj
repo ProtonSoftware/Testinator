@@ -99,6 +99,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\Scrolls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DataGrids.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Checkboxes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

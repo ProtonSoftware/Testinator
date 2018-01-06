@@ -11,7 +11,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Buttons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Texts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Scrolls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Checkboxes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/DataGrids.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
