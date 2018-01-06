@@ -15,8 +15,6 @@ namespace Testinator.Core
         /// <param name="data">The data to be saved</param>
         public override void WriteToFile(string FileName, GradingPercentage data)
         {
-            var grades = data as GradingPercentage;
-
             var doc = new XmlDocument();
             var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
             doc.AppendChild(docNode);
@@ -26,9 +24,7 @@ namespace Testinator.Core
 
             // A
             if (data.IsMarkAIncluded)
-            {
                 AddMarkXml(data.MarkA, "A", MarksNode, doc);
-            }
 
             AddMarkXml(data.MarkB, "B", MarksNode, doc);
             AddMarkXml(data.MarkC, "C", MarksNode, doc);
@@ -39,6 +35,52 @@ namespace Testinator.Core
             try
             {
                 doc.Save(Settings.Path + "Criteria\\" + FileName + ".xml");
+            }
+            catch
+            {
+                // TODO: error handling xml
+            }
+        }
+
+        /// <summary>
+        /// Saves the specified property information to the xml file
+        /// </summary>
+        /// <param name="property">The property itself</param>
+        public override void WriteToFile(object property, bool fileExists = true)
+        {
+            // Get informations about the property
+            var propertyName = nameof(property);
+            var propertyType = property.GetType();
+            var propertyValue = property; // TODO: Test if this works
+
+            // Store Xml file
+            var doc = new XmlDocument();
+
+            // If file doesn't exists yet
+            if (/*!*/fileExists)
+            {             
+                // Add crucial informations at the top
+                var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                doc.AppendChild(docNode);
+            }
+            else
+            {
+                // TODO: Load current file state to the doc variable (then we can fix the if upside)
+                // XmlReader.LoadConfig() or something
+            }
+
+            // Create property root
+            var rootNode = doc.CreateElement(propertyName);
+            doc.AppendChild(rootNode);
+
+            // Put a property type and value inside
+            AppendNodeXml("PropertyType", propertyType.ToString(), rootNode, doc);
+            AppendNodeXml("PropertyValue", propertyValue.ToString(), rootNode, doc);
+
+            try
+            {
+                // Save the file
+                doc.Save(Settings.Path + "Config\\" + "config"+ ".xml");
             }
             catch
             {
@@ -78,17 +120,23 @@ namespace Testinator.Core
             var MarkNode = doc.CreateElement("Mark");
             rootElement.AppendChild(MarkNode);
 
-            var ValueNodeA = doc.CreateElement("Value");
-            ValueNodeA.AppendChild(doc.CreateTextNode(MarkName));
-            MarkNode.AppendChild(ValueNodeA);
+            AppendNodeXml("Value", MarkName, MarkNode, doc);
+            AppendNodeXml("TopLimit", mark.TopLimit.ToString(), MarkNode, doc);
+            AppendNodeXml("BottomLimit", mark.BottomLimit.ToString(), MarkNode, doc);
+        }
 
-            var TopLimitNodeA = doc.CreateElement("TopLimit");
-            TopLimitNodeA.AppendChild(doc.CreateTextNode(mark.TopLimit.ToString()));
-            MarkNode.AppendChild(TopLimitNodeA);
-
-            var BottomLimitNodeA = doc.CreateElement("BottomLimit");
-            BottomLimitNodeA.AppendChild(doc.CreateTextNode(mark.BottomLimit.ToString()));
-            MarkNode.AppendChild(BottomLimitNodeA);
+        /// <summary>
+        /// Appends the Xml node to the file
+        /// </summary>
+        /// <param name="elementName">Name of the node</param>
+        /// <param name="value">Value of the node</param>
+        /// <param name="rootElement">Parent node</param>
+        /// <param name="doc">File we are appending to</param>
+        private void AppendNodeXml(string elementName, string value, XmlElement rootElement, XmlDocument doc)
+        {
+            var xmlNode = doc.CreateElement(elementName);
+            xmlNode.AppendChild(doc.CreateTextNode(value));
+            rootElement.AppendChild(xmlNode);
         }
 
         #endregion

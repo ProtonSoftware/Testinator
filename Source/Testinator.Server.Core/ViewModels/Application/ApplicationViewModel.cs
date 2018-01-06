@@ -71,6 +71,7 @@ namespace Testinator.Server.Core
         /// </summary>
         public ApplicationViewModel()
         {
+
         }
 
         #endregion

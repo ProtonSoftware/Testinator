@@ -10,6 +10,11 @@ namespace Testinator.Server.Core
     {
         #region Public Properties
 
+        /// <summary>
+        /// The path to the log file of this application
+        /// </summary>
+        public string LogFilePath { get; set; } = "log.txt";
+
         // Tutaj ustawienia jakie maja byc na page'u
 
         /// <summary>
@@ -28,6 +33,9 @@ namespace Testinator.Server.Core
         /// </summary>
         public ApplicationSettingsViewModel()
         {
+            // Load every property data from config file
+            ReadDataFromConfig();
+
             // Hook to property changed event, so everytime settings are being changed, we save it to the file
             PropertyChanged += SaveSettingsStateToFile;
         }
@@ -37,17 +45,21 @@ namespace Testinator.Server.Core
         #region Private Helpers
 
         /// <summary>
+        /// Loads every property from config file to this view model at the start
+        /// </summary>
+        private void ReadDataFromConfig()
+        {
+            // TODO: Config file XmlReader
+        }
+
+        /// <summary>
         /// Saves current application settings state to the configuration file
         /// </summary>
         private void SaveSettingsStateToFile(object sender, PropertyChangedEventArgs e)
         {
             // TODO: Collect data and send it to the XmlWriter
 
-            // Jak cos sie zmienia w ustawieniach to tutaj sie odpala ta funkcja
-            // Trzeba zrobic wysylanie do xmlwritera i do pliku z configuracja wyslac zmiane
-
-            // Przydaloby sie jeszcze wczytanie z configuracji na starcie applikacji zrobic
-            // Np. w app.xaml.cs onstartup dac IoCServer.Settings.ReadDataFromConfig() czy cos
+            // Jest zrobiony writetofile w xmlwriterze, tylko trzeba readera zrobic aby to w pelni dzialalo
         }
 
         #endregion

@@ -201,6 +201,7 @@ namespace Testinator.Client
 
         public override void OnValueUpdated(DependencyObject sender, object value)
         {
+            // Just do the animation without this "first load" mechanic
             DoAnimation(sender as FrameworkElement, (bool)value);
         }
     }

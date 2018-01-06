@@ -19,12 +19,12 @@ namespace Testinator.Core
         #region File Writers Methods
 
         /// <summary>
-        /// Writes <see cref="Test"/> to the file
+        /// Writes a <see cref="Test"/> to the file
         /// </summary>
         public virtual void WriteToFile(Test test) { }
 
         /// <summary>
-        /// Writes <see cref="GradingPercentage"/> to the file
+        /// Writes a <see cref="GradingPercentage"/> to the file
         /// </summary>
         public virtual void WriteToFile(string fileName, GradingPercentage grading) { }
 
@@ -37,6 +37,11 @@ namespace Testinator.Core
         /// Writes test results to file
         /// </summary>
         public virtual void WriteToFile(TestResults tr) { }
+
+        /// <summary>
+        /// Writes object's property info to file
+        /// </summary>
+        public virtual void WriteToFile(object property, bool fileExists = true) { }
 
         /// <summary>
         /// Deletes a <see cref="Test"/>

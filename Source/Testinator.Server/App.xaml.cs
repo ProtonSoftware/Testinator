@@ -45,9 +45,8 @@ namespace Testinator.Server
             // Bind a logger
             IoCServer.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(new[]
             {
-                // TODO: Add ApplicationSettings so we can set/edit a log location
-                //       For now just log to the path where this application is running
-                new FileLogger("log.txt"),
+                // Set the path from Settings
+                new FileLogger(IoCServer.Settings.LogFilePath),
             }));
 
             // Bind a File Writer
