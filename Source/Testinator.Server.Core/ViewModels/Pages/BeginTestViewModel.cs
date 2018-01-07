@@ -156,7 +156,7 @@ namespace Testinator.Server.Core
             TestListViewModel.Instance.ItemSelected += TestListViewModel_TestSelected;
 
             // Hook to the test host evet
-            IoCServer.TestHost.TestFinished += TestFinished;
+            IoCServer.TestHost.TestFinished += ChangePageToResults;
         }
 
         #endregion
@@ -300,7 +300,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Fired when the test finishes
         /// </summary>
-        private void TestFinished()
+        private void ChangePageToResults()
         {
             // Jump on the dispatcher thread to change page
             var uiContext = SynchronizationContext.Current;

@@ -149,7 +149,11 @@
                 </Grid>
                 
             </Border>
-            
+
+            <local:ResultsListControl Grid.Column="1"
+                                      DataContext="{Binding ListViewModel}"
+                                      Background="{StaticResource BlackLightBrush}"/>
+
         </Grid>
         
     </Border>

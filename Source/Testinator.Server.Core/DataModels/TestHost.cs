@@ -281,7 +281,8 @@ namespace Testinator.Server.Core
         {
             foreach (var client in Clients)
             {
-                if (client.CurrentQuestion < Test.Questions.Count + 1)
+                // Test is not finished when there is a client that has not answered all questions and has no connection problems 
+                if (!client.ConnectionProblem && client.CurrentQuestion < Test.Questions.Count + 1)
                     return false;
             }
 
@@ -330,7 +331,9 @@ namespace Testinator.Server.Core
         /// </summary>
         private void TimesUp()
         {
-
+            TestStop();
+            SaveResults();
+            TestFinished.Invoke();
         }
 
         /// <summary>

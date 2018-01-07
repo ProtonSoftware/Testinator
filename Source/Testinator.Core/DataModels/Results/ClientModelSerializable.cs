@@ -39,7 +39,7 @@ namespace Testinator.Core
         #region Constructor
 
         /// <summary>
-        /// Default constructor
+        /// Constructos object based on another model
         /// </summary>
         public ClientModelSerializable(ClientModelExtended model)
         {
@@ -50,6 +50,13 @@ namespace Testinator.Core
             Mark = model.Mark;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ClientModelSerializable()
+        {
+
+        }
         #endregion
     }
 }

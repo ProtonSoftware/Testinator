@@ -49,6 +49,19 @@ namespace Testinator.Client.Core
             IoCClient.Application.Network.SendData(dataPackage);
         }
 
+        /// <summary>
+        /// Stops reconnecting if in progress
+        /// </summary>
+        public void StopReconnecting()
+        {
+            // If connected or not attempting to reconnect dont do anything
+            if (IsConnected || !AttemptingToReconnect)
+                return;
+
+            // Stop connecting, otherwise
+            Disconnect();
+        }
+
         #endregion
 
         #region Private Helpers

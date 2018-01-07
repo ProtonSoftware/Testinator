@@ -58,7 +58,7 @@
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
                                         Header="Ocena"
-                                        Binding="{Binding Mark}"/>
+                                        Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
                 </DataGrid.Columns>
         
             </DataGrid>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -11,9 +12,18 @@ namespace Testinator.Server.Core
     {
         #region Public Properties
 
+        /// <summary>
+        /// View model for the list control
+        /// </summary>
+        public TestResultsListViewModel ListViewModel => new TestResultsListViewModel();
+
+        /// <summary>
+        /// The list of all results found on the machine
+        /// </summary>
+        public List<TestResults> Results { get; set; } = new List<TestResults>();
 
         #endregion
-        public ICommand cmd { get; set; }
+
         #region Constructor
 
         /// <summary>
@@ -21,21 +31,15 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsViewModel()
         {
-            cmd = new RelayCommand(ds);
+            Results = FileReaders.BinReader.ReadAllResults();
+            ListViewModel.LoadItems(Results);
+            OnPropertyChanged(nameof(ListViewModel));
         }
 
-        private void ds()
-        {
-            var vm = new ResultBoxDialogViewModel()
-            {
-                Message = "Hello there!",
-                AcceptText = "Yes",
-                CancelText = "No",
-                Title = "Obi-wan kenobi",
-            };
-            IoCServer.UI.ShowMessage(vm);
+        #endregion
 
-        }
+        #region Private Helpers
+
 
         #endregion
     }

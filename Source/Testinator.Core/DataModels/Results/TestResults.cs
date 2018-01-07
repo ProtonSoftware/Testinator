@@ -10,7 +10,6 @@ namespace Testinator.Core
     [Serializable] 
     public class TestResults
     {
-
         #region Public Properties
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace Testinator.Core
                     if (Path.GetExtension(file) != ".dat")
                         continue;
 
-                    var filecontent = GetTestFromBin(file);
+                    var filecontent = GetTestFromFile(file);
                     if (filecontent != null)
                     {
                         filecontent.ID = indexer;
@@ -58,6 +58,47 @@ namespace Testinator.Core
 
         }
 
+        /// <summary>
+        /// Gets all of the results from the directory
+        /// </summary>
+        /// <returns>List of test results found on the machine</returns>
+        public List<TestResults>ReadAllResults()
+        {
+            List<string> Files;
+
+            Tests = new Dictionary<int, string>();
+
+            try
+            {
+                Files = new List<string>(Directory.GetFiles(Settings.Path + "Results\\"));
+            }
+            catch
+            {
+                return null;
+            }
+
+            var results = new List<TestResults>();
+            foreach (var file in Files)
+            {
+                try
+                {
+                    if (Path.GetExtension(file) != ".dat")
+                        continue;
+
+                    var filecontent = GetTestResultsFromFile(file);
+                    if (filecontent != null)
+                    {
+                        results.Add(filecontent);
+                    }
+                }
+                catch
+                {
+                    // No error handlig for now
+                }
+            }
+            return results;
+        }
+
         #endregion
 
         #region Private Methods
@@ -67,12 +108,27 @@ namespace Testinator.Core
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        private Test GetTestFromBin(string file)
+        private Test GetTestFromFile(string file)
         {
             var data = File.ReadAllBytes(file);
-            if (DataPackageDescriptor.TryConvertToObj(data, out DataPackage dataP))
+            if (DataPackageDescriptor.TryConvertToObj(data, out var dataP))
             {
                 return dataP.Content as Test;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="TestResults"/> object from a given file
+        /// </summary>
+        /// <param name="file">The filep pah</param>
+        /// <returns>Results read results</returns>
+        private TestResults GetTestResultsFromFile(string filePath)
+        {
+            var bytes = File.ReadAllBytes(filePath);
+            if (DataPackageDescriptor.TryConvertToObj<TestResults>(bytes, out var results))
+            {
+                return results;
             }
             return null;
         }

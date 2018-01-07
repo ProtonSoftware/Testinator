@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -18,6 +19,7 @@ namespace Testinator.Core
         {
             Settings = new WriterSettings();
         }
+
         #endregion
 
         #region Public Methods
@@ -75,7 +77,30 @@ namespace Testinator.Core
             // Reload the test list
             FileReaders.BinReader.ReadAllTests();
         }
-        
+
+        public override void WriteToFile(ClientTestResults results)
+        {
+            if (results == null)
+                return;
+
+            var filenameOriginal = CreateClientResultsFileName(results);
+            var filenameFinal = filenameOriginal;
+            var suffix = 1;
+            while (File.Exists(Settings.Path + "Results\\" + filenameFinal + ".dat"))
+            {
+                filenameFinal = filenameOriginal + "(" + suffix + ")";
+                suffix++;
+            }
+
+            if (DataPackageDescriptor.TryConvertToBin(out var dataBin, results))
+            {
+                using (var writer = new System.IO.BinaryWriter(File.Open(Settings.Path + "Results\\" + filenameFinal + ".dat", FileMode.Create)))
+                {
+                    writer.Write(dataBin);
+                }
+            }
+        }
+
         public override void WriteToFile(TestResults results)
         {
             if (results == null)
@@ -98,9 +123,17 @@ namespace Testinator.Core
                 }
             }
         }
+        
         #endregion
 
         #region Private Helpers
+
+        private string CreateClientResultsFileName(ClientTestResults results)
+        {
+            var hours = DateTime.Now.ToShortTimeString().Replace(':', '-');
+            var date = DateTime.Now.ToShortDateString().Replace('/', '-');
+            return results.ClientModel.ClientName + "-" + results.ClientModel.ClientSurname + "-" + date + "-" + hours;
+        }
 
         private string CreateResultsFileName(TestResults result)
         {
