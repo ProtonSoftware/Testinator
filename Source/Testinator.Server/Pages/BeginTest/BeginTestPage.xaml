@@ -9,24 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="720"
              d:DesignWidth="1024">
-    
-<<<<<<< HEAD
-    
-    <!--
-    Lista rzeczy, które mają na tym page'u być:
-    -Start sever
-    -Stop server
-    -Ip server
-    -Port
-    -Start test
-    -Stop test
-    -Timer do zakończenia testu
-    -Menu wyboru testu
-    -Lista połączonych klientów (datagrid) // data gird można stylizować    
-    -->
-    
-=======
->>>>>>> TestHostDev
+
     <!-- Main wrapper -->
     <Grid Background="{StaticResource WhiteLightBrush}">
 
