@@ -41,5 +41,21 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Returns to the login page if there is no connection to the sevrer
+        /// or to the waitingForTestPage is still connected
+        /// </summary>
+        public void ReturnMainScreen()
+        {
+            if (Network.IsConnected)
+                IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
+            else
+                IoCClient.UI.ChangePage(ApplicationPage.Login);
+        }
+
+        #endregion
+
     }
 }

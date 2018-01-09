@@ -23,6 +23,11 @@ namespace Testinator.Server.Core
         /// NOTE: data to the clients is sent by using <see cref="ClientModel"/>, therefore this list is essential
         /// </summary>
         private List<ClientModel> mClients = new List<ClientModel>();
+
+        /// <summary>
+        /// The user results for the current test
+        /// </summary>
+        private TestResults mResults = new TestResults();
         
         #endregion
 
@@ -48,6 +53,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ObservableCollection<ClientModelExtended> Clients { get; private set; } = new ObservableCollection<ClientModelExtended>();
 
+        /// <summary>
+        /// The user results for the current test
+        /// </summary>
+        public TestResults Results => mResults;
+
         #endregion
 
         #region Public Methods
@@ -55,7 +65,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Starts the test
         /// </summary>
-        public void Start()
+        public void TestStart()
         {
             if (IsTestInProgress)
                 return;
@@ -76,16 +86,29 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Stops the test
         /// </summary>
-        public void Stop()
+        public void TestStop()
         {
             if (!IsTestInProgress)
                 return;
 
             IsTestInProgress = false;
 
-            // Stop the timer
-            mTestTimer.Stop();
-            OnTimerUpdated.Invoke();
+            StopTimer();
+        }
+
+        /// <summary>
+        /// Stops the test forcefully
+        /// </summary>
+        public void TestStopForcefully()
+        {
+            if (!IsTestInProgress)
+                return;
+
+            SendToAllClients(new DataPackage(PackageType.StopTestForcefully));
+
+            IsTestInProgress = false;
+
+            StopTimer();
         }
 
         /// <summary>
@@ -149,6 +172,11 @@ namespace Testinator.Server.Core
         public event Action OnTimerUpdated = () => { };
 
         /// <summary>
+        /// Fired when the test finishes
+        /// </summary>
+        public event Action TestFinished = () => { };
+
+        /// <summary>
         /// Fired when any data is resived from a client
         /// </summary>
         /// <param name="client">The sender client</param>
@@ -167,10 +195,10 @@ namespace Testinator.Server.Core
                     Clients[ClientIdx].CurrentQuestion = content.CurrentQuestion;
 
                     // Check if every user has completed the test
-                    if(TestFinished())
+                    if(IsTestFinished())
                     {
                         // Stop the test
-                        Stop();
+                        TestStop();
                     }
                     break;
 
@@ -188,6 +216,7 @@ namespace Testinator.Server.Core
                     if(!IsTestInProgress)
                     {
                         SaveResults();
+                        TestFinished.Invoke();
                     }
                     break;                    
             }
@@ -199,7 +228,7 @@ namespace Testinator.Server.Core
         /// <param name="client">The client that has disconnected</param>
         public void OnClientDisconnected(ClientModel client)
         {
-            // If the client that has disconnected is the one we dont care about don't do anything
+            // If the client that has disconnected is the one who isn't taking the test right now, don't do anything
             if (!mClients.Contains(client))
                 return;
 
@@ -220,6 +249,24 @@ namespace Testinator.Server.Core
         {
             // Initialize timer
             mTestTimer.Elapsed += HandleTimer;
+
+            IoCServer.Network.OnClientDataUpdated += ServerNetwork_OnClientDataUpdated;
+
+        }
+
+        #endregion
+
+        #region Private Events
+
+        /// <summary>
+        /// Fired when the client data is updated
+        /// </summary>
+        /// <param name="OldModel"></param>
+        /// <param name="NewModel"></param>
+        private void ServerNetwork_OnClientDataUpdated(ClientModel OldModel, ClientModel NewModel)
+        {
+            // Lock the clients again
+            LockClients();
         }
 
         #endregion
@@ -230,11 +277,12 @@ namespace Testinator.Server.Core
         /// Checks if there is any user still taking the test
         /// </summary>
         /// <returns></returns>
-        private bool TestFinished()
+        private bool IsTestFinished()
         {
             foreach (var client in Clients)
             {
-                if (client.CurrentQuestion < Test.Questions.Count + 1)
+                // Test is not finished when there is a client that has not answered all questions and has no connection problems 
+                if (!client.ConnectionProblem && client.CurrentQuestion < Test.Questions.Count + 1)
                     return false;
             }
 
@@ -257,21 +305,35 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SaveResults()
         {
-            var results = new TestResults()
+            mResults = new TestResults()
             {
                 Date = DateTime.Now,
                 Test = Test,
             };
-            foreach (var client in Clients)
-                results.Results.Add(
-                    new ClientModelSerializable()
-                    {
-                        ClientName = client.ClientName,
-                        ClientSurname = client.ClientSurname,
-                        MachineName = client.MachineName,
-                    }, client.Answers);
 
-            FileWriters.BinWriter.WriteToFile(results);
+            foreach (var client in Clients)
+                mResults.Results.Add(new ClientModelSerializable(client), client.Answers);
+
+            FileWriters.BinWriter.WriteToFile(mResults);
+        }
+
+        /// <summary>
+        /// Stopes the timer
+        /// </summary>
+        private void StopTimer()
+        {
+            mTestTimer.Start();
+            OnTimerUpdated.Invoke();
+        }
+
+        /// <summary>
+        /// Handles the time out
+        /// </summary>
+        private void TimesUp()
+        {
+            TestStop();
+            SaveResults();
+            TestFinished.Invoke();
         }
 
         /// <summary>
@@ -284,7 +346,7 @@ namespace Testinator.Server.Core
             TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
             if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
             {
-                Stop();
+                TimesUp();
             }
             OnTimerUpdated.Invoke();
         }

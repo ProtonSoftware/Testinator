@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Testinator.Core
 {
@@ -9,7 +10,6 @@ namespace Testinator.Core
     [Serializable] 
     public class TestResults
     {
-
         #region Public Properties
 
         /// <summary>
@@ -26,6 +26,11 @@ namespace Testinator.Core
         /// The results for each user
         /// </summary>
         public Dictionary<ClientModelSerializable, List<Answer>> Results { get; set; } = new Dictionary<ClientModelSerializable, List<Answer>>();
+
+        /// <summary>
+        /// A shortcut to clients list
+        /// </summary>
+        public List<ClientModelSerializable> Clients => Results.Keys.ToList();
 
         #endregion
 

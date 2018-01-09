@@ -29,11 +29,40 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Disconnects from the server
+        /// </summary>
         public new void Disconnect()
         {
             base.Disconnect();
             AttemptingToReconnect = false;
         }
+
+        /// <summary>
+        /// Sends update to the server about the user data
+        /// </summary>
+        public void SendClientModelUpdate()
+        {
+            var dataPackage = IoCClient.Client.GetPackage();
+            IoCClient.Application.Network.SendData(dataPackage);
+        }
+
+        /// <summary>
+        /// Stops reconnecting if in progress
+        /// </summary>
+        public void StopReconnecting()
+        {
+            // If connected or not attempting to reconnect dont do anything
+            if (IsConnected || !AttemptingToReconnect)
+                return;
+
+            // Stop connecting, otherwise
+            Disconnect();
+        }
+
+        #endregion
 
         #region Private Helpers
 
@@ -53,6 +82,10 @@ namespace Testinator.Client.Core
                 case PackageType.BeginTest:
                     // Start the test
                     IoCClient.TestHost.StartTest();
+                    break;
+
+                case PackageType.StopTestForcefully:
+                    IoCClient.TestHost.StopTestForcefully();
                     break;
             }
         }

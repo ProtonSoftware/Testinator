@@ -40,5 +40,10 @@
         /// </summary>
         BeginTest,
 
+        /// <summary>
+        /// Sent by the server to stop the test forcefully
+        /// Package content should be null in this context
+        /// </summary>
+        StopTestForcefully,
     }
 }

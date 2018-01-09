@@ -15,7 +15,7 @@
         <Grid>
 
             <Grid.ColumnDefinitions>
-                
+
                 <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="*" />
                 
@@ -148,7 +148,12 @@
                 </Grid>
                 
             </Border>
-            
+
+
+            <local:ResultsListControl Grid.Column="1"
+                                      DataContext="{Binding ListViewModel}"
+                                      Background="{StaticResource BlackLightBrush}"/>
+
         </Grid>
         
     </Border>

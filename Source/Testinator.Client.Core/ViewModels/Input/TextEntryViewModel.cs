@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
@@ -29,6 +30,20 @@ namespace Testinator.Client.Core
         /// Indicates if the current text is in edit mode
         /// </summary>
         public bool Editing { get; set; }
+
+        /// <summary>
+        /// Indicates if the control can be in editing mode
+        /// </summary>
+        public bool EditAvailable { get; set; } = true;
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when the text value changes
+        /// </summary>
+        public event Action ValueChanged = () => { };
 
         #endregion
 
@@ -74,6 +89,10 @@ namespace Testinator.Client.Core
         /// </summary>
         public void Edit()
         {
+            // If editing mode is not available don't do anything
+            if (!EditAvailable)
+                return;
+
             // Set the edited text to the current value
             EditedText = OriginalText;
 
@@ -97,14 +116,9 @@ namespace Testinator.Client.Core
         {
             // Save content
             OriginalText = EditedText;
-            switch (Label)
-            {
-                case "Imię": IoCClient.Client.ClientName = EditedText;
-                    break;
 
-                case "Nazwisko": IoCClient.Client.ClientSurname = EditedText;
-                    break;
-            }
+            // Fire the event
+            ValueChanged.Invoke();
 
             // Get out of editing mode
             Editing = false;

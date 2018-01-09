@@ -70,7 +70,9 @@
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
+    <Compile Include="DataModels\Results\ClientModelExtended.cs" />
     <Compile Include="DataModels\Results\ClientModelSerializable.cs" />
+    <Compile Include="DataModels\Results\ClientTestResults.cs" />
     <Compile Include="DataModels\Results\TestResults.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingBase.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingPoints.cs" />

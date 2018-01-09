@@ -33,6 +33,24 @@ namespace Testinator.Core
             return true;
         }
 
+        public static bool TryConvertToObj<T>(byte[] Bytes, out T output)
+            where T : class
+        {
+            try
+            {
+                var ms = new MemoryStream();
+                var bf = new BinaryFormatter();
+                ms.Write(Bytes, 0, Bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+                output = (T)bf.Deserialize(ms);
+            }
+            catch
+            {
+                output = null;
+                return false;
+            }
+            return true;
+        }
         /// <summary>
         /// Gets the binary of this class
         /// Usefull for sending operation

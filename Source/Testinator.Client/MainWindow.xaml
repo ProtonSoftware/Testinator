@@ -119,6 +119,30 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Timer -->
+        <Border Grid.Row="0" 
+                Panel.ZIndex="100"
+                local:AnimateSlideInFromTopProperty.Value="{Binding TestHost.IsTestInProgress,
+                                                                    Source={x:Static local:ViewModelLocator.Instance}}"
+                BorderThickness="1 0 0 2"
+                BorderBrush="Black"
+                MinWidth="150"
+                Padding="10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                CornerRadius="0 0 5 5"
+                Background="{StaticResource BlackLightBrush}">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="10 0">
+
+                <TextBlock Text="{Binding TestHost.TimeLeft, Source={x:Static local:ViewModelLocator.Instance}}"
+                           FontSize="{StaticResource FontSizeLarge}"
+                           Style="{StaticResource MediumTitleText}"/>
+            </StackPanel>
+        </Border>
+
         <!-- Attempting to reconnect -->
         <Border Grid.Row="0" 
                 Panel.ZIndex="100"
@@ -130,7 +154,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 CornerRadius="0 0 5 5"
-                Background="{StaticResource NormalBorderBrush}">
+                Background="{StaticResource BlackLightBrush}">
 
             <StackPanel Orientation="Horizontal"
                         Margin="10 0">

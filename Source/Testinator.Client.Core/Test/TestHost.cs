@@ -140,6 +140,25 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
+        /// Stopes the test forcefully, if asked by the server
+        /// </summary>
+        public void StopTestForcefully()
+        {
+            // Stop the test only if it is in progress
+            if (IsTestInProgress)
+            {
+                IoCClient.Logger.Log("Test has beed stoped forcefully");
+                
+                // TODO: show a dialogbox with info about it
+
+                Reset();
+                
+                // Return to the main screen
+                IoCClient.Application.ReturnMainScreen();
+            }
+        }
+
+        /// <summary>
         /// Binds the test to this view model 
         /// </summary>
         /// <param name="test">Test to be hosted</param>
@@ -426,10 +445,31 @@ namespace Testinator.Client.Core
                 },
             };
 
-            // Send it
-            IoCClient.Application.Network.SendData(data);
-            // TODO: set the flag if successful
-            IsResultSent = true;
+            // Send or save the data
+            if (IoCClient.Application.Network.IsConnected)
+            {
+                IoCClient.Application.Network.SendData(data);
+                IsResultSent = true;
+            }
+            else
+            {
+                // Write results to file
+                FileWriters.BinWriter.WriteToFile(new ClientTestResults()
+                {
+                     Answers = UserAnswers,
+                     ClientModel = new ClientModelSerializable()
+                     {
+                         ClientName = IoCClient.Client.ClientName,
+                         ClientSurname = IoCClient.Client.ClientSurname,
+                         MachineName = IoCClient.Client.MachineName,
+                         Mark = UserMark,
+                         PointsScored = UserScore,
+                     },
+                     Test = CurrentTest,
+                });
+                
+                // TODO: show message box here
+            }
         }
 
         /// <summary>
@@ -448,6 +488,9 @@ namespace Testinator.Client.Core
 
             // Change page to the result page
             IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);
+
+            // Dont need the connection in the result page so stop reconnecting if meanwhile connection has been lost
+            IoCClient.Application.Network.StopReconnecting();
 
             // Indicate that we're in the result page
             IsShowingResultPage = true;

@@ -67,15 +67,7 @@ namespace Testinator.Client.Core
             // Reset the test host
             IoCClient.TestHost.Reset();
 
-            // Go to the waiting for test page if still connected
-            if (IoCClient.Application.Network.IsConnected)
-                IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest);
-            else
-            {
-                // Or to the login page if we have been meanwhile disconnected 
-                IoCClient.Application.Network.Disconnect();
-                IoCClient.Application.GoToPage(ApplicationPage.Login);
-            }
+            IoCClient.Application.ReturnMainScreen();
         }
 
         /// <summary>

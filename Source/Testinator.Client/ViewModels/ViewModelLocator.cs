@@ -21,6 +21,11 @@ namespace Testinator.Client
         public static ApplicationViewModel ApplicationViewModel => IoCClient.Application;
 
         /// <summary>
+        /// The test host
+        /// </summary>
+        public static TestHost TestHost => IoCClient.TestHost;
+
+        /// <summary>
         /// The client (user) model
         /// </summary>
         public static ClientModel ClientModel => IoCClient.Client;

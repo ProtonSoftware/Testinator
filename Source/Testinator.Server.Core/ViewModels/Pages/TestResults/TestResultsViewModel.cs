@@ -1,4 +1,7 @@
-﻿using Testinator.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Input;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
@@ -9,6 +12,15 @@ namespace Testinator.Server.Core
     {
         #region Public Properties
 
+        /// <summary>
+        /// View model for the list control
+        /// </summary>
+        public TestResultsListViewModel ListViewModel => x;
+        private TestResultsListViewModel x = new TestResultsListViewModel();
+        /// <summary>
+        /// The list of all results found on the machine
+        /// </summary>
+        public List<TestResults> Results { get; set; } = new List<TestResults>();
 
         #endregion
 
@@ -19,8 +31,15 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsViewModel()
         {
-
+            Results = FileReaders.BinReader.ReadAllResults();
+            ListViewModel.LoadItems(Results);
+            OnPropertyChanged(nameof(ListViewModel));
         }
+
+        #endregion
+
+        #region Private Helpers
+
 
         #endregion
     }

@@ -39,9 +39,15 @@ namespace Testinator.Core
         public virtual void WriteToFile(TestResults tr) { }
 
         /// <summary>
+<<<<<<< HEAD
         /// Writes object's property info to file
         /// </summary>
         public virtual void WriteToFile(object property, bool fileExists = true) { }
+=======
+        /// Writes client test results to file
+        /// </summary>
+        public virtual void WriteToFile(ClientTestResults ctr) { }
+>>>>>>> TestHostDev
 
         /// <summary>
         /// Deletes a <see cref="Test"/>
