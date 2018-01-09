@@ -57,7 +57,16 @@ namespace Testinator.Server.Core
         {
             // Check if user has selected any test
             if (!TestListViewModel.Instance.IsAnySelected)
+            {
+                // Show a message box with info about it
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Test nie wybrany!",
+                    Message = "Operacja niemożliwa - Nie wybrano żadnego testu.",
+                    OkText = "Ok"
+                });
                 return;
+            }
 
             // Update the current test property to make sure its indicating the right test
             OnPropertyChanged(nameof(CurrentTest));
@@ -88,7 +97,7 @@ namespace Testinator.Server.Core
             // Show message box to user to ask if he is sure he wants to delete the test
             var vm = new ResultBoxDialogViewModel
             {
-                Title = "Czy usunąc test?",
+                Title = "Usuwanie testu",
                 Message = "Czy jesteś pewny, że chcesz usunąć ten test?",
                 AcceptText = "Tak",
                 CancelText = "Nie"

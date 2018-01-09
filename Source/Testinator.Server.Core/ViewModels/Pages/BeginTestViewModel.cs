@@ -170,7 +170,16 @@ namespace Testinator.Server.Core
         {
             // If ip and port is not valid, dont start the server
             if (!NetworkHelpers.IsAddressCorrect(ServerIpAddress) && !NetworkHelpers.IsPortCorrect(ServerPort))
+            {
+                // Show a message box with info about it
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Niepoprawne dane!",
+                    Message = "Pola z IP oraz portem nie zostały poprawnie uzupełnione.",
+                    OkText = "Ok"
+                });
                 return;
+            }
 
             // Set network data
             IoCServer.Network.Ip = ServerIpAddress;
@@ -188,20 +197,24 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StopServer()
         {
+            // Check if any test is already in progress
             if (IoCServer.TestHost.IsTestInProgress)
             {
-                var viewmodel = new ResultBoxDialogViewModel()
+                // Ask the user if he wants to stop the test
+                var vm = new ResultBoxDialogViewModel()
                 {
-                    Title = "",
-                    Message = "Test jest w trakcie! Czy chcesz go przerwać?",
+                    Title = "Test w trakcie!",
+                    Message = "Test jest w trakcie. Czy chcesz go przerwać?",
                     AcceptText = "Tak",
-                    CancelText ="Nie",
+                    CancelText = "Nie",
                 };
-
-                IoCServer.UI.ShowMessage(viewmodel);
+                IoCServer.UI.ShowMessage(vm);
                 
-                if (viewmodel.UserResponse)
+                // If he agreed
+                if (vm.UserResponse)
+                    // Stop the test
                     StopTestForcefully();
+
                 else
                     return;
             }
@@ -224,8 +237,16 @@ namespace Testinator.Server.Core
         {
             // If server isnt started, dont change the page
             if (!IsServerStarted)
-                // TODO: Show message to the user
+            {
+                // Show a message box with info about it
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Serwer nie włączony!",
+                    Message = "By zmienić stronę, należy przedtem włączyć serwer.",
+                    OkText = "Ok"
+                });
                 return;
+            }
 
             // Simply go to target page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
@@ -238,7 +259,16 @@ namespace Testinator.Server.Core
         {
             // Check if user has choosen any test
             if (!TestListViewModel.Instance.IsAnySelected)
+            {
+                // Show a message box with info about it
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Test nie wybrany!",
+                    Message = "Operacja niemożliwa - Nie wybrano żadnego testu.",
+                    OkText = "Ok"
+                });
                 return;
+            }
 
             // Then go to info page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
@@ -262,23 +292,20 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StopTest()
         {
-
-            var viewmodel = new ResultBoxDialogViewModel()
+            // Ask the user if he wants to stop the test
+            var vm = new ResultBoxDialogViewModel()
             {
-                Title = "",
+                Title = "Przerywanie testu",
                 Message = "Czy na pewno chcesz przerwać test?",
                 AcceptText = "Tak",
                 CancelText = "Nie",
             };
+            IoCServer.UI.ShowMessage(vm);
 
-            IoCServer.UI.ShowMessage(viewmodel);
-
-            if (viewmodel.UserResponse)
-            {
+            // If his will match
+            if (vm.UserResponse)
+                // Stop the test
                 StopTestForcefully();
-            }
-            else
-                return;
         }
 
         #endregion

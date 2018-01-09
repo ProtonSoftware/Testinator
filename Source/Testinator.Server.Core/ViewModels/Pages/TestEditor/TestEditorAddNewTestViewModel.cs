@@ -686,6 +686,20 @@ namespace Testinator.Server.Core
         /// </summary>
         private void CancelEditingQuestion()
         {
+            // Ask the user if he wants to cancel editing
+            var vm = new ResultBoxDialogViewModel
+            {
+                Title = "Anuluj edycję",
+                Message = "Czy na pewno chcesz anulować edycję pytania?",
+                AcceptText = "Tak",
+                CancelText = "Nie"
+            };
+            IoCServer.UI.ShowMessage(vm);
+
+            // If he declined, don't do anything
+            if (!vm.UserResponse)
+                return;
+
             // We are no more editing any question
             EditingQuestion = 0;
 
@@ -700,6 +714,20 @@ namespace Testinator.Server.Core
         {
             // Cast parameter to integer index
             var idx = (int)param;
+
+            // Ask the user if he wants to delete question
+            var vm = new ResultBoxDialogViewModel
+            {
+                Title = "Usuwanie pytania",
+                Message = "Czy na pewno chcesz usunąć pytanie numer " + idx.ToString() + "?",
+                AcceptText = "Tak",
+                CancelText = "Nie"
+            };
+            IoCServer.UI.ShowMessage(vm);
+
+            // If he declined, don't do anything
+            if (!vm.UserResponse)
+                return;
 
             // Delete question from test with given index
             Test.RemoveQuestion(idx);
@@ -793,6 +821,14 @@ namespace Testinator.Server.Core
             // Check if data is correct
             if (!ValidateInputData())
                 return;
+
+            // Show a message box with info that we are submiting test
+            IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+            {
+                Title = "Test zapisany!",
+                Message = "Tworzony test został zapisany.",
+                OkText = "Ok"
+            });
 
             // Attach criteria to the test
             Test.Grading = PointsGrading;

@@ -88,7 +88,6 @@
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorEditTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorViewModel.cs" />
-    <Compile Include="ViewModels\Server\ViewModelServerTESTOWY.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Testinator.Core\Testinator.Core.csproj">

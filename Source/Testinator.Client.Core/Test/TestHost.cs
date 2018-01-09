@@ -140,22 +140,30 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
-        /// Stopes the test forcefully, if asked by the server
+        /// Stops the test forcefully, if asked by the server
         /// </summary>
         public void StopTestForcefully()
         {
             // Stop the test only if it is in progress
-            if (IsTestInProgress)
-            {
-                IoCClient.Logger.Log("Test has beed stoped forcefully");
-                
-                // TODO: show a dialogbox with info about it
+            if (!IsTestInProgress)
+                return;
+            
+            IoCClient.Logger.Log("Test has been stopped forcefully");
 
-                Reset();
+            // Show a message box with info about it
+            IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+            {
+                Title = "Test został zatrzymany!",
+                Message = "Test został zatrzymany na polecenie serwera.",
+                OkText = "Ok"
+            });
+
+            // Reset the test host
+            Reset();
                 
-                // Return to the main screen
-                IoCClient.Application.ReturnMainScreen();
-            }
+            // Return to the main screen
+            IoCClient.Application.ReturnMainScreen();
+            
         }
 
         /// <summary>
@@ -416,9 +424,8 @@ namespace Testinator.Client.Core
 
             // If the result has not been sent yet and the test is completed
             if (!IsResultSent && IsTestCompleted)
-            {
                 TrySendResult();
-            }
+            
         }
 
         public void NetworkDisconnected()
@@ -467,8 +474,14 @@ namespace Testinator.Client.Core
                      },
                      Test = CurrentTest,
                 });
-                
-                // TODO: show message box here
+
+                // Show a message box with info about it
+                IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Wyniki testu w pliku",
+                    Message = "Wyniki testu zostały zapisane do pliku, ponieważ połączenie z serverem zostało utracone.",
+                    OkText = "Ok"
+                });
             }
         }
 

@@ -15,6 +15,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public string LogFilePath { get; set; } = "log.txt";
 
+        /// <summary>
+        /// If false, prevent showing informational message boxes in this application
+        /// </summary>
+        public bool AreInformationMessageBoxesAllowed { get; set; } = true;
+
         // Tutaj ustawienia jakie maja byc na page'u
 
         /// <summary>

@@ -23,7 +23,7 @@
             var questionCopy = question.Clone();
 
             // Id for this question
-            int id = test.Questions.Count + 1;
+            var id = test.Questions.Count + 1;
             questionCopy.ID = id;
 
             // Save them

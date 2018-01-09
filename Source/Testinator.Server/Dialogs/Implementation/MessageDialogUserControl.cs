@@ -1,5 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using Testinator.Core;
+using Testinator.Server.Core;
 
 namespace Testinator.Server
 {
@@ -65,6 +67,18 @@ namespace Testinator.Server
         {
             // Simply set the view model to the property
             MessageVM = viewModel;
+        }
+
+        public new Task ShowDialog<T>(T viewmodel) where T : BaseDialogViewModel
+        {
+            // Check if ApplicationSettings allow showing this type of dialog box
+            if (!IoCServer.Settings.AreInformationMessageBoxesAllowed)
+                return Task.Delay(1);
+
+            // Now we can show the message
+            base.ShowDialog<T>(viewmodel);
+
+            return Task.Delay(1);
         }
 
         #endregion
