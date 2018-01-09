@@ -15,8 +15,8 @@ namespace Testinator.Server.Core
         /// <summary>
         /// View model for the list control
         /// </summary>
-        public TestResultsListViewModel ListViewModel => new TestResultsListViewModel();
-
+        public TestResultsListViewModel ListViewModel => x;
+        private TestResultsListViewModel x = new TestResultsListViewModel();
         /// <summary>
         /// The list of all results found on the machine
         /// </summary>

@@ -15,7 +15,7 @@
         <Grid>
 
             <Grid.ColumnDefinitions>
-                
+
                 <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="*" />
                 
@@ -141,7 +141,6 @@
 
                     <Button Grid.Row="2" 
                             Content="Szczególy"
-                            Command="{Binding cmd}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"/>
@@ -149,6 +148,7 @@
                 </Grid>
                 
             </Border>
+
 
             <local:ResultsListControl Grid.Column="1"
                                       DataContext="{Binding ListViewModel}"

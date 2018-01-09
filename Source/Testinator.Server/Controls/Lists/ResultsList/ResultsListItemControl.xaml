@@ -22,17 +22,20 @@
                             <!-- Click area -->
                             <Border.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" 
-                                              Command="{Binding SelectCommand, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                              Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                                                AncestorType={x:Type local:ResultsListControl}}}"
                                               CommandParameter="{Binding Index}" />
                             </Border.InputBindings>
-
-                            <!-- Main content -->
-                            <Grid x:Name="container" 
-                                  Height="40" 
-                                  Margin="5"
-                                  Cursor="Hand"
-                                  Background="{StaticResource WhiteDarkBrush}">
+                            <!-- Main content outline -->
+                            <Border Padding="5"
+                                    x:Name="container"
+                                    CornerRadius="5"
+                                    Background="{StaticResource WhiteDarkBrush}">
+                                
+                                <!-- Main content -->
+                                <Grid Height="Auto" 
+                                      Margin="5"
+                                      Cursor="Hand">
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="3*" />
@@ -51,6 +54,7 @@
                                            />
                             </Grid>
 
+                            </Border>
                         </Border>
 
                         <!-- Hover effect -->
