@@ -88,8 +88,8 @@
 
                     <!-- Title -->
                     <TextBlock Text="{x:Static UICore:LocalizationResource.FillData}" 
-                               FontFamily="{StaticResource FontMontserratBold}"
-                               FontSize="{StaticResource FontSizeTitleLarge}" />
+                               Style="{StaticResource TitleText}"
+                               Foreground="{StaticResource BlackDarkBrush}" />
 
                     <!-- User name input -->
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
