@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -21,6 +20,11 @@ namespace Testinator.Client.Core
         /// The score user achieved
         /// </summary>
         public int UserScore => IoCClient.TestHost.UserScore;
+
+        /// <summary>
+        /// Indicates if the server app has allowed user to check his answers just after he finishes his test
+        /// </summary>
+        public bool IsResultPageAllowed => IoCClient.TestHost.AreResultsAllowed;
 
         /// <summary>
         /// The mark user has achieved by doing the test

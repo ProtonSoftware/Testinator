@@ -10,8 +10,14 @@
     
     <Grid Background="Yellow">
         <TextBlock Text="Settings page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <TextBlock Text="Zmiana pinu" />
-
+        <StackPanel>
+            <TextBlock Text="Zmiana pinu" />
+            <TextBlock Text="Czy next question jest tego samego typu" />
+            <TextBlock Text="Sciezka do logow" />
+            <TextBlock Text="Wyswietlanie messageboxow checkbox" />
+            <TextBlock Text="(Chyba ze zrobisz to w beginpage'u) Czy pozwalac na obejrzenie poprawnych u clienta" />
+        </StackPanel>
+        
     </Grid>
     
 </UICore:BasePage>

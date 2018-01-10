@@ -29,7 +29,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        public Test CurrentTest { get; set; }
+        public Test CurrentTest { get; set; } = new Test();
 
         /// <summary>
         /// List of all questions in the test
@@ -66,6 +66,11 @@ namespace Testinator.Client.Core
         /// Indicates how much time is left
         /// </summary>
         public TimeSpan TimeLeft { get; private set; }
+
+        /// <summary>
+        /// Indicates if the server app has allowed user to check his answers just after he finishes his test
+        /// </summary>
+        public bool AreResultsAllowed { get; private set; }
 
         /// <summary>
         /// Indicates if the applicating is currently showing any of the result pages
@@ -204,7 +209,7 @@ namespace Testinator.Client.Core
             mTestTimer.Stop();
 
             // Clear all properties
-            CurrentTest = null;
+            CurrentTest = new Test();
             UserAnswers = new List<Answer>();
             UserScore = 0;
             UserMark = Marks.F;
@@ -296,7 +301,7 @@ namespace Testinator.Client.Core
         public void UnloadTest()
         {
             // Erase the test
-            CurrentTest = null;
+            CurrentTest = new Test();
 
             // Indicate that we are out of test now
             IoCClient.Logger.Log("Test erasing");
