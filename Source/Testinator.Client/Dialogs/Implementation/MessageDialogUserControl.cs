@@ -47,6 +47,9 @@ namespace Testinator.Client
 
         #region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MessageDialogUserControl()
         {
             // Create commands

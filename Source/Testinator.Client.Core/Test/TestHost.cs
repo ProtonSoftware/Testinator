@@ -158,26 +158,22 @@ namespace Testinator.Client.Core
             // Stop the test only if it is in progress
             if (!IsTestInProgress)
                 return;
-            
+
             IoCClient.Logger.Log("Test has been stopped forcefully");
 
-            
-
-            // Show a message box with info about it, do it on the dispatcher thread
-            var viewmodel = new MessageBoxDialogViewModel()
+            // Show a message box with info about it
+            IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel()
             {
                 Title = "Test został zatrzymany!",
                 Message = "Test został zatrzymany na polecenie serwera.",
                 OkText = "Ok"
-            };
-            IoCClient.UI.ShowMessage(viewmodel);
+            });
 
             // Reset the test host
             Reset();
 
             // Return to the main screen
             IoCClient.Application.ReturnMainScreen();
-            
         }
 
         /// <summary>

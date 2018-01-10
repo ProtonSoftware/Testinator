@@ -13,7 +13,6 @@ namespace Testinator.Server.Core
     /// </summary>
     public class BeginTestViewModel : BaseViewModel
     {
-
         #region Public Properties
 
         /// <summary>

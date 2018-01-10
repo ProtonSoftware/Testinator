@@ -24,7 +24,7 @@ namespace Testinator.Core
         /// <summary>
         /// The name of this test
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// How much time the test is going to take
