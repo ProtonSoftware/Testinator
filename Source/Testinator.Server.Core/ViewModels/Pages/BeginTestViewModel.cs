@@ -66,6 +66,16 @@ namespace Testinator.Server.Core
         /// </summary>
         public string ServerPort { get; set; } = IoCServer.Network.Port.ToString();
 
+        /// <summary>
+        /// Indicates if the result page should be allowed for the users
+        /// </summary>
+        public bool ResultPageAllowed { get; set; } = true;
+
+        /// <summary>
+        /// Indicates if the test should be held in fullscreen mode
+        /// </summary>
+        public bool FullScreenMode { get; set; } = false;
+
         #region Error flags
 
         /// <summary>
@@ -168,14 +178,14 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StartServer()
         {
-            // If ip and port is not valid, dont start the server
-            if (!NetworkHelpers.IsAddressCorrect(ServerIpAddress) && !NetworkHelpers.IsPortCorrect(ServerPort))
+            // If port is not valid, dont start the server
+            if (!NetworkHelpers.IsPortCorrect(ServerPort))
             {
                 // Show a message box with info about it
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
                     Title = "Niepoprawne dane!",
-                    Message = "Pola z IP oraz portem nie zostały poprawnie uzupełnione.",
+                    Message = "Niepoprawny port.",
                     OkText = "Ok"
                 });
                 return;
@@ -188,8 +198,7 @@ namespace Testinator.Server.Core
             // Start the server
             IoCServer.Network.Start();
 
-            // Inform the view
-            OnPropertyChanged(nameof(IsServerStarted));
+            UpdateView();
         }
 
         /// <summary>
@@ -214,17 +223,16 @@ namespace Testinator.Server.Core
                 if (vm.UserResponse)
                     // Stop the test
                     StopTestForcefully();
-
                 else
                     return;
+
+                UpdateView();
             }
             
             // Stop the server
             IoCServer.Network.Stop();
 
-            // Inform the view
-            OnPropertyChanged(nameof(IsServerStarted));
-            OnPropertyChanged(nameof(ClientsConnected));
+            UpdateView();
 
             // Go to the initial page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
@@ -257,19 +265,6 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePageInfo()
         {
-            // Check if user has choosen any test
-            if (!TestListViewModel.Instance.IsAnySelected)
-            {
-                // Show a message box with info about it
-                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
-                {
-                    Title = "Test nie wybrany!",
-                    Message = "Operacja niemożliwa - Nie wybrano żadnego testu.",
-                    OkText = "Ok"
-                });
-                return;
-            }
-
             // Then go to info page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
 
@@ -283,6 +278,13 @@ namespace Testinator.Server.Core
         /// </summary>
         private void BeginTest()
         {
+            // Send the args before startting
+            IoCServer.TestHost.SendTestArgs(new TestStartupArgsPackage()
+            {
+                FullScreenMode = FullScreenMode,
+                IsResultsPageAllowed = ResultPageAllowed,
+            });
+
             IoCServer.TestHost.TestStart();
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInProgress);
         }
@@ -372,6 +374,7 @@ namespace Testinator.Server.Core
             OnPropertyChanged(nameof(CanSendTest));
             OnPropertyChanged(nameof(TimeLeft));
             OnPropertyChanged(nameof(TestNotSelected));
+            OnPropertyChanged(nameof(IsServerStarted));
         }
 
         /// <summary>

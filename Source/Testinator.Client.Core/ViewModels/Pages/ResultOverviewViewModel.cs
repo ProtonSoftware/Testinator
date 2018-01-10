@@ -29,7 +29,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The mark user has achieved by doing the test
         /// </summary>
-        public Marks UserMark => IoCClient.TestHost.CurrentTest.Grading.GetMark(UserScore);
+        public Marks UserMark => IoCClient.TestHost.UserMark;
 
         #endregion
 

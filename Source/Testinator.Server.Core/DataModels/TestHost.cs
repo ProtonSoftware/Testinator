@@ -112,6 +112,21 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
+        /// Sends the test args to the users
+        /// </summary>
+        /// <param name="args">The args</param>
+        public void SendTestArgs(TestStartupArgsPackage args)
+        {
+            if (args == null)
+                return;
+
+            SendToAllClients(new DataPackage(PackageType.TestStartupArgs)
+            {
+                Content = args,
+            });
+        }
+
+        /// <summary>
         /// Sends test to the clients
         /// </summary>
         public void SendTest()

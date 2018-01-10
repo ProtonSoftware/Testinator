@@ -87,6 +87,14 @@ namespace Testinator.Client.Core
                 case PackageType.StopTestForcefully:
                     IoCClient.TestHost.StopTestForcefully();
                     break;
+
+                case PackageType.TestStartupArgs:
+                    var args = data.Content as TestStartupArgsPackage;
+                    if (args == null)
+                        return;
+
+                    IoCClient.TestHost.SetupArguments(args);
+                    break;
             }
         }
 

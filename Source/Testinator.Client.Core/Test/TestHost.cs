@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Testinator.Core;
 using System.Timers;
+using System.Threading;
 
 namespace Testinator.Client.Core
 {
@@ -68,7 +69,7 @@ namespace Testinator.Client.Core
         public TimeSpan TimeLeft { get; private set; }
 
         /// <summary>
-        /// Indicates if the server app has allowed user to check his answers just after he finishes his test
+        /// Indicates if the server app has allowed user to check his answers just after they finish the test
         /// </summary>
         public bool AreResultsAllowed { get; private set; }
 
@@ -90,6 +91,11 @@ namespace Testinator.Client.Core
         /// The user's mark
         /// </summary>
         public Marks UserMark { get; private set; }
+
+        /// <summary>
+        /// Indicates if the test should be held in fullscren mode
+        /// </summary>
+        public bool FullScreenMode { get; private set; }
 
         /// <summary>
         /// The viewmodels for the result page, contaning question, user answer and the correct answer
@@ -155,17 +161,20 @@ namespace Testinator.Client.Core
             
             IoCClient.Logger.Log("Test has been stopped forcefully");
 
-            // Show a message box with info about it
-            IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+            
+
+            // Show a message box with info about it, do it on the dispatcher thread
+            var viewmodel = new MessageBoxDialogViewModel()
             {
                 Title = "Test został zatrzymany!",
                 Message = "Test został zatrzymany na polecenie serwera.",
                 OkText = "Ok"
-            });
+            };
+            IoCClient.UI.ShowMessage(viewmodel);
 
             // Reset the test host
             Reset();
-                
+
             // Return to the main screen
             IoCClient.Application.ReturnMainScreen();
             
@@ -220,6 +229,8 @@ namespace Testinator.Client.Core
             IsShowingResultPage = false;
             IsTestReceived = false;
             IsResultSent = false;
+            AreResultsAllowed = true;
+            FullScreenMode = false;
 
             IoCClient.Logger.Log("Reseting test host done.");
         }
@@ -306,6 +317,16 @@ namespace Testinator.Client.Core
             // Indicate that we are out of test now
             IoCClient.Logger.Log("Test erasing");
             IsTestReceived = false;
+        }
+
+        /// <summary>
+        /// Sets the test startup arguments send by the server
+        /// </summary>
+        /// <param name="args">The arguments to be set</param>
+        public void SetupArguments(TestStartupArgsPackage args)
+        {
+            AreResultsAllowed = args.IsResultsPageAllowed;
+            FullScreenMode = args.FullScreenMode;
         }
 
         /// <summary>

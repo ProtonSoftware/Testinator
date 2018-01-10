@@ -29,6 +29,11 @@
         TestForm,
 
         /// <summary>
+        /// The package contains a test startup args
+        /// </summary>
+        TestStartupArgs,
+
+        /// <summary>
         /// The package contains the result form
         /// Used by the clinet to provide quiestion answers to the server
         /// </summary>

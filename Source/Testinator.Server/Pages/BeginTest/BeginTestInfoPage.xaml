@@ -12,8 +12,15 @@
 
     <Grid Background="{StaticResource WhiteDarkBrush}">
 
-        <Grid VerticalAlignment="Center"
-              HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid HorizontalAlignment="Center"
+              MinWidth="300"
+              Grid.Row="0">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -66,19 +73,41 @@
 
         </Grid>
 
+        <Grid Grid.Row="1">
+
+            <StackPanel HorizontalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding ResultPageAllowed}"/>
+                    <TextBlock Text="Pokaż poprawane odpowiedzi"
+                               Style="{StaticResource MediumTitleText}"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding FullScreenMode}"/>
+                    <TextBlock Text="Fullscreen"
+                               Style="{StaticResource MediumTitleText}"/>
+                </StackPanel>
+            </StackPanel>
+            
+        </Grid>
+
         <Button Content="{x:Static UICore:LocalizationResource.StartTest}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10"
                 Command="{Binding BeginTestCommand}"
-                Style="{StaticResource BaseUIButton}" />
+                Style="{StaticResource BaseUIButton}"
+                Grid.Row="2"/>
 
         <Button Content="{x:Static UICore:LocalizationResource.BackToTestList}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="10"
                 Command="{Binding ChangePageTestListCommand}"
-                Style="{StaticResource BaseUIButton}" />
+                Style="{StaticResource BaseUIButton}" 
+                Grid.Row="2"/>
 
     </Grid>
     
