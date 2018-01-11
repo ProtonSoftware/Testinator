@@ -37,15 +37,23 @@ namespace Testinator.Client
         /// <returns></returns>
         public Task ShowMessage(MessageBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
         {
+            // Prepare a dummy task to return
+            var task = new Task(() => Task.Delay(1));
+
             // If caller isn't on UIThread, get to this thread first
             if (!isAlreadyOnUIThread)
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.BeginInvoke((Action)(() => 
                 {
-                    return new DialogMessageBox().ShowDialog(viewModel);
-                });
+                    // Set the task inside UIThread
+                    task = new DialogMessageBox().ShowDialog(viewModel);
+                }));
 
-            // If caller is on UIThread, just show the dialog
-            return new DialogMessageBox().ShowDialog(viewModel);
+            // If caller is on UIThread already, just show the dialog
+            else
+                task = new DialogMessageBox().ShowDialog(viewModel);
+
+            // Finally return this task
+            return task;
         }
 
         /// <summary>
@@ -56,15 +64,23 @@ namespace Testinator.Client
         /// <returns></returns>
         public Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
         {
-            // If caller isn't on UIThread, get to this thread first
+            // Prepare a dummy task to return
+            var task = new Task(() => Task.Delay(1));
+
+            // If caller isn't on UIThread already, get to this thread first
             if (!isAlreadyOnUIThread)
-                Application.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    return new DialogResultBox().ShowDialog(viewModel);
-                });
+                    // Set the task inside UIThread
+                    task = new DialogResultBox().ShowDialog(viewModel);
+                }));
 
             // If caller is on UIThread, just show the dialog
-            return new DialogResultBox().ShowDialog(viewModel);
+            else
+                task = new DialogResultBox().ShowDialog(viewModel);
+
+            // Finally return this task
+            return task;
         }
     }
 }
