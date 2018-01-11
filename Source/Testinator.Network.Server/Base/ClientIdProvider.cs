@@ -30,16 +30,17 @@ namespace Testinator.Network.Server
         /// <returns>The id</returns>
         public static string GetId(string MacAddress)
         {
+            // TODO: need to remake this 
             // If the user is known to the server don't make new id for them
-            if (MacId.TryGetValue(MacAddress, out string Id))
-                return Id;
+            //if (MacId.TryGetValue(MacAddress, out string Id))
+            //    return Id;
 
             // If the user it not known get them new id
-            Id = "#" + StartNumber.ToString();
+            var Id = "#" + StartNumber.ToString();
             StartNumber++;
 
             // Store the id
-            MacId.Add(MacAddress, Id);
+            //MacId.Add(MacAddress, Id);
 
             return Id;
         }

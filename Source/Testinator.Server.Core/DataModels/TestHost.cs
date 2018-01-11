@@ -202,7 +202,7 @@ namespace Testinator.Server.Core
             if (!mClients.Contains(client))
                 return;
 
-            var ClientIdx = mClients.IndexOf(client);
+            var ClientIdx = GetClientIndex(client);
             switch (dataPackage.PackageType)
             {
                 case PackageType.ReportStatus:
@@ -284,6 +284,21 @@ namespace Testinator.Server.Core
             LockClients();
         }
 
+        /// <summary>
+        /// Fired every time timer's cycle elapses
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleTimer(object sender, ElapsedEventArgs e)
+        {
+            TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
+            if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
+            {
+                TimesUp();
+            }
+            OnTimerUpdated.Invoke();
+        }
+
         #endregion
 
         #region Private Helpers
@@ -352,18 +367,18 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Fired every time timer's cycle elapses
+        /// Gets the client index in the <see cref="Clients"/> 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HandleTimer(object sender, ElapsedEventArgs e)
+        /// <param name="client">The client to be found</param>
+        /// <returns>-1 if not found</returns>
+        private int GetClientIndex(ClientModel client)
         {
-            TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
-            if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
+            foreach (var item in Clients)
             {
-                TimesUp();
+                if (item.ID == client.ID)
+                    return Clients.IndexOf(item);
             }
-            OnTimerUpdated.Invoke();
+            return -1;
         }
 
         #endregion
