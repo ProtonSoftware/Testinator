@@ -60,6 +60,13 @@ namespace Testinator.Network.Server
         /// <param name="data">The data received from the client</param>
         private void ServerDataReceived(ClientModel sender, DataPackage data)
         {
+            switch(data.PackageType)
+            {
+                case PackageType.ReadyForTest:
+                    sender.CanStartTest = true;
+                    break;
+            }
+
             // Fire the test host
             IoCServer.TestHost.OnDataReceived(sender, data);
         }

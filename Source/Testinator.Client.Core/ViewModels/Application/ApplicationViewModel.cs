@@ -50,7 +50,12 @@ namespace Testinator.Client.Core
         public void ReturnMainScreen()
         {
             if (Network.IsConnected)
+            {
                 IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
+
+                // Indicate we are ready for another test now
+                IoCClient.Application.Network.SendData(new DataPackage(PackageType.ReadyForTest));
+            }
             else
                 IoCClient.UI.ChangePage(ApplicationPage.Login);
         }

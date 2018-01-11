@@ -92,7 +92,8 @@
                             IsEnabled="{Binding IsResultPageAllowed}"
                             Margin="10"
                             Style="{StaticResource BaseUIButton}"
-                            Command="{Binding GoToQuestionsCommand}"/>
+                            Command="{Binding GoToQuestionsCommand}"
+                            ToolTip="{Binding ToolTipResultPage}"/>
 
                     <Button Content="Zakończ"
                             Grid.Row="1"

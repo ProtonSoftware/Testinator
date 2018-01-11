@@ -74,6 +74,9 @@ namespace Testinator.Server.Core
             var data = new DataPackage(PackageType.BeginTest);
             SendToAllClients(data);
 
+            foreach (var client in mClients)
+                client.CanStartTest = false;
+
             IsTestInProgress = true;
 
             TimeLeft = Test.Duration;
@@ -156,11 +159,14 @@ namespace Testinator.Server.Core
             mClients = new List<ClientModel>();
             foreach (var client in IoCServer.Network.Clients)
             {
-                mClients.Add(client);
-                Clients.Add(new ClientModelExtended(client)
+                if (client.CanStartTest)
                 {
-                    QuestionsCount = Test.Questions.Count,
-                });
+                    mClients.Add(client);
+                    Clients.Add(new ClientModelExtended(client)
+                    {
+                        QuestionsCount = Test.Questions.Count,
+                    });
+                }
             }
         }
 
@@ -233,7 +239,7 @@ namespace Testinator.Server.Core
                         SaveResults();
                         TestFinished.Invoke();
                     }
-                    break;                    
+                    break;
             }
         }
 

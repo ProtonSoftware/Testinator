@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Timers;
 using Testinator.Core;
 
@@ -510,8 +511,10 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Fired when the current test is finished
         /// </summary>
-        private void TestFinished()
+        private async Task TestFinished()
         {
+            await Task.Delay(1);
+
             // Calculate the user's score
             CalculateScore();
 
@@ -583,7 +586,10 @@ namespace Testinator.Client.Core
 
             // If we reach 0, time has run out and so the test
             if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
+            {
+                mTestTimer.Stop();
                 TestFinished();
+            }
         }
 
         #endregion

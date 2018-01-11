@@ -44,6 +44,11 @@ namespace Testinator.Core
         /// </summary>
         public string ClientSurname { get; set; } = "";
 
+        /// <summary>
+        /// Indicates if the user can start the test, meaning: is not in the result page but in the waiting for test page
+        /// </summary>
+        public bool CanStartTest { get; set; } = true;
+
         #endregion
 
         #region Public Methods
