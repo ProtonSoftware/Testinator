@@ -27,6 +27,11 @@ namespace Testinator.Client.Core
         public bool IsResultPageAllowed => IoCClient.TestHost.AreResultsAllowed;
 
         /// <summary>
+        /// The tooltip string for the "See results" button
+        /// </summary>
+        public string ToolTipResultPage => IoCClient.TestHost.AreResultsAllowed ? "" : "Wgląd do wyników został wyłączony przez administratora";
+
+        /// <summary>
         /// The mark user has achieved by doing the test
         /// </summary>
         public Marks UserMark => IoCClient.TestHost.UserMark;

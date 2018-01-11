@@ -264,11 +264,23 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePageInfo()
         {
-            // Then go to info page
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
-
             // Meanwhile lock the clients list and send them the test 
             IoCServer.TestHost.LockClients();
+            if (IoCServer.TestHost.Clients.Count == 0)
+            {
+                var vm = new MessageBoxDialogViewModel()
+                {
+                    Message = "Nie można ropocząć testu. Brak użytkowników użytkowników, którzy mogą go rozpocząć.",
+                    OkText = "OK",
+                    Title = "Testinator"
+                };
+                IoCServer.UI.ShowMessage(vm);
+                return;
+            }
+
+            // Then go to the info page
+            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
+
             IoCServer.TestHost.SendTest();
         }
 

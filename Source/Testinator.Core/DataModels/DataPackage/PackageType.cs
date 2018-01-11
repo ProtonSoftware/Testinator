@@ -46,6 +46,11 @@
         BeginTest,
 
         /// <summary>
+        /// The package indicates that the user is ready to start the test
+        /// </summary>
+        ReadyForTest,
+
+        /// <summary>
         /// Sent by the server to stop the test forcefully
         /// Package content should be null in this context
         /// </summary>
