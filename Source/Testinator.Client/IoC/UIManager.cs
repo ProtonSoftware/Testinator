@@ -33,9 +33,18 @@ namespace Testinator.Client
         /// Displays a single message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>
+        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(MessageBoxDialogViewModel viewModel)
+        public Task ShowMessage(MessageBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
         {
+            // If caller isn't on UIThread, get to this thread first
+            if (!isAlreadyOnUIThread)
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    return new DialogMessageBox().ShowDialog(viewModel);
+                });
+
+            // If caller is on UIThread, just show the dialog
             return new DialogMessageBox().ShowDialog(viewModel);
         }
 
@@ -43,9 +52,18 @@ namespace Testinator.Client
         /// Displays a result box to the user and catch the result
         /// </summary>
         /// <param name="viewModel">The view model</param>
+        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(ResultBoxDialogViewModel viewModel)
+        public Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
         {
+            // If caller isn't on UIThread, get to this thread first
+            if (!isAlreadyOnUIThread)
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    return new DialogResultBox().ShowDialog(viewModel);
+                });
+
+            // If caller is on UIThread, just show the dialog
             return new DialogResultBox().ShowDialog(viewModel);
         }
     }

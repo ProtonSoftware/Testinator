@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Testinator.Core;
 using System.Timers;
-using System.Threading;
+using Testinator.Core;
 
 namespace Testinator.Client.Core
 {
@@ -83,6 +82,7 @@ namespace Testinator.Client.Core
         /// </summary>
         public string QuestionNumber { get; private set; }
 
+        /// <summary>
         /// The user's score
         /// </summary>
         public int UserScore { get; private set; }
@@ -167,7 +167,7 @@ namespace Testinator.Client.Core
                 Title = "Test został zatrzymany!",
                 Message = "Test został zatrzymany na polecenie serwera.",
                 OkText = "Ok"
-            });
+            }, false); // Indicate that we are not on the UIThread here
 
             // Reset the test host
             Reset();

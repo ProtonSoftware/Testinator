@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -10,13 +9,16 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestResultsDetailsViewModel : BaseViewModel
     {
-        #region Public Proprties
+        #region Public Properties
 
+        /// <summary>
+        /// Comment here..................................................................
+        /// </summary>
         public List<ClientModelSerializable> Clients { get; private set; } = new List<ClientModelSerializable>();
 
         #endregion
 
-        #region Public Commands
+        #region Commands
 
         /// <summary>
         /// The command to go back to the previous page
@@ -32,7 +34,8 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsDetailsViewModel()
         {
-            ReturnCommand = new RelayCommand(ReturnPreviousPage);
+            // Create commands
+            CreateCommands();
         }
 
         /// <summary>
@@ -41,23 +44,10 @@ namespace Testinator.Server.Core
         /// <param name="results">Data to be loaded</param>
         public TestResultsDetailsViewModel(TestResults results)
         {
+            // Create commands
+            CreateCommands();
+
             LoadData(results);
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Load this viewmodel with teh given data
-        /// </summary>
-        /// <param name="value"></param>
-        public void LoadData(TestResults value)
-        {
-            if (value == null)
-                return;
-
-            Clients = value.Clients;
         }
 
         #endregion
@@ -70,6 +60,30 @@ namespace Testinator.Server.Core
         private void ReturnPreviousPage()
         {
             IoCServer.Application.GoToPage(ApplicationPage.TestResultsInitial);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Load this viewmodel with given data
+        /// </summary>
+        /// <param name="value"></param>
+        private void LoadData(TestResults value)
+        {
+            if (value == null)
+                return;
+
+            Clients = value.Clients;
+        }
+
+        /// <summary>
+        /// Creates commands in this view model
+        /// </summary>
+        private void CreateCommands()
+        {
+            ReturnCommand = new RelayCommand(ReturnPreviousPage);
         }
 
         #endregion

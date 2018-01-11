@@ -79,15 +79,17 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding ResultPageAllowed}"/>
-                    <TextBlock Text="Pokaż poprawane odpowiedzi"
-                               Style="{StaticResource MediumTitleText}"/>
+                    <TextBlock Text="Pokaż poprawne odpowiedzi"
+                               Style="{StaticResource QuestionTextBlockStyle}"
+                               FontSize="{StaticResource FontSizeLarge}" />
                 </StackPanel>
 
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding FullScreenMode}"/>
                     <TextBlock Text="Fullscreen"
-                               Style="{StaticResource MediumTitleText}"/>
+                               Style="{StaticResource QuestionTextBlockStyle}"
+                               FontSize="{StaticResource FontSizeLarge}" />
                 </StackPanel>
             </StackPanel>
             
