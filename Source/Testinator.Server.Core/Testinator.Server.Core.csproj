@@ -56,6 +56,7 @@
     <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\BeginTestResultsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\TestResultsDetailsViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\IconType.cs" />

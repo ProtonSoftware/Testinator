@@ -16,8 +16,11 @@
 
             <Grid.ColumnDefinitions>
 
-                <ColumnDefinition Width="1.3*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.3*"
+                                  MinWidth="350"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" 
+                                  MinWidth="250"/>
                 
             </Grid.ColumnDefinitions>
 
@@ -52,7 +55,7 @@
                             <TextBlock Text="Wczytano: "
                                        FontSize="{StaticResource FontSizeLarge}"
                                        />
-                            <TextBlock Text="89"
+                            <TextBlock Text="{Binding ItemsLoadedCount}"
                                        FontSize="{StaticResource FontSizeLarge}"
                                        />
                             <TextBlock Text=" rezultatów"
@@ -88,7 +91,7 @@
                                    Margin="15"
                                    />
 
-                        <TextBlock Text="01.01.2018r."
+                        <TextBlock Text="{Binding ResultsDateDay}"
                                    Grid.Row="0" Grid.Column="1"
                                    Style="{StaticResource QuestionTextBlockStyle}"
                                    Margin="15"
@@ -103,7 +106,7 @@
                                    
                                    />
 
-                        <TextBlock Text="15:20"
+                        <TextBlock Text="{Binding ResultsDateHour}"
                                    Grid.Row="1" Grid.Column="1"
                                    Style="{StaticResource QuestionTextBlockStyle}"
                                    Margin="15"
@@ -117,7 +120,7 @@
                                    
                                    />
 
-                        <TextBlock Text="Test o html"
+                        <TextBlock Text="{Binding TestName}"
                                    Grid.Row="2" Grid.Column="1"
                                    Style="{StaticResource QuestionTextBlockStyle}"
                                    Margin="15"
@@ -131,7 +134,7 @@
                                    
                                    />
 
-                        <TextBlock Text="10 osób"
+                        <TextBlock Text="{Binding TestAttendeesNumber}"
                                    Grid.Row="3" Grid.Column="1"
                                    Style="{StaticResource QuestionTextBlockStyle}"
                                    Margin="15"
@@ -139,21 +142,53 @@
                                    />
                     </Grid>
 
-                    <Button Grid.Row="2" 
-                            Content="Szczególy"
-                            Style="{StaticResource BaseUIButton}"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"/>
+                    <Grid Grid.Row="2">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0"
+                                Style="{StaticResource BaseUIButton}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                IsEnabled="{Binding IsAnyItemSelected}"
+                                Command="{Binding DeleteCommand}"
+                                Content="Usuń"/>
+                        <Button Content="Szczególy"
+                                Grid.Column="1"
+                                Style="{StaticResource BaseUIButton}"
+                                Command="{Binding ShowDetailsCommnd}"
+                                IsEnabled="{Binding IsAnyItemSelected}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"/>
+                    </Grid>
+                          
+
 
                 </Grid>
                 
             </Border>
 
+            <GridSplitter Grid.Column="1"
+                          Width="6"
+                          HorizontalAlignment="Center">
+                <GridSplitter.Template>
+                    <ControlTemplate TargetType="{x:Type GridSplitter}">
+                        <Border Background="Black" Padding="1.5 0">
+                            <Border Background="{StaticResource BlackLightBrush}"/>
+                        </Border>
+                    </ControlTemplate>
+                </GridSplitter.Template>
+            </GridSplitter>
 
-            <local:ResultsListControl Grid.Column="1"
-                                      DataContext="{Binding ListViewModel}"
-                                      Background="{StaticResource BlackLightBrush}"/>
-
+            <Border Grid.Column="2"
+                    Padding="5"
+                    Margin="5 0 0 0">
+                <local:ResultsListControl DataContext="{Binding ListViewModel}"
+                                          Background="{StaticResource BlackLightBrush}"/>
+            </Border>
         </Grid>
         
     </Border>

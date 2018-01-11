@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
@@ -10,12 +11,30 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestResultsListViewModel : BaseViewModel
     {
+        #region Private Members
+
+        /// <summary>
+        /// The test results this viewmodel is loaded with
+        /// </summary>
+        private List<TestResults> mResults = new List<TestResults>();
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// All test results found on the machine
         /// </summary>
-        public ObservableCollection<TestResultsListItemViewModel> Items { get; set; } = new ObservableCollection<TestResultsListItemViewModel>();
+        public ObservableCollection<TestResultsListItemViewModel> Items { get; private set; } = new ObservableCollection<TestResultsListItemViewModel>();
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when an item is selected
+        /// </summary>
+        public event Action<TestResults> ItemSelected = (x) => { };
 
         #endregion
 
@@ -24,16 +43,51 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Load the control with item read from the disk
         /// </summary>
-        public void LoadItems(List<TestResults> results)
+        public void LoadItems()
         {
+            mResults = FileReaders.BinReader.ReadAllResults();
             Items = new ObservableCollection<TestResultsListItemViewModel>();
 
             var indexer = 0;
-            foreach (var result in results)
+            foreach (var result in mResults)
             {
                 Items.Add(new TestResultsListItemViewModel(result, indexer));
                 indexer++;
             }
+        }
+
+        /// <summary>
+        /// Check if there is any item selected in the list
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAnySelected()
+        {
+            foreach (var item in Items)
+            {
+                if (item.IsSelected)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Check which item is currently selected
+        /// </summary>
+        /// <returns>Null if there isn't any item selected,
+        /// otherwise return the currently selected item</returns>
+        public TestResults SelectedItem()
+        {
+            foreach(var item in Items)
+            {
+                if (item.IsSelected)
+                {
+                    var idx = item.Index;
+                    return mResults[idx];
+                }
+            }
+
+            return null;
         }
 
         #endregion
@@ -66,8 +120,13 @@ namespace Testinator.Server.Core
                 return;
             }
 
-            SelectItem(indexInt);      
+            SelectItem(indexInt);
+
+            var selectedItem = mResults[indexInt];
+
+            ItemSelected.Invoke(selectedItem);
         }
+
 
         #endregion
 

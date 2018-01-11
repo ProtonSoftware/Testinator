@@ -10,17 +10,70 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestResultsViewModel : BaseViewModel
     {
+        #region Private Properties
+        
+        /// <summary>
+        /// The viewmodel for the items control
+        /// </summary>
+        private TestResultsListViewModel mItemsVm = new TestResultsListViewModel();
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// View model for the list control
         /// </summary>
-        public TestResultsListViewModel ListViewModel => x;
-        private TestResultsListViewModel x = new TestResultsListViewModel();
+        public TestResultsListViewModel ListViewModel => mItemsVm;
+
         /// <summary>
         /// The list of all results found on the machine
         /// </summary>
-        public List<TestResults> Results { get; set; } = new List<TestResults>();
+        public List<TestResults> Results { get; private set; } = new List<TestResults>();
+
+        /// <summary>
+        /// The date the test was taken (day)
+        /// </summary>
+        public string ResultsDateDay { get; private set; } = "-";
+
+        /// <summary>
+        /// The date the test was taken (hour)
+        /// </summary>
+        public string ResultsDateHour { get; private set; } = "-";
+
+        /// <summary>
+        /// The name of the test
+        /// </summary>
+        public string TestName { get; private set; } = "-";
+
+        /// <summary>
+        /// The number of people that took the test
+        /// </summary>
+        public int TestAttendeesNumber { get; private set; }
+
+        /// <summary>
+        /// Indicated if there is a test result currently selected
+        /// </summary>
+        public bool IsAnyItemSelected { get; private set; }
+
+        /// <summary>
+        /// The number of results loaded from the disk
+        /// </summary>
+        public int ItemsLoadedCount => mItemsVm.Items.Count;
+
+        #endregion
+
+        #region Public Commands
+
+        /// <summary>
+        /// Show details about the test
+        /// </summary>
+        public ICommand ShowDetailsCommnd { get; private set; }
+        
+        /// <summary>
+        /// The command to delete currently selected results
+        /// </summary>
+        public ICommand DeleteCommand { get; private set; }
 
         #endregion
 
@@ -31,15 +84,87 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsViewModel()
         {
-            Results = FileReaders.BinReader.ReadAllResults();
-            ListViewModel.LoadItems(Results);
-            OnPropertyChanged(nameof(ListViewModel));
+            ListViewModel.LoadItems();
+
+            ShowDetailsCommnd = new RelayCommand(ShowDetails);
+            DeleteCommand = new RelayCommand(DeleteResult);
+
+            mItemsVm.ItemSelected += ListControl_ItemSelected;
         }
 
         #endregion
 
+        #region Command Methods
+
+        /// <summary>
+        /// Show the result's details page
+        /// </summary>
+        private void ShowDetails()
+        {
+            var selectedItem = mItemsVm.SelectedItem();
+            if (selectedItem == null)
+                return;
+
+            var viewmodel = new TestResultsDetailsViewModel(selectedItem);
+            IoCServer.Application.GoToPage(ApplicationPage.TestResultsDetails, viewmodel);
+        }
+
+        /// <summary>
+        /// Fired when an item is selected from the list
+        /// </summary>
+        /// <param name="item">Item that has been selected</param>
+        private void ListControl_ItemSelected(TestResults item)
+        {
+            LoadViewModel(item);
+            IsAnyItemSelected = true;
+        }
+
+        /// <summary>
+        /// Deletes currently selected results 
+        /// </summary>
+        private void DeleteResult()
+        {
+            var vm = new ResultBoxDialogViewModel()
+            {
+                Title = "Usuwanie rezultatu",
+                Message = "Czy chcesz usunąć ten rezultat?",
+                AcceptText = "Tak",
+                CancelText = "Nie",
+            };
+            IoCServer.UI.ShowMessage(vm);
+
+            if (!vm.UserResponse)
+                return;
+
+            var selectedItem = mItemsVm.SelectedItem();
+            if (selectedItem == null)
+                return;
+
+            FileWriters.BinWriter.DeleteFile(selectedItem);
+            mItemsVm.LoadItems();
+
+            IsAnyItemSelected = false;
+            OnPropertyChanged(nameof(ItemsLoadedCount));
+        }
+        
+        #endregion
+
         #region Private Helpers
 
+        /// <summary>
+        /// Loads viewmodel properties with the given test resuts object
+        /// </summary>
+        /// <param name="value"></param>
+        private void LoadViewModel(TestResults value)
+        {
+            if (value == null)
+                return;
+
+            ResultsDateDay = value.Date.ToShortDateString();
+            ResultsDateHour = value.Date.ToShortTimeString();
+            TestName = value.Test.Name;
+            TestAttendeesNumber = value.Results.Count;
+        }
 
         #endregion
     }

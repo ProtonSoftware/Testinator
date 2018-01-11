@@ -10,6 +10,8 @@ namespace Testinator.Core
 
         public static Dictionary<int, string> Tests { get; set; } = new Dictionary<int, string>();
 
+        public static Dictionary<TestResults, string> Results { get; set; } = new Dictionary<TestResults, string>();
+        
         /// <summary>
         /// Gets all tests from the directory
         /// </summary>
@@ -65,7 +67,7 @@ namespace Testinator.Core
         public List<TestResults>ReadAllResults()
         {
             List<string> Files;
-
+            Results = new Dictionary<TestResults, string>();
             Tests = new Dictionary<int, string>();
 
             try
@@ -89,6 +91,7 @@ namespace Testinator.Core
                     if (filecontent != null)
                     {
                         results.Add(filecontent);
+                        Results.Add(filecontent, Path.GetFileNameWithoutExtension(file));
                     }
                 }
                 catch

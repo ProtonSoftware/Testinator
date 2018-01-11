@@ -89,6 +89,11 @@
         /// The test results initial page
         /// </summary>
         TestResultsInitial,
+
+        /// <summary>
+        /// The test results details page
+        /// </summary>
+        TestResultsDetails,
         
         /// <summary>
         /// The screen stream page

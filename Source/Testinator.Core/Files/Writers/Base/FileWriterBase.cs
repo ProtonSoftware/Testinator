@@ -53,6 +53,11 @@ namespace Testinator.Core
         /// </summary>
         public virtual void DeleteFile(Test test) { }
 
+        /// <summary>
+        /// Deletes the given test results
+        /// </summary>
+        public virtual void DeleteFile(TestResults results) { }
+
         #endregion
 
         #region Protected Helpers

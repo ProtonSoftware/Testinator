@@ -51,6 +51,26 @@ namespace Testinator.Core
         }
 
         /// <summary>
+        /// Deletes test results
+        /// </summary>
+        /// <param name="result">Results to be deleted</param>
+        public override void DeleteFile(TestResults result)
+        {
+            if (BinaryReader.Results.ContainsKey(result))
+            {
+                var filename = BinaryReader.Results[result];
+                try
+                {
+                    File.Delete(Settings.Path + "Results\\" + filename + ".dat");
+                }
+                catch
+                {
+                    // Some errors maybe 
+                }
+            }
+        }
+
+        /// <summary>
         /// Writes a test to file
         /// </summary>
         /// <param name="test">The test to be written to file</param>
