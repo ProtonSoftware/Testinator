@@ -8,6 +8,7 @@
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1024">
+    
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>

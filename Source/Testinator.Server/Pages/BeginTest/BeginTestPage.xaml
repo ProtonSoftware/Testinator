@@ -77,7 +77,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Ip: "  Margin="10" Style="{StaticResource QuestionTextBlockStyle}" />
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="IP: "  Margin="10" Style="{StaticResource QuestionTextBlockStyle}" />
                 <TextBlock Grid.Column="1" Grid.Row="0"  Margin="10" Style="{StaticResource QuestionTextBlockStyle}" 
                            Text="{Binding ServerIpAddress}"/>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Port: " Margin="10" Style="{StaticResource QuestionTextBlockStyle}" />
