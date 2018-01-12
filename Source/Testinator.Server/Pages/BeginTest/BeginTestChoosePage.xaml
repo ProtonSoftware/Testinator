@@ -10,7 +10,7 @@
                  d:DesignHeight="720"
                  d:DesignWidth="512">
 
-    <Grid Background="DarkOliveGreen">
+    <Grid Background="{StaticResource GreenLightBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

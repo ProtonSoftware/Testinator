@@ -66,7 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AttachedProperties\AnimationsProperty.cs" />
+    <Compile Include="AttachedProperties\AnimationProperties.cs" />
     <Compile Include="Controls\Lists\CriteriaList\CriteriaListControl.xaml.cs">
       <DependentUpon>CriteriaListControl.xaml</DependentUpon>
     </Compile>

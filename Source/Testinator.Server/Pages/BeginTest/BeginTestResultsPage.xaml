@@ -8,8 +8,8 @@
              xmlns:core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="500">
-    <Border Background="Beige" Padding="20"
-            >
+    
+    <Border Background="{StaticResource WhiteDarkBrush}" Padding="20">
 
         <Grid>
 

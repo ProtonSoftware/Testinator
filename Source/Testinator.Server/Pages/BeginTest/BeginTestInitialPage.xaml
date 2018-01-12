@@ -10,7 +10,7 @@
              d:DesignHeight="720"
              d:DesignWidth="1024">
 
-    <Border Background="Pink">
+    <Border Background="{StaticResource WhiteLightBrush}">
         <Button Content="{x:Static UICore:LocalizationResource.StartTest}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

@@ -94,10 +94,10 @@ namespace Testinator.Server
         {
             if (value)
                 // Animate in
-                await element.ExpandSideMenuWidthAsync(AnimationSlideInDirection.Left, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: true);
+                await element.WidthAnimationAsync(200, 55, firstLoad ? 0 : 0.3f);
             else
                 // Animate out
-                await element.HideSideMenuWidthAsync(AnimationSlideInDirection.Left, firstLoad ? 0 : 0.3f, keepMargin: true);
+                await element.WidthAnimationAsync(55, 200, firstLoad ? 0 : 0.3f);
         }
     }
 
@@ -179,10 +179,10 @@ namespace Testinator.Server
         {
             if (value)
                 // Animate in
-                await element.ExpandSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.1f, keepMargin: true);
+                await element.WidthAnimationAsync(200, 55, firstLoad ? 0 : 0.1f);
             else
                 // Animate out
-                await element.HideSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.1f, keepMargin: true);
+                await element.WidthAnimationAsync(55, 200, firstLoad ? 0 : 0.1f);
         }
     }
 

@@ -158,10 +158,10 @@ namespace Testinator.Client
         {
             if (value)
                 // Animate in
-                await element.ExpandSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.1f, keepMargin: true);
+                await element.WidthAnimationAsync(160, 75, firstLoad ? 0 : 0.1f);
             else
                 // Animate out
-                await element.HideSideMenuWidthAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.1f, keepMargin: true);
+                await element.WidthAnimationAsync(75, 160, firstLoad ? 0 : 0.1f);                
         }
     }
 

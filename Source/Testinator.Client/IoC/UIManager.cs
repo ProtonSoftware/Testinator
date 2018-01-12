@@ -38,7 +38,7 @@ namespace Testinator.Client
         public Task ShowMessage(MessageBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
         {
             // Prepare a dummy task to return
-            var task = new Task(() => Task.Delay(1));
+            Task task = null;
 
             // If caller isn't on UIThread, get to this thread first
             if (!isAlreadyOnUIThread)
@@ -65,7 +65,7 @@ namespace Testinator.Client
         public Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
         {
             // Prepare a dummy task to return
-            var task = new Task(() => Task.Delay(1));
+            Task task = null;
 
             // If caller isn't on UIThread already, get to this thread first
             if (!isAlreadyOnUIThread)

@@ -14,9 +14,10 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center" 
                 CornerRadius="3"
-                Padding="15 50 15 15"
-                Width="600"
-                Margin="50 50 50 0">
+                Padding="30"
+                MinWidth="600"
+                MaxWidth="800"
+                Margin="50">
 
             <StackPanel>
 

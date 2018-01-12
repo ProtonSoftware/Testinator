@@ -124,46 +124,21 @@ namespace Testinator.UICore
         #region Width Animations
 
         /// <summary>
-        /// Expands the element's width by animating
+        /// Expands or hides the element's width by animating
         /// </summary>
         /// <param name="storyboard">The storyboard to add the animation to</param>
         /// <param name="seconds">The time the animation will take</param>
-        /// <param name="offset">The distance to the left to start from</param>
+        /// <param name="offsetTo">The value to animate to</param>
+        /// <param name="offsetFrom">The value to animate from</param>
         /// <param name="decelerationRatio">The rate of deceleration</param>
-        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
-        public static void AddExpand(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
+        public static void AddWidthAnimation(this Storyboard storyboard, float seconds, int offsetTo, int offsetFrom, float decelerationRatio = 0.9f)
         {
-            // Create the margin animate from right 
+            // Create the width animation
             var animation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(seconds)),
-                From = offset,
-                To = 200
-            };
-
-            // Set the target property name
-            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-
-            // Add this to the storyboard
-            storyboard.Children.Add(animation);
-        }
-
-        /// <summary>
-        /// Lowers the element's width by animating
-        /// </summary>
-        /// <param name="storyboard">The storyboard to add the animation to</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <param name="offset">The distance to the left to end at</param>
-        /// <param name="decelerationRatio">The rate of deceleration</param>
-        /// <param name="keepMargin">Whether to keep the element at the same width during animation</param>
-        public static void AddHide(this Storyboard storyboard, float seconds, double offset, float decelerationRatio = 0.9f, bool keepMargin = true)
-        {
-            // Create the margin animate from right 
-            var animation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
-                From = 200,
-                To = offset
+                From = offsetFrom,
+                To = offsetTo
             };
 
             // Set the target property name

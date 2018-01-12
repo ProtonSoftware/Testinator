@@ -37,6 +37,7 @@
         <Setter Property="FontSize" Value="{StaticResource FontSizeTitleLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratExtraBold}" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
 
         <Setter Property="Foreground" Value="{StaticResource WhiteDarkBrush}" />
 
@@ -47,6 +48,7 @@
         <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratBold}" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
 
         <Setter Property="Foreground" Value="{StaticResource BlackDarkBrush}" />
 

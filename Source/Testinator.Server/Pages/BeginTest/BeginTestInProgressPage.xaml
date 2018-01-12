@@ -9,7 +9,8 @@
              mc:Ignorable="d"
              d:DesignHeight="720"
              d:DesignWidth="500">
-    <Border Background="Bisque" >
+    
+    <Border Background="{StaticResource BlackLightBrush}" >
         <Grid>
 
             <Grid.RowDefinitions>

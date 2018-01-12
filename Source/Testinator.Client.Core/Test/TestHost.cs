@@ -23,6 +23,11 @@ namespace Testinator.Client.Core
         /// </summary>
         private int mCurrentQuestion = 0;
 
+        /// <summary>
+        /// Indicates if this application is in forced full screen mode
+        /// </summary>
+        private bool mFullScreenModeOn = false;
+
         #endregion
 
         #region Public Properties
@@ -96,7 +101,18 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the test should be held in fullscren mode
         /// </summary>
-        public bool FullScreenMode { get; private set; }
+        public bool FullScreenMode
+        {
+            get => mFullScreenModeOn;
+            private set
+            {
+                // Set the value
+                mFullScreenModeOn = value;
+
+                // Check if value indicates to run the full screen mode
+                if (value) FullScreenModeOn.Invoke();
+            }
+        }
 
         /// <summary>
         /// The viewmodels for the result page, contaning question, user answer and the correct answer
@@ -108,9 +124,14 @@ namespace Testinator.Client.Core
         #region Public Events
 
         /// <summary>
-        /// Fired when a test is receievd
+        /// Fired when a test is received
         /// </summary>
         public event Action OnTestReceived = () => { };
+
+        /// <summary>
+        /// Fired when server has sent a behest to run a full screen mode
+        /// </summary>
+        public event Action FullScreenModeOn = () => { };
 
         #endregion
 

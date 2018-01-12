@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using Testinator.Client.Core;
 using Testinator.Core;
 using Testinator.UICore;
 
@@ -178,6 +179,9 @@ namespace Testinator.Client
                 // Fire off resize events
                 WindowResized();
             };
+
+            // Listen out for full screen mode request
+            IoCClient.TestHost.FullScreenModeOn += TestHost_FullScreenModeOn;
         }
 
         #endregion
@@ -212,6 +216,20 @@ namespace Testinator.Client
             OnPropertyChanged(nameof(WindowCornerRadius));
         }
 
+        /// <summary>
+        /// Runs a full screen mode
+        /// </summary>
+        private void TestHost_FullScreenModeOn()
+        {
+            // Make sure we are on UIThread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                // TODO: Prevent alt tabs etc
+
+                // Maximize the window
+                mWindow.WindowState = WindowState.Maximized;
+            });
+        }
 
         #endregion
     }
