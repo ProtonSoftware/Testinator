@@ -28,7 +28,7 @@ namespace Testinator.Server.Core
         /// The user results for the current test
         /// </summary>
         private TestResults mResults = new TestResults();
-        
+
         #endregion
 
         #region Public Properties
@@ -36,7 +36,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        public Test Test { get; private set; }
+        public Test Test { get; private set; } = new Test();
 
         /// <summary>
         /// Indicates if there is any test in progress
