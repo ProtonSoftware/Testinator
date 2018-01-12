@@ -84,17 +84,30 @@ namespace Testinator.Client.Core
         /// </summary>
         private void GoToQuestions()
         {
+            // If server has forbidden this action
+            if (!IsResultPageAllowed)
+            {
+                // Show the message box with this info and don't change page
+                IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Wstęp wzbroniony",
+                    Message = "Dostęp do szczegółowych wyników testu został zabroniony przez serwer.",
+                    OkText = "OK"
+                });
+
+                return;
+            }
+
             // Create view model for the page
             var viewmodel = new ResultQuestionsViewModel();
 
-            // Change page
+            // Change the page
             IoCClient.Application.GoToPage(ApplicationPage.ResultQuestionsPage, viewmodel);
 
-            // And shot the first question
+            // And show the first question
             viewmodel.ShowFirstQuestion();
         }
 
         #endregion
-
     }
 }

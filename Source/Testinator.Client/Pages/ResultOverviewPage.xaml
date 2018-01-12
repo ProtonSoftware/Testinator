@@ -89,7 +89,6 @@
                     </Grid.RowDefinitions>
 
                     <Button Content="Zobacz pytania"
-                            IsEnabled="{Binding IsResultPageAllowed}"
                             Margin="10"
                             Style="{StaticResource BaseUIButton}"
                             Command="{Binding GoToQuestionsCommand}"
