@@ -288,24 +288,13 @@ namespace Testinator.UICore
         /// <param name="size">The animation width/height to animate to. If not specified the elements size is used</param>
         /// <param name="firstLoad">Indicates if this is the first load</param>
         /// <returns></returns>
-        public static async Task ExpandSideMenuWidthAsync(this FrameworkElement element, AnimationSlideInDirection direction, bool firstLoad, float seconds = 0.3f, bool keepMargin = true, int size = 0)
+        public static async Task ExpandSideMenuWidthAsync(this FrameworkElement element, int offset, bool firstLoad, float seconds = 0.3f, bool keepMargin = true, int size = 0)
         {
             // Create the storyboard
             var sb = new Storyboard();
 
-            // Slide in the correct direction
-            switch (direction)
-            {
-                // Add slide from left animation
-                case AnimationSlideInDirection.Left:
-                    sb.AddExpand(seconds, 55, keepMargin: keepMargin);
-                    break;
-
-                // Add slide from right animation
-                case AnimationSlideInDirection.Right:
-                    sb.AddExpand(seconds, 75, keepMargin: keepMargin);
-                    break;
-            }
+            // Add expand animation to it
+            sb.AddExpand(seconds, offset, keepMargin: keepMargin);
 
             // Start animating
             sb.Begin(element);
@@ -327,24 +316,13 @@ namespace Testinator.UICore
         /// <param name="size">The animation width/height to animate to. If not specified the elements size is used</param>
         /// <param name="firstLoad">Indicates if this is the first load</param>
         /// <returns></returns>
-        public static async Task HideSideMenuWidthAsync(this FrameworkElement element, AnimationSlideInDirection direction, float seconds = 0.3f, bool keepMargin = true, int size = 0)
+        public static async Task HideSideMenuWidthAsync(this FrameworkElement element, int offset, float seconds = 0.3f, bool keepMargin = true, int size = 0)
         {
             // Create the storyboard
             var sb = new Storyboard();
 
-            // Slide in the correct direction
-            switch (direction)
-            {
-                // Add slide to left animation
-                case AnimationSlideInDirection.Left:
-                    sb.AddHide(seconds, 55, keepMargin: keepMargin);
-                    break;
-
-                // Add slide to right animation
-                case AnimationSlideInDirection.Right:
-                    sb.AddHide(seconds, 75, keepMargin: keepMargin);
-                    break;
-            }
+            // Add hide animation to it
+            sb.AddHide(seconds, offset, keepMargin: keepMargin);
 
             // Start animating
             sb.Begin(element);
