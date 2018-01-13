@@ -42,7 +42,7 @@ namespace Testinator.Server
                     return new BeginTestInProgressPage(viewModel as BeginTestViewModel);
 
                 case ApplicationPage.BeginTestResults:
-                    return new BeginTestResultsPage(viewModel as BeginTestResultsViewModel);
+                    return new BeginTestResultsPage(viewModel as BeginTestViewModel);
 
                 case ApplicationPage.TestEditor:
                     return new TestEditorPage(viewModel as TestEditorViewModel);

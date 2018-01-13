@@ -26,10 +26,10 @@
                             Margin="0 15 0 0">
                 
                     <TextBlock Text="Test: "
-                                Style="{StaticResource MediumTitleText}"/>
+                               Style="{StaticResource TitleText}"/>
                     <TextBlock Text="{Binding CurrentTest.Name}" 
-                                Style="{StaticResource MediumTitleText}"
-                                />
+                               Style="{StaticResource MediumTitleText}"
+                               />
                 </StackPanel>
 
                 <TextBlock Text="{Binding TimeLeft}" 
@@ -54,8 +54,10 @@
                                                                                        AncestorType=UICore:BasePage},
                                                                                        Path=DataContext.QuestionsCount}" 
                                                          Value="{Binding ProgressBarValue, Mode=OneWay}"
-                                                         Foreground="{StaticResource GreenLightBrush}"/>
+                                                         Foreground="{StaticResource GreenLightBrush}" />
                                             <TextBlock Text="{Binding ProgressBarPercentage}"
+                                                       Style="{StaticResource QuestionTextBlockStyle}"
+                                                       Margin="0"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"/>
                                         </Grid>
@@ -84,11 +86,13 @@
                         Margin="0 0 0 50"
                         Orientation="Horizontal">
 
-                <Button Content="jakies inne opcje"
+                <Button Content="Zakończ przed czasem"
+                        Command="{Binding FinishTestCommand}"
                         Style="{StaticResource BaseUIButton}"/>
-                <Button Content="Przerwij"
-                        Style="{StaticResource BaseUIButton}"
-                        Command="{Binding StopTestCommand}"/>
+                
+                <Button Content="Przerwij test"
+                        Command="{Binding StopTestCommand}"
+                        Style="{StaticResource BaseUIButton}" />
 
             </StackPanel>
             

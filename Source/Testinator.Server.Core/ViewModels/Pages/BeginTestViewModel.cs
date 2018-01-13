@@ -124,9 +124,14 @@ namespace Testinator.Server.Core
         public ICommand BeginTestCommand { get; private set; }
 
         /// <summary>
-        /// The command to stop the test
+        /// The command to stop the test (test disappears completely)
         /// </summary>
         public ICommand StopTestCommand { get; private set; }
+        
+        /// <summary>
+        /// The command to finish the test (results are collected before a timer ends)
+        /// </summary>
+        public ICommand FinishTestCommand { get; private set; }
 
         /// <summary>
         /// The command to exit from the resultpage
@@ -149,6 +154,7 @@ namespace Testinator.Server.Core
             ChangePageTestInfoCommand = new RelayCommand(ChangePageInfo);
             BeginTestCommand = new RelayCommand(BeginTest);
             StopTestCommand = new RelayCommand(StopTest);
+            FinishTestCommand = new RelayCommand(FinishTest);
             ResultPageExitCommand = new RelayCommand(ResultPageExit);
 
             // Load every test from files
@@ -266,15 +272,16 @@ namespace Testinator.Server.Core
         {
             // Meanwhile lock the clients list and send them the test 
             IoCServer.TestHost.LockClients();
+            
+            // If there is no enough users to start the test, show the message and don't send the test
             if (IoCServer.TestHost.Clients.Count == 0)
             {
-                var vm = new MessageBoxDialogViewModel()
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Message = "Nie można ropocząć testu. Brak użytkowników użytkowników, którzy mogą go rozpocząć.",
-                    OkText = "OK",
-                    Title = "Testinator"
-                };
-                IoCServer.UI.ShowMessage(vm);
+                    Title = "Brak użytkowników",
+                    Message = "Nie można ropocząć testu. Brak użytkowników, którzy mogą go rozpocząć.",
+                    OkText = "OK"
+                });
                 return;
             }
 
@@ -301,7 +308,7 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Stops the test
+        /// Stops the test (test disappears completely, like it didn't even happened)
         /// </summary>
         private void StopTest()
         {
@@ -319,6 +326,26 @@ namespace Testinator.Server.Core
             if (vm.UserResponse)
                 // Stop the test
                 StopTestForcefully();
+        }
+
+        /// <summary>
+        /// Finishes the test before a timer ends, results are collected here
+        /// </summary>
+        private void FinishTest()
+        {
+            // TODO: Get the results from users (even empty ones)
+            //       Then finish the test etc.
+        }
+
+        /// <summary>
+        /// Exits from the result page
+        /// </summary>
+        private void ResultPageExit()
+        {
+            if (IoCServer.Network.IsRunning)
+                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
+            else
+                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
         #endregion
@@ -395,17 +422,6 @@ namespace Testinator.Server.Core
         {
             IoCServer.TestHost.TestStopForcefully();
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
-        }
-
-        /// <summary>
-        /// Exits from the result page
-        /// </summary>
-        private void ResultPageExit()
-        {
-            if (IoCServer.Network.IsRunning)
-                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
-            else
-                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
         #endregion

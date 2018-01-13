@@ -6,7 +6,7 @@ namespace Testinator.Server
     /// <summary>
     /// Interaction logic for BeginTestResultsPage.xaml
     /// </summary>
-    public partial class BeginTestResultsPage : BasePage<BeginTestResultsViewModel>
+    public partial class BeginTestResultsPage : BasePage<BeginTestViewModel>
     {
         #region Constructor
 
@@ -22,7 +22,7 @@ namespace Testinator.Server
         /// Constructor with specific view model
         /// </summary>
         /// <param name="specificViewModel">The specific view model to use for this page</param>
-        public BeginTestResultsPage(BeginTestResultsViewModel specificViewModel) : base(specificViewModel)
+        public BeginTestResultsPage(BeginTestViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
         }

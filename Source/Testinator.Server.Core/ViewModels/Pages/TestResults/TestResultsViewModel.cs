@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
     /// <summary>
-    /// A viewmodel for the results page
+    /// The view model for the results page
     /// </summary>
     public class TestResultsViewModel : BaseViewModel
     {
-        #region Private Properties
-        
-        /// <summary>
-        /// The viewmodel for the items control
-        /// </summary>
-        private TestResultsListViewModel mItemsVm = new TestResultsListViewModel();
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
         /// View model for the list control
         /// </summary>
-        public TestResultsListViewModel ListViewModel => mItemsVm;
+        public TestResultsListViewModel ListViewModel { get; private set; } = new TestResultsListViewModel();
 
         /// <summary>
         /// The list of all results found on the machine
@@ -59,11 +49,11 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The number of results loaded from the disk
         /// </summary>
-        public int ItemsLoadedCount => mItemsVm.Items.Count;
+        public int ItemsLoadedCount => ListViewModel.Items.Count;
 
         #endregion
 
-        #region Public Commands
+        #region Commands
 
         /// <summary>
         /// Show details about the test
@@ -84,12 +74,13 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsViewModel()
         {
-            ListViewModel.LoadItems();
-
+            // Create commands
             ShowDetailsCommnd = new RelayCommand(ShowDetails);
             DeleteCommand = new RelayCommand(DeleteResult);
 
-            mItemsVm.ItemSelected += ListControl_ItemSelected;
+            ListViewModel.LoadItems();
+
+            ListViewModel.ItemSelected += ListControl_ItemSelected;
         }
 
         #endregion
@@ -101,7 +92,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ShowDetails()
         {
-            var selectedItem = mItemsVm.SelectedItem();
+            var selectedItem = ListViewModel.SelectedItem();
             if (selectedItem == null)
                 return;
 
@@ -136,12 +127,12 @@ namespace Testinator.Server.Core
             if (!vm.UserResponse)
                 return;
 
-            var selectedItem = mItemsVm.SelectedItem();
+            var selectedItem = ListViewModel.SelectedItem();
             if (selectedItem == null)
                 return;
 
             FileWriters.BinWriter.DeleteFile(selectedItem);
-            mItemsVm.LoadItems();
+            ListViewModel.LoadItems();
 
             IsAnyItemSelected = false;
             OnPropertyChanged(nameof(ItemsLoadedCount));
