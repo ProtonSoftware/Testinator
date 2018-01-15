@@ -34,6 +34,11 @@
 
                 <local:MultipleCheckboxesAnswersList DataContext="{Binding Options}" />
 
+                <TextBlock Text="Brak odpowiedzi!"
+                           Visibility="{Binding NoAnswer, Converter={local:BooleanToVisiblityConverter}}"
+                           Style="{StaticResource MediumTitleText}"
+                           HorizontalAlignment="Right"/>
+
             </StackPanel>
 
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -9,12 +10,31 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestResultsDetailsViewModel : BaseViewModel
     {
+        #region Private Members
+
+        /// <summary>
+        /// The results this viewmodel is based on
+        /// </summary>
+        private TestResults mTestResults = new TestResults();
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// Comment here..................................................................
         /// </summary>
         public List<ClientModelSerializable> Clients { get; private set; } = new List<ClientModelSerializable>();
+
+        /// <summary>
+        /// The name of the test the users took
+        /// </summary>
+        public string TestName => mTestResults.Test.Name;
+
+        /// <summary>
+        /// Status of the menu as a boolean
+        /// </summary>
+        public bool IsMenuExpanded { get; private set; } = false;
 
         #endregion
 
@@ -24,6 +44,21 @@ namespace Testinator.Server.Core
         /// The command to go back to the previous page
         /// </summary>
         public ICommand ReturnCommand { get; private set; }
+
+        /// <summary>
+        /// The command to expand or hide menu
+        /// </summary>
+        public ICommand MenuToggleCommand { get; private set; }
+
+        /// <summary>
+        /// Changes the view to the students view
+        /// </summary>
+        public ICommand ChangeViewStudentsCommand { get; private set; }
+
+        /// <summary>
+        /// Changes the view to the questions view
+        /// </summary>
+        public ICommand ChangeViewQuestionsCommand { get; private set; }
 
         #endregion
 
@@ -62,6 +97,28 @@ namespace Testinator.Server.Core
             IoCServer.Application.GoToPage(ApplicationPage.TestResultsInitial);
         }
 
+        /// <summary>
+        /// Expands or hides the menu
+        /// </summary>
+        private void MenuToggle()
+        {
+            IsMenuExpanded ^= true;
+        }
+
+        /// <summary>
+        /// Changes the view to the students view
+        /// </summary>
+        private void ChangeViewStudents()
+        {
+        }
+
+        /// <summary>
+        /// Changes the view to the questions view
+        /// </summary>
+        private void ChangeViewQuestions()
+        {
+        }
+
         #endregion
 
         #region Private Helpers
@@ -76,6 +133,7 @@ namespace Testinator.Server.Core
                 return;
 
             Clients = value.Clients;
+            mTestResults = value;
         }
 
         /// <summary>
@@ -84,6 +142,9 @@ namespace Testinator.Server.Core
         private void CreateCommands()
         {
             ReturnCommand = new RelayCommand(ReturnPreviousPage);
+            MenuToggleCommand = new RelayCommand(MenuToggle);
+            ChangeViewStudentsCommand = new RelayCommand(ChangeViewStudents);
+            ChangeViewQuestionsCommand = new RelayCommand(ChangeViewQuestions);
         }
 
         #endregion

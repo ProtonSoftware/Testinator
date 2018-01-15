@@ -43,7 +43,13 @@ namespace Testinator.Client.Core
         /// Indicates whether the view should be enabled for changes
         /// ReadOnly mode is used while presenting the result to the user
         /// </summary>
-        public bool IsReadOnly { get; set; } 
+        public bool IsReadOnly { get; set; }
+
+        /// <summary>
+        /// Indicates if the answer is empty (used to show now answer notification
+        /// Makes sense only if ReadOnlyMode is enabled
+        /// </summary>
+        public bool NoAnswer { get; set; }
 
         /// <summary>
         /// Indicates if the answer given by the user is correct
@@ -173,11 +179,20 @@ namespace Testinator.Client.Core
 
             if (IsReadOnly)
             {
-                // Set the user's answer and the correct answer selected so it's green initially
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
+                // Set the correct answer selected so it's green initially
                 Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
 
-                // Mark user's answer to display "Your answer" sign
+                // If the answer is null, return (means that the user gave no answer to this question) 
+                if (UserAnswer == null)
+                {
+                    NoAnswer = true;
+                    return;
+                }
+
+                // Set the user's answer selected so it's green
+                Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
+
+                // Mark the user's answer to display "Your answer" sign
                 Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
 
                 // Indicate if the user's answer is correct

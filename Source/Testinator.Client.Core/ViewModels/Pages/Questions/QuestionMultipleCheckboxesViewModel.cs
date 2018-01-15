@@ -46,6 +46,12 @@ namespace Testinator.Client.Core
         public bool IsAnswerCorrect { get; set; }
 
         /// <summary>
+        /// Indicates if the answer is empty (used to show now answer notification
+        /// Makes sense only if ReadOnlyMode is enabled
+        /// </summary>
+        public bool NoAnswer { get; set; }
+
+        /// <summary>
         /// The answer give by the user 
         /// Makes sense only if <see cref="IsReadOnly"/> is set to true
         /// </summary>
@@ -197,8 +203,18 @@ namespace Testinator.Client.Core
                 // In readonly mode set the check box
                 if (IsReadOnly)
                 {
-                    answerItem.IsChecked = UserAnswer.Answers[i];
-                    answerItem.IsCorrect = option.Value == UserAnswer.Answers[i];
+                    // If the user answer is null (meaning the user didnt answer this question), skip this iteration
+                    if (UserAnswer != null)
+                    {
+                        answerItem.IsChecked = UserAnswer.Answers[i];
+                        answerItem.IsCorrect = option.Value == UserAnswer.Answers[i];
+                    }
+                    else
+                    {
+                        // Mark the checkboxes in the correct order if the user didn't give the answer
+                        answerItem.IsChecked = option.Value;
+                        NoAnswer = true;
+                    }
                 }
                 else
                     // Don't select any answer at the start

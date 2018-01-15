@@ -24,22 +24,22 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The date the test was taken (day)
         /// </summary>
-        public string ResultsDateDay { get; private set; } = "-";
+        public string ResultsDateDay { get; private set; }
 
         /// <summary>
         /// The date the test was taken (hour)
         /// </summary>
-        public string ResultsDateHour { get; private set; } = "-";
+        public string ResultsDateHour { get; private set; }
 
         /// <summary>
         /// The name of the test
         /// </summary>
-        public string TestName { get; private set; } = "-";
+        public string TestName { get; private set; }
 
         /// <summary>
         /// The number of people that took the test
         /// </summary>
-        public int TestAttendeesNumber { get; private set; }
+        public string TestAttendeesNumber { get; private set; }
 
         /// <summary>
         /// Indicated if there is a test result currently selected
@@ -77,6 +77,8 @@ namespace Testinator.Server.Core
             // Create commands
             ShowDetailsCommnd = new RelayCommand(ShowDetails);
             DeleteCommand = new RelayCommand(DeleteResult);
+
+            SetDefaults();
 
             ListViewModel.LoadItems();
 
@@ -124,7 +126,7 @@ namespace Testinator.Server.Core
             };
             IoCServer.UI.ShowMessage(vm);
 
-            if (!vm.UserResponse)
+            if (vm.UserResponse == false)
                 return;
 
             var selectedItem = ListViewModel.SelectedItem();
@@ -134,7 +136,7 @@ namespace Testinator.Server.Core
             FileWriters.BinWriter.DeleteFile(selectedItem);
             ListViewModel.LoadItems();
 
-            IsAnyItemSelected = false;
+            SetDefaults();
             OnPropertyChanged(nameof(ItemsLoadedCount));
         }
         
@@ -154,7 +156,19 @@ namespace Testinator.Server.Core
             ResultsDateDay = value.Date.ToShortDateString();
             ResultsDateHour = value.Date.ToShortTimeString();
             TestName = value.Test.Name;
-            TestAttendeesNumber = value.Results.Count;
+            TestAttendeesNumber = value.Results.Count.ToString(); ;
+        }
+
+        /// <summary>
+        /// Sets default values to the viewmodel properties
+        /// </summary>
+        private void SetDefaults()
+        {
+            ResultsDateDay = "-";
+            ResultsDateHour = "-";
+            TestName = "-";
+            TestAttendeesNumber = "-";
+            IsAnyItemSelected = false;
         }
 
         #endregion

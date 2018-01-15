@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Testinator.Core;
@@ -358,25 +359,37 @@ namespace Testinator.Client.Core
             // Log what we are doing
             IoCClient.Logger.Log("Calculating user's score");
 
+            
             // We can iterate like this because the question list and answer list are in the same order
             for (var i = 0; i < Questions.Count; i++)
-            {   
+            {
                 // Based on question type...
                 switch (Questions[i].Type)
                 {
                     case QuestionType.MultipleChoice:
                         {
-                            // Cast the answer and question objects
-                            var multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
+                            // Create local variables for the answer and correct answer boolean for the further use
+                            MultipleChoiceAnswer multipleChoiceAnswer = null;
+                            var isAnswerCorrect = false;
                             var multipleChoiceQuestion = Questions[i] as MultipleChoiceQuestion;
 
-                            var isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
+                            // Try to get answer in the try/catch in case the answer doesn't exist
+                            try
+                            {
+                                // Cast the answer and question objects
+                                // NOTE: if the answer doesn't exist exception is thrown here
+                                multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
 
-                            // Check if user has answered correctly
-                            if (isAnswerCorrect)
-                                // Give them points for this question
-                                totalScore += multipleChoiceQuestion.PointScore;
-
+                                isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
+                                
+                                // Check if user has answered correctly
+                                if (isAnswerCorrect)
+                                    // Give them points for this question
+                                    totalScore += multipleChoiceQuestion.PointScore;
+                            }
+                            // Catch the exception but let the answer to be saved
+                            catch (ArgumentOutOfRangeException) { }
+                            
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionMultipleChoiceViewModel()
                             {
@@ -395,16 +408,27 @@ namespace Testinator.Client.Core
 
                     case QuestionType.MultipleCheckboxes:
                         {
-                            // Cast the answer and question objects
-                            var multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
+                            // Create local variables for the answer and correct answer boolean for the further use
+                            MultipleCheckboxesAnswer multipleCheckboxesAnswer = null;
+                            var isAnswerCorrect = false;
                             var multipleCheckboxesQuestion = Questions[i] as MultipleCheckboxesQuestion;
+                                                        
+                            // Try to get answer in the try/catch in case the answer doesn't exist
+                            try
+                            {
+                                // Cast the answer and question objects
+                                // NOTE: if the answer doesn't exist exception is thrown here
+                                multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
 
-                            var isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
+                                isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
 
-                            // Check if user has answered correctly
-                            if (isAnswerCorrect)
-                                // Give them points for this question
-                                totalScore += multipleCheckboxesQuestion.PointScore;
+                                // Check if user has answered correctly
+                                if (isAnswerCorrect)
+                                    // Give them points for this question
+                                    totalScore += multipleCheckboxesQuestion.PointScore;
+                            }
+                            // Catch the exception but let the answer to be saved
+                            catch (ArgumentOutOfRangeException) { }
 
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionMultipleCheckboxesViewModel()
@@ -424,22 +448,33 @@ namespace Testinator.Client.Core
 
                     case QuestionType.SingleTextBox:
                         {
-                            // Cast the answer and question objects
-                            var singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
+                            // Create local variables for the answer and correct answer boolean for the further use
+                            SingleTextBoxAnswer singleTextBoxAnswer = null;
+                            var isAnswerCorrect = false;
                             var singleTextBoxQuestion = Questions[i] as SingleTextBoxQuestion;
 
-                            var isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
+                            // Try to get answer in the try/catch in case the answer doesn't exist
+                            try
+                            {
+                                // Cast the answer and question objects
+                                // NOTE: if the answer doesn't exist exception is thrown here
+                                singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
 
-                            // Check if user has answered correctly
-                            if (isAnswerCorrect)
-                                // Give them multipleCheckboxesAnswer for this question
-                                totalScore += singleTextBoxQuestion.PointScore;
+                                isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
+
+                                // Check if user has answered correctly
+                                if (isAnswerCorrect)
+                                    // Give them multipleCheckboxesAnswer for this question
+                                    totalScore += singleTextBoxQuestion.PointScore;
+                            }
+                            // Catch the exception but let the answer to be saved
+                            catch (ArgumentOutOfRangeException) { }
 
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionSingleTextBoxViewModel()
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = singleTextBoxAnswer.Answer,
+                                UserAnswer = singleTextBoxAnswer?.Answer,
                                 IsReadOnly = true,
                                 Index = i,
                             };
@@ -456,6 +491,7 @@ namespace Testinator.Client.Core
             // Set calculated point score to the property and set the corresponding mark
             UserScore = totalScore;
             UserMark = CurrentTest.Grading.GetMark(UserScore);
+            
         }
 
         /// <summary>
@@ -532,10 +568,8 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Fired when the current test is finished
         /// </summary>
-        private async Task TestFinished()
+        private void TestFinished()
         {
-            await Task.Delay(1);
-
             // Calculate the user's score
             CalculateScore();
 
@@ -553,6 +587,13 @@ namespace Testinator.Client.Core
 
             // Indicate that we're in the result page
             IsShowingResultPage = true;
+
+            IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel()
+            {
+                Title = "Koniec czasu",
+                Message = "Czas przeznaczony na rozwiązanie testu minął!",
+                OkText = "OK",
+            });
         }
 
         /// <summary>
@@ -609,7 +650,7 @@ namespace Testinator.Client.Core
             if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
             {
                 mTestTimer.Stop();
-                TestFinished();
+                TestFinished();        
             }
         }
 

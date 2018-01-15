@@ -11,33 +11,90 @@
     
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" 
-                Background="{StaticResource GreenLightBrush}">
+        <Grid Grid.Row="0"
+              Background="{StaticResource GreenLightBrush}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
             <Button Content="Wróć"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding ReturnCommand}"
                     />
-        </Border>
+            <TextBlock Text="{Binding TestName}"
+                       Style="{StaticResource MediumTitleText}"
+                       Grid.Column="1"
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding TestName}"/>
+            
+            <TextBlock Text=""
+                       Style="{StaticResource MediumTitleText}"
+                       Grid.Column="2"
+                       TextTrimming="CharacterEllipsis"/>
+
+            <Button Content="{StaticResource FontAwesomeDoubleAngleDownIcon}"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Style="{StaticResource BaseUIButton}"
+                    VerticalAlignment="Center"
+                    Command="{Binding MenuToggleCommand}"
+                    Grid.Column="3"/>
+
+
+        </Grid>
+
+        <StackPanel Grid.Row="1"
+                    Background="{StaticResource GreenLightBrush}"
+                    Orientation="Horizontal">
+
+            <Button Content="Widok uczniów"
+                    Style="{StaticResource BaseUIButton}"
+                    Command="{Binding ChangeViewStudentsCommand}"
+                    HorizontalAlignment="Left"/>
+            
+            <Button Content="Widok pytań"
+                    Command="{Binding ChangeViewQuestionsCommand}"
+                    Style="{StaticResource BaseUIButton}"
+                    HorizontalAlignment="Left"/>
+
+        </StackPanel>
         
-        <ScrollViewer Grid.Row="1" Padding="5">
-            <DataGrid AutoGenerateColumns="False" 
-                      ItemsSource="{Binding Clients}"
-                      HorizontalAlignment="Stretch"
-                      HorizontalContentAlignment="Stretch" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Imię" Binding="{Binding ClientName}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Nazwisko" Binding="{Binding ClientSurname}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Liczba punktów" Binding="{Binding PointsScored}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ocena" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </ScrollViewer>
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2"
+                          Padding="5">
+                <DataGrid AutoGenerateColumns="False" 
+                          ItemsSource="{Binding Clients}"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Imię" Binding="{Binding ClientName}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Nazwisko" Binding="{Binding ClientSurname}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Liczba punktów" Binding="{Binding PointsScored}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ocena" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+
+            <local:ResultsPageMenu Grid.Column="1"
+                                   local:AnimateSlideInFromRightProperty.Value="{Binding IsMenuExpanded}"
+                                   VerticalAlignment="Top"/>
+        </Grid>
 
     </Grid>
 </UICore:BasePage>
