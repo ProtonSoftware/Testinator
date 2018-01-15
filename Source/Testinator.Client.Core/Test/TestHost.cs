@@ -587,13 +587,21 @@ namespace Testinator.Client.Core
 
             // Indicate that we're in the result page
             IsShowingResultPage = true;
+        }
 
+        /// <summary>
+        /// Fired when the cutdown reaches 0
+        /// </summary>
+        private void TimesUp()
+        {
             IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel()
             {
                 Title = "Koniec czasu",
                 Message = "Czas przeznaczony na rozwiązanie testu minął!",
                 OkText = "OK",
             });
+
+            TestFinished();
         }
 
         /// <summary>
@@ -650,7 +658,7 @@ namespace Testinator.Client.Core
             if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
             {
                 mTestTimer.Stop();
-                TestFinished();        
+                TimesUp();        
             }
         }
 

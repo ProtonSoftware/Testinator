@@ -117,6 +117,10 @@ namespace Testinator.Server.Core
         /// </summary>
         private void DeleteResult()
         {
+            var selectedItem = ListViewModel.SelectedItem();
+            if (selectedItem == null)
+                return;
+
             var vm = new ResultBoxDialogViewModel()
             {
                 Title = "Usuwanie rezultatu",
@@ -127,10 +131,6 @@ namespace Testinator.Server.Core
             IoCServer.UI.ShowMessage(vm);
 
             if (vm.UserResponse == false)
-                return;
-
-            var selectedItem = ListViewModel.SelectedItem();
-            if (selectedItem == null)
                 return;
 
             FileWriters.BinWriter.DeleteFile(selectedItem);

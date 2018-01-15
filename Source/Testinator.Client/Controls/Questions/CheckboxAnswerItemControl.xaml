@@ -33,6 +33,7 @@
 
                                 <TextBlock Grid.Column="1"
                                            Padding="5"
+                                           TextWrapping="Wrap"
                                            Text="{Binding Text}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
 

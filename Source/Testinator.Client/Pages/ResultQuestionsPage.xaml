@@ -24,18 +24,18 @@
                     Command="{Binding ReturnCommand}"/>
 
             <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   Margin="0 10 0 0"
-                   Foreground="{StaticResource BlackDarkBrush}"
-                   Style="{StaticResource TitleText}" />
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="0 10 0 0"
+                       Foreground="{StaticResource BlackDarkBrush}"
+                       Style="{StaticResource TitleText}" />
         </Grid>
         
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="175"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <ScrollViewer Grid.Column="0"

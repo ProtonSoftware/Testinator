@@ -189,7 +189,7 @@
     <Compile Include="ValueConverters\IconTypeToFontAwesomeConverter.cs" />
     <Compile Include="ValueConverters\MarkToTextConverter.cs" />
     <Compile Include="ValueConverters\QuestionTypeToIconConverter.cs" />
-    <Compile Include="ValueConverters\TextAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
     <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />

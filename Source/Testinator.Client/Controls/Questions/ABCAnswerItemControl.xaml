@@ -48,6 +48,7 @@
                                 <TextBlock Grid.Column="1"
                                            Padding="5"
                                            Text="{Binding Text}"
+                                           TextWrapping="Wrap"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBlock Text="Twoja odpowiedź" 
                                            Visibility="{Binding IsAnswerGivenByTheUser, Converter={local:BooleanToVisiblityConverter}}"

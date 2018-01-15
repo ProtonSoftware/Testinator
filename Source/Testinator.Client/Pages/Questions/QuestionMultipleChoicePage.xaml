@@ -12,36 +12,38 @@
 
         <Border Background="{StaticResource WhiteDarkBrush}"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 CornerRadius="3"
                 Padding="30"
-                MinWidth="600"
-                MaxWidth="800"
+                MaxWidth="1000"
                 Margin="50">
 
-            <StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Padding="0 0 1 0">
 
-                <TextBlock Text="{Binding QuestionPageCounter}"
+                <StackPanel>
+
+                    <TextBlock Text="{Binding QuestionPageCounter}"
                            Style="{StaticResource TitleText}"
                            Foreground="{StaticResource BlackDarkBrush}"
                            HorizontalAlignment="Center"
                            Margin="10" />
 
-                <TextBlock Text="{Binding Question.Task}"
+                    <TextBlock Text="{Binding Question.Task}"
                            Style="{StaticResource QuestionTextBlockStyle}"
+                           TextWrapping="Wrap"
                            FontSize="{StaticResource FontSizeLarge}"
                            Margin="5" />
 
-                <local:MultipleChoiceAnswersList DataContext="{Binding Options}" />
+                    <local:MultipleChoiceAnswersList DataContext="{Binding Options}" />
 
-                <TextBlock Text="Brak odpowiedzi!"
+                    <TextBlock Text="Brak odpowiedzi!"
                            Visibility="{Binding NoAnswer, Converter={local:BooleanToVisiblityConverter}}"
                            Style="{StaticResource MediumTitleText}"
                            HorizontalAlignment="Right"/>
-                
-            </StackPanel>
-            
-            
+
+                </StackPanel>
+
+            </ScrollViewer>
         </Border>
 
         <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
@@ -50,7 +52,7 @@
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Bottom"
                 Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                Margin="50" />
+                Margin="0 5 25 15" />
 
     </Grid>
     
