@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Shell;
 using Testinator.Client.Core;
 using Testinator.Core;
 using Testinator.UICore;
@@ -212,15 +213,15 @@ namespace Testinator.Client
             // Make sure we are on UIThread
             Application.Current.Dispatcher.Invoke(() =>
             {
-                // TODO: Prevent alt tabs etc
-
-                // Maximize the window
-                mWindow.WindowState = WindowState.Maximized;
+                // Prevent alt tabs etc.
+                (mWindow as MainWindow).PreventUserEscapeActions();
 
                 // Go to real "full screen mode"
+                WindowChrome.SetWindowChrome(mWindow, null);
                 mWindow.Topmost = true;
                 mWindow.WindowStyle = WindowStyle.None;
                 mWindow.ResizeMode = ResizeMode.NoResize;
+                mWindow.WindowState = WindowState.Maximized;
             });
         }
 
