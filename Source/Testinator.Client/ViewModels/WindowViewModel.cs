@@ -34,6 +34,11 @@ namespace Testinator.Client
         /// </summary>
         private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
 
+        /// <summary>
+        /// Indicates if this window is in fullscreen mode
+        /// </summary>
+        private bool mFullscreenMode = false;
+
         #endregion
 
         #region Public Properties
@@ -151,9 +156,47 @@ namespace Testinator.Client
             };
 
             // Create commands
-            MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
-            MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
-            CloseCommand = new RelayCommand(() => mWindow.Close());
+            MinimizeCommand = new RelayCommand(() =>
+            {
+                // This action is allowed only outside of a fullscreen mode
+                if (!mFullscreenMode)
+                    mWindow.WindowState = WindowState.Minimized;
+            });
+            MaximizeCommand = new RelayCommand(() => 
+            {
+                // This action is allowed only outside of a fullscreen mode
+                if (!mFullscreenMode)
+                    mWindow.WindowState ^= WindowState.Maximized;
+            }); 
+            CloseCommand = new RelayCommand(() =>
+            {
+                // Check if any test is already in progress
+                if (IoCClient.TestHost.IsTestInProgress)
+                {
+                    // Show warning to the user and do not close the app
+                    IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+                    {
+                        Title = "Ostrzeżenie",
+                        Message = "Aplikacja nie może zostać zamknięta, gdy test jest w trakcie.",
+                        OkText = "OK"
+                    });
+                }
+                else
+                {
+                    // Ask the user, if he is certain he wants to close the app
+                    var vm = new ResultBoxDialogViewModel
+                    {
+                        Title = "Zamykanie aplikacji",
+                        Message = "Czy na pewno chcesz wyłączyć aplikację?",
+                        AcceptText = "Tak",
+                        CancelText = "Nie"
+                    };
+                    IoCClient.UI.ShowMessage(vm);
+                    
+                    if (vm.UserResponse)
+                        mWindow.Close();
+                }
+            }); 
             MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
             // Fix window resize issue
@@ -210,6 +253,9 @@ namespace Testinator.Client
         /// </summary>
         private void TestHost_FullScreenModeOn()
         {
+            // Indicate that this window changes to full screen mode
+            mFullscreenMode = true;
+
             // Make sure we are on UIThread
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -217,7 +263,11 @@ namespace Testinator.Client
                 (mWindow as MainWindow).PreventUserEscapeActions();
 
                 // Go to real "full screen mode"
-                WindowChrome.SetWindowChrome(mWindow, null);
+                WindowChrome.SetWindowChrome(mWindow, new WindowChrome
+                {
+                    CaptionHeight = 0,
+                    ResizeBorderThickness = new Thickness(0)
+                });
                 mWindow.Topmost = true;
                 mWindow.WindowStyle = WindowStyle.None;
                 mWindow.ResizeMode = ResizeMode.NoResize;
