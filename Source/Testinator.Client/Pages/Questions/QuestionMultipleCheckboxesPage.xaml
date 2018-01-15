@@ -31,7 +31,6 @@
                     <TextBlock Text="{Binding Question.Task}"
                            TextWrapping="Wrap"
                            Style="{StaticResource QuestionTextBlockStyle}"
-                           FontSize="{StaticResource FontSizeLarge}"
                            Margin="5" />
 
                     <local:MultipleCheckboxesAnswersList DataContext="{Binding Options}" />

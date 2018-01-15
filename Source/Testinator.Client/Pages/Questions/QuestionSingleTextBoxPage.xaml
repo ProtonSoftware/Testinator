@@ -28,22 +28,26 @@
                                     Margin="10" />
 
                         <TextBlock Text="{Binding Question.Task}" 
-                                    TextWrapping="Wrap"
-                                    Style="{StaticResource MediumTitleText}"/>
+                                   TextWrapping="Wrap"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
 
                         <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource BigInputTextBox}"
-                                    IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"
-                                    Background="{Binding TextBoxBackground, Converter={local:StringRGBToBrushConverter}}"/>
-
-                        <TextBlock Text="Poprawna odpowiedź: "
-                                    Margin="0 10 0 5"
-                                    Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
+                                 Style="{StaticResource BigInputTextBox}"
+                                 FontSize="{StaticResource FontSizeLarge}"
+                                 IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"
+                                 Background="{Binding TextBoxBackground, Converter={local:StringRGBToBrushConverter}}"
+                                 TextWrapping="Wrap"
+                                 Margin="5 0 15 0"/>
+                        <TextBlock Text="Poprawna odpowiedź:"
+                                   Margin="5 15 0 0"
+                                   Style="{StaticResource MediumTitleText}"
+                                   Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
                         <TextBlock Text="{Binding Question.CorrectAnswer}"
-                                    Background="{StaticResource GreenLightBrush}"
-                                    Style="{StaticResource MediumTitleText}"
-                                    Padding="5 10 0 10"
-                                    Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
+                                   Background="{StaticResource GreenLightBrush}"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   Padding="5 10 5 10"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
                     </StackPanel>
                     
                 </ScrollViewer>
