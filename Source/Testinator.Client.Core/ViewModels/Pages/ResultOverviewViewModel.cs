@@ -12,6 +12,11 @@ namespace Testinator.Client.Core
         #region Public Properties
 
         /// <summary>
+        /// The name of the test user has completed
+        /// </summary>
+        public string TestName => IoCClient.TestHost.CurrentTest.Name;
+
+        /// <summary>
         /// The time in which user has completed the test
         /// </summary>
         public TimeSpan CompletionTime => IoCClient.TestHost.CurrentTest.Duration - IoCClient.Application.TimeLeft;

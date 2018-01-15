@@ -112,6 +112,9 @@ namespace Testinator.Client.Core
 
                 // Check if value indicates to run the full screen mode
                 if (value) FullScreenModeOn.Invoke();
+
+                // Or to disable it
+                else FullScreenModeOff.Invoke();
             }
         }
 
@@ -133,6 +136,11 @@ namespace Testinator.Client.Core
         /// Fired when server has sent a behest to run a full screen mode
         /// </summary>
         public event Action FullScreenModeOn = () => { };
+
+        /// <summary>
+        /// Fired after completing the test to escape from full screen mode
+        /// </summary>
+        public event Action FullScreenModeOff = () => { };
 
         #endregion
 
@@ -578,6 +586,9 @@ namespace Testinator.Client.Core
 
             // Test is not in progress now
             IsTestInProgress = false;
+
+            // If full screen mode was fired, disable it
+            if (FullScreenMode) FullScreenMode = false;
 
             // Change page to the result page
             IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);

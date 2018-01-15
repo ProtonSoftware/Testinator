@@ -44,8 +44,13 @@ namespace Testinator.Client
             {
                 var objKeyInfo = (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
+                // Info about key values
+                // https://www.autoitscript.com/forum/topic/85171-limit-keyboard-input/
+
                 var tabKey = 9;
+                var ctrlKey = 17;
                 var printScreenKey = 44;
+                var delKey = 46;
                 var leftWin = 91;
                 var rightWin = 92;
                 var f4Key = 115;
@@ -57,6 +62,7 @@ namespace Testinator.Client
                     objKeyInfo.mKey == leftWin || 
                     objKeyInfo.mKey == printScreenKey ||
                     objKeyInfo.mKey == tabKey && ((objKeyInfo.mFlags & 0x20) == 0x20) ||
+                    objKeyInfo.mKey == ctrlKey && ((objKeyInfo.mFlags & 0x20) == 0x20) && objKeyInfo.mKey == delKey ||
                     ((objKeyInfo.mFlags & 0x20) == 0x20) && objKeyInfo.mKey == f4Key
                    )
                     return (IntPtr)1;
@@ -84,11 +90,24 @@ namespace Testinator.Client
 
         #region Internal Helpers
 
+        /// <summary>
+        /// Prevents this window from allowing alt-tabs / alt-f4 / window buttons etc.
+        /// </summary>
         internal void PreventUserEscapeActions()
         {
             mObjCurrentModule = Process.GetCurrentProcess().MainModule;
             mObjKeyboardProcess = new LowLevelKeyboardProc(CaptureKey);
             mPtrHook = SetWindowsHookEx(13, mObjKeyboardProcess, GetModuleHandle(mObjCurrentModule.ModuleName), 0);
+        }
+
+        /// <summary>
+        /// Re-allows users actions by returning to the initial window state
+        /// </summary>
+        internal void AllowUserActions()
+        {
+            mObjCurrentModule = null;
+            mObjKeyboardProcess = null;
+            mPtrHook = default(IntPtr);
         }
 
         #endregion

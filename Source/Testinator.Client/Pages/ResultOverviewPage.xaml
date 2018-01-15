@@ -48,7 +48,7 @@
                     <TextBlock Text="Nazwa testu: "
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <TextBlock Text="{Binding Test.Name}"
+                    <TextBlock Text="{Binding TestName}"
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -61,7 +61,7 @@
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <TextBlock Text="Punkty: "
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
                                Grid.Row="2"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
