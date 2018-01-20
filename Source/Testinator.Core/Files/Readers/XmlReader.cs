@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace Testinator.Core
 {
     /// <summary>
-    /// The xml reader
+    /// The Xml files reader
     /// </summary>
-    public class XmlReader : FileReaderBase
+    public class XmlReader : FileManagerBase
     {
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public XmlReader(SaveableObjects objectType)
+        {
+            ObjectType = objectType;
+        }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -19,38 +30,35 @@ namespace Testinator.Core
         /// <returns>All gradings that have beed read from the application folder</returns>
         public List<GradingPercentage> ReadXmlGrading()
         {
-            List<string> Files;
-            try
-            {
-                Files = new List<string>(Directory.GetFiles(Settings.Path + "Criteria\\"));
-            }
-            catch
-            {
-                return null;
-            }
-            
+            // Create a grading list which we will return later
             var gradings = new List<GradingPercentage>();
 
-            foreach (var file in Files)
+            try
             {
-                try
+                // For each every grading file in the folder
+                foreach (var file in GetFileNames())
                 {
+                    // Catch only xml files
                     if (Path.GetExtension(file) != ".xml")
                         continue;
 
+                    // Add every grading converted from file to the list
                     gradings.Add(GetGradingFromXml(file));
                 }
-                catch (Exception ex)
-                { 
-                    // No error handlig for now
-                }
             }
+            catch
+            {
+                // TODO: Error handling
+                return null;
+            }
+
+            // Finally return the grading list
             return gradings;
         }
-        
+
         #endregion
 
-        #region Private Methods
+        #region Private Helpers
 
         private GradingPercentage GetGradingFromXml(string file)
         {
@@ -62,15 +70,15 @@ namespace Testinator.Core
                 Name = Path.GetFileNameWithoutExtension(file),
                 IsMarkAIncluded = false,
             };
-            
-            bool InsideMarkNode = false;
-            bool InsideValueNode = false;
-            bool InsideTopLimitNode = false;
-            bool InsideBottomLimitNode = false;
 
-            int bottomLimit = 0;
-            int topLimit = 0;
-            Marks Mark = Marks.A;
+            var InsideMarkNode = false;
+            var InsideValueNode = false;
+            var InsideTopLimitNode = false;
+            var InsideBottomLimitNode = false;
+
+            var bottomLimit = 0;
+            var topLimit = 0;
+            var Mark = Marks.A;
 
             while (reader.Read())
             {
@@ -80,12 +88,15 @@ namespace Testinator.Core
                         var name = reader.Name;
                         if (name == "Mark")
                             InsideMarkNode = true;
-                        else if (name == "Value" && InsideMarkNode)
-                            InsideValueNode = true;
-                        else if (name == "TopLimit" && InsideMarkNode)
-                            InsideTopLimitNode = true;
-                        else if (name == "BottomLimit" && InsideMarkNode)
-                            InsideBottomLimitNode = true;
+                        else if (InsideMarkNode)
+                        {
+                            if (name == "Value")
+                                InsideValueNode = true;
+                            else if (name == "TopLimit")
+                                InsideTopLimitNode = true;
+                            else if (name == "BottomLimit")
+                                InsideBottomLimitNode = true;
+                        }
                         else
                         {
                             InsideMarkNode = false;
@@ -104,39 +115,25 @@ namespace Testinator.Core
                                 result.IsMarkAIncluded = true;
                             InsideValueNode = false;
                         }
-
                         else if (InsideBottomLimitNode)
                         {
-                            bottomLimit = Int32.Parse(value);
+                            bottomLimit = int.Parse(value);
                             InsideBottomLimitNode = false;
                         }
                         else if (InsideTopLimitNode)
                         {
-                            topLimit = Int32.Parse(value);
+                            topLimit = int.Parse(value);
                             InsideTopLimitNode = false;
                         }
                         break;
 
                     case XmlNodeType.EndElement:
-                        var _name = reader.Name;
-                        if (_name == "Mark")
+                        if (reader.Name == "Mark")
                             result.UpdateMark(Mark, topLimit, bottomLimit);
                         break;
                 }
             }
             return result;
-        }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public XmlReader()
-        {
-            Settings = new ReaderSettings();
         }
 
         #endregion

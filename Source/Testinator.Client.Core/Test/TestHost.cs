@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
 using Testinator.Core;
 
@@ -47,6 +45,11 @@ namespace Testinator.Client.Core
         /// List of every answer given by the user throughout the test
         /// </summary>
         public List<Answer> UserAnswers { get; private set; }
+
+        /// <summary>
+        /// The results binary file writer which handles results saving/deleting from local folder
+        /// </summary>
+        public BinaryWriter ResultFileWriter { get; private set; } = new BinaryWriter(SaveableObjects.Results);
 
         /// <summary>
         /// Indicates if the test is in progress
@@ -549,7 +552,7 @@ namespace Testinator.Client.Core
             else
             {
                 // Write results to file
-                FileWriters.BinWriter.WriteToFile(new ClientTestResults()
+                ResultFileWriter.WriteToFile(new ClientTestResults()
                 {
                      Answers = UserAnswers,
                      ClientModel = new ClientModelSerializable()
@@ -567,7 +570,7 @@ namespace Testinator.Client.Core
                 IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
                     Title = "Wyniki testu w pliku",
-                    Message = "Wyniki testu zostały zapisane do pliku, ponieważ połączenie z serverem zostało utracone.",
+                    Message = "Wyniki testu zostały zapisane do pliku, ponieważ połączenie z serwerem zostało utracone.",
                     OkText = "Ok"
                 });
             }

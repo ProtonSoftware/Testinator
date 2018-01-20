@@ -22,6 +22,11 @@ namespace Testinator.Server.Core
         public List<TestResults> Results { get; private set; } = new List<TestResults>();
 
         /// <summary>
+        /// The results binary file writer which handles results saving/deleting from local folder
+        /// </summary>
+        public BinaryWriter ResultFileWriter { get; private set; } = new BinaryWriter(SaveableObjects.Results);
+
+        /// <summary>
         /// The date the test was taken (day)
         /// </summary>
         public string ResultsDateDay { get; private set; }
@@ -133,7 +138,7 @@ namespace Testinator.Server.Core
             if (vm.UserResponse == false)
                 return;
 
-            FileWriters.BinWriter.DeleteFile(selectedItem);
+            ResultFileWriter.DeleteFile(selectedItem);
             ListViewModel.LoadItems();
 
             SetDefaults();

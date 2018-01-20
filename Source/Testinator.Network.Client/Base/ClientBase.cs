@@ -97,7 +97,7 @@ namespace Testinator.Network.Client
             Array.Copy(mReceiverBuffer, recBuf, received);
 
             // Try to get the data
-            if (DataPackageDescriptor.TryConvertToObj(recBuf, out var PackageReceived))
+            if (DataPackageDescriptor.TryConvertToObj<DataPackage>(recBuf, out var PackageReceived))
             {
                 // If we are told to disconnect
                 if (PackageReceived.PackageType == PackageType.DisconnectRequest)

@@ -36,6 +36,11 @@ namespace Testinator.Server.Core
         public ObservableCollection<Question> Questions { get; set; }
 
         /// <summary>
+        /// The test binary file writer which handles tests saving/deleting from local folder
+        /// </summary>
+        public BinaryWriter TestFileWriter { get; private set; } = new BinaryWriter(SaveableObjects.Test);
+
+        /// <summary>
         /// Keeps the message of an error to show, if any error occured
         /// </summary>
         public string ErrorMessage { get; set; } = string.Empty;
@@ -834,7 +839,7 @@ namespace Testinator.Server.Core
             Test.Grading = PointsGrading;
 
             // Save the test to file
-            FileWriters.BinWriter.WriteToFile(Test);
+            TestFileWriter.WriteToFile(Test);
 
             // Save this view model
             var viewModel = new TestEditorAddNewTestViewModel(Test);

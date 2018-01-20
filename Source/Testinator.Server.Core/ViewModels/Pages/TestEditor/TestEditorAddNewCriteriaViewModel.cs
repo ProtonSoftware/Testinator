@@ -18,6 +18,11 @@ namespace Testinator.Server.Core
         public GradingPercentage Criteria { get; set; } = new GradingPercentage();
 
         /// <summary>
+        /// The criteria xml file writer which handles grading saving/deleting from local folder
+        /// </summary>
+        public XmlWriter CriteriaFileWriter { get; private set; } = new XmlWriter(SaveableObjects.Grading);
+
+        /// <summary>
         /// Indicates if we are in editing existing criteria mode
         /// </summary>
         public bool EditingCriteriaMode { get; set; } = false;
@@ -243,15 +248,15 @@ namespace Testinator.Server.Core
             Criteria.UpdateMark(Marks.E, int.Parse(TopValueMarkE), int.Parse(BottomValueMarkE));
             Criteria.UpdateMark(Marks.F, int.Parse(TopValueMarkF), int.Parse(BottomValueMarkF));
 
-            // Send it to xml writer and save it
-            FileWriters.XmlWriter.WriteToFile(Name, Criteria);
+            // Save the grading
+            CriteriaFileWriter.WriteToFile(Name, Criteria);
 
             // Check if we were editing existing one or not
             if (EditingCriteriaMode)
             {
                 // If user has changed the name of the criteria, delete old one
                 if (Name != EditingCriteriaOldName)
-                    FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
+                    CriteriaFileWriter.DeleteXmlFileByName(EditingCriteriaOldName);
             }
 
             // Get out of editing mode
@@ -263,7 +268,7 @@ namespace Testinator.Server.Core
             // Reload the criteria list to include newly created criteria
             CriteriaListViewModel.Instance.LoadItems();
 
-            // Load the viewmodel with the sample data
+            // Reload the viewmodel with the sample data
             LoadCriteria(new GradingPercentage());
             Name = "";
         }
@@ -288,7 +293,7 @@ namespace Testinator.Server.Core
                 return;
 
             // Delete this criteria by old name because the user may have changed it meanwhile
-            FileWriters.XmlWriter.DeleteFile(EditingCriteriaOldName);
+            CriteriaFileWriter.DeleteXmlFileByName(EditingCriteriaOldName);
 
             // Reload items
             CriteriaListViewModel.Instance.LoadItems();
@@ -320,23 +325,23 @@ namespace Testinator.Server.Core
             InvalidDataError = false;
 
             // Get values to the view model's properties
-            this.Criteria = criteria;
-            this.Name = criteria.Name;
-            this.EditingCriteriaOldName = criteria.Name;
+            Criteria = criteria;
+            Name = criteria.Name;
+            EditingCriteriaOldName = criteria.Name;
 
-            this.Criteria.IsMarkAIncluded = criteria.IsMarkAIncluded;
-            this.TopValueMarkA = criteria.MarkA.TopLimit.ToString();
-            this.BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
-            this.TopValueMarkB = criteria.MarkB.TopLimit.ToString();
-            this.BottomValueMarkB = criteria.MarkB.BottomLimit.ToString();
-            this.TopValueMarkC = criteria.MarkC.TopLimit.ToString();
-            this.BottomValueMarkC = criteria.MarkC.BottomLimit.ToString();
-            this.TopValueMarkD = criteria.MarkD.TopLimit.ToString();
-            this.BottomValueMarkD = criteria.MarkD.BottomLimit.ToString();
-            this.TopValueMarkE = criteria.MarkE.TopLimit.ToString();
-            this.BottomValueMarkE = criteria.MarkE.BottomLimit.ToString();
-            this.TopValueMarkF = criteria.MarkF.TopLimit.ToString();
-            this.BottomValueMarkF = criteria.MarkF.BottomLimit.ToString();
+            Criteria.IsMarkAIncluded = criteria.IsMarkAIncluded;
+            TopValueMarkA = criteria.MarkA.TopLimit.ToString();
+            BottomValueMarkA = criteria.MarkA.BottomLimit.ToString();
+            TopValueMarkB = criteria.MarkB.TopLimit.ToString();
+            BottomValueMarkB = criteria.MarkB.BottomLimit.ToString();
+            TopValueMarkC = criteria.MarkC.TopLimit.ToString();
+            BottomValueMarkC = criteria.MarkC.BottomLimit.ToString();
+            TopValueMarkD = criteria.MarkD.TopLimit.ToString();
+            BottomValueMarkD = criteria.MarkD.BottomLimit.ToString();
+            TopValueMarkE = criteria.MarkE.TopLimit.ToString();
+            BottomValueMarkE = criteria.MarkE.BottomLimit.ToString();
+            TopValueMarkF = criteria.MarkF.TopLimit.ToString();
+            BottomValueMarkF = criteria.MarkF.BottomLimit.ToString();
         }
 
         /// <summary>
@@ -413,7 +418,7 @@ namespace Testinator.Server.Core
                     // Update the view
                     LoadCriteria(criteria.Grading);
 
-                    if(ShouldBeMarkedSelected)
+                    if (ShouldBeMarkedSelected)
                         criteria.IsSelected = true;     
 
                     // Object found, no need to iterate more

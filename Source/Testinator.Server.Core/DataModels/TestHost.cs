@@ -24,11 +24,6 @@ namespace Testinator.Server.Core
         /// </summary>
         private List<ClientModel> mClients = new List<ClientModel>();
 
-        /// <summary>
-        /// The user results for the current test
-        /// </summary>
-        private TestResults mResults = new TestResults();
-
         #endregion
 
         #region Public Properties
@@ -37,6 +32,11 @@ namespace Testinator.Server.Core
         /// The test that is currently hosted
         /// </summary>
         public Test Test { get; private set; } = new Test();
+
+        /// <summary>
+        /// The results binary file writer which handles results saving/deleting from local folder
+        /// </summary>
+        public BinaryWriter ResultsFileWriter { get; private set; } = new BinaryWriter(SaveableObjects.Results);
 
         /// <summary>
         /// Indicates if there is any test in progress
@@ -56,7 +56,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The user results for the current test
         /// </summary>
-        public TestResults Results => mResults;
+        public TestResults Results { get; private set; } = new TestResults();
 
         #endregion
 
@@ -272,7 +272,6 @@ namespace Testinator.Server.Core
             mTestTimer.Elapsed += HandleTimer;
 
             IoCServer.Network.OnClientDataUpdated += ServerNetwork_OnClientDataUpdated;
-
         }
 
         #endregion
@@ -341,16 +340,16 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SaveResults()
         {
-            mResults = new TestResults()
+            Results = new TestResults()
             {
                 Date = DateTime.Now,
                 Test = Test,
             };
 
             foreach (var client in Clients)
-                mResults.Results.Add(new ClientModelSerializable(client), client.Answers);
+                Results.Results.Add(new ClientModelSerializable(client), client.Answers);
 
-            FileWriters.BinWriter.WriteToFile(mResults);
+            ResultsFileWriter.WriteToFile(Results);
         }
 
         /// <summary>

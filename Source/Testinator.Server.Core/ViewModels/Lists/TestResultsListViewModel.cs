@@ -27,6 +27,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ObservableCollection<TestResultsListItemViewModel> Items { get; private set; } = new ObservableCollection<TestResultsListItemViewModel>();
 
+        /// <summary>
+        /// The results binary file reaer which reads results from local folder
+        /// </summary>
+        public BinaryReader ResultsFileReader { get; private set; } = new BinaryReader(SaveableObjects.Results);
+
         #endregion
 
         #region Public Events
@@ -38,14 +43,14 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Public Methods
+        #region Public Helpers
 
         /// <summary>
         /// Load the control with item read from the disk
         /// </summary>
         public void LoadItems()
         {
-            mResults = FileReaders.BinReader.ReadAllResults();
+            mResults = ResultsFileReader.ReadAllResults();
             Items = new ObservableCollection<TestResultsListItemViewModel>();
 
             var indexer = 0;
@@ -92,41 +97,12 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Public Commands
+        #region Commands
 
         /// <summary>
         /// The command to select item from the list
         /// </summary>
         public ICommand SelectCommand { get; private set; }
-
-        #endregion
-
-        #region Command Methods
-
-        /// <summary>
-        /// Selects and item from the list
-        /// </summary>
-        /// <param name="index">The index of the item (intiger)</param>
-        private void Select(object index)
-        {
-            int indexInt;
-
-            try
-            {
-                indexInt = (int)index;
-            }
-            catch
-            {
-                return;
-            }
-
-            SelectItem(indexInt);
-
-            var selectedItem = mResults[indexInt];
-
-            ItemSelected.Invoke(selectedItem);
-        }
-
 
         #endregion
 
@@ -137,7 +113,26 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResultsListViewModel()
         {
+            // Create commands
             SelectCommand = new RelayParameterizedCommand(Select);
+        }
+
+        #endregion
+
+        #region Command Methods
+
+        /// <summary>
+        /// Selects an item from the list
+        /// </summary>
+        /// <param name="param">The index of the item</param>
+        private void Select(object param)
+        {
+            // Cast the parameter
+            var index = int.Parse(param.ToString());
+
+            // Select the item with that index
+            SelectItem(index);
+            ItemSelected.Invoke(mResults[index]);
         }
 
         #endregion

@@ -172,9 +172,9 @@ namespace Testinator.Network.Server
             var recBuf = new byte[recivedCount];
             Array.Copy(mReciverBuffer, recBuf, recivedCount);
 
-            if (DataPackageDescriptor.TryConvertToObj(recBuf, out var PackageReceived))
+            if (DataPackageDescriptor.TryConvertToObj<DataPackage>(recBuf, out var PackageReceived))
             {
-                // Everything exepct from info packet and disconnect request packet is going to the higher level layer of the appliaction
+                // Everything except from info packet and disconnect request packet is going to the higher level layer of the appliaction
                 if (PackageReceived.PackageType == PackageType.Info)
                 {
                     var content = (PackageReceived.Content as InfoPackage);
@@ -238,9 +238,8 @@ namespace Testinator.Network.Server
                     OnDataRecived(mClients[senderSocket], PackageReceived);
             }
 
-            // Continue reciving
+            // Continue receiving
             senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
-
         }
 
         #endregion

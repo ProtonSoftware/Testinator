@@ -5,28 +5,19 @@ namespace Testinator.Core
     /// <summary>
     /// The base for every file writer
     /// </summary>
-    public abstract class FileWriterBase
+    public abstract class FileWriterBase : FileManagerBase
     {
-        #region Protected Properties
-
-        /// <summary>
-        /// The settings for this writer
-        /// </summary>
-        protected WriterSettings Settings { get; set; }
-
-        #endregion
-
         #region File Writers Methods
 
         /// <summary>
-        /// Writes a <see cref="Test"/> to the file
+        /// Writes the <see cref="Test"/> to the file
         /// </summary>
         public virtual void WriteToFile(Test test) { }
 
         /// <summary>
-        /// Writes a <see cref="GradingPercentage"/> to the file
+        /// Writes the <see cref="GradingPercentage"/> to the file
         /// </summary>
-        public virtual void WriteToFile(string fileName, GradingPercentage grading) { }
+        public virtual void WriteToFile(string filename, GradingPercentage grading) { }
 
         /// <summary>
         /// Writes logs to the file
@@ -34,27 +25,27 @@ namespace Testinator.Core
         public virtual void WriteToFile(string text, string path, bool append = true) { }
 
         /// <summary>
-        /// Writes test results to file
+        /// Writes <see cref="TestResults"/> to file
         /// </summary>
         public virtual void WriteToFile(TestResults tr) { }
 
         /// <summary>
-
-        /// Writes object's property info to file
-        /// </summary>
-        public virtual void WriteToFile(object property, bool fileExists = true) { }
-
-        /// Writes client test results to file
+        /// Writes <see cref="ClientTestResults"/> to file
         /// </summary>
         public virtual void WriteToFile(ClientTestResults ctr) { }
 
         /// <summary>
-        /// Deletes a <see cref="Test"/>
+        /// Writes object's property info to file
+        /// </summary>
+        public virtual void WriteToFile(object property, bool fileExists = true) { }
+
+        /// <summary>
+        /// Deletes the <see cref="Test"/>
         /// </summary>
         public virtual void DeleteFile(Test test) { }
 
         /// <summary>
-        /// Deletes the given test results
+        /// Deletes the <see cref="TestResults"/>
         /// </summary>
         public virtual void DeleteFile(TestResults results) { }
 

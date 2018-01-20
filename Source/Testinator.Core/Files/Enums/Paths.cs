@@ -1,7 +1,7 @@
 ﻿namespace Testinator.Core
 { 
     /// <summary>
-    /// Some predefined paths
+    /// Predefined file paths
     /// </summary>
     public enum Paths
     {

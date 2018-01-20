@@ -24,6 +24,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ObservableCollection<CriteriaListItemViewModel> Items { get; set; }
 
+        /// <summary>
+        /// The criteria xml file reader which loads criteria from local folder
+        /// </summary>
+        public XmlReader CriteriaFileReader { get; private set; } = new XmlReader(SaveableObjects.Grading);
+
         #endregion
 
         #region Constructor
@@ -39,14 +44,15 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Public Methods
+        #region Public Helpers
 
         /// <summary>
         /// Marks all the items unchecked
         /// </summary>
         public void UncheckAll()
         {
-            foreach (var x in Items) x.IsSelected = false;
+            // Simply mark every item as unselected
+            foreach (var item in Items) item.IsSelected = false;
         }
 
         /// <summary>
@@ -55,7 +61,7 @@ namespace Testinator.Server.Core
         public void LoadItems()
         {
             // Load the list every criteria from xml files
-            var list = FileReaders.XmlReader.ReadXmlGrading();
+            var list = CriteriaFileReader.ReadXmlGrading();
 
             // Rewrite list to the observable collection
             Items = new ObservableCollection<CriteriaListItemViewModel>();

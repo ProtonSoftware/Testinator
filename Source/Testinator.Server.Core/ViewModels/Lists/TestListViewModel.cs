@@ -27,6 +27,11 @@ namespace Testinator.Server.Core
         public ObservableCollection<TestListItemViewModel> Items { get; set; }
 
         /// <summary>
+        /// The test binary file reader which loads tests from local folder
+        /// </summary>
+        public BinaryReader TestFileReader { get; private set; } = new BinaryReader(SaveableObjects.Test);
+
+        /// <summary>
         /// Indicates if there is any test selected
         /// </summary>
         public bool IsAnySelected { get; private set; }
@@ -102,7 +107,7 @@ namespace Testinator.Server.Core
         public void LoadItems()
         {
             // Load the list every test from bin files
-            var list = FileReaders.BinReader.ReadAllTests();
+            var list = TestFileReader.ReadAllTests();
 
             // Rewrite list to the collection
             Items = new ObservableCollection<TestListItemViewModel>();

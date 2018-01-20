@@ -15,6 +15,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public Test CurrentTest => IoCServer.TestHost.Test;
 
+        /// <summary>
+        /// The test binary file writer which handles tests saving/deleting from local folder
+        /// </summary>
+        public BinaryWriter TestFileWriter { get; private set; } = new BinaryWriter(SaveableObjects.Test);
+
         #endregion
 
         #region Commands
@@ -109,7 +114,7 @@ namespace Testinator.Server.Core
                 return;
 
             // Finally delete selected test
-            FileWriters.BinWriter.DeleteFile(CurrentTest);
+            TestFileWriter.DeleteFile(CurrentTest);
 
             // Update test list
             TestListViewModel.Instance.LoadItems();
