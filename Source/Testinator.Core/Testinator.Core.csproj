@@ -93,7 +93,6 @@
     <Compile Include="Files\Enums\Paths.cs" />
     <Compile Include="Files\Enums\SaveableObjects.cs" />
     <Compile Include="Files\Writers\BinaryWriter.cs" />
-    <Compile Include="Files\Writers\Base\FileWriterBase.cs" />
     <Compile Include="Files\Writers\LogsWriter.cs" />
     <Compile Include="Files\Writers\XmlWriter.cs" />
     <Compile Include="IoC\IoC.cs" />

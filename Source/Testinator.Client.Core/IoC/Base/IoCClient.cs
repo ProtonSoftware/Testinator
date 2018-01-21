@@ -34,7 +34,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// A shortcut to access the <see cref="FileWritersBase"/>
         /// </summary>
-        public static FileWriterBase File => IoCClient.Get<FileWriterBase>();
+        public static FileManagerBase File => IoCClient.Get<FileManagerBase>();
 
         /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>

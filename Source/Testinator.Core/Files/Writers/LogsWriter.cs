@@ -5,7 +5,7 @@ namespace Testinator.Core
     /// <summary>
     /// Handles writing logs to the file
     /// </summary>
-    public class LogsWriter : FileWriterBase
+    public class LogsWriter : FileManagerBase
     {
         /// <summary>
         /// Writes logs to the file

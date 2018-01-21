@@ -4,9 +4,9 @@ using System.IO;
 namespace Testinator.Core
 {
     /// <summary>
-    /// The file writer which writes in binary code
+    /// The file writer which writes data in binary code
     /// </summary>
-    public class BinaryWriter : FileWriterBase
+    public class BinaryWriter : FileManagerBase
     {
         #region Constructor
 
@@ -33,7 +33,7 @@ namespace Testinator.Core
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // Create test file name
-            var filename = BinaryReader.Tests.ContainsKey(test.ID) ? BinaryReader.Tests[test.ID] : CreateFinalFileName("Test");
+            var filename = BinaryReader.TestIDs.ContainsKey(test.ID) ? BinaryReader.TestIDs[test.ID] : CreateFinalFileName("Test");
 
             // Try to convert the test object to binary array
             if (!DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
@@ -44,7 +44,7 @@ namespace Testinator.Core
 
             // Reload the test list
             var binaryReader = new BinaryReader(SaveableObjects.Test);
-            binaryReader.ReadAllTests();
+            binaryReader.ReadFile<Test>();
         }
 
         /// <summary>
@@ -102,12 +102,14 @@ namespace Testinator.Core
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // If there is no test like passed one, don't delete anything
-            if (!BinaryReader.Tests.ContainsKey(test.ID))
+            if (!BinaryReader.TestIDs.ContainsKey(test.ID))
                 return;
 
             // Try to delete test by filename
-            var filename = BinaryReader.Tests[test.ID];
-            DeleteBinaryFileByName(filename);
+            var filename = BinaryReader.TestIDs[test.ID];
+            if (!DeleteBinaryFileByName(filename))
+                // If something went wrong, throw an error
+                throw new Exception("Cannot delete file!");
         }
 
         /// <summary>
@@ -126,7 +128,9 @@ namespace Testinator.Core
             
             // Try to delete results by filename
             var filename = BinaryReader.Results[result];
-            DeleteBinaryFileByName(filename);
+            if (!DeleteBinaryFileByName(filename))
+                // If something went wrong, throw an error
+                throw new Exception("Cannot delete file!");
         }
 
         #endregion
@@ -146,7 +150,7 @@ namespace Testinator.Core
             }
             catch
             {
-                // TODO: Error handling
+                // If failed to delete
                 return false;
             }
 

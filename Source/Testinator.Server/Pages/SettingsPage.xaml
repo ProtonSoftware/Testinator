@@ -15,6 +15,7 @@
             <TextBlock Text="Czy next question jest tego samego typu" />
             <TextBlock Text="Sciezka do logow" />
             <TextBlock Text="Wyswietlanie messageboxow checkbox" />
+            <CheckBox IsChecked="{Binding AreInformationMessageBoxesAllowed}" />
             <TextBlock Text="(Chyba ze zrobisz to w beginpage'u) Czy pozwalac na obejrzenie poprawnych u clienta" />
         </StackPanel>
         

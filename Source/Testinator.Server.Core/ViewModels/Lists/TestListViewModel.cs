@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Testinator.Core;
@@ -106,22 +107,38 @@ namespace Testinator.Server.Core
         /// </summary>
         public void LoadItems()
         {
-            // Load the list every test from bin files
-            var list = TestFileReader.ReadAllTests();
+            var list = new List<Test>();
+            try
+            {
+                // Try to load the list of every test from bin files
+                list = TestFileReader.ReadFile<Test>();
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd wczytywania",
+                    Message = "Nie udało się wczytać dostępnych testów." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to read tests from local folder, error message: " + ex.Message);
+            }
 
             // Rewrite list to the collection
             Items = new ObservableCollection<TestListItemViewModel>();
-            var i = 1;
-            list.ForEach((x) =>
+            var indexer = 1;
+            foreach(var test in list)
             {
                 Items.Add(new TestListItemViewModel()
                 {
-                    ID = i,
-                    Test = x,
+                    ID = indexer,
+                    Test = test,
                 });
-
-                i++;
-            });
+                indexer++;
+            }
         }
 
         #endregion

@@ -551,20 +551,39 @@ namespace Testinator.Client.Core
             }
             else
             {
-                // Write results to file
-                ResultFileWriter.WriteToFile(new ClientTestResults()
+                try
                 {
-                     Answers = UserAnswers,
-                     ClientModel = new ClientModelSerializable()
-                     {
-                         ClientName = IoCClient.Client.ClientName,
-                         ClientSurname = IoCClient.Client.ClientSurname,
-                         MachineName = IoCClient.Client.MachineName,
-                         Mark = UserMark,
-                         PointsScored = UserScore,
-                     },
-                     Test = CurrentTest,
-                });
+                    // Try to write the results to file
+                    ResultFileWriter.WriteToFile(new ClientTestResults()
+                    {
+                        Answers = UserAnswers,
+                        ClientModel = new ClientModelSerializable()
+                        {
+                            ClientName = IoCClient.Client.ClientName,
+                            ClientSurname = IoCClient.Client.ClientSurname,
+                            MachineName = IoCClient.Client.MachineName,
+                            Mark = UserMark,
+                            PointsScored = UserScore,
+                        },
+                        Test = CurrentTest,
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // If an error occured, show info to the user
+                    IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+                    {
+                        Title = "Błąd zapisu",
+                        Message = "Nie udało się zapisać ani wysłać wyników testu." +
+                                  "\nTreść błędu: " + ex.Message,
+                        OkText = "Ok"
+                    });
+
+                    IoCClient.Logger.Log("Unable to save the results, error message: " + ex.Message);
+
+                    // Don't show the next message
+                    return;
+                }
 
                 // Show a message box with info about it
                 IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel

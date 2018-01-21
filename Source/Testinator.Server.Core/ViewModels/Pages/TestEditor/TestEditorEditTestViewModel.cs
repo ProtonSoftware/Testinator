@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -113,8 +114,24 @@ namespace Testinator.Server.Core
             if (!vm.UserResponse)
                 return;
 
-            // Finally delete selected test
-            TestFileWriter.DeleteFile(CurrentTest);
+            try
+            {
+                // Finally try to delete selected test
+                TestFileWriter.DeleteFile(CurrentTest);
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd usuwania",
+                    Message = "Nie udało się usunąć tego testu." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to delete test from local folder, error message: " + ex.Message);
+            }
 
             // Update test list
             TestListViewModel.Instance.LoadItems();

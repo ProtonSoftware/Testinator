@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -60,8 +62,25 @@ namespace Testinator.Server.Core
         /// </summary>
         public void LoadItems()
         {
-            // Load the list every criteria from xml files
-            var list = CriteriaFileReader.ReadXmlGrading();
+            var list = new List<GradingPercentage>();
+            try
+            {
+                // Try to load the list of every criteria from xml files 
+                list = CriteriaFileReader.ReadFile<GradingPercentage>();
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd wczytywania",
+                    Message = "Nie udało się wczytać dostępnych kryteriów." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to read criteria from local folder, error message: " + ex.Message);
+            }
 
             // Rewrite list to the observable collection
             Items = new ObservableCollection<CriteriaListItemViewModel>();

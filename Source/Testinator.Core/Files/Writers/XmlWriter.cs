@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
 
 namespace Testinator.Core
@@ -6,7 +7,7 @@ namespace Testinator.Core
     /// <summary>
     /// The file writer which writes in xml files
     /// </summary>
-    public class XmlWriter : FileWriterBase
+    public class XmlWriter : FileManagerBase
     {
         #region Constructor
 
@@ -48,7 +49,9 @@ namespace Testinator.Core
             AddMarkXml(data.MarkF, "F", MarksNode, doc);
 
             // Finally save the file
-            WriteXmlDocumentFile(filename, doc);
+            if (!WriteXmlDocumentFile(filename, doc))
+                // If something went wrong, throw an error
+                throw new Exception("Cannot save criteria file!");
         }
 
         /// <summary>
@@ -66,7 +69,7 @@ namespace Testinator.Core
             var doc = new XmlDocument();
 
             // If file doesn't exists yet
-            if (/*!*/fileExists)
+            if (!fileExists)
             {             
                 // Add crucial informations at the top
                 var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -74,8 +77,9 @@ namespace Testinator.Core
             }
             else
             {
-                // TODO: Load current file state to the doc variable (then we can fix the if upside)
-                // XmlReader.LoadConfig() or something
+                // Load current file state to the doc variable
+                var xmlReader = new XmlReader(SaveableObjects.Config);
+                doc = xmlReader.LoadXmlFile("config.xml");
             }
 
             // Create property root
@@ -87,7 +91,9 @@ namespace Testinator.Core
             AppendNodeXml("PropertyValue", propertyValue.ToString(), rootNode, doc);
 
             // Finally save the file
-            WriteXmlDocumentFile("config", doc);
+            if (!WriteXmlDocumentFile("config", doc))
+                // If something went wrong, throw an error
+                throw new Exception("Cannot save config file!");
         }
 
         /// <summary>
@@ -103,7 +109,7 @@ namespace Testinator.Core
             }
             catch
             {
-                // TODO: Error handling
+                // If failed to delete
                 return false;
             }
 
@@ -127,7 +133,7 @@ namespace Testinator.Core
             }
             catch
             {
-                // TODO: error handling xml
+                // If failed to save
                 return false;
             }
 

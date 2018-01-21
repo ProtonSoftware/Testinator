@@ -50,7 +50,7 @@ namespace Testinator.Server
             }));
 
             // Bind a File Writer
-            IoCServer.Kernel.Bind<FileWriterBase>().ToConstant(new LogsWriter());
+            IoCServer.Kernel.Bind<FileManagerBase>().ToConstant(new LogsWriter());
 
             // Bind a UI Manager
             IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());

@@ -8,6 +8,15 @@ namespace Testinator.Core
     /// </summary>
     public class BinaryReader : FileManagerBase
     {
+        // TODO: Fix that, it shouldn't be there, not like this
+        #region Public Properties
+
+        public static Dictionary<int, string> TestIDs { get; set; } = new Dictionary<int, string>();
+
+        public static Dictionary<TestResults, string> Results { get; set; } = new Dictionary<TestResults, string>();
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -19,79 +28,59 @@ namespace Testinator.Core
         }
 
         #endregion
-
-        #region Public Methods
-
-        public static Dictionary<int, string> Tests { get; set; } = new Dictionary<int, string>();
-
-        public static Dictionary<TestResults, string> Results { get; set; } = new Dictionary<TestResults, string>();
         
-        /// <summary>
-        /// Gets all tests from the directory
-        /// </summary>
-        /// <returns>List of all available tests</returns>
-        public List<Test> ReadAllTests()
-        {
-            Tests = new Dictionary<int, string>();
+        #region File Reading
 
-            var tests = new List<Test>();
+        /// <summary>
+        /// Reads every files in the directory and creates <see cref="T"/> objects from them
+        /// </summary>
+        /// <typeparam name="T">The type of an object to get from files</typeparam>
+        /// <returns>List of T objects</returns>
+        public override List<T> ReadFile<T>()
+        {
+            // Reset the dictionaries
+            Results = new Dictionary<TestResults, string>();
+            TestIDs = new Dictionary<int, string>();
+
+            // Prepare the indexer which is needed for some object types
             var indexer = 0;
 
+            // Create the list we will return later
+            var results = new List<T>();
+
+            // For each file in the directory
             foreach (var file in GetFileNames())
             {
-                try
-                {
-                    if (Path.GetExtension(file) != ".dat")
-                        continue;
+                // Handle only binary files
+                if (Path.GetExtension(file) != ".dat")
+                    continue;
 
-                    var filecontent = GetObjectFromFile<Test>(file, true);
-                    if (filecontent != null)
-                    {
-                        filecontent.ID = indexer;
-                        Tests.Add(indexer, Path.GetFileNameWithoutExtension(file));
-                        tests.Add(filecontent);
+                // Convert file to T object
+                var filecontent = GetObjectFromFile<T>(file);
 
-                        indexer++;
-                    }
-                }
-                catch
+                // Based on object type...
+                if (filecontent is Test)
                 {
-                    // TODO: Error handling
+                    // Set the ID of the test
+                    (filecontent as Test).ID = indexer;
+
+                    // Add it to the dictionary
+                    TestIDs.Add(indexer, Path.GetFileNameWithoutExtension(file));
+
+                    // Update the indexer
+                    indexer++;
                 }
+                else if (filecontent is TestResults)
+                {
+                    // Just add the object to the Results dictionary
+                    Results.Add(filecontent as TestResults, Path.GetFileNameWithoutExtension(file));
+                }
+
+                // Add object to the list
+                results.Add(filecontent);
             }
-            return tests;
 
-        }
-
-        /// <summary>
-        /// Gets all of the results from the directory
-        /// </summary>
-        /// <returns>List of test results found on the machine</returns>
-        public List<TestResults> ReadAllResults()
-        {
-            Results = new Dictionary<TestResults, string>();
-            Tests = new Dictionary<int, string>();
-
-            var results = new List<TestResults>();
-            foreach (var file in GetFileNames())
-            {
-                try
-                {
-                    if (Path.GetExtension(file) != ".dat")
-                        continue;
-
-                    var filecontent = GetObjectFromFile<TestResults>(file);
-                    if (filecontent != null)
-                    {
-                        results.Add(filecontent);
-                        Results.Add(filecontent, Path.GetFileNameWithoutExtension(file));
-                    }
-                }
-                catch
-                {
-                    // TODO: Error handling
-                }
-            }
+            // Finally return the list
             return results;
         }
 

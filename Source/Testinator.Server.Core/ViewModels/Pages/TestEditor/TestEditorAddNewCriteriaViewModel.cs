@@ -248,15 +248,34 @@ namespace Testinator.Server.Core
             Criteria.UpdateMark(Marks.E, int.Parse(TopValueMarkE), int.Parse(BottomValueMarkE));
             Criteria.UpdateMark(Marks.F, int.Parse(TopValueMarkF), int.Parse(BottomValueMarkF));
 
-            // Save the grading
-            CriteriaFileWriter.WriteToFile(Name, Criteria);
-
-            // Check if we were editing existing one or not
-            if (EditingCriteriaMode)
+            try
             {
-                // If user has changed the name of the criteria, delete old one
-                if (Name != EditingCriteriaOldName)
-                    CriteriaFileWriter.DeleteXmlFileByName(EditingCriteriaOldName);
+                // Try to save the grading
+                CriteriaFileWriter.WriteToFile(Name, Criteria);
+
+                // Check if we were editing existing one or not
+                if (EditingCriteriaMode)
+                {
+                    // If user has changed the name of the criteria, try to delete old one
+                    if (Name != EditingCriteriaOldName)
+                        CriteriaFileWriter.DeleteXmlFileByName(EditingCriteriaOldName);
+                }
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd zapisu",
+                    Message = "Nie udało się zapisać tworzonych kryteriów." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to save/delete criteria file, error message: " + ex.Message);
+
+                // Don't do anything after the error is shown
+                return;
             }
 
             // Get out of editing mode
@@ -292,8 +311,27 @@ namespace Testinator.Server.Core
             if (!vm.UserResponse)
                 return;
 
-            // Delete this criteria by old name because the user may have changed it meanwhile
-            CriteriaFileWriter.DeleteXmlFileByName(EditingCriteriaOldName);
+            try
+            {
+                // Try to delete this criteria by old name because the user may have changed it meanwhile
+                CriteriaFileWriter.DeleteXmlFileByName(EditingCriteriaOldName);
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd usuwania",
+                    Message = "Nie udało się usunąć wybranych kryteriów." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to delete criteria file, error message: " + ex.Message);
+
+                // Don't do anything after the error is shown
+                return;
+            }
 
             // Reload items
             CriteriaListViewModel.Instance.LoadItems();
@@ -411,7 +449,6 @@ namespace Testinator.Server.Core
             // Search for the criteria with that name
             foreach (var criteria in CriteriaListViewModel.Instance.Items)
             {
-
                 // Check if name matches
                 if (criteria.Grading.Name == criteriaName)
                 {

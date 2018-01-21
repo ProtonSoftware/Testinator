@@ -9,31 +9,59 @@ namespace Testinator.Core
     /// </summary>
     public abstract class FileManagerBase
     {
-        #region Public Properties
+        #region Protected Properties
         
         /// <summary>
         /// The path the file manager will be handling
         /// </summary>
-        public string DefaultPath { get; set; }
+        protected string DefaultPath { get; set; }
 
         /// <summary>
         /// The type of object that file manager manages
         /// </summary>
-        public SaveableObjects ObjectType { get; set; }
+        protected SaveableObjects ObjectType { get; set; }
 
         /// <summary>
         /// Returns the folder name based on <see cref="ObjectType"/>
         /// </summary>
-        public string FolderNameBasedOnObjectType
+        protected string FolderNameBasedOnObjectType
         {
             get
             {
                 switch (ObjectType)
                 {
-                    case SaveableObjects.Config: return "Config\\";
-                    case SaveableObjects.Grading: return "Criteria\\";
-                    case SaveableObjects.Test: return "Tests\\";
-                    case SaveableObjects.Results: return "Results\\";
+                    case SaveableObjects.Config:
+                        {
+                            // Make sure the directory exists
+                            Directory.CreateDirectory(DefaultPath + "Config\\");
+
+                            // Then return its name
+                            return "Config\\";
+                        }
+                    case SaveableObjects.Grading:
+                        {
+                            // Make sure the directory exists
+                            Directory.CreateDirectory(DefaultPath + "Criteria\\");
+
+                            // Then return its name
+                            return "Criteria\\";
+                        }
+                    case SaveableObjects.Test:
+                        {
+                            // Make sure the directory exists
+                            Directory.CreateDirectory(DefaultPath + "Tests\\");
+
+                            // Then return its name
+                            return "Tests\\";
+                        }
+                    case SaveableObjects.Results:
+                        {
+                            // Make sure the directory exists
+                            Directory.CreateDirectory(DefaultPath + "Results\\");
+
+                            // Then return its name
+                            return "Results\\";
+                        }
 
                     default:
                         return string.Empty;
@@ -65,16 +93,84 @@ namespace Testinator.Core
                     DefaultPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Testinator\\";
                     break;
             }
-
-            Directory.CreateDirectory(DefaultPath + "Config\\");
-            Directory.CreateDirectory(DefaultPath + "Criteria\\");
-            Directory.CreateDirectory(DefaultPath + "Tests\\");
-            Directory.CreateDirectory(DefaultPath + "Results\\");
         }
 
         #endregion
 
+        #region File Writing
+
+        /// <summary>
+        /// Writes the <see cref="Test"/> to the file
+        /// </summary>
+        public virtual void WriteToFile(Test test) { }
+
+        /// <summary>
+        /// Writes the <see cref="GradingPercentage"/> to the file
+        /// </summary>
+        public virtual void WriteToFile(string filename, GradingPercentage grading) { }
+
+        /// <summary>
+        /// Writes logs to the file
+        /// </summary>
+        public virtual void WriteToFile(string text, string path, bool append = true) { }
+
+        /// <summary>
+        /// Writes <see cref="TestResults"/> to file
+        /// </summary>
+        public virtual void WriteToFile(TestResults tr) { }
+
+        /// <summary>
+        /// Writes <see cref="ClientTestResults"/> to file
+        /// </summary>
+        public virtual void WriteToFile(ClientTestResults ctr) { }
+
+        /// <summary>
+        /// Writes object's property info to file
+        /// </summary>
+        public virtual void WriteToFile(object property, bool fileExists = true) { }
+
+        #endregion
+
+        #region File Reading
+
+        /// <summary>
+        /// Reads every files in the directory and creates <see cref="T"/> objects from them
+        /// </summary>
+        /// <typeparam name="T">The type of an object to get from files</typeparam>
+        /// <returns>List of T objects</returns>
+        public virtual List<T> ReadFile<T>()
+            where T : class, new()
+        { return null; }
+
+        #endregion
+
+        #region File Deletion
+
+        /// <summary>
+        /// Deletes the <see cref="Test"/>
+        /// </summary>
+        public virtual void DeleteFile(Test test) { }
+
+        /// <summary>
+        /// Deletes the <see cref="TestResults"/>
+        /// </summary>
+        public virtual void DeleteFile(TestResults results) { }
+
+        #endregion
+
         #region Protected Helpers
+
+        /// <summary>
+        /// Replaces any / with \
+        /// </summary>
+        /// <param name="path">The path to normalize</param>
+        protected string NormalizePath(string path) => path?.Replace('/', '\\').Trim();
+
+        /// <summary>
+        /// Resolves any relative elements of the path to absolute
+        /// </summary>
+        /// <param name="path">The path to resolve</param>
+        protected string ResolvePath(string path) => Path.GetFullPath(path);
 
         /// <summary>
         /// Returns the list of names of every file in current directory

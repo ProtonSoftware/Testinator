@@ -837,9 +837,28 @@ namespace Testinator.Server.Core
 
             // Attach criteria to the test
             Test.Grading = PointsGrading;
+            
+            try
+            {
+                // Try to save the test to file
+                TestFileWriter.WriteToFile(Test);
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd zapisu",
+                    Message = "Nie udało się zapisać tworzonego testu." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
 
-            // Save the test to file
-            TestFileWriter.WriteToFile(Test);
+                IoCServer.Logger.Log("Unable to save the test, error message: " + ex.Message);
+
+                // Don't change the page
+                return;
+            }
 
             // Save this view model
             var viewModel = new TestEditorAddNewTestViewModel(Test);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -138,7 +139,26 @@ namespace Testinator.Server.Core
             if (vm.UserResponse == false)
                 return;
 
-            ResultFileWriter.DeleteFile(selectedItem);
+            try
+            {
+                // Try to delete the file
+                ResultFileWriter.DeleteFile(selectedItem);
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd usuwania",
+                    Message = "Nie udało się usunąć tego rezultatu." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to delete result from local folder, error message: " + ex.Message);
+            }
+
+            // Reload items
             ListViewModel.LoadItems();
 
             SetDefaults();

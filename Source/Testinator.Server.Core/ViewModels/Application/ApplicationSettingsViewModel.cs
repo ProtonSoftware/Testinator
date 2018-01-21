@@ -8,6 +8,30 @@ namespace Testinator.Server.Core
     /// </summary>
     public class ApplicationSettingsViewModel : BaseViewModel
     {
+        #region Private Properties
+
+        /// <summary>
+        /// Allows to get the property of this view model by simply calling its name
+        /// </summary>
+        /// <param name="propertyName">The name of the property to get/set</param>
+        private object this[string propertyName]
+        {
+            get => GetType().GetProperty(propertyName).GetValue(this, null);
+            set => GetType().GetProperty(propertyName).SetValue(this, value, null);
+        }
+
+        /// <summary>
+        /// The config xml file reader which handles config properties loading from local config file
+        /// </summary>
+        private XmlReader ConfigFileReader { get; set; } = new XmlReader(SaveableObjects.Config);
+
+        /// <summary>
+        /// The config xml file writer which handles config properties saving/deleting from local config file
+        /// </summary>
+        private XmlWriter ConfigFileWriter { get; set; } = new XmlWriter(SaveableObjects.Config);
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -19,8 +43,6 @@ namespace Testinator.Server.Core
         /// If false, prevent showing informational message boxes in this application
         /// </summary>
         public bool AreInformationMessageBoxesAllowed { get; set; } = true;
-
-        // Tutaj ustawienia jakie maja byc na page'u
 
         /// <summary>
         /// Indicates if next question after adding previous one in TestEditor
@@ -54,6 +76,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ReadDataFromConfig()
         {
+            // Check if config exists
             // TODO: Config file XmlReader
         }
 
@@ -62,9 +85,11 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SaveSettingsStateToFile(object sender, PropertyChangedEventArgs e)
         {
-            // TODO: Collect data and send it to the XmlWriter
+            // Catch the name of the property that changed
+            var propertyName = e.PropertyName;
 
-            // Jest zrobiony writetofile w xmlwriterze, tylko trzeba readera zrobic aby to w pelni dzialalo
+            // Send the property to the XmlWriter
+            ConfigFileWriter.WriteToFile(this[propertyName]);
         }
 
         #endregion

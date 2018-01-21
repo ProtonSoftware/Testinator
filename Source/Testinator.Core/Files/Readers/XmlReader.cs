@@ -22,52 +22,96 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Public Methods
+        #region File Reading
 
         /// <summary>
-        /// Gets all saved grading templates from the disc
+        /// Gets all saved objects of <see cref="T"/> type in current directory
         /// </summary>
-        /// <returns>All gradings that have beed read from the application folder</returns>
-        public List<GradingPercentage> ReadXmlGrading()
+        /// <typeparam name="T">The type of object to read</typeparam>
+        /// <returns>List of T objects</returns>
+        public override List<T> ReadFile<T>()
         {
-            // Create a grading list which we will return later
-            var gradings = new List<GradingPercentage>();
+            // Create a T list which we will return later
+            var resultList = new List<T>();
 
-            try
+            // For each file in the folder
+            foreach (var file in GetFileNames())
             {
-                // For each every grading file in the folder
-                foreach (var file in GetFileNames())
-                {
-                    // Catch only xml files
-                    if (Path.GetExtension(file) != ".xml")
-                        continue;
+                // Catch only xml files
+                if (Path.GetExtension(file) != ".xml")
+                    continue;
 
-                    // Add every grading converted from file to the list
-                    gradings.Add(GetGradingFromXml(file));
-                }
-            }
-            catch
-            {
-                // TODO: Error handling
-                return null;
+                // Add every T object converted from file to the list
+                resultList.Add(ConvertObjectFromXml<T>(file));
             }
 
             // Finally return the grading list
-            return gradings;
+            return resultList;
+        }
+
+        /// <summary>
+        /// Reads the Xml file and returns its content as <see cref="XmlDocument"/>
+        /// </summary>
+        /// <param name="filename">The file name</param>
+        /// <returns>XmlDocument filled with what's inside the file</returns>
+        public XmlDocument LoadXmlFile(string filename)
+        {
+            // Create new Xml document
+            var doc = new XmlDocument();
+
+            // Load data from specified file
+            doc.Load(new FileStream(filename, FileMode.Open, FileAccess.Read));
+
+            // Return the document
+            return doc;
         }
 
         #endregion
 
         #region Private Helpers
 
-        private GradingPercentage GetGradingFromXml(string file)
+        /// <summary>
+        /// Converts the file to <see cref="T"/> object
+        /// </summary>
+        /// <typeparam name="T">The type of object</typeparam>
+        /// <param name="file">The filename</param>
+        /// <returns>The converted T object</returns>
+        private T ConvertObjectFromXml<T>(string filename) 
+            where T : class, new()
         {
-            var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
-            var reader = new XmlTextReader(file);
+            // Get the type of T object
+            var objectType = typeof(T);
+            var objectToReturn = new T();
+
+            // Based on that...
+            if (objectType == typeof(GradingPercentage))
+                // Get the object by this type
+                objectToReturn = GetGradingFromXml(filename) as T;
+
+            // Example of future objects reading
+            /*else if (objectType == typeof(Something))
+                // Get the object by this type
+                objectToReturn = GetSomethingFromXml(filename) as T;*/
+
+            // Finally return the object
+            return objectToReturn;
+        }
+
+        /// <summary>
+        /// Converts to <see cref="GradingPercentage"/> object from specified file
+        /// </summary>
+        /// <param name="filename">The filename</param>
+        /// <returns>The <see cref="GradingPercentage"/> object converted from file</returns>
+        private GradingPercentage GetGradingFromXml(string filename)
+        {
+            // TODO: Optimize, comment and think of a better way of doing it
+            //       Extract some things from this to a generic method to allow different object types
+            var stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            var reader = new XmlTextReader(filename);
 
             var result = new GradingPercentage
             {
-                Name = Path.GetFileNameWithoutExtension(file),
+                Name = Path.GetFileNameWithoutExtension(filename),
                 IsMarkAIncluded = false,
             };
 

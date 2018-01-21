@@ -284,7 +284,7 @@ namespace Testinator.Network.Client
 
         #endregion
 
-        #region Constructors
+        #region Constructor
 
         /// <summary>
         /// Default constructor

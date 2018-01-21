@@ -11,15 +11,6 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestResultsListViewModel : BaseViewModel
     {
-        #region Private Members
-
-        /// <summary>
-        /// The test results this viewmodel is loaded with
-        /// </summary>
-        private List<TestResults> mResults = new List<TestResults>();
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -32,6 +23,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public BinaryReader ResultsFileReader { get; private set; } = new BinaryReader(SaveableObjects.Results);
 
+        /// <summary>
+        /// The list of test results
+        /// </summary>
+        public List<TestResults> ResultsList { get; private set; } = new List<TestResults>();
+
         #endregion
 
         #region Public Events
@@ -40,60 +36,6 @@ namespace Testinator.Server.Core
         /// Fired when an item is selected
         /// </summary>
         public event Action<TestResults> ItemSelected = (x) => { };
-
-        #endregion
-
-        #region Public Helpers
-
-        /// <summary>
-        /// Load the control with item read from the disk
-        /// </summary>
-        public void LoadItems()
-        {
-            mResults = ResultsFileReader.ReadAllResults();
-            Items = new ObservableCollection<TestResultsListItemViewModel>();
-
-            var indexer = 0;
-            foreach (var result in mResults)
-            {
-                Items.Add(new TestResultsListItemViewModel(result, indexer));
-                indexer++;
-            }
-        }
-
-        /// <summary>
-        /// Check if there is any item selected in the list
-        /// </summary>
-        /// <returns></returns>
-        public bool IsAnySelected()
-        {
-            foreach (var item in Items)
-            {
-                if (item.IsSelected)
-                    return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Check which item is currently selected
-        /// </summary>
-        /// <returns>Null if there isn't any item selected,
-        /// otherwise return the currently selected item</returns>
-        public TestResults SelectedItem()
-        {
-            foreach(var item in Items)
-            {
-                if (item.IsSelected)
-                {
-                    var idx = item.Index;
-                    return mResults[idx];
-                }
-            }
-
-            return null;
-        }
 
         #endregion
 
@@ -132,7 +74,79 @@ namespace Testinator.Server.Core
 
             // Select the item with that index
             SelectItem(index);
-            ItemSelected.Invoke(mResults[index]);
+            ItemSelected.Invoke(ResultsList[index]);
+        }
+
+        #endregion
+
+        #region Public Helpers
+
+        /// <summary>
+        /// Load the control with item read from the disk
+        /// </summary>
+        public void LoadItems()
+        {
+            try
+            {
+                // Try to load the list of every result from bin files
+                ResultsList = ResultsFileReader.ReadFile<TestResults>();
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd wczytywania",
+                    Message = "Nie udało się wczytać dostępnych rezultatów." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to read results from local folder, error message: " + ex.Message);
+            }
+
+            // Rewrite list to the collection
+            Items = new ObservableCollection<TestResultsListItemViewModel>();
+            var indexer = 0;
+            foreach (var result in ResultsList)
+            {
+                Items.Add(new TestResultsListItemViewModel(result, indexer));
+                indexer++;
+            }
+        }
+
+        /// <summary>
+        /// Checks if there is any item selected in the list
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAnySelected()
+        {
+            foreach (var item in Items)
+            {
+                if (item.IsSelected)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks which item is currently selected
+        /// </summary>
+        /// <returns>Null if there isn't any item selected,
+        /// otherwise return the currently selected item</returns>
+        public TestResults SelectedItem()
+        {
+            foreach (var item in Items)
+            {
+                if (item.IsSelected)
+                {
+                    var idx = item.Index;
+                    return ResultsList[idx];
+                }
+            }
+
+            return null;
         }
 
         #endregion
