@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -76,8 +77,20 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ReadDataFromConfig()
         {
-            // Check if config exists
-            // TODO: Config file XmlReader
+            // Check if config file exists
+            if (!ConfigFileReader.FileExists("config.xml"))
+                // If not, create brand-new one from current view model state
+                ConfigFileWriter.CreateViewModelFile(this);
+
+            // Get the list of every property saved in the config file
+            var propertyList = ConfigFileReader.LoadConfig();
+
+            // For each property...
+            foreach (var property in propertyList)
+            {
+                // Set saved value from config
+                this[property.Name] = property.Value;
+            }
         }
 
         /// <summary>
@@ -88,8 +101,16 @@ namespace Testinator.Server.Core
             // Catch the name of the property that changed
             var propertyName = e.PropertyName;
 
+            // Replicate the property
+            var property = new SettingsPropertyInfo
+            {
+                Name = propertyName,
+                Type = this[propertyName].GetType(),
+                Value = this[propertyName]
+            };
+
             // Send the property to the XmlWriter
-            ConfigFileWriter.WriteToFile(this[propertyName]);
+            ConfigFileWriter.WriteToFile(property);
         }
 
         #endregion

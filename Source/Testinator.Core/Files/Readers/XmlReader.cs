@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 
 namespace Testinator.Core
@@ -50,6 +51,18 @@ namespace Testinator.Core
         }
 
         /// <summary>
+        /// Reads the config file and returns the list of every property found
+        /// </summary>
+        /// <returns>List of every property in the config file</returns>
+        public List<SettingsPropertyInfo> LoadConfig()
+        {
+            // Check if config exists
+            var list = new List<SettingsPropertyInfo>();
+
+            return list;
+        }
+
+        /// <summary>
         /// Reads the Xml file and returns its content as <see cref="XmlDocument"/>
         /// </summary>
         /// <param name="filename">The file name</param>
@@ -60,11 +73,17 @@ namespace Testinator.Core
             var doc = new XmlDocument();
 
             // Load data from specified file
-            doc.Load(new FileStream(filename, FileMode.Open, FileAccess.Read));
+            doc.Load(DefaultPath + FolderNameBasedOnObjectType + filename + ".xml");
 
             // Return the document
             return doc;
         }
+
+        /// <summary>
+        /// Checks if file exists by it's name
+        /// </summary>
+        /// <param name="filename">The file name</param>
+        public bool FileExists(string filename) => File.Exists(DefaultPath + FolderNameBasedOnObjectType + filename);
 
         #endregion
 

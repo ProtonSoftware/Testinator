@@ -58,13 +58,8 @@ namespace Testinator.Core
         /// Saves the specified property information to the xml file
         /// </summary>
         /// <param name="property">The property itself</param>
-        public override void WriteToFile(object property, bool fileExists = true)
+        public override void WriteToFile(SettingsPropertyInfo property, bool fileExists = true)
         {
-            // Get informations about the property
-            var propertyName = nameof(property);
-            var propertyType = property.GetType();
-            var propertyValue = property; // TODO: Test if this works
-
             // Store Xml file
             var doc = new XmlDocument();
 
@@ -74,26 +69,43 @@ namespace Testinator.Core
                 // Add crucial informations at the top
                 var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
                 doc.AppendChild(docNode);
+
+                // Create config root node
+                var rootNode = doc.CreateElement("Config");
+                doc.AppendChild(rootNode);
             }
             else
             {
                 // Load current file state to the doc variable
                 var xmlReader = new XmlReader(SaveableObjects.Config);
-                doc = xmlReader.LoadXmlFile("config.xml");
+                doc = xmlReader.LoadXmlFile("config");
             }
+            
+            // Get the config node
+            var configNode = doc.DocumentElement;
 
-            // Create property root
-            var rootNode = doc.CreateElement(propertyName);
-            doc.AppendChild(rootNode);
+            // Create new property node inside
+            var propertyNode = doc.CreateElement("Property");
+            configNode.AppendChild(propertyNode);
 
-            // Put a property type and value inside
-            AppendNodeXml("PropertyType", propertyType.ToString(), rootNode, doc);
-            AppendNodeXml("PropertyValue", propertyValue.ToString(), rootNode, doc);
+            // Put a property infos inside of property node
+            AppendNodeXml("Name", property.Name, propertyNode, doc);
+            AppendNodeXml("Type", property.Type.ToString(), propertyNode, doc);
+            AppendNodeXml("Value", property.Value.ToString(), propertyNode, doc);
 
             // Finally save the file
             if (!WriteXmlDocumentFile("config", doc))
                 // If something went wrong, throw an error
                 throw new Exception("Cannot save config file!");
+        }
+
+        public void CreateViewModelFile(BaseViewModel vm)
+        {
+            var doc = new XmlDocument();
+            var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            WriteXmlDocumentFile("config", doc);
         }
 
         /// <summary>

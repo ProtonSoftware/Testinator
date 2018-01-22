@@ -127,7 +127,7 @@ namespace Testinator.Core
         /// <summary>
         /// Writes object's property info to file
         /// </summary>
-        public virtual void WriteToFile(object property, bool fileExists = true) { }
+        public virtual void WriteToFile(SettingsPropertyInfo property, bool fileExists = true) { }
 
         #endregion
 

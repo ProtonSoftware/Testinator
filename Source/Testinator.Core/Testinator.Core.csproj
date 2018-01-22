@@ -87,11 +87,12 @@
     <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\ResultBoxDialogViewModel.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
+    <Compile Include="Files\Models\SettingsPropertyInfo.cs" />
     <Compile Include="Files\Readers\BinaryReader.cs" />
     <Compile Include="Files\Readers\XmlReader.cs" />
     <Compile Include="Files\Base\FileManagerBase.cs" />
-    <Compile Include="Files\Enums\Paths.cs" />
-    <Compile Include="Files\Enums\SaveableObjects.cs" />
+    <Compile Include="Files\Models\Paths.cs" />
+    <Compile Include="Files\Models\SaveableObjects.cs" />
     <Compile Include="Files\Writers\BinaryWriter.cs" />
     <Compile Include="Files\Writers\LogsWriter.cs" />
     <Compile Include="Files\Writers\XmlWriter.cs" />
