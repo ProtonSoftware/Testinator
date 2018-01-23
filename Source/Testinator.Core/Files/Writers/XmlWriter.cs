@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 
 namespace Testinator.Core
@@ -80,13 +82,23 @@ namespace Testinator.Core
                 var xmlReader = new XmlReader(SaveableObjects.Config);
                 doc = xmlReader.LoadXmlFile("config");
             }
-            
-            // Get the config node
-            var configNode = doc.DocumentElement;
 
-            // Create new property node inside
+            // Get every property node in the file
+            var propertyNodeList = doc.GetElementsByTagName("Property");
+            foreach (XmlNode propertyXmlNode in propertyNodeList)
+                // Find if property with that name already exists
+                if (propertyXmlNode.FirstChild.InnerText == property.Name)
+                {
+                    // If yes, delete it to make a room for new value
+                    doc.DocumentElement.RemoveChild(propertyXmlNode);
+                    break;
+                }
+
+            // Create new property node
             var propertyNode = doc.CreateElement("Property");
-            configNode.AppendChild(propertyNode);
+
+            // Append it to config node tree
+            doc.DocumentElement.AppendChild(propertyNode);
 
             // Put a property infos inside of property node
             AppendNodeXml("Name", property.Name, propertyNode, doc);
@@ -99,13 +111,32 @@ namespace Testinator.Core
                 throw new Exception("Cannot save config file!");
         }
 
-        public void CreateViewModelFile(BaseViewModel vm)
+        /// <summary>
+        /// Writes every view model's property to the file
+        /// </summary>
+        /// <param name="vm">The view model with properties to save</param>
+        public override void WriteToFile(BaseViewModel vm)
         {
-            var doc = new XmlDocument();
-            var docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
+            // Get list of every property in the view model
+            var propertyList = vm.GetType().GetProperties();
 
-            WriteXmlDocumentFile("config", doc);
+            // Transfer them to SettingsPropertyInfo
+            var propertyInfoList = new List<SettingsPropertyInfo>();
+            foreach (var property in propertyList)
+                propertyInfoList.Add(new SettingsPropertyInfo
+                {
+                    Name = property.Name,
+                    Type = property.PropertyType,
+                    Value = property.GetValue(vm, null)
+                });
+
+            // First property creates the config file
+            WriteToFile(propertyInfoList[0], false);
+            propertyInfoList.Remove(propertyInfoList[0]);
+
+            // Append the rest properties
+            foreach (var property in propertyInfoList)
+                WriteToFile(property);
         }
 
         /// <summary>

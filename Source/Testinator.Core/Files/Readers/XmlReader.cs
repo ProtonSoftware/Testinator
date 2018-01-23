@@ -59,6 +59,8 @@ namespace Testinator.Core
             // Check if config exists
             var list = new List<SettingsPropertyInfo>();
 
+            // TODO: config loading :) last thing to do 
+
             return list;
         }
 
@@ -107,10 +109,10 @@ namespace Testinator.Core
                 // Get the object by this type
                 objectToReturn = GetGradingFromXml(filename) as T;
 
-            // Example of future objects reading
-            /*else if (objectType == typeof(Something))
+            /* // Example of future objects reading 
+            else if (objectType == typeof(Something))
                 // Get the object by this type
-                objectToReturn = GetSomethingFromXml(filename) as T;*/
+                objectToReturn = GetSomethingFromXml(filename) as T; */
 
             // Finally return the object
             return objectToReturn;
@@ -196,6 +198,7 @@ namespace Testinator.Core
                         break;
                 }
             }
+            stream.Close();
             return result;
         }
 

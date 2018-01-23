@@ -33,7 +33,7 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Public Properties
+        #region Public Properties // TODO: Set this in UI
 
         /// <summary>
         /// The path to the log file of this application
@@ -50,7 +50,7 @@ namespace Testinator.Server.Core
         /// should be the same Type as it was in this previous one
         /// If false - then next question is blank page and user can choose which Type he wants now
         /// </summary>
-        public bool IsNextQuestionTypeTheSame { get; set; } = true; // Set this in UI, for now - true 
+        public bool IsNextQuestionTypeTheSame { get; set; } = true; 
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace Testinator.Server.Core
             // Check if config file exists
             if (!ConfigFileReader.FileExists("config.xml"))
                 // If not, create brand-new one from current view model state
-                ConfigFileWriter.CreateViewModelFile(this);
+                ConfigFileWriter.WriteToFile(this);
 
             // Get the list of every property saved in the config file
             var propertyList = ConfigFileReader.LoadConfig();

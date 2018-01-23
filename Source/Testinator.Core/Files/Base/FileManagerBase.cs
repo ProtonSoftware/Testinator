@@ -129,6 +129,12 @@ namespace Testinator.Core
         /// </summary>
         public virtual void WriteToFile(SettingsPropertyInfo property, bool fileExists = true) { }
 
+        /// <summary>
+        /// Writes every view model's property to the file
+        /// </summary>
+        /// <param name="vm">The view model with properties to save</param>
+        public virtual void WriteToFile(BaseViewModel vm) { }
+
         #endregion
 
         #region File Reading
