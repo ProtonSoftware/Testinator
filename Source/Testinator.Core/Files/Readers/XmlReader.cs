@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Xml;
 
 namespace Testinator.Core
@@ -43,7 +42,7 @@ namespace Testinator.Core
                     continue;
 
                 // Add every T object converted from file to the list
-                resultList.Add(ConvertObjectFromXml<T>(file));
+                resultList.Add(ConvertObjectFromXml<T>(Path.GetFileNameWithoutExtension(file)));
             }
 
             // Finally return the grading list
@@ -56,11 +55,34 @@ namespace Testinator.Core
         /// <returns>List of every property in the config file</returns>
         public List<SettingsPropertyInfo> LoadConfig()
         {
-            // Check if config exists
+            // Create the list of properties in the file
             var list = new List<SettingsPropertyInfo>();
 
-            // TODO: config loading :) last thing to do 
+            // Get the list of property nodes
+            var propertyNodeList = GetNodeListByNameFromFile("config", "Property");
 
+            // Loop each node for property info
+            foreach (XmlNode node in propertyNodeList)
+            {
+                // Get property attributes
+                var xmlName = node.ChildNodes.Item(0).InnerText;
+                var xmlType = node.ChildNodes.Item(1).InnerText;
+                var xmlValue = node.ChildNodes.Item(2).InnerText;
+
+                // Cast the value to desired type
+                var propertyType = Type.GetType(xmlType);
+                var propertyValue = Convert.ChangeType(xmlValue, propertyType);
+
+                // Add new property to the list
+                list.Add(new SettingsPropertyInfo
+                {
+                    Name = xmlName,
+                    Type = propertyType,
+                    Value = propertyValue
+                });
+            }
+
+            // Finally return the list
             return list;
         }
 
@@ -119,86 +141,56 @@ namespace Testinator.Core
         }
 
         /// <summary>
+        /// Gets the list of every node with specified name from Xml file
+        /// </summary>
+        /// <param name="filename">The file name</param>
+        /// <param name="name">The name of every node which will be return</param>
+        /// <returns></returns>
+        private XmlNodeList GetNodeListByNameFromFile(string filename, string name)
+        {
+            // Load the XmlDocument from file name
+            var doc = new XmlDocument();
+            doc.Load(DefaultPath + FolderNameBasedOnObjectType + filename + ".xml");
+
+            // Return the list of every node with specified name
+            return doc.GetElementsByTagName(name);
+        }
+
+        /// <summary>
         /// Converts to <see cref="GradingPercentage"/> object from specified file
         /// </summary>
         /// <param name="filename">The filename</param>
         /// <returns>The <see cref="GradingPercentage"/> object converted from file</returns>
         private GradingPercentage GetGradingFromXml(string filename)
         {
-            // TODO: Optimize, comment and think of a better way of doing it
-            //       Extract some things from this to a generic method to allow different object types
-            var stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
-            var reader = new XmlTextReader(filename);
-
+            // Create result object to return at the end
             var result = new GradingPercentage
             {
+                // Set default values
                 Name = Path.GetFileNameWithoutExtension(filename),
                 IsMarkAIncluded = false,
             };
 
-            var InsideMarkNode = false;
-            var InsideValueNode = false;
-            var InsideTopLimitNode = false;
-            var InsideBottomLimitNode = false;
+            // Get the list of mark nodes
+            var markNodeList = GetNodeListByNameFromFile(filename, "Mark");
 
-            var bottomLimit = 0;
-            var topLimit = 0;
-            var Mark = Marks.A;
-
-            while (reader.Read())
+            // Loop each node for mark info
+            foreach (XmlNode node in markNodeList)
             {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        var name = reader.Name;
-                        if (name == "Mark")
-                            InsideMarkNode = true;
-                        else if (InsideMarkNode)
-                        {
-                            if (name == "Value")
-                                InsideValueNode = true;
-                            else if (name == "TopLimit")
-                                InsideTopLimitNode = true;
-                            else if (name == "BottomLimit")
-                                InsideBottomLimitNode = true;
-                        }
-                        else
-                        {
-                            InsideMarkNode = false;
-                            InsideValueNode = false;
-                            InsideTopLimitNode = false;
-                            InsideBottomLimitNode = false;
-                        }
-                        break;
+                // Get mark attributes
+                var mark = (Marks)Enum.Parse(typeof(Marks), node.ChildNodes.Item(0).InnerText);
+                var topLimit = int.Parse(node.ChildNodes.Item(1).InnerText);
+                var bottomLimit = int.Parse(node.ChildNodes.Item(2).InnerText);
 
-                    case XmlNodeType.Text:
-                        var value = reader.Value;
-                        if (InsideValueNode)
-                        {
-                            Mark = (Marks)Enum.Parse(typeof(Marks), value);
-                            if (Mark == Marks.A)
-                                result.IsMarkAIncluded = true;
-                            InsideValueNode = false;
-                        }
-                        else if (InsideBottomLimitNode)
-                        {
-                            bottomLimit = int.Parse(value);
-                            InsideBottomLimitNode = false;
-                        }
-                        else if (InsideTopLimitNode)
-                        {
-                            topLimit = int.Parse(value);
-                            InsideTopLimitNode = false;
-                        }
-                        break;
+                // Add them to result object
+                result.UpdateMark(mark, topLimit, bottomLimit);
 
-                    case XmlNodeType.EndElement:
-                        if (reader.Name == "Mark")
-                            result.UpdateMark(Mark, topLimit, bottomLimit);
-                        break;
-                }
+                // Check if mark A should be included
+                if (mark == Marks.A)
+                    result.IsMarkAIncluded = true;
             }
-            stream.Close();
+
+            // Finally return the result object
             return result;
         }
 

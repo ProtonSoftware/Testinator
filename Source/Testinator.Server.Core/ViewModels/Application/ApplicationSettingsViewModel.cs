@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using Testinator.Core;
 
@@ -77,19 +78,35 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ReadDataFromConfig()
         {
-            // Check if config file exists
-            if (!ConfigFileReader.FileExists("config.xml"))
-                // If not, create brand-new one from current view model state
-                ConfigFileWriter.WriteToFile(this);
+            try
+            { 
+                // Check if config file exists
+                if (!ConfigFileReader.FileExists("config.xml"))
+                    // If not, create brand-new one from current view model state
+                    ConfigFileWriter.WriteToFile(this);
 
-            // Get the list of every property saved in the config file
-            var propertyList = ConfigFileReader.LoadConfig();
+                // Get the list of every property saved in the config file
+                var propertyList = ConfigFileReader.LoadConfig();
 
-            // For each property...
-            foreach (var property in propertyList)
+                // For each property...
+                foreach (var property in propertyList)
+                {
+                    // Set saved value from config
+                    this[property.Name] = property.Value;
+                }
+            }
+            catch (Exception ex)
             {
-                // Set saved value from config
-                this[property.Name] = property.Value;
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd wczytywania",
+                    Message = "Nie udało się wczytać pliku konfiguracyjnego." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to read config from local folder, error message: " + ex.Message);
             }
         }
 
@@ -109,8 +126,24 @@ namespace Testinator.Server.Core
                 Value = this[propertyName]
             };
 
-            // Send the property to the XmlWriter
-            ConfigFileWriter.WriteToFile(property);
+            try
+            { 
+                // Send the property to the XmlWriter
+                ConfigFileWriter.WriteToFile(property);
+            }
+            catch (Exception ex)
+            {
+                // If an error occured, show info to the user
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd zapisu",
+                    Message = "Nie udało się zapisać nowej wartości do pliku konfiguracyjnego." +
+                              "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCServer.Logger.Log("Unable to write new property value to the config, error message: " + ex.Message);
+            }
         }
 
         #endregion

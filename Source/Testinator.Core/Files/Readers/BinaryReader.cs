@@ -55,12 +55,15 @@ namespace Testinator.Core
                 if (Path.GetExtension(file) != ".dat")
                     continue;
 
-                // Convert file to T object
-                var filecontent = GetObjectFromFile<T>(file);
+                // Get the object type
+                var filecontent = new T();
 
                 // Based on object type...
                 if (filecontent is Test)
                 {
+                    // Convert file to T object
+                    filecontent = GetObjectFromFile<T>(file, true);
+
                     // Set the ID of the test
                     (filecontent as Test).ID = indexer;
 
@@ -72,9 +75,15 @@ namespace Testinator.Core
                 }
                 else if (filecontent is TestResults)
                 {
-                    // Just add the object to the Results dictionary
+                    // Convert file to T object
+                    filecontent = GetObjectFromFile<T>(file);
+
+                    // Add the object to the Results dictionary
                     Results.Add(filecontent as TestResults, Path.GetFileNameWithoutExtension(file));
                 }
+                else
+                    // If no type found, just try to get the object as it is
+                    filecontent = GetObjectFromFile<T>(file);
 
                 // Add object to the list
                 results.Add(filecontent);

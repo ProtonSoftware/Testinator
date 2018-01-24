@@ -37,14 +37,15 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Public Methods
+        #region Public Helpers
 
+        // TODO: Comment this
         public GradingPoints ToPoints(int maxPoints)
         {
             var result = new GradingPoints();
 
-            int top = 0;
-            int bottom = 0;
+            var top = 0;
+            var bottom = 0;
 
             if (IsMarkAIncluded)
             {
@@ -91,10 +92,10 @@ namespace Testinator.Core
 
         #region Private Helpers
 
-        private static int PercentToPoint(int percent, int maxPoint)
-        {
-            return (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
-        }
+        /// <summary>
+        /// Converts the percentage value to the points value
+        /// </summary>
+        private int PercentToPoint(int percent, int maxPoint) => (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
 
         #endregion
     }
