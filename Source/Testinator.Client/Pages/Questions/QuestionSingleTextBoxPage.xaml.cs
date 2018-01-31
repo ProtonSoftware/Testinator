@@ -1,4 +1,5 @@
-﻿using Testinator.Client.Core;
+﻿using Testinator.AnimationFramework;
+using Testinator.Client.Core;
 using Testinator.UICore;
 
 namespace Testinator.Client

@@ -6,6 +6,7 @@
                  xmlns:local="clr-namespace:Testinator.Client"
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d">
     
     <Grid Background="{StaticResource WhiteLightBrush}">
@@ -16,7 +17,7 @@
                 Background="{StaticResource WhiteDarkBrush}"
                 CornerRadius="3"
                 Padding="10"
-                local:AnimateWidthProperty.Value="{Binding IsSettingsMenuOpened}">
+                Animations:AnimateWidthProperty.Value="{Binding IsSettingsMenuOpened}">
             
             <Grid>
                 
@@ -52,7 +53,7 @@
                         Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
 
                 <StackPanel Grid.Row="1"
-                            local:AnimateSlideInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
+                            Animations:AnimateSlideInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
                             Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
                     
                     <TextBlock Text="IP"

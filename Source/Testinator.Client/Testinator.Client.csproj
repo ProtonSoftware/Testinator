@@ -72,7 +72,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AttachedProperties\AnimationProperties.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
     <Compile Include="AttachedProperties\TextEntryWidthMatcherProperty.cs" />
     <Compile Include="Controls\Input\TextEntryControl.xaml.cs">
@@ -250,6 +249,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Minorsonek.AnimationFramework\Testinator.AnimationFramework.csproj">
+      <Project>{2e0e2554-da07-45a6-9647-8f2907851472}</Project>
+      <Name>Testinator.AnimationFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Testinator.Client.Core\Testinator.Client.Core.csproj">
       <Project>{72edaab3-63a8-46a2-8426-fb26d379ae67}</Project>
       <Name>Testinator.Client.Core</Name>

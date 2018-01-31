@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using Testinator.UICore;
 
-namespace Testinator.Server
+namespace Testinator.AnimationFramework
 {
     /// <summary>
     /// A base class to run any animation method when a boolean is set to true
@@ -86,40 +85,6 @@ namespace Testinator.Server
     }
 
     /// <summary>
-    /// Handles the side menu expanding/hiding animation
-    /// </summary>
-    public class AnimateSideMenuWidthProperty : AnimateBaseProperty<AnimateSideMenuWidthProperty>
-    {
-        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
-        {
-            if (value)
-                // Animate in
-                await element.WidthAnimationAsync(200, 55, firstLoad ? 0 : 0.3f);
-            else
-                // Animate out
-                await element.WidthAnimationAsync(55, 200, firstLoad ? 0 : 0.3f);
-        }
-    }
-
-    /// <summary>
-    /// Animates a framework element fading in on show
-    /// and fading out on hide
-    /// </summary>
-    public class AnimateFadeInProperty : AnimateBaseProperty<AnimateFadeInProperty>
-    {
-        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
-        {
-            if (value)
-                // Animate in
-                await element.FadeInAsync(firstLoad, firstLoad ? 0 : 0.3f);
-            else
-                // Animate out
-                await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
-        }
-    }
-
-
-    /// <summary>
     /// Animates a framework element sliding it in from the left on show
     /// and sliding out to the left on hide
     /// </summary>
@@ -179,22 +144,20 @@ namespace Testinator.Server
         {
             if (value)
                 // Animate in
-                await element.WidthAnimationAsync(200, 55, firstLoad ? 0 : 0.1f);
+                await element.WidthAnimationAsync(160, 75, firstLoad ? 0 : 0.1f);
             else
                 // Animate out
-                await element.WidthAnimationAsync(55, 200, firstLoad ? 0 : 0.1f);
+                await element.WidthAnimationAsync(75, 160, firstLoad ? 0 : 0.1f);                
         }
     }
-
 
     /// <summary>
     /// Animates a framework element fading in on show
     /// and fading out on hide
-    /// Skips the "first load" mechanic
     /// </summary>
-    public class AnimateFadeInWithoutFirstLoadProperty : AnimateBaseProperty<AnimateFadeInWithoutFirstLoadProperty>
+    public class AnimateFadeInProperty : AnimateBaseProperty<AnimateFadeInProperty>
     {
-        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad = true)
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
         {
             if (value)
                 // Animate in
@@ -203,10 +166,37 @@ namespace Testinator.Server
                 // Animate out
                 await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
         }
+    }
 
-        public override void OnValueUpdated(DependencyObject sender, object value)
+    /// <summary>
+    /// Handles the side menu expanding/hiding animation
+    /// </summary>
+    public class AnimateSideMenuWidthProperty : AnimateBaseProperty<AnimateSideMenuWidthProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
         {
-            DoAnimation(sender as FrameworkElement, (bool)value);
+            if (value)
+                // Animate in
+                await element.WidthAnimationAsync(200, 55, firstLoad ? 0 : 0.3f);
+            else
+                // Animate out
+                await element.WidthAnimationAsync(55, 200, firstLoad ? 0 : 0.3f);
+        }
+    }
+
+    /// <summary>
+    /// Animates the width of an element
+    /// </summary>
+    public class AnimateWidthHighProperty : AnimateBaseProperty<AnimateWidthHighProperty>
+    {
+        protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
+        {
+            if (value)
+                // Animate in
+                await element.WidthAnimationAsync(200, 55, firstLoad ? 0 : 0.1f);
+            else
+                // Animate out
+                await element.WidthAnimationAsync(55, 200, firstLoad ? 0 : 0.1f);
         }
     }
 }

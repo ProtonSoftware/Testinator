@@ -6,6 +6,7 @@
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
+                 xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d"
                  d:DesignHeight="720"
                  d:DesignWidth="512">
@@ -35,12 +36,12 @@
             <TextBlock Text="Zero połączonych użytkowników!"
                        Foreground="Red"
                        Style="{StaticResource QuestionTextBlockStyle}"
-                       local:AnimateSlideInFromTopProperty.Value="{Binding NotEnoughClients}"
+                       Animations:AnimateSlideInFromTopProperty.Value="{Binding NotEnoughClients}"
                        HorizontalAlignment="Center"/>
             <TextBlock Text="Nie wybrano żadnego testu!"
                        Foreground="Red"
                        Style="{StaticResource QuestionTextBlockStyle}"
-                       local:AnimateSlideInFromTopProperty.Value="{Binding TestNotSelected}"
+                       Animations:AnimateSlideInFromTopProperty.Value="{Binding TestNotSelected}"
                        HorizontalAlignment="Center"/>
         </StackPanel>
 

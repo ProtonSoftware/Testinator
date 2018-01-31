@@ -1,6 +1,6 @@
-﻿using Testinator.Client.Core;
+﻿using Testinator.AnimationFramework;
+using Testinator.Client.Core;
 using Testinator.UICore;
-using System.Windows;
 
 namespace Testinator.Client
 {

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace Testinator.UICore
+namespace Testinator.AnimationFramework
 {
     /// <summary>
     /// Animation helpers for <see cref="StoryBoard"/>
@@ -307,7 +307,6 @@ namespace Testinator.UICore
         }
 
         #endregion
-
 
         /// <summary>
         /// Adds a marquee scrolling right to left animation to the storyboard

@@ -51,11 +51,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animations\AnimationSlideInDirection.cs" />
-    <Compile Include="Animations\FrameworkElementAnimations.cs" />
-    <Compile Include="Animations\PageAnimation.cs" />
-    <Compile Include="Animations\PageAnimationHelpers.cs" />
-    <Compile Include="Animations\StoryboardHelpers.cs" />
     <Compile Include="Base\BaseAttachedProperty.cs" />
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Localization\LocalizationResource.Designer.cs">
@@ -137,6 +132,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Minorsonek.AnimationFramework\Testinator.AnimationFramework.csproj">
+      <Project>{2e0e2554-da07-45a6-9647-8f2907851472}</Project>
+      <Name>Testinator.AnimationFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Testinator.Client.Core\Testinator.Client.Core.csproj">
       <Project>{72EDAAB3-63A8-46A2-8426-FB26D379AE67}</Project>
       <Name>Testinator.Client.Core</Name>

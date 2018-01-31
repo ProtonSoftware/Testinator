@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace Testinator.UICore
+namespace Testinator.AnimationFramework
 {
     /// <summary>
     /// Helpers to animate framework elements in specific ways

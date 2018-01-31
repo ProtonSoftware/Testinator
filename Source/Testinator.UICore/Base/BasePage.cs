@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Testinator.AnimationFramework;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;

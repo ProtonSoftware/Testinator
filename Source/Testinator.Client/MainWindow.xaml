@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testinator.Client"
         xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+        xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -123,7 +124,7 @@
         <!-- Timer -->
         <Border Grid.Row="0" 
                 Panel.ZIndex="100"
-                local:AnimateSlideInFromTopProperty.Value="{Binding TestHost.IsTestInProgress,
+                Animations:AnimateSlideInFromTopProperty.Value="{Binding TestHost.IsTestInProgress,
                                                                     Source={x:Static local:ViewModelLocator.Instance}}"
                 BorderThickness="1 0 0 2"
                 BorderBrush="Black"
@@ -147,7 +148,7 @@
         <!-- Attempting to reconnect -->
         <Border Grid.Row="0" 
                 Panel.ZIndex="100"
-                local:AnimateSlideInFromTopProperty.Value="{Binding ApplicationViewModel.Network.AttemptingToReconnect,
+                Animations:AnimateSlideInFromTopProperty.Value="{Binding ApplicationViewModel.Network.AttemptingToReconnect,
                                                                     Source={x:Static local:ViewModelLocator.Instance}}"
                 BorderThickness="1"
                 BorderBrush="Black"

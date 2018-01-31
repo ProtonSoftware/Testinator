@@ -1,4 +1,4 @@
-﻿namespace Testinator.UICore
+﻿namespace Testinator.AnimationFramework
 {
     /// <summary>
     /// Every possible page animation as an enum

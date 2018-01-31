@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
              mc:Ignorable="d">
 
     <Border Width="200"
-            local:AnimateSideMenuWidthProperty.Value="{Binding IsTestMenuExpanded}">
+            Animations:AnimateSideMenuWidthProperty.Value="{Binding IsTestMenuExpanded}">
         <Grid>
             
             <Grid.RowDefinitions>

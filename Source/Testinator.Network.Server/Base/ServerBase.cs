@@ -51,6 +51,195 @@ namespace Testinator.Network.Server
 
         #endregion
 
+        #region Public Properties
+
+        /// <summary>
+        /// Indicates if the server is currently running
+        /// </summary>
+        public bool IsRunning => mIsRunning;
+
+        /// <summary>
+        /// Gets and sets server buffer size
+        /// NOTE: If server is running buffer size change will NOT be saved
+        /// </summary>
+        public int BufferSize
+        {
+            get => mBufferSize;
+            set
+            {
+                if (!IsRunning)
+                {
+                    mBufferSize = value;
+                    mReciverBuffer = new byte[BufferSize];
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets server ip
+        /// NOTE: If server is running ip change will NOT be saved
+        /// </summary>
+        public IPAddress IPAddress
+        {
+            get => mIPAddress;
+            set
+            {
+                if (!IsRunning)
+                    mIPAddress = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets server ip
+        /// NOTE: If server is running ip change will NOT be saved
+        /// If ip is incorrect no changed will be made
+        /// </summary>
+        public string Ip
+        {
+            get => IPAddress.ToString();
+            set
+            {
+                try
+                {
+                    IPAddress = IPAddress.Parse(value);
+                }
+                catch { }
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets server port
+        /// NOTE: If server is running port change will NOT be saved
+        /// </summary>
+        public int Port
+        {
+            get => mPort;
+            set
+            {
+                if (!IsRunning)
+                    mPort = value;
+            }
+        }
+
+        /// <summary>
+        /// Number of clients curently connected
+        /// </summary>
+        public int ConnectedClientCount => mClients.Count;
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// The event that is fired when any data has been recived from a client
+        /// </summary>
+        public event Action<ClientModel, DataPackage> OnDataRecived = (sender, data) => { };
+
+        /// <summary>
+        /// The event that is fired when a new client has connected
+        /// </summary>
+        public event Action<ClientModel> OnClientConnected = (sender) => { };
+
+        /// <summary>
+        /// The event that is fired when a client has disconnected
+        /// </summary>
+        public event Action<ClientModel> OnClientDisconnected = (sender) => { };
+
+        /// <summary>
+        /// The event that is fired when a client's data had beed updated
+        /// </summary>
+        public event Action<ClientModel, ClientModel> OnClientDataUpdated = (oldmodel, newModel) => { };
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ServerBase()
+        {
+            // Create default values
+            BufferSize = 32768;
+            Port = 3333;
+            IPAddress = NetworkHelpers.GetLocalIPAddress();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Starts the server
+        /// </summary>
+        public void Start()
+        {
+            if (mIsRunning)
+                return;
+            try
+            {
+                mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                mServerSocket.Bind(new IPEndPoint(IPAddress, Port));
+                mServerSocket.Listen(0);
+                mServerSocket.BeginAccept(AcceptCallback, null);
+                mIsRunning = true;
+            }
+            catch
+            {
+                mIsRunning = false;
+                // TODO: error handling
+            }
+        }
+
+        /// <summary>
+        /// Stops the server
+        /// </summary>
+        public void Stop()
+        {
+            if (!mIsRunning)
+                return;
+
+            // Create a package that contains disconnect info 
+            // Sent to the clients
+            var data = new DataPackage(PackageType.DisconnectRequest, null);
+
+            // Close all connections
+            foreach (var item in mClients.Keys.ToList())
+            {
+                item.SendPackage(data);
+                item.Shutdown(SocketShutdown.Both);
+                item.Close();
+                mClients.Remove(item);
+            }
+
+            mServerSocket.Close();
+
+            mIsRunning = false;
+        }
+
+        /// <summary>
+        /// Sends data to the client 
+        /// </summary>
+        /// <param name="target">Target client</param>
+        /// <param name="data">Data to be sent</param>
+        public void SendData(ClientModel target, DataPackage data)
+        {
+            var targetSocket = mClients.FirstOrDefault(x => x.Value == target).Key;
+
+            // It target does not exist return
+            if (targetSocket == null)
+                return;
+
+            try
+            {
+                targetSocket.SendPackage(data);
+            }
+            catch { }
+            // TODO: error handling 
+        }
+
+        #endregion
+
         #region Private Helpers 
 
         /// <summary>
@@ -62,7 +251,7 @@ namespace Testinator.Network.Server
         {
             return mClients[client] != null;
         }
-        
+
         /// <summary>
         /// Updates client model associated with the given socket
         /// </summary>
@@ -97,10 +286,6 @@ namespace Testinator.Network.Server
 
             return true;
         }
-
-        #endregion
-
-        #region Private Methods
 
         /// <summary>
         /// Gets called when there is a client to be accepted
@@ -240,195 +425,6 @@ namespace Testinator.Network.Server
 
             // Continue receiving
             senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Indicates if the server is currently running
-        /// </summary>
-        public bool IsRunning => mIsRunning;
-
-        /// <summary>
-        /// Gets and sets server buffer size
-        /// NOTE: If server is running buffer size change will NOT be saved
-        /// </summary>
-        public int BufferSize
-        {
-            get => mBufferSize;
-            set
-            {
-                if (!IsRunning)
-                {
-                    mBufferSize = value;
-                    mReciverBuffer = new byte[BufferSize];
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets and sets server ip
-        /// NOTE: If server is running ip change will NOT be saved
-        /// </summary>
-        public IPAddress IPAddress
-        {
-            get => mIPAddress;
-            set
-            {
-                if (!IsRunning)
-                    mIPAddress = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets and sets server ip
-        /// NOTE: If server is running ip change will NOT be saved
-        /// If ip is incorrect no changed will be made
-        /// </summary>
-        public string Ip
-        {
-            get => IPAddress.ToString();
-            set
-            {
-                try
-                {
-                    IPAddress = IPAddress.Parse(value);
-                }
-                catch { }
-            }
-        }
-
-        /// <summary>
-        /// Gets and sets server port
-        /// NOTE: If server is running port change will NOT be saved
-        /// </summary>
-        public int Port
-        {
-            get => mPort;
-            set
-            {
-                if (!IsRunning)
-                    mPort = value;
-            }
-        }
-
-        /// <summary>
-        /// Number of clients curently connected
-        /// </summary>
-        public int ConnectedClientCount => mClients.Count;
-
-        #endregion
-
-        #region Public Events
-
-        /// <summary>
-        /// The event that is fired when any data has been recived from a client
-        /// </summary>
-        public event Action<ClientModel, DataPackage> OnDataRecived = (sender, data) => { };
-
-        /// <summary>
-        /// The event that is fired when a new client has connected
-        /// </summary>
-        public event Action<ClientModel> OnClientConnected = (sender) => { };
-
-        /// <summary>
-        /// The event that is fired when a client has disconnected
-        /// </summary>
-        public event Action<ClientModel> OnClientDisconnected = (sender) => { };
-
-        /// <summary>
-        /// The event that is fired when a client's data had beed updated
-        /// </summary>
-        public event Action<ClientModel, ClientModel> OnClientDataUpdated = (oldmodel, newModel) => { };
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Starts the server
-        /// </summary>
-        public void Start()
-        {
-            if (mIsRunning)
-                return;
-            try
-            {
-                mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                mServerSocket.Bind(new IPEndPoint(IPAddress, Port));
-                mServerSocket.Listen(0);
-                mServerSocket.BeginAccept(AcceptCallback, null);
-                mIsRunning = true;
-            }
-            catch
-            {
-                mIsRunning = false;
-                // TODO: error handling
-            }
-        }
-
-        /// <summary>
-        /// Stops the server
-        /// </summary>
-        public void Stop()
-        {
-            if (!mIsRunning)
-                return;
-
-            // Create a package that contains disconnect info 
-            // Sent to the clients
-            var data = new DataPackage(PackageType.DisconnectRequest, null);
-
-            // Close all connections
-            foreach (var item in mClients.Keys.ToList())
-            {
-                item.SendPackage(data);
-                item.Shutdown(SocketShutdown.Both);
-                item.Close();
-                mClients.Remove(item);
-            }
-
-            mServerSocket.Close();
-
-            mIsRunning = false;
-        }
-
-        /// <summary>
-        /// Sends data to the client 
-        /// </summary>
-        /// <param name="target">Target client</param>
-        /// <param name="data">Data to be sent</param>
-        public void SendData(ClientModel target, DataPackage data)
-        {
-            var targetSocket = mClients.FirstOrDefault(x => x.Value == target).Key;
-
-            // It target does not exist return
-            if (targetSocket == null)
-                return;
-
-            try
-            {
-                targetSocket.SendPackage(data);
-            }
-            catch { }
-            // TODO: error handling 
-        }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ServerBase()
-        {
-            // Create default values
-            BufferSize = 32768;
-            Port = 3333;
-            IPAddress = NetworkHelpers.GetLocalIPAddress();
         }
 
         #endregion

@@ -16,7 +16,7 @@ namespace Testinator.Network.Server
         public static void SendPackage(this Socket target, DataPackage data)
         {
             // If not possible to convert object return
-            if (!DataPackageDescriptor.TryConvertToBin(out byte[] sendBuffor, data))
+            if (!DataPackageDescriptor.TryConvertToBin(out var sendBuffor, data))
                 return;
 
             target.Send(sendBuffor, 0, sendBuffor.Length, SocketFlags.None);

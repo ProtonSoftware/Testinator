@@ -1,6 +1,6 @@
-﻿using Testinator.Client.Core;
+﻿using Testinator.AnimationFramework;
+using Testinator.Client.Core;
 using Testinator.UICore;
-using System.Windows;
 
 namespace Testinator.Client
 {
@@ -28,7 +28,7 @@ namespace Testinator.Client
             InitializeComponent();
 
             // Set the default page load/unload animation
-            //PageLoadAnimation = PageAnimation.SlideAndFadeInFromRight;
+            PageLoadAnimation = PageAnimation.SlideAndFadeInFromRight;
             PageUnloadAnimation = PageAnimation.SlideAndFadeOutToLeft;
         }
 

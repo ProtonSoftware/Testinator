@@ -1,6 +1,7 @@
 ﻿using Testinator.Client.Core;
 using Testinator.UICore;
 using System.Windows;
+using Testinator.AnimationFramework;
 
 namespace Testinator.Client
 {
