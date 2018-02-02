@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.UICore", "Testin
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Testinator.Server.Installer", "Testinator.Server.Installer\Testinator.Server.Installer.wixproj", "{6D071206-3DC3-4547-AC08-43345E3BF786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.AnimationFramework", "Minorsonek.AnimationFramework\Testinator.AnimationFramework.csproj", "{2E0E2554-DA07-45A6-9647-8F2907851472}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testinator.AnimationFramework", "Testinator.AnimationFramework\Testinator.AnimationFramework.csproj", "{2E0E2554-DA07-45A6-9647-8F2907851472}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

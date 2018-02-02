@@ -207,6 +207,7 @@ namespace Testinator.AnimationFramework
                     sb.AddSlideFromBottom(seconds, size == 0 ? element.ActualHeight : size, keepMargin: keepMargin);
                     break;
             }
+
             // Add fade in animation
             sb.AddFadeIn(seconds);
 

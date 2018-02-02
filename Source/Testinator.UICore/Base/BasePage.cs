@@ -1,8 +1,7 @@
-﻿using Testinator.AnimationFramework;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using Testinator.AnimationFramework;
 using Testinator.Core;
 
 namespace Testinator.UICore
@@ -26,12 +25,12 @@ namespace Testinator.UICore
         /// <summary>
         /// The animation to play when the page is first loaded
         /// </summary>
-        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideFromLeft;
+        public ElementAnimation PageLoadAnimation { get; set; } = ElementAnimation.SlideFromLeft;
 
         /// <summary>
         /// The animation to play when the page is unloaded
         /// </summary>
-        public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.None;
+        public ElementAnimation PageUnloadAnimation { get; set; } = ElementAnimation.None;
 
         /// <summary>
         /// The time any slide animation takes to complete
@@ -81,7 +80,7 @@ namespace Testinator.UICore
                 return;
 
             // If we are animating in, hide to begin with
-            if (PageLoadAnimation != PageAnimation.None)
+            if (PageLoadAnimation != ElementAnimation.None)
                 Visibility = Visibility.Collapsed;
 
             // Listen out for the page loading
@@ -90,72 +89,23 @@ namespace Testinator.UICore
 
         #endregion
 
-        #region Animation Load / Unload
+        #region Animations
 
         /// <summary>
         /// Once the page is loaded, perform any required animation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void BasePage_LoadedAsync(object sender, System.Windows.RoutedEventArgs e)
+        private async void BasePage_LoadedAsync(object sender, RoutedEventArgs e)
         {
             // If we are setup to animate out on load
             if (ShouldAnimateOut)
                 // Animate out the page
-                await AnimateOutAsync();
+                await this.AnimateOutAsync(PageUnloadAnimation, SlideSeconds);
             // Otherwise...
             else
                 // Animate the page in
-                await AnimateInAsync();
-        }
-
-        /// <summary>
-        /// Animates the page in
-        /// </summary>
-        /// <returns></returns>
-        public async Task AnimateInAsync()
-        {
-            // Make sure we have something to do
-            if (PageLoadAnimation == PageAnimation.None)
-                return;
-
-            switch (PageLoadAnimation)
-            {
-                case PageAnimation.SlideAndFadeInFromRight:
-
-                    // Start the animation
-                    await this.SlideAndFadeInAsync(AnimationSlideInDirection.Right, false, SlideSeconds, size: (int)Application.Current.MainWindow.Width);
-
-                    break;
-
-                case PageAnimation.SlideFromLeft:
-
-                    // Start the animation
-                    await this.SlideInAsync(AnimationSlideInDirection.Left, false, SlideSeconds, size: (int)Application.Current.MainWindow.Width);
-
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Animates the page out
-        /// </summary>
-        /// <returns></returns>
-        public async Task AnimateOutAsync()
-        {
-            // Make sure we have something to do
-            if (PageUnloadAnimation == PageAnimation.None)
-                return;
-
-            switch (PageUnloadAnimation)
-            {
-                case PageAnimation.SlideAndFadeOutToLeft:
-
-                    // Start the animation
-                    await this.SlideAndFadeOutAsync(AnimationSlideInDirection.Left, SlideSeconds);
-
-                    break;
-            }
+                await this.AnimateInAsync(PageLoadAnimation, SlideSeconds);
         }
 
         #endregion

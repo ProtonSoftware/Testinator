@@ -48,13 +48,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimationProperties.cs" />
-    <Compile Include="Animations\AnimationSlideInDirection.cs" />
+    <Compile Include="Animations\ElementAnimationExtensions.cs" />
+    <Compile Include="AttachedProperties\AnimationProperties.cs" />
+    <Compile Include="DataModels\AnimationSlideInDirection.cs" />
     <Compile Include="Animations\FrameworkElementAnimations.cs" />
-    <Compile Include="Animations\PageAnimation.cs" />
-    <Compile Include="Animations\PageAnimationHelpers.cs" />
-    <Compile Include="Animations\StoryboardHelpers.cs" />
-    <Compile Include="BaseAttachedProperty.cs" />
+    <Compile Include="DataModels\ElementAnimation.cs" />
+    <Compile Include="Storyboards\StoryboardHelpers.cs" />
+    <Compile Include="AttachedProperties\Base\BaseAttachedProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

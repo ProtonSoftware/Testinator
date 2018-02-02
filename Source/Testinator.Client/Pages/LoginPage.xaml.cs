@@ -20,11 +20,11 @@ namespace Testinator.Client
             InitializeComponent();
 
             // Disable animation on this page
-            PageLoadAnimation = PageAnimation.None;
+            PageLoadAnimation = ElementAnimation.None;
             Visibility = Visibility.Visible;
 
             // Set the default unload animation
-            PageUnloadAnimation = PageAnimation.SlideAndFadeOutToLeft;
+            PageUnloadAnimation = ElementAnimation.SlideAndFadeOutToLeft;
         }
 
         /// <summary>
@@ -36,11 +36,11 @@ namespace Testinator.Client
             InitializeComponent();
 
             // Disable load animation on this page
-            PageLoadAnimation = PageAnimation.None;
+            PageLoadAnimation = ElementAnimation.None;
             Visibility = Visibility.Visible;
 
             // Set the default unload animation
-            PageUnloadAnimation = PageAnimation.SlideAndFadeOutToLeft;
+            PageUnloadAnimation = ElementAnimation.SlideAndFadeOutToLeft;
         }
 
         #endregion

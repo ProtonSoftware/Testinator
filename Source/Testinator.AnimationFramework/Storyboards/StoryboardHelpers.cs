@@ -121,35 +121,6 @@ namespace Testinator.AnimationFramework
 
         #endregion
 
-        #region Width Animations
-
-        /// <summary>
-        /// Expands or hides the element's width by animating
-        /// </summary>
-        /// <param name="storyboard">The storyboard to add the animation to</param>
-        /// <param name="seconds">The time the animation will take</param>
-        /// <param name="offsetTo">The value to animate to</param>
-        /// <param name="offsetFrom">The value to animate from</param>
-        /// <param name="decelerationRatio">The rate of deceleration</param>
-        public static void AddWidthAnimation(this Storyboard storyboard, float seconds, int offsetTo, int offsetFrom, float decelerationRatio = 0.9f)
-        {
-            // Create the width animation
-            var animation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
-                From = offsetFrom,
-                To = offsetTo
-            };
-
-            // Set the target property name
-            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-
-            // Add this to the storyboard
-            storyboard.Children.Add(animation);
-        }
-
-        #endregion
-
         #region Sliding To/From Top
 
         /// <summary>
@@ -262,6 +233,35 @@ namespace Testinator.AnimationFramework
 
         #endregion
 
+        #region Width Animations
+
+        /// <summary>
+        /// Expands or hides the element's width by animating
+        /// </summary>
+        /// <param name="storyboard">The storyboard to add the animation to</param>
+        /// <param name="seconds">The time the animation will take</param>
+        /// <param name="offsetTo">The value to animate to</param>
+        /// <param name="offsetFrom">The value to animate from</param>
+        /// <param name="decelerationRatio">The rate of deceleration</param>
+        public static void AddWidthAnimation(this Storyboard storyboard, float seconds, int offsetTo, int offsetFrom, float decelerationRatio = 0.9f)
+        {
+            // Create the width animation
+            var animation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(seconds)),
+                From = offsetFrom,
+                To = offsetTo
+            };
+
+            // Set the target property name
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+
+            // Add this to the storyboard
+            storyboard.Children.Add(animation);
+        }
+
+        #endregion
+
         #region Fade In/Out
 
         /// <summary>
@@ -308,6 +308,8 @@ namespace Testinator.AnimationFramework
 
         #endregion
 
+        #region Marquee
+
         /// <summary>
         /// Adds a marquee scrolling right to left animation to the storyboard
         /// </summary>
@@ -332,5 +334,7 @@ namespace Testinator.AnimationFramework
             // Add this to the storyboard
             storyboard.Children.Add(animation);
         }
+
+        #endregion
     }
 }

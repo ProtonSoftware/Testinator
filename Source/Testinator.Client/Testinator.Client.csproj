@@ -249,7 +249,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Minorsonek.AnimationFramework\Testinator.AnimationFramework.csproj">
+    <ProjectReference Include="..\Testinator.AnimationFramework\Testinator.AnimationFramework.csproj">
       <Project>{2e0e2554-da07-45a6-9647-8f2907851472}</Project>
       <Name>Testinator.AnimationFramework</Name>
     </ProjectReference>
