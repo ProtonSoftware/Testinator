@@ -21,7 +21,7 @@ namespace Testinator.Server.Core
         #region Public Properties
 
         /// <summary>
-        /// Comment here..................................................................
+        /// 
         /// </summary>
         public List<ClientModelSerializable> Clients { get; private set; } = new List<ClientModelSerializable>();
 
@@ -31,9 +31,9 @@ namespace Testinator.Server.Core
         public string TestName => mTestResults.Test.Name;
 
         /// <summary>
-        /// Status of the menu as a boolean
+        /// The current page of the subpage
         /// </summary>
-        public bool IsMenuExpanded { get; private set; } = false;
+        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.TestResultsStudentsView;
 
         #endregion
 
@@ -43,11 +43,6 @@ namespace Testinator.Server.Core
         /// The command to go back to the previous page
         /// </summary>
         public ICommand ReturnCommand { get; private set; }
-
-        /// <summary>
-        /// The command to expand or hide menu
-        /// </summary>
-        public ICommand MenuToggleCommand { get; private set; }
 
         /// <summary>
         /// Changes the view to the students view
@@ -97,18 +92,12 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Expands or hides the menu
-        /// </summary>
-        private void MenuToggle()
-        {
-            IsMenuExpanded ^= true;
-        }
-
-        /// <summary>
         /// Changes the view to the students view
         /// </summary>
         private void ChangeViewStudents()
         {
+            CurrentPage = ApplicationPage.TestResultsStudentsView;
+            OnPropertyChanged(nameof(CurrentPage));
         }
 
         /// <summary>
@@ -116,6 +105,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangeViewQuestions()
         {
+            CurrentPage = ApplicationPage.TestResultsQuestionsView;
+            OnPropertyChanged(nameof(CurrentPage));
         }
 
         #endregion
@@ -141,7 +132,6 @@ namespace Testinator.Server.Core
         private void CreateCommands()
         {
             ReturnCommand = new RelayCommand(ReturnPreviousPage);
-            MenuToggleCommand = new RelayCommand(MenuToggle);
             ChangeViewStudentsCommand = new RelayCommand(ChangeViewStudents);
             ChangeViewQuestionsCommand = new RelayCommand(ChangeViewQuestions);
         }

@@ -94,6 +94,21 @@
         /// The test results details page
         /// </summary>
         TestResultsDetails,
+
+        /// <summary>
+        /// The page that shows results based on students
+        /// </summary>
+        TestResultsStudentsView,
+
+        /// <summary>
+        /// The page tat shows results based on questions
+        /// </summary>
+        TestResultsQuestionsView,
+
+        /// <summary>
+        /// The page that show additional options for result page
+        /// </summary>
+        TestResultsDetailsView,
         
         /// <summary>
         /// The screen stream page

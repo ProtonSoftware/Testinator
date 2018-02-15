@@ -87,9 +87,6 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ResultsPageMenus\ResultsPageMenu.xaml.cs">
-      <DependentUpon>ResultsPageMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
@@ -172,6 +169,15 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TestResults\Subpages\TestResultsDetailsViewPage.xaml.cs">
+      <DependentUpon>TestResultsDetailsViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TestResults\Subpages\TestResultsQuestionsViewPage.xaml.cs">
+      <DependentUpon>TestResultsQuestionsViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TestResults\Subpages\TestResultsStudentsViewPage.xaml.cs">
+      <DependentUpon>TestResultsStudentsViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TestResults\TestResultsDetailsPage.xaml.cs">
       <DependentUpon>TestResultsDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -217,10 +223,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PageHost.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ResultsPageMenus\ResultsPageMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -340,6 +342,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\TestResults\Subpages\TestResultsDetailsViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TestResults\Subpages\TestResultsQuestionsViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TestResults\Subpages\TestResultsStudentsViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TestResults\TestResultsDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -400,7 +414,9 @@
   <ItemGroup>
     <Resource Include="Assets\Logo\icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\ResultsPageMenus\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -15,7 +15,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.4*" />
         </Grid.ColumnDefinitions>
         
         <!-- Server handling left half -->
@@ -65,10 +65,10 @@
             </Grid>
             
             <!-- Server Ip and port -->
-            <Grid Grid.Row="1" Margin="50 0 50 100">
+            <Grid Grid.Row="1" Margin="50 0 40 100">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -81,8 +81,12 @@
                 <TextBlock Grid.Column="1" Grid.Row="0"  Margin="10" Style="{StaticResource QuestionTextBlockStyle}" 
                            Text="{Binding ServerIpAddress}"/>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="Port: " Margin="10" Style="{StaticResource QuestionTextBlockStyle}" />
-                <TextBox Grid.Column="1" Grid.Row="1"  Margin="10" Style="{StaticResource SmallInputTextBox}"
+                <TextBox Grid.Column="1" Grid.Row="1"  
+                         Margin="10" 
+                         Style="{StaticResource SmallInputTextBox}"
                          Text="{Binding ServerPort}"
+                         Width="50"
+                         HorizontalAlignment="Left"
                          IsEnabled="{Binding IsServerStarted, Converter={local:BooleanInvertConverter}}"/>
                 <TextBlock Text="Połączonych: "
                            Grid.Row="2" Grid.Column="0"
@@ -90,6 +94,7 @@
                            Margin="10"/>
                 <TextBlock Text="{Binding ClientsNumber}"
                            Grid.Row="2" Grid.Column="1"
+                           VerticalAlignment="Center"
                            Margin="10"/>
             </Grid>
             

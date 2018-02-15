@@ -78,11 +78,11 @@
     <Compile Include="ViewModels\Lists\CriteriaListViewModel.cs" />
     <Compile Include="ViewModels\Menu\MenuListItemViewModel.cs" />
     <Compile Include="ViewModels\Menu\MenuListViewModel.cs" />
-    <Compile Include="ViewModels\Pages\AboutViewModel.cs" />
-    <Compile Include="ViewModels\Pages\BeginTestViewModel.cs" />
-    <Compile Include="ViewModels\Pages\HomeViewModel.cs" />
-    <Compile Include="ViewModels\Pages\ScreenStreamViewModel.cs" />
-    <Compile Include="ViewModels\Pages\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Pages\MainPages\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Pages\MainPages\BeginTestViewModel.cs" />
+    <Compile Include="ViewModels\Pages\MainPages\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Pages\MainPages\ScreenStreamViewModel.cs" />
+    <Compile Include="ViewModels\Pages\MainPages\LoginViewModel.cs" />
     <Compile Include="ViewModels\Menu\SideMenuViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewCriteriaViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewTestViewModel.cs" />

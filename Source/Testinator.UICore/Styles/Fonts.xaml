@@ -43,5 +43,7 @@
     <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
     <system:String x:Key="FontAwesomeConnectionIcon">&#xf26b;</system:String>
     <system:String x:Key="FontAwesomeDoubleAngleDownIcon">&#xf103;</system:String>
+    <system:String x:Key="FontAwesomeInfoCircle">&#xf05a;</system:String>
+    
 
 </ResourceDictionary>

@@ -71,6 +71,15 @@ namespace Testinator.Server
                 case ApplicationPage.TestResultsDetails:
                     return new TestResultsDetailsPage(viewModel as TestResultsDetailsViewModel);
 
+                case ApplicationPage.TestResultsStudentsView:
+                    return new TestResultsStudentsViewPage(viewModel as TestResultsDetailsViewModel);
+
+                case ApplicationPage.TestResultsQuestionsView:
+                    return new TestResultsQuestionsViewPage(viewModel as TestResultsDetailsViewModel);
+
+                case ApplicationPage.TestResultsDetailsView:
+                    return new TestResultsStudentsViewPage(viewModel as TestResultsDetailsViewModel);
+
                 case ApplicationPage.ScreenStream:
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
 
@@ -144,6 +153,15 @@ namespace Testinator.Server
 
             if (page is TestResultsDetailsPage)
                 return ApplicationPage.TestResultsDetails;
+
+            if (page is TestResultsQuestionsViewPage)
+                return ApplicationPage.TestResultsQuestionsView;
+
+            if (page is TestResultsDetailsViewPage)
+                return ApplicationPage.TestResultsDetailsView;
+
+            if (page is TestResultsStudentsViewPage)
+                return ApplicationPage.TestResultsStudentsView;
 
             if (page is ScreenStreamPage)
                 return ApplicationPage.ScreenStream;
