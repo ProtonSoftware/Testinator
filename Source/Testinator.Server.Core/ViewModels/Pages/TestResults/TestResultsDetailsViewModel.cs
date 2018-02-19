@@ -69,9 +69,6 @@ namespace Testinator.Server.Core
         {
             // Create commands
             CreateCommands();
-
-            // Need to call here to make the subpage filled with data
-            ChangeViewStudents();
         }
 
         /// <summary>
@@ -85,8 +82,6 @@ namespace Testinator.Server.Core
 
             LoadData(results);
 
-            // Need to call here to make the subpage filled with data
-            ChangeViewStudents();
         }
 
         #endregion
