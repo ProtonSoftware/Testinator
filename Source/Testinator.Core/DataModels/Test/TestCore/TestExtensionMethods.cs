@@ -87,7 +87,7 @@
         /// <returns>Max possible score</returns>
         public static int MaxPossibleScore(this Test test)
         {
-            int max = 0;
+            var max = 0;
             foreach (var q in test.Questions)
                 max += q.PointScore;
 

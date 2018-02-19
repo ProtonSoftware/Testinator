@@ -8,7 +8,15 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"      
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="BlueViolet">
-        <TextBlock Text="Questions view"/>
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <ScrollViewer Padding="5">
+            <DataGrid AutoGenerateColumns="True" 
+                          local:BindableColumnsProperty.Value="{Binding QuestionsViewData}"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch" 
+                          IsReadOnly="True">
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </UICore:BasePage>

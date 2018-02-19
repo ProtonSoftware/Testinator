@@ -9,15 +9,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="{StaticResource WhiteLightBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
 
-        <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2"
-                      Padding="5">
+        <ScrollViewer Padding="5">
             <DataGrid AutoGenerateColumns="False" 
-                          ItemsSource="{Binding Clients}"
+                          ItemsSource="{Binding StudentsViewData}"
                           HorizontalAlignment="Stretch"
                           HorizontalContentAlignment="Stretch" 
                           IsReadOnly="True">

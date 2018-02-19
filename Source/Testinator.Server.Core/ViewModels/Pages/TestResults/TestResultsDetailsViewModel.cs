@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -21,9 +23,11 @@ namespace Testinator.Server.Core
         #region Public Properties
 
         /// <summary>
-        /// 
+        /// Used to display data in students view mode
         /// </summary>
-        public List<ClientModelSerializable> Clients { get; private set; } = new List<ClientModelSerializable>();
+        public List<ClientModelSerializable> StudentsViewData { get; private set; } = new List<ClientModelSerializable>();
+
+        public List<QuestionsViewItemViewModel> QuestionsViewData { get; private set; } = new List<QuestionsViewItemViewModel>();
 
         /// <summary>
         /// The name of the test the users took
@@ -65,6 +69,9 @@ namespace Testinator.Server.Core
         {
             // Create commands
             CreateCommands();
+
+            // Need to call here to make the subpage filled with data
+            ChangeViewStudents();
         }
 
         /// <summary>
@@ -77,6 +84,9 @@ namespace Testinator.Server.Core
             CreateCommands();
 
             LoadData(results);
+
+            // Need to call here to make the subpage filled with data
+            ChangeViewStudents();
         }
 
         #endregion
@@ -114,7 +124,7 @@ namespace Testinator.Server.Core
         #region Private Helpers
 
         /// <summary>
-        /// Load this viewmodel with given data
+        /// Loads this viewmodel with given data
         /// </summary>
         /// <param name="value"></param>
         private void LoadData(TestResults value)
@@ -122,8 +132,76 @@ namespace Testinator.Server.Core
             if (value == null)
                 return;
 
-            Clients = value.Clients;
+            StudentsViewData = value.Clients;
             mTestResults = value;
+
+            CreateQuestionsViewData();
+        }
+
+        /// <summary>
+        /// Creates data for the quesitons-view mode
+        /// </summary>
+        private void CreateQuestionsViewData()
+        {
+            // Clear any junk
+            QuestionsViewData.Clear();
+
+
+            foreach (var student in mTestResults.Results.Keys)
+            {
+                // Get the answers given by this user
+                var answers = mTestResults.Results[student];
+                answers = answers.OrderBy(x => x.ID).ToList();
+
+                // Create a viewmodel for them
+                var viewmodel = new QuestionsViewItemViewModel()
+                {
+                    Name = student.ClientName,
+                    Surname = student.ClientSurname,
+                };
+
+
+                // TODO: damnn, this really needs a rework. Dirty, but works. 
+                // I dont even bother to comment this because it will be replaced anyway.
+
+                var i = 0;
+                foreach(var question in mTestResults.Test.Questions)
+                {
+                    var scoredPoints = 0;
+                    try
+                    {
+                        switch (question.Type)
+                        {
+                            case QuestionType.MultipleCheckboxes:
+                                if ((question as MultipleCheckboxesQuestion).IsAnswerCorrect(answers[i] as MultipleCheckboxesAnswer))
+                                    scoredPoints = (question as MultipleCheckboxesQuestion).PointScore;
+                                break;
+
+                            case QuestionType.MultipleChoice:
+                                if ((question as MultipleChoiceQuestion).IsAnswerCorrect(answers[i] as MultipleChoiceAnswer))
+                                    scoredPoints = (question as MultipleChoiceQuestion).PointScore;
+                                break;
+
+                            case QuestionType.SingleTextBox:
+                                if ((question as SingleTextBoxQuestion).IsAnswerCorrect(answers[i] as SingleTextBoxAnswer))
+                                    scoredPoints = (question as SingleTextBoxQuestion).PointScore;
+                                break;
+                        }
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        scoredPoints = -1;
+                    }
+                    finally { }
+
+                    i++;
+
+                    viewmodel.QuestionsPoints.Add(scoredPoints);
+                }
+
+                QuestionsViewData.Add(viewmodel);
+
+            }
         }
 
         /// <summary>

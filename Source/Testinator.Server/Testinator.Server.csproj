@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\BindableColumnsProperty.cs" />
     <Compile Include="Controls\Lists\CriteriaList\CriteriaListControl.xaml.cs">
       <DependentUpon>CriteriaListControl.xaml</DependentUpon>
     </Compile>
