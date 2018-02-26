@@ -83,7 +83,7 @@
                 CornerRadius="3"
                 TextBlock.TextAlignment="Center">
             <Grid>
-                
+
                 <!-- Input boxes -->
                 <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
 
@@ -118,7 +118,7 @@
                             IsDefault="True"
                             Style="{StaticResource BaseUIButton}"
                             local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
-                            />  
+                            />
 
                 </StackPanel>
 
@@ -133,7 +133,7 @@
                     <TextBlock Style="{StaticResource SpinningText}"
                                FontSize="{StaticResource FontSizeTitleLarge}"
                                Margin="0 20" />
-                    
+
                     <StackPanel Orientation="Horizontal" Margin="0 20" HorizontalAlignment="Center">
                         <TextBlock Style="{StaticResource TitleText}"
                                    Foreground="{StaticResource BlackLightBrush}"
@@ -149,11 +149,10 @@
                             Margin="15" />
 
                 </StackPanel>
-                
+
             </Grid>
         </Border>
-        
-        
+
     </Grid>
     
 </UICore:BasePage>

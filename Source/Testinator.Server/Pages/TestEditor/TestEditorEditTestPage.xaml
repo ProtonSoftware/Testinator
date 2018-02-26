@@ -25,14 +25,14 @@
 
         </Border>
 
-        <Button Content="Usuń test"
+        <Button Content="{x:Static UICore:LocalizationResource.DeleteTest}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="30"
                 Command="{Binding DeleteTestCommand}"
                 Style="{StaticResource BaseUIButton}" />
 
-        <Button Content="Edytuj test"
+        <Button Content="{x:Static UICore:LocalizationResource.EditTest}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="30"

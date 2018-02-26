@@ -8,8 +8,90 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Border Background="Red">
-        <TextBlock Text="Login page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
-    </Border>
+    <Grid Background="{StaticResource WhiteLightBrush}">
+        
+        <!-- Main container -->
+        <Border VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="{StaticResource WhiteDarkBrush}"
+                Padding="50"
+                CornerRadius="3"
+                TextBlock.TextAlignment="Center">
+            <Grid>
+
+                <!-- PIN Input box -->
+                <StackPanel Visibility="{Binding PINFound, Converter={local:BooleanToVisiblityConverter}}">
+
+                    <!-- Title -->
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.LoggingIn}" 
+                               Style="{StaticResource TitleText}"
+                               Foreground="{StaticResource BlackDarkBrush}" />
+
+                    <!-- PIN input -->
+                    <TextBox Text="{Binding PIN, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="{x:Static UICore:LocalizationResource.FillPIN}"
+                             Margin="0 25"
+                             local:IsFocusedProperty.Value="True"
+                             Style="{StaticResource BigInputTextBox}" />
+
+                    <!-- Error if PIN is not valid -->
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Margin="0 0 0 10"
+                               Foreground="Red"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <!-- Submit button -->
+                    <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
+                            Command="{Binding LoginCommand}"
+                            Margin="0"
+                            IsDefault="True"
+                            Style="{StaticResource BaseUIButton}"
+                            local:IsBusyProperty.Value="{Binding LoggingIsRunning}"
+                            />
+
+                </StackPanel>
+
+                <!-- Create new PIN -->
+                <StackPanel Visibility="{Binding PINFound, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
+
+                    <!-- Title -->
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.CreatePIN}" 
+                               Style="{StaticResource TitleText}"
+                               Foreground="{StaticResource BlackDarkBrush}" />
+
+                    <!-- New PIN input -->
+                    <TextBox Text="{Binding PIN, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="{x:Static UICore:LocalizationResource.FillPIN}"
+                             Margin="0 25"
+                             local:IsFocusedProperty.Value="True"
+                             Style="{StaticResource BigInputTextBox}" />
+
+                    <!-- Repeat PIN input -->
+                    <TextBox Text="{Binding RepeatedPIN, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="{x:Static UICore:LocalizationResource.RepeatPIN}"
+                             Margin="0 25"
+                             Style="{StaticResource BigInputTextBox}" />
+
+                    <!-- Error if PIN is not valid -->
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Margin="0 0 0 10"
+                               Foreground="Red"
+                               Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    <!-- Submit button -->
+                    <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
+                            Command="{Binding CreatePINCommand}"
+                            Margin="0"
+                            IsDefault="True"
+                            Style="{StaticResource BaseUIButton}"
+                            local:IsBusyProperty.Value="{Binding LoggingIsRunning}"
+                            />
+
+                </StackPanel>
+
+            </Grid>
+        </Border>
+        
+    </Grid>
     
 </UICore:BasePage>

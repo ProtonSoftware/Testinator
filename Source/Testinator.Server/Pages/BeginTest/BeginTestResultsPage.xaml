@@ -26,7 +26,7 @@
                            VerticalAlignment="Center"
                            Style="{StaticResource MediumTitleText}"/>
                 
-                <TextBlock Text="Wyniki zostały zapisane." 
+                <TextBlock Text="{x:Static UICore:LocalizationResource.ResultsSaved}" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Margin="0 10 0 0"/>
@@ -43,25 +43,25 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
-                                        Header="Imię"
+                                        Header="{x:Static UICore:LocalizationResource.UserName}"
                                         Binding="{Binding ClientName}"/>
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
-                                        Header="Nazwisko"
+                                        Header="{x:Static UICore:LocalizationResource.UserSurname}"
                                         Binding="{Binding ClientSurname}"/>
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
-                                        Header="Liczba punktów"
+                                        Header="{x:Static UICore:LocalizationResource.AmountOfPoints}"
                                         Binding="{Binding PointsScored}"/>
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
-                                        Header="Ocena"
+                                        Header="{x:Static UICore:LocalizationResource.Mark}"
                                         Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
                 </DataGrid.Columns>
         
             </DataGrid>
 
-            <Button Content="Wróć" 
+            <Button Content="{x:Static UICore:LocalizationResource.Back}" 
                     Grid.Row="2"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding ResultPageExitCommand}"

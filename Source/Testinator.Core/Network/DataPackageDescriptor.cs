@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Testinator.Core
@@ -52,7 +51,7 @@ namespace Testinator.Core
                     Bytes = ms.ToArray();
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 Bytes = new byte[0];
                 return false;

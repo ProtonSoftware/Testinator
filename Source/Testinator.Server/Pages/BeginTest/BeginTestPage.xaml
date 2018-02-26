@@ -37,26 +37,26 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
-                    <Button Content="Start"
+                    <Button Content="{x:Static UICore:LocalizationResource.Start}"
                             IsEnabled="{Binding IsServerStarted, Converter={local:BooleanInvertConverter}}"
                             Command="{Binding StartServerCommand}"
                             Style="{StaticResource BaseUIButton}" />
-                    <Button Content="Stop"
+                    <Button Content="{x:Static UICore:LocalizationResource.Stop}"
                             Command="{Binding StopServerCommand}"
                             IsEnabled="{Binding IsServerStarted}"
                             Style="{StaticResource BaseUIButton}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="Status servera"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.ServerStatus}"
                                TextWrapping="WrapWithOverflow"
                                Foreground="{StaticResource BlackDarkBrush}"
                                Style="{StaticResource TitleText}" />
-                    <TextBlock Text="AKTYWNY"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.Active}"
                                Foreground="{StaticResource GreenLightBrush}"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}}"
                                Style="{StaticResource MediumTitleText}" />
-                    <TextBlock Text="WYŁĄCZONY"
+                    <TextBlock Text="{x:Static UICore:LocalizationResource.Disabled}"
                                Foreground="Red"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                Style="{StaticResource MediumTitleText}" />

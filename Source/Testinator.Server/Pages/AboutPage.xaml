@@ -8,8 +8,12 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Border Background="Green">
+    <Grid Background="Green">
         <TextBlock Text="About page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
-    </Border>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Current version: " FontSize="{StaticResource FontSizeLarge}" />
+            <TextBlock Text="{Binding ApplicationVersion}" FontSize="{StaticResource FontSizeLarge}" />
+        </StackPanel>
+    </Grid>
     
 </UICore:BasePage>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -10,6 +9,17 @@ namespace Testinator.Server.Core
     /// </summary>
     public class ApplicationSettingsViewModel : BaseViewModel
     {
+        #region Private Members
+
+        /// <summary>
+        /// Index of the language used in this application
+        /// 0 - Polish
+        /// 1 - English
+        /// </summary>
+        private int mLanguageIndex = 0;
+
+        #endregion
+
         #region Private Properties
 
         /// <summary>
@@ -51,7 +61,35 @@ namespace Testinator.Server.Core
         /// should be the same Type as it was in this previous one
         /// If false - then next question is blank page and user can choose which Type he wants now
         /// </summary>
-        public bool IsNextQuestionTypeTheSame { get; set; } = true; 
+        public bool IsNextQuestionTypeTheSame { get; set; } = true;
+
+        /// <summary>
+        /// Index of the language used in this application
+        /// 0 - Polish
+        /// 1 - English
+        /// </summary>
+        public int LanguageIndex
+        {
+            get => mLanguageIndex;
+            set
+            {
+                // Set new value
+                mLanguageIndex = value;
+
+                // Change app's language based on that
+                switch(mLanguageIndex)
+                {
+                    case 1:
+                        IoCServer.Application.ApplicationLanguage = "en-US";
+                        break;
+
+                    // 0 or any not found index is default - Polish language
+                    default:
+                        IoCServer.Application.ApplicationLanguage = "pl-PL";
+                        break;
+                }
+            }
+        }
 
         #endregion
 

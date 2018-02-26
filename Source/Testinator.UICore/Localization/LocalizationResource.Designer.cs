@@ -61,6 +61,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to + Add Answer.
         /// </summary>
         public static string AddAnswerButton {
@@ -115,11 +124,29 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount of points.
+        /// </summary>
+        public static string AmountOfPoints {
+            get {
+                return ResourceManager.GetString("AmountOfPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attach criteria to the test.
         /// </summary>
         public static string AttachCriteriaTitle {
             get {
                 return ResourceManager.GetString("AttachCriteriaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -169,6 +196,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose to show more info.
+        /// </summary>
+        public static string ChooseToShow {
+            get {
+                return ResourceManager.GetString("ChooseToShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         public static string Confirm {
@@ -214,11 +250,56 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new PIN.
+        /// </summary>
+        public static string CreatePIN {
+            get {
+                return ResourceManager.GetString("CreatePIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date: .
+        /// </summary>
+        public static string DateSemicolon {
+            get {
+                return ResourceManager.GetString("DateSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete test.
+        /// </summary>
+        public static string DeleteTest {
+            get {
+                return ResourceManager.GetString("DeleteTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
             }
         }
         
@@ -250,11 +331,38 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill your PIN.
+        /// </summary>
+        public static string FillPIN {
+            get {
+                return ResourceManager.GetString("FillPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish test before time runs out.
+        /// </summary>
+        public static string FinishBeforeTime {
+            get {
+                return ResourceManager.GetString("FinishBeforeTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finish question adding.
         /// </summary>
         public static string FinishQuestionAdding {
             get {
                 return ResourceManager.GetString("FinishQuestionAdding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hour.
+        /// </summary>
+        public static string Hour {
+            get {
+                return ResourceManager.GetString("Hour", resourceCulture);
             }
         }
         
@@ -282,6 +390,33 @@ namespace Testinator.UICore {
         public static string IsMarkACountedQuestion {
             get {
                 return ResourceManager.GetString("IsMarkACountedQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loaded: .
+        /// </summary>
+        public static string LoadedSemicolon {
+            get {
+                return ResourceManager.GetString("LoadedSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging in.
+        /// </summary>
+        public static string LoggingIn {
+            get {
+                return ResourceManager.GetString("LoggingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark.
+        /// </summary>
+        public static string Mark {
+            get {
+                return ResourceManager.GetString("Mark", resourceCulture);
             }
         }
         
@@ -385,6 +520,24 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No test has been choosen yet!.
+        /// </summary>
+        public static string NoTestChoosen {
+            get {
+                return ResourceManager.GetString("NoTestChoosen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No users connected yet!.
+        /// </summary>
+        public static string NoUsersConnected {
+            get {
+                return ResourceManager.GetString("NoUsersConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total points: .
         /// </summary>
         public static string PointsCount {
@@ -408,6 +561,33 @@ namespace Testinator.UICore {
         public static string QuestionCount {
             get {
                 return ResourceManager.GetString("QuestionCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Questions view.
+        /// </summary>
+        public static string QuestionsView {
+            get {
+                return ResourceManager.GetString("QuestionsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat PIN.
+        /// </summary>
+        public static string RepeatPIN {
+            get {
+                return ResourceManager.GetString("RepeatPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test results were saved..
+        /// </summary>
+        public static string ResultsSaved {
+            get {
+                return ResourceManager.GetString("ResultsSaved", resourceCulture);
             }
         }
         
@@ -457,6 +637,24 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server status.
+        /// </summary>
+        public static string ServerStatus {
+            get {
+                return ResourceManager.GetString("ServerStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show right answers.
+        /// </summary>
+        public static string ShowRightAnswers {
+            get {
+                return ResourceManager.GetString("ShowRightAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single answer question.
         /// </summary>
         public static string SingleTextboxQuestion {
@@ -475,6 +673,24 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  results..
+        /// </summary>
+        public static string SpaceResults {
+            get {
+                return ResourceManager.GetString("SpaceResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start test.
         /// </summary>
         public static string StartTest {
@@ -484,11 +700,38 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop the test.
+        /// </summary>
+        public static string StopTest {
+            get {
+                return ResourceManager.GetString("StopTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully added the test!.
         /// </summary>
         public static string SuccessfulTestAdd {
             get {
                 return ResourceManager.GetString("SuccessfulTestAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users taking part.
+        /// </summary>
+        public static string TakingPart {
+            get {
+                return ResourceManager.GetString("TakingPart", resourceCulture);
             }
         }
         
@@ -538,6 +781,15 @@ namespace Testinator.UICore {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test: .
+        /// </summary>
+        public static string TestSemicolon {
+            get {
+                return ResourceManager.GetString("TestSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time: .
         /// </summary>
         public static string TimeDuration {
@@ -552,6 +804,33 @@ namespace Testinator.UICore {
         public static string TrySemicolon {
             get {
                 return ResourceManager.GetString("TrySemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surname.
+        /// </summary>
+        public static string UserSurname {
+            get {
+                return ResourceManager.GetString("UserSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users view.
+        /// </summary>
+        public static string UsersView {
+            get {
+                return ResourceManager.GetString("UsersView", resourceCulture);
             }
         }
         

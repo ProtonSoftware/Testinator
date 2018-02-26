@@ -11,6 +11,11 @@ namespace Testinator.Server.Core
         #region Public Properties
 
         /// <summary>
+        /// The language of this application
+        /// </summary>
+        public string ApplicationLanguage { get; set; } = "pl-PL";
+
+        /// <summary>
         /// The current page of the application
         /// </summary>
         public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.Login;

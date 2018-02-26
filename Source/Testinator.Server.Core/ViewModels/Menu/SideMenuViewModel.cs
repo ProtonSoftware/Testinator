@@ -15,6 +15,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public bool Expanded { get; set; } = true;
 
+        /// <summary>
+        /// Show the menu only if we are on login page
+        /// </summary>
+        public bool Hidden => IoCServer.Application.CurrentPage == ApplicationPage.Login;
+
         #endregion
 
         #region Commands

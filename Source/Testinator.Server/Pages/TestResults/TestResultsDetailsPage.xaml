@@ -10,15 +10,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1024">
     
-    <Grid Background="AliceBlue">
+    <Grid Background="{StaticResource WhiteDarkBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
-              Background="{StaticResource GreenLightBrush}">
+        <Grid Background="{StaticResource GreenLightBrush}">
 
             <TextBlock Text="{Binding TestName}"
                        Style="{StaticResource MediumTitleText}"
@@ -33,25 +32,25 @@
         <StackPanel Grid.Row="1"
                     Background="{StaticResource GreenLightBrush}"
                     Orientation="Horizontal">
-            
-            <Button Content="Wróć"
+
+            <Button Content="{x:Static UICore:LocalizationResource.Back}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding ReturnCommand}"
                     />
-            
-            <Button Content="Widok uczniów"
+
+            <Button Content="{x:Static UICore:LocalizationResource.UsersView}"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding ChangeViewStudentsCommand}"
                     HorizontalAlignment="Left"/>
-            
-            <Button Content="Widok pytań"
+
+            <Button Content="{x:Static UICore:LocalizationResource.QuestionsView}"
                     Command="{Binding ChangeViewQuestionsCommand}"
                     Style="{StaticResource BaseUIButton}"
                     HorizontalAlignment="Left"/>
-            
-            <Button Content="Szczególy"
+
+            <Button Content="{x:Static UICore:LocalizationResource.Details}"
                     Command="{Binding ChangeViewQuestionsCommand}"
                     Style="{StaticResource BaseUIButton}"
                     HorizontalAlignment="Left"/>

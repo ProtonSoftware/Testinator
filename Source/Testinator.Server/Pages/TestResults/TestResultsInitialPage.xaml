@@ -12,10 +12,9 @@
 
 
 
-    
-    <Border Background="LightBlue" >
 
-        
+    <Border Background="{StaticResource WhiteLightBrush}">
+
         <Grid>
 
             <Grid.ColumnDefinitions>
@@ -56,19 +55,19 @@
                                     VerticalAlignment="Center"
                                     Orientation="Horizontal"
                                     >
-                            <TextBlock Text="Wczytano: "
+                            <TextBlock Text="{x:Static UICore:LocalizationResource.LoadedSemicolon}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         />
                             <TextBlock Text="{Binding ItemsLoadedCount}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         />
-                            <TextBlock Text=" rezultatów"
+                            <TextBlock Text="{x:Static UICore:LocalizationResource.SpaceResults}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         />
                         </StackPanel>
 
                         <TextBlock Grid.Row="1" 
-                                    Text="Wybierz, aby wywietlić więcej"
+                                    Text="{x:Static UICore:LocalizationResource.LoadedSemicolon}"
                                     FontSize="{StaticResource FontSizeLarge}"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
@@ -78,32 +77,30 @@
                     <Grid Grid.Row="1">
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Data:"
-                                    Grid.Row="0" Grid.Column="0"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.DateSemicolon}"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
                                     />
 
                         <TextBlock Text="{Binding ResultsDateDay}"
-                                    Grid.Row="0" Grid.Column="1"
+                                    Grid.Column="1"
                                     Style="{StaticResource QuestionTextBlockStyle}"
                                     Margin="15"
-                                   
                                     />
 
 
-                        <TextBlock Text="Godzina"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.Hour}"
                                     Grid.Row="1" Grid.Column="0"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
@@ -117,7 +114,7 @@
                                    
                                     />
 
-                        <TextBlock Text="Nazwa testu"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.TestName}"
                                     Grid.Row="2" Grid.Column="0"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
@@ -131,7 +128,7 @@
                                    
                                     />
 
-                        <TextBlock Text="Bioracych udział"
+                        <TextBlock Text="{x:Static UICore:LocalizationResource.TakingPart}"
                                     Grid.Row="3" Grid.Column="0"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
@@ -160,7 +157,7 @@
                                 IsEnabled="{Binding IsAnyItemSelected}"
                                 Command="{Binding DeleteCommand}"
                                 Content="Usuń"/>
-                        <Button Content="Szczególy"
+                        <Button Content="{x:Static UICore:LocalizationResource.Details}"
                                 Grid.Column="1"
                                 Style="{StaticResource BaseUIButton}"
                                 Command="{Binding ShowDetailsCommnd}"

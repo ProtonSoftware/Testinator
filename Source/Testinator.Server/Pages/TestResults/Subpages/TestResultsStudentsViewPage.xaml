@@ -17,10 +17,10 @@
                           HorizontalContentAlignment="Stretch" 
                           IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Imię" Binding="{Binding ClientName}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Nazwisko" Binding="{Binding ClientSurname}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="Liczba punktów" Binding="{Binding PointsScored}"/>
-                    <DataGridTextColumn Width="0.8*" IsReadOnly="True" Header="Ocena" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
+                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserName}" Binding="{Binding ClientName}"/>
+                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserSurname}" Binding="{Binding ClientSurname}"/>
+                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.AmountOfPoints}" Binding="{Binding PointsScored}"/>
+                    <DataGridTextColumn Width="0.8*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.Mark}" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

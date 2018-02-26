@@ -16,7 +16,11 @@
             <TextBlock Text="Sciezka do logow" />
             <TextBlock Text="Wyswietlanie messageboxow checkbox" />
             <CheckBox IsChecked="{Binding AreInformationMessageBoxesAllowed}" />
-            <TextBlock Text="(Chyba ze zrobisz to w beginpage'u) Czy pozwalac na obejrzenie poprawnych u clienta" />
+            <TextBlock Text="Język aplikacji: " />
+            <ComboBox SelectedIndex="{Binding LanguageIndex}">
+                <ComboBoxItem Content="Polski" />
+                <ComboBoxItem Content="Angielski" />
+            </ComboBox>
         </StackPanel>
         
     </Grid>

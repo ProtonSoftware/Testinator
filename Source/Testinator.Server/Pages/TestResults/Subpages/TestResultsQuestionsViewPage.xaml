@@ -12,10 +12,10 @@
 
         <ScrollViewer Padding="5">
             <DataGrid AutoGenerateColumns="True" 
-                          local:BindableColumnsProperty.Value="{Binding QuestionsViewData}"
-                          HorizontalAlignment="Stretch"
-                          HorizontalContentAlignment="Stretch" 
-                          IsReadOnly="True">
+                      local:BindableColumnsProperty.Value="{Binding QuestionsViewData}"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch" 
+                      IsReadOnly="True">
             </DataGrid>
         </ScrollViewer>
     </Grid>

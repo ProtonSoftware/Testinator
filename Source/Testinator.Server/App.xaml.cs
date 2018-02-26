@@ -20,6 +20,14 @@ namespace Testinator.Server
             // Let the base application do what it needs
             base.OnStartup(e);
 
+            // Check for updates
+            if (CheckUpdates())
+            {
+                // Run the updater
+
+                // Close this app
+            }
+
             // Setup the main application 
             ApplicationSetup();
 
@@ -36,9 +44,6 @@ namespace Testinator.Server
         /// </summary>
         private void ApplicationSetup()
         {
-            // Set default language
-            LocalizationResource.Culture = new CultureInfo("pl-PL");
-
             // Setup IoC
             IoCServer.Setup();
 
@@ -54,6 +59,30 @@ namespace Testinator.Server
 
             // Bind a UI Manager
             IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
+
+            // Set application language
+            // TODO: Set this remotely, not only at the start
+            LocalizationResource.Culture = new CultureInfo(IoCServer.Application.ApplicationLanguage);
+        }
+
+        /// <summary>
+        /// Checks if there is a new version of that application
+        /// </summary>
+        private bool CheckUpdates()
+        {
+            // Get the newest version
+            try
+            {
+
+            }
+            catch
+            {
+                // Cannot connect to the web, no updates
+                return false;
+            }
+
+            // No newer version available
+            return false;
         }
     }
 }
