@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -87,6 +88,7 @@
     <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\ResultBoxDialogViewModel.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
+    <Compile Include="Files\Base\FileDataHasher.cs" />
     <Compile Include="Files\Base\FileHandler.cs" />
     <Compile Include="Files\Models\SettingsPropertyInfo.cs" />
     <Compile Include="Files\Readers\BinaryReader.cs" />

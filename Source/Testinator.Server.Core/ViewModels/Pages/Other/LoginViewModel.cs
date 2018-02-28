@@ -81,6 +81,9 @@ namespace Testinator.Server.Core
             }
 
             // Save the PIN
+            FileDataHasher.HashAndSaveString(PIN);
+
+            FileDataHasher.ReadAndUnhashString();
         }
 
         /// <summary>

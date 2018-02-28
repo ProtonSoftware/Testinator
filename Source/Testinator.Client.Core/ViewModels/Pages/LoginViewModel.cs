@@ -28,7 +28,6 @@ namespace Testinator.Client.Core
         {
             get => IoCClient.Client.ClientSurname;
             set => IoCClient.Client.ClientSurname = value;
-
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net;
 using System.Windows;
 using Testinator.Core;
 using Testinator.Server.Core;
@@ -12,7 +13,7 @@ namespace Testinator.Server
     public partial class App : Application
     {
         /// <summary>
-        /// Custom startup so we load our IoC immediately before anything else
+        /// Custom startup so we load our IoC and Updater immediately before anything else
         /// </summary>
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
@@ -51,7 +52,7 @@ namespace Testinator.Server
             IoCServer.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(new[]
             {
                 // Set the path from Settings
-                new FileLogger(IoCServer.Settings.LogFilePath),
+                new FileLogger(IoCServer.Settings.LogFilePath)
             }));
 
             // Bind a File Writer
@@ -73,7 +74,15 @@ namespace Testinator.Server
             // Get the newest version
             try
             {
+                var currentVersion = "";
+                var newestVersion = string.Empty;
+                
+                using (var webClient = new WebClient())
+                {
+                     newestVersion = webClient.DownloadData(@"http://testinator.minorsonek.pl/data/version.txt").ToString();
+                }
 
+                // TODO: Version comparator
             }
             catch
             {
