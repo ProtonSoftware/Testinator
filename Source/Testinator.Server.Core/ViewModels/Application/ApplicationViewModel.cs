@@ -1,5 +1,4 @@
 ﻿using Testinator.Core;
-using Testinator.Network.Server;
 
 namespace Testinator.Server.Core
 {
@@ -29,6 +28,11 @@ namespace Testinator.Server.Core
         public BaseViewModel CurrentPageViewModel { get; set; }
 
         /// <summary>
+        /// Show the side menu only if we are not on login page
+        /// </summary>
+        public bool SideMenuVisible => IoCServer.Application.CurrentPage != ApplicationPage.Login;
+
+        /// <summary>
         /// The current subpage of the BeginTestPage
         /// </summary>
         public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
@@ -50,8 +54,9 @@ namespace Testinator.Server.Core
             // Set the current page
             CurrentPage = page;
 
-            // Fire off a CurrentPage changed event
+            // Inform the view
             OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(SideMenuVisible));
         }
 
         /// <summary>

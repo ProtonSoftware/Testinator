@@ -71,27 +71,46 @@ namespace Testinator.Server
         /// </summary>
         private bool CheckUpdates()
         {
-            // Get the newest version
             try
             {
-                var currentVersion = "";
-                var newestVersion = string.Empty;
-                
-                using (var webClient = new WebClient())
+                // Get current version
+                var currentVersion = "1.0";
+
+                // Set webservice's url and parameters we want to send
+                var URI = "http://testinator.minorsonek.pl/data/index.php";
+                var myParameters = $"version={ currentVersion }&type=Server";
+
+                // Catch the result
+                var result = string.Empty;
+
+                // Send request to webservice
+                using (var wc = new WebClient())
                 {
-                     newestVersion = webClient.DownloadData(@"http://testinator.minorsonek.pl/data/version.txt").ToString();
+                    wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    result = wc.UploadString(URI, myParameters);
                 }
 
-                // TODO: Version comparator
+                // Based on response...
+                switch (result)
+                {
+                    case "New update":
+                        // There is new update, but not important one
+                        return true;
+
+                    case "New update IMP":
+                        // An important update
+                        return true;
+
+                    default:
+                        // No updates
+                        return false;
+                }
             }
             catch
             {
                 // Cannot connect to the web, no updates
                 return false;
             }
-
-            // No newer version available
-            return false;
         }
     }
 }

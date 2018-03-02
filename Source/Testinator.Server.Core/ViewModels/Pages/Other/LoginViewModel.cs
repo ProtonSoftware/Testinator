@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -24,6 +25,11 @@ namespace Testinator.Server.Core
         /// Indicates if saved PIN number was found on the computer
         /// </summary>
         public bool PINFound { get; private set; }
+
+        /// <summary>
+        /// The actual saved PIN (if found)
+        /// </summary>
+        public string FoundPIN { get; private set; }
 
         /// <summary>
         /// Indicates if user clicked submit button and is currently logging in
@@ -61,6 +67,14 @@ namespace Testinator.Server.Core
             // Create commands
             LoginCommand = new RelayCommand(Login);
             CreatePINCommand = new RelayCommand(CreatePIN);
+
+            // Check if pin is set
+            FoundPIN = FileDataHasher.ReadAndUnhashString();
+
+            // If its not empty and has 4 characters to ensure its not modified
+            if (!string.IsNullOrEmpty(FoundPIN) && FoundPIN.Length == 4)
+                // Valid PIN was found
+                PINFound = true;
         }
 
         #endregion
@@ -82,7 +96,8 @@ namespace Testinator.Server.Core
             // Save the PIN
             FileDataHasher.HashAndSaveString(PIN);
 
-            var pin = FileDataHasher.ReadAndUnhashString();
+            // Log the user in by changing the page
+            IoCServer.Application.GoToPage(ApplicationPage.Home);
         }
 
         /// <summary>
@@ -90,7 +105,16 @@ namespace Testinator.Server.Core
         /// </summary>
         private void Login()
         {
-            
+            // If both PINs don't match themselves...
+            if (PIN != FoundPIN)
+            {
+                // Show the error and do not login
+                ErrorMessage = "Provided PIN is not valid.";
+                return;
+            }
+
+            // Otherwise login the user in by changing the page
+            IoCServer.Application.GoToPage(ApplicationPage.Home);
         }
 
         #endregion

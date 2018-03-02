@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testinator.Server"
+        xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -85,7 +86,9 @@
 
         <local:SideMenuControl MaxWidth="200"
                                Panel.ZIndex="50"
-                               HorizontalAlignment="Left">
+                               HorizontalAlignment="Left"
+                               Animations:AnimateSlideAndFadeInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible,
+                                                                                                Source={x:Static local:ViewModelLocator.Instance}}">
 
             <local:MenuListControl />
 

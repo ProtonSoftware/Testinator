@@ -70,7 +70,7 @@ namespace Testinator.Server
         }
 
         /// <summary>
-        /// Fired everytime has inside textbox has changed
+        /// Fired everytime text inside textbox has changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -80,6 +80,47 @@ namespace Testinator.Server
             {
                 // Try to convert text to the int
                 int.Parse(e.Text);
+            }
+            catch
+            {
+                // Convertion has failed, that means textbox has non-number characters inside
+                // So don't add anything, mark this event as handled already
+                e.Handled = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Used on textbox accepts only integer numbers up to 4 in total
+    /// </summary>
+    public class PINTextBoxProperty : BaseAttachedProperty<PINTextBoxProperty, bool>
+    {
+        public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            // If sender isn't textbox, return
+            if (!(sender is TextBoxBase textBox))
+                return;
+
+            // Everytime text inside changes...
+            textBox.PreviewTextInput += TextBox_PreviewTextInput;
+        }
+
+        /// <summary>
+        /// Fired everytime text inside textbox has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                // Try to convert text to the int
+                int.Parse(e.Text);
+
+                // Check if textbox has the maximum length of 4 already
+                if ((sender as TextBox).Text.Length == 4)
+                    // Don't add another character then
+                    e.Handled = true;
             }
             catch
             {

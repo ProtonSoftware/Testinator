@@ -31,6 +31,7 @@
                     <TextBox Text="{Binding PIN, UpdateSourceTrigger=PropertyChanged}"
                              Tag="{x:Static UICore:LocalizationResource.FillPIN}"
                              Margin="0 25"
+                             local:PINTextBoxProperty.Value="True"
                              local:IsFocusedProperty.Value="True"
                              Style="{StaticResource BigInputTextBox}" />
 
@@ -63,6 +64,7 @@
                     <TextBox Text="{Binding PIN, UpdateSourceTrigger=PropertyChanged}"
                              Tag="{x:Static UICore:LocalizationResource.FillPIN}"
                              Margin="0 25"
+                             local:PINTextBoxProperty.Value="True"
                              local:IsFocusedProperty.Value="True"
                              Style="{StaticResource BigInputTextBox}" />
 
@@ -70,6 +72,7 @@
                     <TextBox Text="{Binding RepeatedPIN, UpdateSourceTrigger=PropertyChanged}"
                              Tag="{x:Static UICore:LocalizationResource.RepeatPIN}"
                              Margin="0 25"
+                             local:PINTextBoxProperty.Value="True"
                              Style="{StaticResource BigInputTextBox}" />
 
                     <!-- Error if PIN is not valid -->
