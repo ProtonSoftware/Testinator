@@ -13,7 +13,7 @@ namespace Testinator.Core
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="password"></param>
+        /// <param name="password">The password to hash and save</param>
         public static void HashAndSaveString(string password)
         {
             // Data to hash
@@ -27,22 +27,18 @@ namespace Testinator.Core
             }
 
             // Get hashed result
-            var hashedText = ProtectedData
-                                .Protect(textToHash, entropy, DataProtectionScope.CurrentUser);
+            var hashedText = ProtectedData.Protect(textToHash, entropy, DataProtectionScope.CurrentUser);
 
             // Create directory in appdata
             /*var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);*/
-
-            // Open the file in that directory
-            var file = File.Open("pin.txt", FileMode.Create);
 
             // NOTE:
             // We presume that hashed text and entropy can be easily seen, as it requires to use ProtectedData class to decrypt that
             // So its not that easy to guess that PIN and we can allow that, as clients can't decrypt that in reasonable time
 
-            // Write both lines to the file
-            file.Write(hashedText, 0, 100);
-            file.Write(entropy, 0, 100);
+            // Write both data to the files
+            File.WriteAllBytes("pass.dat", hashedText);
+            File.WriteAllBytes("entropy.dat", entropy);
         }
 
         public static string ReadAndUnhashString()
@@ -50,17 +46,15 @@ namespace Testinator.Core
             // Get directory in appdata
             /*var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);*/
 
-            // Get both lines from the file
-            var fileContent = File.ReadAllLines("pin.dat");
-            var hashedText = Encoding.UTF8.GetBytes(fileContent[0]);
-            var entropy = Encoding.UTF8.GetBytes(fileContent[1]);
+            // Get pass and entropy from files
+            var hashedText = File.ReadAllBytes("pass.dat");
+            var entropy = File.ReadAllBytes("entropy.dat");
 
             // Decrypt the password
-            var password = ProtectedData
-                                .Unprotect(hashedText, entropy, DataProtectionScope.CurrentUser)
-                                .ToString();
+            var password = ProtectedData.Unprotect(hashedText, entropy, DataProtectionScope.CurrentUser);
 
-            return password;
+            // Return it as string
+            return Encoding.UTF8.GetString(password);
         }        
     }
 }

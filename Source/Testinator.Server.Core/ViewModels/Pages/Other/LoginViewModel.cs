@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -83,7 +82,7 @@ namespace Testinator.Server.Core
             // Save the PIN
             FileDataHasher.HashAndSaveString(PIN);
 
-            FileDataHasher.ReadAndUnhashString();
+            var pin = FileDataHasher.ReadAndUnhashString();
         }
 
         /// <summary>
