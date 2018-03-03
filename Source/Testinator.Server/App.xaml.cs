@@ -1,9 +1,10 @@
 ﻿using System.Globalization;
-using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
-using Testinator.Core;
 using Testinator.Server.Core;
+using Testinator.Core;
 using Testinator.UICore;
+using System.Net;
 
 namespace Testinator.Server
 {
@@ -13,18 +14,24 @@ namespace Testinator.Server
     public partial class App : Application
     {
         /// <summary>
+        /// Indicates if we have important update to install
+        /// </summary>
+        private bool ImportantUpdate { get; set; }
+
+        /// <summary>
         /// Custom startup so we load our IoC and Updater immediately before anything else
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             // Let the base application do what it needs
             base.OnStartup(e);
 
             // Check for updates
-            if (CheckUpdates())
+            if (await CheckUpdatesAsync())
             {
                 // Run the updater
+                var a = 1;
 
                 // Close this app
             }
@@ -69,16 +76,16 @@ namespace Testinator.Server
         /// <summary>
         /// Checks if there is a new version of that application
         /// </summary>
-        private bool CheckUpdates()
+        private async Task<bool> CheckUpdatesAsync()
         {
             try
             {
                 // Get current version
-                var currentVersion = "1.0";
+                var currentVersion = "1.0.0.0";
 
                 // Set webservice's url and parameters we want to send
-                var URI = "http://testinator.minorsonek.pl/data/index.php";
-                var myParameters = $"version={ currentVersion }&type=Server";
+                var url = "http://minorsonek.pl/testinator/data/index.php";
+                var parameters = $"version={ currentVersion }&type=Server";
 
                 // Catch the result
                 var result = string.Empty;
@@ -87,10 +94,10 @@ namespace Testinator.Server
                 using (var wc = new WebClient())
                 {
                     wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    result = wc.UploadString(URI, myParameters);
+                    result = wc.UploadString(url, parameters);
                 }
 
-                // Based on response...
+                // Return the statement based on result...
                 switch (result)
                 {
                     case "New update":
@@ -98,8 +105,11 @@ namespace Testinator.Server
                         return true;
 
                     case "New update IMP":
-                        // An important update
-                        return true;
+                        {
+                            // An important update
+                            ImportantUpdate = true;
+                            return true;
+                        }
 
                     default:
                         // No updates
