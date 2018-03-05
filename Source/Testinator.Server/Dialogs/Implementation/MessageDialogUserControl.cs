@@ -72,6 +72,11 @@ namespace Testinator.Server
             MessageVM = viewModel;
         }
 
+        /// <summary>
+        /// Shows the dialog
+        /// </summary>
+        /// <typeparam name="T">Type of view model</typeparam>
+        /// <param name="viewmodel">The view model for the content of that dialog</param>
         public new Task ShowDialog<T>(T viewmodel) where T : BaseDialogViewModel
         {
             // Check if ApplicationSettings allow showing this type of dialog box

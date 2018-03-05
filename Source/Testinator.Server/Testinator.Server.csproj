@@ -437,6 +437,10 @@
       <Project>{90c0ca2b-3524-49da-a58a-0df92f7eaed8}</Project>
       <Name>Testinator.UICore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Testinator.Updater\Testinator.Updater.csproj">
+      <Project>{2a2d8211-b3c3-492c-a4bd-75bd1f837d1a}</Project>
+      <Name>Testinator.Updater</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />

@@ -5,6 +5,7 @@ using Testinator.Server.Core;
 using Testinator.Core;
 using Testinator.UICore;
 using System.Net;
+using System.Diagnostics;
 
 namespace Testinator.Server
 {
@@ -14,11 +15,6 @@ namespace Testinator.Server
     public partial class App : Application
     {
         /// <summary>
-        /// Indicates if we have important update to install
-        /// </summary>
-        private bool ImportantUpdate { get; set; }
-
-        /// <summary>
         /// Custom startup so we load our IoC and Updater immediately before anything else
         /// </summary>
         /// <param name="e"></param>
@@ -27,24 +23,28 @@ namespace Testinator.Server
             // Let the base application do what it needs
             base.OnStartup(e);
 
-            // Check for updates
-            if (await CheckUpdatesAsync())
-            {
-                // Run the updater
-                var a = 1;
-
-                // Close this app
-            }
-
             // Setup the main application 
             ApplicationSetup();
 
-            // Log that application is starting
             IoCServer.Logger.Log("Application starting...");
 
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+
+            // Check for updates
+            if (await CheckUpdatesAsync())
+            {
+                IoCServer.Logger.Log("Running updater...");
+
+                // Run the updater
+                Process.Start("Testinator.Updater.exe",
+                    "Server" + " " + IoCServer.Application.ApplicationLanguage + " " + "");
+
+                // Close this app
+                IoCServer.Logger.Log("Main application closing...");
+                Current.Shutdown();
+            }
         }
 
         /// <summary>
@@ -101,13 +101,31 @@ namespace Testinator.Server
                 switch (result)
                 {
                     case "New update":
-                        // There is new update, but not important one
-                        return true;
+                        {
+                            // There is new update, but not important one
+                            // Ask the user if he wants to update
+                            var vm = new ResultBoxDialogViewModel
+                            {
+                                Title = "New update found!",
+                                Message = "New version of Testinator can be downloaded, update now?",
+                                AcceptText = "Sure",
+                                CancelText = "Skip update"
+                            };
+                            await IoCServer.UI.ShowMessage(vm);
+
+                            // Depend on the answer...
+                            return vm.UserResponse;
+                        }
 
                     case "New update IMP":
                         {
-                            // An important update
-                            ImportantUpdate = true;
+                            // An important update, inform the user and update
+                            await IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
+                            {
+                                Title = "Important new update!",
+                                Message = "New important update is up, application will close.",
+                                OkText = "Ok"
+                            });
                             return true;
                         }
 
