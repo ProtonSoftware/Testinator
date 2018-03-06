@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
+using Testinator.UICore;
 
 namespace Testinator.Updater
 {
@@ -29,6 +31,9 @@ namespace Testinator.Updater
                     Current.Shutdown();
                     return;
             }
+
+            // Set application language
+            LocalizationResource.Culture = new CultureInfo(e.Args[1]);
 
             // Show main application window
             Current.MainWindow = new MainWindow();
