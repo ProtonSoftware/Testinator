@@ -1,4 +1,5 @@
-﻿using Testinator.UICore;
+﻿using Testinator.AnimationFramework;
+using Testinator.UICore;
 
 namespace Testinator.Updater
 {
@@ -24,6 +25,9 @@ namespace Testinator.Updater
         public InitialPage(InitialPageViewModel specificViewModel) : base(specificViewModel)
         {
             InitializeComponent();
+
+            // Change default animation
+            PageUnloadAnimation = ElementAnimation.SlideAndFadeOutToRight;
         }
 
         #endregion

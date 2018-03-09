@@ -26,14 +26,14 @@ namespace Testinator.Updater
                 case "Server":
                     UpdaterSettings.AppType = ApplicationType.Server;
                     break;
-                default:
+                //default:
                     // Application was run incorrectly, abort it
-                    Current.Shutdown();
-                    return;
+                    //Current.Shutdown();
+                    //return;
             }
 
             // Set application language
-            LocalizationResource.Culture = new CultureInfo(e.Args[1]);
+            //LocalizationResource.Culture = new CultureInfo(e.Args[1]);
 
             // Setup IoC
             IoCUpdater.Setup();

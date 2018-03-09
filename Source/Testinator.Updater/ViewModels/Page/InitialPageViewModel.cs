@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows;
 using Testinator.Core;
 
 namespace Testinator.Updater
@@ -16,11 +17,11 @@ namespace Testinator.Updater
             // Fade out this page after some delay
             Task.Run(async () =>
             {
-                // Wait 3 sec
+                // Wait 2 sec
                 await Task.Delay(2000);
 
                 // Change the application page
-                IoCUpdater.Application.GoToPage(ApplicationPage.Download);
+                Application.Current.Dispatcher.Invoke(() => IoCUpdater.Application.GoToPage(ApplicationPage.Download));
             });
         }
     }

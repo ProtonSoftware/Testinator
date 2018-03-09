@@ -71,6 +71,8 @@
         
         <!-- Content -->
         <local:PageHost CurrentPage="{Binding CurrentPage,
+                                          Source={x:Static local:UpdaterSettings.ApplicationViewModel}}"
+                        CurrentPageViewModel="{Binding CurrentPageViewModel,
                                           Source={x:Static local:UpdaterSettings.ApplicationViewModel}}" />
     
     </Grid>

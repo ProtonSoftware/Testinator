@@ -7,8 +7,24 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Border Background="Pink">
-        <TextBlock Text="Home page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
+    <Border VerticalAlignment="Center"
+          HorizontalAlignment="Center"
+          TextBlock.TextAlignment="Center">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Pobieranie" 
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <ProgressBar Value="{Binding Progress}"
+                         Grid.Row="1" />
+        </Grid>
+
     </Border>
     
 </UICore:BasePage>
