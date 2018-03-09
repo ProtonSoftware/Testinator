@@ -14,5 +14,10 @@
         /// The progress of downloading the update (%)
         /// </summary>
         public static int Progress { get; set; }
+
+        /// <summary>
+        /// The application view model as a static member to locate it
+        /// </summary>
+        public static ApplicationViewModel ApplicationViewModel => IoCUpdater.Application;
     }
 }

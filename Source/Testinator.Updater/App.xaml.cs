@@ -35,6 +35,9 @@ namespace Testinator.Updater
             // Set application language
             LocalizationResource.Culture = new CultureInfo(e.Args[1]);
 
+            // Setup IoC
+            IoCUpdater.Setup();
+
             // Show main application window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();

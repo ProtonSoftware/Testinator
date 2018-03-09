@@ -67,7 +67,11 @@
             />
     </WindowChrome.WindowChrome>
 
-    <Grid Background="Blue">
-        <TextBlock Text="COS" />
+    <Grid Background="{StaticResource WhiteDarkBrush}">
+        
+        <!-- Content -->
+        <local:PageHost CurrentPage="{Binding CurrentPage,
+                                          Source={x:Static local:UpdaterSettings.ApplicationViewModel}}" />
+    
     </Grid>
 </Window>
