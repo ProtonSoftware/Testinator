@@ -38,8 +38,13 @@ namespace Testinator.Server
                 IoCServer.Logger.Log("Running updater...");
 
                 // Run the updater
-                Process.Start("Testinator.Updater.exe",
-                    "Server" + " " + IoCServer.Application.ApplicationLanguage + " " + "");
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "Testinator.Updater.exe",
+                    Arguments = "Server" + " " + IoCServer.Application.ApplicationLanguage + " " + "",
+                    UseShellExecute = true,
+                    Verb = "runas"
+                });
 
                 // Close this app
                 IoCServer.Logger.Log("Main application closing...");

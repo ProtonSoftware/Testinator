@@ -21,6 +21,9 @@
             <TextBlock Text="Pobieranie" 
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
+            <Button Content="Click"
+                    Command="{Binding XCommand}"/>
+
             <ProgressBar Value="{Binding Progress}"
                          Grid.Row="1" />
         </Grid>
