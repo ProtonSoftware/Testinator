@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using Testinator.Client.Core;
 using Testinator.Core;
@@ -48,7 +47,7 @@ namespace Testinator.Client
             {
                 // TODO: Add ApplicationSettings so we can set/edit a log location
                 //       For now just log to the path where this application is running
-                new FileLogger("log" + DateTime.Now.ToShortDateString().Replace('/','-') + "-" + DateTime.Now.ToLongTimeString().Replace(':','-') + ".txt"),
+                new FileLogger("log.txt"),
             }));
 
             // Bind a File Writer

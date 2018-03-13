@@ -53,7 +53,7 @@
                         Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
 
                 <StackPanel Grid.Row="1"
-                            Animations:AnimateSlideInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
+                            Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
                             Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
                     
                     <TextBlock Text="IP"
