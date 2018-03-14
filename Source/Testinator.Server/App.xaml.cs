@@ -72,10 +72,6 @@ namespace Testinator.Server
 
             // Bind a UI Manager
             IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
-
-            // Set application language
-            // TODO: Set this remotely, not only at the start
-            LocalizationResource.Culture = new CultureInfo(IoCServer.Application.ApplicationLanguage);
         }
 
         /// <summary>

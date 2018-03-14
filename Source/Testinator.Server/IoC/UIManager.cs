@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Testinator.Server.Core;
 using System.Windows;
 using Testinator.Core;
+using Testinator.UICore;
 
 namespace Testinator.Server
 {
@@ -64,5 +65,11 @@ namespace Testinator.Server
             // Finally return this task
             return task;
         }
+
+        /// <summary>
+        /// Changes language in the application by specified language code
+        /// </summary>
+        /// <param name="langCode">The code of an language to change to</param>
+        public void ChangeLanguage(string langCode) => LocalizationResource.Culture = new CultureInfo(langCode);
     }
 }

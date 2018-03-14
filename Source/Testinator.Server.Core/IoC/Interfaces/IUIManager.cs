@@ -23,5 +23,11 @@ namespace Testinator.Server.Core
         /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
         Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true);
+
+        /// <summary>
+        /// Changes language in the application by specified language code
+        /// </summary>
+        /// <param name="langCode">The code of an language to change to</param>
+        void ChangeLanguage(string langCode)
     }
 }

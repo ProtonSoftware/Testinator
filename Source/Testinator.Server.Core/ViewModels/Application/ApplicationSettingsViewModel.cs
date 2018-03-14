@@ -80,12 +80,12 @@ namespace Testinator.Server.Core
                 switch(mLanguageIndex)
                 {
                     case 1:
-                        IoCServer.Application.ApplicationLanguage = "en-US";
+                        IoCServer.UI.ChangeLanguage("en-US");
                         break;
 
                     // 0 or any not found index is default - Polish language
                     default:
-                        IoCServer.Application.ApplicationLanguage = "pl-PL";
+                        IoCServer.UI.ChangeLanguage("pl-PL");
                         break;
                 }
             }

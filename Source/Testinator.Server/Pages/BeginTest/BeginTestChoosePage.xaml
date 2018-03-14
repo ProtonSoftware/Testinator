@@ -35,12 +35,12 @@
             <TextBlock Text="{x:Static UICore:LocalizationResource.NoUsersConnected}"
                        Foreground="Red"
                        Style="{StaticResource QuestionTextBlockStyle}"
-                       Animations:AnimateSlideInFromTopProperty.Value="{Binding NotEnoughClients}"
+                       Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding NotEnoughClients}"
                        HorizontalAlignment="Center" />
             <TextBlock Text="{x:Static UICore:LocalizationResource.NoTestChoosen}"
                        Foreground="Red"
                        Style="{StaticResource QuestionTextBlockStyle}"
-                       Animations:AnimateSlideInFromTopProperty.Value="{Binding TestNotSelected}"
+                       Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding TestNotSelected}"
                        HorizontalAlignment="Center" />
         </StackPanel>
 
