@@ -57,6 +57,9 @@ namespace Testinator.Server
         /// </summary>
         private void ApplicationSetup()
         {
+            // Bind a UI Manager
+            IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
+
             // Setup IoC
             IoCServer.Setup();
 
@@ -69,9 +72,6 @@ namespace Testinator.Server
 
             // Bind a File Writer
             IoCServer.Kernel.Bind<FileManagerBase>().ToConstant(new LogsWriter());
-
-            // Bind a UI Manager
-            IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
         }
 
         /// <summary>

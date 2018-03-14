@@ -6,9 +6,27 @@
              xmlns:local="clr-namespace:Testinator.Updater"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
-    
-    <Border>
-        <TextBlock Text="Koniec" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+    <Border VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            TextBlock.TextAlignment="Center">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Koniec" 
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <Button Content="Wyjdz"
+                    Command="{Binding ExitAppCommand}"
+                    Style="{StaticResource BaseUIButton}"
+                    Grid.Row="1" />
+        </Grid>
+
     </Border>
-    
+
 </UICore:BasePage>

@@ -8,6 +8,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         Title="Testinator.Updater" Height="480" Width="720">
 
     <Window.Resources>

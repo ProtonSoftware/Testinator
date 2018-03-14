@@ -37,17 +37,16 @@ namespace Testinator.Updater
                 // Everytime download progress changes, match our progress bar value
                 wc.DownloadProgressChanged += (s, e) => Progress = e.ProgressPercentage;
 
-                // Fire when download is completed
-                wc.DownloadDataCompleted += DownloadCompleted;
+                // Change to next page when download is completed
+                wc.DownloadFileCompleted += (s, e) => IoCUpdater.Application.GoToPage(ApplicationPage.Exit);
 
-                // Prepare variables
+                // Prepare url
                 var url = CreateInstallerUrl();
-                var path = Path.GetTempPath();
 
                 try
                 {
                     // Try to download the installer file
-                    wc.DownloadFileAsync(new Uri(url), path + "installer.msi");
+                    wc.DownloadFileAsync(new Uri(url), UpdaterSettings.InstallerPath + "installer.msi");
                 }
                 catch
                 {
@@ -71,22 +70,6 @@ namespace Testinator.Updater
 
             // Create url from that
             return "http://minorsonek.pl/testinator/data/Installer_" + appType + "/Testinator." + appType + "-1.1.0.0-x86.msi";
-        }
-
-        /// <summary>
-        /// Fired when new version download is completed
-        /// </summary>
-        private void DownloadCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {
-            // Change the page
-            IoCUpdater.Application.GoToPage(ApplicationPage.Exit);
-        }
-
-        public void Install()
-        {
-            //var type = Type.GetTypeFromProgID("WindowsInstaller.Installer");
-            //var installer = (Installer)Activator.CreateInstance(type);
-            //installer.InstallProduct("YourPackage.msi");
         }
 
         #endregion
