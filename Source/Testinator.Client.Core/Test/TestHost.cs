@@ -174,7 +174,7 @@ namespace Testinator.Client.Core
             IoCClient.Logger.Log("Test is starting...");
             IsTestInProgress = true;
 
-            // Initialize the answer list so user can add his answer to it
+            // Initialize the answer list so user can add their answers to it
             UserAnswers = new List<Answer>();
 
             // Start the test timer

@@ -4,6 +4,7 @@ using Testinator.Server.Core;
 using System.Windows;
 using Testinator.Core;
 using Testinator.UICore;
+using System.Globalization;
 
 namespace Testinator.Server
 {
