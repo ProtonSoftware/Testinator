@@ -7,8 +7,8 @@
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
-    <Border Background="Red">
-        <TextBlock Text="Home page" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center" />
+    <Border>
+        <TextBlock Text="Koniec" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Border>
     
 </UICore:BasePage>

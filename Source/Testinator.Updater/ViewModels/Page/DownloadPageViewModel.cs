@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 using System.Net;
 using Testinator.Core;
 
@@ -15,6 +15,11 @@ namespace Testinator.Updater
         /// Indicates how much of a progress is done on downloading as percentage
         /// </summary>
         public int Progress { get; set; } = 0;
+
+        /// <summary>
+        /// If any error occures, show this message
+        /// </summary>
+        public string ErrorMessage { get; private set; } = "";
 
         #endregion
 
@@ -34,8 +39,20 @@ namespace Testinator.Updater
                 // Fire when download is completed
                 wc.DownloadDataCompleted += DownloadCompleted;
 
-                // Download the installer file
-                wc.DownloadFileAsync(new Uri("http://minorsonek.pl/testinator/data/Installer_Server/Testinator.Server-1.1.0.0-x86.msi"), "\\temp\\installer.msi");
+                // Prepare variables
+                var url = CreateInstallerUrl();
+                var path = Path.GetTempPath();
+
+                try
+                {
+                    // Try to download the installer file
+                    wc.DownloadFileAsync(url, path + "installer.msi");
+                }
+                catch
+                {
+                    // Can't download file, output error
+                    ErrorMessage = "Error";
+                }
             }
         }
 
@@ -44,11 +61,24 @@ namespace Testinator.Updater
         #region Private Helpers
 
         /// <summary>
+        /// Creates an url to the installer that we want to download
+        /// </summary>
+        private string CreateInstallerUrl()
+        {
+            // Get app type as string from settings
+            var appType = UpdaterSettings.AppType.ToString();
+
+            // Create url from that
+            return "http://minorsonek.pl/testinator/data/Installer_" + appType + "/Testinator." + appType + "-1.1.0.0-x86.msi";
+        }
+
+        /// <summary>
         /// Fired when new version download is completed
         /// </summary>
         private void DownloadCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
-            
+            // Change the page
+            IoCUpdater.Application.GoToPage(ApplicationPage.Exit);
         }
 
         public void Install()

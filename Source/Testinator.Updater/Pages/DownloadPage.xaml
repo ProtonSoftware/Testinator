@@ -8,12 +8,13 @@
              mc:Ignorable="d">
     
     <Border VerticalAlignment="Center"
-          HorizontalAlignment="Center"
-          TextBlock.TextAlignment="Center">
+            HorizontalAlignment="Center"
+            TextBlock.TextAlignment="Center">
 
         <Grid>
 
             <Grid.RowDefinitions>
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
@@ -21,11 +22,13 @@
             <TextBlock Text="Pobieranie" 
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <Button Content="Click"
-                    Command="{Binding XCommand}"/>
+            <TextBlock Text="{Binding ErrorMessage}" 
+                       Foreground="Red"
+                       Grid.Row="1"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
 
             <ProgressBar Value="{Binding Progress}"
-                         Grid.Row="1" />
+                         Grid.Row="2" />
         </Grid>
 
     </Border>
