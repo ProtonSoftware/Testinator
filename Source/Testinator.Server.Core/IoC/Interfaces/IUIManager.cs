@@ -28,6 +28,6 @@ namespace Testinator.Server.Core
         /// Changes language in the application by specified language code
         /// </summary>
         /// <param name="langCode">The code of an language to change to</param>
-        void ChangeLanguage(string langCode)
+        void ChangeLanguage(string langCode);
     }
 }

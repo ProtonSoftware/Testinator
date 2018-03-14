@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using Testinator.Core;
 
@@ -46,7 +47,7 @@ namespace Testinator.Updater
                 try
                 {
                     // Try to download the installer file
-                    wc.DownloadFileAsync(url, path + "installer.msi");
+                    wc.DownloadFileAsync(new Uri(url), path + "installer.msi");
                 }
                 catch
                 {
