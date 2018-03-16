@@ -353,7 +353,7 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
-        /// Stopes the timer
+        /// Stops the timer
         /// </summary>
         private void StopTimer()
         {

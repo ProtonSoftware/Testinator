@@ -160,15 +160,11 @@ namespace Testinator.Server.Core
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
 
-            // Hook to timer event
-            IoCServer.TestHost.OnTimerUpdated += TimerUpdated;
-
-            // Hook to the server event
-            IoCServer.Network.OnClientConnected += Network_OnClientConnected;
-            IoCServer.Network.OnClientDisconnected += Network_OnClientDisconnected;
-
-            // Hook to the test list event
-            TestListViewModel.Instance.ItemSelected += TestListViewModel_TestSelected;
+            // Keep the view up-to-date
+            IoCServer.TestHost.OnTimerUpdated += () => UpdateView();
+            IoCServer.Network.OnClientConnected += (s) => UpdateView();
+            IoCServer.Network.OnClientDisconnected += (s) => UpdateView();
+            TestListViewModel.Instance.ItemSelected += () => UpdateView();
 
             // Hook to the test host evet
             IoCServer.TestHost.TestFinished += ChangePageToResults;
@@ -342,22 +338,14 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ResultPageExit()
         {
+            // Go back to the main begin test page
+            IoCServer.Application.GoToPage(ApplicationPage.BeginTest);
+
+            // Change the mini-page accordingly
             if (IoCServer.Network.IsRunning)
                 IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
             else
                 IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
-        }
-
-        #endregion
-
-        #region Private Helpers
-
-        /// <summary>
-        /// Fired when timeleft timer is updated
-        /// </summary>
-        private void TimerUpdated()
-        {
-            UpdateView();
         }
 
         #endregion
@@ -369,35 +357,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private void ChangePageToResults()
         {
-            // Jump on the dispatcher thread to change page
-            var uiContext = SynchronizationContext.Current;
-            uiContext.Send(x => IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestResults), null);
-        }
-
-        /// <summary>
-        /// Fired when test is selected
-        /// </summary>
-        private void TestListViewModel_TestSelected()
-        {
-            UpdateView();
-        }
-
-        /// <summary>
-        /// Fired when a client disconnects
-        /// </summary>
-        /// <param name="obj"></param>
-        private void Network_OnClientDisconnected(ClientModel obj)
-        {
-            UpdateView();
-        }
-
-        /// <summary>
-        /// Fired when a client connects
-        /// </summary>
-        /// <param name="obj"></param>
-        private void Network_OnClientConnected(ClientModel obj)
-        {
-            UpdateView();
+            // Change page on UI Thread
+            IoCServer.UI.ChangeApplicationPageThreadSafe(ApplicationPage.BeginTestResults);
         }
 
         /// <summary>

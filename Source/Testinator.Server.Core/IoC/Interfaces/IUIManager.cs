@@ -9,6 +9,13 @@ namespace Testinator.Server.Core
     public interface IUIManager
     {
         /// <summary>
+        /// Changes application page by making sure that we are on UI thread beforehand
+        /// </summary>
+        /// <param name="page">The page to change to</param>
+        /// <param name="vm">The view model</param>
+        void ChangeApplicationPageThreadSafe(ApplicationPage page, BaseViewModel vm = null);
+
+        /// <summary>
         /// Displays a single message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>

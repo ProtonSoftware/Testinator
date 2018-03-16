@@ -82,7 +82,7 @@ namespace Testinator.Server
             try
             {
                 // Get current version
-                var currentVersion = "1.0.0.0";
+                var currentVersion = "1.1.0.0";
 
                 // Set webservice's url and parameters we want to send
                 var url = "http://minorsonek.pl/testinator/data/index.php";
