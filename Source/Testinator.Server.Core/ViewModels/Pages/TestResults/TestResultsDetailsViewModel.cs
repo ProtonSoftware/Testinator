@@ -146,7 +146,9 @@ namespace Testinator.Server.Core
             {
                 // Get the answers given by this user
                 var answers = mTestResults.Results[student];
-                answers = answers.OrderBy(x => x.ID).ToList();
+
+                if (answers != null)
+                    answers = answers.OrderBy(x => x.ID).ToList();
 
                 // Create a viewmodel for them
                 var viewmodel = new QuestionsViewItemViewModel()
@@ -183,9 +185,9 @@ namespace Testinator.Server.Core
                                 break;
                         }
                     }
-                    catch(IndexOutOfRangeException)
+                    catch(Exception)
                     {
-                        scoredPoints = -1;
+                        scoredPoints = 0;
                     }
                     finally { }
 

@@ -632,7 +632,7 @@ namespace Testinator.Client.Core
                 Title = "Koniec czasu",
                 Message = "Czas przeznaczony na rozwiązanie testu minął!",
                 OkText = "OK",
-            });
+            }, false);
 
             TestFinished();
         }
