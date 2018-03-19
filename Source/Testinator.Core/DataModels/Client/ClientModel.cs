@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Net.Sockets;
 using Testinator.Core.Network;
 
 namespace Testinator.Core
@@ -58,13 +56,10 @@ namespace Testinator.Core
         /// with the data stored in this client model
         /// </summary>
         /// <returns>Info package</returns>
-        public DataPackage GetPackage()
+        public DataPackage GetPackage() => new DataPackage(PackageType.Info)
         {
-            return new DataPackage(PackageType.Info)
-            {
-                Content = new InfoPackage(this),
-            };
-        }
+            Content = new InfoPackage(this),
+        };
 
         #endregion
 
@@ -81,14 +76,11 @@ namespace Testinator.Core
         }
 
         /// <summary>
-        /// Default constructor
+        /// Constructor with the source
         /// </summary>
-        public ClientModel(ClientModel source)
+        public ClientModel(ClientModel source) : this()
         {
-            // Create defaults
-            MacAddress = MacAddressHelpers.GetMac();
-            MachineName = Environment.MachineName;
-
+            // Add source informations
             ID = source.ID;
             MacAddress = source.MacAddress;
             MachineName = source.MachineName;

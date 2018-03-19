@@ -28,15 +28,12 @@ namespace Testinator.Core
         /// Clones the object
         /// </summary>
         /// <returns>A copy of the given object</returns>
-        public override Question Clone()
+        public override Question Clone() => new SingleTextBoxQuestion()
         {
-            return new SingleTextBoxQuestion()
-            {
-                Task = this.Task,
-                CorrectAnswer = this.CorrectAnswer,
-                PointScore = this.PointScore,
-            };
-        }
+            Task = this.Task,
+            CorrectAnswer = this.CorrectAnswer,
+            PointScore = this.PointScore,
+        };
 
         #endregion
 

@@ -13,7 +13,11 @@ namespace Testinator.Core
         /// </summary>
         public string Message { get; set; }
 
+        /// <summary>
+        /// TODO: Comment
+        /// </summary>
         public string Test { get; set; }
+
         /// <summary>
         /// Clients that can be added to the test
         /// </summary>
