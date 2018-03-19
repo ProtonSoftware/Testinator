@@ -16,6 +16,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             <StackPanel Grid.Row="0">
@@ -83,9 +84,9 @@
 
             <StackPanel Grid.Row="1" 
                         HorizontalAlignment="Center"
-                        Margin="0 0 0 50"
+                        Margin="0 0 0 0"
                         Orientation="Horizontal">
-
+                
                 <Button Content="{x:Static UICore:LocalizationResource.FinishBeforeTime}"
                         Command="{Binding FinishTestCommand}"
                         Style="{StaticResource BaseUIButton}"/>
@@ -95,7 +96,18 @@
                         Style="{StaticResource BaseUIButton}" />
 
             </StackPanel>
-            
+
+            <StackPanel Grid.Row="2" 
+                        HorizontalAlignment="Center"
+                        Margin="0 0 0 0"
+                        Orientation="Horizontal">
+
+                <Button Content="Add latecomer"
+                        Command="{Binding AddLateComerCommand}"
+                        Style="{StaticResource BaseUIButton}"/>
+
+            </StackPanel>
+
         </Grid>
     </Border>
 </UICore:BasePage>

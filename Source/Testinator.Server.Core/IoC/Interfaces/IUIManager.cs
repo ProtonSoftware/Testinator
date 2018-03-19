@@ -32,6 +32,15 @@ namespace Testinator.Server.Core
         Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true);
 
         /// <summary>
+        /// Displays a result box to the user and catch the result
+        /// </summary>
+        /// <param name="viewModel">The view model</param>
+        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
+        /// <returns></returns>
+        Task ShowMessage(AddLatecomersDialogViewModel viewModel, bool isAlreadyOnUIThread = true);
+
+
+        /// <summary>
         /// Changes language in the application by specified language code
         /// </summary>
         /// <param name="langCode">The code of an language to change to</param>

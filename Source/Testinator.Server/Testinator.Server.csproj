@@ -139,6 +139,9 @@
     <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
       <DependentUpon>DialogMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddLatecommersDialog.xaml.cs">
+      <DependentUpon>AddLatecommersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\Implementation\MessageDialogUserControl.cs" />
     <Compile Include="Dialogs\Implementation\ResultDialogUserControl.cs" />
     <Compile Include="DialogWindow.xaml.cs">
@@ -281,6 +284,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\DialogMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddLatecommersDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

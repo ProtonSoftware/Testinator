@@ -83,9 +83,39 @@ namespace Testinator.Server
         }
 
         /// <summary>
+        /// Displays a result box to the user and catch the result
+        /// </summary>
+        /// <param name="viewModel">The view model</param>
+        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
+        /// <returns></returns>
+        public Task ShowMessage(AddLatecomersDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
+        {
+            // Prepare a dummy task to return
+            Task task = null;
+
+            // If caller isn't on UIThread already, get to this thread first
+            if (!isAlreadyOnUIThread)
+                Application.Current.Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    // Set the task inside UIThread
+                    task = new AddLatecommersDialog().ShowDialog(viewModel);
+                }));
+
+            // If caller is on UIThread, just show the dialog
+            else
+                task = new AddLatecommersDialog().ShowDialog(viewModel);
+
+            // Finally return this task
+            return task;
+        }
+
+
+
+        /// <summary>
         /// Changes language in the application by specified language code
         /// </summary>
         /// <param name="langCode">The code of an language to change to</param>
         public void ChangeLanguage(string langCode) => LocalizationResource.Culture = new CultureInfo(langCode);
+
     }
 }

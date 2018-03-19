@@ -1,0 +1,14 @@
+﻿<local:ResultDialogUserControl x:Class="Testinator.Server.AddLatecommersDialog"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:local="clr-namespace:Testinator.Server"
+                               xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                               mc:Ignorable="d"
+                               d:DesignHeight="200"
+                               d:DesignWidth="500">
+    <Grid Background="White">
+        <TextBlock Text="{Binding}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</local:ResultDialogUserControl>

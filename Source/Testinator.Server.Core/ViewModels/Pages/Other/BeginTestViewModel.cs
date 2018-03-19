@@ -138,6 +138,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand ResultPageExitCommand { get; private set; }
 
+        /// <summary>
+        /// The command to add a latecommer to the current test session
+        /// </summary>
+        public ICommand AddLateComerCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -156,6 +161,7 @@ namespace Testinator.Server.Core
             StopTestCommand = new RelayCommand(StopTest);
             FinishTestCommand = new RelayCommand(FinishTest);
             ResultPageExitCommand = new RelayCommand(ResultPageExit);
+            AddLateComerCommand = new RelayCommand(AddLateComer);
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
@@ -173,6 +179,31 @@ namespace Testinator.Server.Core
         #endregion
 
         #region Command Methods
+
+        /// <summary>
+        /// Adds latecomer to the current test session
+        /// </summary>
+        private void AddLateComer()
+        {
+            var CanStartTestClients = GetPossibleTestStartingClients();
+
+            if (CanStartTestClients.Count == 0)
+            {
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
+                {
+                    Message = "No latecomers to add!",
+                    OkText = "OK",
+                    Title = "Adding users to the test",
+                });
+            }
+            else
+            {
+                IoCServer.UI.ShowMessage(new AddLatecomersDialogViewModel()
+                {
+                    Test = "test",
+                });
+            }
+        }
 
         /// <summary>
         /// Starts the server
@@ -383,6 +414,25 @@ namespace Testinator.Server.Core
         {
             IoCServer.TestHost.TestStopForcefully();
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Gets all the clients that can possibly start a test
+        /// </summary>
+        /// <returns>All the clients that can start a test right now</returns>
+        private List<ClientModel> GetPossibleTestStartingClients()
+        {
+            var CanStartTestClients = new List<ClientModel>();
+
+            foreach(var client in IoCServer.Network.Clients)
+                if (client.CanStartTest)
+                    CanStartTestClients.Add(client);
+
+            return CanStartTestClients;
         }
 
         #endregion
