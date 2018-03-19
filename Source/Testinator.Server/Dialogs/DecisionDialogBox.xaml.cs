@@ -3,9 +3,9 @@
     /// <summary>
     /// Interaction logic for DialogResultBox.xaml
     /// </summary>
-    public partial class DialogResultBox : ResultDialogUserControl
+    public partial class DecisionDialogBox : DecisionDialogUserControl
     {
-        public DialogResultBox()
+        public DecisionDialogBox()
         {
             InitializeComponent();
         }

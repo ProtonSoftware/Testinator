@@ -127,7 +127,7 @@ namespace Testinator.Server.Core
             if (selectedItem == null)
                 return;
 
-            var vm = new ResultBoxDialogViewModel()
+            var vm = new DecisionDialogViewModel()
             {
                 Title = "Usuwanie rezultatu",
                 Message = "Czy chcesz usunąć ten rezultat?",

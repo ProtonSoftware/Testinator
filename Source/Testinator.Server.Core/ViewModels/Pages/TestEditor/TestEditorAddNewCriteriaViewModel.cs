@@ -130,7 +130,7 @@ namespace Testinator.Server.Core
             if (EditingCriteriaMode)
             {
                 // Show message box to ask the user if he wants to save changes or not
-                var vm = new ResultBoxDialogViewModel
+                var vm = new DecisionDialogViewModel
                 {
                     Title = "Kryteria edytowane",
                     Message = "Kryteria są aktualnie edytowane, zmiana strony odrzuci zmiany.\nKontynuować?",
@@ -168,7 +168,7 @@ namespace Testinator.Server.Core
                 if (CriteriaChanged)
                 {
                     // Show the message box with the info that there are some unsaved changes
-                    var vm = new ResultBoxDialogViewModel
+                    var vm = new DecisionDialogViewModel
                     {
                         Title = "Niezapisane zmiany",
                         Message = "Niektóre zmiany nie zostały zapisane.\nKontynuować?",
@@ -298,7 +298,7 @@ namespace Testinator.Server.Core
         private void DeleteCommand()
         {
             // Show message box to ask the user if he wants to delete criteria
-            var vm = new ResultBoxDialogViewModel
+            var vm = new DecisionDialogViewModel
             {
                 Title = "Usuwanie kryterii",
                 Message = "Wybrane kryteria zostaną usunięte.\nKontynuować?",

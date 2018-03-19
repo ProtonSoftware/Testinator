@@ -127,11 +127,11 @@
     <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
       <DependentUpon>DialogMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogResultBox.xaml.cs">
-      <DependentUpon>DialogResultBox.xaml</DependentUpon>
+    <Compile Include="Dialogs\DecisionDialogBox.xaml.cs">
+      <DependentUpon>DecisionDialogBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\Implementation\DecisionDialogUserControl.cs" />
     <Compile Include="Dialogs\Implementation\MessageDialogUserControl.cs" />
-    <Compile Include="Dialogs\Implementation\ResultDialogUserControl.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -199,7 +199,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Dialogs\DialogResultBox.xaml">
+    <Page Include="Dialogs\DecisionDialogBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

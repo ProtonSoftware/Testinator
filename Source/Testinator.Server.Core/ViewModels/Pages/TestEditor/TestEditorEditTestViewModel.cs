@@ -101,7 +101,7 @@ namespace Testinator.Server.Core
             OnPropertyChanged(nameof(CurrentTest));
 
             // Show message box to user to ask if he is sure he wants to delete the test
-            var vm = new ResultBoxDialogViewModel
+            var vm = new DecisionDialogViewModel
             {
                 Title = "Usuwanie testu",
                 Message = "Czy jesteś pewny, że chcesz usunąć ten test?",

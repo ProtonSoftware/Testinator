@@ -5,6 +5,7 @@ using System.Windows;
 using Testinator.Core;
 using Testinator.UICore;
 using System.Globalization;
+using System.Threading;
 
 namespace Testinator.Server
 {
@@ -34,13 +35,13 @@ namespace Testinator.Server
         /// <param name="viewModel">The view model</param>
         /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(MessageBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
+        public Task ShowMessage(MessageBoxDialogViewModel viewModel)
         {
             // Prepare a dummy task to return
             Task task = null;
 
             // If caller isn't on UIThread, get to this thread first
-            if (!isAlreadyOnUIThread)
+            if (!Application.Current.Dispatcher.CheckAccess())
                 Application.Current.Dispatcher.BeginInvoke((Action)(() =>
                 {
                     // Set the task inside UIThread
@@ -61,22 +62,22 @@ namespace Testinator.Server
         /// <param name="viewModel">The view model</param>
         /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
+        public Task ShowMessage(DecisionDialogViewModel viewModel)
         {
             // Prepare a dummy task to return
             Task task = null;
 
             // If caller isn't on UIThread already, get to this thread first
-            if (!isAlreadyOnUIThread)
+            if (!Application.Current.Dispatcher.CheckAccess())
                 Application.Current.Dispatcher.BeginInvoke((Action)(() =>
                 {
                     // Set the task inside UIThread
-                    task = new DialogResultBox().ShowDialog(viewModel);
+                    task = new DecisionDialogBox().ShowDialog(viewModel);
                 }));
 
             // If caller is on UIThread, just show the dialog
             else
-                task = new DialogResultBox().ShowDialog(viewModel);
+                task = new DecisionDialogBox().ShowDialog(viewModel);
 
             // Finally return this task
             return task;
@@ -88,13 +89,13 @@ namespace Testinator.Server
         /// <param name="viewModel">The view model</param>
         /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(AddLatecomersDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
+        public Task ShowMessage(AddLatecomersDialogViewModel viewModel)
         {
             // Prepare a dummy task to return
             Task task = null;
 
             // If caller isn't on UIThread already, get to this thread first
-            if (!isAlreadyOnUIThread)
+            if (!Application.Current.Dispatcher.CheckAccess())
                 Application.Current.Dispatcher.BeginInvoke((Action)(() =>
                 {
                     // Set the task inside UIThread

@@ -85,9 +85,10 @@
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
     <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
     <Compile Include="Dialogs\Base\BaseDialogViewModel.cs" />
+    <Compile Include="Dialogs\Base\MessageTypes.cs" />
     <Compile Include="Dialogs\ViewModels\AddLatecomersDialogViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\DecisionDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
-    <Compile Include="Dialogs\ViewModels\ResultBoxDialogViewModel.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Files\Base\FileDataHasher.cs" />
     <Compile Include="Files\Base\FileHandler.cs" />

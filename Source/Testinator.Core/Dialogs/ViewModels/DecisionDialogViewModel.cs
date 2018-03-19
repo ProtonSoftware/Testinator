@@ -1,10 +1,10 @@
 ﻿namespace Testinator.Core
 {
     /// <summary>
-    /// Details for a result box dialog
-    /// where user decide if he agrees with the message or not
+    /// Details for a decision box dialog
+    /// User has two options: Accept or Cancel
     /// </summary>
-    public class ResultBoxDialogViewModel : BaseDialogViewModel
+    public class DecisionDialogViewModel : BaseDialogViewModel
     {
         /// <summary>
         /// The message to display
@@ -27,6 +27,7 @@
         /// True means that he accept the message
         /// False means that he declined
         /// </summary>
-        public bool UserResponse { get; set; } 
+        public bool UserResponse { get; set; } = false;
+
     }
 }

@@ -105,7 +105,7 @@ namespace Testinator.Server
                         {
                             // There is new update, but not important one
                             // Ask the user if he wants to update
-                            var vm = new ResultBoxDialogViewModel
+                            var vm = new DecisionDialogViewModel
                             {
                                 Title = "New update found!",
                                 Message = "New version of Testinator can be downloaded, update now?",

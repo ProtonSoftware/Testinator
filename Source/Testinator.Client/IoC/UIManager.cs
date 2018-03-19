@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Testinator.Client.Core;
@@ -33,15 +34,14 @@ namespace Testinator.Client
         /// Displays a single message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>
-        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(MessageBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
+        public Task ShowMessage(MessageBoxDialogViewModel viewModel)
         {
             // Prepare a dummy task to return
             Task task = null;
 
             // If caller isn't on UIThread, get to this thread first
-            if (!isAlreadyOnUIThread)
+            if (!Application.Current.Dispatcher.CheckAccess())
                 Application.Current.Dispatcher.BeginInvoke((Action)(() => 
                 {
                     // Set the task inside UIThread
@@ -60,24 +60,23 @@ namespace Testinator.Client
         /// Displays a result box to the user and catch the result
         /// </summary>
         /// <param name="viewModel">The view model</param>
-        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
-        public Task ShowMessage(ResultBoxDialogViewModel viewModel, bool isAlreadyOnUIThread = true)
+        public Task ShowMessage(DecisionDialogViewModel viewModel)
         {
             // Prepare a dummy task to return
             Task task = null;
 
             // If caller isn't on UIThread already, get to this thread first
-            if (!isAlreadyOnUIThread)
+            if (!Application.Current.Dispatcher.CheckAccess())
                 Application.Current.Dispatcher.BeginInvoke((Action)(() =>
                 {
                     // Set the task inside UIThread
-                    task = new DialogResultBox().ShowDialog(viewModel);
+                    task = new DecisionDialogBox().ShowDialog(viewModel);
                 }));
 
             // If caller is on UIThread, just show the dialog
             else
-                task = new DialogResultBox().ShowDialog(viewModel);
+                task = new DecisionDialogBox().ShowDialog(viewModel);
 
             // Finally return this task
             return task;

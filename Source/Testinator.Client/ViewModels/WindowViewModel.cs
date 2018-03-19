@@ -184,7 +184,7 @@ namespace Testinator.Client
                 else
                 {
                     // Ask the user, if he is certain he wants to close the app
-                    var vm = new ResultBoxDialogViewModel
+                    var vm = new DecisionDialogViewModel
                     {
                         Title = "Zamykanie aplikacji",
                         Message = "Czy na pewno chcesz wyłączyć aplikację?",

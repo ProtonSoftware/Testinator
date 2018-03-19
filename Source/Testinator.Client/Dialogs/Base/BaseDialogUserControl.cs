@@ -18,6 +18,11 @@ namespace Testinator.Client
         /// </summary>
         protected DialogWindow mDialogWindow;
 
+        /// <summary>
+        /// The view model for content of this dialog
+        /// </summary>
+        private BaseDialogViewModel mDialogViewModel;
+
         #endregion
 
         #region Public Properties
@@ -42,6 +47,21 @@ namespace Testinator.Client
         /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// The view model for content of this messagebox
+        /// Get - returns the view model itself
+        /// Set - sets data context of this viewmodel and stores it
+        /// </summary>
+        public BaseDialogViewModel ContentViewModel
+        {
+            get => mDialogViewModel;
+            set
+            {
+                mDialogViewModel = value;
+                DataContext = value;
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -54,10 +74,9 @@ namespace Testinator.Client
             // Dont do anything in design mode
             if (DesignerProperties.GetIsInDesignMode(this))
                 return;
-            
+
             // Create a new dialog window
             mDialogWindow = new DialogWindow();
-            mDialogWindow.ViewModel = new DialogWindowViewModel(mDialogWindow);
         }
 
         #endregion
@@ -70,7 +89,7 @@ namespace Testinator.Client
         /// <param name="viewModel">The view model</param>
         /// <typeparam name="T">The view model type for this control</typeparam>
         /// <returns></returns>
-        public Task ShowDialog<T>(T viewModel)
+        public virtual Task ShowDialog<T>(T viewModel)
             where T : BaseDialogViewModel
         {
             // Create a task to await the dialog closing
@@ -81,20 +100,19 @@ namespace Testinator.Client
             {
                 try
                 {
-                    // Match controls expected sizes to the dialog windows view model
-                    mDialogWindow.ViewModel.WindowMinimumWidth = WindowMinimumWidth;
-                    mDialogWindow.ViewModel.WindowMinimumHeight = WindowMinimumHeight;
-                    mDialogWindow.ViewModel.TitleHeight = TitleHeight;
-                    mDialogWindow.ViewModel.Title = string.IsNullOrEmpty(viewModel.Title) ? Title : viewModel.Title;
+                    // Set the viewmodel for the window
+                    mDialogWindow.DataContext = new DialogWindowViewModel(mDialogWindow)
+                    {
+                        // Match controls expected sizes to the dialog windows view model
+                        WindowMinimumWidth = WindowMinimumWidth,
+                        WindowMinimumHeight = WindowMinimumHeight,
+                        TitleHeight = TitleHeight,
+                        Title = string.IsNullOrEmpty(viewModel.Title) ? Title : viewModel.Title,
+                        Content = this,
+                    };
 
-                    // Set this control to the dialog window content
-                    mDialogWindow.ViewModel.Content = this;
-
-                    // Setup this controls data context binding to the specified view model depends on its type
-                    if (viewModel is ResultBoxDialogViewModel)
-                        SetDialogViewModel(viewModel as ResultBoxDialogViewModel);
-                    else if (viewModel is MessageBoxDialogViewModel)
-                        SetDialogViewModel(viewModel as MessageBoxDialogViewModel);
+                    // Set the viewmodel passed in as a viewmodel for the content of this dialog
+                    ContentViewModel = viewModel;
 
                     // Show in the center of the parent
                     mDialogWindow.Owner = Application.Current.MainWindow;
@@ -112,22 +130,6 @@ namespace Testinator.Client
 
             return tcs.Task;
         }
-
-        #endregion
-
-        #region Override Methods
-
-        /// <summary>
-        /// Sets the view model of a ResultDialog box
-        /// </summary>
-        /// <param name="viewModel">The view model to set</param>
-        public virtual void SetDialogViewModel(ResultBoxDialogViewModel viewModel) { }
-
-        /// <summary>
-        /// Sets the view model of a MessageDialog box
-        /// </summary>
-        /// <param name="viewModel">The view model to set</param>
-        public virtual void SetDialogViewModel(MessageBoxDialogViewModel viewModel) { }
 
         #endregion
     }

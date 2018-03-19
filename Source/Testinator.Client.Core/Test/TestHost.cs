@@ -201,7 +201,7 @@ namespace Testinator.Client.Core
                 Title = "Test został zatrzymany!",
                 Message = "Test został zatrzymany na polecenie serwera.",
                 OkText = "Ok"
-            }, false); // Indicate that we are not on the UIThread here
+            }); // Indicate that we are not on the UIThread here
 
             // Reset the test host
             Reset();
@@ -632,7 +632,7 @@ namespace Testinator.Client.Core
                 Title = "Koniec czasu",
                 Message = "Czas przeznaczony na rozwiązanie testu minął!",
                 OkText = "OK",
-            }, false);
+            });
 
             TestFinished();
         }

@@ -692,7 +692,7 @@ namespace Testinator.Server.Core
         private void CancelEditingQuestion()
         {
             // Ask the user if he wants to cancel editing
-            var vm = new ResultBoxDialogViewModel
+            var vm = new DecisionDialogViewModel
             {
                 Title = "Anuluj edycję",
                 Message = "Czy na pewno chcesz anulować edycję pytania?",
@@ -721,7 +721,7 @@ namespace Testinator.Server.Core
             var idx = (int)param;
 
             // Ask the user if he wants to delete question
-            var vm = new ResultBoxDialogViewModel
+            var vm = new DecisionDialogViewModel
             {
                 Title = "Usuwanie pytania",
                 Message = "Czy na pewno chcesz usunąć pytanie numer " + idx.ToString() + "?",

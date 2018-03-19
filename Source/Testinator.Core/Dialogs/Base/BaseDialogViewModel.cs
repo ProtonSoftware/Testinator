@@ -3,7 +3,7 @@
     /// <summary>
     /// The base view model for any dialogs
     /// </summary>
-    public class BaseDialogViewModel : BaseViewModel
+    public abstract class BaseDialogViewModel : BaseViewModel
     {
         /// <summary>
         /// The title of the dialog

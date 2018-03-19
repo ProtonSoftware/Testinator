@@ -201,6 +201,7 @@ namespace Testinator.Server.Core
                 IoCServer.UI.ShowMessage(new AddLatecomersDialogViewModel()
                 {
                     Test = "test",
+                    Title = "Adding users to the test"
                 });
             }
         }
@@ -242,7 +243,7 @@ namespace Testinator.Server.Core
             if (IoCServer.TestHost.IsTestInProgress)
             {
                 // Ask the user if he wants to stop the test
-                var vm = new ResultBoxDialogViewModel()
+                var vm = new DecisionDialogViewModel()
                 {
                     Title = "Test w trakcie!",
                     Message = "Test jest w trakcie. Czy chcesz go przerwać?",
@@ -340,7 +341,7 @@ namespace Testinator.Server.Core
         private void StopTest()
         {
             // Ask the user if he wants to stop the test
-            var vm = new ResultBoxDialogViewModel()
+            var vm = new DecisionDialogViewModel()
             {
                 Title = "Przerywanie testu",
                 Message = "Czy na pewno chcesz przerwać test?",
