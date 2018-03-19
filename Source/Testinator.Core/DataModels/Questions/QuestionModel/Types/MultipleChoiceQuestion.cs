@@ -37,16 +37,13 @@ namespace Testinator.Core
         /// Clones the object
         /// </summary>
         /// <returns>Return a clone</returns>
-        public override Question Clone( )
+        public override Question Clone() => new MultipleChoiceQuestion()
         {
-            return new MultipleChoiceQuestion()
-            {
-                Task = this.Task,
-                CorrectAnswerIndex = this.CorrectAnswerIndex,
-                Options = this.Options,
-                PointScore = this.PointScore,
-            };
-        }
+            Task = this.Task,
+            CorrectAnswerIndex = this.CorrectAnswerIndex,
+            Options = this.Options,
+            PointScore = this.PointScore,
+        };
 
         #endregion
 

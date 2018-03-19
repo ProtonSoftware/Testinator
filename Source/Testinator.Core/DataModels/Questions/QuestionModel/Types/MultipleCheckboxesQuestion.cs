@@ -30,15 +30,12 @@ namespace Testinator.Core
         /// Clones the object
         /// </summary>
         /// <returns>Return a clone</returns>
-        public override Question Clone()
+        public override Question Clone() => new MultipleCheckboxesQuestion()
         {
-            return new MultipleCheckboxesQuestion()
-            {
-                Task = this.Task,
-                OptionsAndAnswers = this.OptionsAndAnswers,
-                PointScore = this.PointScore,
-            };
-        }
+            Task = this.Task,
+            OptionsAndAnswers = this.OptionsAndAnswers,
+            PointScore = this.PointScore,
+        };
 
         #endregion
 

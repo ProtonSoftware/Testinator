@@ -27,7 +27,6 @@
         /// True means that he accept the message
         /// False means that he declined
         /// </summary>
-        public bool UserResponse { get; set; } = false;
-
+        public bool UserResponse { get; set; }
     }
 }

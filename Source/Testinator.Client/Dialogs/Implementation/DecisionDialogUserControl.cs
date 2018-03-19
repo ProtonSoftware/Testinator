@@ -8,11 +8,10 @@ namespace Testinator.Client
     /// </summary>
     public class DecisionDialogUserControl : BaseDialogUserControl
     {
-
         #region Commands
 
         /// <summary>
-        /// The command to close this dialog and returns user's response value
+        /// The command to close this dialog and return user's response value
         /// </summary>
         public ICommand CloseWithResponseCommand { get; private set; }
 

@@ -110,7 +110,6 @@
     <Compile Include="Network\MacAddressHelpers.cs" />
     <Compile Include="Network\SocketHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\SecureStringHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
