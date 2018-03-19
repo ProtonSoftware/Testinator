@@ -3,7 +3,7 @@
     /// <summary>
     /// Interaction logic for AddLatecommersDialog.xaml
     /// </summary>
-    public partial class AddLatecommersDialog : DecisionDialogUserControl
+    public partial class AddLatecommersDialog : AddLatecomersDialogUserControl
     {
         public AddLatecommersDialog()
         {

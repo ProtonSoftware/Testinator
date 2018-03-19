@@ -357,6 +357,7 @@ namespace Testinator.Client.Core
         {
             AreResultsAllowed = args.IsResultsPageAllowed;
             FullScreenMode = args.FullScreenMode;
+            TimeLeft = CurrentTest.Duration - args.TimerOffset;
         }
 
         /// <summary>

@@ -161,7 +161,7 @@ namespace Testinator.Server.Core
             StopTestCommand = new RelayCommand(StopTest);
             FinishTestCommand = new RelayCommand(FinishTest);
             ResultPageExitCommand = new RelayCommand(ResultPageExit);
-            AddLateComerCommand = new RelayCommand(AddLateComer);
+            AddLateComerCommand = new RelayCommand(AddLatecomers);
 
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
@@ -183,7 +183,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Adds latecomer to the current test session
         /// </summary>
-        private void AddLateComer()
+        private void AddLatecomers()
         {
             var CanStartTestClients = GetPossibleTestStartingClients();
 
@@ -198,11 +198,18 @@ namespace Testinator.Server.Core
             }
             else
             {
-                IoCServer.UI.ShowMessage(new AddLatecomersDialogViewModel()
+                var viewmodel = new AddLatecomersDialogViewModel(CanStartTestClients)
                 {
-                    Test = "test",
-                    Title = "Adding users to the test"
-                });
+                    Title = "Adding users to the test",
+                    Message = "Select users that you want to add to the current test",
+                    AcceptText = "Add",
+                    CancelText = "Cancel",
+                };
+
+                IoCServer.UI.ShowMessage(viewmodel);
+
+                if (viewmodel.UserResponse.Count != 0)
+                    IoCServer.TestHost.AddLateComers(viewmodel.UserResponse);
             }
         }
 
@@ -299,7 +306,7 @@ namespace Testinator.Server.Core
         private void ChangePageInfo()
         {
             // Meanwhile lock the clients list and send them the test 
-            IoCServer.TestHost.LockClients();
+            IoCServer.TestHost.LockClientsAll();
             
             // If there is no enough users to start the test, show the message and don't send the test
             if (IoCServer.TestHost.Clients.Count == 0)
@@ -316,7 +323,7 @@ namespace Testinator.Server.Core
             // Then go to the info page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
 
-            IoCServer.TestHost.SendTest();
+            IoCServer.TestHost.SendTestToAll();
         }
 
         /// <summary>
@@ -325,7 +332,7 @@ namespace Testinator.Server.Core
         private void BeginTest()
         {
             // Send the args before startting
-            IoCServer.TestHost.SendTestArgs(new TestStartupArgsPackage()
+            IoCServer.TestHost.SendTestArgsToAll(new TestStartupArgsPackage()
             {
                 FullScreenMode = FullScreenMode,
                 IsResultsPageAllowed = ResultPageAllowed,

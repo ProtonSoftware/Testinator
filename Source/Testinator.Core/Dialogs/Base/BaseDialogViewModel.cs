@@ -9,5 +9,6 @@
         /// The title of the dialog
         /// </summary>
         public string Title { get; set; }
+
     }
 }

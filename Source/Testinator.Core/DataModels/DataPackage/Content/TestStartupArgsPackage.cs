@@ -20,8 +20,13 @@ namespace Testinator.Core
         /// </summary>
         public bool FullScreenMode { get; set; }
 
+        /// <summary>
+        /// The time offset this test should start
+        /// </summary>
+        public TimeSpan TimerOffset { get; set; } = TimeSpan.FromSeconds(0);
+
         #endregion
-        
+
         #region Constructor
 
         /// <summary>

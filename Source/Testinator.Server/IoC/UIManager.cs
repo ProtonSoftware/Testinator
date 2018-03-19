@@ -5,7 +5,6 @@ using System.Windows;
 using Testinator.Core;
 using Testinator.UICore;
 using System.Globalization;
-using System.Threading;
 
 namespace Testinator.Server
 {
@@ -33,7 +32,6 @@ namespace Testinator.Server
         /// Displays a single message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>
-        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
         public Task ShowMessage(MessageBoxDialogViewModel viewModel)
         {
@@ -60,7 +58,6 @@ namespace Testinator.Server
         /// Displays a result box to the user and catch the result
         /// </summary>
         /// <param name="viewModel">The view model</param>
-        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
         public Task ShowMessage(DecisionDialogViewModel viewModel)
         {
@@ -87,7 +84,6 @@ namespace Testinator.Server
         /// Displays a result box to the user and catch the result
         /// </summary>
         /// <param name="viewModel">The view model</param>
-        /// <param name="isAlreadyOnUIThread">Indicates if caller is on UIThread, default as true</param>
         /// <returns></returns>
         public Task ShowMessage(AddLatecomersDialogViewModel viewModel)
         {
@@ -109,9 +105,7 @@ namespace Testinator.Server
             // Finally return this task
             return task;
         }
-
-
-
+        
         /// <summary>
         /// Changes language in the application by specified language code
         /// </summary>

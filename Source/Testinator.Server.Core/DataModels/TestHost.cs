@@ -58,6 +58,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestResults Results { get; private set; } = new TestResults();
 
+        /// <summary>
+        /// Stores the lastest startup args
+        /// </summary>
+        public TestStartupArgsPackage StartupArgs { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -72,7 +77,7 @@ namespace Testinator.Server.Core
 
             // Send package indicating the start of the test
             var data = new DataPackage(PackageType.BeginTest);
-            SendToAllClients(data);
+            SendAllClients(data);
 
             foreach (var client in mClients)
                 client.CanStartTest = false;
@@ -107,7 +112,7 @@ namespace Testinator.Server.Core
             if (!IsTestInProgress)
                 return;
 
-            SendToAllClients(new DataPackage(PackageType.StopTestForcefully));
+            SendAllClients(new DataPackage(PackageType.StopTestForcefully));
 
             IsTestInProgress = false;
 
@@ -115,24 +120,73 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
+        /// Adds latecomers to the current test session
+        /// </summary>
+        /// <param name="Latecomers">People to be added</param>
+        public void AddLateComers(List<ClientModel> Latecomers)
+        {
+            foreach (var client in Latecomers)
+            {
+                mClients.Add(client);
+                Clients.Add(new ClientModelExtended(client)
+                {
+                    QuestionsCount = Test.Questions.Count,
+                });
+            }
+
+            SendTestRange(Latecomers);
+
+            StartupArgs.TimerOffset = Test.Duration - TimeLeft;
+
+            SendTestArgsRange(Latecomers);
+
+            // Send package indicating the start of the test
+            var data = new DataPackage(PackageType.BeginTest);
+            System.Threading.Thread.Sleep(100);
+            SendRange(data, Latecomers);
+
+            foreach (var client in mClients)
+                client.CanStartTest = false;
+        }
+
+        /// <summary>
         /// Sends the test args to the users
         /// </summary>
         /// <param name="args">The args</param>
-        public void SendTestArgs(TestStartupArgsPackage args)
+        public void SendTestArgsToAll(TestStartupArgsPackage args)
         {
             if (args == null)
                 return;
 
-            SendToAllClients(new DataPackage(PackageType.TestStartupArgs)
+            // Save for any latecomers
+            StartupArgs = args;
+
+            SendAllClients(new DataPackage(PackageType.TestStartupArgs)
             {
                 Content = args,
             });
         }
 
         /// <summary>
+        /// Sends the test args to only specified users
+        /// </summary>
+        /// <param name="args">The args</param>
+        /// <param name="SendTo">People to be sent the data</param>
+        public void SendTestArgsRange(List<ClientModel> SendTo)
+        {
+            if (StartupArgs == null)
+                return;
+
+            SendRange(new DataPackage(PackageType.TestStartupArgs)
+            {
+                Content = StartupArgs,
+            }, SendTo);
+        }
+
+        /// <summary>
         /// Sends test to the clients
         /// </summary>
-        public void SendTest()
+        public void SendTestToAll()
         {
             if (IsTestInProgress || Test == null)
                 return;
@@ -143,13 +197,28 @@ namespace Testinator.Server.Core
                 Content = Test,
             };
 
-            SendToAllClients(dataPackage);
+            SendAllClients(dataPackage);
+        }
+
+        /// <summary>
+        /// Sends test only to specified clients
+        /// </summary>
+        /// <param name="SendTo"></param>
+        public void SendTestRange(List<ClientModel> SendTo)
+        {
+            // Create the data package
+            var dataPackage = new DataPackage(PackageType.TestForm)
+            {
+                Content = Test,
+            };
+
+            SendRange(dataPackage, SendTo);
         }
 
         /// <summary>
         /// Locks the client list that are currently taking the test
         /// </summary>
-        public void LockClients()
+        public void LockClientsAll()
         {
             if (IsTestInProgress)
                 return;
@@ -286,7 +355,7 @@ namespace Testinator.Server.Core
         private void ServerNetwork_OnClientDataUpdated(ClientModel OldModel, ClientModel NewModel)
         {
             // Lock the clients again
-            LockClients();
+            LockClientsAll();
         }
 
         /// <summary>
@@ -328,10 +397,22 @@ namespace Testinator.Server.Core
         /// Sends data to all clients
         /// </summary>
         /// <param name="data">The data to be sent</param>
-        private void SendToAllClients(DataPackage data)
+        private void SendAllClients(DataPackage data)
         {
             // Send it to all clients
             foreach (var client in mClients)
+                IoCServer.Network.SendData(client, data);
+        }
+
+        /// <summary>
+        /// Sends data only to specified clients
+        /// </summary>
+        /// <param name="data">The data to be sent</param>
+        /// <param name="SendTo">Clients to whom the data should be sent</param>
+        private void SendRange(DataPackage data, List<ClientModel> SendTo)
+        {
+            // Send it to all clients
+            foreach (var client in SendTo)
                 IoCServer.Network.SendData(client, data);
         }
 

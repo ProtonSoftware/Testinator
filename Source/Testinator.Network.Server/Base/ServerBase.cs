@@ -234,7 +234,10 @@ namespace Testinator.Network.Server
             {
                 targetSocket.SendPackage(data);
             }
-            catch { }
+            catch (Exception ex)
+            {
+
+            }
             // TODO: error handling 
         }
 
