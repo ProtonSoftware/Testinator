@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using Testinator.Client.Core;
 using Testinator.Core;
@@ -47,7 +48,10 @@ namespace Testinator.Client
             {
                 // TODO: Add ApplicationSettings so we can set/edit a log location
                 //       For now just log to the path where this application is running
-                new FileLogger("log.txt"),
+
+                // TODO: remove this random numbe, but for now I cannot run multiple instances to test them coz this file is used by all of them
+                //       and causes a crash
+                new FileLogger(($"log{new Random().Next(100000, 99999999).ToString()}.txt")),
             }));
 
             // Bind a File Writer
