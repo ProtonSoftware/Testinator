@@ -15,8 +15,9 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Grid Background="Green" Grid.Row="0">
+
+        <Grid Background="{StaticResource GreenLightBrush}" 
+              Grid.Row="0">
       
             <Button Content="Powrót"
                     Style="{StaticResource BaseUIButton}"

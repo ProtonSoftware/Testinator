@@ -132,7 +132,7 @@ namespace Testinator.Server.Core
             if (Client == null)
                 return;
 
-            var UserAnswers = mTestResults.Results[Client];
+            var UserAnswers = mTestResults.Results[Client] == null ? new List<Answer>() : new List<Answer>(mTestResults.Results[Client]);
 
             // Total point score
             var totalScore = 0;
@@ -144,6 +144,22 @@ namespace Testinator.Server.Core
             var Questions = mTestResults.Test.Questions;
 
             var QuestionViewModels = new List<BaseViewModel>();
+
+            // Fill empty answers with nulls
+            for (var i = 0; i < Questions.Count; i++)
+            {
+                try
+                {
+                    if (UserAnswers[i].ID != i + 1)
+                        UserAnswers.Insert(i, null);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    UserAnswers.Add(null);
+                }
+
+            }
+
 
             // We can iterate like this because the question list and answer list are in the same order
             for (var i = 0; i < Questions.Count; i++)
@@ -164,7 +180,6 @@ namespace Testinator.Server.Core
                                 // Cast the answer and question objects
                                 // NOTE: if the answer doesn't exist exception is thrown here
                                 multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
-
                                 isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
 
                                 // Check if user has answered correctly
@@ -174,6 +189,7 @@ namespace Testinator.Server.Core
                             }
                             // Catch the exception but let the answer to be saved
                             catch (ArgumentOutOfRangeException) { }
+                            catch (NullReferenceException) { }
 
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionMultipleChoiceViewModel()
@@ -214,6 +230,7 @@ namespace Testinator.Server.Core
                             }
                             // Catch the exception but let the answer to be saved
                             catch (ArgumentOutOfRangeException) { }
+                            catch (NullReferenceException) { }
 
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionMultipleCheckboxesViewModel()
@@ -254,6 +271,7 @@ namespace Testinator.Server.Core
                             }
                             // Catch the exception but let the answer to be saved
                             catch (ArgumentOutOfRangeException) { }
+                            catch (NullReferenceException) { }
 
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionSingleTextBoxViewModel()

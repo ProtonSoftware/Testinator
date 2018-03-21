@@ -52,7 +52,7 @@
                     HorizontalAlignment="Left"/>
 
             <Button Content="{x:Static UICore:LocalizationResource.Details}"
-                    Command="{Binding ChangeViewQuestionsCommand}"
+                    IsEnabled="False"
                     Style="{StaticResource BaseUIButton}"
                     HorizontalAlignment="Left"/>
 
