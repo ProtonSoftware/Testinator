@@ -17,10 +17,32 @@
                           HorizontalContentAlignment="Stretch" 
                           IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserName}" Binding="{Binding ClientName}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserSurname}" Binding="{Binding ClientSurname}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.AmountOfPoints}" Binding="{Binding PointsScored}"/>
-                    <DataGridTextColumn Width="0.8*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.Mark}" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
+                    <DataGridTextColumn Width="0.5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserName}" Binding="{Binding ClientName}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserSurname}" Binding="{Binding ClientSurname}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.AmountOfPoints}" Binding="{Binding PointsScored}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.Mark}" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
+                    <DataGridTemplateColumn Width=".5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <Button Padding="0" 
+                                            Margin="0" 
+                                            Background="{StaticResource GreenLightBrush}"
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.ShowAnswersCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Zobacz Pytania "/>
+                                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                                       Text="{StaticResource FontAwesomeQuestionIcon}"
+                                                       Margin="0"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="{StaticResource BlackDarkBrush}"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

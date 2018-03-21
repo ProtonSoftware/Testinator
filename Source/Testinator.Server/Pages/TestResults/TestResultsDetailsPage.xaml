@@ -17,7 +17,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="{StaticResource GreenLightBrush}">
+        <Grid Background="{StaticResource GreenLightBrush}"
+              Panel.ZIndex="1000">
 
             <TextBlock Text="{Binding TestName}"
                        Style="{StaticResource MediumTitleText}"

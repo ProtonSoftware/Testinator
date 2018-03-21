@@ -80,6 +80,18 @@ namespace Testinator.Server
                 case ApplicationPage.TestResultsDetailsView:
                     return new TestResultsStudentsViewPage(viewModel as TestResultsDetailsViewModel);
 
+                case ApplicationPage.QuestionMultipleCheckboxes:
+                    return new QuestionMultipleCheckboxesPage(viewModel as QuestionMultipleCheckboxesViewModel);
+
+                case ApplicationPage.QuestionMultipleChoice:
+                    return new QuestionMultipleChoicePage(viewModel as QuestionMultipleChoiceViewModel);
+
+                case ApplicationPage.QuestionSingleTextBox:
+                    return new QuestionSingleTextBoxPage(viewModel as QuestionSingleTextBoxViewModel);
+
+                case ApplicationPage.ResultQuestions:
+                    return new ResultQuestionsPage(viewModel as ResultQuestionsViewModel);
+
                 case ApplicationPage.ScreenStream:
                     return new ScreenStreamPage(viewModel as ScreenStreamViewModel);
 
@@ -162,6 +174,18 @@ namespace Testinator.Server
 
             if (page is TestResultsStudentsViewPage)
                 return ApplicationPage.TestResultsStudentsView;
+
+            if (page is QuestionMultipleChoicePage)
+                return ApplicationPage.QuestionMultipleChoice;
+
+            if (page is QuestionMultipleCheckboxesPage)
+                return ApplicationPage.QuestionMultipleCheckboxes;
+
+            if (page is QuestionSingleTextBoxPage)
+                return ApplicationPage.QuestionSingleTextBox;
+
+            if (page is ResultQuestionsPage)
+                return ApplicationPage.ResultQuestions;
 
             if (page is ScreenStreamPage)
                 return ApplicationPage.ScreenStream;

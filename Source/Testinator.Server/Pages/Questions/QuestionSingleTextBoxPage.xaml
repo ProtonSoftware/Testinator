@@ -1,0 +1,66 @@
+﻿<UICore:BasePage x:TypeArguments="Core:QuestionSingleTextBoxViewModel" x:Class="Testinator.Server.QuestionSingleTextBoxPage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 mc:Ignorable="d">
+
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+            <Border Background="{StaticResource WhiteDarkBrush}"
+                    VerticalAlignment="Center"
+                    CornerRadius="3"
+                    Padding="30"
+                    Margin="50"
+                    MaxWidth="1000">
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                Padding="0 0 1 0">
+                    <StackPanel>
+
+                        <TextBlock Text="{Binding QuestionPageCounter}"
+                                    Style="{StaticResource TitleText}"
+                                    Foreground="{StaticResource BlackDarkBrush}"
+                                    HorizontalAlignment="Center"
+                                    Margin="10" />
+
+                        <TextBlock Text="{Binding Question.Task}" 
+                                   TextWrapping="Wrap"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                        <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource BigInputTextBox}"
+                                 FontSize="{StaticResource FontSizeLarge}"
+                                 IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"
+                                 Background="{Binding TextBoxBackground, Converter={local:StringRGBToBrushConverter}}"
+                                 TextWrapping="Wrap"
+                                 Margin="5 0 15 0"/>
+                        <TextBlock Text="Poprawna odpowiedź:"
+                                   Margin="5 15 0 0"
+                                   Style="{StaticResource MediumTitleText}"
+                                   Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
+                        <TextBlock Text="{Binding Question.CorrectAnswer}"
+                                   Background="{StaticResource GreenLightBrush}"
+                                   Style="{StaticResource QuestionTextBlockStyle}"
+                                   Padding="5 10 5 10"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
+                    </StackPanel>
+                    
+                </ScrollViewer>
+        </Border>
+
+
+            <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
+                    Style="{StaticResource BaseUIButton}"
+                    Command="{Binding SubmitCommand}"
+                    Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="0 5 25 15"  />
+    </Grid>
+    
+</UICore:BasePage>

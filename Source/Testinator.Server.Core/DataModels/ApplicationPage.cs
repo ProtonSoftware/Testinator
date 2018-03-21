@@ -109,7 +109,27 @@
         /// The page that show additional options for result page
         /// </summary>
         TestResultsDetailsView,
-        
+
+        /// <summary>
+        /// The page to show multiple checkboxes question [used in result page]
+        /// </summary>
+        QuestionMultipleCheckboxes,
+
+        /// <summary>
+        /// The page to show multiple choice question [used in result page] 
+        /// </summary>
+        QuestionMultipleChoice,
+
+        /// <summary>
+        /// The page to show single text box question [used in result page] 
+        /// </summary>
+        QuestionSingleTextBox,
+
+        /// <summary>
+        /// The host page for showing questions
+        /// </summary>
+        ResultQuestions,
+
         /// <summary>
         /// The screen stream page
         /// </summary>

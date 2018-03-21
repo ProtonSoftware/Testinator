@@ -42,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -117,6 +118,21 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Questions\ABCAnswerItemControl.xaml.cs">
+      <DependentUpon>ABCAnswerItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\CheckboxAnswerItemControl.xaml.cs">
+      <DependentUpon>CheckboxAnswerItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\MultipleCheckboxesAnswersList.xaml.cs">
+      <DependentUpon>MultipleCheckboxesAnswersList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\MultipleChoiceAnswersList.xaml.cs">
+      <DependentUpon>MultipleChoiceAnswersList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\QuestionListItemControl.xaml.cs">
+      <DependentUpon>QuestionListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
@@ -167,6 +183,15 @@
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Questions\QuestionMultipleCheckboxesPage.xaml.cs">
+      <DependentUpon>QuestionMultipleCheckboxesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Questions\QuestionMultipleChoicePage.xaml.cs">
+      <DependentUpon>QuestionMultipleChoicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Questions\QuestionSingleTextBoxPage.xaml.cs">
+      <DependentUpon>QuestionSingleTextBoxPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TestEditor\TestEditorEditTestPage.xaml.cs">
       <DependentUpon>TestEditorEditTestPage.xaml</DependentUpon>
     </Compile>
@@ -203,6 +228,9 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TestResults\ResultQuestionsPage.xaml.cs">
+      <DependentUpon>ResultQuestionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TestResults\Subpages\TestResultsDetailsViewPage.xaml.cs">
       <DependentUpon>TestResultsDetailsViewPage.xaml</DependentUpon>
     </Compile>
@@ -229,6 +257,7 @@
     <Compile Include="ValueConverters\MarkToTextConverter.cs" />
     <Compile Include="ValueConverters\QuestionTypeToIconConverter.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
+    <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -259,6 +288,26 @@
     <Page Include="Controls\PageHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Questions\ABCAnswerItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Questions\CheckboxAnswerItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Questions\MultipleCheckboxesAnswersList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Questions\MultipleChoiceAnswersList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Questions\QuestionListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SideMenuControl.xaml">
       <SubType>Designer</SubType>
@@ -332,6 +381,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Questions\QuestionMultipleCheckboxesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Questions\QuestionMultipleChoicePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Questions\QuestionSingleTextBoxPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\TestEditor\TestEditorEditTestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -379,6 +440,10 @@
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TestResults\ResultQuestionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\TestResults\Subpages\TestResultsDetailsViewPage.xaml">
       <SubType>Designer</SubType>

@@ -18,6 +18,8 @@ namespace Testinator.Server
             if (!(sender is DataGrid datagrid))
                 return;
 
+            if ((e.NewValue as List<QuestionsViewItemViewModel>).Count == 0)
+                return;
 
             // TODO: another way to do this or comment this later
 

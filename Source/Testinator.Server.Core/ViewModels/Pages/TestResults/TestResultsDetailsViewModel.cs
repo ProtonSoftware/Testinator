@@ -27,17 +27,20 @@ namespace Testinator.Server.Core
         /// </summary>
         public List<ClientModelSerializable> StudentsViewData { get; private set; } = new List<ClientModelSerializable>();
 
+        /// <summary>
+        /// Used to display data in questions view mode
+        /// </summary>
         public List<QuestionsViewItemViewModel> QuestionsViewData { get; private set; } = new List<QuestionsViewItemViewModel>();
 
         /// <summary>
         /// The name of the test the users took
         /// </summary>
         public string TestName => mTestResults.Test.Name;
-
+        
         /// <summary>
-        /// The current page of the subpage
+        /// The current subpage
         /// </summary>
-        public ApplicationPage CurrentPage { get; private set; } = ApplicationPage.TestResultsStudentsView;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.TestResultsStudentsView;
 
         #endregion
 
@@ -58,9 +61,14 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand ChangeViewQuestionsCommand { get; private set; }
 
+        /// <summary>
+        /// Changes to view to students answer view 
+        /// </summary>
+        public ICommand ShowAnswersCommand { get; private set; }
+
         #endregion
 
-        #region Constructor
+        #region Construction
 
         /// <summary>
         /// Default constructor
@@ -81,7 +89,6 @@ namespace Testinator.Server.Core
             CreateCommands();
 
             LoadData(results);
-
         }
 
         #endregion
@@ -112,6 +119,169 @@ namespace Testinator.Server.Core
         {
             CurrentPage = ApplicationPage.TestResultsQuestionsView;
             OnPropertyChanged(nameof(CurrentPage));
+        }
+
+        /// <summary>
+        /// Changes the view to student's answers view
+        /// </summary>
+        /// <param name="client"></param>
+        private void ChangeViewAnswers(object client)
+        {
+            var Client = client as ClientModelSerializable;
+
+            if (Client == null)
+                return;
+
+            var UserAnswers = mTestResults.Results[Client];
+
+            // Total point score
+            var totalScore = 0;
+
+            // Log what we are doing
+            IoCServer.Logger.Log("Calculating user's score");
+
+            // Get the questions from the test
+            var Questions = mTestResults.Test.Questions;
+
+            var QuestionViewModels = new List<BaseViewModel>();
+
+            // We can iterate like this because the question list and answer list are in the same order
+            for (var i = 0; i < Questions.Count; i++)
+            {
+                // Based on question type...
+                switch (Questions[i].Type)
+                {
+                    case QuestionType.MultipleChoice:
+                        {
+                            // Create local variables for the answer and correct answer boolean for the further use
+                            MultipleChoiceAnswer multipleChoiceAnswer = null;
+                            var isAnswerCorrect = false;
+                            var multipleChoiceQuestion = Questions[i] as MultipleChoiceQuestion;
+
+                            // Try to get answer in the try/catch in case the answer doesn't exist
+                            try
+                            {
+                                // Cast the answer and question objects
+                                // NOTE: if the answer doesn't exist exception is thrown here
+                                multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
+
+                                isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
+
+                                // Check if user has answered correctly
+                                if (isAnswerCorrect)
+                                    // Give them points for this question
+                                    totalScore += multipleChoiceQuestion.PointScore;
+                            }
+                            // Catch the exception but let the answer to be saved
+                            catch (ArgumentOutOfRangeException) { }
+
+                            // Create view model for the future use by the result page
+                            var viewmodel = new QuestionMultipleChoiceViewModel()
+                            {
+                                IsAnswerCorrect = isAnswerCorrect,
+                                UserAnswer = multipleChoiceAnswer,
+                                IsReadOnly = true,
+                                Index = i,
+                            };
+
+                            // Attach the question
+                            viewmodel.AttachQuestion(multipleChoiceQuestion);
+
+                            QuestionViewModels.Add(viewmodel);
+                        }
+                        break;
+
+                    case QuestionType.MultipleCheckboxes:
+                        {
+                            // Create local variables for the answer and correct answer boolean for the further use
+                            MultipleCheckboxesAnswer multipleCheckboxesAnswer = null;
+                            var isAnswerCorrect = false;
+                            var multipleCheckboxesQuestion = Questions[i] as MultipleCheckboxesQuestion;
+
+                            // Try to get answer in the try/catch in case the answer doesn't exist
+                            try
+                            {
+                                // Cast the answer and question objects
+                                // NOTE: if the answer doesn't exist exception is thrown here
+                                multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
+
+                                isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
+
+                                // Check if user has answered correctly
+                                if (isAnswerCorrect)
+                                    // Give them points for this question
+                                    totalScore += multipleCheckboxesQuestion.PointScore;
+                            }
+                            // Catch the exception but let the answer to be saved
+                            catch (ArgumentOutOfRangeException) { }
+
+                            // Create view model for the future use by the result page
+                            var viewmodel = new QuestionMultipleCheckboxesViewModel()
+                            {
+                                IsAnswerCorrect = isAnswerCorrect,
+                                UserAnswer = multipleCheckboxesAnswer,
+                                IsReadOnly = true,
+                                Index = i,
+                            };
+
+                            // Attach the question
+                            viewmodel.AttachQuestion(multipleCheckboxesQuestion);
+
+                            QuestionViewModels.Add(viewmodel);
+                        }
+                        break;
+
+                    case QuestionType.SingleTextBox:
+                        {
+                            // Create local variables for the answer and correct answer boolean for the further use
+                            SingleTextBoxAnswer singleTextBoxAnswer = null;
+                            var isAnswerCorrect = false;
+                            var singleTextBoxQuestion = Questions[i] as SingleTextBoxQuestion;
+
+                            // Try to get answer in the try/catch in case the answer doesn't exist
+                            try
+                            {
+                                // Cast the answer and question objects
+                                // NOTE: if the answer doesn't exist exception is thrown here
+                                singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
+
+                                isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
+
+                                // Check if user has answered correctly
+                                if (isAnswerCorrect)
+                                    // Give them multipleCheckboxesAnswer for this question
+                                    totalScore += singleTextBoxQuestion.PointScore;
+                            }
+                            // Catch the exception but let the answer to be saved
+                            catch (ArgumentOutOfRangeException) { }
+
+                            // Create view model for the future use by the result page
+                            var viewmodel = new QuestionSingleTextBoxViewModel()
+                            {
+                                IsAnswerCorrect = isAnswerCorrect,
+                                UserAnswer = singleTextBoxAnswer?.Answer,
+                                IsReadOnly = true,
+                                Index = i,
+                            };
+
+                            // Attach the question
+                            viewmodel.AttachQuestion(singleTextBoxQuestion);
+
+                            QuestionViewModels.Add(viewmodel);
+                        }
+                        break;
+                }
+            }
+
+            var questionsViewmodel = new ResultQuestionsViewModel(QuestionViewModels)
+            {
+                Name = $"{Client.ClientName} {Client.ClientSurname}",
+                Results = mTestResults,
+            };
+
+            IoCServer.Application.GoToPage(ApplicationPage.ResultQuestions, questionsViewmodel);
+
+            questionsViewmodel.ShowFirstQuestion();
         }
 
         #endregion
@@ -209,6 +379,7 @@ namespace Testinator.Server.Core
             ReturnCommand = new RelayCommand(ReturnPreviousPage);
             ChangeViewStudentsCommand = new RelayCommand(ChangeViewStudents);
             ChangeViewQuestionsCommand = new RelayCommand(ChangeViewQuestions);
+            ShowAnswersCommand = new RelayParameterizedCommand(ChangeViewAnswers);
         }
 
         #endregion

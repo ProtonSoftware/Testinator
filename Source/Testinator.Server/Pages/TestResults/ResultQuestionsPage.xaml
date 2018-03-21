@@ -1,0 +1,60 @@
+﻿<UICore:BasePage x:TypeArguments="Core:ResultQuestionsViewModel" x:Class="Testinator.Server.ResultQuestionsPage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 mc:Ignorable="d" 
+                 d:DesignHeight="700" d:DesignWidth="1000">
+
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Background="Green" Grid.Row="0">
+      
+            <Button Content="Powrót"
+                    Style="{StaticResource BaseUIButton}"
+                    HorizontalAlignment="Left"
+                    Command="{Binding ReturnCommand}"/>
+
+            <TextBlock Text="{Binding Name}"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="0 10 0 0"
+                       Foreground="{StaticResource BlackDarkBrush}"
+                       Style="{StaticResource TitleText}" />
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0"
+                          Panel.ZIndex="2"
+                          Background="{StaticResource WhitePureBrush}">
+                <ItemsControl ItemsSource="{Binding Questions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:QuestionListItemControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+            <local:PageHost Grid.Column="1"
+                            CurrentPage="{Binding CurrentPage}"
+                            CurrentPageViewModel="{Binding CurrentPageViewModel}"/>
+
+        </Grid>
+        
+    </Grid>
+</UICore:BasePage>

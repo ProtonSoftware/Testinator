@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="Testinator.Server.QuestionListItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testinator.Server"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                        <!-- Content -->
+                        <Border x:Name="background" Background="{StaticResource WhiteDarkBrush}">
+
+                            <!-- Click event -->
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                                   AncestorType=UICore:BasePage},
+                                                                                                   Path=DataContext.SelectQuestionCommand}"
+                                                  CommandParameter="{Binding Index}"
+                                                  />
+                            </Border.InputBindings>
+
+
+                            <Grid x:Name="container" 
+                                  Height="40" 
+                                  Margin="5"
+                                  Cursor="Hand"
+                                  Background="{StaticResource WhiteDarkBrush}">
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="25"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding DisplayIndex}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Style="{StaticResource MediumTitleText}"
+                                           Grid.Column="0"
+                                           Margin="5 0 0 0"/>
+
+                                <TextBlock Text="{Binding Type, Converter={local:QuestionTypeToIconConverter}}"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{StaticResource FontAwesome}"
+                                           FontSize="{StaticResource FontSizeLarge}" />
+                                
+                                <TextBlock Text="{Binding Question.Task}"
+                                           Grid.Column="2"
+                                           TextWrapping="Wrap"
+                                           TextTrimming="CharacterEllipsis"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+
+                        </Border>
+                        
+                        <!-- Hover effect -->
+                        <ControlTemplate.Triggers>
+
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="{StaticResource BlackLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="{StaticResource BlackLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <DataTrigger Binding="{Binding IsAnswerCorrect}" Value="True">
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource GreenLightBrush}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsAnswerCorrect}" Value="False">
+                                <Setter Property="Background" TargetName="container" Value="Red" />
+                            </DataTrigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource BlackLightBrush}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <ContentControl Style="{StaticResource ContentStyle}" />
+
+</UserControl>

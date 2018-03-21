@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,9 +54,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\Application\PageHostViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\Questions\ListItems\ABCAnswerItemViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\Questions\ListItems\CheckboxAnswerItemViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\Questions\QuestionMultipleCheckboxesViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\Questions\QuestionMultipleChoiceViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\Questions\QuestionSingleTextBoxViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\QuestionsViewItemViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestResults\ResultQuestionsViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\TestResultsDetailsViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />

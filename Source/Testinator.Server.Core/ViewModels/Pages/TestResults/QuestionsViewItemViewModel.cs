@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
     /// <summary>
     /// A view model for items to display in data grid in questions-view mode
     /// </summary>
-    public class QuestionsViewItemViewModel
+    public class QuestionsViewItemViewModel : BaseViewModel
     {
         /// <summary>
         /// The name of the student
