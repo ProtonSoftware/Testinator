@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
                  xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d"
@@ -32,19 +33,19 @@
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <TextBlock Text="{x:Static UICore:LocalizationResource.NoUsersConnected}"
+            <TextBlock Text="{x:Static core:LocalizationResource.NoUsersConnected}"
                        Foreground="Red"
                        Style="{StaticResource QuestionTextBlockStyle}"
                        Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding NotEnoughClients}"
                        HorizontalAlignment="Center" />
-            <TextBlock Text="{x:Static UICore:LocalizationResource.NoTestChoosen}"
+            <TextBlock Text="{x:Static core:LocalizationResource.NoTestChoosen}"
                        Foreground="Red"
                        Style="{StaticResource QuestionTextBlockStyle}"
                        Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding TestNotSelected}"
                        HorizontalAlignment="Center" />
         </StackPanel>
 
-        <Button Content="{x:Static UICore:LocalizationResource.SendTest}"
+        <Button Content="{x:Static core:LocalizationResource.SendTest}"
                 Grid.Row="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"

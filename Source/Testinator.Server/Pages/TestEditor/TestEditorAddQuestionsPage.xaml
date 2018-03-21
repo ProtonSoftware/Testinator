@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d"
                  d:DesignHeight="720"
@@ -19,7 +20,7 @@
 
         <local:TestMenuListControl DataContext="{Binding}" />
 
-        <TextBlock Text="{x:Static UICore:LocalizationResource.AddNewQuestion}"
+        <TextBlock Text="{x:Static core:LocalizationResource.AddNewQuestion}"
                    Grid.Column="1"
                    Margin="0 40"
                    HorizontalAlignment="Center"
@@ -45,21 +46,21 @@
 
                     <StackPanel>
 
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.ChooseQuestionType}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.ChooseQuestionType}"
                                    Margin="5"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
 
                         <ComboBox SelectedIndex="{Binding QuestionBeingAddedIndex}">
-                            <ComboBoxItem Content="{x:Static UICore:LocalizationResource.MultipleChoiceQuestion}" />
-                            <ComboBoxItem Content="{x:Static UICore:LocalizationResource.MultipleCheckboxesQuestion}" />
-                            <ComboBoxItem Content="{x:Static UICore:LocalizationResource.SingleTextboxQuestion}"
-                                          ToolTip="{x:Static UICore:LocalizationResource.SingleTextboxQuestionTooltip}" />
+                            <ComboBoxItem Content="{x:Static core:LocalizationResource.MultipleChoiceQuestion}" />
+                            <ComboBoxItem Content="{x:Static core:LocalizationResource.MultipleCheckboxesQuestion}" />
+                            <ComboBoxItem Content="{x:Static core:LocalizationResource.SingleTextboxQuestion}"
+                                          ToolTip="{x:Static core:LocalizationResource.SingleTextboxQuestionTooltip}" />
                         </ComboBox>
 
                         <!-- Multiple choice question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleChoice}">
 
-                            <TextBlock Text="{x:Static UICore:LocalizationResource.AddMultipleChoiceQuestionIntroduction}"
+                            <TextBlock Text="{x:Static core:LocalizationResource.AddMultipleChoiceQuestionIntroduction}"
                                        TextWrapping="Wrap"
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
@@ -69,7 +70,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="8*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.TaskSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.TaskSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
                                          Grid.Column="1"
@@ -153,13 +154,13 @@
                                         Style="{StaticResource BaseUIButton}" />
                             </Grid>
 
-                            <Button Content="{x:Static UICore:LocalizationResource.AddAnswerButton}"
+                            <Button Content="{x:Static core:LocalizationResource.AddAnswerButton}"
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <Button Content="A"
                                         FontFamily="{StaticResource FontMontserratBold}"
@@ -209,7 +210,7 @@
                                         Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=5}"
                                         Foreground="{StaticResource BlackDarkBrush}"
                                         Style="{StaticResource IconGrowButton}" />
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
                                          Style="{StaticResource SmallInputTextBox}" />
@@ -220,7 +221,7 @@
                         <!-- Multiple checkboxes question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleCheckboxes}">
 
-                            <TextBlock Text="{x:Static UICore:LocalizationResource.AddMultipleCheckboxesQuestionIntroduction}"
+                            <TextBlock Text="{x:Static core:LocalizationResource.AddMultipleCheckboxesQuestionIntroduction}"
                                        TextWrapping="Wrap"
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
@@ -230,7 +231,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="8*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.TaskSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.TaskSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
                                          Grid.Column="1"
@@ -309,7 +310,7 @@
                                         Style="{StaticResource BaseUIButton}" />
                             </Grid>
 
-                            <Button Content="{x:Static UICore:LocalizationResource.AddAnswerButton}"
+                            <Button Content="{x:Static core:LocalizationResource.AddAnswerButton}"
                                     Command="{Binding AddAnswerCommand}"
                                     Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     Style="{StaticResource BaseUIButton}" />
@@ -320,7 +321,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="6*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionMultipleCheckboxesPointScore}"
                                          Grid.Column="1"
@@ -333,7 +334,7 @@
                         <!-- Single textbox question creator -->
                         <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=SingleTextBox}">
 
-                            <TextBlock Text="{x:Static UICore:LocalizationResource.AddSingleTextboxQuestionIntroduction}"
+                            <TextBlock Text="{x:Static core:LocalizationResource.AddSingleTextboxQuestionIntroduction}"
                                        TextWrapping="Wrap"
                                        Margin="5"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
@@ -343,7 +344,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="8*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.TaskSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.TaskSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
                                          Grid.Column="1"
@@ -355,7 +356,7 @@
                                     <ColumnDefinition Width="9*" />
                                     <ColumnDefinition Width="42*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.RightAnswerSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.RightAnswerSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding TextBoxAnswer, UpdateSourceTrigger=PropertyChanged}"
                                          Grid.Column="1"
@@ -368,7 +369,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="6*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
+                                <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
                                            Style="{StaticResource QuestionTextBlockStyle}" />
                                 <TextBox Text="{Binding QuestionSingleTextBoxPointScore}"
                                          Grid.Column="1"
@@ -384,21 +385,21 @@
                     </StackPanel>
 
                     <Button Grid.Row="1"
-                            Content="{x:Static UICore:LocalizationResource.CancelChanges}"
+                            Content="{x:Static core:LocalizationResource.CancelChanges}"
                             Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                             Command="{Binding CancelEditQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Left" />
                     
                     <Button Grid.Row="1"
-                            Content="{x:Static UICore:LocalizationResource.AddQuestion}"
+                            Content="{x:Static core:LocalizationResource.AddQuestion}"
                             Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                             Command="{Binding SubmitQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
                             HorizontalAlignment="Right" />
 
                     <Button Grid.Row="1"
-                            Content="{x:Static UICore:LocalizationResource.SaveQuestion}"
+                            Content="{x:Static core:LocalizationResource.SaveQuestion}"
                             Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                             Command="{Binding SubmitQuestionCommand}"
                             Style="{StaticResource BaseUIButton}"
@@ -411,7 +412,7 @@
 
         </Grid>
 
-        <Button Content="{x:Static UICore:LocalizationResource.FinishQuestionAdding}"
+        <Button Content="{x:Static core:LocalizationResource.FinishQuestionAdding}"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"

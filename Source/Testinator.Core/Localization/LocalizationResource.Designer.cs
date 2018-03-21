@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Testinator.UICore {
+namespace Testinator.Core {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Testinator.UICore {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Testinator.UICore.Localization.LocalizationResource", typeof(LocalizationResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Testinator.Core.Localization.LocalizationResource", typeof(LocalizationResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

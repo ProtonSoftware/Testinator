@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
              mc:Ignorable="d"
              d:DesignHeight="720"
@@ -37,26 +38,26 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
-                    <Button Content="{x:Static UICore:LocalizationResource.Start}"
+                    <Button Content="{x:Static core:LocalizationResource.Start}"
                             IsEnabled="{Binding IsServerStarted, Converter={local:BooleanInvertConverter}}"
                             Command="{Binding StartServerCommand}"
                             Style="{StaticResource BaseUIButton}" />
-                    <Button Content="{x:Static UICore:LocalizationResource.Stop}"
+                    <Button Content="{x:Static core:LocalizationResource.Stop}"
                             Command="{Binding StopServerCommand}"
                             IsEnabled="{Binding IsServerStarted}"
                             Style="{StaticResource BaseUIButton}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.ServerStatus}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.ServerStatus}"
                                TextWrapping="WrapWithOverflow"
                                Foreground="{StaticResource BlackDarkBrush}"
                                Style="{StaticResource TitleText}" />
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.Active}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.Active}"
                                Foreground="{StaticResource GreenLightBrush}"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}}"
                                Style="{StaticResource MediumTitleText}" />
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.Disabled}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.Disabled}"
                                Foreground="Red"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                Style="{StaticResource MediumTitleText}" />

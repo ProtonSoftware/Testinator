@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d"
              d:DesignHeight="720"
@@ -55,19 +56,19 @@
                                     VerticalAlignment="Center"
                                     Orientation="Horizontal"
                                     >
-                            <TextBlock Text="{x:Static UICore:LocalizationResource.LoadedSemicolon}"
+                            <TextBlock Text="{x:Static core:LocalizationResource.LoadedSemicolon}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         />
                             <TextBlock Text="{Binding ItemsLoadedCount}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         />
-                            <TextBlock Text="{x:Static UICore:LocalizationResource.SpaceResults}"
+                            <TextBlock Text="{x:Static core:LocalizationResource.SpaceResults}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         />
                         </StackPanel>
 
                         <TextBlock Grid.Row="1" 
-                                    Text="{x:Static UICore:LocalizationResource.LoadedSemicolon}"
+                                    Text="{x:Static core:LocalizationResource.LoadedSemicolon}"
                                     FontSize="{StaticResource FontSizeLarge}"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"/>
@@ -88,7 +89,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.DateSemicolon}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.DateSemicolon}"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
                                     />
@@ -100,7 +101,7 @@
                                     />
 
 
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.Hour}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.Hour}"
                                     Grid.Row="1" Grid.Column="0"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
@@ -114,7 +115,7 @@
                                    
                                     />
 
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.TestName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.TestName}"
                                     Grid.Row="2" Grid.Column="0"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
@@ -128,7 +129,7 @@
                                    
                                     />
 
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.TakingPart}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.TakingPart}"
                                     Grid.Row="3" Grid.Column="0"
                                     Style="{StaticResource QuestionTextBlockStyle}" 
                                     Margin="15"
@@ -157,7 +158,7 @@
                                 IsEnabled="{Binding IsAnyItemSelected}"
                                 Command="{Binding DeleteCommand}"
                                 Content="Usuń"/>
-                        <Button Content="{x:Static UICore:LocalizationResource.Details}"
+                        <Button Content="{x:Static core:LocalizationResource.Details}"
                                 Grid.Column="1"
                                 Style="{StaticResource BaseUIButton}"
                                 Command="{Binding ShowDetailsCommnd}"

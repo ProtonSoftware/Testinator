@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d"
                  d:DesignHeight="720"
@@ -13,7 +14,7 @@
     <Grid Background="{StaticResource WhiteLightBrush}"
           TextBlock.TextAlignment="Center">
 
-        <TextBlock Text="{x:Static UICore:LocalizationResource.CreateNewCriteriaOrEditExisting}"
+        <TextBlock Text="{x:Static core:LocalizationResource.CreateNewCriteriaOrEditExisting}"
                    TextWrapping="WrapWithOverflow"
                    Panel.ZIndex="10"
                    Margin="0 40"
@@ -54,22 +55,22 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.WriteName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.WriteName}"
                                Style="{StaticResource MediumTitleText}" />
 
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Row="1"
                              Style="{StaticResource SmallInputTextBox}" 
-                             Tag="{x:Static UICore:LocalizationResource.WriteName}" />
+                             Tag="{x:Static core:LocalizationResource.WriteName}" />
 
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2">
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.IsMarkACountedQuestion}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.IsMarkACountedQuestion}"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
                         <CheckBox IsChecked="{Binding Criteria.IsMarkAIncluded}"/>
                     </StackPanel>
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.ValuesCountedInPercent}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.ValuesCountedInPercent}"
                                TextWrapping="WrapWithOverflow"
                                Grid.Row="3"
                                Style="{StaticResource MediumTitleText}" />
@@ -84,7 +85,7 @@
                         <TextBox Text="{Binding TopValueMarkA, UpdateSourceTrigger=PropertyChanged}"
                                  local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkAName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -97,7 +98,7 @@
                         <TextBox Text="{Binding TopValueMarkB, UpdateSourceTrigger=PropertyChanged}"
                                  local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkBName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -110,7 +111,7 @@
                         <TextBox Text="{Binding TopValueMarkC, UpdateSourceTrigger=PropertyChanged}"
                                  local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkCName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -123,7 +124,7 @@
                         <TextBox Text="{Binding TopValueMarkD, UpdateSourceTrigger=PropertyChanged}"
                                  local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkDName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -136,7 +137,7 @@
                         <TextBox Text="{Binding TopValueMarkE, UpdateSourceTrigger=PropertyChanged}"
                                  local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkEName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
@@ -149,11 +150,11 @@
                         <TextBox Text="{Binding TopValueMarkF, UpdateSourceTrigger=PropertyChanged}"
                                  local:IntegerOnlyTextBoxProperty.Value="True"
                                  Width="30" />
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkFName}"
                                    Margin="2 0"/>
                     </StackPanel>
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.InvalidDataError}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.InvalidDataError}"
                                Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
                                Grid.Row="10"
                                Foreground="Red"
@@ -167,12 +168,12 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <Button Content="{x:Static UICore:LocalizationResource.Cancel}"
+                        <Button Content="{x:Static core:LocalizationResource.Cancel}"
                                 Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding CancelEditCriteriaCommand}"
                                 Style="{StaticResource BaseUIButton}" />
 
-                        <Button Content="{x:Static UICore:LocalizationResource.Delete}"
+                        <Button Content="{x:Static core:LocalizationResource.Delete}"
                                 Visibility="{Binding EditingCriteriaMode, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding DeleteCriteriaCommand}"
                                 Style="{StaticResource BaseUIButton}" 
@@ -194,7 +195,7 @@
 
         </Border>
 
-        <Button Content="{x:Static UICore:LocalizationResource.BackToTestEditor}"
+        <Button Content="{x:Static core:LocalizationResource.BackToTestEditor}"
                 Margin="10"
                 Command="{Binding ChangePageTestEditorCommand}"
                 Style="{StaticResource BaseUIButton}"

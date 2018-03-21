@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Client"
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d">
     
@@ -37,7 +38,7 @@
                 Padding="30">
             <Grid>
 
-                <TextBlock Text="{x:Static UICore:LocalizationResource.WaitingForTest}"
+                <TextBlock Text="{x:Static core:LocalizationResource.WaitingForTest}"
                        Visibility="{Binding IsTestReceived, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                        Style="{StaticResource TitleText}"
                        Foreground="{StaticResource BlackDarkBrush}"
@@ -57,11 +58,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.TestReceivedMessage}" 
+                    <TextBlock Text="{x:Static core:LocalizationResource.TestReceivedMessage}" 
                            Grid.ColumnSpan="2"
                            Style="{StaticResource MediumTitleText}" />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.Name}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.Name}"
                            Grid.Row="1"
                            Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -70,7 +71,7 @@
                            Grid.Row="1"
                            Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.TimeDuration}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.TimeDuration}"
                            Grid.Row="2"
                            Style="{StaticResource QuestionTextBlockStyle}" />
 

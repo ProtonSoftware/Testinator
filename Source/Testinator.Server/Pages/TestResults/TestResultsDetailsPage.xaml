@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1024">
@@ -34,24 +35,24 @@
                     Background="{StaticResource GreenLightBrush}"
                     Orientation="Horizontal">
 
-            <Button Content="{x:Static UICore:LocalizationResource.Back}"
+            <Button Content="{x:Static core:LocalizationResource.Back}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding ReturnCommand}"
                     />
 
-            <Button Content="{x:Static UICore:LocalizationResource.UsersView}"
+            <Button Content="{x:Static core:LocalizationResource.UsersView}"
                     Style="{StaticResource BaseUIButton}"
                     Command="{Binding ChangeViewStudentsCommand}"
                     HorizontalAlignment="Left"/>
 
-            <Button Content="{x:Static UICore:LocalizationResource.QuestionsView}"
+            <Button Content="{x:Static core:LocalizationResource.QuestionsView}"
                     Command="{Binding ChangeViewQuestionsCommand}"
                     Style="{StaticResource BaseUIButton}"
                     HorizontalAlignment="Left"/>
 
-            <Button Content="{x:Static UICore:LocalizationResource.Details}"
+            <Button Content="{x:Static core:LocalizationResource.Details}"
                     IsEnabled="False"
                     Style="{StaticResource BaseUIButton}"
                     HorizontalAlignment="Left"/>

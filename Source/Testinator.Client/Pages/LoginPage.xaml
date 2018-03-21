@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Client"
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d">
@@ -88,20 +89,20 @@
                 <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
 
                     <!-- Title -->
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.FillData}" 
+                    <TextBlock Text="{x:Static core:LocalizationResource.FillData}" 
                                Style="{StaticResource TitleText}"
                                Foreground="{StaticResource BlackDarkBrush}" />
 
                     <!-- User name input -->
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static UICore:LocalizationResource.WriteUsername}"
+                             Tag="{x:Static core:LocalizationResource.WriteUsername}"
                              Margin="0 25"
                              local:IsFocusedProperty.Value="True"
                              Style="{StaticResource BigInputTextBox}" />
 
                     <!-- User surname input -->
                     <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static UICore:LocalizationResource.WriteUserSurname}"
+                             Tag="{x:Static core:LocalizationResource.WriteUserSurname}"
                              Margin="0 0 0 25"
                              Style="{StaticResource BigInputTextBox}" />
 
@@ -112,7 +113,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <!-- Submit button -->
-                    <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
+                    <Button Content="{x:Static core:LocalizationResource.Confirm}"
                             Command="{Binding TryConnectingCommand}"
                             Margin="0"
                             IsDefault="True"
@@ -125,7 +126,7 @@
                 <!-- Trying to connect content -->
                 <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}}">
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.WaitingForConnection}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.WaitingForConnection}"
                                Style="{StaticResource TitleText}"
                                Foreground="{StaticResource BlackDarkBrush}"
                                Margin="15" />
@@ -137,13 +138,13 @@
                     <StackPanel Orientation="Horizontal" Margin="0 20" HorizontalAlignment="Center">
                         <TextBlock Style="{StaticResource TitleText}"
                                    Foreground="{StaticResource BlackLightBrush}"
-                                   Text="{x:Static UICore:LocalizationResource.TrySemicolon}"/>
+                                   Text="{x:Static core:LocalizationResource.TrySemicolon}"/>
                         <TextBlock Style="{StaticResource TitleText}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    Text="{Binding Attempts}"/>
                     </StackPanel>
 
-                    <Button Content="{x:Static UICore:LocalizationResource.Cancel}"
+                    <Button Content="{x:Static core:LocalizationResource.Cancel}"
                             Style="{StaticResource BaseUIButton}"
                             Command="{Binding StopConnectingCommand}"
                             Margin="15" />

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
-using Testinator.UICore;
+using Testinator.Core;
 
 namespace Testinator.Updater
 {

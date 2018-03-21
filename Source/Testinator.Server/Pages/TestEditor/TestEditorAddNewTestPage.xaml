@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d"
                  d:DesignHeight="720"
@@ -12,7 +13,7 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="{x:Static UICore:LocalizationResource.TestEditorTitle}"
+        <TextBlock Text="{x:Static core:LocalizationResource.TestEditorTitle}"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
@@ -35,13 +36,13 @@
 
                 <StackPanel>
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.TestName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.TestName}"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource BigInputTextBox}" />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.TestDurationInMinutes}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.TestDurationInMinutes}"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <TextBox Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"
@@ -54,7 +55,7 @@
                 </StackPanel>
 
                 <Button Grid.Row="1"
-                        Content="{x:Static UICore:LocalizationResource.CreateNewTest}"
+                        Content="{x:Static core:LocalizationResource.CreateNewTest}"
                         Command="{Binding AddingQuestionsPageChangeCommand}"
                         Style="{StaticResource BaseUIButton}"
                         HorizontalAlignment="Right" />

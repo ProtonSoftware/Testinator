@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -17,10 +18,10 @@
                           HorizontalContentAlignment="Stretch" 
                           IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="0.5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserName}" Binding="{Binding ClientName}"/>
-                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.UserSurname}" Binding="{Binding ClientSurname}"/>
-                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.AmountOfPoints}" Binding="{Binding PointsScored}"/>
-                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static UICore:LocalizationResource.Mark}" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
+                    <DataGridTextColumn Width="0.5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserName}" Binding="{Binding ClientName}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserSurname}" Binding="{Binding ClientSurname}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.AmountOfPoints}" Binding="{Binding PointsScored}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.Mark}" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
                     <DataGridTemplateColumn Width=".5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

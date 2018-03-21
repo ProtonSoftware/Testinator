@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d">
 
@@ -43,7 +44,7 @@
             </ScrollViewer>
         </Border>
 
-        <Button Content="{x:Static UICore:LocalizationResource.NextQuestion}"
+        <Button Content="{x:Static core:LocalizationResource.NextQuestion}"
                 Style="{StaticResource BaseUIButton}"
                 Command="{Binding SubmitCommand}"
                 Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"

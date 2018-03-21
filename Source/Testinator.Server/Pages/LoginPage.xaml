@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d">
     
@@ -23,13 +24,13 @@
                 <StackPanel Visibility="{Binding PINFound, Converter={local:BooleanToVisiblityConverter}}">
 
                     <!-- Title -->
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.LoggingIn}" 
+                    <TextBlock Text="{x:Static core:LocalizationResource.LoggingIn}" 
                                Style="{StaticResource TitleText}"
                                Foreground="{StaticResource BlackDarkBrush}" />
 
                     <!-- PIN input -->
                     <TextBox Text="{Binding PIN, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static UICore:LocalizationResource.FillPIN}"
+                             Tag="{x:Static core:LocalizationResource.FillPIN}"
                              Margin="0 25"
                              local:PINTextBoxProperty.Value="True"
                              local:IsFocusedProperty.Value="True"
@@ -42,7 +43,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <!-- Submit button -->
-                    <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
+                    <Button Content="{x:Static core:LocalizationResource.Confirm}"
                             Command="{Binding LoginCommand}"
                             Margin="0"
                             IsDefault="True"
@@ -56,13 +57,13 @@
                 <StackPanel Visibility="{Binding PINFound, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
 
                     <!-- Title -->
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.CreatePIN}" 
+                    <TextBlock Text="{x:Static core:LocalizationResource.CreatePIN}" 
                                Style="{StaticResource TitleText}"
                                Foreground="{StaticResource BlackDarkBrush}" />
 
                     <!-- New PIN input -->
                     <TextBox Text="{Binding PIN, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static UICore:LocalizationResource.FillPIN}"
+                             Tag="{x:Static core:LocalizationResource.FillPIN}"
                              Margin="0 25"
                              local:PINTextBoxProperty.Value="True"
                              local:IsFocusedProperty.Value="True"
@@ -70,7 +71,7 @@
 
                     <!-- Repeat PIN input -->
                     <TextBox Text="{Binding RepeatedPIN, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static UICore:LocalizationResource.RepeatPIN}"
+                             Tag="{x:Static core:LocalizationResource.RepeatPIN}"
                              Margin="0 25"
                              local:PINTextBoxProperty.Value="True"
                              Style="{StaticResource BigInputTextBox}" />
@@ -82,7 +83,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <!-- Submit button -->
-                    <Button Content="{x:Static UICore:LocalizationResource.Confirm}"
+                    <Button Content="{x:Static core:LocalizationResource.Confirm}"
                             Command="{Binding CreatePINCommand}"
                             Margin="0"
                             IsDefault="True"

@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  mc:Ignorable="d"
                  d:DesignHeight="720"
@@ -33,11 +34,11 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{x:Static UICore:LocalizationResource.SuccessfulTestAdd}"
+                <TextBlock Text="{x:Static core:LocalizationResource.SuccessfulTestAdd}"
                        Grid.ColumnSpan="2"
                        Style="{StaticResource MediumTitleText}" />
 
-                <TextBlock Text="{x:Static UICore:LocalizationResource.Name}"
+                <TextBlock Text="{x:Static core:LocalizationResource.Name}"
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -46,7 +47,7 @@
                        Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-                <TextBlock Text="{x:Static UICore:LocalizationResource.TimeDuration}"
+                <TextBlock Text="{x:Static core:LocalizationResource.TimeDuration}"
                        Grid.Row="2"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -55,7 +56,7 @@
                        Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-                <TextBlock Text="{x:Static UICore:LocalizationResource.QuestionCount}"
+                <TextBlock Text="{x:Static core:LocalizationResource.QuestionCount}"
                        Grid.Row="3"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -64,7 +65,7 @@
                        Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-                <TextBlock Text="{x:Static UICore:LocalizationResource.PointsCount}"
+                <TextBlock Text="{x:Static core:LocalizationResource.PointsCount}"
                        Grid.Row="4"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 

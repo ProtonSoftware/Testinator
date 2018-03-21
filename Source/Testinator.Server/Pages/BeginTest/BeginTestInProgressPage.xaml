@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
              mc:Ignorable="d"
              d:DesignHeight="720"
@@ -26,7 +27,7 @@
                             Orientation="Horizontal"
                             Margin="0 15 0 0">
                 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.TestSemicolon}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.TestSemicolon}"
                                Style="{StaticResource TitleText}"/>
                     <TextBlock Text="{Binding CurrentTest.Name}" 
                                Style="{StaticResource MediumTitleText}"
@@ -87,11 +88,11 @@
                         Margin="0 0 0 0"
                         Orientation="Horizontal">
                 
-                <Button Content="{x:Static UICore:LocalizationResource.FinishBeforeTime}"
+                <Button Content="{x:Static core:LocalizationResource.FinishBeforeTime}"
                         Command="{Binding FinishTestCommand}"
                         Style="{StaticResource BaseUIButton}"/>
 
-                <Button Content="{x:Static UICore:LocalizationResource.StopTest}"
+                <Button Content="{x:Static core:LocalizationResource.StopTest}"
                         Command="{Binding StopTestCommand}"
                         Style="{StaticResource BaseUIButton}" />
 

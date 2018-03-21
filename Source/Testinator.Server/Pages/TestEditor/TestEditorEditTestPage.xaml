@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
                  mc:Ignorable="d"
                  d:DesignHeight="720"
@@ -25,14 +26,14 @@
 
         </Border>
 
-        <Button Content="{x:Static UICore:LocalizationResource.DeleteTest}"
+        <Button Content="{x:Static core:LocalizationResource.DeleteTest}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="30"
                 Command="{Binding DeleteTestCommand}"
                 Style="{StaticResource BaseUIButton}" />
 
-        <Button Content="{x:Static UICore:LocalizationResource.EditTest}"
+        <Button Content="{x:Static core:LocalizationResource.EditTest}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="30"

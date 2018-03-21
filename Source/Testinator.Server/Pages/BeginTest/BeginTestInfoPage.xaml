@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
              mc:Ignorable="d"
              d:DesignHeight="720"
@@ -34,11 +35,11 @@
                 <RowDefinition  Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.InfoAboutTest}"
+            <TextBlock Text="{x:Static core:LocalizationResource.InfoAboutTest}"
                        Grid.ColumnSpan="2"
                        Style="{StaticResource MediumTitleText}" />
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.Name}"
+            <TextBlock Text="{x:Static core:LocalizationResource.Name}"
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -46,7 +47,7 @@
                        Grid.Row="1" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.TimeDuration}"
+            <TextBlock Text="{x:Static core:LocalizationResource.TimeDuration}"
                        Grid.Row="2"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -54,7 +55,7 @@
                        Grid.Row="2" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.QuestionCount}"
+            <TextBlock Text="{x:Static core:LocalizationResource.QuestionCount}"
                        Grid.Row="3"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -62,7 +63,7 @@
                        Grid.Row="3" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.PointsCount}"
+            <TextBlock Text="{x:Static core:LocalizationResource.PointsCount}"
                        Grid.Row="4"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -78,7 +79,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding ResultPageAllowed}"/>
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.ShowRightAnswers}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.ShowRightAnswers}"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                FontSize="{StaticResource FontSizeLarge}" />
                 </StackPanel>
@@ -94,7 +95,7 @@
             
         </Grid>
 
-        <Button Content="{x:Static UICore:LocalizationResource.StartTest}"
+        <Button Content="{x:Static core:LocalizationResource.StartTest}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10"
@@ -102,7 +103,7 @@
                 Style="{StaticResource BaseUIButton}"
                 Grid.Row="2"/>
 
-        <Button Content="{x:Static UICore:LocalizationResource.BackToTestList}"
+        <Button Content="{x:Static core:LocalizationResource.BackToTestList}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="10"

@@ -103,6 +103,11 @@
     <Compile Include="Files\Writers\LogsWriter.cs" />
     <Compile Include="Files\Writers\XmlWriter.cs" />
     <Compile Include="IoC\IoC.cs" />
+    <Compile Include="Localization\LocalizationResource.Designer.cs">
+      <DependentUpon>LocalizationResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LogFactoryLevel.cs" />
     <Compile Include="Logging\LogLevel.cs" />
@@ -116,7 +121,13 @@
     <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\LocalizationResource.pl-PL.resx" />
+    <EmbeddedResource Include="Localization\LocalizationResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizationResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

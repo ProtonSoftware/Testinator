@@ -5,6 +5,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:Testinator.Server"
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d"
@@ -13,7 +14,7 @@
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="{x:Static UICore:LocalizationResource.AttachCriteriaTitle}"
+        <TextBlock Text="{x:Static core:LocalizationResource.AttachCriteriaTitle}"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
@@ -57,14 +58,14 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.ColumnSpan="4" Style="{StaticResource MediumTitleText}">
-                        <Run Text="{x:Static UICore:LocalizationResource.MaxPointsTitle}" />
+                        <Run Text="{x:Static core:LocalizationResource.MaxPointsTitle}" />
                         <Run Text="{Binding Test.TotalPointScore, Mode=OneWay}" />
                     </TextBlock>
 
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="1"
                                 Grid.ColumnSpan="4">
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.IsMarkACountedQuestion}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.IsMarkACountedQuestion}"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
                         <CheckBox IsChecked="{Binding PointsGrading.IsMarkAIncluded}"/>
                     </StackPanel>
@@ -110,7 +111,7 @@
                                    Style="{StaticResource QuestionTextBlockStyle}"
                                    />
 
-                        <TextBlock Text="{x:Static UICore:LocalizationResource.MarkAName}"
+                        <TextBlock Text="{x:Static core:LocalizationResource.MarkAName}"
                                    Grid.Column="3"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -151,7 +152,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkBName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.MarkBName}"
                                Grid.Row="3"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -191,7 +192,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkCName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.MarkCName}"
                                Grid.Row="4"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -231,7 +232,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkDName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.MarkDName}"
                                Grid.Row="5"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -271,7 +272,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkEName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.MarkEName}"
                                Grid.Row="6"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -311,7 +312,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}"
                                />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.MarkFName}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.MarkFName}"
                                Grid.Row="7"
                                Grid.Column="3"
                                Style="{StaticResource QuestionTextBlockStyle}" />
@@ -323,21 +324,21 @@
 
                     <Grid Grid.Row="9" Grid.ColumnSpan="4">
 
-                        <Button Content="{x:Static UICore:LocalizationResource.EditCriteria}"
+                        <Button Content="{x:Static core:LocalizationResource.EditCriteria}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                 Command="{Binding EditPointsCriteriaCommand}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource BaseUIButton}" />
 
-                        <Button Content="{x:Static UICore:LocalizationResource.CancelChanges}"
+                        <Button Content="{x:Static core:LocalizationResource.CancelChanges}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding CancelEditPointsCommand}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource BaseUIButton}" />
 
-                        <Button Content="{x:Static UICore:LocalizationResource.ConfirmChanges}"
+                        <Button Content="{x:Static core:LocalizationResource.ConfirmChanges}"
                                 Visibility="{Binding IsCriteriaEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
                                 Command="{Binding SubmitEditPointsCommand}"
                                 VerticalAlignment="Center"
@@ -356,7 +357,7 @@
 
         </Border>
 
-        <Button Content="{x:Static UICore:LocalizationResource.SaveTest}"
+        <Button Content="{x:Static core:LocalizationResource.SaveTest}"
                 Margin="10"
                 Command="{Binding SubmitTestCommand}"
                 Style="{StaticResource BaseUIButton}"

@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
              xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+             xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"             
              mc:Ignorable="d"
              d:DesignHeight="720"
              d:DesignWidth="1024">
 
     <Border Background="{StaticResource WhiteLightBrush}">
-        <Button Content="{x:Static UICore:LocalizationResource.StartTest}"
+        <Button Content="{x:Static core:LocalizationResource.StartTest}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding ChangePageTestListCommand}"

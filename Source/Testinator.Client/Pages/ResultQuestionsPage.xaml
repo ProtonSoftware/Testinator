@@ -6,6 +6,7 @@
                  xmlns:local="clr-namespace:Testinator.Client"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  mc:Ignorable="d" 
                  d:DesignHeight="700" d:DesignWidth="1000">
 
@@ -23,7 +24,7 @@
                     HorizontalAlignment="Left"
                     Command="{Binding ReturnCommand}"/>
 
-            <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
+            <TextBlock Text="{x:Static core:LocalizationResource.ResultTitle}"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Center"
                        Margin="0 10 0 0"

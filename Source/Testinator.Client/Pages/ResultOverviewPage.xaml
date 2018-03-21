@@ -6,12 +6,13 @@
                  xmlns:local="clr-namespace:Testinator.Client"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  mc:Ignorable="d" 
                  d:DesignHeight="700" d:DesignWidth="1000">
 
     <Grid Background="{StaticResource WhiteLightBrush}">
 
-        <TextBlock Text="{x:Static UICore:LocalizationResource.ResultTitle}"
+        <TextBlock Text="{x:Static core:LocalizationResource.ResultTitle}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    Margin="20"
@@ -61,7 +62,7 @@
                                Grid.Column="1"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
-                    <TextBlock Text="{x:Static UICore:LocalizationResource.PointsSemicolon}"
+                    <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
                                Grid.Row="2"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
