@@ -18,13 +18,6 @@
                         <!-- Content -->
                         <Border x:Name="background" Background="{StaticResource WhiteDarkBrush}">
 
-                            <!-- Click to select this answer -->
-                            <Border.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" 
-                                              Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.SelectCommand}" 
-                                              CommandParameter="{Binding Index}"/>
-                            </Border.InputBindings>
-
                             <Grid x:Name="container" Background="Transparent">
 
                                 <Grid.ColumnDefinitions>
@@ -65,25 +58,11 @@
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                 <Setter Property="Background" TargetName="background" Value="{StaticResource GreenLightBrush}"/>
                             </DataTrigger>
-                            
+
                             <DataTrigger Binding="{Binding RedBackground}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="Red"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource LightRedBrush}"/>
                             </DataTrigger>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation To="{StaticResource GreenLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation From="{StaticResource GreenLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            
+
                         </ControlTemplate.Triggers>
 
                     </ControlTemplate>

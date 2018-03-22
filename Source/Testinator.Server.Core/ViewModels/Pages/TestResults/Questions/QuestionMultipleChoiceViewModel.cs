@@ -20,7 +20,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "";
+        public string QuestionPageCounter => $"Pytanie {DisplayIndex}";
+
+        /// <summary>
+        /// The ammout of points the user can get for a good answer
+        /// </summary>
+        public string PointScore => $"{Question.PointScore}p.";
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
@@ -33,26 +38,12 @@ namespace Testinator.Server.Core
         public int Count => Options.Count;
 
         /// <summary>
-        /// Sets the visibility of the no answer warning
-        /// When user chooses the answer automatically is set to false
-        /// </summary>
-        public bool NoAnswerWarning { get; set; } = false;
-
-        /// <summary>
-        /// Indicates whether the view should be enabled for changes
-        /// ReadOnly mode is used while presenting the result to the user
-        /// </summary>
-        public bool IsReadOnly { get; set; }
-
-        /// <summary>
         /// Indicates if the answer is empty (used to show now answer notification
-        /// Makes sense only if ReadOnlyMode is enabled
         /// </summary>
         public bool NoAnswer { get; set; }
 
         /// <summary>
         /// Indicates if the answer given by the user is correct
-        /// Makes sense only if <see cref="IsReadOnly"/> is set to true
         /// </summary>
         public bool IsAnswerCorrect { get; set; }
 
@@ -83,84 +74,6 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Commands
-
-        /// <summary>
-        /// Submits the current question and procceds to the next question
-        /// </summary>
-        public ICommand SubmitCommand { get; set; }
-
-        /// <summary>
-        /// Selects an answer
-        /// </summary>
-        public ICommand SelectCommand { get; set; }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default construcotr
-        /// </summary>
-        public QuestionMultipleChoiceViewModel()
-        {
-            // Create commands
-            SubmitCommand = new RelayCommand(Submit);
-            SelectCommand = new RelayParameterizedCommand(Select); 
-        }
-
-        #endregion
-
-        #region Command Methods
-
-        /// <summary>
-        /// Submits the current question
-        /// </summary>
-        private void Submit()
-        {
-            // Check which answer is selected
-            var CurrentlySelectedIdx = CheckWhichAnswerIsSelected();
-
-            // If none, show error and don't submit
-            if (CurrentlySelectedIdx == 0)
-            {
-                NoAnswerWarning = true;
-                return;
-            }
-
-            // Save the answer
-            var answer = new MultipleChoiceAnswer(CurrentlySelectedIdx);
-            //IoCClient.TestHost.SaveAnswer(answer);
-
-            // Go to next question page
-            //IoCClient.TestHost.GoNextQuestion();
-        }
-
-        /// <summary>
-        /// Fired when the user clicks on an answer
-        /// </summary>
-        /// <param name="idx">The index of the answer being cliked (int)</param>
-        private void Select(object idx)
-        {
-            // If read only dont let the user select answer
-            if (IsReadOnly)
-                return;
-
-            // Get the index
-            var index = (int)idx;
-
-            // If the user clicks on the answer that is already selected don't do anything
-            if (Options[index - 1].IsSelected == true)
-                return;
-
-            UnCheckAllAnswers();
-
-            // Select the answer
-            Options[index - 1].IsSelected = true;
-        }
-
-        #endregion
-
         #region Public Helpers
         
         /// <summary>
@@ -176,52 +89,31 @@ namespace Testinator.Server.Core
             // Convert the list of string to list of ABCAnswerItemViewModel
             Options = ListConvertFromStringQuestion(Question.Options);
 
-            if (IsReadOnly)
+
+            // Set the correct answer selected so it's green initially
+            Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
+
+            // If the answer is null, return (means that the user gave no answer to this question) 
+            if (UserAnswer == null)
             {
-                // Set the correct answer selected so it's green initially
-                Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
-
-                // If the answer is null, return (means that the user gave no answer to this question) 
-                if (UserAnswer == null)
-                {
-                    NoAnswer = true;
-                    return;
-                }
-
-                // Set the user's answer selected so it's green
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
-
-                // Mark the user's answer to display "Your answer" sign
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
-
-                // Indicate if the user's answer is correct
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerCorrect = IsAnswerCorrect;
+                NoAnswer = true;
+                return;
             }
+
+            // Set the user's answer selected so it's green
+            Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
+
+            // Mark the user's answer to display "Your answer" sign
+            Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
+
+            // Indicate if the user's answer is correct
+            Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerCorrect = IsAnswerCorrect;
+            
         }
 
         #endregion
 
         #region Private Helpers
-
-        /// <summary>
-        /// Checks which item in the answers list is selected
-        /// </summary>
-        /// <returns></returns>
-        private int CheckWhichAnswerIsSelected()
-        {
-            // Keep track of the index of the item which is selected
-            var index = 0;
-
-            // Loop each item
-            for(var i = 1; i <= Count; i++)
-            {
-                // Check if any item is selected
-                if (Options[i-1].IsSelected) index = i;
-            }
-
-            // Return index (if none items were selected, we return 0
-            return index;
-        }
 
         /// <summary>
         /// Takes in a list of strings and converts it to actual list of answer items
@@ -268,18 +160,6 @@ namespace Testinator.Server.Core
 
             // We have our list done, return it
             return FinalList;
-        }
-
-        /// <summary>
-        /// Marks all the answers not selected
-        /// </summary>
-        private void UnCheckAllAnswers()
-        {
-            // Uncheck all the answers
-            foreach (var option in Options)
-            {
-                option.IsSelected = false;
-            }
         }
 
         #endregion

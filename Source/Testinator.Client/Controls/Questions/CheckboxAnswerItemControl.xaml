@@ -48,7 +48,7 @@
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding IsRed}" Value="True">
-                                <Setter Property="Background" TargetName="container" Value="Red"/>
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource LightRedBrush}"/>
                             </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">

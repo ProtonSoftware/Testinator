@@ -85,7 +85,7 @@
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding IsAnswerCorrect}" Value="False">
-                                <Setter Property="Background" TargetName="container" Value="Red" />
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource LightRedBrush}" />
                             </DataTrigger>
 
                             <Trigger Property="IsEnabled" Value="False">

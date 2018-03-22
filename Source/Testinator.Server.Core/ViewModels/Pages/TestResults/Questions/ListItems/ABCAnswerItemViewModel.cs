@@ -50,17 +50,5 @@ namespace Testinator.Server.Core
         public bool RedBackground => IsAnswerGivenByTheUser && !IsAnswerCorrect;
 
         #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ABCAnswerItemViewModel()
-        {
-        }
-
-        #endregion
-
     }
 }

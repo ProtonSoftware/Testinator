@@ -119,7 +119,7 @@
                     Animations:AnimateFadeInProperty.Value="{Binding Editing}"
                     IsCancel="True"
                     Command="{Binding CancelCommand}"
-                    Background="Red"
+                    Background="{StaticResource LightRedBrush}"
                     Padding="8 5"
                     Margin="0"
                     VerticalAlignment="Center"

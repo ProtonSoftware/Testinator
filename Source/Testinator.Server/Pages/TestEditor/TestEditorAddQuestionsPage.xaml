@@ -379,7 +379,7 @@
                         </StackPanel>
 
                         <TextBlock Text="{Binding ErrorMessage}"
-                                   Foreground="Red"
+                                   Foreground="{StaticResource LightRedBrush}"
                                    Style="{StaticResource QuestionTextBlockStyle}" />
 
                     </StackPanel>

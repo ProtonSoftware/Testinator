@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -20,7 +19,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The title which shows question id
         /// </summary>
-        public string QuestionPageCounter => "";
+        public string QuestionPageCounter => $"Pytanie {DisplayIndex}";
+
+        /// <summary>
+        /// The ammout of points the user can get for a good answer
+        /// </summary>
+        public string PointScore => $"{Question.PointScore}p.";
 
         /// <summary>
         /// Options for the questions to check or uncheck
@@ -33,26 +37,17 @@ namespace Testinator.Server.Core
         public int Count => Options.Count;
 
         /// <summary>
-        /// Indicates whether the view should be enabled for changes
-        /// ReadOnly mode is used while presenting the result to the user
-        /// </summary>
-        public bool IsReadOnly { get; set; }
-
-        /// <summary>
         /// Indicates if the answer given by the user is correct
-        /// Makes sense only if <see cref="IsReadOnly"/> is set to true
         /// </summary>
         public bool IsAnswerCorrect { get; set; }
 
         /// <summary>
         /// Indicates if the answer is empty (used to show now answer notification
-        /// Makes sense only if ReadOnlyMode is enabled
         /// </summary>
         public bool NoAnswer { get; set; }
 
         /// <summary>
-        /// The answer give by the user 
-        /// Makes sense only if <see cref="IsReadOnly"/> is set to true
+        /// The answer given by the user 
         /// </summary>
         public MultipleCheckboxesAnswer UserAnswer { get; set; }
 
@@ -77,75 +72,6 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Commands
-
-        /// <summary>
-        /// Submits the current question and procceds to the next question
-        /// </summary>
-        public ICommand SubmitCommand { get; set; }
-
-        /// <summary>
-        /// Check or unchecks the option
-        /// NOTE: command parameter MUST be the answer index, INDEXING STARTS AT 1!
-        /// </summary>
-        public ICommand SelectCommand { get; set; }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public QuestionMultipleCheckboxesViewModel()
-        {
-            // Create commands
-            SubmitCommand = new RelayCommand(Submit);
-            SelectCommand = new RelayParameterizedCommand(Select);
-        }
-
-        #endregion
-
-        #region Command Methods
-
-        /// <summary>
-        /// Selects/unselects the answer
-        /// </summary>
-        /// <param name="obj">The index of the answer, also look at <see cref="CurrentlySelectedItdx"/></param>
-        private void Select(object obj)
-        {
-            // Cast parameter
-            var idxStr = obj as string;
-            if (!int.TryParse(idxStr, out var idx))
-                throw new ArgumentException();
-
-            // Check the answer at idx - 1 because indexing starts at 1 not 0 !
-            Options[idx - 1].IsChecked ^= true;
-        }
-
-        /// <summary>
-        /// Submits the current question
-        /// </summary>
-        private void Submit()
-        {
-            // Get the list of answers
-            var checkedList = new List<bool>();
-            foreach (var item in Options)
-            {
-                if (item.IsChecked) checkedList.Add(true);
-                else checkedList.Add(false);
-            }
-
-            // Save the answer
-            var answer = new MultipleCheckboxesAnswer(checkedList);
-            //IoCClient.TestHost.SaveAnswer(answer);
-
-            // Go to next question page
-            //IoCClient.TestHost.GoNextQuestion();
-        }
-
-        #endregion
-
         #region Public Helpers
 
         /// <summary>
@@ -160,14 +86,6 @@ namespace Testinator.Server.Core
 
             // Convert from dictionary to answer items list
             Options = ListConvertFromDictionaryQuestion(Question.OptionsAndAnswers);
-
-            // If not in readonly mode...
-            if (!IsReadOnly)
-            {
-                // Make all the answers unchecked
-                foreach (var item in Options)
-                    item.IsChecked = false;
-            }
         }
 
         #endregion
@@ -189,43 +107,37 @@ namespace Testinator.Server.Core
             foreach (var option in options)
             {
                 // Create new answer item
-                var answerItem = new CheckboxAnswerItemViewModel
+                var answerItemViewModel = new CheckboxAnswerItemViewModel
                 {
                     // Rewrite answer string content
-                    Text = option.Key.ToString(),
-
-                    // Set the read only property if required
-                    IsReadOnly = IsReadOnly,
-    
+                    Text = option.Key.ToString(),  
                 };
 
-                // In readonly mode set the check box
-                if (IsReadOnly)
+                // If user gave no answer
+                if (UserAnswer == null)
                 {
-                    // If the user answer is null (meaning the user didnt answer this question), skip this iteration
-                    if (UserAnswer != null)
-                    {
-                        answerItem.IsChecked = UserAnswer.Answers[i];
-                        answerItem.IsCorrect = option.Value == UserAnswer.Answers[i];
-                    }
-                    else
-                    {
-                        // Mark the checkboxes in the correct order if the user didn't give the answer
-                        answerItem.IsChecked = option.Value;
-                        NoAnswer = true;
-                    }
-                }
-                else
-                    // Don't select any answer at the start
-                    answerItem.IsChecked = true;
 
-                // Add this item to the list
-                FinalList.Add(answerItem);
+                    // Mark the checkboxes in the correct order if the user didn't give the answer
+                    answerItemViewModel.IsChecked = option.Value;
+                    NoAnswer = true;
+                }
+                
+                // If user gave an answer
+                else
+                {
+                    // Show their answer
+                    answerItemViewModel.IsChecked = UserAnswer.Answers[i];
+
+                    // Set if it is correct
+                    answerItemViewModel.IsCorrect = option.Value == UserAnswer.Answers[i];
+                }
+                
+                // Add this item viewmodel to the list
+                FinalList.Add(answerItemViewModel);
 
                 i++;
             }
 
-            // We have our list done, return it
             return FinalList;
         }
 

@@ -319,7 +319,7 @@
 
                     <TextBlock Grid.Row="8" Grid.ColumnSpan="4"
                                Text="{Binding ErrorMessage}"
-                               Foreground="Red"
+                               Foreground="{StaticResource LightRedBrush}"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <Grid Grid.Row="9" Grid.ColumnSpan="4">

@@ -25,4 +25,7 @@
     <Color x:Key="BlackPure">#000000</Color>
     <SolidColorBrush x:Key="BlackPureBrush" Color="{StaticResource BlackPure}" />
 
+    <Color x:Key="LightRed">#f24040</Color>
+    <SolidColorBrush x:Key="LightRedBrush" Color="{StaticResource LightRed}" />
+
 </ResourceDictionary>

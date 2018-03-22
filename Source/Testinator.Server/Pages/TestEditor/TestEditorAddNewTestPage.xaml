@@ -50,7 +50,7 @@
 
                     <TextBlock Text="{Binding ErrorMessage}"
                                Style="{StaticResource QuestionTextBlockStyle}"
-                               Foreground="Red" />
+                               Foreground="{StaticResource LightRedBrush}" />
 
                 </StackPanel>
 

@@ -22,20 +22,35 @@
                                 Padding="0 0 1 0">
                     <StackPanel>
 
-                        <TextBlock Text="{Binding QuestionPageCounter}"
-                                    Style="{StaticResource TitleText}"
-                                    Foreground="{StaticResource BlackDarkBrush}"
-                                    HorizontalAlignment="Center"
-                                    Margin="10" />
+                        <Grid>
+                            <TextBlock Text="{Binding QuestionPageCounter}"
+                                       Style="{StaticResource TitleText}"
+                                       Foreground="{StaticResource BlackDarkBrush}"
+                                       Margin="10" 
+                                       HorizontalAlignment="Center"/>
+
+                            <Border BorderBrush="{StaticResource BlackDarkBrush}"
+                                    BorderThickness="1"
+                                    HorizontalAlignment="Right"
+                                    Margin="0 10"
+                                    Background="{StaticResource BlackDarkBrush}"
+                                    CornerRadius="5">
+                                <TextBlock Text="{Binding PointScore}"
+                                           Style="{StaticResource TitleText}"
+                                           Foreground="{StaticResource WhiteDarkBrush}"
+                                           FontSize="{StaticResource FontSizeLarge}"
+                                           Margin="12 0"/>
+                            </Border>
+                        </Grid>
 
                         <TextBlock Text="{Binding Question.Task}" 
                                    TextWrapping="Wrap"
                                    Style="{StaticResource QuestionTextBlockStyle}"/>
 
-                        <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding UserAnswer}"
                                  Style="{StaticResource BigInputTextBox}"
                                  FontSize="{StaticResource FontSizeLarge}"
-                                 IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"
+                                 IsEnabled="False"
                                  Background="{Binding TextBoxBackground, Converter={local:StringRGBToBrushConverter}}"
                                  TextWrapping="Wrap"
                                  Margin="5 0 15 0"/>
@@ -54,14 +69,6 @@
                 </ScrollViewer>
         </Border>
 
-
-            <Button Content="{x:Static core:LocalizationResource.NextQuestion}"
-                    Style="{StaticResource BaseUIButton}"
-                    Command="{Binding SubmitCommand}"
-                    Visibility="{Binding IsReadOnly, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="0 5 25 15"  />
     </Grid>
     
 </UICore:BasePage>

@@ -34,12 +34,12 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <TextBlock Text="{x:Static core:LocalizationResource.NoUsersConnected}"
-                       Foreground="Red"
+                       Foreground="{StaticResource LightRedBrush}"
                        Style="{StaticResource QuestionTextBlockStyle}"
                        Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding NotEnoughClients}"
                        HorizontalAlignment="Center" />
             <TextBlock Text="{x:Static core:LocalizationResource.NoTestChoosen}"
-                       Foreground="Red"
+                       Foreground="{StaticResource LightRedBrush}"
                        Style="{StaticResource QuestionTextBlockStyle}"
                        Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding TestNotSelected}"
                        HorizontalAlignment="Center" />

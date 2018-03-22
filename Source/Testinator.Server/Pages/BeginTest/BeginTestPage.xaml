@@ -58,7 +58,7 @@
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}}"
                                Style="{StaticResource MediumTitleText}" />
                     <TextBlock Text="{x:Static core:LocalizationResource.Disabled}"
-                               Foreground="Red"
+                               Foreground="{StaticResource LightRedBrush}"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                Style="{StaticResource MediumTitleText}" />
                 </StackPanel>

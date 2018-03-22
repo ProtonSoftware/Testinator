@@ -138,29 +138,36 @@ namespace Testinator.Server.Core
             var totalScore = 0;
 
             // Log what we are doing
-            IoCServer.Logger.Log("Calculating user's score");
+            IoCServer.Logger.Log("Preparing view data to show user's answers");
 
             // Get the questions from the test
-            var Questions = mTestResults.Test.Questions;
+            var Questions = new List<Question>();
 
             var QuestionViewModels = new List<BaseViewModel>();
 
-            // Fill empty answers with nulls
-            for (var i = 0; i < Questions.Count; i++)
+            var addedQuestions = Enumerable.Repeat<bool>(false, mTestResults.Test.Questions.Count).ToList();
+            // Fill empty answers with nulls and match questions to the answers
+            for (var i = 0; i < mTestResults.Test.Questions.Count; i++)
             {
                 try
                 {
-                    if (UserAnswers[i].ID != i + 1)
-                        UserAnswers.Insert(i, null);
+                    var index = UserAnswers[i].ID;
+                    Questions.Add(mTestResults.Test.Questions[index - 1]);
+                    addedQuestions[index - 1] = true;
                 }
                 catch (ArgumentOutOfRangeException)
                 {
                     UserAnswers.Add(null);
                 }
-
             }
 
-
+            // Add the rest quesionts
+            for (var i = 0; i < addedQuestions.Count; i++)
+            {
+                if (addedQuestions[i] == false)
+                    Questions.Add(mTestResults.Test.Questions[i]);
+            }
+            
             // We can iterate like this because the question list and answer list are in the same order
             for (var i = 0; i < Questions.Count; i++)
             {
@@ -196,7 +203,6 @@ namespace Testinator.Server.Core
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
                                 UserAnswer = multipleChoiceAnswer,
-                                IsReadOnly = true,
                                 Index = i,
                             };
 
@@ -237,7 +243,6 @@ namespace Testinator.Server.Core
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
                                 UserAnswer = multipleCheckboxesAnswer,
-                                IsReadOnly = true,
                                 Index = i,
                             };
 
@@ -278,7 +283,6 @@ namespace Testinator.Server.Core
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
                                 UserAnswer = singleTextBoxAnswer?.Answer,
-                                IsReadOnly = true,
                                 Index = i,
                             };
 
