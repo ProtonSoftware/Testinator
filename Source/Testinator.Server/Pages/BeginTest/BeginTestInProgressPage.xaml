@@ -20,7 +20,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <StackPanel Grid.Row="0">
+            <StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" 
                             VerticalAlignment="Top"
@@ -85,7 +85,6 @@
 
             <StackPanel Grid.Row="1" 
                         HorizontalAlignment="Center"
-                        Margin="0 0 0 0"
                         Orientation="Horizontal">
                 
                 <Button Content="{x:Static core:LocalizationResource.FinishBeforeTime}"
@@ -100,10 +99,9 @@
 
             <StackPanel Grid.Row="2" 
                         HorizontalAlignment="Center"
-                        Margin="0 0 0 0"
                         Orientation="Horizontal">
 
-                <Button Content="Add latecomer"
+                <Button Content="{x:Static core:LocalizationResource.AddLatecomers}"
                         Command="{Binding AddLateComerCommand}"
                         Style="{StaticResource BaseUIButton}"/>
 

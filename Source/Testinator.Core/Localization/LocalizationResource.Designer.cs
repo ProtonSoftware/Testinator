@@ -79,6 +79,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add latecomers.
+        /// </summary>
+        public static string AddLatecomers {
+            get {
+                return ResourceManager.GetString("AddLatecomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Write the question task and every answer and check which of them are right..
         /// </summary>
         public static string AddMultipleCheckboxesQuestionIntroduction {
@@ -628,11 +637,29 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send test.
         /// </summary>
         public static string SendTest {
             get {
                 return ResourceManager.GetString("SendTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send the test?.
+        /// </summary>
+        public static string SendTestQuestion {
+            get {
+                return ResourceManager.GetString("SendTestQuestion", resourceCulture);
             }
         }
         

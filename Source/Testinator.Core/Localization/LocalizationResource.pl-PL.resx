@@ -384,4 +384,13 @@
   <data name="RepeatPIN" xml:space="preserve">
     <value>Powtórz PIN</value>
   </data>
+  <data name="AddLatecomers" xml:space="preserve">
+    <value>Dodaj spóźnionych</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Zaznacz wszystkich</value>
+  </data>
+  <data name="SendTestQuestion" xml:space="preserve">
+    <value>Wysłać test?</value>
+  </data>
 </root>

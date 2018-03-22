@@ -1,11 +1,10 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using Testinator.Server.Core;
 using Testinator.Core;
-using Testinator.UICore;
-using System.Net;
-using System.Diagnostics;
+using Testinator.Server.Core;
 
 namespace Testinator.Server
 {
@@ -82,7 +81,8 @@ namespace Testinator.Server
             try
             {
                 // Get current version
-                var currentVersion = "1.1.0.0";
+                var assembly = Assembly.LoadFrom("Testinator.Server.Core.dll");
+                var currentVersion = assembly.GetName().Version.ToString();
 
                 // Set webservice's url and parameters we want to send
                 var url = "http://minorsonek.pl/testinator/data/index.php";
