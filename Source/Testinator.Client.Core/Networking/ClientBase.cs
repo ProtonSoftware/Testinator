@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using Testinator.Core;
 
-namespace Testinator.Network.Client
+namespace Testinator.Client.Core
 {
     /// <summary>
     /// TODO: Comment this

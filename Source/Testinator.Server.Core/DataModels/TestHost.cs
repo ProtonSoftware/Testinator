@@ -18,12 +18,6 @@ namespace Testinator.Server.Core
         /// </summary>
         private Timer mTestTimer = new Timer(1000);
 
-        /// <summary>
-        /// Private list of all clients that are taking the test, 
-        /// NOTE: data to the clients is sent by using <see cref="ClientModel"/>, therefore this list is essential
-        /// </summary>
-        private List<ClientModel> mClients = new List<ClientModel>();
-
         #endregion
 
         #region Public Properties
@@ -51,12 +45,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// All clients that are currently taking the test
         /// </summary>
-        public ObservableCollection<ClientModelExtended> Clients { get; private set; } = new ObservableCollection<ClientModelExtended>();
+        public ObservableCollection<ClientModel> Clients { get; private set; } = new ObservableCollection<ClientModel>();
 
         /// <summary>
         /// The user results for the current test
         /// </summary>
-        public TestResults Results { get; private set; } = new TestResults();
+        public ServerTestResults Results { get; private set; } = new ServerTestResults();
 
         /// <summary>
         /// Stores the lastest startup args
@@ -79,7 +73,7 @@ namespace Testinator.Server.Core
             var data = new DataPackage(PackageType.BeginTest);
             SendAllClients(data);
 
-            foreach (var client in mClients)
+            foreach (var client in Clients)
                 client.CanStartTest = false;
 
             IsTestInProgress = true;
@@ -127,11 +121,7 @@ namespace Testinator.Server.Core
         {
             foreach (var client in Latecomers)
             {
-                mClients.Add(client);
-                Clients.Add(new ClientModelExtended(client)
-                {
-                    QuestionsCount = Test.Questions.Count,
-                });
+                Clients.Add(client);
             }
 
             SendTestRange(Latecomers);
@@ -145,7 +135,7 @@ namespace Testinator.Server.Core
             System.Threading.Thread.Sleep(100);
             SendRange(data, Latecomers);
 
-            foreach (var client in mClients)
+            foreach (var client in Clients)
                 client.CanStartTest = false;
         }
 
@@ -224,17 +214,12 @@ namespace Testinator.Server.Core
                 return;
 
             // Save all currently connected clients
-            Clients = new ObservableCollection<ClientModelExtended>();
-            mClients = new List<ClientModel>();
-            foreach (var client in IoCServer.Network.Clients)
+            Clients = new ObservableCollection<ClientModel>();
+            foreach (var client in IoCServer.Network.ConnectedClients)
             {
                 if (client.CanStartTest)
                 {
-                    mClients.Add(client);
-                    Clients.Add(new ClientModelExtended(client)
-                    {
-                        QuestionsCount = Test.Questions.Count,
-                    });
+                    Clients.Add(client);
                 }
             }
         }
@@ -274,15 +259,14 @@ namespace Testinator.Server.Core
         public void OnDataReceived(ClientModel client, DataPackage dataPackage)
         {
             // If the data is from client we dont care about don't do anything
-            if (!mClients.Contains(client))
+            if (!Clients.Contains(client))
                 return;
 
-            var ClientIdx = GetClientIndex(client);
             switch (dataPackage.PackageType)
             {
                 case PackageType.ReportStatus:
                     var content = dataPackage.Content as StatusPackage;
-                    Clients[ClientIdx].CurrentQuestion = content.CurrentQuestion;
+                    client.CurrentQuestion = content.CurrentQuestion;
 
                     // Check if every user has completed the test
                     if(IsTestFinished())
@@ -298,9 +282,9 @@ namespace Testinator.Server.Core
                     var result = dataPackage.Content as ResultFormPackage;
 
                     // Store the result
-                    Clients[ClientIdx].Answers = result.Answers;
-                    Clients[ClientIdx].PointsScored = result.PointsScored;
-                    Clients[ClientIdx].Mark = result.Mark;
+                    client.Answers = result.Answers;
+                    client.PointsScored = result.PointsScored;
+                    client.Mark = result.Mark;
 
                     // If the test is not in progress save the answers
                     if(!IsTestInProgress)
@@ -319,13 +303,11 @@ namespace Testinator.Server.Core
         public void OnClientDisconnected(ClientModel client)
         {
             // If the client that has disconnected is the one who isn't taking the test right now, don't do anything
-            if (!mClients.Contains(client))
+            if (!Clients.Contains(client))
                 return;
 
-            var idx = mClients.IndexOf(client);
-
             // Indicate that we got connection problem with this client
-            Clients[idx].ConnectionProblem = true;
+            client.ConnectionProblem = true;
         }
         
         #endregion
@@ -341,6 +323,7 @@ namespace Testinator.Server.Core
             mTestTimer.Elapsed += HandleTimer;
 
             IoCServer.Network.OnClientDataUpdated += ServerNetwork_OnClientDataUpdated;
+            IoCServer.Network.OnDataReceived += OnDataReceived;
         }
 
         #endregion
@@ -400,8 +383,8 @@ namespace Testinator.Server.Core
         private void SendAllClients(DataPackage data)
         {
             // Send it to all clients
-            foreach (var client in mClients)
-                IoCServer.Network.SendData(client, data);
+            foreach (var client in Clients)
+                IoCServer.Network.Send(client, data);
         }
 
         /// <summary>
@@ -413,7 +396,7 @@ namespace Testinator.Server.Core
         {
             // Send it to all clients
             foreach (var client in SendTo)
-                IoCServer.Network.SendData(client, data);
+                IoCServer.Network.Send(client, data);
         }
 
         /// <summary>
@@ -421,14 +404,18 @@ namespace Testinator.Server.Core
         /// </summary>
         private void SaveResults()
         {
-            Results = new TestResults()
+            Results = new ServerTestResults()
             {
                 Date = DateTime.Now,
                 Test = Test,
             };
 
             foreach (var client in Clients)
-                Results.Results.Add(new ClientModelSerializable(client), client.Answers);
+                Results.ClientAnswers.Add(new TestResultsClientModel(client)
+                {
+                    PointsScored = client.PointsScored,
+                    Mark = client.Mark,
+                }, client.Answers);
 
             ResultsFileWriter.WriteToFile(Results);
         }
@@ -450,21 +437,6 @@ namespace Testinator.Server.Core
             TestStop();
             SaveResults();
             TestFinished.Invoke();
-        }
-
-        /// <summary>
-        /// Gets the client index in the <see cref="Clients"/> 
-        /// </summary>
-        /// <param name="client">The client to be found</param>
-        /// <returns>-1 if not found</returns>
-        private int GetClientIndex(ClientModel client)
-        {
-            foreach (var item in Clients)
-            {
-                if (item.ID == client.ID)
-                    return Clients.IndexOf(item);
-            }
-            return -1;
         }
 
         #endregion

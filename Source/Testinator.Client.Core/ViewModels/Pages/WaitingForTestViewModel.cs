@@ -54,8 +54,8 @@ namespace Testinator.Client.Core
         public WaitingForTestViewModel()
         {
             // Set input data
-            Name = new TextEntryViewModel { Label = "Imię", OriginalText = IoCClient.Client.ClientName };
-            Surname = new TextEntryViewModel { Label = "Nazwisko", OriginalText = IoCClient.Client.ClientSurname };
+            Name = new TextEntryViewModel { Label = "Imię", OriginalText = IoCClient.Client.Name };
+            Surname = new TextEntryViewModel { Label = "Nazwisko", OriginalText = IoCClient.Client.LastName };
 
             // Listen out for test which will come from server
             IoCClient.TestHost.OnTestReceived += Update;
@@ -74,7 +74,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void Name_ValueChanged()
         {
-            IoCClient.Client.ClientName = Name.OriginalText;
+            IoCClient.Client.Name = Name.OriginalText;
             IoCClient.Application.Network.SendClientModelUpdate();
         }
 
@@ -83,7 +83,7 @@ namespace Testinator.Client.Core
         /// </summary>
         private void Surname_ValueChanged()
         {
-            IoCClient.Client.ClientSurname = Surname.OriginalText;
+            IoCClient.Client.LastName = Surname.OriginalText;
             IoCClient.Application.Network.SendClientModelUpdate();
         }
 

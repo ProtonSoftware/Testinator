@@ -20,7 +20,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The list of all results found on the machine
         /// </summary>
-        public List<TestResults> Results { get; private set; } = new List<TestResults>();
+        public List<ServerTestResults> Results { get; private set; } = new List<ServerTestResults>();
 
         /// <summary>
         /// The results binary file writer which handles results saving/deleting from local folder
@@ -112,7 +112,7 @@ namespace Testinator.Server.Core
         /// Fired when an item is selected from the list
         /// </summary>
         /// <param name="item">Item that has been selected</param>
-        private void ListControl_ItemSelected(TestResults item)
+        private void ListControl_ItemSelected(ServerTestResults item)
         {
             LoadViewModel(item);
             IsAnyItemSelected = true;
@@ -173,7 +173,7 @@ namespace Testinator.Server.Core
         /// Loads viewmodel properties with the given test resuts object
         /// </summary>
         /// <param name="value"></param>
-        private void LoadViewModel(TestResults value)
+        private void LoadViewModel(ServerTestResults value)
         {
             if (value == null)
                 return;
@@ -181,7 +181,7 @@ namespace Testinator.Server.Core
             ResultsDateDay = value.Date.ToShortDateString();
             ResultsDateHour = value.Date.ToShortTimeString();
             TestName = value.Test.Name;
-            TestAttendeesNumber = value.Results.Count.ToString(); ;
+            TestAttendeesNumber = value.ClientAnswers.Count.ToString(); ;
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using Testinator.Core;
-using Testinator.Network.Client;
 
 namespace Testinator.Client.Core
 {

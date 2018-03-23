@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using Testinator.Core;
 
-namespace Testinator.Core
+namespace Testinator.Server.Core
 {
     /// <summary>
-    /// Extended version of <see cref="ClientModel"/> class
+    /// Defines the structure of the client connected to the sever
     /// </summary>
-    [Serializable]
-    public class ClientModelExtended : ClientModel
+    public class ClientModel : Client
     {
         #region Public Properties
+
+        /// <summary>
+        /// Indicates if the user can start the test, meaning: is not in the result page but in the waiting for test page
+        /// </summary>
+        public bool CanStartTest { get; set; } = true;
 
         /// <summary>
         /// Number of questions this client have done so far
@@ -52,29 +56,8 @@ namespace Testinator.Core
         /// The client mark
         /// </summary>
         public Marks Mark { get; set; }
-        
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <param name="baseClient">The object this model is beased on</param>
-        public ClientModelExtended(ClientModel baseClient)
-        {
-
-#pragma warning disable IDE0003 // Remove qualification
-            this.ID = baseClient.ID;
-            this.MacAddress = baseClient.MacAddress;
-            this.MachineName = baseClient.MachineName;
-            this.IpAddress = baseClient.IpAddress;
-            this.ClientName = baseClient.ClientName;
-            this.ClientSurname = baseClient.ClientSurname;
-#pragma warning restore IDE0003 // Remove qualification
-
-        }
 
         #endregion
+
     }
 }

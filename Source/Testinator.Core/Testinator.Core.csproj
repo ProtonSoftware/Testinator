@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -55,7 +58,7 @@
     <Compile Include="Base\IHavePassword.cs" />
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\RelayParameterizedCommand.cs" />
-    <Compile Include="DataModels\Client\ClientModel.cs" />
+    <Compile Include="DataModels\Client\Client.cs" />
     <Compile Include="DataModels\DataPackage\Content\ResultFormPackage.cs" />
     <Compile Include="DataModels\DataPackage\Content\StatusPackage.cs" />
     <Compile Include="DataModels\DataPackage\Content\TestStartupArgsPackage.cs" />
@@ -73,10 +76,10 @@
     <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
-    <Compile Include="DataModels\Results\ClientModelExtended.cs" />
-    <Compile Include="DataModels\Results\ClientModelSerializable.cs" />
-    <Compile Include="DataModels\Results\ClientTestResults.cs" />
-    <Compile Include="DataModels\Results\TestResults.cs" />
+    <Compile Include="DataModels\Results\Base\ResultsBase.cs" />
+    <Compile Include="DataModels\Results\Base\TestResultsBase.cs" />
+    <Compile Include="DataModels\Results\Base\ClientTestResultsBase.cs" />
+    <Compile Include="DataModels\Results\TestResultsClientModel.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingBase.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingPoints.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingPercentage.cs" />
@@ -87,7 +90,6 @@
     <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
     <Compile Include="Dialogs\Base\BaseDialogViewModel.cs" />
     <Compile Include="Dialogs\Base\MessageTypes.cs" />
-    <Compile Include="Dialogs\ViewModels\AddLatecomersDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\DecisionDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />

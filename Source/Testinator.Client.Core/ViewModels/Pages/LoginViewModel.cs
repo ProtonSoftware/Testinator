@@ -17,8 +17,8 @@ namespace Testinator.Client.Core
         /// </summary>
         public string Name
         {
-            get => IoCClient.Client.ClientName;
-            set => IoCClient.Client.ClientName = value;
+            get => IoCClient.Client.Name;
+            set => IoCClient.Client.Name = value;
         }
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace Testinator.Client.Core
         /// </summary>
         public string Surname
         {
-            get => IoCClient.Client.ClientSurname;
-            set => IoCClient.Client.ClientSurname = value;
+            get => IoCClient.Client.LastName;
+            set => IoCClient.Client.LastName = value;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Testinator.Core
@@ -25,7 +26,7 @@ namespace Testinator.Core
                 ms.Seek(0, SeekOrigin.Begin);
                 output = (T)bf.Deserialize(ms);
             }
-            catch
+            catch (Exception ex)
             {
                 output = null;
                 return false;
@@ -51,7 +52,7 @@ namespace Testinator.Core
                     Bytes = ms.ToArray();
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 Bytes = new byte[0];
                 return false;

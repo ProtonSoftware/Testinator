@@ -1,6 +1,5 @@
 ﻿using Ninject;
 using Testinator.Core;
-using Testinator.Network.Server;
 
 namespace Testinator.Server.Core
 {

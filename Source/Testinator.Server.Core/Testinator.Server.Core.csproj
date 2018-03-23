@@ -54,7 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\Results\TestResults.cs" />
+    <Compile Include="Networking\Base\IServer.cs" />
+    <Compile Include="Networking\Base\ServerBase.cs" />
+    <Compile Include="Networking\Exceptions\ServerException.cs" />
+    <Compile Include="DataModels\Client\ClientModel.cs" />
+    <Compile Include="Networking\Implementation\ServerNetwork.cs" />
     <Compile Include="ViewModels\Application\PageHostViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddLatecomersDialogViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\Questions\ListItems\ABCAnswerItemViewModel.cs" />
@@ -66,9 +73,8 @@
     <Compile Include="ViewModels\Pages\TestResults\ResultQuestionsViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\TestResultsDetailsViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
-    <Compile Include="DataModels\ApplicationPage.cs" />
-    <Compile Include="DataModels\IconType.cs" />
-    <Compile Include="DataModels\ServerNetwork.cs" />
+    <Compile Include="DataModels\Application\ApplicationPage.cs" />
+    <Compile Include="DataModels\Application\IconType.cs" />
     <Compile Include="DataModels\TestHost.cs" />
     <Compile Include="Icons\IconTypeExtensions.cs" />
     <Compile Include="IoC\Interfaces\ILogFactory.cs" />
@@ -102,10 +108,6 @@
     <ProjectReference Include="..\Testinator.Core\Testinator.Core.csproj">
       <Project>{F592FA60-030D-440B-BB00-ED4EA5A919F6}</Project>
       <Name>Testinator.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Testinator.Network.Server\Testinator.Network.Server.csproj">
-      <Project>{8d6c748d-3e62-44f6-baa0-4258a8d04c15}</Project>
-      <Name>Testinator.Network.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

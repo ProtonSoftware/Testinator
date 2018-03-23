@@ -26,7 +26,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The list of test results
         /// </summary>
-        public List<TestResults> ResultsList { get; private set; } = new List<TestResults>();
+        public List<ServerTestResults> ResultsList { get; private set; } = new List<ServerTestResults>();
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Fired when an item is selected
         /// </summary>
-        public event Action<TestResults> ItemSelected = (x) => { };
+        public event Action<ServerTestResults> ItemSelected = (x) => { };
 
         #endregion
 
@@ -89,7 +89,7 @@ namespace Testinator.Server.Core
             try
             {
                 // Try to load the list of every result from bin files
-                ResultsList = ResultsFileReader.ReadFile<TestResults>();
+                ResultsList = ResultsFileReader.ReadFile<ServerTestResults>();
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace Testinator.Server.Core
         /// </summary>
         /// <returns>Null if there isn't any item selected,
         /// otherwise return the currently selected item</returns>
-        public TestResults SelectedItem()
+        public ServerTestResults SelectedItem()
         {
             foreach (var item in Items)
             {

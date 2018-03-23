@@ -503,7 +503,6 @@ namespace Testinator.Client.Core
             // Set calculated point score to the property and set the corresponding mark
             UserScore = totalScore;
             UserMark = CurrentTest.Grading.GetMark(UserScore);
-            
         }
 
         /// <summary>
@@ -558,10 +557,10 @@ namespace Testinator.Client.Core
                     ResultFileWriter.WriteToFile(new ClientTestResults()
                     {
                         Answers = UserAnswers,
-                        ClientModel = new ClientModelSerializable()
+                        Client = new TestResultsClientModel()
                         {
-                            ClientName = IoCClient.Client.ClientName,
-                            ClientSurname = IoCClient.Client.ClientSurname,
+                            Name = IoCClient.Client.Name,
+                            LastName = IoCClient.Client.LastName,
                             MachineName = IoCClient.Client.MachineName,
                             Mark = UserMark,
                             PointsScored = UserScore,

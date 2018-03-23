@@ -16,7 +16,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The results this viewmodel is based on
         /// </summary>
-        private TestResults mTestResults = new TestResults();
+        private ServerTestResults mTestResults = new ServerTestResults();
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Used to display data in students view mode
         /// </summary>
-        public List<ClientModelSerializable> StudentsViewData { get; private set; } = new List<ClientModelSerializable>();
+        public List<TestResultsClientModel> StudentsViewData { get; private set; } = new List<TestResultsClientModel>();
 
         /// <summary>
         /// Used to display data in questions view mode
@@ -83,7 +83,7 @@ namespace Testinator.Server.Core
         /// Constructs the viewmodel and loads it's properties with the given data
         /// </summary>
         /// <param name="results">Data to be loaded</param>
-        public TestResultsDetailsViewModel(TestResults results)
+        public TestResultsDetailsViewModel(ServerTestResults results)
         {
             // Create commands
             CreateCommands();
@@ -127,12 +127,12 @@ namespace Testinator.Server.Core
         /// <param name="client"></param>
         private void ChangeViewAnswers(object client)
         {
-            var Client = client as ClientModelSerializable;
+            var Client = client as TestResultsClientModel;
 
             if (Client == null)
                 return;
 
-            var UserAnswers = mTestResults.Results[Client] == null ? new List<Answer>() : new List<Answer>(mTestResults.Results[Client]);
+            var UserAnswers = mTestResults.ClientAnswers[Client] == null ? new List<Answer>() : new List<Answer>(mTestResults.ClientAnswers[Client]);
 
             // Total point score
             var totalScore = 0;
@@ -297,7 +297,7 @@ namespace Testinator.Server.Core
 
             var questionsViewmodel = new ResultQuestionsViewModel(QuestionViewModels)
             {
-                Name = $"{Client.ClientName} {Client.ClientSurname}",
+                Name = $"{Client.Name} {Client.LastName}",
                 Results = mTestResults,
             };
 
@@ -314,7 +314,7 @@ namespace Testinator.Server.Core
         /// Loads this viewmodel with given data
         /// </summary>
         /// <param name="value"></param>
-        private void LoadData(TestResults value)
+        private void LoadData(ServerTestResults value)
         {
             if (value == null)
                 return;
@@ -334,10 +334,10 @@ namespace Testinator.Server.Core
             QuestionsViewData.Clear();
 
 
-            foreach (var student in mTestResults.Results.Keys)
+            foreach (var student in mTestResults.ClientAnswers.Keys)
             {
                 // Get the answers given by this user
-                var answers = mTestResults.Results[student];
+                var answers = mTestResults.ClientAnswers[student];
 
                 if (answers != null)
                     answers = answers.OrderBy(x => x.ID).ToList();
@@ -345,8 +345,8 @@ namespace Testinator.Server.Core
                 // Create a viewmodel for them
                 var viewmodel = new QuestionsViewItemViewModel()
                 {
-                    Name = student.ClientName,
-                    Surname = student.ClientSurname,
+                    Name = student.Name,
+                    Surname = student.LastName,
                 };
 
 

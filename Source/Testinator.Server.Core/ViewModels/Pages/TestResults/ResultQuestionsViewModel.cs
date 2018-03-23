@@ -27,7 +27,7 @@ namespace Testinator.Server.Core
         /// The results that were previously selected to show more details
         /// NOTE: used only to get back to the previous page and show it correctly. Will be redone anyway
         /// </summary>
-        public TestResults Results { get; set; }
+        public ServerTestResults Results { get; set; }
 
         #endregion
 

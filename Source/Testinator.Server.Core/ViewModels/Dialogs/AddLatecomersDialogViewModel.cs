@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using Testinator.Core;
 
-namespace Testinator.Core
+namespace Testinator.Server.Core
 {
     public class ListViewModel<T> : BaseViewModel
         where T : class

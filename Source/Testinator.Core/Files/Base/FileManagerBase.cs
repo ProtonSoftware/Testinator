@@ -117,12 +117,12 @@ namespace Testinator.Core
         /// <summary>
         /// Writes <see cref="TestResults"/> to file
         /// </summary>
-        public virtual void WriteToFile(TestResults tr) { }
+        public virtual void WriteToFile(ServerTestResultsBase tr) { }
 
         /// <summary>
-        /// Writes <see cref="ClientTestResults"/> to file
+        /// Writes <see cref="ClientTestResultsBase"/> to file
         /// </summary>
-        public virtual void WriteToFile(ClientTestResults ctr) { }
+        public virtual void WriteToFile(ClientTestResultsBase ctr) { }
 
         /// <summary>
         /// Writes object's property info to file
@@ -160,7 +160,7 @@ namespace Testinator.Core
         /// <summary>
         /// Deletes the <see cref="TestResults"/>
         /// </summary>
-        public virtual void DeleteFile(TestResults results) { }
+        public virtual void DeleteFile(ServerTestResultsBase results) { }
 
         #endregion
 

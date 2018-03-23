@@ -12,13 +12,13 @@ namespace Testinator.Core
         /// Gets ip address from a socket
         /// </summary>
         /// <param name="source">Source socket</param>
-        /// <returns>Ip address as a string</returns>
-        public static string GetIp(this Socket source)
+        /// <returns></returns>
+        public static IPAddress GetIp(this Socket source)
         {
             if (source == null)
-                return string.Empty;
+                return IPAddress.None;
 
-            return ((IPEndPoint)source.RemoteEndPoint).Address.ToString();
+            return ((IPEndPoint)source.RemoteEndPoint).Address;
         }
     }
 }

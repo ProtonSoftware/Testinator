@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using Testinator.Core;
 
-namespace Testinator.Core
+namespace Testinator.Client.Core
 { 
     /// <summary>
-    /// Client side test results to be saved on the client's disk
+    /// Client side test results to be saved on the client's computer disk
     /// </summary>
     [Serializable]
-    public class ClientTestResults
+    public class ClientTestResults : ClientTestResultsBase
     {
         /// <summary>
-        /// The test user has taken
+        /// The mark user has got
         /// </summary>
-        public Test Test { get; set; }
-
-        /// <summary>
-        /// The model of the client that took the test
-        /// </summary>
-        public ClientModelSerializable ClientModel { get; set; }
+        public Mark Mark { get; set; }
 
         /// <summary>
         /// User's answers

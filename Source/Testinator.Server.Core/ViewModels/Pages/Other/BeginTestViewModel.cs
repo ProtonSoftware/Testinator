@@ -16,12 +16,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// A list of connected clients
         /// </summary>
-        public ObservableCollection<ClientModel> ClientsConnected => IoCServer.Network.Clients;
+        public ObservableCollection<ClientModel> ClientsConnected => IoCServer.Network.ConnectedClients;
 
         /// <summary>
         /// All clients that are currently taking the test
         /// </summary>
-        public ObservableCollection<ClientModelExtended> ClientsTakingTheTest => IoCServer.TestHost.Clients;
+        public ObservableCollection<ClientModel> ClientsTakingTheTest => IoCServer.TestHost.Clients;
 
         /// <summary>
         /// The test which is choosen by user on the list
@@ -31,7 +31,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The number of connected clients
         /// </summary>
-        public int ClientsNumber => IoCServer.Network.ConnectedClientCount;
+        public int ClientsNumber => IoCServer.Network.ConnectedClientsCount;
 
         /// <summary>
         /// The number of the questions in the test
@@ -56,7 +56,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The server's ip
         /// </summary>
-        public string ServerIpAddress => IoCServer.Network.Ip;
+        public string ServerIpAddress => IoCServer.Network.IPString;
 
         /// <summary>
         /// The server's port
@@ -230,7 +230,6 @@ namespace Testinator.Server.Core
             }
 
             // Set network data
-            IoCServer.Network.Ip = ServerIpAddress;
             IoCServer.Network.Port = int.Parse(ServerPort);
 
             // Start the server
@@ -268,7 +267,7 @@ namespace Testinator.Server.Core
             }
             
             // Stop the server
-            IoCServer.Network.Stop();
+            IoCServer.Network.ShutDown();
 
             UpdateView();
 
@@ -434,7 +433,7 @@ namespace Testinator.Server.Core
         {
             var CanStartTestClients = new List<ClientModel>();
 
-            foreach(var client in IoCServer.Network.Clients)
+            foreach(var client in IoCServer.Network.ConnectedClients)
                 if (client.CanStartTest)
                     CanStartTestClients.Add(client);
 

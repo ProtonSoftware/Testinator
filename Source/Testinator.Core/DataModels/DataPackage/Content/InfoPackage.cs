@@ -11,12 +11,6 @@ namespace Testinator.Core
         public string MachineName { get; set; }
 
         /// <summary>
-        /// Mac address of the client's ethernet card.
-        /// Helps to distinguish clients 
-        /// </summary>
-        public string MacAddress { get; set; }
-
-        /// <summary>
         /// Client's name
         /// </summary>
         public string ClientName { get; set; }
@@ -40,20 +34,40 @@ namespace Testinator.Core
             ClientName = name;
             ClientSurname = surname;
             this.MachineName = MachineName;
-            MacAddress = mac;
         }
 
         /// <summary>
         /// Constructs the package from a model
         /// </summary>
         /// <param name="model">The model this package is based on</param>
-        public InfoPackage(ClientModel model)
+        public InfoPackage(Client model)
         {
-            ClientName = model.ClientName;
-            ClientSurname = model.ClientSurname;
+            ClientName = model.Name;
+            ClientSurname = model.LastName;
             MachineName = model.MachineName;
-            MacAddress = model.MacAddress;
         }
+
         #endregion
     }
+
+    public static class InfoPackageExtensionMethods
+    {
+        /// <summary>
+        /// Validates the package content
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns>True if package is valid, false if not</returns>
+        public static bool Validate(this InfoPackage package)
+        {
+            if (package == null)
+                return false;
+            if (string.IsNullOrEmpty(package.ClientName) ||
+                string.IsNullOrEmpty(package.ClientSurname) ||
+                string.IsNullOrEmpty(package.MachineName))
+            { return false; }
+
+            return true;
+        }
+    }
 }
+

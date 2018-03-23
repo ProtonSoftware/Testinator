@@ -39,7 +39,7 @@ namespace Testinator.Server.Core
         /// </summary>
         /// <param name="results">The results this viewmodel will be based on</param>
         /// <param name="index">THe index of this item in the list</param>
-        public TestResultsListItemViewModel(TestResults results, int index)
+        public TestResultsListItemViewModel(ServerTestResults results, int index)
         {
             TestName = results.Test.Name;
             Date = results.Date.ToLongDateString();

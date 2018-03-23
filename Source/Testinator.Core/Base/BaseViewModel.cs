@@ -9,6 +9,7 @@ namespace Testinator.Core
     /// <summary>
     /// A base view model that fires Property Changed events as needed
     /// </summary>
+    [Serializable]
     public class BaseViewModel : INotifyPropertyChanged
     {
         /// <summary>

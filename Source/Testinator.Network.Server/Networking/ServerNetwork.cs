@@ -8,195 +8,21 @@ using Testinator.Core;
 namespace Testinator.Network.Server
 {
     /// <summary>
-    /// Provides basic functionalities for network server
+    /// Handles networking on server side using TCP data transfer
     /// </summary>
-    public class ServerBase
+    public class ServerNetwork : ServerBase
     {
-        #region Private Members
 
-        /// <summary>
-        /// The <see cref="Socket"/> for server
-        /// </summary>
-        private Socket mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        /// <summary>
-        /// Conatins all connected clients
-        /// </summary>
-        private readonly Dictionary<Socket, ClientModel> mClients = new Dictionary<Socket, ClientModel>();
-
-        /// <summary>
-        /// Buffer for received data
-        /// </summary>
-        private byte[] mReciverBuffer;
-
-        /// <summary>
-        /// Indicates if the server is currently running
-        /// </summary>
-        private bool mIsRunning = false;
-
-        /// <summary>
-        /// Buffer size for incoming data
-        /// </summary>
-        private int mBufferSize;
-
-        /// <summary>
-        /// Server ip address
-        /// </summary>
-        private IPAddress mIPAddress;
-
-        /// <summary>
-        /// Server port
-        /// </summary>
-        private int mPort;
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Indicates if the server is currently running
-        /// </summary>
-        public bool IsRunning => mIsRunning;
-
-        /// <summary>
-        /// Gets and sets server buffer size
-        /// NOTE: If server is running buffer size change will NOT be saved
-        /// </summary>
-        public int BufferSize
-        {
-            get => mBufferSize;
-            set
-            {
-                if (!IsRunning)
-                {
-                    mBufferSize = value;
-                    mReciverBuffer = new byte[BufferSize];
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets and sets server ip
-        /// NOTE: If server is running ip change will NOT be saved
-        /// </summary>
-        public IPAddress IPAddress
-        {
-            get => mIPAddress;
-            set
-            {
-                if (!IsRunning)
-                    mIPAddress = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets and sets server ip
-        /// NOTE: If server is running ip change will NOT be saved
-        /// If ip is incorrect no changed will be made
-        /// </summary>
-        public string Ip
-        {
-            get => IPAddress.ToString();
-            set
-            {
-                try
-                {
-                    IPAddress = IPAddress.Parse(value);
-                }
-                catch { }
-            }
-        }
-
-        /// <summary>
-        /// Gets and sets server port
-        /// NOTE: If server is running port change will NOT be saved
-        /// </summary>
-        public int Port
-        {
-            get => mPort;
-            set
-            {
-                if (!IsRunning)
-                    mPort = value;
-            }
-        }
-
-        /// <summary>
-        /// Number of clients curently connected
-        /// </summary>
-        public int ConnectedClientCount => mClients.Count;
-
-        #endregion
-
-        #region Public Events
-
-        /// <summary>
-        /// The event that is fired when any data has been recived from a client
-        /// </summary>
-        public event Action<ClientModel, DataPackage> OnDataRecived = (sender, data) => { };
-
-        /// <summary>
-        /// The event that is fired when a new client has connected
-        /// </summary>
-        public event Action<ClientModel> OnClientConnected = (sender) => { };
-
-        /// <summary>
-        /// The event that is fired when a client has disconnected
-        /// </summary>
-        public event Action<ClientModel> OnClientDisconnected = (sender) => { };
-
-        /// <summary>
-        /// The event that is fired when a client's data had beed updated
-        /// </summary>
-        public event Action<ClientModel, ClientModel> OnClientDataUpdated = (oldmodel, newModel) => { };
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ServerBase()
-        {
-            // Create default values
-            BufferSize = 32768;
-            Port = 3333;
-            IPAddress = NetworkHelpers.GetLocalIPAddress();
-        }
-
-        #endregion
 
         #region Public Methods
 
-        /// <summary>
-        /// Starts the server
-        /// </summary>
-        public void Start()
-        {
-            if (mIsRunning)
-                return;
-            try
-            {
-                mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                mServerSocket.Bind(new IPEndPoint(IPAddress, Port));
-                mServerSocket.Listen(0);
-                mServerSocket.BeginAccept(AcceptCallback, null);
-                mIsRunning = true;
-            }
-            catch
-            {
-                mIsRunning = false;
-                // TODO: error handling
-            }
-        }
 
         /// <summary>
         /// Stops the server
         /// </summary>
         public void Stop()
         {
-            if (!mIsRunning)
+            if (!IsRunning)
                 return;
 
             // Create a package that contains disconnect info 
@@ -214,7 +40,7 @@ namespace Testinator.Network.Server
 
             mServerSocket.Close();
 
-            mIsRunning = false;
+            IsRunning = false;
         }
 
         /// <summary>
@@ -265,8 +91,8 @@ namespace Testinator.Network.Server
         {
             var originalModel = new ClientModel(mClients[Client]);
 
-            mClients[Client].ClientName = NewModel.ClientName;
-            mClients[Client].ClientSurname = NewModel.ClientSurname;
+            mClients[Client].Name = NewModel.ClientName;
+            mClients[Client].LastName = NewModel.ClientSurname;
             mClients[Client].MachineName = NewModel.MachineName;
 
             return originalModel;
@@ -383,9 +209,9 @@ namespace Testinator.Network.Server
                             {
                                 ID = clientId,
                                 MachineName = content.MachineName,
-                                ClientName = content.ClientName,
-                                ClientSurname = content.ClientSurname,
-                                IpAddress = senderSocket.GetIp(),
+                                Name = content.ClientName,
+                                LastName = content.ClientSurname,
+                                IP = senderSocket.GetIp(),
                                 MacAddress = content.MacAddress,
                             };
 
