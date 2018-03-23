@@ -618,7 +618,7 @@ namespace Testinator.Server.Core
                         if (HowManyMultipleChoiceAnswersVisible > 3)
                         {
                             ShouldAnswerDBeVisible = true;
-                            AnswerD = question.Options[2];
+                            AnswerD = question.Options[3];
                         }
                         if (HowManyMultipleChoiceAnswersVisible == 5)
                         {
