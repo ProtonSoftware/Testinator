@@ -393,4 +393,49 @@
   <data name="SendTestQuestion" xml:space="preserve">
     <value>Wysłać test?</value>
   </data>
+  <data name="NewImportantUpdate" xml:space="preserve">
+    <value>Nowa ważna aktualizacja!</value>
+  </data>
+  <data name="NewImportantUpdateInfo" xml:space="preserve">
+    <value>Nowa ważna aktualizacja jest gotowa do pobrania, aplikacja zostanie zamknięta</value>
+  </data>
+  <data name="NewUpdate" xml:space="preserve">
+    <value>Nowy update!</value>
+  </data>
+  <data name="NewVersionCanDownload" xml:space="preserve">
+    <value>Nowa wersja Testinator'a jest dostępna, pobrać teraz?</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SkipUpdate" xml:space="preserve">
+    <value>Pomiń aktualizację</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Pewnie</value>
+  </data>
+  <data name="CouldNotSendData" xml:space="preserve">
+    <value>Nie można przesłać danych</value>
+  </data>
+  <data name="CouldNotStartServer" xml:space="preserve">
+    <value>Nie można uruchomić serwera!</value>
+  </data>
+  <data name="ErrorContentSemicolon" xml:space="preserve">
+    <value>Treść błędu: </value>
+  </data>
+  <data name="LoadingError" xml:space="preserve">
+    <value>Błąd wczytywania</value>
+  </data>
+  <data name="RepeatedPINNotSame" xml:space="preserve">
+    <value>Powtórzony PIN nie jest taki sam jak oryginalny.</value>
+  </data>
+  <data name="SavingError" xml:space="preserve">
+    <value>Błąd zapisu</value>
+  </data>
+  <data name="UnableToLoadConfigFile" xml:space="preserve">
+    <value>Nie udało się wczytać pliku konfiguracyjnego.</value>
+  </data>
+  <data name="UnableToSaveConfigFile" xml:space="preserve">
+    <value>Nie udało się zapisać nowej wartości do pliku konfiguracyjnego.</value>
+  </data>
 </root>

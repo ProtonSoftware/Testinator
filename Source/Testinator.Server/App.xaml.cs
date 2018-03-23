@@ -107,10 +107,10 @@ namespace Testinator.Server
                             // Ask the user if he wants to update
                             var vm = new DecisionDialogViewModel
                             {
-                                Title = "New update found!",
-                                Message = "New version of Testinator can be downloaded, update now?",
-                                AcceptText = "Sure",
-                                CancelText = "Skip update"
+                                Title = LocalizationResource.NewUpdate,
+                                Message = LocalizationResource.NewVersionCanDownload,
+                                AcceptText = LocalizationResource.Sure,
+                                CancelText = LocalizationResource.SkipUpdate
                             };
                             await IoCServer.UI.ShowMessage(vm);
 
@@ -123,9 +123,9 @@ namespace Testinator.Server
                             // An important update, inform the user and update
                             await IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                             {
-                                Title = "Important new update!",
-                                Message = "New important update is up, application will close.",
-                                OkText = "Ok"
+                                Title = LocalizationResource.NewImportantUpdate,
+                                Message = LocalizationResource.NewImportantUpdateInfo,
+                                OkText = LocalizationResource.Ok
                             });
                             return true;
                         }

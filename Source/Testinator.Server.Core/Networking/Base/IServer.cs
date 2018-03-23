@@ -14,7 +14,7 @@ namespace Testinator.Server.Core
         void Start();
 
         /// <summary>
-        /// Shuts the server and disconnect all the clients
+        /// Shuts the server down and disconnects all the clients
         /// </summary>
         void ShutDown();
 
@@ -29,6 +29,6 @@ namespace Testinator.Server.Core
         /// Disconnets a single client
         /// </summary>
         /// <param name="ClientToDisconnect">Client to be disconnected</param>
-        //void DisconnectClient(NetworkClientModel ClientToDisconnect);
+        //void DisconnectClient(NetworkClientModel ClientToDisconnect); // TODO: ????
     }
 }

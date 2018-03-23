@@ -56,25 +56,25 @@ namespace Testinator.Server.Core
         /// Sends the data to the specified socket
         /// </summary>
         /// <param name="Target">The target socket</param>
-        /// <param name="Data">Data to be sent</param>
+        /// <param name="Data">The data to be sent</param>
         private void Send(Socket Target, DataPackage Data)
         {
             if (Target == null)
             {
                 IoCServer.Logger.Log("Could not send the data. Target socket was null");
-                throw new ServerException("Could not send the data", "Target socket was null");
+                throw new ServerException(LocalizationResource.CouldNotSendData, "Target socket was null");
             }
 
             if (Data == null)
             {
-                IoCServer.Logger.Log("Could not send data as it was null");
-                throw new ServerException("Could not send the data", "Data package was null");
+                IoCServer.Logger.Log("Could not send the data as it was null");
+                throw new ServerException(LocalizationResource.CouldNotSendData, "Data package was null");
             }
 
             if (!DataPackageDescriptor.TryConvertToBin(out var senderBuffor, Data))
             {
-                IoCServer.Logger.Log("Could not send data. Binary conversion failed");
-                throw new ServerException("Could not send the data", "Binary conversion failed");
+                IoCServer.Logger.Log("Could not send the data. Binary conversion failed");
+                throw new ServerException(LocalizationResource.CouldNotSendData, "Binary conversion failed");
             }
 
             IoCServer.Logger.Log("Sending data...");
@@ -185,7 +185,6 @@ namespace Testinator.Server.Core
 
         #endregion
 
-
         #region Public Methods
 
         /// <summary>
@@ -215,7 +214,7 @@ namespace Testinator.Server.Core
 
                 IoCServer.Logger.Log($"Failed to start the server. Error: {ex.Message}");
 
-                throw new ServerException("Could not start the server!", ex);
+                throw new ServerException(LocalizationResource.CouldNotStartServer, ex);
             }
 
             IoCServer.Logger.Log("Server has been started correctly");
@@ -287,7 +286,7 @@ namespace Testinator.Server.Core
             if (targetSocket == null)
             {
                 IoCServer.Logger.Log("Could not send the data as target client does not exist");
-                throw new ServerException("Could not send the data", "Target client does not exist");
+                throw new ServerException(LocalizationResource.CouldNotSendData, "Target client does not exist");
             }
 
             // Attempt to send data
@@ -527,6 +526,5 @@ namespace Testinator.Server.Core
         }
 
         #endregion
-
     }
 }

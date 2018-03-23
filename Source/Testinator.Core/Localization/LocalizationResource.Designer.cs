@@ -232,6 +232,24 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not send the data.
+        /// </summary>
+        public static string CouldNotSendData {
+            get {
+                return ResourceManager.GetString("CouldNotSendData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start the server!.
+        /// </summary>
+        public static string CouldNotStartServer {
+            get {
+                return ResourceManager.GetString("CouldNotStartServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new criteria.
         /// </summary>
         public static string CreateNewCriteria {
@@ -331,6 +349,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error message: .
+        /// </summary>
+        public static string ErrorContentSemicolon {
+            get {
+                return ResourceManager.GetString("ErrorContentSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fill the data.
         /// </summary>
         public static string FillData {
@@ -408,6 +435,15 @@ namespace Testinator.Core {
         public static string LoadedSemicolon {
             get {
                 return ResourceManager.GetString("LoadedSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading error.
+        /// </summary>
+        public static string LoadingError {
+            get {
+                return ResourceManager.GetString("LoadingError", resourceCulture);
             }
         }
         
@@ -520,6 +556,42 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New important update!.
+        /// </summary>
+        public static string NewImportantUpdate {
+            get {
+                return ResourceManager.GetString("NewImportantUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New important update is up and ready to download, application will close..
+        /// </summary>
+        public static string NewImportantUpdateInfo {
+            get {
+                return ResourceManager.GetString("NewImportantUpdateInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New update found!.
+        /// </summary>
+        public static string NewUpdate {
+            get {
+                return ResourceManager.GetString("NewUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New version of Testinator can be downloaded, update now?.
+        /// </summary>
+        public static string NewVersionCanDownload {
+            get {
+                return ResourceManager.GetString("NewVersionCanDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next question.
         /// </summary>
         public static string NextQuestion {
@@ -543,6 +615,15 @@ namespace Testinator.Core {
         public static string NoUsersConnected {
             get {
                 return ResourceManager.GetString("NoUsersConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
@@ -579,6 +660,15 @@ namespace Testinator.Core {
         public static string QuestionsView {
             get {
                 return ResourceManager.GetString("QuestionsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeated PIN is not the same as the original..
+        /// </summary>
+        public static string RepeatedPINNotSame {
+            get {
+                return ResourceManager.GetString("RepeatedPINNotSame", resourceCulture);
             }
         }
         
@@ -633,6 +723,15 @@ namespace Testinator.Core {
         public static string SaveTest {
             get {
                 return ResourceManager.GetString("SaveTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving error.
+        /// </summary>
+        public static string SavingError {
+            get {
+                return ResourceManager.GetString("SavingError", resourceCulture);
             }
         }
         
@@ -700,6 +799,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skip update.
+        /// </summary>
+        public static string SkipUpdate {
+            get {
+                return ResourceManager.GetString("SkipUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  results..
         /// </summary>
         public static string SpaceResults {
@@ -750,6 +858,15 @@ namespace Testinator.Core {
         public static string SuccessfulTestAdd {
             get {
                 return ResourceManager.GetString("SuccessfulTestAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sure.
+        /// </summary>
+        public static string Sure {
+            get {
+                return ResourceManager.GetString("Sure", resourceCulture);
             }
         }
         
@@ -831,6 +948,24 @@ namespace Testinator.Core {
         public static string TrySemicolon {
             get {
                 return ResourceManager.GetString("TrySemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load the config file..
+        /// </summary>
+        public static string UnableToLoadConfigFile {
+            get {
+                return ResourceManager.GetString("UnableToLoadConfigFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save new value to the config file..
+        /// </summary>
+        public static string UnableToSaveConfigFile {
+            get {
+                return ResourceManager.GetString("UnableToSaveConfigFile", resourceCulture);
             }
         }
         

@@ -17,7 +17,7 @@
                             <!-- Content -->
                             <Border x:Name="background"
                                     Height="55"
-                                    Width="160"
+                                    MinWidth="100"
                                     BorderBrush="{StaticResource BlackDarkBrush}"
                                     BorderThickness="1"
                                     Background="{StaticResource WhiteDarkBrush}">

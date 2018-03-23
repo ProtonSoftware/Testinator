@@ -26,6 +26,11 @@ namespace Testinator.Server.Core
         public string Duration { get; set; } = "";
 
         /// <summary>
+        /// The text which is displayed on confirm button, either create new or edit existing test
+        /// </summary>
+        public string ConfirmButtonText => IsEditModeOn ? LocalizationResource.EditTest : LocalizationResource.CreateNewTest;
+
+        /// <summary>
         /// The test itself, builded step by step
         /// </summary>
         public Test Test { get; set; }
@@ -44,11 +49,6 @@ namespace Testinator.Server.Core
         /// Keeps the message of an error to show, if any error occured
         /// </summary>
         public string ErrorMessage { get; set; } = string.Empty;
-
-        /// <summary>
-        /// A flag indicating if test menu should be expanded
-        /// </summary>
-        public bool IsTestMenuExpanded { get; set; } = true;
 
         /// <summary>
         /// Index of selected question type
@@ -183,11 +183,6 @@ namespace Testinator.Server.Core
         /// The command to change page to criteria adding page
         /// </summary>
         public ICommand AddingCriteriaPageChangeCommand { get; private set; }
-
-        /// <summary>
-        /// The command to expand/hide the test menu
-        /// </summary>
-        public ICommand TestMenuExpandCommand { get; private set; }
 
         /// <summary>
         /// The command to submit newly created question and add it to the test
@@ -349,15 +344,6 @@ namespace Testinator.Server.Core
             {
                 ErrorMessage = ex.Message;
             }
-        }
-
-        /// <summary>
-        /// Expands/hides the test menu
-        /// </summary>
-        private void ExpandMenu()
-        {
-            // Simply toggle the expanded flag
-            IsTestMenuExpanded ^= true;
         }
 
         /// <summary>
@@ -894,7 +880,6 @@ namespace Testinator.Server.Core
         {
             AddingQuestionsPageChangeCommand = new RelayCommand(ChangeQuestionsPage);
             AddingCriteriaPageChangeCommand = new RelayCommand(ChangeCriteriaPage);
-            TestMenuExpandCommand = new RelayCommand(ExpandMenu);
             SubmitQuestionCommand = new RelayCommand(SubmitQuestion);
             SubmitTestCommand = new RelayCommand(SubmitTest);
             AddAnswerCommand = new RelayCommand(AddAnswer);

@@ -89,7 +89,7 @@ namespace Testinator.Server.Core
             // Check if both PIN matches
             if (!DoesRepeatedPINMatch())
             {
-                ErrorMessage = "Repeated PIN is not the same as the original.";
+                ErrorMessage = LocalizationResource.RepeatedPINNotSame;
                 return;
             }
 

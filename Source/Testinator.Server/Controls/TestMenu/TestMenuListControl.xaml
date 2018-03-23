@@ -8,8 +8,7 @@
              xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
              mc:Ignorable="d">
 
-    <Border Width="200"
-            Animations:AnimateSideMenuWidthProperty.Value="{Binding IsTestMenuExpanded}">
+    <Border>
         <Grid>
             
             <Grid.RowDefinitions>
@@ -18,29 +17,17 @@
             </Grid.RowDefinitions>
             
             <Border Height="50"
-                    Width="160"
+                    MinWidth="100"
                     HorizontalAlignment="Left"
                     BorderBrush="{StaticResource BlackDarkBrush}"
                     BorderThickness="2"
                     Background="{StaticResource GreenLightBrush}">
 
-                <Grid>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Button Content="{StaticResource FontAwesomeHamburgerMenuIcon}"
-                            Style="{StaticResource IconGrowButton}"
-                            Command="{Binding TestMenuExpandCommand}"
-                            Height="50" />
-
-                    <Viewbox Grid.Column="1" Margin="5">
-                        <TextBlock Text="{Binding Test.Name}"
+                <Viewbox Margin="5">
+                    <TextBlock Text="{Binding Test.Name}"
                                     Style="{StaticResource QuestionTextBlockStyle}" />
-                    </Viewbox>
-                </Grid>
+                </Viewbox>
 
             </Border>
             <ScrollViewer VerticalScrollBarVisibility="Auto"

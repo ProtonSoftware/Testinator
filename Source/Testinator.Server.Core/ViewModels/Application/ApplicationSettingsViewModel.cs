@@ -138,10 +138,10 @@ namespace Testinator.Server.Core
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Title = "Błąd wczytywania",
-                    Message = "Nie udało się wczytać pliku konfiguracyjnego." +
-                              "\nTreść błędu: " + ex.Message,
-                    OkText = "Ok"
+                    Title = LocalizationResource.LoadingError,
+                    Message = LocalizationResource.UnableToLoadConfigFile + "\n" +
+                              LocalizationResource.ErrorContentSemicolon + ex.Message,
+                    OkText = LocalizationResource.Ok
                 });
 
                 IoCServer.Logger.Log("Unable to read config from local folder, error message: " + ex.Message);
@@ -174,10 +174,10 @@ namespace Testinator.Server.Core
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Title = "Błąd zapisu",
-                    Message = "Nie udało się zapisać nowej wartości do pliku konfiguracyjnego." +
-                              "\nTreść błędu: " + ex.Message,
-                    OkText = "Ok"
+                    Title = LocalizationResource.SavingError,
+                    Message = LocalizationResource.UnableToSaveConfigFile + "\n" +
+                              LocalizationResource.ErrorContentSemicolon + ex.Message,
+                    OkText = LocalizationResource.Ok
                 });
 
                 IoCServer.Logger.Log("Unable to write new property value to the config, error message: " + ex.Message);

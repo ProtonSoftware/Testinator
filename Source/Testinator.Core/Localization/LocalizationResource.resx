@@ -402,4 +402,49 @@
   <data name="SendTestQuestion" xml:space="preserve">
     <value>Send the test?</value>
   </data>
+  <data name="NewImportantUpdate" xml:space="preserve">
+    <value>New important update!</value>
+  </data>
+  <data name="NewImportantUpdateInfo" xml:space="preserve">
+    <value>New important update is up and ready to download, application will close.</value>
+  </data>
+  <data name="NewUpdate" xml:space="preserve">
+    <value>New update found!</value>
+  </data>
+  <data name="NewVersionCanDownload" xml:space="preserve">
+    <value>New version of Testinator can be downloaded, update now?</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SkipUpdate" xml:space="preserve">
+    <value>Skip update</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sure</value>
+  </data>
+  <data name="CouldNotSendData" xml:space="preserve">
+    <value>Could not send the data</value>
+  </data>
+  <data name="CouldNotStartServer" xml:space="preserve">
+    <value>Could not start the server!</value>
+  </data>
+  <data name="ErrorContentSemicolon" xml:space="preserve">
+    <value>Error message: </value>
+  </data>
+  <data name="LoadingError" xml:space="preserve">
+    <value>Loading error</value>
+  </data>
+  <data name="RepeatedPINNotSame" xml:space="preserve">
+    <value>Repeated PIN is not the same as the original.</value>
+  </data>
+  <data name="SavingError" xml:space="preserve">
+    <value>Saving error</value>
+  </data>
+  <data name="UnableToLoadConfigFile" xml:space="preserve">
+    <value>Unable to load the config file.</value>
+  </data>
+  <data name="UnableToSaveConfigFile" xml:space="preserve">
+    <value>Unable to save new value to the config file.</value>
+  </data>
 </root>

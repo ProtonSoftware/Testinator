@@ -58,6 +58,5 @@ namespace Testinator.Server.Core
         public Marks Mark { get; set; }
 
         #endregion
-
     }
 }

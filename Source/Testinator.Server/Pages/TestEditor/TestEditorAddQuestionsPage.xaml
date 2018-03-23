@@ -14,21 +14,36 @@
     <Grid Background="{StaticResource WhiteLightBrush}">
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              MinWidth="50" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"
+                              MinWidth="600"/>
         </Grid.ColumnDefinitions>
 
         <local:TestMenuListControl DataContext="{Binding}" />
 
         <TextBlock Text="{x:Static core:LocalizationResource.AddNewQuestion}"
-                   Grid.Column="1"
+                   Grid.Column="2"
                    Margin="0 40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Style="{StaticResource TitleText}"
                    Foreground="{StaticResource BlackDarkBrush}" />
 
-        <Grid Grid.Column="1">
+        <GridSplitter Grid.Column="1"
+                        Width="6"
+                        HorizontalAlignment="Center">
+            <GridSplitter.Template>
+                <ControlTemplate TargetType="{x:Type GridSplitter}">
+                    <Border Background="Black" Padding="1.5 0">
+                        <Border Background="{StaticResource BlackLightBrush}"/>
+                    </Border>
+                </ControlTemplate>
+            </GridSplitter.Template>
+        </GridSplitter>
+
+        <Grid Grid.Column="2">
 
             <Border HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -413,7 +428,7 @@
         </Grid>
 
         <Button Content="{x:Static core:LocalizationResource.FinishQuestionAdding}"
-                Grid.Column="1"
+                Grid.Column="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10"
