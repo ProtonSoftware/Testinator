@@ -67,7 +67,7 @@ namespace Testinator.Server.Core
                 return;
 
             // Simply change page in the application
-            IoCServer.Application.GoToPage(this.TargetPage);
+            IoCServer.Application.GoToPage(TargetPage);
         }
 
         #endregion

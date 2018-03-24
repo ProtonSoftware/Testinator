@@ -18,6 +18,9 @@ namespace Testinator.Client.Core
 
         #region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ClientNetwork()
         {
             // Bind to the connected event

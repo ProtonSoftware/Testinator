@@ -37,43 +37,43 @@ namespace Testinator.Server.Core
             {
                 new MenuListItemViewModel
                 {
-                    Name = "Start",
+                    Name = LocalizationResource.Start,
                     Icon = IconType.Home,
                     TargetPage = ApplicationPage.Home
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Rozpocznij test",
+                    Name = LocalizationResource.StartTest,
                     Icon = IconType.Test,
                     TargetPage = ApplicationPage.BeginTest
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Edytor testów",
+                    Name = LocalizationResource.TestEditorTitle,
                     Icon = IconType.Editor,
                     TargetPage = ApplicationPage.TestEditor
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Wyniki testów",
+                    Name = LocalizationResource.TestResults,
                     Icon = IconType.DataBase,
                     TargetPage = ApplicationPage.TestResultsInitial,
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Screen stream",
+                    Name = LocalizationResource.ScreenStream,
                     Icon = IconType.Screen,
                     TargetPage = ApplicationPage.ScreenStream
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Ustawienia",
+                    Name = LocalizationResource.Settings,
                     Icon = IconType.Settings,
                     TargetPage = ApplicationPage.Settings
                 },
                 new MenuListItemViewModel
                 {
-                    Name = "Informacje",
+                    Name = LocalizationResource.About,
                     Icon = IconType.InfoCircle,
                     TargetPage = ApplicationPage.About
                 },

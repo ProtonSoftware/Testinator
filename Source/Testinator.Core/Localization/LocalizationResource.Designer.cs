@@ -61,6 +61,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
@@ -187,11 +196,20 @@ namespace Testinator.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Cancel changes.
         /// </summary>
         public static string CancelChanges {
             get {
                 return ResourceManager.GetString("CancelChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choosen criteria will be deleted..
+        /// </summary>
+        public static string ChoosenCriteriaWillBeDeleted {
+            get {
+                return ResourceManager.GetString("ChoosenCriteriaWillBeDeleted", resourceCulture);
             }
         }
         
@@ -223,11 +241,20 @@ namespace Testinator.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm.
+        ///   Looks up a localized string similar to Confirm changes.
         /// </summary>
         public static string ConfirmChanges {
             get {
                 return ResourceManager.GetString("ConfirmChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue?.
+        /// </summary>
+        public static string ContinueQuestion {
+            get {
+                return ResourceManager.GetString("ContinueQuestion", resourceCulture);
             }
         }
         
@@ -286,6 +313,33 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criteria deletion.
+        /// </summary>
+        public static string CriteriaDeletion {
+            get {
+                return ResourceManager.GetString("CriteriaDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criteria edited.
+        /// </summary>
+        public static string CriteriaEdited {
+            get {
+                return ResourceManager.GetString("CriteriaEdited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criteria are being edited right now, page change will discard all changes..
+        /// </summary>
+        public static string CriteriaEditedPageChangeDiscardChanges {
+            get {
+                return ResourceManager.GetString("CriteriaEditedPageChangeDiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date: .
         /// </summary>
         public static string DateSemicolon {
@@ -309,6 +363,15 @@ namespace Testinator.Core {
         public static string DeleteTest {
             get {
                 return ResourceManager.GetString("DeleteTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletion error.
+        /// </summary>
+        public static string DeletionError {
+            get {
+                return ResourceManager.GetString("DeletionError", resourceCulture);
             }
         }
         
@@ -601,6 +664,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No test has been choosen yet!.
         /// </summary>
         public static string NoTestChoosen {
@@ -642,6 +714,15 @@ namespace Testinator.Core {
         public static string PointsSemicolon {
             get {
                 return ResourceManager.GetString("PointsSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provided PIN is not valid..
+        /// </summary>
+        public static string ProvidedPINNotValid {
+            get {
+                return ResourceManager.GetString("ProvidedPINNotValid", resourceCulture);
             }
         }
         
@@ -709,6 +790,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save error.
+        /// </summary>
+        public static string SaveError {
+            get {
+                return ResourceManager.GetString("SaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save the question.
         /// </summary>
         public static string SaveQuestion {
@@ -732,6 +822,15 @@ namespace Testinator.Core {
         public static string SavingError {
             get {
                 return ResourceManager.GetString("SavingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen stream.
+        /// </summary>
+        public static string ScreenStream {
+            get {
+                return ResourceManager.GetString("ScreenStream", resourceCulture);
             }
         }
         
@@ -772,6 +871,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show right answers.
         /// </summary>
         public static string ShowRightAnswers {
@@ -804,6 +912,15 @@ namespace Testinator.Core {
         public static string SkipUpdate {
             get {
                 return ResourceManager.GetString("SkipUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some changes were unsaved..
+        /// </summary>
+        public static string SomeChangesWereUnsaved {
+            get {
+                return ResourceManager.GetString("SomeChangesWereUnsaved", resourceCulture);
             }
         }
         
@@ -925,6 +1042,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test results.
+        /// </summary>
+        public static string TestResults {
+            get {
+                return ResourceManager.GetString("TestResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test: .
         /// </summary>
         public static string TestSemicolon {
@@ -952,6 +1078,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to delete choosen criteria..
+        /// </summary>
+        public static string UnableToDeleteCriteria {
+            get {
+                return ResourceManager.GetString("UnableToDeleteCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to load the config file..
         /// </summary>
         public static string UnableToLoadConfigFile {
@@ -966,6 +1101,24 @@ namespace Testinator.Core {
         public static string UnableToSaveConfigFile {
             get {
                 return ResourceManager.GetString("UnableToSaveConfigFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save current criteria..
+        /// </summary>
+        public static string UnableToSaveCurrentCriteria {
+            get {
+                return ResourceManager.GetString("UnableToSaveCurrentCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved changes.
+        /// </summary>
+        public static string UnsavedChanges {
+            get {
+                return ResourceManager.GetString("UnsavedChanges", resourceCulture);
             }
         }
         
@@ -1047,6 +1200,15 @@ namespace Testinator.Core {
         public static string WriteUserSurname {
             get {
                 return ResourceManager.GetString("WriteUserSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

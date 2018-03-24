@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -109,7 +108,7 @@ namespace Testinator.Server.Core
             if (PIN != FoundPIN)
             {
                 // Show the error and do not login
-                ErrorMessage = "Provided PIN is not valid.";
+                ErrorMessage = LocalizationResource.ProvidedPINNotValid;
                 return;
             }
 

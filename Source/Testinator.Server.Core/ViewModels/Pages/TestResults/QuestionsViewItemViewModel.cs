@@ -23,17 +23,5 @@ namespace Testinator.Server.Core
         /// NOTE: may be changed when the view is finished 
         /// </summary>
         public List<int> QuestionsPoints { get; set; } = new List<int>();
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public QuestionsViewItemViewModel()
-        {
-
-        }
-
-        #endregion
     }
 }

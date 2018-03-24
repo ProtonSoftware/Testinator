@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -143,7 +144,7 @@ namespace Testinator.Client.Core
             // Create default values
             BufferSize = 32768;
             Port = 3333;
-            IPAddress = NetworkHelpers.GetLocalIPAddress();
+            IPAddress = GetIPAdress();
 
             Connecting = false;
             Attempts = 0;
@@ -248,6 +249,9 @@ namespace Testinator.Client.Core
 
                 // Let them know we have connected to the server
                 OnConnected.Invoke();
+
+                // Save current IP to the file, as connection was successful
+                SaveIPToConfigFile();
             }
         }
 
@@ -300,6 +304,44 @@ namespace Testinator.Client.Core
             // If we are still connected start receiving again
             if (IsConnected)
                 mClientSocket.BeginReceive(mReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, mClientSocket);
+        }
+
+        /// <summary>
+        /// Get IP Adress from saved file or if not possible - local machine IP
+        /// </summary>
+        private IPAddress GetIPAdress()
+        {
+            // Get directory in appdata
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//Testinator//";
+
+            // Prepare IP to return
+            var ip = default(IPAddress);
+
+            try
+            {
+                // Try to read IP from file
+                ip = IPAddress.Parse(File.ReadAllText(directory + "ipconfig.txt"));
+            }
+            catch
+            {
+                // IP not found or invalid value, create default from local machine
+                ip = NetworkHelpers.GetLocalIPAddress();
+            }
+
+            // Return IP
+            return ip;
+        }
+
+        /// <summary>
+        /// Saves current IP to config file
+        /// </summary>
+        private void SaveIPToConfigFile()
+        {
+            // Get directory in appdata
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//Testinator//";
+
+            // Save current state of IP
+            File.WriteAllText(directory + "ipconfig.txt", Ip);
         }
 
         #endregion

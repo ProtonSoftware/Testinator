@@ -145,7 +145,7 @@
     <value>Cancel</value>
   </data>
   <data name="CancelChanges" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancel changes</value>
   </data>
   <data name="ChooseQuestionType" xml:space="preserve">
     <value>Choose question type</value>
@@ -154,7 +154,7 @@
     <value>Confirm</value>
   </data>
   <data name="ConfirmChanges" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirm changes</value>
   </data>
   <data name="CreateNewCriteria" xml:space="preserve">
     <value>Create new criteria</value>
@@ -446,5 +446,59 @@
   </data>
   <data name="UnableToSaveConfigFile" xml:space="preserve">
     <value>Unable to save new value to the config file.</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ChoosenCriteriaWillBeDeleted" xml:space="preserve">
+    <value>Choosen criteria will be deleted.</value>
+  </data>
+  <data name="ContinueQuestion" xml:space="preserve">
+    <value>Continue?</value>
+  </data>
+  <data name="CriteriaDeletion" xml:space="preserve">
+    <value>Criteria deletion</value>
+  </data>
+  <data name="CriteriaEdited" xml:space="preserve">
+    <value>Criteria edited</value>
+  </data>
+  <data name="CriteriaEditedPageChangeDiscardChanges" xml:space="preserve">
+    <value>Criteria are being edited right now, page change will discard all changes.</value>
+  </data>
+  <data name="DeletionError" xml:space="preserve">
+    <value>Deletion error</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ProvidedPINNotValid" xml:space="preserve">
+    <value>Provided PIN is not valid.</value>
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value>Save error</value>
+  </data>
+  <data name="ScreenStream" xml:space="preserve">
+    <value>Screen stream</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SomeChangesWereUnsaved" xml:space="preserve">
+    <value>Some changes were unsaved.</value>
+  </data>
+  <data name="TestResults" xml:space="preserve">
+    <value>Test results</value>
+  </data>
+  <data name="UnableToDeleteCriteria" xml:space="preserve">
+    <value>Unable to delete choosen criteria.</value>
+  </data>
+  <data name="UnableToSaveCurrentCriteria" xml:space="preserve">
+    <value>Unable to save current criteria.</value>
+  </data>
+  <data name="UnsavedChanges" xml:space="preserve">
+    <value>Unsaved changes</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

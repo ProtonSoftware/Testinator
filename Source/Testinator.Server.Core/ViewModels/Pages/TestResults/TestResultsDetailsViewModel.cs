@@ -377,7 +377,7 @@ namespace Testinator.Server.Core
                                 break;
                         }
                     }
-                    catch(Exception)
+                    catch
                     {
                         scoredPoints = 0;
                     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -10,7 +9,6 @@ namespace Testinator.Server.Core
     /// </summary>
     public class ResultQuestionsViewModel : PageHostViewModel
     {
-
         #region Public Properties
 
         /// <summary>

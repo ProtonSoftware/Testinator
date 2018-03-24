@@ -132,10 +132,10 @@ namespace Testinator.Server.Core
                 // Show message box to ask the user if he wants to save changes or not
                 var vm = new DecisionDialogViewModel
                 {
-                    Title = "Kryteria edytowane",
-                    Message = "Kryteria są aktualnie edytowane, zmiana strony odrzuci zmiany.\nKontynuować?",
-                    AcceptText = "Tak",
-                    CancelText = "Nie"
+                    Title = LocalizationResource.CriteriaEdited,
+                    Message = LocalizationResource.CriteriaEditedPageChangeDiscardChanges + "\n " + LocalizationResource.ContinueQuestion,
+                    AcceptText = LocalizationResource.Yes,
+                    CancelText = LocalizationResource.No
                 };
                 IoCServer.UI.ShowMessage(vm);
 
@@ -170,10 +170,10 @@ namespace Testinator.Server.Core
                     // Show the message box with the info that there are some unsaved changes
                     var vm = new DecisionDialogViewModel
                     {
-                        Title = "Niezapisane zmiany",
-                        Message = "Niektóre zmiany nie zostały zapisane.\nKontynuować?",
-                        AcceptText = "Tak",
-                        CancelText = "Nie"
+                        Title = LocalizationResource.UnsavedChanges,
+                        Message = LocalizationResource.SomeChangesWereUnsaved + "\n" + LocalizationResource.ContinueQuestion,
+                        AcceptText = LocalizationResource.Yes,
+                        CancelText = LocalizationResource.No
                     };
                     IoCServer.UI.ShowMessage(vm);
 
@@ -266,10 +266,10 @@ namespace Testinator.Server.Core
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Title = "Błąd zapisu",
-                    Message = "Nie udało się zapisać tworzonych kryteriów." +
-                              "\nTreść błędu: " + ex.Message,
-                    OkText = "Ok"
+                    Title = LocalizationResource.SaveError,
+                    Message = LocalizationResource.UnableToSaveCurrentCriteria + "\n" +
+                              LocalizationResource.ErrorContentSemicolon + ex.Message,
+                    OkText = LocalizationResource.Ok
                 });
 
                 IoCServer.Logger.Log("Unable to save/delete criteria file, error message: " + ex.Message);
@@ -300,10 +300,10 @@ namespace Testinator.Server.Core
             // Show message box to ask the user if he wants to delete criteria
             var vm = new DecisionDialogViewModel
             {
-                Title = "Usuwanie kryterii",
-                Message = "Wybrane kryteria zostaną usunięte.\nKontynuować?",
-                AcceptText = "Tak",
-                CancelText = "Nie"
+                Title = LocalizationResource.CriteriaDeletion,
+                Message = LocalizationResource.ChoosenCriteriaWillBeDeleted + "\n" + LocalizationResource.ContinueQuestion,
+                AcceptText = LocalizationResource.Yes,
+                CancelText = LocalizationResource.No
             };
             IoCServer.UI.ShowMessage(vm);
 
@@ -321,10 +321,10 @@ namespace Testinator.Server.Core
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Title = "Błąd usuwania",
-                    Message = "Nie udało się usunąć wybranych kryteriów." +
-                              "\nTreść błędu: " + ex.Message,
-                    OkText = "Ok"
+                    Title = LocalizationResource.Yes,
+                    Message = LocalizationResource.UnableToDeleteCriteria + "\n" +
+                              LocalizationResource.ErrorContentSemicolon + ex.Message,
+                    OkText = LocalizationResource.Ok
                 });
 
                 IoCServer.Logger.Log("Unable to delete criteria file, error message: " + ex.Message);

@@ -438,4 +438,55 @@
   <data name="UnableToSaveConfigFile" xml:space="preserve">
     <value>Nie udało się zapisać nowej wartości do pliku konfiguracyjnego.</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>Informacje</value>
+  </data>
+  <data name="ChoosenCriteriaWillBeDeleted" xml:space="preserve">
+    <value>Wybrane kryteria zostaną usunięte.</value>
+  </data>
+  <data name="ContinueQuestion" xml:space="preserve">
+    <value>Kontynuować?</value>
+  </data>
+  <data name="CriteriaDeletion" xml:space="preserve">
+    <value>Usuwanie kryterii</value>
+  </data>
+  <data name="CriteriaEdited" xml:space="preserve">
+    <value>Kryteria edytowane</value>
+  </data>
+  <data name="CriteriaEditedPageChangeDiscardChanges" xml:space="preserve">
+    <value>Kryteria są aktualnie edytowane, zmiana strony odrzuci zmiany.</value>
+  </data>
+  <data name="DeletionError" xml:space="preserve">
+    <value>Błąd usuwania</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="ProvidedPINNotValid" xml:space="preserve">
+    <value>Podany PIN jest nieprawidłowy.</value>
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value>Błąd zapisu</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="SomeChangesWereUnsaved" xml:space="preserve">
+    <value>Niektóre zmiany nie zostały zapisane.</value>
+  </data>
+  <data name="TestResults" xml:space="preserve">
+    <value>Wyniki testów</value>
+  </data>
+  <data name="UnableToDeleteCriteria" xml:space="preserve">
+    <value>Nie udało się usunąć wybranych kryteriów.</value>
+  </data>
+  <data name="UnableToSaveCurrentCriteria" xml:space="preserve">
+    <value>Nie udało się zapisać tworzonych kryteriów.</value>
+  </data>
+  <data name="UnsavedChanges" xml:space="preserve">
+    <value>Niezapisane zmiany</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
 </root>

@@ -131,8 +131,8 @@ namespace Testinator.Server.Core
             {
                 Title = "Usuwanie rezultatu",
                 Message = "Czy chcesz usunąć ten rezultat?",
-                AcceptText = "Tak",
-                CancelText = "Nie",
+                AcceptText = LocalizationResource.Yes,
+                CancelText = LocalizationResource.No,
             };
             IoCServer.UI.ShowMessage(vm);
 
@@ -149,10 +149,10 @@ namespace Testinator.Server.Core
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Title = "Błąd usuwania",
-                    Message = "Nie udało się usunąć tego rezultatu." +
-                              "\nTreść błędu: " + ex.Message,
-                    OkText = "Ok"
+                    Title = LocalizationResource.DeletionError,
+                    Message = "Nie udało się usunąć tego rezultatu." + "\n" +
+                              LocalizationResource.ErrorContentSemicolon + ex.Message,
+                    OkText = LocalizationResource.Ok
                 });
 
                 IoCServer.Logger.Log("Unable to delete result from local folder, error message: " + ex.Message);
