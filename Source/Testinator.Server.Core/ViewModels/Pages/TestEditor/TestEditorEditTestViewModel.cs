@@ -69,7 +69,7 @@ namespace Testinator.Server.Core
                 {
                     Title = "Test nie wybrany!",
                     Message = "Operacja niemożliwa - Nie wybrano żadnego testu.",
-                    OkText = "Ok"
+                    OkText = LocalizationResource.Ok
                 });
                 return;
             }
@@ -105,8 +105,8 @@ namespace Testinator.Server.Core
             {
                 Title = "Usuwanie testu",
                 Message = "Czy jesteś pewny, że chcesz usunąć ten test?",
-                AcceptText = "Tak",
-                CancelText = "Nie"
+                AcceptText = LocalizationResource.Yes,
+                CancelText = LocalizationResource.No
             };
             IoCServer.UI.ShowMessage(vm);
 
@@ -124,10 +124,10 @@ namespace Testinator.Server.Core
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
-                    Title = "Błąd usuwania",
-                    Message = "Nie udało się usunąć tego testu." +
-                              "\nTreść błędu: " + ex.Message,
-                    OkText = "Ok"
+                    Title = LocalizationResource.DeletionError,
+                    Message = "Nie udało się usunąć tego testu." + "\n" +
+                              LocalizationResource.ErrorContentSemicolon + ex.Message,
+                    OkText = LocalizationResource.Ok
                 });
 
                 IoCServer.Logger.Log("Unable to delete test from local folder, error message: " + ex.Message);
