@@ -30,7 +30,8 @@ namespace Testinator.Core
             var hashedText = ProtectedData.Protect(textToHash, entropy, DataProtectionScope.CurrentUser);
 
             // Create directory in appdata
-            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Testinator\\";
+            Directory.CreateDirectory(directory);
 
             // NOTE:
             // We presume that hashed text and entropy can be easily seen, as it requires to use ProtectedData class to decrypt that
@@ -48,7 +49,7 @@ namespace Testinator.Core
         public static string ReadAndUnhashString()
         {
             // Get directory in appdata
-            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//Testinator//";
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Testinator\\\";
 
             try
             { 

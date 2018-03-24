@@ -338,7 +338,8 @@ namespace Testinator.Client.Core
         private void SaveIPToConfigFile()
         {
             // Get directory in appdata
-            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//Testinator//";
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Testinator\\";
+            Directory.CreateDirectory(directory);
 
             // Save current state of IP
             File.WriteAllText(directory + "ipconfig.txt", Ip);

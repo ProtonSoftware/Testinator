@@ -9,8 +9,8 @@
     <Grid>
 
         <!-- New page animates onto old one -->
-        <ContentControl Grid.Row="1" x:Name="OldPage" />
-        <ContentControl Grid.Row="1" x:Name="NewPage" />
+        <ContentControl x:Name="OldPage" />
+        <ContentControl x:Name="NewPage" />
     
     </Grid>
     

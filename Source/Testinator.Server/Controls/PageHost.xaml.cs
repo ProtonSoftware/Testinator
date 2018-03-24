@@ -32,7 +32,7 @@ namespace Testinator.Server
 
 
         /// <summary>
-        /// The current page to show in the page host
+        /// The current page view model to show in the page host
         /// </summary>
         public BaseViewModel CurrentPageViewModel
         {
