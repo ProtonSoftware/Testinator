@@ -49,7 +49,7 @@ namespace Testinator.Core
         public static string ReadAndUnhashString()
         {
             // Get directory in appdata
-            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Testinator\\\";
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Testinator\\";
 
             try
             { 

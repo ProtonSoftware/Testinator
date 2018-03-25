@@ -23,7 +23,7 @@ namespace Testinator.Server
             Application.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
                 // Simply change page
-                IoCServer.Application.GoToPage(page, null);
+                IoCServer.Application.GoToPage(page, vm);
             }));
         }
 

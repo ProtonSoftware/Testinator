@@ -16,6 +16,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="1.4*" />
         </Grid.ColumnDefinitions>
         
@@ -116,12 +117,24 @@
             </ScrollViewer>
 
         </Grid>
-        
+
+        <GridSplitter Grid.Column="1"
+                            Width="6"
+                            HorizontalAlignment="Center">
+            <GridSplitter.Template>
+                <ControlTemplate TargetType="{x:Type GridSplitter}">
+                    <Border Background="Black" Padding="1.5 0">
+                        <Border Background="{StaticResource BlackLightBrush}"/>
+                    </Border>
+                </ControlTemplate>
+            </GridSplitter.Template>
+        </GridSplitter>
+
         <!-- Test handling right half -->
         <local:PageHost CurrentPage="{Binding ApplicationViewModel.CurrentBeginTestPage,
                                           Source={x:Static local:ViewModelLocator.Instance}}"
                         CurrentPageViewModel="{Binding}"
-                        Grid.Column="1" />
+                        Grid.Column="2" />
 
     </Grid>
     

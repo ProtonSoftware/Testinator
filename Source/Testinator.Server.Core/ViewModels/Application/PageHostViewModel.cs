@@ -27,7 +27,7 @@ namespace Testinator.Server.Core
         /// </summary>
         /// <param name="page">The page to go to</param>
         /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-        public void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
+        public virtual void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
         {
             // Set the view model
             CurrentPageViewModel = viewModel;
