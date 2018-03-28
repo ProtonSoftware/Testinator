@@ -76,9 +76,9 @@ namespace Testinator.Server
         /// <param name="e"></param>
         private static object CurrentPagePropertyChanged(DependencyObject d, object value)
         {
-            // Get current values
-            var currentPage = (ApplicationPage)d.GetValue(CurrentPageProperty);
-            var currentPageViewModel = d.GetValue(CurrentPageViewModelProperty);
+            // Get target values
+            var targetPage = (ApplicationPage)value;
+            var targetPageViewModel = d.GetValue(CurrentPageViewModelProperty);
 
             // Get the frames
             var newPageFrame = (d as PageHost).NewPage;
@@ -87,11 +87,11 @@ namespace Testinator.Server
             // If the current page hasn't changed
             // just update the view model
             if (newPageFrame.Content is BasePage page &&
-                page.ToApplicationPage() == currentPage)
+                page.ToApplicationPage() == targetPage)
             {
                 // Just update the view model (if it isn't null)
-                if (currentPageViewModel != null)
-                    page.ViewModelObject = currentPageViewModel;
+                if (targetPageViewModel != null)
+                    page.ViewModelObject = targetPageViewModel;
 
                 return value;
             }
@@ -121,7 +121,7 @@ namespace Testinator.Server
             }
 
             // Set the new page content
-            newPageFrame.Content = currentPage.ToBasePage(currentPageViewModel);
+            newPageFrame.Content = targetPage.ToBasePage(targetPageViewModel);
 
             return value;
         }

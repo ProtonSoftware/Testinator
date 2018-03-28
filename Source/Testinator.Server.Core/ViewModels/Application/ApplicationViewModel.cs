@@ -17,7 +17,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Show the side menu only if we are not on login page
         /// </summary>
-        public bool SideMenuVisible => IoCServer.Application.CurrentPage != ApplicationPage.Login;
+        public bool SideMenuVisible => CurrentPage != ApplicationPage.Login;
 
         /// <summary>
         /// The current subpage of the BeginTestPage

@@ -32,9 +32,6 @@ namespace Testinator.Updater
 
             // Set the current page
             CurrentPage = page;
-
-            // Inform the view
-            OnPropertyChanged(nameof(CurrentPage));
         }
     }
 }
