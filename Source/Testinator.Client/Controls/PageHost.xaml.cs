@@ -1,18 +1,25 @@
-﻿using Testinator.Core;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using Testinator.UICore;
 using Testinator.Client.Core;
+using Testinator.UICore;
 
 namespace Testinator.Client
 {
     /// <summary>
     /// Interaction logic for PageHost.xaml
     /// </summary>
-    public partial class PageHost : UserControl
+    public partial class PageHost : BasePageHost<ApplicationPage>
     {
+        #region Singleton
+
+        /// <summary>
+        /// Single instance of this view model
+        /// NOTE: It's the only way to call abstract methods like they were static ones, as we can't declare them as static
+        /// </summary>
+        public static PageHost Instance { get; set; } = new PageHost();
+
+        #endregion
+
         #region Dependency Properties
 
         /// <summary>
@@ -30,24 +37,6 @@ namespace Testinator.Client
         public static readonly DependencyProperty CurrentPageProperty =
             DependencyProperty.Register(nameof(CurrentPage), typeof(ApplicationPage), typeof(PageHost), new UIPropertyMetadata(default(ApplicationPage), null, CurrentPagePropertyChanged));
 
-
-        /// <summary>
-        /// The current page to show in the page host
-        /// </summary>
-        public BaseViewModel CurrentPageViewModel
-        {
-            get => (BaseViewModel)GetValue(CurrentPageViewModelProperty);
-            set => SetValue(CurrentPageViewModelProperty, value);
-        }
-
-        /// <summary>
-        /// Registers <see cref="CurrentPageViewModel"/> as a dependency property
-        /// </summary>
-        public static readonly DependencyProperty CurrentPageViewModelProperty =
-            DependencyProperty.Register(nameof(CurrentPageViewModel),
-                typeof(BaseViewModel), typeof(PageHost),
-                new UIPropertyMetadata());
-
         #endregion
 
         #region Constructor
@@ -55,7 +44,7 @@ namespace Testinator.Client
         /// <summary>
         /// Default constructor
         /// </summary>
-        public PageHost()
+        public PageHost() : base()
         {
             InitializeComponent();
 
@@ -84,47 +73,29 @@ namespace Testinator.Client
             var newPageFrame = (d as PageHost).NewPage;
             var oldPageFrame = (d as PageHost).OldPage;
 
-            // If the current page hasn't changed
-            // just update the view model
-            if (newPageFrame.Content is BasePage page &&
-                page.ToApplicationPage() == targetPage)
-            {
-                // Just update the view model (if it isn't null)
-                if (targetPageViewModel != null)
-                    page.ViewModelObject = targetPageViewModel;
+            // Change the page based on that
+            Instance.ChangeFramePages(newPageFrame, oldPageFrame, targetPage, targetPageViewModel);
 
-                return value;
-            }
-
-            // Store the current page content as the old page
-            var oldPageContent = newPageFrame.Content;
-
-            // Remove current page from new page frame
-            newPageFrame.Content = null;
-
-            // Move the previous page into the old page frame
-            oldPageFrame.Content = oldPageContent;
-
-            // Animate out previous page when the Loaded event fires
-            // right after this call due to moving frames
-            if (oldPageContent is BasePage oldPage)
-            {
-                // Tell old page to animate out
-                oldPage.ShouldAnimateOut = true;
-
-                // Once it is done, remove it
-                Task.Delay((int)(oldPage.SlideSeconds * 1000)).ContinueWith((t) =>
-                {
-                    // Remove old page
-                    Application.Current.Dispatcher.Invoke(() => oldPageFrame.Content = null);
-                });
-            }
-
-            // Set the new page content
-            newPageFrame.Content = targetPage.ToBasePage(targetPageViewModel);
-
+            // Return the value back to dependency property
             return value;
         }
+
+        #endregion
+
+        #region Override Methods
+
+        /// <summary>
+        /// Override the base page convert to handle our application specific pages
+        /// </summary>
+        /// <param name="page">The page to convert as an enum</param>
+        /// <param name="vm">The optional view model</param>
+        public override BasePage BasePageConvert(ApplicationPage page, object vm = null) => page.ToBasePage(vm);
+
+        /// <summary>
+        /// Override the application page convert to handle our application specific pages
+        /// </summary>
+        /// <param name="page">The page to convert</param>
+        public override ApplicationPage ApplicationPageConvert(BasePage page) => page.ToApplicationPage();
 
         #endregion
     }
