@@ -131,8 +131,7 @@
         </GridSplitter>
 
         <!-- Test handling right half -->
-        <local:PageHost CurrentPage="{Binding ApplicationViewModel.CurrentBeginTestPage,
-                                          Source={x:Static local:ViewModelLocator.Instance}}"
+        <local:PageHost CurrentPage="{Binding SubPageHandler.CurrentPage}"
                         CurrentPageViewModel="{Binding}"
                         Grid.Column="2" />
 

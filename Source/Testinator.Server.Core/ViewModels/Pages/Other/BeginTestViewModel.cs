@@ -73,6 +73,12 @@ namespace Testinator.Server.Core
         /// </summary>
         public bool FullScreenMode { get; set; } = false;
 
+        /// <summary>
+        /// The page host view model for sub page in this page
+        /// Handles page changing
+        /// </summary>
+        public PageHostViewModel SubPageHandler { get; set; } = new PageHostViewModel();
+
         #region Error flags
 
         /// <summary>
@@ -161,6 +167,11 @@ namespace Testinator.Server.Core
             ResultPageExitCommand = new RelayCommand(ResultPageExit);
             AddLateComerCommand = new RelayCommand(AddLatecomers);
 
+            // Initialize proper page in subpage
+            if (SubPageHandler.CurrentPage == ApplicationPage.None)
+                SubPageHandler.GoToPage(ApplicationPage.BeginTestInitial);
+            OnPropertyChanged(nameof(SubPageHandler));
+
             // Load every test from files
             TestListViewModel.Instance.LoadItems();
 
@@ -190,13 +201,13 @@ namespace Testinator.Server.Core
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
                 {
                     Message = "No latecomers to add!",
-                    OkText = "OK",
                     Title = "Adding users to the test",
+                    OkText = LocalizationResource.Ok
                 });
             }
             else
             {
-                var viewmodel = new AddLatecomersDialogViewModel(CanStartTestClients)
+                var vm = new AddLatecomersDialogViewModel(CanStartTestClients)
                 {
                     Title = "Adding users to the test",
                     Message = "Select users that you want to add to the current test",
@@ -204,10 +215,10 @@ namespace Testinator.Server.Core
                     CancelText = "Cancel",
                 };
 
-                IoCServer.UI.ShowMessage(viewmodel);
+                IoCServer.UI.ShowMessage(vm);
 
-                if (viewmodel.UserResponse.Count != 0)
-                    IoCServer.TestHost.AddLateComers(viewmodel.UserResponse);
+                if (vm.UserResponse.Count != 0)
+                    IoCServer.TestHost.AddLateComers(vm.UserResponse);
             }
         }
 
@@ -224,7 +235,7 @@ namespace Testinator.Server.Core
                 {
                     Title = "Niepoprawne dane!",
                     Message = "Niepoprawny port.",
-                    OkText = "Ok"
+                    OkText = LocalizationResource.Ok
                 });
                 return;
             }
@@ -251,8 +262,8 @@ namespace Testinator.Server.Core
                 {
                     Title = "Test w trakcie!",
                     Message = "Test jest w trakcie. Czy chcesz go przerwać?",
-                    AcceptText = "Tak",
-                    CancelText = "Nie",
+                    AcceptText = LocalizationResource.Yes,
+                    CancelText = LocalizationResource.No
                 };
                 IoCServer.UI.ShowMessage(vm);
                 
@@ -271,8 +282,9 @@ namespace Testinator.Server.Core
 
             UpdateView();
 
-            // Go to the initial page
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+            // Go to the initial sub page
+            SubPageHandler.GoToPage(ApplicationPage.BeginTestInitial);
+            OnPropertyChanged(nameof(SubPageHandler));
         }
 
         /// <summary>
@@ -288,13 +300,14 @@ namespace Testinator.Server.Core
                 {
                     Title = "Serwer nie włączony!",
                     Message = "By zmienić stronę, należy przedtem włączyć serwer.",
-                    OkText = "Ok"
+                    OkText = LocalizationResource.Ok
                 });
                 return;
             }
 
-            // Simply go to target page
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
+            // Simply go to target sub page
+            SubPageHandler.GoToPage(ApplicationPage.BeginTestChoose);
+            OnPropertyChanged(nameof(SubPageHandler)); UpdateView();
         }
 
         /// <summary>
@@ -317,8 +330,9 @@ namespace Testinator.Server.Core
                 return;
             }
 
-            // Then go to the info page
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
+            // Then go to the info sub page
+            SubPageHandler.GoToPage(ApplicationPage.BeginTestInfo);
+            OnPropertyChanged(nameof(SubPageHandler));
 
             IoCServer.TestHost.SendTestToAll();
         }
@@ -336,7 +350,9 @@ namespace Testinator.Server.Core
             });
 
             IoCServer.TestHost.TestStart();
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInProgress);
+
+            SubPageHandler.GoToPage(ApplicationPage.BeginTestInProgress);
+            OnPropertyChanged(nameof(SubPageHandler));
         }
 
         /// <summary>
@@ -349,8 +365,8 @@ namespace Testinator.Server.Core
             {
                 Title = "Przerywanie testu",
                 Message = "Czy na pewno chcesz przerwać test?",
-                AcceptText = "Tak",
-                CancelText = "Nie",
+                AcceptText = LocalizationResource.Yes,
+                CancelText = LocalizationResource.No
             };
             IoCServer.UI.ShowMessage(vm);
 
@@ -379,9 +395,10 @@ namespace Testinator.Server.Core
 
             // Change the mini-page accordingly
             if (IoCServer.Network.IsRunning)
-                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestChoose);
+                SubPageHandler.GoToPage(ApplicationPage.BeginTestChoose);
             else
-                IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+                SubPageHandler.GoToPage(ApplicationPage.BeginTestInitial);
+            OnPropertyChanged(nameof(SubPageHandler));
         }
 
         #endregion
@@ -418,7 +435,8 @@ namespace Testinator.Server.Core
         private void StopTestForcefully()
         {
             IoCServer.TestHost.TestStopForcefully();
-            IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
+            SubPageHandler.GoToPage(ApplicationPage.BeginTestInitial);
+            OnPropertyChanged(nameof(SubPageHandler));
         }
 
         #endregion

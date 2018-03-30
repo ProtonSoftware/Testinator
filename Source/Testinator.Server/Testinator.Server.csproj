@@ -238,8 +238,8 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestResults\ResultQuestionsPage.xaml.cs">
-      <DependentUpon>ResultQuestionsPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestResults\TestResultsQuestionsPage.xaml.cs">
+      <DependentUpon>TestResultsQuestionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TestResults\Subpages\TestResultsDetailsViewPage.xaml.cs">
       <DependentUpon>TestResultsDetailsViewPage.xaml</DependentUpon>
@@ -451,7 +451,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\TestResults\ResultQuestionsPage.xaml">
+    <Page Include="Pages\TestResults\TestResultsQuestionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

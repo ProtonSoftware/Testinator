@@ -19,11 +19,6 @@ namespace Testinator.Server.Core
         /// </summary>
         public bool SideMenuVisible => CurrentPage != ApplicationPage.Login;
 
-        /// <summary>
-        /// The current subpage of the BeginTestPage
-        /// </summary>
-        public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
-
         #endregion
 
         #region Public Methods
@@ -40,19 +35,6 @@ namespace Testinator.Server.Core
 
             // Additionally, inform the view about possible sidemenu state change
             OnPropertyChanged(nameof(SideMenuVisible));
-        }
-
-        /// <summary>
-        /// Navigates to the specified BeginTestPage subpage
-        /// </summary>
-        /// <param name="page">The page to go to</param>
-        public void GoToBeginTestPage(ApplicationPage page)
-        {
-            // Set the current page
-            CurrentBeginTestPage = page;
-
-            // Fire off a CurrentBeginTestPage changed event
-            OnPropertyChanged(nameof(CurrentBeginTestPage));
         }
 
         #endregion
