@@ -13,18 +13,13 @@ namespace Testinator.Server
     public class UIManager : IUIManager
     {
         /// <summary>
-        /// Changes application page by making sure that we are on UI thread beforehand
+        /// Performs an action by taking it on dispatcher UI Thread
         /// </summary>
-        /// <param name="page">The page to change to</param>
-        /// <param name="vm">The view model</param>
-        public void ChangeApplicationPageThreadSafe(ApplicationPage page, BaseViewModel vm = null)
+        /// <param name="action">An action to invoke</param>
+        public void DispatcherThreadAction(Action action)
         {
-            // Get on the UI Thread
-            Application.Current.Dispatcher.BeginInvoke((Action)(() =>
-            {
-                // Simply change page
-                IoCServer.Application.GoToPage(page, vm);
-            }));
+            // Invoke the action on the UI Thread
+            Application.Current.Dispatcher.BeginInvoke(action);
         }
 
         /// <summary>

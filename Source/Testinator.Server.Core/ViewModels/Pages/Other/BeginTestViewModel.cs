@@ -394,7 +394,7 @@ namespace Testinator.Server.Core
         private void ChangePageToResults()
         {
             // Change page on UI Thread
-            IoCServer.UI.ChangeApplicationPageThreadSafe(ApplicationPage.BeginTestResults);
+            IoCServer.UI.DispatcherThreadAction(() => IoCServer.Application.GoToPage(ApplicationPage.BeginTestResults));
         }
 
         /// <summary>

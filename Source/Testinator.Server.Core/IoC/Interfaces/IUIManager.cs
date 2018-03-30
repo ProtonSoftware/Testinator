@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -9,11 +10,10 @@ namespace Testinator.Server.Core
     public interface IUIManager
     {
         /// <summary>
-        /// Changes application page by making sure that we are on UI thread beforehand
+        /// Performs an action by taking it on dispatcher UI Thread
         /// </summary>
-        /// <param name="page">The page to change to</param>
-        /// <param name="vm">The view model</param>
-        void ChangeApplicationPageThreadSafe(ApplicationPage page, BaseViewModel vm = null);
+        /// <param name="action">An action to invoke</param>
+        void DispatcherThreadAction(Action action);
 
         /// <summary>
         /// Displays a single message box to the user
