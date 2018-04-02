@@ -16,17 +16,17 @@ namespace Testinator.Core
         /// <returns>True if everything is correct, otherwise false</returns>
         protected override bool IsValid()
         {
-            if (CreatedQuestion.CorrectAnswerIndex >= CreatedQuestion.Options.Count)
+            if (CreatedObject.CorrectAnswerIndex >= CreatedObject.Options.Count)
                 return false;
 
             var AreOptionsValid = true;
 
             // Then check if options aren't empty
-            for (var i = 0; i < CreatedQuestion.Options.Count; i++)
+            for (var i = 0; i < CreatedObject.Options.Count; i++)
             {
                 // Trim all the options for checking if they are not identical
-                var option = CreatedQuestion.Options[i].Trim();
-                CreatedQuestion.Options[i] = option;
+                var option = CreatedObject.Options[i].Trim();
+                CreatedObject.Options[i] = option;
 
                 // Null or empty string are also not accepted
                 if (string.IsNullOrEmpty(option))
@@ -37,7 +37,7 @@ namespace Testinator.Core
                 return false;
 
             // Check the list if it contains only unique strings
-            var AreOptionsUnique = !CreatedQuestion.Options.HasDuplicates();
+            var AreOptionsUnique = !CreatedObject.Options.HasDuplicates();
 
             if (!AreOptionsUnique)
                 return false;
@@ -49,7 +49,7 @@ namespace Testinator.Core
         /// Checks if <see cref="CreatedQuestion"/> has options attached to it
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
-        protected override bool HasOptions() => CreatedQuestion.Options != null;
+        protected override bool HasOptions() => CreatedObject.Options != null;
 
         /// <summary>
         /// Checks if <see cref="CreatedQuestion"/> has correct answer attached to it
@@ -73,10 +73,10 @@ namespace Testinator.Core
                 return;
 
             // If questions exist check if correct answer is out of range
-            if (CreatedQuestion.Options != null && CorrectAnswer >= CreatedQuestion.Options.Count)
+            if (CreatedObject.Options != null && CorrectAnswer >= CreatedObject.Options.Count)
                 return;
 
-            CreatedQuestion.CorrectAnswerIndex = CorrectAnswer;
+            CreatedObject.CorrectAnswerIndex = CorrectAnswer;
             IsCorrectAnswerAttached = true;
         }
 
@@ -92,7 +92,7 @@ namespace Testinator.Core
             if (Options == null || Options.Count == 0)
                 return;
 
-            CreatedQuestion.Options = Options;
+            CreatedObject.Options = Options;
             AreOptionsAttached = true;
         }
 
@@ -112,7 +112,7 @@ namespace Testinator.Core
             Scoring.Mode = ScoringMode.FullAnswer;
 
             // Attach it to the question
-            CreatedQuestion.Scoring = Scoring;
+            CreatedObject.Scoring = Scoring;
             IsScoringAttached = true;
         }
 

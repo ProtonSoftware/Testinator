@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Testinator.Core.QuestionBuilders
 {
@@ -9,7 +8,7 @@ namespace Testinator.Core.QuestionBuilders
     /// <typeparam name="TQuestionType">The type of question this builder is going to create</typeparam>
     /// <typeparam name="TOptions">The type of options this question accepts</typeparam>
     /// <typeparam name="TCorrectAnswer">The type of correct answer this question accepts</typeparam>
-    public abstract class QuestionBuilder<TQuestionType, TOptions, TCorrectAnswer> : IBuilder<TQuestionType>
+    public abstract class QuestionBuilder <TQuestionType, TOptions, TCorrectAnswer> : Builder<TQuestionType>
         where TQuestionType : QuestionXXX, new()
     {
         #region Protected Members
@@ -33,11 +32,6 @@ namespace Testinator.Core.QuestionBuilders
         /// Indicates if there is task attached to this question
         /// </summary>
         protected bool IsTaskAttached { get; set; }
-
-        /// <summary>
-        /// The instance of question that is being created by this builder right now
-        /// </summary>
-        protected TQuestionType CreatedQuestion { get; set; }
 
         #endregion
 
@@ -76,7 +70,7 @@ namespace Testinator.Core.QuestionBuilders
         /// <param name="Prototype">The prototype of a question for this builder to work with</param>
         private void LoadPrototype(TQuestionType Prototype)
         {
-            CreatedQuestion = Prototype ?? throw new NullReferenceException("Prototype cannot be null");
+            CreatedObject = Prototype ?? throw new NullReferenceException("Prototype cannot be null");
 
             // Load flags 
             IsCorrectAnswerAttached = HasCorrectAnswer();
@@ -94,7 +88,7 @@ namespace Testinator.Core.QuestionBuilders
         /// </summary>
         public QuestionBuilder()
         {
-            CreatedQuestion = new TQuestionType();
+            CreatedObject = new TQuestionType();
         }
 
         /// <summary>
@@ -117,7 +111,7 @@ namespace Testinator.Core.QuestionBuilders
         /// <param name="Task">The task itself</param>
         public virtual void AddTask(TaskContent Task)
         {
-            CreatedQuestion.Task = Task ?? throw new NullReferenceException();
+            CreatedObject.Task = Task ?? throw new NullReferenceException();
             IsTaskAttached = true; 
         }
 
@@ -125,7 +119,7 @@ namespace Testinator.Core.QuestionBuilders
         /// Gets results of this builder's work
         /// </summary>
         /// <returns>If question is ready return the created instance of it, otherwise null</returns>
-        public virtual TQuestionType GetResult() => IsReady() ? CreatedQuestion : null;
+        public virtual TQuestionType GetResult() => IsReady() ? CreatedObject : null;
 
         #endregion
 
@@ -157,16 +151,16 @@ namespace Testinator.Core.QuestionBuilders
         #region Protected Common Methods
 
         /// <summary>
-        /// Checks if <see cref="CreatedQuestion"/> has task attached to it
+        /// Checks if <see cref="CreatedObject"/> has task attached to it
         /// </summary>
         /// <returns>True if it has; otherwise, false</returns>
-        protected virtual bool HasTask() => CreatedQuestion.Task != null;
+        protected virtual bool HasTask() => CreatedObject.Task != null;
 
         /// <summary>
-        /// Checks if <see cref="CreatedQuestion"/> has scoring attached to it
+        /// Checks if <see cref="CreatedObject"/> has scoring attached to it
         /// </summary>
         /// <returns>True if it has; otherwise, false</returns>
-        protected virtual bool HasScoring() => CreatedQuestion.Scoring != null;
+        protected virtual bool HasScoring() => CreatedObject.Scoring != null;
 
         #endregion
 
@@ -180,13 +174,13 @@ namespace Testinator.Core.QuestionBuilders
         protected abstract bool IsValid();
 
         /// <summary>
-        /// Checks if <see cref="CreatedQuestion"/> has options attached to it
+        /// Checks if <see cref="CreatedObject"/> has options attached to it
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
         protected abstract bool HasOptions();
 
         /// <summary>
-        /// Checks if <see cref="CreatedQuestion"/> has correct answer attached to it
+        /// Checks if <see cref="CreatedObject"/> has correct answer attached to it
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
         protected abstract bool HasCorrectAnswer();

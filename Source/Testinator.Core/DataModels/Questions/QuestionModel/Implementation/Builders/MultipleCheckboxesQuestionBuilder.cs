@@ -17,7 +17,7 @@ namespace Testinator.Core
         protected override bool IsValid()
         {
             // First check the length
-            var AreOptionsCountValid = CreatedQuestion.Options.Count != 0;
+            var AreOptionsCountValid = CreatedObject.Options.Count != 0;
 
             if (!AreOptionsCountValid)
                 return false;
@@ -25,11 +25,11 @@ namespace Testinator.Core
             var AreOptionsValid = true;
 
             // Then check if options aren't empty
-            for (var i = 0; i < CreatedQuestion.Options.Count; i++)
+            for (var i = 0; i < CreatedObject.Options.Count; i++)
             {
                 // Trim all the options for checking if they are not identical
-                var option = CreatedQuestion.Options[i].Trim();
-                CreatedQuestion.Options[i] = option;
+                var option = CreatedObject.Options[i].Trim();
+                CreatedObject.Options[i] = option;
 
                 // Null or empty string are also not accepted
                 if (string.IsNullOrEmpty(option))
@@ -40,12 +40,12 @@ namespace Testinator.Core
                 return false;
 
             // Check the list if it contains only unique strings
-            var AreOptionUnique = !CreatedQuestion.Options.HasDuplicates();
+            var AreOptionUnique = !CreatedObject.Options.HasDuplicates();
 
             if (!AreOptionUnique)
                 return false;
 
-            var AreCorrectAnswersCorrect = CreatedQuestion.CorrectAnswer.Count == CreatedQuestion.Options.Count;
+            var AreCorrectAnswersCorrect = CreatedObject.CorrectAnswer.Count == CreatedObject.Options.Count;
 
             if (!AreCorrectAnswersCorrect)
                 return false;
@@ -58,13 +58,13 @@ namespace Testinator.Core
         /// Checks if <see cref="CreatedQuestion"/> has options attached to it
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
-        protected override bool HasOptions() => CreatedQuestion.Options != null;
+        protected override bool HasOptions() => CreatedObject.Options != null;
 
         /// <summary>
         /// Checks if <see cref="CreatedQuestion"/> has correct answer attached to it
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
-        protected override bool HasCorrectAnswer() => CreatedQuestion.CorrectAnswer != null;
+        protected override bool HasCorrectAnswer() => CreatedObject.CorrectAnswer != null;
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace Testinator.Core
             if (CorrectAnswer == null || CorrectAnswer.Count == 0)
                 return;
 
-            CreatedQuestion.CorrectAnswer = CorrectAnswer;
+            CreatedObject.CorrectAnswer = CorrectAnswer;
             IsCorrectAnswerAttached = true;
         }
 
@@ -96,7 +96,7 @@ namespace Testinator.Core
             if (Options == null || Options.Count == 0)
                 return;
 
-            CreatedQuestion.Options = Options;
+            CreatedObject.Options = Options;
             AreOptionsAttached = true;
         }
 
@@ -111,7 +111,7 @@ namespace Testinator.Core
                 return;
 
             // Attach it to the question
-            CreatedQuestion.Scoring = Scoring;
+            CreatedObject.Scoring = Scoring;
             IsScoringAttached = true;
         }
 

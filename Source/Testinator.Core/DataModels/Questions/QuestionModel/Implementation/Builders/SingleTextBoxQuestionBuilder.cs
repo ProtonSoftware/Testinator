@@ -30,7 +30,7 @@ namespace Testinator.Core
         /// Checks if <see cref="CreatedQuestion"/> has correct answer attached to it
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
-        protected override bool HasCorrectAnswer() => !string.IsNullOrEmpty(CreatedQuestion.CorrectAnswer);
+        protected override bool HasCorrectAnswer() => !string.IsNullOrEmpty(CreatedObject.CorrectAnswer);
 
         #endregion
 
@@ -46,7 +46,7 @@ namespace Testinator.Core
             if (string.IsNullOrWhiteSpace(CorrectAnswer))
                 return;
 
-            CreatedQuestion.CorrectAnswer = CorrectAnswer;
+            CreatedObject.CorrectAnswer = CorrectAnswer;
             IsCorrectAnswerAttached = true;
         }
 
@@ -76,7 +76,7 @@ namespace Testinator.Core
             Scoring.Mode = ScoringMode.FullAnswer;
 
             // Attach it to the question
-            CreatedQuestion.Scoring = Scoring;
+            CreatedObject.Scoring = Scoring;
             IsScoringAttached = true;
         }
 
