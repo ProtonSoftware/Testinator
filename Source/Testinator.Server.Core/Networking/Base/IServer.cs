@@ -24,11 +24,5 @@ namespace Testinator.Server.Core
         /// <param name="TargetClient">Client to be sent the data</param>
         /// <param name="Data">The data to be sent to the client</param>
         void Send(ClientModel TargetClient, DataPackage Data);
-
-        /// <summary>
-        /// Disconnets a single client
-        /// </summary>
-        /// <param name="ClientToDisconnect">Client to be disconnected</param>
-        //void DisconnectClient(NetworkClientModel ClientToDisconnect); // TODO: ????
     }
 }

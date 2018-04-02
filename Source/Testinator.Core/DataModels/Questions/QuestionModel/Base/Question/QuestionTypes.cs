@@ -25,7 +25,7 @@
         /// <summary>
         /// The answer to the question is a string
         /// </summary>
-        SingleTextBox = 2,
+        SingleTextBox = 2
 
     }
 }
