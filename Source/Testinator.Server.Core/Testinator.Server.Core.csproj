@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModels\Results\TestResults.cs" />
     <Compile Include="Networking\Base\IServer.cs" />
     <Compile Include="Networking\Base\ServerBase.cs" />
     <Compile Include="Networking\Exceptions\ServerException.cs" />

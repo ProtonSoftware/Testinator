@@ -245,6 +245,10 @@ namespace Testinator.Server.Core
                 foreach (var socket in mClients.Keys.ToList())
                 {
                     Send(socket, DisconnectRequestPackage);
+                    
+                    // Call the even method before closing socket
+                    ClientDisconnected(mClients[socket]);
+
                     socket.Shutdown(SocketShutdown.Both);
                     socket.Close();
                     mClients.Remove(socket);
@@ -428,7 +432,17 @@ namespace Testinator.Server.Core
                 IoCServer.Logger.Log("Skipping data package. Binary conversion failed.");
 
             // Continue receiving
-            senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
+            try
+            {
+                senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
+            }
+            // If the socket has been meanwhile disposed(removed from connected users) or is it has already been closed with a previous call, dont do anything
+            catch(Exception ex)
+            {
+                // No need to do anything in fact
+                if (ex is ObjectDisposedException || ex is SocketException)
+                    return;
+            }
         }
 
         private void InfoPackageHandler(Socket SenderSocket, DataPackage ReceivedPackage)

@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Testinator.Core;
 
-namespace Testinator.Server.Core
+namespace Testinator.Core
 {
     /// <summary>
     /// Test results
     /// </summary>
     [Serializable] 
-    public class ServerTestResults : ServerTestResultsBase
+    public class ServerTestResults
     {
         #region Public Properties
+
+        /// <summary>
+        /// The test the users took
+        /// </summary>
+        public Test Test { get; set; }
+
+        /// <summary>
+        /// The date the test was hold
+        /// </summary>
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Client matched with answers they gave

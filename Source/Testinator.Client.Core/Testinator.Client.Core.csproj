@@ -57,7 +57,6 @@
     <Compile Include="DataModels\Application\ApplicationPage.cs" />
     <Compile Include="DataModels\Application\IconType.cs" />
     <Compile Include="DataModels\Application\IconTypeExtensions.cs" />
-    <Compile Include="DataModels\Results\ClientTestResults.cs" />
     <Compile Include="Networking\ClientBase.cs" />
     <Compile Include="Networking\ClientNetwork.cs" />
     <Compile Include="IoC\Interfaces\ILogFactory.cs" />

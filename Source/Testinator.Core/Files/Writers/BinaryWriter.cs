@@ -50,7 +50,7 @@ namespace Testinator.Core
         /// <summary>
         /// Writes <see cref="ClientTestResultsBase"/> to file
         /// </summary>
-        public override void WriteToFile(ClientTestResultsBase results)
+        public override void WriteToFile(ClientTestResults results)
         {
             // Make sure we have results to write and the writer object type is set to result
             if (results == null || ObjectType != SaveableObjects.Results)
@@ -70,7 +70,7 @@ namespace Testinator.Core
         /// <summary>
         /// Writes <see cref="TestResults"/> to file
         /// </summary>
-        public override void WriteToFile(ServerTestResultsBase results)
+        public override void WriteToFile(ServerTestResults results)
         {
             // Make sure we have results to write and the writer object type is set to result
             if (results == null || ObjectType != SaveableObjects.Results)
@@ -116,7 +116,7 @@ namespace Testinator.Core
         /// Deletes the <see cref="TestResults"/>
         /// </summary>
         /// <param name="result">Results to be deleted</param>
-        public override void DeleteFile(ServerTestResultsBase result)
+        public override void DeleteFile(ServerTestResults result)
         {
             // Make sure we have results to delete and the writer object type is set to result
             if (result == null || ObjectType != SaveableObjects.Results)
@@ -196,7 +196,7 @@ namespace Testinator.Core
         /// <summary>
         /// Creates the file name for <see cref="ClientTestResultsBase"/>
         /// </summary>
-        private string CreateClientResultsFileName(ClientTestResultsBase results)
+        private string CreateClientResultsFileName(ClientTestResults results)
         {
             var hours = DateTime.Now.ToShortTimeString().Replace(':', '-');
             var date = DateTime.Now.ToShortDateString().Replace('/', '-');
@@ -206,7 +206,7 @@ namespace Testinator.Core
         /// <summary>
         /// Creates the file name for <see cref="TestResults"/>
         /// </summary>
-        private string CreateResultsFileName(ServerTestResultsBase result)
+        private string CreateResultsFileName(ServerTestResults result)
         {
             var hours = result.Date.ToShortTimeString().Replace(':', '-');
             var date = result.Date.ToShortDateString().Replace('/', '-');

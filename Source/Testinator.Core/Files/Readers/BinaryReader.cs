@@ -13,7 +13,7 @@ namespace Testinator.Core
 
         public static Dictionary<int, string> TestIDs { get; set; } = new Dictionary<int, string>();
 
-        public static Dictionary<ServerTestResultsBase, string> Results { get; set; } = new Dictionary<ServerTestResultsBase, string>();
+        public static Dictionary<ServerTestResults, string> Results { get; set; } = new Dictionary<ServerTestResults, string>();
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace Testinator.Core
         public override List<T> ReadFile<T>()
         {
             // Reset the dictionaries
-            Results = new Dictionary<ServerTestResultsBase, string>();
+            Results = new Dictionary<ServerTestResults, string>();
             TestIDs = new Dictionary<int, string>();
 
             // Prepare the indexer which is needed for some object types
@@ -73,13 +73,13 @@ namespace Testinator.Core
                     // Update the indexer
                     indexer++;
                 }
-                else if (filecontent is ServerTestResultsBase)
+                else if (filecontent is ServerTestResults)
                 {
                     // Convert file to T object
                     filecontent = GetObjectFromFile<T>(file);
 
                     // Add the object to the Results dictionary
-                    Results.Add(filecontent as ServerTestResultsBase, Path.GetFileNameWithoutExtension(file));
+                    Results.Add(filecontent as ServerTestResults, Path.GetFileNameWithoutExtension(file));
                 }
                 else
                     // If no type found, just try to get the object as it is

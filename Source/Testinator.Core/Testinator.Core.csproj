@@ -88,9 +88,8 @@
     <Compile Include="DataModels\Questions\QuestionModel\Base\Question\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\SingleTextBoxQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\Question\Task\TaskContent.cs" />
-    <Compile Include="DataModels\Results\Base\ResultsBase.cs" />
-    <Compile Include="DataModels\Results\Base\TestResultsBase.cs" />
-    <Compile Include="DataModels\Results\Base\ClientTestResultsBase.cs" />
+    <Compile Include="DataModels\Results\Implementation\ClientTestResults.cs" />
+    <Compile Include="DataModels\Results\Implementation\ServerTestResults.cs" />
     <Compile Include="DataModels\Results\TestResultsClientModel.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingBase.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingPoints.cs" />
