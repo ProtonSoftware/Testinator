@@ -3,8 +3,7 @@
 namespace Testinator.Core
 {
     /// <summary>
-    /// Grading (criteria) system which border values are in percents
-    /// This class should be converted to <see cref="GradingPoints"/> and then attached to <see cref="Test"/>
+    /// Grading (criteria) system whose border values are in percents
     /// </summary>
     public class GradingPercentage : GradingBase
     {
@@ -26,7 +25,7 @@ namespace Testinator.Core
         {
             // Set default values
             IsMarkAIncluded = true;
-            Name = "";
+            Name = "NewGrading";
             UpdateMark(Marks.A, 100, 96);
             UpdateMark(Marks.B, 95, 86);
             UpdateMark(Marks.C, 85, 70);
@@ -37,9 +36,13 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Public Helpers
+        #region Public Methods
 
-        // TODO: Comment this
+        /// <summary>
+        /// Cnoverts percentage values to points
+        /// </summary>
+        /// <param name="maxPoints">Maximum possible score</param>
+        /// <returns>New points grading</returns>
         public GradingPoints ToPoints(int maxPoints)
         {
             var result = new GradingPoints();
@@ -93,9 +96,10 @@ namespace Testinator.Core
         #region Private Helpers
 
         /// <summary>
-        /// Converts the percentage value to the points value
+        /// Converts the percentage value to point value
         /// </summary>
-        private int PercentToPoint(int percent, int maxPoint) => (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
+        private int PercentToPoint(int percent, int maxPoint) 
+            => (int)Math.Round((percent / (double)100) * maxPoint, MidpointRounding.AwayFromZero);
 
         #endregion
     }

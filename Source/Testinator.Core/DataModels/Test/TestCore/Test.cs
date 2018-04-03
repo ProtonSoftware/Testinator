@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Testinator.Core
 {
+    #region OLD
+
     /// <summary>
     /// The model of a test contaning only essential properties and functions
     /// </summary>
@@ -68,4 +70,58 @@ namespace Testinator.Core
 
         #endregion
     }
+
+    #endregion
+
+    #region NEW 
+
+    /// <summary>
+    /// The model of a test
+    /// </summary>
+    [Serializable]
+    public class TestXXX
+    {
+        #region Public Properties
+
+        /// <summary>
+        /// The name of this test
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Duration of this test
+        /// </summary>
+        public TimeSpan Duration { get; set; }
+
+        /// <summary>
+        /// All questions attached to this test
+        /// </summary>
+        public List<QuestionXXX> Questions { get; set; }
+
+        /// <summary>
+        /// Points grading for this test
+        /// </summary>
+        public GradingPoints Grading { get; set; }
+
+        /// <summary>
+        /// The maxiumum ammout of points the user can get from this test
+        /// </summary>
+        public int TotalPointScore { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Defaults constructor
+        /// </summary>
+        public TestXXX()
+        {
+            Questions = new List<QuestionXXX>();
+        }
+
+        #endregion
+    }
+
+    #endregion
 }

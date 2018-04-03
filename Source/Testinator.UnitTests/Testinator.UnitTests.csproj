@@ -51,12 +51,14 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="MultipleCheckBoxesQuestionBuilderTests.cs" />
     <Compile Include="MultipleCheckBoxesQuestionTests.cs" />
     <Compile Include="MultipleChoiceQuestionBuilderTests.cs" />
     <Compile Include="MultipleChoiceQuestionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskContentTests.cs" />
+    <Compile Include="TestBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -92,12 +92,12 @@
     <Compile Include="DataModels\Results\Implementation\ClientTestResults.cs" />
     <Compile Include="DataModels\Results\Implementation\ServerTestResults.cs" />
     <Compile Include="DataModels\Results\TestResultsClientModel.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingBase.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingPoints.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingPercentage.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Base\GradingBase.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Implementation\GradingPoints.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Implementation\GradingPercentage.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingExtensionMethods.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\Mark.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\Marks.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Base\Mark.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Base\Marks.cs" />
     <Compile Include="DataModels\Test\TestCore\Builder\TestBuilder.cs" />
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
     <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />

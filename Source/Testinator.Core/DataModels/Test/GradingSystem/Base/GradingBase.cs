@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Testinator.Core
 {
@@ -13,21 +12,23 @@ namespace Testinator.Core
         #region Public Properties
 
         /// <summary>
-        /// Indicates if <see cref="Marks.A"/> is included in this set
+        /// Indicates if the highest mark (<see cref="Marks.A"/>) is included in this set
         /// </summary>
         public bool IsMarkAIncluded { get; set; }
 
-        public Mark MarkA { get; set; } = new Mark();
+        // All marks in this grading
 
-        public Mark MarkB { get; set; } = new Mark();
-
-        public Mark MarkC { get; set; } = new Mark();
-
-        public Mark MarkD { get; set; } = new Mark();
-
-        public Mark MarkE { get; set; } = new Mark();
-
-        public Mark MarkF { get; set; } = new Mark();
+        public Mark MarkA { get; protected set; } = new Mark();
+                               
+        public Mark MarkB { get; protected set; } = new Mark();
+                               
+        public Mark MarkC { get; protected set; } = new Mark();
+                               
+        public Mark MarkD { get; protected set; } = new Mark();
+                               
+        public Mark MarkE { get; protected set; } = new Mark();
+                               
+        public Mark MarkF { get; protected set; } = new Mark();
 
         #endregion
 
@@ -39,7 +40,7 @@ namespace Testinator.Core
         /// <param name="mark">The mark which values we are updating</param>
         /// <param name="top">The top limit in points</param>
         /// <param name="bottom">The bottom limit in points</param>
-        public void UpdateMark(Marks mark, int top, int bottom)
+        public virtual void UpdateMark(Marks mark, int top, int bottom)
         {
             // Based on mark...
             switch (mark)

@@ -41,7 +41,7 @@ namespace Testinator.Core.QuestionBuilders
         /// Checks is the question is ready to be returned
         /// </summary>
         /// <returns>True if it is complete and valid, otherwise false</returns>
-        private bool IsReady()
+        protected override bool IsReady()
         {
             if (IsEverythingIncluded())
             {
@@ -58,11 +58,9 @@ namespace Testinator.Core.QuestionBuilders
         /// </summary>
         /// <returns>True if the question is complete, otherwise false</returns>
         private bool IsEverythingIncluded()
-        {
             // If it has everything attached it can be returned as a result of this builder's work
-            return (IsCorrectAnswerAttached && AreOptionsAttached && IsScoringAttached && IsTaskAttached);
-        }
-
+            => (IsCorrectAnswerAttached && AreOptionsAttached && IsScoringAttached && IsTaskAttached);
+        
         /// <summary>
         /// Loads prototype to this builder
         /// Exceptions: <see cref="NullReferenceException"/> if Prototype is null
@@ -114,12 +112,6 @@ namespace Testinator.Core.QuestionBuilders
             CreatedObject.Task = Task ?? throw new NullReferenceException();
             IsTaskAttached = true; 
         }
-
-        /// <summary>
-        /// Gets results of this builder's work
-        /// </summary>
-        /// <returns>If question is ready return the created instance of it, otherwise null</returns>
-        public virtual TQuestionType GetResult() => IsReady() ? CreatedObject : null;
 
         #endregion
 

@@ -19,7 +19,7 @@
                 return;
 
             // Get a copy of the question because questions need to be unique, 
-            // if this same question is added multiple times index is changed in all instances and we end up having mulitple questions with id eg. 5
+            // if this same question is added multiple times index is changed in all instances and we end up having mulitple questions with the same id
             var questionCopy = question.Clone();
 
             // Id for this question

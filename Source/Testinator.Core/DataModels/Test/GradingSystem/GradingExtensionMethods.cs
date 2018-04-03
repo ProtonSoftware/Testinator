@@ -4,6 +4,7 @@ namespace Testinator.Core
 {
     /// <summary>
     /// Extension methods for Grading system
+    /// Placed here to reduce the size of a class itself to make trasmission faster and reduce file sizes when writing to file
     /// </summary>
     public static class GradingExtensionMethods
     {
@@ -17,9 +18,9 @@ namespace Testinator.Core
         {
             var result = new GradingPercentage();
 
-            int bottom = 0;
-            int top = 0;
-            int maxPoints = 0;
+            var bottom = 0;
+            var top = 0;
+            var maxPoints = 0;
 
             if (Grades.IsMarkAIncluded)
             {
@@ -57,6 +58,48 @@ namespace Testinator.Core
             result.UpdateMark(Marks.F, top, bottom);
 
             return result;
+        }
+        
+        /// <summary>
+        /// Gets a mark based on a score 
+        /// </summary>
+        /// <param name="points">Points the user scored in the test</param>
+        /// <returns>The corresponding mark</returns>
+        public static Marks GetMark(this GradingPoints Grading, int points)
+        {
+            if (Grading.IsMarkAIncluded)
+                if (points >= Grading.MarkA.BottomLimit)
+                    return Marks.A;
+
+            if (points >= Grading.MarkB.BottomLimit)
+                return Marks.B;
+
+            if (points >= Grading.MarkC.BottomLimit)
+                return Marks.C;
+
+            if (points >= Grading.MarkD.BottomLimit)
+                return Marks.D;
+
+            if (points >= Grading.MarkE.BottomLimit)
+                return Marks.E;
+
+            if (points >= Grading.MarkF.BottomLimit)
+                return Marks.F;
+
+            throw new Exception("No grading available for this score!");
+        }
+
+        /// <summary>
+        /// Get the max possible score from a grading
+        /// </summary>
+        /// <param name="Grading">The grading to check maximum score</param>
+        /// <returns></returns>
+        public static int GetMaxScore(this GradingPoints Grading)
+        {
+            if (Grading.IsMarkAIncluded)
+                return Grading.MarkA.TopLimit;
+
+            return Grading.MarkB.TopLimit;
         }
 
         #endregion
