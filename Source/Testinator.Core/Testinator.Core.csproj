@@ -69,7 +69,6 @@
     <Compile Include="DataModels\DataPackage\Content\InfoPackage.cs" />
     <Compile Include="DataModels\DataPackage\PackageContent.cs" />
     <Compile Include="DataModels\DataPackage\PackageType.cs" />
-    <Compile Include="DataModels\Html\HtmlCode.cs" />
     <Compile Include="DataModels\Questions\Answer\Base\Answer.cs" />
     <Compile Include="DataModels\Questions\Answer\Base\IAnswer.cs" />
     <Compile Include="DataModels\Questions\Answer\Implementation\MultipleCheckboxesAnswer.cs" />
@@ -109,6 +108,8 @@
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Files\Base\FileDataHasher.cs" />
     <Compile Include="Files\Base\FileHandler.cs" />
+    <Compile Include="Files\Base\FileManager.cs" />
+    <Compile Include="Files\Base\IFileManager.cs" />
     <Compile Include="Files\Models\SettingsPropertyInfo.cs" />
     <Compile Include="Files\Readers\BinaryReader.cs" />
     <Compile Include="Files\Readers\XmlReader.cs" />
