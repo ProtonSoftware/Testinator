@@ -16,26 +16,9 @@ namespace Testinator.Client.Core
         public ClientNetwork Network { get; set; } = new ClientNetwork();
 
         /// <summary>
-        /// Indicates if the client is currently connected to the server
-        /// </summary>
-        public bool IsConnected => Network.IsConnected;
-
-        /// <summary>
         /// Indicates how much time is left 
         /// </summary>
         public TimeSpan TimeLeft => IoCClient.TestHost.TimeLeft;
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ApplicationViewModel()
-        {
-
-        }
 
         #endregion
 
@@ -43,7 +26,7 @@ namespace Testinator.Client.Core
 
         /// <summary>
         /// Returns to the login page if there is no connection to the sevrer
-        /// or to the waitingForTestPage is still connected
+        /// or to the waitingForTestPage if it is still connected
         /// </summary>
         public void ReturnMainScreen()
         {
@@ -51,6 +34,7 @@ namespace Testinator.Client.Core
             {
                 IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
 
+                // This shouldn't be here
                 // Indicate we are ready for another test now
                 IoCClient.Application.Network.SendData(new DataPackage(PackageType.ReadyForTest));
             }

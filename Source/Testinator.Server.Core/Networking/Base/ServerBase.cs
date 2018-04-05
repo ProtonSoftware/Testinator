@@ -15,11 +15,6 @@ namespace Testinator.Server.Core
         #region Protected Memebers
 
         /// <summary>
-        /// The socked this server is operating on
-        /// </summary>
-        protected Socket mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        /// <summary>
         /// Matches all connected sockets with their client models
         /// </summary>
         protected readonly Dictionary<Socket, ClientModel> mClients = new Dictionary<Socket, ClientModel>();
@@ -47,6 +42,11 @@ namespace Testinator.Server.Core
         /// Server port
         /// </summary>
         private int mPort;
+
+        /// <summary>
+        /// The socked this server is operating on
+        /// </summary>
+        private Socket mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         #endregion
 

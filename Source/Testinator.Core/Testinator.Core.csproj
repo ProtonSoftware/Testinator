@@ -108,8 +108,6 @@
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Files\Base\FileDataHasher.cs" />
     <Compile Include="Files\Base\FileHandler.cs" />
-    <Compile Include="Files\Base\FileManager.cs" />
-    <Compile Include="Files\Base\IFileManager.cs" />
     <Compile Include="Files\Models\SettingsPropertyInfo.cs" />
     <Compile Include="Files\Readers\BinaryReader.cs" />
     <Compile Include="Files\Readers\XmlReader.cs" />

@@ -5,7 +5,7 @@ namespace Testinator.Client.Core
     /// <summary>
     /// Provides network support for connecting to the server
     /// </summary>
-    public class ClientNetwork : ClientBase
+    public class ClientNetwork : ClientNetworkBase
     {
         #region Public Properties
 
@@ -24,9 +24,9 @@ namespace Testinator.Client.Core
         public ClientNetwork()
         {
             // Bind to the connected event
-            OnConnected += NetworkConnected;
-            OnDisconnected += NetworkDisconnect;
-            OnDataReceived += NetworkDataReceived;
+            Connected += NetworkConnected;
+            Disconnected += NetworkDisconnect;
+            DataReceived += NetworkDataReceived;
         }
 
         #endregion
@@ -122,7 +122,7 @@ namespace Testinator.Client.Core
                 AttemptingToReconnect = true;
 
                 // Start connecting to the server
-                StartConnecting();
+                Connect();
             }
 
             // In any other case return to the login page

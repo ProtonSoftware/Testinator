@@ -7,7 +7,7 @@ namespace Testinator.Core
     /// </summary>
     public class TestBuilder : Builder<TestXXX>
     {
-        #region Public Properties
+        #region Public Memebrs
 
         /// <summary>
         /// The minimum numebr of questions that a sigle test can have

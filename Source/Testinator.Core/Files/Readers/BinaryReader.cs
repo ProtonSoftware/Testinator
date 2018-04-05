@@ -11,7 +11,7 @@ namespace Testinator.Core
         // TODO: Fix that, it shouldn't be there, not like this
         #region Public Properties
 
-        public static Dictionary<int, string> TestIDs { get; set; } = new Dictionary<int, string>();
+        public static Dictionary<Test, string> AllTests { get; set; } = new Dictionary<Test, string>();
 
         public static Dictionary<ServerTestResults, string> Results { get; set; } = new Dictionary<ServerTestResults, string>();
 
@@ -40,10 +40,7 @@ namespace Testinator.Core
         {
             // Reset the dictionaries
             Results = new Dictionary<ServerTestResults, string>();
-            TestIDs = new Dictionary<int, string>();
-
-            // Prepare the indexer which is needed for some object types
-            var indexer = 0;
+            AllTests = new Dictionary<Test, string>();
 
             // Create the list we will return later
             var results = new List<T>();
@@ -63,15 +60,9 @@ namespace Testinator.Core
                 {
                     // Convert file to T object
                     filecontent = GetObjectFromFile<T>(file, true);
-
-                    // Set the ID of the test
-                    (filecontent as Test).ID = indexer;
-
+                    
                     // Add it to the dictionary
-                    TestIDs.Add(indexer, Path.GetFileNameWithoutExtension(file));
-
-                    // Update the indexer
-                    indexer++;
+                    AllTests.Add((filecontent as Test), Path.GetFileNameWithoutExtension(file));
                 }
                 else if (filecontent is ServerTestResults)
                 {

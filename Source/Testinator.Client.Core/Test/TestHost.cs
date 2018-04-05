@@ -15,7 +15,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Timer to handle cutdown
         /// </summary>
-        private System.Timers.Timer mTestTimer = new System.Timers.Timer(1000);
+        private Timer mTestTimer = new Timer(1000);
 
         /// <summary>
         /// Indicates current question
@@ -23,7 +23,7 @@ namespace Testinator.Client.Core
         private int mCurrentQuestion = 0;
 
         /// <summary>
-        /// Indicates if this application is in forced full screen mode
+        /// Indicates if this application is in full screen mode
         /// </summary>
         private bool mFullScreenModeOn = false;
 

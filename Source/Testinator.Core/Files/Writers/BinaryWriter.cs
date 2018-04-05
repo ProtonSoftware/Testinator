@@ -33,7 +33,7 @@ namespace Testinator.Core
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // Create test file name
-            var filename = BinaryReader.TestIDs.ContainsKey(test.ID) ? BinaryReader.TestIDs[test.ID] : CreateFinalFileName("Test");
+            var filename = BinaryReader.AllTests.ContainsKey(test) ? BinaryReader.AllTests[test] : CreateFinalFileName("Test");
 
             // Try to convert the test object to binary array
             if (!DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
@@ -102,11 +102,11 @@ namespace Testinator.Core
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // If there is no test like passed one, don't delete anything
-            if (!BinaryReader.TestIDs.ContainsKey(test.ID))
+            if (!BinaryReader.AllTests.ContainsKey(test))
                 return;
 
             // Try to delete test by filename
-            var filename = BinaryReader.TestIDs[test.ID];
+            var filename = BinaryReader.AllTests[test];
             if (!DeleteBinaryFileByName(filename))
                 // If something went wrong, throw an error
                 throw new Exception("Cannot delete file!");

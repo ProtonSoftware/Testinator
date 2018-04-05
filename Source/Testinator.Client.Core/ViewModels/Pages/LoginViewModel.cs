@@ -32,7 +32,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// IP of the server we are connecting to
         /// </summary>
-        public string ServerIP { get; set; } = IoCClient.Application.Network.Ip;
+        public string ServerIP { get; set; } = IoCClient.Application.Network.IPString;
 
         /// <summary>
         /// Port of the server we are connecting to
@@ -47,7 +47,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// A flag indicating if the connect command is running
         /// </summary>
-        public bool ConnectingIsRunning => IoCClient.Application.Network.Connecting;
+        public bool ConnectingIsRunning => IoCClient.Application.Network.IsTryingToConnect;
 
         /// <summary>
         /// If any error occur, show this message
@@ -58,6 +58,11 @@ namespace Testinator.Client.Core
         /// A flag indicating if server port or ip is incorrect
         /// </summary>
         public bool IpOrPortError { get; set; }
+
+        /// <summary>
+        /// Indicates if the current connecting is being canceled right now
+        /// </summary>
+        public bool IsCancelling { get; set; }
 
         /// <summary>
         /// Number of attempts taken to connect to the server
@@ -103,7 +108,9 @@ namespace Testinator.Client.Core
             SettingsMenuHideCommand = new RelayCommand(HideMenu);
             StopConnectingCommand = new RelayCommand(StopConnecting);
 
-            IoCClient.Application.Network.OnAttemptUpdate += Network_OnAttemptUpdate;
+            IoCClient.Application.Network.AttemptCounterUpdated += Network_OnAttemptUpdate;
+            IoCClient.Application.Network.AttemptsTimeout += Network_AttemptsTimeout;
+            IoCClient.Application.Network.ConnectionFinished += Network_ConnectionFinished;
         }
 
         #endregion
@@ -127,7 +134,7 @@ namespace Testinator.Client.Core
             
             // Setup client and start connecting
             IoCClient.Application.Network.Initialize(ServerIP, int.Parse(ServerPort));
-            IoCClient.Application.Network.StartConnecting();
+            IoCClient.Application.Network.Connect();
             
             // Log it
             IoCClient.Logger.Log("Attempting to connect to the server");
@@ -154,7 +161,7 @@ namespace Testinator.Client.Core
         private void HideMenu()
         {
             // Verify the data
-            if (!NetworkHelpers.IsAddressCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
+            if (!NetworkHelpers.IsIPAddressCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
             {
                 IpOrPortError = true;
                 return;
@@ -175,12 +182,19 @@ namespace Testinator.Client.Core
             // Log it
             IoCClient.Logger.Log("User disconnected");
 
-            OnPropertyChanged(nameof(ConnectingIsRunning));
+            IsCancelling = true;
         }
 
         #endregion
 
         #region Private Helpers
+
+
+        private void Network_ConnectionFinished()
+        {
+            OnPropertyChanged(nameof(ConnectingIsRunning));
+            IsCancelling = false;
+        }
 
         /// <summary>
         /// Fired when attempt counter updates
@@ -189,6 +203,20 @@ namespace Testinator.Client.Core
         {
             // Update the view
             OnPropertyChanged(nameof(Attempts));
+        }
+
+        /// <summary>
+        /// Fired when attemts timeout is reached
+        /// </summary>
+        private void Network_AttemptsTimeout()
+        {
+            OnPropertyChanged(nameof(ConnectingIsRunning));
+            IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel()
+            {
+                Message = "Maximum attempts number has been reached",
+                Title = "Connection failed",
+                OkText = "OK"
+            });
         }
 
         /// <summary>

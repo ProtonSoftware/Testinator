@@ -2,16 +2,32 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
+using System.Threading.Tasks;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
 {
     /// <summary>
-    /// TODO: Comment this
+    /// Provides base functionallity for client-side networking
     /// </summary>
-    public class ClientBase : BaseViewModel
+    public abstract class ClientNetworkBase : BaseViewModel, IClientNetwork
     {
+
+        public void Send(DataPackage Data)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region Public Settings
+
+        /// <summary>
+        /// Defeines the number of attempts befere we are timed out from connecting
+        /// 0 - infinite
+        /// </summary>
+        public const uint AttemptsNumberTimeout = 4;
+
+        #endregion
+
         #region Private Members
 
         /// <summary>
@@ -20,24 +36,29 @@ namespace Testinator.Client.Core
         private int mBufferSize;
 
         /// <summary>
-        /// Client ip address
+        /// Buffer for received data
+        /// </summary>
+        private byte[] mReceiverBuffer;
+
+        /// <summary>
+        /// Target server ip address 
         /// </summary>
         private IPAddress mIPAddress;
 
         /// <summary>
-        /// Port to connect to the server
+        /// Target server port
         /// </summary>
         private int mPort;
+
+        /// <summary>
+        /// Indicates if the connection loop is in progress, used to prevent from multiple connection proccess running at this same time
+        /// </summary>
+        private bool mConnetionLoopInProgress;
 
         /// <summary>
         /// Socket that handles communication
         /// </summary>
         private Socket mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        /// <summary>
-        /// Buffer for received data
-        /// </summary>
-        private byte[] mReceiverBuffer;
 
         #endregion
 
@@ -46,12 +67,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Indicates if the client is trying to connect to the server
         /// </summary>
-        public bool Connecting { get; private set; }
+        public bool IsTryingToConnect { get; private set; }
 
         /// <summary>
         /// Indicates if the client is connected to the server
         /// </summary>
-        public bool IsConnected => mClientSocket.Connected;
+        public bool IsConnected { get; private set; }
 
         /// <summary>
         /// Gets and sets server buffer size
@@ -62,7 +83,7 @@ namespace Testinator.Client.Core
             get => mBufferSize;
             set
             {
-                if (!Connecting && !IsConnected)
+                if (!IsTryingToConnect && !IsConnected)
                 {
                     mBufferSize = value;
                     mReceiverBuffer = new byte[BufferSize];
@@ -79,7 +100,7 @@ namespace Testinator.Client.Core
             get => mIPAddress;
             set
             {
-                if (!Connecting && !IsConnected)
+                if (!IsTryingToConnect && !IsConnected)
                     mIPAddress = value;
             }
         }
@@ -87,7 +108,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Gets client ip as a string
         /// </summary>
-        public string Ip => IPAddress.ToString();
+        public string IPString => IPAddress.ToString();
 
         /// <summary>
         /// Gets and sets client port
@@ -98,10 +119,15 @@ namespace Testinator.Client.Core
             get => mPort;
             set
             {
-                if (!Connecting && !IsConnected)
+                if (!IsTryingToConnect && !IsConnected)
                     mPort = value;
             }
         }
+
+        /// <summary>
+        /// Indicates the proccess of cancelling a conncetion attempt, in that time no new connections can be started
+        /// </summary>
+        public bool CancellingConncetion { get; private set; }
 
         /// <summary>
         /// Number of attempts taken to connect to the server
@@ -113,24 +139,34 @@ namespace Testinator.Client.Core
         #region Public Events
 
         /// <summary>
-        /// Method to be called any data is received from a client
+        /// Fired when client establishes connection with the server
         /// </summary>
-        public event Action<DataPackage> OnDataReceived = (data) => { };
+        public event Action Connected = () => { };
 
         /// <summary>
-        /// Method to be called when client connects to the server
+        /// Fired when client is disconnected from the server
         /// </summary>
-        public event Action OnConnected = () => { };
+        public event Action Disconnected = () => { };
 
         /// <summary>
-        /// Method to be called when client disconnects from the server
+        /// Fired when maximum connections attempt is reachd
         /// </summary>
-        public event Action OnDisconnected = () => { };
+        public event Action AttemptsTimeout = () => { };
 
         /// <summary>
-        /// Method to be called when Attempts counter is updated
-        /// /// </summary>
-        public event Action OnAttemptUpdate = () => { };
+        /// Fired when attempting to connect to the server is completed
+        /// </summary>
+        public event Action ConnectionFinished = () => { };
+
+        /// <summary>
+        /// Fired when there is data received from the server
+        /// </summary>
+        public event Action<DataPackage> DataReceived = (data) => { };
+
+        /// <summary>
+        /// Fired when <see cref="Attempts"/> counter updates 
+        /// </summary>
+        public event Action AttemptCounterUpdated = () => { };
 
         #endregion
 
@@ -139,15 +175,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ClientBase()
+        public ClientNetworkBase()
         {
             // Create default values
             BufferSize = 32768;
             Port = 3333;
             IPAddress = GetIPAdress();
-
-            Connecting = false;
-            Attempts = 0;
         }
 
         #endregion
@@ -157,24 +190,68 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Starts the connecting sequence
         /// </summary>
-        public void StartConnecting()
+        public async void Connect()
         {
-            if (IsConnected || Connecting)
+            if (IsConnected || IsTryingToConnect || mConnetionLoopInProgress)
                 return;
 
-            // Create new client socket
-            mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); ;
+            // Create new client socket in case the previous one has been disposed
+            mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            // Start a new thread that handles the try-to-connect loop
-            var connectingThread = new Thread(new ThreadStart(TryConnecting))
-            {
-                IsBackground = true,
-                Name = "ConnectingThread"
-            };
-
-            Connecting = true;
+            IsTryingToConnect = true;
             Attempts = 0;
-            connectingThread.Start();
+
+            // Spin up the connecting loop and wait for it to complete either by successful connection trial or by the Stop call which sets the IsTryingToConnect flag to false
+            await Task.Run(() =>
+            {
+                try
+                { 
+                    TryToConnectLoop();
+                }
+                catch(AttemptNumberTimeoutException)
+                {
+                    AttemptsTimeout.Invoke();
+                }
+            });
+
+            // If we're connected...
+            if (mClientSocket.Connected)
+            {                
+                // If we connected to the server right after the Stop() call, disconnect immediately and close the socket
+                if (CancellingConncetion)
+                {
+                    mClientSocket.Shutdown(SocketShutdown.Both);
+
+                    IsConnected = false;
+                }
+
+                // Otherwise, everything went perfectly fine
+                else
+                {   
+                    IsConnected = true;
+
+                    // Start receiving
+                    mClientSocket.BeginReceive(mReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, mClientSocket);
+
+                    // Let them know we have have connected to the server
+                    Connected.Invoke();
+
+                    // Save current IP to the file, as connection was successful
+                    // TODO: move it to the higher layer (Hooterr knows)
+                    SaveIPToConfigFile();
+                }
+            }
+
+            // If connection failed...
+            else
+                IsConnected = false;
+
+
+            // No matter what
+            IsTryingToConnect = false;
+            CancellingConncetion = false;
+
+            ConnectionFinished.Invoke();
         }
 
         /// <summary>
@@ -190,7 +267,8 @@ namespace Testinator.Client.Core
                 // Shutdown the socket
                 mClientSocket.Shutdown(SocketShutdown.Both);
             }
-            Connecting = false;
+
+            CancellingConncetion = true;
         }
 
         /// <summary>
@@ -223,36 +301,47 @@ namespace Testinator.Client.Core
         #region Private Helpers
 
         /// <summary>
-        /// Tries to connected to the server
+        /// Tries to connected to the server in a blocking pooling mode
         /// </summary>
-        private void TryConnecting()
+        /// <returns>True if attempting to connect was successful; otherwise, false</returns>
+        private void TryToConnectLoop()
         {
-            while (!IsConnected && Connecting)
+            mConnetionLoopInProgress = true;
+                        
+            // Attempt to connect until we get the connection working or we're told to stop
+            while (!mClientSocket.Connected && !CancellingConncetion)
             {
                 try
                 {
                     // Try to connect, if failed try again
                     Attempts++;
-                    OnAttemptUpdate.Invoke();
+                    AttemptCounterUpdated.Invoke();
+
+                    // Attempt to connect
                     mClientSocket.Connect(IPAddress, Port);
+                    
                 }
+
+                // Connection failed, try again...
                 catch (SocketException)
                 { }
+
+                // Single attempt timeout
+                catch (ObjectDisposedException)
+                {
+                    // Create a new socket for connecting
+                    mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                }
+                
+                if (AttemptsNumberTimeout != 0 && Attempts >= AttemptsNumberTimeout)
+                {
+                    mConnetionLoopInProgress = false;
+                    throw new AttemptNumberTimeoutException();
+                }
+
             }
 
-            Connecting = false;
-
-            if (IsConnected)
-            {
-                // Start receiving
-                mClientSocket.BeginReceive(mReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, mClientSocket);
-
-                // Let them know we have connected to the server
-                OnConnected.Invoke();
-
-                // Save current IP to the file, as connection was successful
-                SaveIPToConfigFile();
-            }
+            mConnetionLoopInProgress = false;
         }
 
         /// <summary>
@@ -273,7 +362,7 @@ namespace Testinator.Client.Core
                 Disconnect();
 
                 // Let them know we have been disconnected
-                OnDisconnected.Invoke();
+                Disconnected.Invoke();
 
                 return;
             }
@@ -292,12 +381,12 @@ namespace Testinator.Client.Core
                     mClientSocket.Shutdown(SocketShutdown.Both);
 
                     // Let listeners know we have beed disconnected
-                    OnDisconnected.Invoke();
+                    Disconnected.Invoke();
                 }
                 else
                 {
                     // Call the subscribed method
-                    OnDataReceived.Invoke(PackageReceived);
+                    DataReceived.Invoke(PackageReceived);
                 }
             }
 
@@ -342,8 +431,9 @@ namespace Testinator.Client.Core
             Directory.CreateDirectory(directory);
 
             // Save current state of IP
-            File.WriteAllText(directory + "ipconfig.txt", Ip);
+            File.WriteAllText(directory + "ipconfig.txt", IPString);
         }
+
 
         #endregion
     }

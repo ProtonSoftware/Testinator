@@ -31,7 +31,7 @@ namespace Testinator.Client.Core
         public static TestHost TestHost => IoCClient.Get<TestHost>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="FileWritersBase"/>
+        /// A shortcut to access the <see cref="FileManagerBase"/>
         /// </summary>
         public static FileManagerBase File => IoCClient.Get<FileManagerBase>();
 

@@ -31,11 +31,6 @@ namespace Testinator.Core
         /// </summary>
         public IPAddress IP { get; set; }
 
-        /// <summary>
-        /// Client's ip address as string
-        /// </summary>
-        public string IPString => IP.ToString();
-
         #endregion
     }
 }

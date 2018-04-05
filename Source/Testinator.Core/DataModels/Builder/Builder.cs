@@ -7,6 +7,7 @@ namespace Testinator.Core
     /// </summary>
     /// <typeparam name="T">The type of objects this bulder creates</typeparam>
     public abstract class Builder<T> : IBuilder<T>
+        where T : class
     {
         #region Protected Members
 
@@ -35,7 +36,7 @@ namespace Testinator.Core
             if (IsReady())
                 return CreatedObject;
 
-            throw new Exception("Object is not ready to be returned");
+            return null;
         }
 
         #endregion
