@@ -11,6 +11,11 @@ namespace Testinator.Core
         #region Public Properties
 
         /// <summary>
+        /// Current session identifier 
+        /// </summary>
+        public Guid SessionIdentifier { get; set; }
+
+        /// <summary>
         /// Indicates it the result page is allowed to see by the user
         /// </summary>
         public bool IsResultsPageAllowed { get; set; }
@@ -34,7 +39,6 @@ namespace Testinator.Core
         /// </summary>
         public TestStartupArgsPackage()
         {
-
         }
 
         #endregion

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -245,8 +244,7 @@ namespace Testinator.Client.Core
             else
                 IsConnected = false;
 
-
-            // No matter what
+            // No matter what set these flags
             IsTryingToConnect = false;
             CancellingConncetion = false;
 
@@ -258,6 +256,9 @@ namespace Testinator.Client.Core
         /// </summary>
         public void Disconnect()
         {
+            if (!IsTryingToConnect && !IsConnected)
+                return;
+
             OnDisconnecting();
 
             if (IsConnected)
@@ -445,9 +446,6 @@ namespace Testinator.Client.Core
             if (IsConnected)
                 mClientSocket.BeginReceive(mReceiverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, mClientSocket);
         }
-
-
-
 
         #endregion
     }

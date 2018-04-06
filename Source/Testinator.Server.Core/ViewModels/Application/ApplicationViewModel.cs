@@ -1,4 +1,5 @@
-﻿using Testinator.Core;
+﻿using System;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
@@ -23,6 +24,16 @@ namespace Testinator.Server.Core
         /// The current subpage of the BeginTestPage
         /// </summary>
         public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when main application is closing, so some operation may trigger this event 
+        /// and prepare for closing
+        /// </summary>
+        public event Action Closing = () => { };
 
         #endregion
 
@@ -53,6 +64,14 @@ namespace Testinator.Server.Core
 
             // Fire off a CurrentBeginTestPage changed event
             OnPropertyChanged(nameof(CurrentBeginTestPage));
+        }
+
+        /// <summary>
+        /// Closes the application
+        /// </summary>
+        public void Close()
+        {
+            Closing.Invoke();
         }
 
         #endregion

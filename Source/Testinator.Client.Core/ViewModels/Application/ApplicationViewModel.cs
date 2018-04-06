@@ -21,6 +21,16 @@ namespace Testinator.Client.Core
         public TimeSpan TimeLeft => IoCClient.TestHost.TimeLeft;
 
         #endregion
+        
+        #region Public Events
+
+        /// <summary>
+        /// Fired when main application is closing, so some operation may trigger this event 
+        /// and prepare for closing
+        /// </summary>
+        public event Action Closing = () => { };
+
+        #endregion
 
         #region Public Methods
 
@@ -40,6 +50,14 @@ namespace Testinator.Client.Core
             }
             else
                 IoCClient.UI.ChangePage(ApplicationPage.Login);
+        }
+
+        /// <summary>
+        /// Closes the application
+        /// </summary>
+        public void Close()
+        {
+            Closing.Invoke();
         }
 
         #endregion

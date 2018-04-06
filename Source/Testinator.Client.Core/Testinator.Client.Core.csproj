@@ -59,7 +59,7 @@
     <Compile Include="DataModels\Application\IconTypeExtensions.cs" />
     <Compile Include="Networking\Base\ClientNetworkBase.cs" />
     <Compile Include="Networking\Base\IClientNetwork.cs" />
-    <Compile Include="Networking\ClientNetwork.cs" />
+    <Compile Include="Networking\Implementation\ClientNetwork.cs" />
     <Compile Include="IoC\Interfaces\ILogFactory.cs" />
     <Compile Include="IoC\Interfaces\IUIManager.cs" />
     <Compile Include="IoC\Base\IoCClient.cs" />
@@ -97,9 +97,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Networking\Implementation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

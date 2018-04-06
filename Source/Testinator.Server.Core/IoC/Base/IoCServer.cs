@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using System;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -52,6 +53,15 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        #region Public Events
+
+        /// <summary>
+        /// Fired when IoC completes its setup
+        /// </summary>
+        public static event Action SetupCompleted = () => { };
+
+        #endregion
+
         #region Construction
 
         /// <summary>
@@ -63,6 +73,8 @@ namespace Testinator.Server.Core
         {
             // Bind all required view models
             BindViewModels();
+
+            SetupCompleted.Invoke();
         }
 
         /// <summary>
