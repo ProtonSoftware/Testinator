@@ -142,16 +142,14 @@
                         <TextBlock Style="{StaticResource TitleText}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    Text="{Binding Attempts}"/>
-                        <TextBlock Style="{StaticResource TitleText}"
-                                   Foreground="{StaticResource BlackLightBrush}"
-                                   Text=" test"
-                                   Visibility="{Binding IsCancelling, Converter={local:BooleanToVisiblityConverter}}"/>
                     </StackPanel>
 
-                    <Button Content="{x:Static core:LocalizationResource.Cancel}"
+                    <Button Content="{Binding CancelText}"
                             Style="{StaticResource BaseUIButton}"
                             Command="{Binding StopConnectingCommand}"
-                            Margin="15" />
+                            Margin="15"
+                            IsEnabled="{Binding IsCancelling, Converter={local:BooleanInvertConverter}}">
+                    </Button>
 
                 </StackPanel>
 

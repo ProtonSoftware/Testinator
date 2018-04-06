@@ -1,9 +1,12 @@
-﻿using Testinator.Core;
+﻿using System;
+using System.IO;
+using System.Net;
+using Testinator.Core;
 
 namespace Testinator.Client.Core
 {
     /// <summary>
-    /// Provides network support for connecting to the server
+    /// Provides network support for client-side
     /// </summary>
     public class ClientNetwork : ClientNetworkBase
     {
@@ -23,24 +26,12 @@ namespace Testinator.Client.Core
         /// </summary>
         public ClientNetwork()
         {
-            // Bind to the connected event
-            Connected += NetworkConnected;
-            Disconnected += NetworkDisconnect;
-            DataReceived += NetworkDataReceived;
+            InitializeUsingConfigFile();
         }
 
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Disconnects from the server
-        /// </summary>
-        public new void Disconnect()
-        {
-            base.Disconnect();
-            AttemptingToReconnect = false;
-        }
 
         /// <summary>
         /// Sends update to the server about the user data
@@ -66,47 +57,15 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Private Helpers
-
-        /// <summary>
-        /// Fired when data has been received from the server
-        /// </summary>
-        /// <param name="data"></param>
-        private void NetworkDataReceived(DataPackage data)
-        {
-            switch (data.PackageType)
-            {
-                case PackageType.TestForm:
-                    // Bind the newly received test
-                    IoCClient.TestHost.BindTest(data.Content as Test);
-                    break;
-
-                case PackageType.BeginTest:
-                    // Start the test
-                    IoCClient.TestHost.StartTest();
-                    break;
-
-                case PackageType.StopTestForcefully:
-                    IoCClient.TestHost.StopTestForcefully();
-                    break;
-
-                case PackageType.TestStartupArgs:
-                    var args = data.Content as TestStartupArgsPackage;
-                    if (args == null)
-                        return;
-
-                    IoCClient.TestHost.SetupArguments(args);
-                    break;
-            }
-        }
+        #region Overridden Methods
 
         /// <summary>
         /// Fired when connection gets stoped
         /// </summary>
-        private void NetworkDisconnect()
+        protected override void OnConnectionLost()
         {
             // Log it
-            IoCClient.Logger.Log("Network disconnected");
+            IoCClient.Logger.Log("Network connection lost");
 
             // Dont'try to reconnect if in the result page, because the test result has been already sent to the server
             if (IoCClient.TestHost.IsShowingResultPage)
@@ -131,9 +90,26 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
+        /// Fired when server ask client to disconnect from the server
+        /// </summary>
+        protected override void OnDisconnected()
+        {
+            // Log it
+            IoCClient.Logger.Log("Network disconnected");
+
+            // Dont'try to reconnect if in the result page, because the test result has been already sent to the server
+            if (IoCClient.TestHost.IsShowingResultPage)
+                return;
+
+            // If not in reults page show login page
+            if (!IoCClient.TestHost.IsTestInProgress)
+                IoCClient.UI.ChangePage(ApplicationPage.Login);
+        }
+
+        /// <summary>
         /// Fired when connection with the server has been established
         /// </summary>
-        private void NetworkConnected()
+        protected override void OnConnectionEstablished()
         {
             // Log it
             IoCClient.Logger.Log("Network connected");
@@ -153,8 +129,100 @@ namespace Testinator.Client.Core
             else
                 // Notify the test host
                 IoCClient.TestHost.NetworkReconnected();
+            
+            // Save current IP to the file, as connection was successful
+            SaveNetworkConfigToFile();
+        }
+        
+        /// <summary>
+        /// Fired when data has been received from the server
+        /// </summary>
+        /// <param name="DataReceived"></param>
+        protected override void OnDataReceived(DataPackage DataReceived)
+        {
+            switch (DataReceived.PackageType)
+            {
+                case PackageType.TestForm:
+                    // Bind the newly received test
+                    IoCClient.TestHost.BindTest(DataReceived.Content as Test);
+                    break;
+
+                case PackageType.BeginTest:
+                    // Start the test
+                    IoCClient.TestHost.StartTest();
+                    break;
+
+                case PackageType.StopTestForcefully:
+                    IoCClient.TestHost.StopTestForcefully();
+                    break;
+
+                case PackageType.TestStartupArgs:
+                    var args = DataReceived.Content as TestStartupArgsPackage;
+                    if (args == null)
+                        return;
+
+                    IoCClient.TestHost.SetupArguments(args);
+                    break;
+            }
         }
 
+        #endregion
+
+        #region Config File Reading/Wiritng
+
+        /// <summary>
+        /// Initializes this client using config file, if config doesn't exist or is invalid default values are used
+        /// </summary>
+        private void InitializeUsingConfigFile()
+        {
+            // Get directory in appdata
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//Testinator//";
+
+            // Prepare IP to return
+            var ip = default(IPAddress);
+            var port = 0;
+
+            try
+            {
+                // Try to read IP from file
+                var fileContent = File.ReadAllText(directory + "ipconfig.txt").Trim();
+                var separatorIndex = fileContent.IndexOf(';');
+
+                if (separatorIndex == -1)
+                    throw new Exception();
+
+                var ipString = fileContent.Substring(0, separatorIndex);
+                var portString = fileContent.Substring(separatorIndex + 1);
+
+                ip = IPAddress.Parse(ipString);
+
+                if (!NetworkHelpers.IsPortCorrect(portString))
+                    throw new Exception();
+
+                port = int.Parse(portString);
+
+                Initialize(ip, port);
+            }
+            catch
+            {
+                // No need to do anything as network is already loaded with default valus
+            }
+            
+        }
+
+        /// <summary>
+        /// Saves current IP and port number to config file
+        /// </summary>
+        private void SaveNetworkConfigToFile()
+        {
+            // Get directory in appdata
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Testinator\\";
+            Directory.CreateDirectory(directory);
+
+            // Save current state of IP
+            // Using ';' as a separator
+            File.WriteAllText(directory + "ipconfig.txt", $"{IPString};{Port}");
+        }
 
         #endregion
     }

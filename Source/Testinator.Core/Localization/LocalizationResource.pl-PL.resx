@@ -489,4 +489,13 @@
   <data name="Yes" xml:space="preserve">
     <value>Tak</value>
   </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Anulowanie</value>
+  </data>
+  <data name="ConnectionFalied" xml:space="preserve">
+    <value>Błąd połączenia</value>
+  </data>
+  <data name="MaximumAttemptsReachedMessage" xml:space="preserve">
+    <value>Maksymalna liczba prób została osiągnięta. \nSpróbuj ponownie  lub sprawdź stan serwera.</value>
+  </data>
 </root>

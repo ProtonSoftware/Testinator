@@ -65,6 +65,11 @@ namespace Testinator.Client.Core
         public bool IsCancelling { get; set; }
 
         /// <summary>
+        /// Content of the connect button based on <see cref="IsCancelling"/> property
+        /// </summary>
+        public string CancelText => IsCancelling ? LocalizationResource.Aborting + "..." : LocalizationResource.Cancel;
+
+        /// <summary>
         /// Number of attempts taken to connect to the server
         /// </summary>
         public int Attempts => IoCClient.Application.Network.Attempts;
@@ -111,6 +116,7 @@ namespace Testinator.Client.Core
             IoCClient.Application.Network.AttemptCounterUpdated += Network_OnAttemptUpdate;
             IoCClient.Application.Network.AttemptsTimeout += Network_AttemptsTimeout;
             IoCClient.Application.Network.ConnectionFinished += Network_ConnectionFinished;
+            IoCClient.Application.Network.Connected += Network_Connected;
         }
 
         #endregion
@@ -189,6 +195,15 @@ namespace Testinator.Client.Core
 
         #region Private Helpers
 
+        private void Network_Connected()
+        {
+            // Unsubscribe from events, if the page changed to waiting for test this viewmodel gets destroyed,
+            // but references to the event methods are stored in Network class so when the login page viewmodel get created again
+            // event methods are subscribed again and, thus they are fired multiple times
+            IoCClient.Application.Network.AttemptCounterUpdated -= Network_OnAttemptUpdate;
+            IoCClient.Application.Network.AttemptsTimeout -= Network_AttemptsTimeout;
+            IoCClient.Application.Network.ConnectionFinished -= Network_ConnectionFinished;
+        }
 
         private void Network_ConnectionFinished()
         {
@@ -213,9 +228,9 @@ namespace Testinator.Client.Core
             OnPropertyChanged(nameof(ConnectingIsRunning));
             IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel()
             {
-                Message = "Maximum attempts number has been reached",
-                Title = "Connection failed",
-                OkText = "OK"
+                Message = LocalizationResource.MaximumAttemptsReachedMessage,
+                Title = LocalizationResource.ConnectionFalied,
+                OkText = LocalizationResource.Ok,
             });
         }
 
@@ -226,8 +241,8 @@ namespace Testinator.Client.Core
         private bool IsInputDataValid()
         {
             // For now, check if user have specified at least two character for each input
-            if (Name.Length < 2) return false;
-            if (Surname.Length < 2) return false;
+            if (string.IsNullOrEmpty(Name) || Name.Length < 2) return false;
+            if (string.IsNullOrEmpty(Surname) || Surname.Length < 2) return false;
             
             return true;
         }

@@ -501,4 +501,13 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Aborting</value>
+  </data>
+  <data name="ConnectionFalied" xml:space="preserve">
+    <value>Connection falied</value>
+  </data>
+  <data name="MaximumAttemptsReachedMessage" xml:space="preserve">
+    <value>Maximum number of attempts has beed reached. \nTry again or make sure the server is online.</value>
+  </data>
 </root>

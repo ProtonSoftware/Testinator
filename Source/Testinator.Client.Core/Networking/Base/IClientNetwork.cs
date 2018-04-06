@@ -22,7 +22,7 @@ namespace Testinator.Client.Core
         /// Sends data to the remote server
         /// </summary>
         /// <param name="Data"></param>
-        void Send(DataPackage Data);
+        void SendData(DataPackage Data);
 
         /// <summary>
         /// Fired when there is data received from the remote server
