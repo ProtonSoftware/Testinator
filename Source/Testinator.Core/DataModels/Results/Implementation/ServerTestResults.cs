@@ -23,6 +23,11 @@ namespace Testinator.Core
         public DateTime Date { get; set; }
 
         /// <summary>
+        /// Identifier of the test session when these results were saved
+        /// </summary>
+        public Guid SessionIdentifier { get; set; }
+
+        /// <summary>
         /// Client matched with answers they gave
         /// </summary>
         public Dictionary<TestResultsClientModel, List<Answer>> ClientAnswers { get; set; } = new Dictionary<TestResultsClientModel, List<Answer>>();

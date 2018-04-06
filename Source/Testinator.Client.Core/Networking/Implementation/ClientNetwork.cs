@@ -157,7 +157,7 @@ namespace Testinator.Client.Core
                     break;
 
                 case PackageType.TestStartupArgs:
-                    var args = DataReceived.Content as TestStartupArgsPackage;
+                    var args = DataReceived.Content as TestStartupArgs;
                     if (args == null)
                         return;
 

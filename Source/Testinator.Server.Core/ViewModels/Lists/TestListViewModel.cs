@@ -80,7 +80,7 @@ namespace Testinator.Server.Core
             var testID = int.Parse(param.ToString());
 
             // Load test based on that
-            IoCServer.TestHost.BindTest(Items[testID - 1].Test);
+            IoCServer.TestHost.AddTest(Items[testID - 1].Test);
 
             // Mark all items not selected
             foreach (var item in Items)

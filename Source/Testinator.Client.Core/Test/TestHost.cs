@@ -353,7 +353,7 @@ namespace Testinator.Client.Core
         /// Sets the test startup arguments send by the server
         /// </summary>
         /// <param name="args">The arguments to be set</param>
-        public void SetupArguments(TestStartupArgsPackage args)
+        public void SetupArguments(TestStartupArgs args)
         {
             AreResultsAllowed = args.IsResultsPageAllowed;
             FullScreenMode = args.FullScreenMode;

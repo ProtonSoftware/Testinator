@@ -59,6 +59,7 @@
     <Compile Include="Networking\Exceptions\ServerException.cs" />
     <Compile Include="DataModels\Client\ClientModel.cs" />
     <Compile Include="Networking\Implementation\ServerNetwork.cs" />
+    <Compile Include="TestHost\TestOptions.cs" />
     <Compile Include="ViewModels\Application\PageHostViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddLatecomersDialogViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="ViewModels\Pages\TestResults\TestResultsViewModel.cs" />
     <Compile Include="DataModels\Application\ApplicationPage.cs" />
     <Compile Include="DataModels\Application\IconType.cs" />
-    <Compile Include="DataModels\TestHost.cs" />
+    <Compile Include="TestHost\TestHost.cs" />
     <Compile Include="Icons\IconTypeExtensions.cs" />
     <Compile Include="IoC\Interfaces\ILogFactory.cs" />
     <Compile Include="IoC\Interfaces\IUIManager.cs" />

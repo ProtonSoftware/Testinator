@@ -14,7 +14,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The test which is choosen by user on the list
         /// </summary>
-        public Test CurrentTest => IoCServer.TestHost.Test;
+        public Test CurrentTest => IoCServer.TestHost.CurrentTest;
 
         /// <summary>
         /// The test binary file writer which handles tests saving/deleting from local folder

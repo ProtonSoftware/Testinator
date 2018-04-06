@@ -6,7 +6,7 @@ namespace Testinator.Core
     /// The package contaning the test startup args
     /// </summary>
     [Serializable]
-    public class TestStartupArgsPackage : PackageContent
+    public class TestStartupArgs : PackageContent
     {
         #region Public Properties
 
@@ -28,18 +28,7 @@ namespace Testinator.Core
         /// <summary>
         /// The time offset this test should start
         /// </summary>
-        public TimeSpan TimerOffset { get; set; } = TimeSpan.FromSeconds(0);
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default construcotr
-        /// </summary>
-        public TestStartupArgsPackage()
-        {
-        }
+        public TimeSpan TimerOffset { get; set; }
 
         #endregion
     }

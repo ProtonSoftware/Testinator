@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -21,12 +22,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// All clients that are currently taking the test
         /// </summary>
-        public ObservableCollection<ClientModel> ClientsTakingTheTest => IoCServer.TestHost.Clients;
+        public ObservableCollection<ClientModel> ClientsTakingTheTest => IoCServer.TestHost.ClientsInTest;
 
         /// <summary>
         /// The test which is choosen by user on the list
         /// </summary>
-        public Test CurrentTest => IoCServer.TestHost.Test;
+        public Test CurrentTest => IoCServer.TestHost.CurrentTest;
 
         /// <summary>
         /// The number of connected clients
@@ -303,10 +304,10 @@ namespace Testinator.Server.Core
         private void ChangePageInfo()
         {
             // Meanwhile lock the clients list and send them the test 
-            IoCServer.TestHost.LockClientsAll();
+            IoCServer.TestHost.AddClients(IoCServer.Network.ConnectedClients.ToList());
             
             // If there is no enough users to start the test, show the message and don't send the test
-            if (IoCServer.TestHost.Clients.Count == 0)
+            if (IoCServer.TestHost.ClientsInTest.Count == 0)
             {
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
@@ -329,10 +330,10 @@ namespace Testinator.Server.Core
         private void BeginTest()
         {
             // Send the args before startting
-            IoCServer.TestHost.SendTestArgsToAll(new TestStartupArgsPackage()
+            IoCServer.TestHost.ConfigureStartup(new TestOptions()
             {
-                FullScreenMode = FullScreenMode,
-                IsResultsPageAllowed = ResultPageAllowed,
+                FullScreenEnabled = FullScreenMode,
+                ResultsPageAllowed = ResultPageAllowed,
             });
 
             IoCServer.TestHost.TestStart();
@@ -417,7 +418,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void StopTestForcefully()
         {
-            IoCServer.TestHost.TestStopForcefully();
+            IoCServer.TestHost.AbortTest();
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInitial);
         }
 
