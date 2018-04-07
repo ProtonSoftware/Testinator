@@ -21,7 +21,7 @@ namespace Testinator.Client.Core
         /// The title which shows question id
         /// </summary>
         public string QuestionPageCounter => 
-            IsReadOnly ? "Pytanie " + DisplayIndex +  " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.QuestionNumber;
+            IsReadOnly ? "Pytanie " + DisplayIndex +  " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.CurrentQuestionString;
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
@@ -130,7 +130,10 @@ namespace Testinator.Client.Core
             }
 
             // Save the answer
-            var answer = new MultipleChoiceAnswer(CurrentlySelectedIdx);
+            var answer = new MultipleChoiceAnswer()
+            {
+                SelectedAnswerIndex = CurrentlySelectedIdx,
+            };
             IoCClient.TestHost.SaveAnswer(answer);
 
             // Go to next question page
@@ -190,13 +193,13 @@ namespace Testinator.Client.Core
                 }
 
                 // Set the user's answer selected so it's green
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
+                Options[UserAnswer.SelectedAnswerIndex].IsSelected = true;
 
                 // Mark the user's answer to display "Your answer" sign
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
+                Options[UserAnswer.SelectedAnswerIndex].IsAnswerGivenByTheUser = true;
 
                 // Indicate if the user's answer is correct
-                Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerCorrect = IsAnswerCorrect;
+                Options[UserAnswer.SelectedAnswerIndex].IsAnswerCorrect = IsAnswerCorrect;
             }
         }
 

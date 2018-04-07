@@ -25,7 +25,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The ammout of points the user can get for a good answer
         /// </summary>
-        public string PointScore => $"{Question.PointScore}p.";
+        public string PointScore => $"{Question.Scoring.FullPointScore}p.";
 
         /// <summary>
         /// Options for the questions to choose from eg. A, B, C...
@@ -101,13 +101,13 @@ namespace Testinator.Server.Core
             }
 
             // Set the user's answer selected so it's green
-            Options[UserAnswer.SelectedAnswerIdx - 1].IsSelected = true;
+            Options[UserAnswer.SelectedAnswerIndex].IsSelected = true;
 
             // Mark the user's answer to display "Your answer" sign
-            Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerGivenByTheUser = true;
+            Options[UserAnswer.SelectedAnswerIndex].IsAnswerGivenByTheUser = true;
 
             // Indicate if the user's answer is correct
-            Options[UserAnswer.SelectedAnswerIdx - 1].IsAnswerCorrect = IsAnswerCorrect;
+            Options[UserAnswer.SelectedAnswerIndex].IsAnswerCorrect = IsAnswerCorrect;
             
         }
 

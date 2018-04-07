@@ -2,52 +2,11 @@
 
 namespace Testinator.Core
 {
-    #region OLD
-    /// <summary>
-    /// A base model for all questions
-    /// </summary>
-    [Serializable]
-    public abstract class Question
-    {
-        #region Public Properties 
-
-        /// <summary>
-        /// The type of this question
-        /// </summary>
-        public QuestionType Type { get; protected set; }
-
-        /// <summary>
-        /// Identifier of this question
-        /// Useful for matching answers to questions
-        /// </summary>
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Number of points given for a good answer
-        /// </summary>
-        public int PointScore { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Clones the object
-        /// </summary>
-        /// <returns>Return a clone</returns>
-        public abstract Question Clone();
-
-        #endregion
-    }
-    #endregion
-
-    #region NEW
-
     /// <summary>
     /// Base class for any question to derive from
     /// </summary>
     [Serializable]
-    public abstract class QuestionXXX
+    public abstract class Question
     {
         #region Public Properties
 
@@ -75,7 +34,7 @@ namespace Testinator.Core
         /// </summary>
         /// <param name="Answer">Answer to validate</param>
         /// <returns>Number of points for this answer depending on current valuation criteria</returns>
-        public abstract int CheckAnswer(AnswerXXX Answer);
+        public abstract int CheckAnswer(Answer Answer);
 
         /// <summary>
         /// Gets the number of points for a correct answer in format that is easy to display
@@ -85,6 +44,5 @@ namespace Testinator.Core
 
         #endregion
     }
-
-    #endregion
+    
 }

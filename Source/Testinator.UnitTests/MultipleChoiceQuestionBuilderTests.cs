@@ -11,7 +11,7 @@ namespace Testinator.UnitTests
     [TestClass]
     public class MultipleChoiceQuestionBuilderTests
     {
-        public MultipleChoiceQuestionXXX CorrectQuestionPrototype { get; set; } = new MultipleChoiceQuestionXXX()
+        public MultipleChoiceQuestion CorrectQuestionPrototype { get; set; } = new MultipleChoiceQuestion()
         {
             Task = new TaskContent("test task"),
             Options = new List<string>() { "Option1", "Option2", "Option3" },
@@ -181,7 +181,7 @@ namespace Testinator.UnitTests
             Assert.IsNull(question);
         }
 
-        private MultipleChoiceQuestionXXX AssemblyQuestion()
+        private MultipleChoiceQuestion AssemblyQuestion()
         {
             var builder = new MultipleChoiceQuestionBuilder();
 
@@ -194,7 +194,7 @@ namespace Testinator.UnitTests
             return builder.GetResult();
         }
 
-        private bool IsCorrect(MultipleChoiceQuestionXXX question)
+        private bool IsCorrect(MultipleChoiceQuestion question)
         {
             var TaskIsCorrect = question.Task == Task;
             var OptionsAreCorrect = question.Options == Options;

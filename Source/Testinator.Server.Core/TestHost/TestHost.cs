@@ -92,7 +92,7 @@ namespace Testinator.Server.Core
 
             IsTestInProgress = true;
 
-            TimeLeft = CurrentTest.Duration;
+            TimeLeft = CurrentTest.Info.Duration;
 
             // Start cutdown
             mTestTimer.Start();
@@ -162,7 +162,7 @@ namespace Testinator.Server.Core
             var packageWithArgs = DataPackage.StartTestPackage(TestStartupArgs);
             
             // Based on the arguments set the timer offset
-            TestStartupArgs.TimerOffset = CurrentTest.Duration - TimeLeft;
+            TestStartupArgs.TimerOffset = CurrentTest.Info.Duration - TimeLeft;
 
             // Add clients to the test
             foreach (var client in Latecomers)

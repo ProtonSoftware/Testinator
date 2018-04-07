@@ -48,7 +48,7 @@
         /// <summary>
         /// Icon for the multiple checkboxes question
         /// </summary>
-        MultipleCheckboxesQuestion,
+        MultipleCheckBoxesQuestion,
 
         /// <summary>
         /// Icon for the single text box question (rectangle)

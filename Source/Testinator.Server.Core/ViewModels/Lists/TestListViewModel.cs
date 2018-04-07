@@ -20,12 +20,30 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        #region Public Constants 
+        
+        /// <summary>
+        /// Indicates no selection
+        /// </summary>
+        public const int NothingSelected = -1;
+
+        #endregion
+
+        #region Privates Members
+
+        /// <summary>
+        /// Indicates currently selected item's index
+        /// </summary>
+        private int mCurrentlySelectedItemIndex = NothingSelected;
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// List of items (tests) in this test list
         /// </summary>
-        public ObservableCollection<TestListItemViewModel> Items { get; set; }
+        public ObservableCollection<TestListItemViewModel> Items { get; private set; }
 
         /// <summary>
         /// The test binary file reader which loads tests from local folder
@@ -37,19 +55,31 @@ namespace Testinator.Server.Core
         /// </summary>
         public bool IsAnySelected { get; private set; }
 
+        /// <summary>
+        /// Indicates currently selected item
+        /// NOTE: null if nothing is selected
+        /// </summary>
+        public Test SelectedItem { get; private set; }
+
         #endregion
 
         /// <summary>
-        /// Fired when an item from the list gets selected
+        /// Fired when selection in this list chages
+        /// NOTE: not invoked if this same item is selected multiple times
         /// </summary>
-        public event Action ItemSelected = () => { };
+        public event Action SelectionChanged = () => { };
+
+        /// <summary>
+        /// Fired when item gets selected 
+        /// </summary>
+        public event Action<Test> ItemSelected = (o) => { };
 
         #region Commands
 
         /// <summary>
-        /// The command to choose a test from the list
+        /// The command to select an item
         /// </summary>
-        public ICommand ChooseTestCommand { get; private set; }
+        public ICommand SelectItemCommand { get; private set; }
 
         #endregion
 
@@ -61,10 +91,7 @@ namespace Testinator.Server.Core
         public TestListViewModel()
         {
             // Create commands
-            ChooseTestCommand = new RelayParameterizedCommand((param) => ChooseTest(param));
-
-            // Load every test at the start
-            LoadItems();
+            SelectItemCommand = new RelayParameterizedCommand((param) => SelectItem(param));
         }
 
         #endregion
@@ -72,30 +99,35 @@ namespace Testinator.Server.Core
         #region Command Methods
 
         /// <summary>
-        /// Chooses a test from the list
+        /// Select an item from the list
         /// </summary>
-        private void ChooseTest(object param)
+        private void SelectItem(object param)
         {
             // Cast the parameter
-            var testID = int.Parse(param.ToString());
+            var newSelectedItemIndex = int.Parse(param.ToString());
 
-            // Load test based on that
-            IoCServer.TestHost.AddTest(Items[testID - 1].Test);
+            // If the same item got selected there is no more to do
+            if (mCurrentlySelectedItemIndex == newSelectedItemIndex)
+                return;
 
-            // Mark all items not selected
-            foreach (var item in Items)
-            {
-                item.IsSelected = false;
-            }
+            // Unselect last item
+            Items[mCurrentlySelectedItemIndex].IsSelected = false;
 
             // Select the one that has been clicked
-            Items[testID - 1].IsSelected = true;
+            Items[newSelectedItemIndex].IsSelected = true;
 
-            // Indicate that a test is now selected
+            // Save new selected item index
+            mCurrentlySelectedItemIndex = newSelectedItemIndex;
+
+            // Indicate that there is an item selected
             IsAnySelected = true;
 
-            // Fire an event
-            ItemSelected.Invoke();
+            // Set selected item
+            SelectedItem = Items[newSelectedItemIndex].Test;
+
+            // Fire the events
+            SelectionChanged.Invoke();
+            ItemSelected.Invoke(SelectedItem);
         }
 
         #endregion
@@ -107,11 +139,12 @@ namespace Testinator.Server.Core
         /// </summary>
         public void LoadItems()
         {
-            var list = new List<Test>();
+            var ItemsOnHardDrive = new List<Test>();
+
             try
             {
                 // Try to load the list of every test from bin files
-                list = TestFileReader.ReadFile<Test>();
+                ItemsOnHardDrive = TestFileReader.ReadFile<Test>();
             }
             catch (Exception ex)
             {
@@ -129,16 +162,19 @@ namespace Testinator.Server.Core
 
             // Rewrite list to the collection
             Items = new ObservableCollection<TestListItemViewModel>();
-            var indexer = 1;
-            foreach(var test in list)
+            for (var i = 0; i < ItemsOnHardDrive.Count; i++)
             {
                 Items.Add(new TestListItemViewModel()
                 {
-                    ID = indexer,
-                    Test = test,
+                    ID = i,
+                    Test = ItemsOnHardDrive[i],
                 });
-                indexer++;
             }
+
+            mCurrentlySelectedItemIndex = NothingSelected;
+            SelectedItem = null;
+
+            SelectionChanged.Invoke();
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace Testinator.Client.Core
         private Timer mTestTimer = new Timer(1000);
 
         /// <summary>
-        /// Indicates current question
+        /// Indicates current question staring from 0
         /// </summary>
         private int mCurrentQuestion = 0;
 
@@ -27,6 +27,12 @@ namespace Testinator.Client.Core
         /// </summary>
         private bool mFullScreenModeOn = false;
 
+        /// <summary>
+        /// Indicates if this is the first question that test host is showing
+        /// Prevent from question counter bug
+        /// </summary>
+        private bool mFirstQuestion = true;
+
         #endregion
 
         #region Public Properties
@@ -34,7 +40,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        public Test CurrentTest { get; set; } = new Test();
+        public Test CurrentTest { get; set; }
 
         /// <summary>
         /// List of all questions in the test
@@ -90,7 +96,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Shows which question is currently shown
         /// </summary>
-        public string QuestionNumber { get; private set; }
+        public string CurrentQuestionString { get; private set; }
 
         /// <summary>
         /// The user's score
@@ -170,8 +176,12 @@ namespace Testinator.Client.Core
             if (!IsTestReceived || IsTestInProgress || IsShowingResultPage)
                 return;
 
+            if (CurrentTest == null)
+                throw new Exception("Cannot start the test");
+
             // Indicate that test is starting
             IoCClient.Logger.Log("Test is starting...");
+
             IsTestInProgress = true;
 
             // Initialize the answer list so user can add their answers to it
@@ -187,7 +197,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Stops the test forcefully, if asked by the server
         /// </summary>
-        public void StopTestForcefully()
+        public void AbortTest()
         {
             // Stop the test only if it is in progress
             if (!IsTestInProgress)
@@ -201,7 +211,7 @@ namespace Testinator.Client.Core
                 Title = "Test został zatrzymany!",
                 Message = "Test został zatrzymany na polecenie serwera.",
                 OkText = "Ok"
-            }); // Indicate that we are not on the UIThread here
+            });
 
             // Reset the test host
             Reset();
@@ -224,7 +234,7 @@ namespace Testinator.Client.Core
             CurrentTest = test;
 
             // Set the timeleft to the duration time
-            TimeLeft = test.Duration;
+            TimeLeft = test.Info.Duration;
 
             // Randomize question order
             Questions.Shuffle();
@@ -236,7 +246,7 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
-        /// Resets the test host and clear all the flags and properties
+        /// Resets the test host and clears all the flags and properties
         /// </summary>
         public void Reset()
         {
@@ -248,10 +258,10 @@ namespace Testinator.Client.Core
             mTestTimer.Stop();
 
             // Clear all properties
-            CurrentTest = new Test();
+            CurrentTest = null;
             UserAnswers = new List<Answer>();
             UserScore = 0;
-            UserMark = Marks.F;
+            UserMark = default(Marks);
             QuestionViewModels = new List<BaseViewModel>();
 
             // Clear flags
@@ -271,31 +281,30 @@ namespace Testinator.Client.Core
         /// <param name="answer">The answer itself</param>
         public void SaveAnswer(Answer answer)
         {
-            // Make id of the question match the id of the answer
-            answer.ID = Questions[mCurrentQuestion - 1].ID;
-
             // Save the answer
             UserAnswers.Add(answer);
 
             // Log it
-            IoCClient.Logger.Log("Add user answer");
+            IoCClient.Logger.Log($"User answer added for question nr {CurrentQuestionString}");
         }
 
         /// <summary>
         /// Goes to the next question, or
-        /// Starts the test, or
-        /// Shows the end screen if there is no more questions
+        /// shows the end screen if there is no more questions
         /// </summary>
         public void GoNextQuestion()
         {
-            // Update question number
-            UpdateQuestionNumber();
+            if (!mFirstQuestion)
+            { 
+                // Update question number
+                UpdateQuestionNumber();
 
-            // Send the update
-            SendUpdate();
+                // Send the update
+                SendUpdate();
+            }
 
             // If last question was the last question, finish the test
-            if (mCurrentQuestion > Questions.Count)
+            if (mCurrentQuestion >= Questions.Count)
             {
                 TestFinished();
                 return;
@@ -304,49 +313,9 @@ namespace Testinator.Client.Core
             // Indicate that we are going to the next question
             IoCClient.Logger.Log("Going to the next question");
 
-            // Based on next question type...
-            switch (Questions[mCurrentQuestion - 1].Type)
-            {
-                case QuestionType.MultipleChoice:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionMultipleChoiceViewModel();
-                        questionViewModel.AttachQuestion(Questions[mCurrentQuestion - 1] as MultipleChoiceQuestion);
-                        IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleChoice, questionViewModel);
-                        break;
-                    }
+            QuestionHelpers.ShowQuestion(CurrentTest.Questions[mCurrentQuestion]);
 
-                case QuestionType.MultipleCheckboxes:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionMultipleCheckboxesViewModel();
-                        questionViewModel.AttachQuestion(Questions[mCurrentQuestion - 1] as MultipleCheckboxesQuestion);
-                        IoCClient.UI.ChangePage(ApplicationPage.QuestionMultipleCheckboxes, questionViewModel);
-                        break;
-                    }
-
-                case QuestionType.SingleTextBox:
-                    {
-                        // Get the view model of a question and pass it as a parameter to new site
-                        var questionViewModel = new QuestionSingleTextBoxViewModel();
-                        questionViewModel.AttachQuestion(Questions[mCurrentQuestion - 1] as SingleTextBoxQuestion);
-                        IoCClient.UI.ChangePage(ApplicationPage.QuestionSingleTextBox, questionViewModel);
-                        break;
-                    }
-            }
-        }
-
-        /// <summary>
-        /// Unloads the test from this host
-        /// </summary>
-        public void UnloadTest()
-        {
-            // Erase the test
-            CurrentTest = new Test();
-
-            // Indicate that we are out of test now
-            IoCClient.Logger.Log("Test erasing");
-            IsTestReceived = false;
+            mFirstQuestion = false;
         }
 
         /// <summary>
@@ -357,7 +326,7 @@ namespace Testinator.Client.Core
         {
             AreResultsAllowed = args.IsResultsPageAllowed;
             FullScreenMode = args.FullScreenMode;
-            TimeLeft = CurrentTest.Duration - args.TimerOffset;
+            TimeLeft = CurrentTest.Info.Duration - args.TimerOffset;
         }
 
         /// <summary>
@@ -371,156 +340,18 @@ namespace Testinator.Client.Core
             // Log what we are doing
             IoCClient.Logger.Log("Calculating user's score");
 
-            
-            // We can iterate like this because the question list and answer list are in the same order
-            for (var i = 0; i < Questions.Count; i++)
+            for (var i = 0; i < CurrentTest.Questions.Count; i++)
             {
-                // Based on question type...
-                switch (Questions[i].Type)
-                {
-                    case QuestionType.MultipleChoice:
-                        {
-                            // Create local variables for the answer and correct answer boolean for the further use
-                            MultipleChoiceAnswer multipleChoiceAnswer = null;
-                            var isAnswerCorrect = false;
-                            var multipleChoiceQuestion = Questions[i] as MultipleChoiceQuestion;
+                // We can stop here as all the rest answers are blank
+                if (UserAnswers[i] == null)
+                    break;
 
-                            // Try to get answer in the try/catch in case the answer doesn't exist
-                            try
-                            {
-                                // Cast the answer and question objects
-                                // NOTE: if the answer doesn't exist exception is thrown here
-                                multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
-
-                                isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
-                                
-                                // Check if user has answered correctly
-                                if (isAnswerCorrect)
-                                    // Give them points for this question
-                                    totalScore += multipleChoiceQuestion.PointScore;
-                            }
-                            // Catch the exception but let the answer to be saved
-                            catch (ArgumentOutOfRangeException) { }
-                            
-                            // Create view model for the future use by the result page
-                            var viewmodel = new QuestionMultipleChoiceViewModel()
-                            {
-                                IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = multipleChoiceAnswer,
-                                IsReadOnly = true,
-                                Index = i,
-                            };
-
-                            // Attach the question
-                            viewmodel.AttachQuestion(multipleChoiceQuestion);
-
-                            QuestionViewModels.Add(viewmodel);
-                        }
-                        break;
-
-                    case QuestionType.MultipleCheckboxes:
-                        {
-                            // Create local variables for the answer and correct answer boolean for the further use
-                            MultipleCheckboxesAnswer multipleCheckboxesAnswer = null;
-                            var isAnswerCorrect = false;
-                            var multipleCheckboxesQuestion = Questions[i] as MultipleCheckboxesQuestion;
-                                                        
-                            // Try to get answer in the try/catch in case the answer doesn't exist
-                            try
-                            {
-                                // Cast the answer and question objects
-                                // NOTE: if the answer doesn't exist exception is thrown here
-                                multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
-
-                                isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
-
-                                // Check if user has answered correctly
-                                if (isAnswerCorrect)
-                                    // Give them points for this question
-                                    totalScore += multipleCheckboxesQuestion.PointScore;
-                            }
-                            // Catch the exception but let the answer to be saved
-                            catch (ArgumentOutOfRangeException) { }
-
-                            // Create view model for the future use by the result page
-                            var viewmodel = new QuestionMultipleCheckboxesViewModel()
-                            {
-                                IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = multipleCheckboxesAnswer,
-                                IsReadOnly = true,
-                                Index = i,
-                            };
-
-                            // Attach the question
-                            viewmodel.AttachQuestion(multipleCheckboxesQuestion);
-
-                            QuestionViewModels.Add(viewmodel);
-                        }
-                        break;
-
-                    case QuestionType.SingleTextBox:
-                        {
-                            // Create local variables for the answer and correct answer boolean for the further use
-                            SingleTextBoxAnswer singleTextBoxAnswer = null;
-                            var isAnswerCorrect = false;
-                            var singleTextBoxQuestion = Questions[i] as SingleTextBoxQuestion;
-
-                            // Try to get answer in the try/catch in case the answer doesn't exist
-                            try
-                            {
-                                // Cast the answer and question objects
-                                // NOTE: if the answer doesn't exist exception is thrown here
-                                singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
-
-                                isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
-
-                                // Check if user has answered correctly
-                                if (isAnswerCorrect)
-                                    // Give them multipleCheckboxesAnswer for this question
-                                    totalScore += singleTextBoxQuestion.PointScore;
-                            }
-                            // Catch the exception but let the answer to be saved
-                            catch (ArgumentOutOfRangeException) { }
-
-                            // Create view model for the future use by the result page
-                            var viewmodel = new QuestionSingleTextBoxViewModel()
-                            {
-                                IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = singleTextBoxAnswer?.Answer,
-                                IsReadOnly = true,
-                                Index = i,
-                            };
-
-                            // Attach the question
-                            viewmodel.AttachQuestion(singleTextBoxQuestion);
-
-                            QuestionViewModels.Add(viewmodel);
-                        }
-                        break;
-                }
+                totalScore += CurrentTest.Questions[i].CheckAnswer(UserAnswers[i]);
             }
 
             // Set calculated point score to the property and set the corresponding mark
             UserScore = totalScore;
             UserMark = CurrentTest.Grading.GetMark(UserScore);
-        }
-
-        /// <summary>
-        /// Fired to indicated that connection has been re-established
-        /// </summary>
-        public void NetworkReconnected()
-        {
-            // Send update
-            SendUpdate();
-
-            // If the result has not been sent yet and the test is completed
-            if (!IsResultSent && IsTestCompleted)
-                TrySendResult();
-            
-        }
-
-        public void NetworkDisconnected()
-        {
         }
 
         #endregion
@@ -549,6 +380,7 @@ namespace Testinator.Client.Core
                 IoCClient.Application.Network.SendData(data);
                 IsResultSent = true;
             }
+
             else
             {
                 try
@@ -665,7 +497,7 @@ namespace Testinator.Client.Core
         private void ResetQuestionNumber()
         {
             mCurrentQuestion = 0;
-            QuestionNumber = mCurrentQuestion + " / " + Questions.Count;
+            CurrentQuestionString = mCurrentQuestion + " / " + Questions.Count;
         }
 
         /// <summary>
@@ -674,7 +506,7 @@ namespace Testinator.Client.Core
         private void UpdateQuestionNumber()
         {
             mCurrentQuestion++;
-            QuestionNumber = mCurrentQuestion + " / " + Questions.Count;
+            CurrentQuestionString = mCurrentQuestion + 1 + " / " + Questions.Count;
         }
 
         /// <summary>

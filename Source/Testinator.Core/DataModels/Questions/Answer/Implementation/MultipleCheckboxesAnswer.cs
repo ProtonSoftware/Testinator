@@ -3,47 +3,11 @@ using System.Collections.Generic;
 
 namespace Testinator.Core
 {
-    #region OLD
-
     /// <summary>
-    /// The answer for multiple checkboxes question
+    /// The answer for <see cref="MultipleCheckBoxesQuestion"/>
     /// </summary>
     [Serializable]
-    public class MultipleCheckboxesAnswer : Answer
-    {
-        #region Public Properties
-
-        /// <summary>
-        /// The answer itself
-        /// </summary>
-        public List<bool> Answers { get; set; } = new List<bool>();
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <param name="answer">The answer to the question</param>
-        public MultipleCheckboxesAnswer(List<bool> answer)
-        {
-            Type = QuestionType.MultipleCheckboxes;
-            Answers = answer;
-        }
-        
-        #endregion
-    }
-
-    #endregion
-
-    #region NEW
-
-    /// <summary>
-    /// The answer for <see cref="MultipleCheckBoxesQuestionXXX"/>
-    /// </summary>
-    [Serializable]
-    public class MultipleCheckBoxesAnswerXXX : AnswerXXX
+    public class MultipleCheckBoxesAnswer : Answer
     {
         #region Public Properties
 
@@ -69,7 +33,4 @@ namespace Testinator.Core
 
         #endregion
     }
-
-    #endregion
-
 }

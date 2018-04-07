@@ -6,7 +6,7 @@ using Testinator.Core;
 namespace Testinator.Client.Core
 {
     /// <summary>
-    /// A viewmodel for <see cref="MultipleCheckboxesQuestion"/>
+    /// A viewmodel for <see cref="MultipleCheckBoxesQuestion"/>
     /// </summary>
     public class QuestionMultipleCheckboxesViewModel : BaseViewModel
     {
@@ -15,13 +15,13 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The question for this view model to show
         /// </summary>
-        public MultipleCheckboxesQuestion Question { get; set; }
+        public MultipleCheckBoxesQuestion Question { get; set; }
 
         /// <summary>
         /// The title which shows question id
         /// </summary>
         public string QuestionPageCounter =>
-            IsReadOnly ? "Pytanie " + DisplayIndex + " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.QuestionNumber;
+            IsReadOnly ? "Pytanie " + DisplayIndex + " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.CurrentQuestionString;
 
         /// <summary>
         /// Options for the questions to check or uncheck
@@ -55,7 +55,7 @@ namespace Testinator.Client.Core
         /// The answer give by the user 
         /// Makes sense only if <see cref="IsReadOnly"/> is set to true
         /// </summary>
-        public MultipleCheckboxesAnswer UserAnswer { get; set; }
+        public MultipleCheckBoxesAnswer UserAnswer { get; set; }
 
         /// <summary>
         /// The index of the viewmodel in a viewmodels list
@@ -138,7 +138,11 @@ namespace Testinator.Client.Core
             }
 
             // Save the answer
-            var answer = new MultipleCheckboxesAnswer(checkedList);
+            var answer = new MultipleCheckBoxesAnswer()
+            {
+                UserAnswer = checkedList,
+            };
+
             IoCClient.TestHost.SaveAnswer(answer);
 
             // Go to next question page
@@ -154,13 +158,13 @@ namespace Testinator.Client.Core
         /// NOTE: needs to be done before attaching this view model to the page
         /// </summary>
         /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(MultipleCheckboxesQuestion question)
+        public void AttachQuestion(MultipleCheckBoxesQuestion question)
         {
             // Get the question
             Question = question;
 
             // Convert from dictionary to answer items list
-            Options = ListConvertFromDictionaryQuestion(Question.OptionsAndAnswers);
+            Options = ListConvertQuestion();
 
             // If not in readonly mode...
             if (!IsReadOnly)
@@ -176,24 +180,23 @@ namespace Testinator.Client.Core
         #region Private Helpers
 
         /// <summary>
-        /// Takes in a list of strings and converts it to actual list of answer items
+        /// Converts the question to actual list of answer items
         /// </summary>
-        /// <param name="options">Possible answers to the question as list of string</param>
         /// <returns></returns>
-        private List<CheckboxAnswerItemViewModel> ListConvertFromDictionaryQuestion(Dictionary<string, bool> options)
+        private List<CheckboxAnswerItemViewModel> ListConvertQuestion()
         {
             // Initialize the list that we are willing to return 
             var FinalList = new List<CheckboxAnswerItemViewModel>();
 
             var i = 0;
             // Loop each answer to create answer item from it
-            foreach (var option in options)
+            foreach (var option in Question.Options)
             {
                 // Create new answer item
                 var answerItem = new CheckboxAnswerItemViewModel
                 {
                     // Rewrite answer string content
-                    Text = option.Key.ToString(),
+                    Text = option,
 
                     // Set the read only property if required
                     IsReadOnly = IsReadOnly,
@@ -206,13 +209,13 @@ namespace Testinator.Client.Core
                     // If the user answer is null (meaning the user didnt answer this question), skip this iteration
                     if (UserAnswer != null)
                     {
-                        answerItem.IsChecked = UserAnswer.Answers[i];
-                        answerItem.IsCorrect = option.Value == UserAnswer.Answers[i];
+                        answerItem.IsChecked = UserAnswer.UserAnswer[i];
+                        answerItem.IsCorrect = Question.CorrectAnswer[i] == UserAnswer.UserAnswer[i];
                     }
                     else
                     {
                         // Mark the checkboxes in the correct order if the user didn't give the answer
-                        answerItem.IsChecked = option.Value;
+                        answerItem.IsChecked = Question.CorrectAnswer[i];
                         NoAnswer = true;
                     }
                 }

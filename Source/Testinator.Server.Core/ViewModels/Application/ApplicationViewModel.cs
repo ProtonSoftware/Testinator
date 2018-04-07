@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -14,6 +15,8 @@ namespace Testinator.Server.Core
         /// The language of this application
         /// </summary>
         public string ApplicationLanguage { get; set; } = "pl-PL";
+
+        public Version Version { get; private set; }
 
         /// <summary>
         /// Show the side menu only if we are not on login page
@@ -72,6 +75,20 @@ namespace Testinator.Server.Core
         public void Close()
         {
             Closing.Invoke();
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ApplicationViewModel()
+        {
+            // Get the current version from assebly
+            var assebly = Assembly.LoadFrom("Testinator.Server.Core.dll");
+            Version = assebly.GetName().Version;
         }
 
         #endregion

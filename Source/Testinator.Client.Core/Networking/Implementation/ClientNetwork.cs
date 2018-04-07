@@ -75,7 +75,7 @@ namespace Testinator.Client.Core
             if (IoCClient.TestHost.IsTestInProgress)
             {
                 // Notify the test host about the disconnection
-                IoCClient.TestHost.NetworkDisconnected();
+                //IoCClient.TestHost.NetworkDisconnected();
 
                 // Set attempting to reconnect
                 AttemptingToReconnect = true;
@@ -128,7 +128,7 @@ namespace Testinator.Client.Core
             }
             else
                 // Notify the test host
-                IoCClient.TestHost.NetworkReconnected();
+                //IoCClient.TestHost.NetworkReconnected();
             
             // Save current IP to the file, as connection was successful
             SaveNetworkConfigToFile();
@@ -148,21 +148,17 @@ namespace Testinator.Client.Core
                     break;
 
                 case PackageType.BeginTest:
-                    // Start the test
+
+                    var args = DataReceived.Content as TestStartupArgs;
+
+                    IoCClient.TestHost.SetupArguments(args);
                     IoCClient.TestHost.StartTest();
                     break;
 
                 case PackageType.StopTestForcefully:
-                    IoCClient.TestHost.StopTestForcefully();
+                    IoCClient.TestHost.AbortTest();
                     break;
 
-                case PackageType.TestStartupArgs:
-                    var args = DataReceived.Content as TestStartupArgs;
-                    if (args == null)
-                        return;
-
-                    IoCClient.TestHost.SetupArguments(args);
-                    break;
             }
         }
 

@@ -4,9 +4,9 @@ using Testinator.Core.QuestionBuilders;
 namespace Testinator.Core
 {
     /// <summary>
-    /// The concrete builder to create <see cref="MultipleChoiceQuestionXXX"/>
+    /// The concrete builder to create <see cref="MultipleChoiceQuestion"/>
     /// </summary>
-    public class MultipleChoiceQuestionBuilder : QuestionBuilder<MultipleChoiceQuestionXXX, List<string>, int>
+    public class MultipleChoiceQuestionBuilder : QuestionBuilder<MultipleChoiceQuestion, List<string>, int>
     {
         #region Private Specific Methods
 
@@ -130,7 +130,7 @@ namespace Testinator.Core
         /// Works as an editor in this context
         /// </summary>
         /// <param name="Prototype">The prototype question</param>
-        public MultipleChoiceQuestionBuilder(MultipleChoiceQuestionXXX Prototype) : base(Prototype) { }
+        public MultipleChoiceQuestionBuilder(MultipleChoiceQuestion Prototype) : base(Prototype) { }
 
         #endregion
 

@@ -35,8 +35,8 @@
                       CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Width="Auto" IsReadOnly="False" Header="{x:Static core:LocalizationResource.SendTestQuestion}" Binding="{Binding IsSelected}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserName}" Binding="{Binding Object.ClientName}"/>
-                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserSurname}" Binding="{Binding Object.ClientSurname}"/>
+                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserName}" Binding="{Binding Object.Name}"/>
+                    <DataGridTextColumn Width="*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserSurname}" Binding="{Binding Object.LastName}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

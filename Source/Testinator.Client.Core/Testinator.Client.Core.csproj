@@ -71,6 +71,7 @@
     <Compile Include="Networking\Models\ClientModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\ListHelpers.cs" />
+    <Compile Include="Test\QuestionHelpers.cs" />
     <Compile Include="Test\TestHost.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Application\PageHostViewModel.cs" />

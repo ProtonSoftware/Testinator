@@ -51,7 +51,7 @@ namespace Testinator.Server.Core
                 {
                     Name = LocalizationResource.TestEditorTitle,
                     Icon = IconType.Editor,
-                    TargetPage = ApplicationPage.TestEditor
+                    TargetPage = ApplicationPage.TestEditorInitial
                 },
                 new MenuListItemViewModel
                 {

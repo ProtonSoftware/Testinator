@@ -286,13 +286,6 @@ namespace Testinator.Server.Core
             // Get the target socket
             var targetSocket = mClients.FirstOrDefault(x => x.Value == TargetClient).Key;
 
-            // It target does not exist...
-            if (targetSocket == null)
-            {
-                IoCServer.Logger.Log("Could not send the data as target client does not exist");
-                throw new ServerException(LocalizationResource.CouldNotSendData, "Target client does not exist");
-            }
-
             // Attempt to send data
             try
             {

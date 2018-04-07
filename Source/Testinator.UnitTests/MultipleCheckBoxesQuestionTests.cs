@@ -10,7 +10,7 @@ namespace Testinator.UnitTests
     {
         public static int FullPointScore { get; set; } = 2;
         public static List<bool> CorrectAnswer_3Options { get; set; } = new List<bool>() { true, false, true };
-        public MultipleCheckBoxesQuestionXXX Question_3Options { get; set; } = new MultipleCheckBoxesQuestionXXX()
+        public MultipleCheckBoxesQuestion Question_3Options { get; set; } = new MultipleCheckBoxesQuestion()
         {
             Options = new List<string>() { "Option1", "Option2", "Option3" },
             CorrectAnswer  = CorrectAnswer_3Options,
@@ -25,7 +25,7 @@ namespace Testinator.UnitTests
         public static List<bool> CorrectAnswer_4Options_1Correct { get; set; } = new List<bool>() { false, false, false, true };
         public static List<bool> CorrectAnswer_4Options_0Correct { get; set; } = new List<bool>() { false, false, false, false };
 
-        public MultipleCheckBoxesQuestionXXX Question_4Options_HalfAnswerMode { get; set; } = new MultipleCheckBoxesQuestionXXX()
+        public MultipleCheckBoxesQuestion Question_4Options_HalfAnswerMode { get; set; } = new MultipleCheckBoxesQuestion()
         {
             Options = new List<string>() { "Option1", "Option2", "Option3", "Option4" },
             CorrectAnswer = CorrectAnswer_4Options_4Correct,
@@ -34,7 +34,7 @@ namespace Testinator.UnitTests
 
         };
 
-        public MultipleCheckBoxesQuestionXXX Question_4Options_EvenPartsMode { get; set; } = new MultipleCheckBoxesQuestionXXX()
+        public MultipleCheckBoxesQuestion Question_4Options_EvenPartsMode { get; set; } = new MultipleCheckBoxesQuestion()
         {
             Options = new List<string>() { "Option1", "Option2", "Option3", "Option4" },
             CorrectAnswer = CorrectAnswer_4Options_4Correct,
@@ -46,7 +46,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_FullScoreMode_FullyGoodAnswer()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_3Options,
             };
@@ -60,7 +60,7 @@ namespace Testinator.UnitTests
         [ExpectedException(typeof(NullReferenceException))]
         public void CheckingAnswer_NullAnswerContent()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = null,
             };
@@ -81,7 +81,7 @@ namespace Testinator.UnitTests
         [ExpectedException(typeof(Exception))]
         public void CheckingAnswer_NotMatchingAnswerCount()
         {
-            var answer = new MultipleCheckBoxesAnswerXXX()
+            var answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = new List<bool>(CorrectAnswer_3Options.Count + 1),
             };
@@ -94,7 +94,7 @@ namespace Testinator.UnitTests
         [ExpectedException(typeof(Exception))]
         public void CheckingAnswer_NotMatchingAnswerType()
         {
-            var answer = new SingleTextBoxAnswerXXX()
+            var answer = new SingleTextBoxAnswer()
             {
                UserAnswer = "",
             };
@@ -110,7 +110,7 @@ namespace Testinator.UnitTests
             foreach (var item in CorrectAnswer_3Options)
                 badAnswer.Add(!item);
 
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = badAnswer,
             };
@@ -123,7 +123,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_HalfTheAnswerMode_4OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_4Correct,
             };
@@ -137,7 +137,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_HalfTheAnswerMode_3OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_3Correct,
             };
@@ -151,7 +151,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_HalfTheAnswerMode_2OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_2Correct,
             };
@@ -165,7 +165,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_HalfTheAnswerMode_1OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_1Correct,
             };
@@ -179,7 +179,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_HalfTheAnswerMode_0OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_0Correct,
             };
@@ -194,7 +194,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_EvenPartsMode_0OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_0Correct,
             };
@@ -208,7 +208,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_EvenPartsMode_1OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_1Correct,
             };
@@ -222,7 +222,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_EvenPartsMode_2OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_2Correct,
             };
@@ -236,7 +236,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_EvenPartsMode_3OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_3Correct,
             };
@@ -251,7 +251,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_EvenPartsMode_4OutOf4correct()
         {
-            var Answer = new MultipleCheckBoxesAnswerXXX()
+            var Answer = new MultipleCheckBoxesAnswer()
             {
                 UserAnswer = CorrectAnswer_4Options_4Correct,
             };

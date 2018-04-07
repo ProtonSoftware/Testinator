@@ -1,48 +1,12 @@
 ﻿using System;
 
 namespace Testinator.Core
-{
-    #region OLD
-
+{    
     /// <summary>
-    /// The answer for multiple choice question
+    /// The answer for <see cref="MultipleChoiceQuestion"/>
     /// </summary>
     [Serializable]
     public class MultipleChoiceAnswer : Answer
-    {
-        #region Public Properties
-
-        /// <summary>
-        /// Index of the selected answer
-        /// </summary>
-        public int SelectedAnswerIdx { get; set; }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <param name="AnswerIdx">The answer for this question</param>
-        public MultipleChoiceAnswer(int AnswerIdx) 
-        {
-            Type = QuestionType.MultipleChoice;
-            SelectedAnswerIdx = AnswerIdx;
-        }
-        
-        #endregion
-    }
-
-    #endregion
-
-    #region NEW
-
-    /// <summary>
-    /// The answer for <see cref="MultipleChoiceQuestionXXX"/>
-    /// </summary>
-    [Serializable]
-    public class MultipleChoiceAnswerXXX : AnswerXXX
     {
         #region Private Members
 
@@ -77,6 +41,4 @@ namespace Testinator.Core
         
         #endregion
     }
-
-    #endregion
 }

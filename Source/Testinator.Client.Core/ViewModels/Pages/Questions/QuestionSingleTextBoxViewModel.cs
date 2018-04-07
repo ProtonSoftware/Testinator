@@ -21,7 +21,7 @@ namespace Testinator.Client.Core
         /// The title which shows question id
         /// </summary>
         public string QuestionPageCounter =>
-            IsReadOnly ? "Pytanie " + DisplayIndex + " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.QuestionNumber;
+            IsReadOnly ? "Pytanie " + DisplayIndex + " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.CurrentQuestionString;
 
         /// <summary>
         /// Current answer written by the user
@@ -116,7 +116,10 @@ namespace Testinator.Client.Core
             }
 
             // Save the answer
-            var answer = new SingleTextBoxAnswer(UserAnswer);
+            var answer = new SingleTextBoxAnswer()
+            {
+                UserAnswer = UserAnswer,
+            };
             IoCClient.TestHost.SaveAnswer(answer);
 
             // Go to next question page

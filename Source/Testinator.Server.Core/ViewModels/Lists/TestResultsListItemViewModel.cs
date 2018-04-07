@@ -41,7 +41,7 @@ namespace Testinator.Server.Core
         /// <param name="index">THe index of this item in the list</param>
         public TestResultsListItemViewModel(ServerTestResults results, int index)
         {
-            TestName = results.Test.Name;
+            TestName = results.Test.Info.Name;
             Date = results.Date.ToLongDateString();
             Index = index;
         }

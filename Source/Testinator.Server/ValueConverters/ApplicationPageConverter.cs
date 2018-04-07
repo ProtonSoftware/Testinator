@@ -44,26 +44,26 @@ namespace Testinator.Server
                 case ApplicationPage.BeginTestResults:
                     return new BeginTestResultsPage(viewModel as BeginTestViewModel);
 
-                case ApplicationPage.TestEditor:
-                    return new TestEditorPage(viewModel as TestEditorViewModel);
+                case ApplicationPage.TestEditorInitial:
+                    return new TestEditorInitialPage(viewModel as TestEditorInitialPageViewModel);
 
-                case ApplicationPage.TestEditorAddNewCriteria:
-                    return new TestEditorAddNewCriteriaPage(viewModel as TestEditorAddNewCriteriaViewModel);
+                case ApplicationPage.TestEditorCriteriaEditor:
+                    return new TestEditorCriteriaEditorPage(viewModel as TestEditorCriteriaEditorViewModel);
 
-                case ApplicationPage.TestEditorAddTest:
-                    return new TestEditorAddNewTestPage(viewModel as TestEditorAddNewTestViewModel);
+                case ApplicationPage.TestEditorBasicInformationEditor:
+                    return new TestEditorBasicInformationEditorPage(viewModel as TestEditorBasicInformationEditorViewModel);
 
-                case ApplicationPage.TestEditorAddQuestions:
-                    return new TestEditorAddQuestionsPage(viewModel as TestEditorAddNewTestViewModel);
+                case ApplicationPage.TestEditorQuestionsEditor:
+                    return new TestEditorQuestionsEditorPage(viewModel as TestEditorQuestionsEditorViewModel);
 
-                case ApplicationPage.TestEditorEditTest:
-                    return new TestEditorEditTestPage(viewModel as TestEditorEditTestViewModel);
+                case ApplicationPage.TestEditorTestManagmentPage:
+                    return new TestEditorTestManagmentPage(viewModel as TestEditorTestManagmentViewModel);
 
                 case ApplicationPage.TestEditorAttachCriteria:
-                    return new TestEditorAttachCriteriaPage(viewModel as TestEditorAddNewTestViewModel);
+                    return new TestEditorAttachCriteriaPage(viewModel as TestEditorAttachCriteriaViewModel);
 
-                case ApplicationPage.TestEditorResult:
-                    return new TestEditorResultPage(viewModel as TestEditorAddNewTestViewModel);
+                case ApplicationPage.TestEditorFinalize:
+                    return new TestEditorFinalizePage(viewModel as TestEditorFinalizingViewModel);
 
                 case ApplicationPage.TestResultsInitial:
                     return new TestResultsInitialPage(viewModel as TestResultsViewModel);
@@ -139,26 +139,26 @@ namespace Testinator.Server
             if (page is BeginTestResultsPage)
                 return ApplicationPage.BeginTestResults;
 
-            if (page is TestEditorPage)
-                return ApplicationPage.TestEditor;
+            if (page is TestEditorInitialPage)
+                return ApplicationPage.TestEditorInitial;
 
-            if (page is TestEditorAddNewCriteriaPage)
-                return ApplicationPage.TestEditorAddNewCriteria;
+            if (page is TestEditorCriteriaEditorPage)
+                return ApplicationPage.TestEditorCriteriaEditor;
 
-            if (page is TestEditorAddNewTestPage)
-                return ApplicationPage.TestEditorAddTest;
+            if (page is TestEditorBasicInformationEditorPage)
+                return ApplicationPage.TestEditorBasicInformationEditor;
 
-            if (page is TestEditorAddQuestionsPage)
-                return ApplicationPage.TestEditorAddQuestions;
+            if (page is TestEditorQuestionsEditorPage)
+                return ApplicationPage.TestEditorQuestionsEditor;
 
-            if (page is TestEditorEditTestPage)
-                return ApplicationPage.TestEditorEditTest;
+            if (page is TestEditorTestManagmentPage)
+                return ApplicationPage.TestEditorTestManagmentPage;
 
             if (page is TestEditorAttachCriteriaPage)
                 return ApplicationPage.TestEditorAttachCriteria;
 
-            if (page is TestEditorResultPage)
-                return ApplicationPage.TestEditorResult;
+            if (page is TestEditorFinalizePage)
+                return ApplicationPage.TestEditorFinalize;
 
             if (page is TestResultsInitialPage)
                 return ApplicationPage.TestResultsInitial;

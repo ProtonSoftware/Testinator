@@ -11,7 +11,7 @@ namespace Testinator.UnitTests
     [TestClass]
     public class MultipleCheckBoxesQuestionBuilderTests
     {
-        public MultipleCheckBoxesQuestionXXX CorrectQuestionPrototype { get; set; } = new MultipleCheckBoxesQuestionXXX()
+        public MultipleCheckBoxesQuestion CorrectQuestionPrototype { get; set; } = new MultipleCheckBoxesQuestion()
         {
             Task = new TaskContent("<p1>Test</p1>"),
             Options = new List<string>() { "Option1", "Option2", "Option3" },
@@ -36,7 +36,7 @@ namespace Testinator.UnitTests
         [ExpectedException(typeof(NullReferenceException))]
         public void CreatingQuestion_NullTask()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             Task = null;
 
@@ -47,7 +47,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_NullOptions()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             Options = null;
 
@@ -59,7 +59,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_EmptyOptions()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             Options = new List<string>();
 
@@ -71,7 +71,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_NullAnswers()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             CorrectAnswer = null;
 
@@ -83,7 +83,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_TooBigAnswerCount()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             CorrectAnswer = new List<bool>() { true, false, false, false};
 
@@ -95,7 +95,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_TooSmallAnswerCount()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             CorrectAnswer = new List<bool>() { true,};
 
@@ -107,7 +107,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_OptionsListTrimming()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             Options[2] = "  kkk   ";
 
@@ -119,7 +119,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestion_IdenticalOptions()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
             Options[2] = "  kkk   ";
             Options[1] = "kkk";
@@ -133,7 +133,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CreatingQuestionFromAnotherQuestion_FullyValidData()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder(CorrectQuestionPrototype);
+            var builder = new MultipleCheckBoxesQuestionBuilder(CorrectQuestionPrototype);
 
             var question = builder.GetResult();
 
@@ -155,7 +155,7 @@ namespace Testinator.UnitTests
         {
             CorrectQuestionPrototype.Options = null;
 
-            var builder = new MultipleCheckboxesQuestionBuilder(CorrectQuestionPrototype);
+            var builder = new MultipleCheckBoxesQuestionBuilder(CorrectQuestionPrototype);
 
             var question = builder.GetResult();
 
@@ -167,7 +167,7 @@ namespace Testinator.UnitTests
         {
             CorrectQuestionPrototype.Task = null;
 
-            var builder = new MultipleCheckboxesQuestionBuilder(CorrectQuestionPrototype);
+            var builder = new MultipleCheckBoxesQuestionBuilder(CorrectQuestionPrototype);
 
             var question = builder.GetResult();
 
@@ -179,16 +179,16 @@ namespace Testinator.UnitTests
         {
             CorrectQuestionPrototype.Scoring = null;
 
-            var builder = new MultipleCheckboxesQuestionBuilder(CorrectQuestionPrototype);
+            var builder = new MultipleCheckBoxesQuestionBuilder(CorrectQuestionPrototype);
 
             var question = builder.GetResult();
 
             Assert.IsNull(question);
         }
 
-        private MultipleCheckBoxesQuestionXXX AssemblyQuestion()
+        private MultipleCheckBoxesQuestion AssemblyQuestion()
         {
-            var builder = new MultipleCheckboxesQuestionBuilder();
+            var builder = new MultipleCheckBoxesQuestionBuilder();
 
 
             builder.AddOptions(Options);
@@ -199,7 +199,7 @@ namespace Testinator.UnitTests
             return builder.GetResult();
         }
         
-        private bool IsCorrect(MultipleCheckBoxesQuestionXXX question)
+        private bool IsCorrect(MultipleCheckBoxesQuestion question)
         {
             var TaskIsCorrect = question.Task == Task;
             var OptionsAreCorrect = question.Options == Options;

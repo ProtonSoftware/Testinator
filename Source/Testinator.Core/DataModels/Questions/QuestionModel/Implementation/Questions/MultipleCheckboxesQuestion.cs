@@ -1,70 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Testinator.Core
 {
-    #region OLD
-
     /// <summary>
     /// A multiple checkboxes question type
     /// </summary>
     [Serializable]
-    public class MultipleCheckboxesQuestion : Question
-    {
-        #region Public Properties
-
-        /// <summary>
-        /// Options for the question to be checked or not
-        /// </summary>
-        public Dictionary<string, bool> OptionsAndAnswers { get; set; }
-
-        /// <summary>
-        /// The task itself
-        /// </summary>
-        public string Task { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Clones the object
-        /// </summary>
-        /// <returns>Return a clone</returns>
-        public override Question Clone() => new MultipleCheckboxesQuestion()
-        {
-            Task = this.Task,
-            OptionsAndAnswers = this.OptionsAndAnswers,
-            PointScore = this.PointScore,
-        };
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public MultipleCheckboxesQuestion()
-        {
-            // Set the type
-            Type = QuestionType.MultipleCheckboxes;
-        }
-
-        #endregion
-    }
-
-    #endregion
-
-    #region NEW
-
-    /// <summary>
-    /// A multiple checkboxes question type
-    /// </summary>
-    [Serializable]
-    public class MultipleCheckBoxesQuestionXXX : QuestionXXX
+    public class MultipleCheckBoxesQuestion : Question
     {
         #region Public Properties
 
@@ -94,12 +38,12 @@ namespace Testinator.Core
         /// </summary>
         /// <param name="Answer">Answer to validate</param>
         /// <returns>Number of points for this answer depending on current valuation criteria</returns>
-        public override int CheckAnswer(AnswerXXX Answer)
+        public override int CheckAnswer(Answer Answer)
         {
             if (Answer == null)
                 throw new NullReferenceException();
 
-            var TargetAnswer = Answer as MultipleCheckBoxesAnswerXXX;
+            var TargetAnswer = Answer as MultipleCheckBoxesAnswer;
 
             // The type should match but need to check it just in case
             if (TargetAnswer == null)
@@ -172,7 +116,5 @@ namespace Testinator.Core
         }
 
         #endregion
-
     }
-    #endregion
 }

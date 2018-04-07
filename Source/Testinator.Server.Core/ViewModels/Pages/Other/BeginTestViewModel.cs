@@ -169,7 +169,7 @@ namespace Testinator.Server.Core
             IoCServer.TestHost.OnTimerUpdated += () => UpdateView();
             IoCServer.Network.OnClientConnected += (s) => UpdateView();
             IoCServer.Network.OnClientDisconnected += (s) => UpdateView();
-            TestListViewModel.Instance.ItemSelected += () => UpdateView();
+            TestListViewModel.Instance.SelectionChanged += () => UpdateView();
 
             // Hook to the test host evet
             IoCServer.TestHost.TestFinished += ChangePageToResults;

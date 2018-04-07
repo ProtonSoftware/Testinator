@@ -165,8 +165,8 @@
   <data name="EditCriteria" xml:space="preserve">
     <value>Edit criteria</value>
   </data>
-  <data name="EditTest" xml:space="preserve">
-    <value>Edit test</value>
+  <data name="EditManageTest" xml:space="preserve">
+    <value>Edit/delete a test</value>
   </data>
   <data name="FillData" xml:space="preserve">
     <value>Fill the data</value>

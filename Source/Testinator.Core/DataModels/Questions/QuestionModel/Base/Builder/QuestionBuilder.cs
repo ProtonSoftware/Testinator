@@ -9,7 +9,7 @@ namespace Testinator.Core.QuestionBuilders
     /// <typeparam name="TOptions">The type of options this question accepts</typeparam>
     /// <typeparam name="TCorrectAnswer">The type of correct answer this question accepts</typeparam>
     public abstract class QuestionBuilder <TQuestionType, TOptions, TCorrectAnswer> : Builder<TQuestionType>
-        where TQuestionType : QuestionXXX, new()
+        where TQuestionType : Question, new()
     {
         #region Protected Members
 

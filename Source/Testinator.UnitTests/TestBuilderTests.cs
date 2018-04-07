@@ -8,7 +8,7 @@ namespace Testinator.UnitTests
     [TestClass]
     public class TestBuilderTests
     {
-        public static MultipleChoiceQuestionXXX AddedQuestion = new MultipleChoiceQuestionXXX()
+        public static MultipleChoiceQuestion AddedQuestion = new MultipleChoiceQuestion()
         {
             CorrectAnswerIndex = 0,
             Options = new List<string>() { "option1", "option2" },
@@ -16,40 +16,44 @@ namespace Testinator.UnitTests
             Task = new TaskContent("Task6"),
         };
 
-        public static TestXXX CorrectTest = new TestXXX()
+        public static Test CorrectTest = new Test()
         {
-            Duration = TimeSpan.FromSeconds(TestBuilder.MinimumTestDurationSeconds), 
-            Questions = new List<QuestionXXX>()
+            Info = new TestInformation()
             {
-                new MultipleChoiceQuestionXXX()
+                Name = "some name 1",
+                Duration = TimeSpan.FromSeconds(TestBuilder.MinimumTestDurationSeconds),
+            },
+            Questions = new List<Question>()
+            {
+                new MultipleChoiceQuestion()
                 {
                     CorrectAnswerIndex = 0,
                     Options = new List<string>() {"option1", "option2"},
                     Scoring = new Scoring(ScoringMode.FullAnswer, 10),
                     Task = new TaskContent("Task1"),
                 },
-                new MultipleChoiceQuestionXXX()
+                new MultipleChoiceQuestion()
                 {
                     CorrectAnswerIndex = 0,
                     Options = new List<string>() {"option1", "option2"},
                     Scoring = new Scoring(ScoringMode.FullAnswer, 10),
                     Task = new TaskContent("Task2"),
                 },
-                new MultipleChoiceQuestionXXX()
+                new MultipleChoiceQuestion()
                 {
                     CorrectAnswerIndex = 0,
                     Options = new List<string>() {"option1", "option2"},
                     Scoring = new Scoring(ScoringMode.FullAnswer, 10),
                     Task = new TaskContent("Task3"),
                 },
-                new MultipleChoiceQuestionXXX()
+                new MultipleChoiceQuestion()
                 {
                     CorrectAnswerIndex = 0,
                     Options = new List<string>() {"option1", "option2"},
                     Scoring = new Scoring(ScoringMode.FullAnswer, 10),
                     Task = new TaskContent("Task4"),
                 },
-                new MultipleChoiceQuestionXXX()
+                new MultipleChoiceQuestion()
                 {
                     CorrectAnswerIndex = 0,
                     Options = new List<string>() {"option1", "option2"},
@@ -59,7 +63,6 @@ namespace Testinator.UnitTests
                 AddedQuestion,
             },
             TotalPointScore = 60,
-            Name = "some name 1",
 
         };
 
@@ -126,7 +129,7 @@ namespace Testinator.UnitTests
         public void CreatingTestFromScratch_AddingDuration_TooLongValue()
         {
             var Builder = new TestBuilder();
-            Builder.AddDuration(TimeSpan.FromSeconds(TestBuilder.MaximumTestDurationSecodns + 1));
+            Builder.AddDuration(TimeSpan.FromSeconds(TestBuilder.MaximumTestDurationSeconds + 1));
         }
 
         [TestMethod]
@@ -164,7 +167,7 @@ namespace Testinator.UnitTests
             var grading = new GradingPoints();
             grading.UpdateMark(Marks.A, 100, 80);
 
-            var Question = new MultipleChoiceQuestionXXX()
+            var Question = new MultipleChoiceQuestion()
             {
                 CorrectAnswerIndex = 1,
                 Options = new List<string>() { "1", "2", "3" },
@@ -185,7 +188,7 @@ namespace Testinator.UnitTests
             var grading = new GradingPoints();
             grading.UpdateMark(Marks.A, 100, 80);
 
-            var Question = new MultipleChoiceQuestionXXX()
+            var Question = new MultipleChoiceQuestion()
             {
                 CorrectAnswerIndex = 1,
                 Options = new List<string>() { "1", "2", "3" },
@@ -206,7 +209,7 @@ namespace Testinator.UnitTests
             var grading = new GradingPoints();
             grading.UpdateMark(Marks.A, 100, 80);
 
-            var Question = new MultipleChoiceQuestionXXX()
+            var Question = new MultipleChoiceQuestion()
             {
                 CorrectAnswerIndex = 1,
                 Options = new List<string>() { "1", "2", "3" },
@@ -234,14 +237,14 @@ namespace Testinator.UnitTests
         public void CreatingTestFromScratch_AddingQuestion_MaxQuestionsNumberReached()
         {
 
-            var Test = new TestXXX()
+            var Test = new Test()
             {
-                Questions = new List<QuestionXXX>(new QuestionXXX[TestBuilder.MaximumQuestionsCount]),
+                Questions = new List<Question>(new Question[TestBuilder.MaximumQuestionsCount]),
             };
 
             var Builder = new TestBuilder(Test);
 
-            Builder.AddQuestion(new MultipleChoiceQuestionXXX());
+            Builder.AddQuestion(new MultipleChoiceQuestion());
 
         }
 
@@ -251,7 +254,7 @@ namespace Testinator.UnitTests
         {
 
             var Builder = new TestBuilder();
-            var q = new MultipleChoiceQuestionXXX()
+            var q = new MultipleChoiceQuestion()
             {
                 Scoring = new Scoring(ScoringMode.EvenParts, 10),
             };
@@ -265,7 +268,7 @@ namespace Testinator.UnitTests
         {
 
             var Builder = new TestBuilder();
-            var q = new MultipleChoiceQuestionXXX()
+            var q = new MultipleChoiceQuestion()
             {
                 Scoring = new Scoring(ScoringMode.EvenParts, 10),
             };
@@ -312,7 +315,7 @@ namespace Testinator.UnitTests
         {
             var Builder = new TestBuilder(CorrectTest);
 
-            var NewQuestion = new SingleTextBoxQuestionXXX()
+            var NewQuestion = new SingleTextBoxQuestion()
             {
                 CorrectAnswer = "ddd",
                 Scoring = new Scoring(ScoringMode.FullAnswer, 10),

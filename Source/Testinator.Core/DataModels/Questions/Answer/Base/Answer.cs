@@ -2,36 +2,11 @@
 
 namespace Testinator.Core
 {
-    #region OLD
-
-    /// <summary>
-    /// The base class for every answer
-    /// </summary>
-    [Serializable]
-    public abstract class Answer
-    {
-        /// <summary>
-        /// The type of the question this answer is for
-        /// </summary>
-        public QuestionType Type { get; protected set; }
-
-        /// <summary>
-        /// Id of this answer. 
-        /// NOTE: useful to match this answer to the question
-        /// </summary>
-        public int ID { get; set; }
-    }
-
-    #endregion
-
-
-    #region NEW
-
     /// <summary>
     /// Base class for any answer to derive from
     /// </summary>
     [Serializable]
-    public abstract class AnswerXXX : IAnswer
+    public abstract class Answer : IAnswer
     {
         #region Public Properties
 
@@ -52,6 +27,4 @@ namespace Testinator.Core
 
         #endregion
     }
-
-    #endregion
 }

@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\TestEditorEngine\Operation.cs" />
+    <Compile Include="DataModels\TestEditorEngine\TestEditor.cs" />
     <Compile Include="Networking\Base\IServer.cs" />
     <Compile Include="Networking\Base\ServerBase.cs" />
     <Compile Include="Networking\Exceptions\ServerException.cs" />
@@ -62,8 +64,17 @@
     <Compile Include="TestHost\TestOptions.cs" />
     <Compile Include="ViewModels\Application\PageHostViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddLatecomersDialogViewModel.cs" />
+    <Compile Include="ViewModels\Lists\QuestionListItemViewModel.cs" />
+    <Compile Include="ViewModels\Lists\QuestionListViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\AttachCriteria\TestEditorAttachCriteriaViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\Finalizing\TestEditorFinalizingViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Main\TestEditorQuestionsEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Specifics\MultipleChoiceQuestionEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\Initials\TestEditorInitialPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\TestBasicInformationEditors\TestEditorBasicInformationEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\TestManagment\TestEditorTestManagmentViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\Questions\ListItems\ABCAnswerItemViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\Questions\ListItems\CheckboxAnswerItemViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestResults\Questions\QuestionMultipleCheckboxesViewModel.cs" />
@@ -99,10 +110,7 @@
     <Compile Include="ViewModels\Pages\Other\ScreenStreamViewModel.cs" />
     <Compile Include="ViewModels\Pages\Other\LoginViewModel.cs" />
     <Compile Include="ViewModels\Menu\SideMenuViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewCriteriaViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestEditor\TestEditorAddNewTestViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestEditor\TestEditorEditTestViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestEditor\TestEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\CriteriaEditors\TestEditorAddNewCriteriaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Testinator.Core\Testinator.Core.csproj">

@@ -20,7 +20,7 @@
                                 <MouseBinding MouseAction="LeftClick" 
                                               Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                                                AncestorType=local:TestListControl},
-                                                                                               Path=DataContext.ChooseTestCommand}"
+                                                                                               Path=DataContext.SelectItemCommand}"
                                               CommandParameter="{Binding ID}" />
                             </Border.InputBindings>
 

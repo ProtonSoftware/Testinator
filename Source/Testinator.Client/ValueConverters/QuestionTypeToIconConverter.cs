@@ -22,7 +22,7 @@ namespace Testinator.Client
                     return (IconType.MultipleChoiceQuestion).ToFontAwesome();
 
                 case QuestionType.MultipleCheckboxes:
-                    return (IconType.MultipleCheckboxesQuestion).ToFontAwesome();
+                    return (IconType.MultipleCheckBoxesQuestion).ToFontAwesome();
 
                 case QuestionType.SingleTextBox:
                     return (IconType.SingleTextBoxQuestion).ToFontAwesome();

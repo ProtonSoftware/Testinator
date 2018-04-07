@@ -8,7 +8,7 @@ namespace Testinator.UnitTests
     public class MultipleChoiceQuestionTests
     {
         public static int FullPointScore { get; set; } = 10;
-        public MultipleChoiceQuestionXXX Question { get; set; } = new MultipleChoiceQuestionXXX()
+        public MultipleChoiceQuestion Question { get; set; } = new MultipleChoiceQuestion()
         {
             Options = new List<string>() { "Option1", "Option2", "Option3" },
             CorrectAnswerIndex = 0,
@@ -20,7 +20,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_FullyGoodAnswer()
         {
-            var Answer = new MultipleChoiceAnswerXXX()
+            var Answer = new MultipleChoiceAnswer()
             {
                 SelectedAnswerIndex = 0,
             };
@@ -32,7 +32,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_FullyWrongAnswer()
         {
-            var Answer = new MultipleChoiceAnswerXXX()
+            var Answer = new MultipleChoiceAnswer()
             {
                 SelectedAnswerIndex = 1,
             };
@@ -45,7 +45,7 @@ namespace Testinator.UnitTests
         [TestMethod]
         public void CheckingAnswer_WrongAnswer_WrongAnswerIndex()
         {
-            var Answer = new MultipleChoiceAnswerXXX()
+            var Answer = new MultipleChoiceAnswer()
             {
                 SelectedAnswerIndex = 9991,
             };

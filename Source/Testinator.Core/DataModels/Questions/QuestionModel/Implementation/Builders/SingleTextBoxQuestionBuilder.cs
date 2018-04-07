@@ -3,9 +3,9 @@
 namespace Testinator.Core
 {
     /// <summary>
-    /// The concrete builder to create <see cref="SingleTextBoxQuestionXXX"/>
+    /// The concrete builder to create <see cref="SingleTextBoxQuestion"/>
     /// </summary>
-    public class SingleTextboxQuestionBuilder : QuestionBuilder<SingleTextBoxQuestionXXX, string, string>
+    public class SingleTextboxQuestionBuilder : QuestionBuilder<SingleTextBoxQuestion, string, string>
     {
         #region Private Specific Methods
 
@@ -99,7 +99,7 @@ namespace Testinator.Core
         /// Works as an editor in this context
         /// </summary>
         /// <param name="Prototype">The prototype question</param>
-        public SingleTextboxQuestionBuilder(SingleTextBoxQuestionXXX Prototype) : base(Prototype) { }
+        public SingleTextboxQuestionBuilder(SingleTextBoxQuestion Prototype) : base(Prototype) { }
 
         #endregion
     }

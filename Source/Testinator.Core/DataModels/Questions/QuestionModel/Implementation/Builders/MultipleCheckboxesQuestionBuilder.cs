@@ -4,9 +4,9 @@ using Testinator.Core.QuestionBuilders;
 namespace Testinator.Core
 {
     /// <summary>
-    /// The concrete builder to create <see cref="MultipleCheckBoxesQuestionXXX"/>
+    /// The concrete builder to create <see cref="MultipleCheckBoxesQuestion"/>
     /// </summary>
-    public class MultipleCheckboxesQuestionBuilder : QuestionBuilder<MultipleCheckBoxesQuestionXXX, List<string>, List<bool>>
+    public class MultipleCheckBoxesQuestionBuilder : QuestionBuilder<MultipleCheckBoxesQuestion, List<string>, List<bool>>
     {
         #region Private Specific Methods
 
@@ -122,14 +122,14 @@ namespace Testinator.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MultipleCheckboxesQuestionBuilder() : base() { }
+        public MultipleCheckBoxesQuestionBuilder() : base() { }
 
         /// <summary>
         /// Constructor accepting the model question to work with
         /// Works as an editor in this context
         /// </summary>
         /// <param name="Prototype">The prototype question</param>
-        public MultipleCheckboxesQuestionBuilder(MultipleCheckBoxesQuestionXXX Prototype) : base(Prototype) { }
+        public MultipleCheckBoxesQuestionBuilder(MultipleCheckBoxesQuestion Prototype) : base(Prototype) { }
 
         #endregion
     }

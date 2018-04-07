@@ -53,7 +53,6 @@ namespace Testinator.Core
             Mode = CurrentMode;
             FullPointScore = FullScore;
         }
-        // TODO:
 
         #endregion
     }

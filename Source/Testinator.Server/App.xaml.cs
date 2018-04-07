@@ -93,13 +93,9 @@ namespace Testinator.Server
         {
             try
             {
-                // Get current version
-                var assembly = Assembly.LoadFrom("Testinator.Server.Core.dll");
-                var currentVersion = assembly.GetName().Version.ToString();
-
                 // Set webservice's url and parameters we want to send
                 var url = "http://minorsonek.pl/testinator/data/index.php";
-                var parameters = $"version={ currentVersion }&type=Server";
+                var parameters = $"version={ IoCServer.Application.Version.ToString() }&type=Server";
 
                 // Catch the result
                 var result = string.Empty;

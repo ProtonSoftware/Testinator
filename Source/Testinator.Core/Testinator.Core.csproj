@@ -74,7 +74,6 @@
     <Compile Include="DataModels\Questions\Answer\Implementation\MultipleCheckboxesAnswer.cs" />
     <Compile Include="DataModels\Questions\Answer\Implementation\MultipleChoiceAnswer.cs" />
     <Compile Include="DataModels\Questions\Answer\Implementation\SingleTextBoxAnswer.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\QuestionHelpers.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\Builder\QuestionBuilder.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\Question\IQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\Question\QuestionBase.cs" />
@@ -83,7 +82,7 @@
     <Compile Include="DataModels\Questions\QuestionModel\Implementation\Builders\MultipleCheckboxesQuestionBuilder.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Implementation\Builders\MultipleChoiceQuestionBuilder.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Implementation\Builders\SingleTextBoxQuestionBuilder.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\MultipleCheckboxesQuestion.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\MultipleCheckBoxesQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\MultipleChoiceQuestion.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Base\Question\QuestionTypes.cs" />
     <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\SingleTextBoxQuestion.cs" />
@@ -99,7 +98,7 @@
     <Compile Include="DataModels\Test\GradingSystem\Base\Marks.cs" />
     <Compile Include="DataModels\Test\TestCore\Builder\TestBuilder.cs" />
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
-    <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
+    <Compile Include="DataModels\Test\TestCore\TestInformation.cs" />
     <Compile Include="Dialogs\Base\BaseDialogViewModel.cs" />
     <Compile Include="Dialogs\Base\MessageTypes.cs" />
     <Compile Include="Dialogs\ViewModels\DecisionDialogViewModel.cs" />

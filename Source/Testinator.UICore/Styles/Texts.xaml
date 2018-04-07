@@ -99,8 +99,8 @@
                                    x:Name="placeholder"
                                    FontFamily="{StaticResource FontMontserratThin}"
                                    Padding="{TemplateBinding Padding}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    >
                             <TextBlock.Style>

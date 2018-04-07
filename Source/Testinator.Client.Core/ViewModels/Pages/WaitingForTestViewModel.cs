@@ -26,17 +26,17 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The name of the test
         /// </summary>
-        public string TestName => IoCClient.TestHost.CurrentTest.Name;
+        public string TestName => IoCClient.TestHost.IsTestReceived ? IoCClient.TestHost.CurrentTest.Info.Name : "";
 
         /// <summary>
         /// The duration of the test
         /// </summary>
-        public TimeSpan TestDuration => IoCClient.TestHost.CurrentTest.Duration;
+        public TimeSpan TestDuration => IoCClient.TestHost.IsTestReceived ? IoCClient.TestHost.CurrentTest.Info.Duration : TimeSpan.Zero;
 
         /// <summary>
         /// How much score can user get from this test
         /// </summary>
-        public int TestPossibleScore => IoCClient.TestHost.CurrentTest.MaxPossibleScore();
+        public int TestPossibleScore => IoCClient.TestHost.IsTestReceived ? IoCClient.TestHost.CurrentTest.TotalPointScore : 0;
 
         /// <summary>
         /// A flag indicating if we have any test to show,

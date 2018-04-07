@@ -117,6 +117,9 @@
     <Compile Include="Controls\Lists\CriteriaList\CriteriaListItemControl.xaml.cs">
       <DependentUpon>CriteriaListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Lists\QuestionsList\QuestionListControl.xaml.cs">
+      <DependentUpon>QuestionListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Lists\ResultsList\ResultsListControl.xaml.cs">
       <DependentUpon>ResultsListControl.xaml</DependentUpon>
     </Compile>
@@ -132,20 +135,23 @@
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Questions\ABCAnswerItemControl.xaml.cs">
+    <Compile Include="Controls\Questions\Presentation\ABCAnswerItemControl.xaml.cs">
       <DependentUpon>ABCAnswerItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Questions\CheckboxAnswerItemControl.xaml.cs">
+    <Compile Include="Controls\Questions\Presentation\CheckboxAnswerItemControl.xaml.cs">
       <DependentUpon>CheckboxAnswerItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Questions\MultipleCheckboxesAnswersList.xaml.cs">
+    <Compile Include="Controls\Questions\Presentation\MultipleCheckboxesAnswersList.xaml.cs">
       <DependentUpon>MultipleCheckboxesAnswersList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Questions\MultipleChoiceAnswersList.xaml.cs">
+    <Compile Include="Controls\Questions\Presentation\MultipleChoiceAnswersList.xaml.cs">
       <DependentUpon>MultipleChoiceAnswersList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Questions\QuestionListItemControl.xaml.cs">
+    <Compile Include="Controls\Lists\QuestionsList\QuestionListItemControl.xaml.cs">
       <DependentUpon>QuestionListItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Questions\QuestionEditors\MultipleChoiceQuestionEditor.xaml.cs">
+      <DependentUpon>MultipleChoiceQuestionEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
@@ -206,26 +212,26 @@
     <Compile Include="Pages\Questions\QuestionSingleTextBoxPage.xaml.cs">
       <DependentUpon>QuestionSingleTextBoxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorEditTestPage.xaml.cs">
-      <DependentUpon>TestEditorEditTestPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\TestManagment\TestEditorTestManagmentPage.xaml.cs">
+      <DependentUpon>TestEditorTestManagmentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorAddNewCriteriaPage.xaml.cs">
-      <DependentUpon>TestEditorAddNewCriteriaPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\CriteriaEditors\TestEditorCriteriaEditorPage.xaml.cs">
+      <DependentUpon>TestEditorCriteriaEditorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorAttachCriteriaPage.xaml.cs">
+    <Compile Include="Pages\TestEditor\AttachCriteria\TestEditorAttachCriteriaPage.xaml.cs">
       <DependentUpon>TestEditorAttachCriteriaPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorResultPage.xaml.cs">
-      <DependentUpon>TestEditorResultPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\Finalizing\TestEditorFinalizingPage.xaml.cs">
+      <DependentUpon>TestEditorFinalizingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorPage.xaml.cs">
-      <DependentUpon>TestEditorPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\InitialPages\TestEditorInitialPage.xaml.cs">
+      <DependentUpon>TestEditorInitialPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorAddQuestionsPage.xaml.cs">
-      <DependentUpon>TestEditorAddQuestionsPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\QuestionsEditor\TestEditorQuestionsEditorPage.xaml.cs">
+      <DependentUpon>TestEditorQuestionsEditorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TestEditor\TestEditorAddNewTestPage.xaml.cs">
-      <DependentUpon>TestEditorAddNewTestPage.xaml</DependentUpon>
+    <Compile Include="Pages\TestEditor\BasicInformation\TestEditorBasicInformationEditorPage.xaml.cs">
+      <DependentUpon>TestEditorBasicInformationEditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ScreenStreamPage.xaml.cs">
       <DependentUpon>ScreenStreamPage.xaml</DependentUpon>
@@ -283,6 +289,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Lists\QuestionsList\QuestionListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Lists\ResultsList\ResultsListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -303,25 +313,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Questions\ABCAnswerItemControl.xaml">
+    <Page Include="Controls\Questions\Presentation\ABCAnswerItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Questions\CheckboxAnswerItemControl.xaml">
+    <Page Include="Controls\Questions\Presentation\CheckboxAnswerItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Questions\MultipleCheckboxesAnswersList.xaml">
+    <Page Include="Controls\Questions\Presentation\MultipleCheckboxesAnswersList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Questions\MultipleChoiceAnswersList.xaml">
+    <Page Include="Controls\Questions\Presentation\MultipleChoiceAnswersList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Questions\QuestionListItemControl.xaml">
+    <Page Include="Controls\Lists\QuestionsList\QuestionListItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Questions\QuestionEditors\MultipleChoiceQuestionEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SideMenuControl.xaml">
       <SubType>Designer</SubType>
@@ -407,31 +421,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorEditTestPage.xaml">
+    <Page Include="Pages\TestEditor\TestManagment\TestEditorTestManagmentPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorAddNewCriteriaPage.xaml">
+    <Page Include="Pages\TestEditor\CriteriaEditors\TestEditorCriteriaEditorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorAttachCriteriaPage.xaml">
+    <Page Include="Pages\TestEditor\AttachCriteria\TestEditorAttachCriteriaPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorResultPage.xaml">
+    <Page Include="Pages\TestEditor\Finalizing\TestEditorFinalizingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorPage.xaml">
+    <Page Include="Pages\TestEditor\InitialPages\TestEditorInitialPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorAddQuestionsPage.xaml">
+    <Page Include="Pages\TestEditor\QuestionsEditor\TestEditorQuestionsEditorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\TestEditor\TestEditorAddNewTestPage.xaml">
+    <Page Include="Pages\TestEditor\BasicInformation\TestEditorBasicInformationEditorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -536,9 +550,7 @@
   <ItemGroup>
     <Resource Include="Assets\Logo\icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\ResultsPageMenus\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
       <Visible>False</Visible>

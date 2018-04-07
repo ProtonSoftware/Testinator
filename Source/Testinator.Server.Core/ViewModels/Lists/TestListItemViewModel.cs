@@ -16,7 +16,6 @@ namespace Testinator.Server.Core
 
         /// <summary>
         /// The id of this test
-        /// NOTE: starts from 1, not 0!
         /// </summary>
         public int ID { get; set; }
 

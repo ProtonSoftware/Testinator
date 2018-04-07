@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Testinator.Core
 {
     /// <summary>
     /// Builds a test or edits an existing one
     /// </summary>
-    public class TestBuilder : Builder<TestXXX>
+    public class TestBuilder : Builder<Test>
     {
         #region Public Memebrs
 
@@ -23,7 +24,7 @@ namespace Testinator.Core
 
         /// <summary>
         /// Miminum test duration time in seconds
-        /// WARNING: while setting this value make sure it is between 0 and <see cref="MaximumTestDurationSecodns"/>
+        /// WARNING: while setting this value make sure it is between 0 and <see cref="MaximumTestDurationSeconds"/>
         /// </summary>
         public const int MinimumTestDurationSeconds = 60;
 
@@ -31,7 +32,7 @@ namespace Testinator.Core
         /// Maximum test duration time in seconds
         /// WARNING: while setting this value make sure it is bigger than <see cref="MinimumTestDurationSeconds"/>
         /// </summary>
-        public const int MaximumTestDurationSecodns = 10800; // 3 hours
+        public const int MaximumTestDurationSeconds = 10800; // 3 hours
 
         /// <summary>
         /// Maximum number of character that a test name can have
@@ -45,6 +46,30 @@ namespace Testinator.Core
         /// </summary>
         public const int MinimumTestNameLength = 5;
 
+        /// <summary>
+        /// Maximum length of a note attached to the test
+        /// </summary>
+        public const int MaximumNoteLength = 300;
+
+        /// <summary>
+        /// Maximum number of tags in a test
+        /// </summary>
+        public const int MaximumTagsNumber = 5;
+
+        #endregion
+
+        #region Public Properties
+        
+        /// <summary>
+        /// Current test info from the test
+        /// </summary>
+        public TestInformation CurrentTestInfo => CreatedObject.Info;
+
+        /// <summary>
+        /// Current questions from this test
+        /// </summary>
+        public List<Question> CurrentQuestions => CreatedObject.Questions;
+
         #endregion
 
         #region Public Construction Methods
@@ -54,16 +79,16 @@ namespace Testinator.Core
         /// <summary>
         /// Adds the name of this test
         /// </summary>
-        /// <param name="Name">New name</param>
+        /// <param name="NewName">New name</param>
         public void AddName(string NewName)
         {
             if (string.IsNullOrEmpty(NewName))
                 throw new NullReferenceException("Name cannot be empty!");
 
             if (NewName.Length < MinimumTestNameLength || NewName.Length > MaximumTestNameLength)
-                throw new Exception("Invalid name length");
+                throw new Exception($"Nieprawidłowa długość nazwy testu. Limit to: {MinimumTestNameLength}-{MaximumTestNameLength} znaków.");
 
-            CreatedObject.Name = NewName;
+            CreatedObject.Info.Name = NewName;
         }
 
         #endregion
@@ -80,9 +105,60 @@ namespace Testinator.Core
                 throw new NullReferenceException("Duration cannot be null");
 
             if (!IsDurationInRange(NewDuration))
-                throw new Exception("Invalid test duration");
+                // remake this plz
+                throw new Exception($"Test nie może tyle trwać! Przedział to {MaximumTestDurationSeconds / 3600}:" +
+                    $"{(MaximumTestDurationSeconds % 60)}:" +
+                    $"{(MaximumTestDurationSeconds % 60) / 60} - {MinimumTestDurationSeconds / 3600}: " +
+                    $"{(MinimumTestDurationSeconds % 60)}:{(MaximumTestDurationSeconds % 60) / 60}.");
 
-            CreatedObject.Duration = NewDuration;
+            CreatedObject.Info.Duration = NewDuration;
+        }
+
+        #endregion
+
+        #region Note
+
+        /// <summary>
+        /// Adds note to this test
+        /// </summary>
+        /// <param name="newNote">New note</param>
+        public void AddNote(string newNote)
+        {
+            if (newNote != null && newNote.Length > MaximumNoteLength)
+                throw new Exception($"Nieprawidłowa długość notatki. Limit to: {MaximumNoteLength} znaków.");
+
+
+            CreatedObject.Info.Note = newNote;
+        }
+
+        #endregion
+
+        #region Tags
+
+        /// <summary>
+        /// Adds tags to this test
+        /// </summary>
+        /// <param name="newTags">New tags</param>
+        public void AddTags(string newTags)
+        {
+            // TODO: tags recognising and error checks
+            if (newTags != null && newTags.Length > MaximumTestNameLength)
+                throw new Exception("Invalid tags number");
+
+            CreatedObject.Info.Tags = newTags;
+        }
+
+        #endregion
+
+        #region Version
+
+        /// <summary>
+        /// Adds version of software this test was last edited on
+        /// </summary>
+        /// <param name="newVersion">New value</param>
+        public void AddVersion(Version newVersion)
+        {
+            CreatedObject.Info.SoftwareVersion = newVersion ?? throw new NullReferenceException();
         }
 
         #endregion
@@ -93,7 +169,7 @@ namespace Testinator.Core
         /// Adds a question to this test
         /// </summary>
         /// <param name="QuestionToAdd">To question to add</param>
-        public void AddQuestion(QuestionXXX QuestionToAdd)
+        public void AddQuestion(Question QuestionToAdd)
         {
             if (QuestionToAdd == null)
                 throw new NullReferenceException("Value cannot be null");
@@ -116,7 +192,7 @@ namespace Testinator.Core
         /// Removes a question from this test
         /// </summary>
         /// <param name="QuestionToRemove">Question to remove</param>
-        public void RemoveQuestion(QuestionXXX QuestionToRemove)
+        public void RemoveQuestion(Question QuestionToRemove)
         {
             if (QuestionToRemove == null)
                 throw new NullReferenceException("Value cannot be null");
@@ -138,7 +214,7 @@ namespace Testinator.Core
         /// </summary>
         /// <param name="OldQuestion">The old question to be replaced/updated</param>
         /// <param name="NewQuestion">New question to be put in the old one's place</param>
-        public void UpdateQuestion(QuestionXXX OldQuestion, QuestionXXX NewQuestion)
+        public void UpdateQuestion(Question OldQuestion, Question NewQuestion)
         {
             if (OldQuestion == null || NewQuestion == null)
                 throw new NullReferenceException("Value cannot be null");
@@ -193,9 +269,9 @@ namespace Testinator.Core
         /// <returns>True if the test is ready; otherwise, false</returns>
         protected override bool IsReady()
         {
-            return (!string.IsNullOrEmpty(CreatedObject.Name)) &&
+            return (!string.IsNullOrEmpty(CreatedObject.Info.Name)) &&
 
-                   (CreatedObject.Duration != null && IsDurationInRange(CreatedObject.Duration)) &&
+                   (CreatedObject.Info.Duration != null && IsDurationInRange(CreatedObject.Info.Duration)) &&
 
                    (CreatedObject.Questions != null && CreatedObject.Questions.Count >= MinimumQuestionsCount && CreatedObject.Questions.Count <= MaximumQuestionsCount) &&
 
@@ -210,9 +286,9 @@ namespace Testinator.Core
         /// Checks is the given duration is bettwen the limits
         /// </summary>
         /// <param name="TimeToCheck">Time span to check if it is in range</param>
-        /// <returns>True if it is between <see cref="MinimumTestDurationSeconds"/> and <see cref="MaximumTestDurationSecodns"/>; otherwise, false</returns>
+        /// <returns>True if it is between <see cref="MinimumTestDurationSeconds"/> and <see cref="MaximumTestDurationSeconds"/>; otherwise, false</returns>
         private bool IsDurationInRange(TimeSpan TimeToCheck)
-            => !(TimeToCheck.TotalSeconds < MinimumTestDurationSeconds || TimeToCheck.TotalSeconds > MaximumTestDurationSecodns);
+            => !(TimeToCheck.TotalSeconds < MinimumTestDurationSeconds || TimeToCheck.TotalSeconds > MaximumTestDurationSeconds);
         
         #endregion
 
@@ -223,14 +299,14 @@ namespace Testinator.Core
         /// </summary>
         public TestBuilder()
         {
-            CreatedObject = new TestXXX();
+            CreatedObject = new Test();
         }
 
         /// <summary>
         /// Works on a given prototype object
         /// </summary>
         /// <param name="Prototype"></param>
-        public TestBuilder(TestXXX Prototype)
+        public TestBuilder(Test Prototype)
         {
             CreatedObject = Prototype;
         }

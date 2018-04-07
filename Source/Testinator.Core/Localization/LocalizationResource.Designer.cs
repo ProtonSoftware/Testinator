@@ -421,11 +421,11 @@ namespace Testinator.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit test.
+        ///   Looks up a localized string similar to Edit/delete a test.
         /// </summary>
-        public static string EditTest {
+        public static string EditManageTest {
             get {
-                return ResourceManager.GetString("EditTest", resourceCulture);
+                return ResourceManager.GetString("EditManageTest", resourceCulture);
             }
         }
         

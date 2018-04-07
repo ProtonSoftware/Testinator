@@ -25,7 +25,7 @@
                                 <!-- Click to edit question -->
                                 <Border.InputBindings>
                                     <MouseBinding MouseAction="LeftClick" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
-                                                                                            AncestorType=local:TestEditorAddQuestionsPage},
+                                                                                            AncestorType=local:TestEditorQuestionsEditorPage},
                                                                                             Path=DataContext.EditQuestionCommand}"
                                                                           CommandParameter="{Binding ID}" />
                                 </Border.InputBindings>
@@ -66,7 +66,7 @@
                                     x:Name="DeleteButton"
                                     Visibility="Hidden"
                                     Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
-                                                      AncestorType=local:TestEditorAddQuestionsPage},
+                                                      AncestorType=local:TestEditorQuestionsEditorPage},
                                                       Path=DataContext.DeleteQuestionCommand}"
                                     CommandParameter="{Binding ID}"
                                     Margin="2 5"
