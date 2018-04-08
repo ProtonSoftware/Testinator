@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -68,9 +69,12 @@
     <Compile Include="ViewModels\Lists\QuestionListViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResultsListViewModel.cs" />
+    <Compile Include="ViewModels\Menu\ImagesEditor\ImagesEditorItemViewModel.cs" />
+    <Compile Include="ViewModels\Menu\ImagesEditor\ImagesEditorViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\AttachCriteria\TestEditorAttachCriteriaViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\Finalizing\TestEditorFinalizingViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Main\TestEditorQuestionsEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Specifics\BaseQuestionEditorViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Specifics\MultipleChoiceQuestionEditorViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\Initials\TestEditorInitialPageViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestBasicInformationEditors\TestEditorBasicInformationEditorViewModel.cs" />

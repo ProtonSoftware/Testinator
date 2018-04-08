@@ -13,11 +13,6 @@
     <!-- Multiple choice question creator -->
     <StackPanel>
 
-        <TextBlock Text="{x:Static core:LocalizationResource.AddMultipleChoiceQuestionIntroduction}"
-                                       TextWrapping="Wrap"
-                                       Margin="5"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

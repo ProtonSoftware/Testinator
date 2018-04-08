@@ -12,7 +12,7 @@
                  d:DesignHeight="720"
                  d:DesignWidth="1024">
 
-    <Grid Background="{StaticResource WhiteLightBrush}">
+    <Grid Background="#F3F4F8">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"
@@ -23,14 +23,30 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <!-- Title Bar -->
+            <RowDefinition Height="60"/>
+            <!-- Tittle underline -->
+            <RowDefinition Height="1.5"/>
+            <!-- Main content-->
             <RowDefinition Height="*"/>
+            <!-- Buttons section-->
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <local:QuestionListControl Grid.Column="0"
-                                   Grid.RowSpan="2"/>
 
-        <GridSplitter Grid.Column="1" Grid.RowSpan="2"
+        <Grid Grid.ColumnSpan="3" Grid.Row="0" Background="#FFFFFF">
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="Dodawanie pytań"
+                       FontFamily="{StaticResource FontMontserratRegular}"
+                       Margin="50 0 0 0"/>
+        </Grid>
+        <Border Grid.Row="1" Grid.ColumnSpan="3" 
+                Background="#4CA194"/>
+        <!-- Side menu control -->
+        <local:QuestionListControl Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"/>
+
+        <!-- Grid spliter, TODO: delete this later -->
+        <GridSplitter Grid.Column="1" Grid.Row="2" Grid.RowSpan="55"
                       Width="6"
                       HorizontalAlignment="Center">
             <GridSplitter.Template>
@@ -43,9 +59,9 @@
         </GridSplitter>
         
         <!-- Question type tiles -->
-        <Grid Grid.Column="2" Grid.RowSpan="2"
+        <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="3"
               Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding QuestionTypeDialogVisible}"
-              Background="{StaticResource WhiteDarkBrush}"
+              Background="#EEEFF3"
               Panel.ZIndex="100">
 
             <Grid.ColumnDefinitions>
@@ -89,17 +105,72 @@
 
         </Grid>
 
-
         <!-- Question Editor -->
-        <Grid Grid.Column="2" Grid.Row="0">
+        <Border Grid.Column="2" Grid.Row="2" 
+                CornerRadius="5"
+                BorderThickness="1"
+                Margin="25"
+                Background="#FFFFFF">
 
-            <local:MultipleChoiceQuestionEditor Visibility="{Binding CurrentQuestionType, Converter={local:QuestionTypeToVisibilityConverter}, 
-                                                                     ConverterParameter={x:Static core:QuestionType.MultipleChoice}}" />
+            <Grid>
 
-        </Grid>
+                <Grid.RowDefinitions>
+                    <!-- Tittle-->
+                    <RowDefinition Height="50"/>
+                    <!-- Task -->
+                    <RowDefinition Height="145"/>
+                    <!-- Main content-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Task field -->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               Text="Pytanie: "
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="15 0"/>
+
+                    <local:ImagesEditorControl Grid.Row="0" Grid.Column="1"
+                                               DataContext="{Binding ImagesEditorViewModel}"
+                                               Height="50"/>
+
+                    <TextBox Grid.Row="1" Grid.ColumnSpan="2"
+                             Style="{StaticResource TestEditorInputField}"
+  
+                             Tag="Wpisz treść pytania"
+
+                             Margin="15 0"/>
+
+                </Grid>                
+                
+                <!-- Tittle box -->
+                <StackPanel Grid.Row="0" Background="#F5FAF4" Orientation="Horizontal">
+                    <TextBlock Text="Pytanie wielokrotnego wyboru (Wiele poprawnych odpowiedzi)"
+                               VerticalAlignment="Center"
+                               FontFamily="{StaticResource FontMontserratRegular}"
+                               Margin="15 0"/>
+                </StackPanel>
+                
+                <local:MultipleChoiceQuestionEditor Visibility="{Binding CurrentQuestionType, Converter={local:QuestionTypeToVisibilityConverter}, 
+                                                                     ConverterParameter={x:Static core:QuestionType.MultipleChoice}}" 
+                                                    Grid.Row="2"/>
+            </Grid>
+        </Border>
 
         <!-- Buttons section -->
-        <Grid Grid.Column="2" Grid.Row="1">
+        <Grid Grid.Column="2" Grid.Row="3">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

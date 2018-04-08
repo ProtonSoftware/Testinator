@@ -2,7 +2,14 @@
 
 namespace Testinator.Server.Core
 {
-    public class MultipleChoiceQuestionEditorViewModel : BaseViewModel
+    /// <summary>
+    /// Viewmodel for specific question editor page, multiplechoice question in this case
+    /// </summary>
+    public class MultipleChoiceQuestionEditorViewModel : BaseQuestionEditorViewModel
     {
+        public override Question Submit()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

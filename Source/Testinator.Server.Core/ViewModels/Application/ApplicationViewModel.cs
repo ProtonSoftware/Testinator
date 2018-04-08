@@ -16,6 +16,9 @@ namespace Testinator.Server.Core
         /// </summary>
         public string ApplicationLanguage { get; set; } = "pl-PL";
 
+        /// <summary>
+        /// Current version of the application
+        /// </summary>
         public Version Version { get; private set; }
 
         /// <summary>

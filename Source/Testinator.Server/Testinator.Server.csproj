@@ -126,6 +126,12 @@
     <Compile Include="Controls\Lists\ResultsList\ResultsListItemControl.xaml.cs">
       <DependentUpon>ResultsListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Menu\ImagesEditor\ImagesEditorControl.xaml.cs">
+      <DependentUpon>ImagesEditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Menu\ImagesEditor\ImagesEditorItemControl.xaml.cs">
+      <DependentUpon>ImagesEditorItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Menu\MenuListControl.xaml.cs">
       <DependentUpon>MenuListControl.xaml</DependentUpon>
     </Compile>
@@ -298,6 +304,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Lists\ResultsList\ResultsListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Menu\ImagesEditor\ImagesEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Menu\ImagesEditor\ImagesEditorItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

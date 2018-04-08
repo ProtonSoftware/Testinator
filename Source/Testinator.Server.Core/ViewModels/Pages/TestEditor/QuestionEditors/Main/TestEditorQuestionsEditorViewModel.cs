@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -18,10 +17,15 @@ namespace Testinator.Server.Core
         public bool QuestionTypeDialogVisible { get; set; } = true;
 
         /// <summary>
+        /// The viewmodel for images editor
+        /// </summary>
+        public ImagesEditorViewModel ImagesEditorViewModel { get; private set; }
+
+        /// <summary>
         /// Current question type being edited right noew
         /// </summary>
         public QuestionType CurrentQuestionType { get; set; }
-
+        
         #endregion
 
         #region Commands
@@ -107,6 +111,7 @@ namespace Testinator.Server.Core
         {
             QuestionListViewModel.Instance.LoadItems(null);
             CreateCommands();
+            ImagesEditorViewModel = new ImagesEditorViewModel();
         }
 
         /// <summary>
@@ -115,6 +120,8 @@ namespace Testinator.Server.Core
         /// <param name="Questions"></param>
         public TestEditorQuestionsEditorViewModel(List<Question> Questions)
         {
+            ImagesEditorViewModel = new ImagesEditorViewModel();
+            ImagesEditorViewModel.PropertyChanged += (s,e ) => { OnPropertyChanged(nameof(ImagesEditorViewModel)); };
             Questions.Add(new MultipleChoiceQuestion()
             {
                 CorrectAnswerIndex = 0,

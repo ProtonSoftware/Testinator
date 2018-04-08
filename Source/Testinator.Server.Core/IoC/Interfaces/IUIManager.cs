@@ -35,12 +35,19 @@ namespace Testinator.Server.Core
         /// <param name="viewModel">The view model</param>
         /// <returns></returns>
         Task ShowMessage(AddLatecomersDialogViewModel viewModel);
-
-
+        
         /// <summary>
         /// Changes language in the application by specified language code
         /// </summary>
         /// <param name="langCode">The code of an language to change to</param>
         void ChangeLanguage(string langCode);
+
+        /// <summary>
+        /// Ask the user to choose single file from the disk
+        /// </summary>
+        /// <param name="InitialDirectory">Initial directory</param>
+        /// <param name="Filer">Filer for file types</param>
+        /// <returns>Path to the file that has been selected; Empty if file has not been selected</returns>
+        string ShowSingleFileDialog(string InitialDirectory, string Filer);
     }
 }
