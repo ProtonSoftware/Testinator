@@ -51,7 +51,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The name of the test
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "dddddddd";
 
         /// <summary>
         /// Duration in hours
@@ -61,7 +61,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Duration in minutes
         /// </summary>
-        public string DurationMinutes { get; set; }
+        public string DurationMinutes { get; set; } = "22";
 
         /// <summary>
         /// Duration in seconds

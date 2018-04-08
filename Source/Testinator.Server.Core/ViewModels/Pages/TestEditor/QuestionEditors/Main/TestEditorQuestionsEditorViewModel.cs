@@ -10,6 +10,20 @@ namespace Testinator.Server.Core
     /// </summary>
     public class TestEditorQuestionsEditorViewModel : BaseViewModel
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Indicates if the dialog with question type choice is visible
+        /// </summary>
+        public bool QuestionTypeDialogVisible { get; set; } = true;
+
+        /// <summary>
+        /// Current question type being edited right noew
+        /// </summary>
+        public QuestionType CurrentQuestionType { get; set; }
+
+        #endregion
+
         #region Commands
 
         /// <summary>
@@ -27,6 +41,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand GoNextPhaseCommand { get; private set; }
 
+        /// <summary>
+        /// The command to select question type from the list
+        /// </summary>
+        public ICommand SelectQuestionTypeCommand { get; private set; }
+
         #endregion
 
         #region Command Methods
@@ -36,7 +55,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void Submit()
         {
-
+            QuestionTypeDialogVisible ^= true;
         }
 
         /// <summary>
@@ -54,6 +73,28 @@ namespace Testinator.Server.Core
         {
             
         }
+
+        /// <summary>
+        /// Select question type from the popup
+        /// </summary>
+        /// <param name="Type">The type of the question as <see cref="QuestionType"/> enum</param>
+        private void SelectQuestion(object Type)
+        {
+            try
+            {
+                var type = (QuestionType)Type;
+                CurrentQuestionType = type;
+            }
+            catch
+            {
+                // Developer error
+                IoCServer.Logger.Log("No such question. Error code: 1");
+                return;
+            }
+
+            QuestionTypeDialogVisible = false;
+        }
+
 
         #endregion
 
@@ -105,6 +146,7 @@ namespace Testinator.Server.Core
             SubmitCommand = new RelayCommand(Submit);
             CancelCommand = new RelayCommand(Cancel);
             GoNextPhaseCommand = new RelayCommand(GoNextPhase);
+            SelectQuestionTypeCommand = new RelayParameterizedCommand(SelectQuestion);
         }
 
         #endregion

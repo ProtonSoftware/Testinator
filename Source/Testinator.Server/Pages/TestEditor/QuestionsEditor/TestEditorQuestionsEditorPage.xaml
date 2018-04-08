@@ -7,6 +7,7 @@
                  xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
                  xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d"
                  d:DesignHeight="720"
                  d:DesignWidth="1024">
@@ -17,23 +18,21 @@
             <ColumnDefinition Width="Auto"
                               MinWidth="50" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto"
+            <ColumnDefinition Width="*"
                               MinWidth="600"/>
         </Grid.ColumnDefinitions>
 
-        <local:QuestionListControl/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <local:QuestionListControl Grid.Column="0"
+                                   Grid.RowSpan="2"/>
 
-        <TextBlock Text="{x:Static core:LocalizationResource.AddNewQuestion}"
-                   Grid.Column="2"
-                   Margin="0 40"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Style="{StaticResource TitleText}"
-                   Foreground="{StaticResource BlackDarkBrush}" />
-
-        <GridSplitter Grid.Column="1"
-                        Width="6"
-                        HorizontalAlignment="Center">
+        <GridSplitter Grid.Column="1" Grid.RowSpan="2"
+                      Width="6"
+                      HorizontalAlignment="Center">
             <GridSplitter.Template>
                 <ControlTemplate TargetType="{x:Type GridSplitter}">
                     <Border Background="Black" Padding="1.5 0">
@@ -42,240 +41,126 @@
                 </ControlTemplate>
             </GridSplitter.Template>
         </GridSplitter>
+        
+        <!-- Question type tiles -->
+        <Grid Grid.Column="2" Grid.RowSpan="2"
+              Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding QuestionTypeDialogVisible}"
+              Background="{StaticResource WhiteDarkBrush}"
+              Panel.ZIndex="100">
 
-        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <Border HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    CornerRadius="3"
-                    Background="{StaticResource WhiteDarkBrush}"
-                    MinWidth="600"
-                    Padding="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <Grid>
+            <Button Content="Pytanie ABC" 
+                Grid.Row="0" Grid.Column="0"
+                Background="#4CA194"
+                Margin="5"
+                Command="{Binding SelectQuestionTypeCommand}"
+                CommandParameter="{x:Static core:QuestionType.MultipleChoice}"/>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+            <Button Content="Pytanie z checkboxami" 
+                Grid.Row="1" Grid.Column="1"
+                Background="#4CA194"
+                Margin="5"
+                Command="{Binding SelectQuestionTypeCommand}"
+                CommandParameter="{x:Static core:QuestionType.MultipleCheckboxes}"/>
 
-                    <StackPanel>
+            <Button Content="Pytania z textboxem" 
+                Grid.Row="0" Grid.Column="2"
+                Background="#4CA194"
+                Margin="5"
+                Command="{Binding SelectQuestionTypeCommand}"
+                CommandParameter="{x:Static core:QuestionType.SingleTextBox}"/>
 
-                        <TextBlock Text="{x:Static core:LocalizationResource.ChooseQuestionType}"
-                                   Margin="5"
-                                   Style="{StaticResource QuestionTextBlockStyle}" />
-
-                        <ComboBox SelectedIndex="{Binding QuestionBeingAddedIndex}">
-                            <ComboBoxItem Content="{x:Static core:LocalizationResource.MultipleChoiceQuestion}" />
-                            <ComboBoxItem Content="{x:Static core:LocalizationResource.MultipleCheckboxesQuestion}" />
-                            <ComboBoxItem Content="{x:Static core:LocalizationResource.SingleTextboxQuestion}"
-                                          ToolTip="{x:Static core:LocalizationResource.SingleTextboxQuestionTooltip}" />
-                        </ComboBox>
-
-                        <!-- Multiple choice question editor -->
-                        <local:MultipleChoiceQuestionEditor Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleChoice}" />
-                        
-                        <!-- Multiple checkboxes question creator -->
-                        <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=MultipleCheckboxes}">
-
-                            <TextBlock Text="{x:Static core:LocalizationResource.AddMultipleCheckboxesQuestionIntroduction}"
-                                       TextWrapping="Wrap"
-                                       Margin="5"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static core:LocalizationResource.TaskSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
-                                </Grid.ColumnDefinitions>
-                                <CheckBox IsChecked="{Binding IsAnswer1Right}" />
-                                <TextBox Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
-                                </Grid.ColumnDefinitions>
-                                <CheckBox IsChecked="{Binding IsAnswer2Right}" />
-                                <TextBox Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-                            <Grid Visibility="{Binding ShouldAnswer3BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="7*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <CheckBox IsChecked="{Binding IsAnswer3Right}" />
-                                <TextBox Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                                <Button Content="-"
-                                        Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="2"
-                                        Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                        Style="{StaticResource BaseUIButton}" />
-                            </Grid>
-
-                            <Grid Visibility="{Binding ShouldAnswer4BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="7*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <CheckBox IsChecked="{Binding IsAnswer4Right}" />
-                                <TextBox Text="{Binding Answer4, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                                <Button Content="-"
-                                        Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="2"
-                                        Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                        Style="{StaticResource BaseUIButton}" />
-                            </Grid>
-
-                            <Grid Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="7*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <CheckBox IsChecked="{Binding IsAnswer5Right}" />
-                                <TextBox Text="{Binding Answer5, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                                <Button Content="-"
-                                        Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="2"
-                                        Style="{StaticResource BaseUIButton}" />
-                            </Grid>
-
-                            <Button Content="{x:Static core:LocalizationResource.AddAnswerButton}"
-                                    Command="{Binding AddAnswerCommand}"
-                                    Visibility="{Binding ShouldAnswer5BeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                    Style="{StaticResource BaseUIButton}" />
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding QuestionMultipleCheckboxesPointScore}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-
-                        </StackPanel>
-
-                        <!-- Single textbox question creator -->
-                        <StackPanel Visibility="{Binding QuestionBeingAddedType, Converter={local:QuestionTypeToVisibilityConverter}, ConverterParameter=SingleTextBox}">
-
-                            <TextBlock Text="{x:Static core:LocalizationResource.AddSingleTextboxQuestionIntroduction}"
-                                       TextWrapping="Wrap"
-                                       Margin="5"
-                                       Style="{StaticResource QuestionTextBlockStyle}" />
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static core:LocalizationResource.TaskSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="9*" />
-                                    <ColumnDefinition Width="42*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static core:LocalizationResource.RightAnswerSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding TextBoxAnswer, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-                                <TextBox Text="{Binding QuestionSingleTextBoxPointScore}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-                            </Grid>
-
-                        </StackPanel>
-
-                        <TextBlock Text="{Binding ErrorMessage}"
-                                   Foreground="{StaticResource LightRedBrush}"
-                                   Style="{StaticResource QuestionTextBlockStyle}" />
-
-                    </StackPanel>
-
-                    <Button Grid.Row="1"
-                            Content="{x:Static core:LocalizationResource.CancelChanges}"
-                            Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
-                            Command="{Binding CancelEditQuestionCommand}"
-                            Style="{StaticResource BaseUIButton}"
-                            HorizontalAlignment="Left" />
-                    
-                    <Button Grid.Row="1"
-                            Content="{x:Static core:LocalizationResource.AddQuestion}"
-                            Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                            Command="{Binding SubmitQuestionCommand}"
-                            Style="{StaticResource BaseUIButton}"
-                            HorizontalAlignment="Right" />
-
-                    <Button Grid.Row="1"
-                            Content="{x:Static core:LocalizationResource.SaveQuestion}"
-                            Visibility="{Binding IsEditModeOn, Converter={local:BooleanToVisiblityConverter}}"
-                            Command="{Binding SubmitQuestionCommand}"
-                            Style="{StaticResource BaseUIButton}"
-                            HorizontalAlignment="Right" />
-
-                </Grid>
-
-
-            </Border>
+            <Button Grid.Row="3" Grid.Column="1"
+                    Style="{StaticResource BaseUIButton}"
+                    Content="Zakończ dodawanie pytań"
+                    Command="{Binding GoNextPhaseCommand}"/>
 
         </Grid>
 
-        <Button Content="{x:Static core:LocalizationResource.FinishQuestionAdding}"
-                Grid.Column="2"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="10"
-                Command="{Binding AddingCriteriaPageChangeCommand}"
-                Style="{StaticResource BaseUIButton}" />
+
+        <!-- Question Editor -->
+        <Grid Grid.Column="2" Grid.Row="0">
+
+            <local:MultipleChoiceQuestionEditor Visibility="{Binding CurrentQuestionType, Converter={local:QuestionTypeToVisibilityConverter}, 
+                                                                     ConverterParameter={x:Static core:QuestionType.MultipleChoice}}" />
+
+        </Grid>
+
+        <!-- Buttons section -->
+        <Grid Grid.Column="2" Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="3"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    Margin="10 10 10 15"
+                    Height="75"
+                    MaxWidth="350"
+                    Padding="15 5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="0">
+                        <TextBlock Text="Ilość pytań:"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                        <TextBlock Text="2"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="1">
+
+                        <TextBlock Text="Łącznie punktów:"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                        <TextBlock Text="15"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                    </StackPanel>
+                </Grid>
+                
+            </Border>
+            <Button Content="Zatwierdź pytanie" 
+                    Grid.Column="1"
+                    Style="{StaticResource BaseUIButton}"
+                    Command="{Binding SubmitCommand}"
+                    VerticalAlignment="Bottom"/>
+
+            <Button Content="Koniec pytań" 
+                    Grid.Column="2"
+                    Style="{StaticResource BaseUIButton}"
+                    Command="{Binding GoNextPhaseCommand}"
+                    VerticalAlignment="Bottom"/>
+        </Grid>
 
     </Grid>
 

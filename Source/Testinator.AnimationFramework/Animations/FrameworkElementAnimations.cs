@@ -102,7 +102,7 @@ namespace Testinator.AnimationFramework
                 element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            await Task.Delay((int)(seconds * 1075));
 
             // Make element invisible
             if (element.Opacity == 0)
@@ -162,7 +162,7 @@ namespace Testinator.AnimationFramework
                 element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            await Task.Delay((int)(seconds * 1075));
 
             // Fully hide the element
             element.Visibility = Visibility.Collapsed;
@@ -268,7 +268,9 @@ namespace Testinator.AnimationFramework
                 element.Visibility = Visibility.Visible;
 
             // Wait for it to finish
-            await Task.Delay((int)(seconds * 1000));
+            // For some freaking reson this is not always accurate, sometimes this delay takes few ms less than it shoud and therefore
+            // the opacity check fails causing bugs
+            await Task.Delay((int)(seconds * 1075));
 
             // Make element invisible
             if (element.Opacity == 0)
