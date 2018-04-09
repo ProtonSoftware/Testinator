@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Input;
 using Testinator.Core;
-using Testinator.Core.QuestionBuilders;
 
 namespace Testinator.Server.Core
 {
@@ -115,10 +114,13 @@ namespace Testinator.Server.Core
                     Items.Add(new ImagesEditorItemViewModel()
                     {
                         ID = i,
-                        Thumbnail = newItems[i].GetThumbnailImage(150, 150, () => false, IntPtr.Zero),
+                        Thumbnail = newItems[i].GetThumbnailImage(40, 30, () => false, IntPtr.Zero),
                     });
                 }
             }
+
+            OnPropertyChanged(nameof(CanAddImages));
+
         }
 
         #endregion
@@ -168,13 +170,16 @@ namespace Testinator.Server.Core
                 Items.Add(new ImagesEditorItemViewModel()
                 {
                     ID = Items.Count,
-                    Thumbnail = image.GetThumbnailImage(150, 150, () => false, IntPtr.Zero),
+                    Thumbnail = image.GetThumbnailImage(40, 30, () => false, IntPtr.Zero),
                 });
 
                 Images.Add(image);
 
                 ImageAdded.Invoke(image);
             }
+
+            OnPropertyChanged(nameof(CanAddImages));
+
         }
 
         /// <summary>
@@ -212,6 +217,8 @@ namespace Testinator.Server.Core
             UpdateIndexes(index);
 
             ImageDeleted.Invoke(DeletedImage);
+
+            OnPropertyChanged(nameof(CanAddImages));
         }
 
         /// <summary>

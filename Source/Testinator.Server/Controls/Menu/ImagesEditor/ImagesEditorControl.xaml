@@ -39,6 +39,7 @@
                 Padding="5"
                 VerticalAlignment="Center"
                 Command="{Binding AddImageCommand}"
+                IsEnabled="{Binding CanAddImages}"
                 />
     </Grid>
 </UserControl>

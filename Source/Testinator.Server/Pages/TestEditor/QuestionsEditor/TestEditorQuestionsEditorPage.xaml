@@ -111,9 +111,9 @@
                 BorderThickness="1"
                 Margin="25"
                 Background="#FFFFFF">
-
+            
             <Grid>
-
+                
                 <Grid.RowDefinitions>
                     <!-- Tittle-->
                     <RowDefinition Height="50"/>
@@ -136,15 +136,12 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
+                    <!-- Task -->
                     <TextBlock Grid.Column="0" Grid.Row="0"
                                Text="Pytanie: "
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
                                Margin="15 0"/>
-
-                    <local:ImagesEditorControl Grid.Row="0" Grid.Column="1"
-                                               DataContext="{Binding ImagesEditorViewModel}"
-                                               Height="50"/>
 
                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                              Style="{StaticResource TestEditorInputField}"
@@ -152,6 +149,13 @@
                              Tag="Wpisz treść pytania"
 
                              Margin="15 0"/>
+
+                    <!-- Image editor -->
+                    <local:ImagesEditorControl Grid.Row="0" Grid.Column="1"
+                                               DataContext="{Binding ImagesEditorViewModel}"
+                                               Height="50"/>
+
+
 
                 </Grid>                
                 
@@ -162,11 +166,13 @@
                                FontFamily="{StaticResource FontMontserratRegular}"
                                Margin="15 0"/>
                 </StackPanel>
-                
+
+
                 <local:MultipleChoiceQuestionEditor Visibility="{Binding CurrentQuestionType, Converter={local:QuestionTypeToVisibilityConverter}, 
-                                                                     ConverterParameter={x:Static core:QuestionType.MultipleChoice}}" 
-                                                    Grid.Row="2"/>
-            </Grid>
+                                                                    ConverterParameter={x:Static core:QuestionType.MultipleChoice}}" 
+                                                    Grid.Row="2"
+                                                    DataContext="{Binding QuestionViewModel}"/>
+                </Grid>
         </Border>
 
         <!-- Buttons section -->

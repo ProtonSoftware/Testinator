@@ -8,160 +8,135 @@
              xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
              xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
     
     <!-- Multiple choice question creator -->
     <StackPanel>
 
-        <Grid>
+        <Grid Margin="0 5 0 0">
+            
+            <!-- Answer A -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width=".15*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{x:Static core:LocalizationResource.TaskSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-            <TextBox Text="{Binding QuestionTask, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
-        </Grid>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="8*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="A:"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
+            
+            <TextBlock Text="Odp A.:"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+            
             <TextBox Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
+                     Grid.Column="1"
+                     Style="{StaticResource TestEditorInputField}"
+                     Tag="Wpisz odpowiedź"/>
         </Grid>
 
-        <Grid>
+        <!-- Answer B -->
+        <Grid Margin="0 5 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width=".15*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="B:"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
+            <TextBlock Text="Odp B.:"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
             <TextBox Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
+                     Grid.Column="1"
+                     Style="{StaticResource TestEditorInputField}"
+                     Tag="Wpisz odpowiedź"/>
         </Grid>
 
-        <Grid Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+        <!-- Answer C -->
+        <Grid Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}"
+              Margin="0 5 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="C:"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
+
+            <TextBlock Text="Odp C.:"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
+            
             <TextBox Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
+                     Grid.Column="1"
+                     Style="{StaticResource TestEditorInputField}"
+                     Tag="Wpisz odpowiedź"/>
+            
             <Button Content="-"
-                                        Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="2"
-                                        Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                        Style="{StaticResource BaseUIButton}" />
+                    Command="{Binding RemoveAnswerCommand}"
+                    Grid.Column="2"
+                    Padding="0"
+                    Margin="10 2"
+                    Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                    Style="{StaticResource BaseUIButton}"/>
         </Grid>
 
-        <Grid Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+        <Grid Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}"
+              Margin="0 5 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="D:"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
+            <TextBlock Text="Odp D.:"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
             <TextBox Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
+                     Grid.Column="1"
+                     Style="{StaticResource TestEditorInputField}"
+                     Tag="Wpisz odpowiedź"/>
             <Button Content="-"
-                                        Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="2"
-                                        Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                        Style="{StaticResource BaseUIButton}" />
+                    Command="{Binding RemoveAnswerCommand}"
+                    Grid.Column="2"
+                    Padding="0"
+                    Margin="10 2"
+                    Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                    Style="{StaticResource BaseUIButton}" />
         </Grid>
 
-        <Grid Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}">
+        <Grid Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}"
+              Margin="0 5 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="E:"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
+            <TextBlock Text="Odp E.:"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource QuestionTextBlockStyle}" />
             <TextBox Text="{Binding AnswerE, UpdateSourceTrigger=PropertyChanged}"
-                                         Grid.Column="1"
-                                         Style="{StaticResource SmallInputTextBox}" />
+                     Grid.Column="1"
+                     Style="{StaticResource TestEditorInputField}"
+                     Tag="Wpisz odpowiedź"/>
             <Button Content="-"
-                                        Command="{Binding RemoveAnswerCommand}"
-                                        Grid.Column="2"
-                                        Style="{StaticResource BaseUIButton}" />
+                    Command="{Binding RemoveAnswerCommand}"
+                    Grid.Column="2"
+                    Padding="0"
+                    Margin="10 2"
+                    Style="{StaticResource BaseUIButton}" />
         </Grid>
-
-        <Button Content="{x:Static core:LocalizationResource.AddAnswerButton}"
-                                    Command="{Binding AddAnswerCommand}"
-                                    Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                    Style="{StaticResource BaseUIButton}" />
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{x:Static core:LocalizationResource.RightAnswerSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-            <Button Content="A"
-                                        FontFamily="{StaticResource FontMontserratBold}"
-                                        Height="30"
-                                        Width="30"
-                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
-                                        CommandParameter="1"
-                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=1}"
-                                        Foreground="{StaticResource BlackDarkBrush}"
-                                        Style="{StaticResource IconGrowButton}" />
-            <Button Content="B"
-                                        FontFamily="{StaticResource FontMontserratBold}"
-                                        Height="30"
-                                        Width="30"
-                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
-                                        CommandParameter="2"
-                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=2}"
-                                        Foreground="{StaticResource BlackDarkBrush}"
-                                        Style="{StaticResource IconGrowButton}" />
-            <Button Content="C"
-                                        Visibility="{Binding ShouldAnswerCBeVisible, Converter={local:BooleanToVisiblityConverter}}"
-                                        FontFamily="{StaticResource FontMontserratBold}"
-                                        Height="30"
-                                        Width="30"
-                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
-                                        CommandParameter="3"
-                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=3}"
-                                        Foreground="{StaticResource BlackDarkBrush}"
-                                        Style="{StaticResource IconGrowButton}" />
-            <Button Content="D"
-                                        Visibility="{Binding ShouldAnswerDBeVisible, Converter={local:BooleanToVisiblityConverter}}"
-                                        FontFamily="{StaticResource FontMontserratBold}"
-                                        Height="30"
-                                        Width="30"
-                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
-                                        CommandParameter="4"
-                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=4}"
-                                        Foreground="{StaticResource BlackDarkBrush}"
-                                        Style="{StaticResource IconGrowButton}" />
-            <Button Content="E"
-                                        Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}}"
-                                        FontFamily="{StaticResource FontMontserratBold}"
-                                        Height="30"
-                                        Width="30"
-                                        Command="{Binding ChooseRightAnswerMultipleChoiceCommand}"
-                                        CommandParameter="5"
-                                        Background="{Binding RightAnswerIdx, Converter={local:IndexToBackgroundConverter}, ConverterParameter=5}"
-                                        Foreground="{StaticResource BlackDarkBrush}"
-                                        Style="{StaticResource IconGrowButton}" />
-            <TextBlock Text="{x:Static core:LocalizationResource.PointsSemicolon}"
-                                           Style="{StaticResource QuestionTextBlockStyle}" />
-            <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
-                                         Style="{StaticResource SmallInputTextBox}" />
+            
+        <Button Content="{x:Static core:LocalizationResource.AddAnswerButton}"
+                Command="{Binding AddAnswerCommand}"
+                Visibility="{Binding ShouldAnswerEBeVisible, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                Style="{StaticResource BaseUIButton}" 
+                HorizontalAlignment="Left"/>
+
+        <TextBlock Text="Punkty za pytanie :"
+                   Style="{StaticResource QuestionTextBlockStyle}" />
+        <TextBox Text="{Binding QuestionMultipleChoicePointScore}"
+                 Style="{StaticResource TestEditorInputField}" 
+                 Height="35"
+                 Tag="999"
+                 VerticalContentAlignment="Center"
+                 Width="75"/>
         </StackPanel>
 
     </StackPanel>
