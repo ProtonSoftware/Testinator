@@ -234,7 +234,7 @@
                                    FontFamily="{StaticResource FontMontserratThin}"
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    >
                             <TextBlock.Style>

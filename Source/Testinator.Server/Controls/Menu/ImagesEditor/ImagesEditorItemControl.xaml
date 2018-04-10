@@ -20,7 +20,13 @@
                                 BorderThickness="0"
                                 x:Name="Container"
                                 Background="Transparent">
-
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                                      Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                                       AncestorType={x:Type local:ImagesEditorControl}},
+                                                                Path=DataContext.SelectItemForPreviewCommand}"
+                                                      CommandParameter="{Binding ID}"/>
+                            </Border.InputBindings>
                             <Grid>
                                 <Image HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -32,7 +38,7 @@
                                         Height="10" Width="10"
                                         CornerRadius="50"
                                         VerticalAlignment="Top"
-                                        HorizontalAlignment="Left"
+                                        HorizontalAlignment="Right"
                                         Margin="-3 -3 0 0"
                                         Opacity="0"
                                         x:Name="DeleteButton">

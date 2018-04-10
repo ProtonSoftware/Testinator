@@ -45,6 +45,9 @@
     <system:String x:Key="FontAwesomeDoubleAngleDownIcon">&#xf103;</system:String>
     <system:String x:Key="FontAwesomeInfoCircle">&#xf05a;</system:String>
     <system:String x:Key="FontAwesomeQuestionIcon">&#xf05a;</system:String>
+    <system:String x:Key="FontAwesomeAngleDoubleLeftIcon">&#xf100;</system:String>
+    <system:String x:Key="FontAwesomeAngleDoubleRightIcon">&#xf101;</system:String>
+    
     
 
 </ResourceDictionary>

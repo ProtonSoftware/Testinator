@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using Testinator.Core;
+﻿using Testinator.Core;
 
 namespace Testinator.Server.Core
 {

@@ -14,6 +14,8 @@ namespace Testinator.Server
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return null;
             var ms = new MemoryStream();
             ((System.Drawing.Image)value).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             var image = new BitmapImage();

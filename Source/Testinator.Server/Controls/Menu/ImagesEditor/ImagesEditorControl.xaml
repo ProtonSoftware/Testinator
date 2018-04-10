@@ -20,7 +20,7 @@
                     <ItemsPanelTemplate>
                         <WrapPanel  Orientation="Vertical"
                                     HorizontalAlignment="Right"
-                                    FlowDirection="RightToLeft"
+                                    FlowDirection="LeftToRight"
                                     VerticalAlignment="Center"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>

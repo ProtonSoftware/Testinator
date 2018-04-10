@@ -74,7 +74,7 @@
     <Compile Include="ViewModels\Pages\TestEditor\AttachCriteria\TestEditorAttachCriteriaViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\Finalizing\TestEditorFinalizingViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Main\TestEditorQuestionsEditorViewModel.cs" />
-    <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Specifics\BaseQuestionEditorViewModel.cs" />
+    <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Main\BaseQuestionEditorViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Specifics\MultipleChoiceQuestionEditorViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\Initials\TestEditorInitialPageViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\TestBasicInformationEditors\TestEditorBasicInformationEditorViewModel.cs" />

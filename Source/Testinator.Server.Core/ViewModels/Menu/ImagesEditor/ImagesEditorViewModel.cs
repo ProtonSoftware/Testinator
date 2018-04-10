@@ -35,9 +35,9 @@ namespace Testinator.Server.Core
         public bool IsPreviewModeEnabled { get; private set; }
 
         /// <summary>
-        /// Current item showed in preview
+        /// Current image showed in preview
         /// </summary>
-        public ImagesEditorItemViewModel CurrentPreviewItem => Items.Count != 0 ? Items[CurrentPreviewItemIndex] : null;
+        public Image CurrentPreviewItem => Items.Count != 0 ? Images[CurrentPreviewItemIndex] : null;
 
         /// <summary>
         /// Index of the item being currently showed in preview
@@ -47,7 +47,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Indicates if the preview tool can go forward
         /// </summary>
-        public bool CanGoForward => CurrentPreviewItemIndex + 1 <= Items.Count;
+        public bool CanGoForward => CurrentPreviewItemIndex + 1 < Items.Count;
 
         /// <summary>
         /// Indicates if the preview tool can go back
@@ -115,12 +115,14 @@ namespace Testinator.Server.Core
                     {
                         ID = i,
                         Thumbnail = newItems[i].GetThumbnailImage(40, 30, () => false, IntPtr.Zero),
+                        OriginalImage = newItems[i],
                     });
                 }
             }
 
             OnPropertyChanged(nameof(CanAddImages));
-
+            OnPropertyChanged(nameof(CanGoForward));
+            OnPropertyChanged(nameof(CanGoBack));
         }
 
         #endregion
@@ -149,7 +151,11 @@ namespace Testinator.Server.Core
             if (CanAddImages)
             {
                 // Move file types somewhere else
-                var fileName = IoCServer.UI.ShowSingleFileDialog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "jpg files (*.jpg)|*.jpg|png files (*.png)|*.png");
+                var fileName = IoCServer.UI.ShowSingleFileDialog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "png files (*.png)|*.png|jpg files (*.jpg)|*.jpg|bmp files (*.bmp)|*.bm/p");
+
+                // The user did not selected any files
+                if (string.IsNullOrEmpty(fileName))
+                    return;
 
                 Bitmap image;
                 try
@@ -171,6 +177,7 @@ namespace Testinator.Server.Core
                 {
                     ID = Items.Count,
                     Thumbnail = image.GetThumbnailImage(40, 30, () => false, IntPtr.Zero),
+                    OriginalImage = image,
                 });
 
                 Images.Add(image);
@@ -179,7 +186,8 @@ namespace Testinator.Server.Core
             }
 
             OnPropertyChanged(nameof(CanAddImages));
-
+            OnPropertyChanged(nameof(CanGoForward));
+            OnPropertyChanged(nameof(CanGoBack));
         }
 
         /// <summary>
@@ -195,7 +203,7 @@ namespace Testinator.Server.Core
 
             IsPreviewModeEnabled = true;
             CurrentPreviewItemIndex = index;
-            
+            OnPropertyChanged(nameof(CurrentPreviewItem));
         }
 
         /// <summary>
@@ -219,6 +227,8 @@ namespace Testinator.Server.Core
             ImageDeleted.Invoke(DeletedImage);
 
             OnPropertyChanged(nameof(CanAddImages));
+            OnPropertyChanged(nameof(CanGoForward));
+            OnPropertyChanged(nameof(CanGoBack));
         }
 
         /// <summary>
@@ -228,6 +238,8 @@ namespace Testinator.Server.Core
         {
             if (CanGoBack)
                 CurrentPreviewItemIndex--;
+
+            OnPropertyChanged(nameof(CurrentPreviewItem));
         }
 
         /// <summary>
@@ -237,6 +249,8 @@ namespace Testinator.Server.Core
         {
             if (CanGoForward)
                 CurrentPreviewItemIndex++;
+
+            OnPropertyChanged(nameof(CurrentPreviewItem));
         }
 
         #endregion
@@ -260,7 +274,6 @@ namespace Testinator.Server.Core
         {
             CreateCommands();
             LoadItems(model);
-
         }
 
         #endregion

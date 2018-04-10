@@ -15,11 +15,8 @@
     <Grid Background="#F3F4F8">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"
-                              MinWidth="50" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*"
-                              MinWidth="600"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -32,7 +29,7 @@
             <!-- Buttons section-->
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
+        
         <Grid Grid.ColumnSpan="3" Grid.Row="0" Background="#FFFFFF">
             <TextBlock HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -40,24 +37,18 @@
                        FontFamily="{StaticResource FontMontserratRegular}"
                        Margin="50 0 0 0"/>
         </Grid>
+        
         <Border Grid.Row="1" Grid.ColumnSpan="3" 
                 Background="#4CA194"/>
+        <Grid Grid.RowSpan="222" Grid.ColumnSpan="222"
+              Panel.ZIndex="1000"
+              DataContext="{Binding ImagesEditorViewModel}">
+            <local:ImagesEditorPreview Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding IsPreviewModeEnabled}"/>
+        </Grid>
         <!-- Side menu control -->
-        <local:QuestionListControl Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"/>
+        <local:QuestionListControl Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"
+                                   Width="50"/>
 
-        <!-- Grid spliter, TODO: delete this later -->
-        <GridSplitter Grid.Column="1" Grid.Row="2" Grid.RowSpan="55"
-                      Width="6"
-                      HorizontalAlignment="Center">
-            <GridSplitter.Template>
-                <ControlTemplate TargetType="{x:Type GridSplitter}">
-                    <Border Background="Black" Padding="1.5 0">
-                        <Border Background="{StaticResource BlackLightBrush}"/>
-                    </Border>
-                </ControlTemplate>
-            </GridSplitter.Template>
-        </GridSplitter>
-        
         <!-- Question type tiles -->
         <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="3"
               Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding QuestionTypeDialogVisible}"
@@ -104,7 +95,7 @@
                     Command="{Binding GoNextPhaseCommand}"/>
 
         </Grid>
-
+        
         <!-- Question Editor -->
         <Border Grid.Column="2" Grid.Row="2" 
                 CornerRadius="5"

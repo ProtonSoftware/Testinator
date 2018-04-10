@@ -16,6 +16,11 @@ namespace Testinator.Server
         public int ID { get; set; }
 
         /// <summary>
+        /// Original image of this item
+        /// </summary>
+        public Image OriginalImage { get; set; }
+
+        /// <summary>
         /// The thumbnail for this item
         /// </summary>
         public Image Thumbnail { get; set; }

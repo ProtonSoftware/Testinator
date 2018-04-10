@@ -126,6 +126,7 @@ namespace Testinator.Server.Core
         public TestEditorQuestionsEditorViewModel(List<Question> Questions)
         {
             ImagesEditorViewModel = new ImagesEditorViewModel();
+            ImagesEditorViewModel.PropertyChanged += (s, e) => OnPropertyChanged(nameof(ImagesEditorViewModel));
             Questions.Add(new MultipleChoiceQuestion()
             {
                 CorrectAnswerIndex = 0,

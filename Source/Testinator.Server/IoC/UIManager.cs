@@ -124,6 +124,7 @@ namespace Testinator.Server
             {
                 InitialDirectory = InitialDirectory,
                 Filter = Filer,
+                RestoreDirectory = true,
             };
 
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
