@@ -145,9 +145,6 @@
                     <local:ImagesEditorControl Grid.Row="0" Grid.Column="1"
                                                DataContext="{Binding ImagesEditorViewModel}"
                                                Height="50"/>
-
-
-
                 </Grid>                
                 
                 <!-- Tittle box -->
@@ -158,12 +155,13 @@
                                Margin="15 0"/>
                 </StackPanel>
 
-
-                <local:MultipleChoiceQuestionEditor Visibility="{Binding CurrentQuestionType, Converter={local:QuestionTypeToVisibilityConverter}, 
-                                                                    ConverterParameter={x:Static core:QuestionType.MultipleChoice}}" 
-                                                    Grid.Row="2"
-                                                    DataContext="{Binding QuestionViewModel}"/>
+                <Grid Grid.Row="2">
+                    <local:MultipleChoiceQuestionEditor Visibility="{Binding Converter={local:QuestionTypeToVisibilityConverter}, 
+                                                                        ConverterParameter={x:Static core:QuestionType.MultipleChoice}, 
+                        RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=DataContext.CurrentQuestionType}"
+                                                        DataContext="{Binding CurrentQuestionEditorViewModel}"/>
                 </Grid>
+            </Grid>
         </Border>
 
         <!-- Buttons section -->

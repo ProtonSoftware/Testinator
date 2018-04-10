@@ -24,7 +24,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The view model for the currently edited question
         /// </summary>
-        public BaseQuestionEditorViewModel QuestionViewModel { get; private set; }
+        public BaseQuestionEditorViewModel CurrentQuestionEditorViewModel { get; private set; }
 
         /// <summary>
         /// Current question type being edited right noew
@@ -64,7 +64,12 @@ namespace Testinator.Server.Core
         /// </summary>
         private void Submit()
         {
-            QuestionTypeDialogVisible ^= true;
+            if (CurrentQuestionEditorViewModel != null && CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            {
+                // TODO: unsaved changes
+            }
+            else
+                QuestionTypeDialogVisible ^= true;
         }
 
         /// <summary>
@@ -93,15 +98,17 @@ namespace Testinator.Server.Core
             {
                 var type = (QuestionType)Type;
                 CurrentQuestionType = type;
+                CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(type);
             }
             catch
             {
                 // Developer error
                 IoCServer.Logger.Log("No such question. Error code: 1");
-                return;
             }
-
-            QuestionTypeDialogVisible = false;
+            finally
+            {
+                QuestionTypeDialogVisible = false;
+            }
         }
 
 
@@ -126,7 +133,6 @@ namespace Testinator.Server.Core
         public TestEditorQuestionsEditorViewModel(List<Question> Questions)
         {
             ImagesEditorViewModel = new ImagesEditorViewModel();
-            ImagesEditorViewModel.PropertyChanged += (s, e) => OnPropertyChanged(nameof(ImagesEditorViewModel));
             Questions.Add(new MultipleChoiceQuestion()
             {
                 CorrectAnswerIndex = 0,

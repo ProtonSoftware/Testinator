@@ -277,7 +277,6 @@
     </Compile>
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageConverter.cs" />
-    <Compile Include="ValueConverters\AddQuestionConverter.cs" />
     <Compile Include="ValueConverters\BooleanToAwesomeConverter.cs" />
     <Compile Include="ValueConverters\EditingmodeToLabelConverter.cs" />
     <Compile Include="ValueConverters\ImageToImageSourceConverterConverter.cs" />
@@ -287,6 +286,7 @@
     <Compile Include="ValueConverters\MarkToTextConverter.cs" />
     <Compile Include="ValueConverters\QuestionTypeToIconConverter.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
+    <Compile Include="ValueConverters\QuestionTypeToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
