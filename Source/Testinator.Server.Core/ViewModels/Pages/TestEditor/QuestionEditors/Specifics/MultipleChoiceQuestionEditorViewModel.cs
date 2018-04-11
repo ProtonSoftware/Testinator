@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -21,9 +22,11 @@ namespace Testinator.Server.Core
         public bool ShouldAnswerDBeVisible { get; set; } = false;
         public bool ShouldAnswerEBeVisible { get; set; } = false;
 
-        public int CorrectAnswerIndex { get; set; } = 0;
-
-
+        /// <summary>
+        /// Index of the correct answer
+        /// </summary>
+        public int CorrectAnswerIndex { get; set; }
+        
         /// <summary>
         /// Indicates if the user can add options to the question
         /// </summary>
@@ -36,63 +39,12 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Protected Methods
+        #region Private Members
 
         /// <summary>
-        /// Attaches a question to the viewmodel
+        /// The builder for this question
         /// </summary>
-        /// <param name="Question">The question to attach</param>
-        protected override void AttachQuestion(Question Question)
-        {
-            base.AttachQuestion(Question);
-
-            MultipleChoiceQuestion question;
-            try
-            {
-                question = (MultipleChoiceQuestion)Question;
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
-
-            ResetProperties();
-
-            // Cannot think of a better way to do that
-            for(var i = 0; i < question.Options.Count; i++)
-            {
-                switch(i)
-                {
-                    case 0:
-                        AnswerA = question.Options[i];
-                        break;
-
-                    case 1:
-                        AnswerB = question.Options[i];
-                        break;
-
-                    case 2:
-                        AnswerC = question.Options[i];
-                        ShouldAnswerCBeVisible = true;
-                        break;
-
-                    case 3:
-                        AnswerD = question.Options[i];
-                        ShouldAnswerCBeVisible = true;
-                        break;
-
-                    case 4:
-                        AnswerE = question.Options[i];
-                        ShouldAnswerCBeVisible = true;
-                        CanAddOptions = false;
-                        break;
-                }
-
-            }
-
-            CorrectAnswerIndex = question.CorrectAnswerIndex;
-            
-        }
+        private MultipleChoiceQuestionBuilder Builder { get; set; }
 
         #endregion
 
@@ -108,6 +60,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand AddAnswerCommand { get; private set; }
 
+        /// <summary>
+        /// The command to select correct answer
+        /// </summary>
+        public ICommand SelectCorrectAnswerCommand { get; private set; }
+
         #endregion
 
         #region Command Methods
@@ -122,16 +79,22 @@ namespace Testinator.Server.Core
             if (ShouldAnswerEBeVisible)
             {
                 ShouldAnswerEBeVisible = false;
+                if (CorrectAnswerIndex == 4)
+                    CorrectAnswerIndex = 3;
             }
             else if (ShouldAnswerDBeVisible)
             {
                 ShouldAnswerDBeVisible = false;
+                if (CorrectAnswerIndex == 3)
+                    CorrectAnswerIndex = 2;
             }
             else if (ShouldAnswerCBeVisible)
             {
                 ShouldAnswerCBeVisible = false;
                 CanRemoveOptions = false;
-                
+                if (CorrectAnswerIndex == 2)
+                    CorrectAnswerIndex = 1;
+
             }
                 CanAddOptions = true;
         }
@@ -163,6 +126,144 @@ namespace Testinator.Server.Core
 
         }
 
+        /// <summary>
+        /// Selects correct answer for the question
+        /// </summary>
+        /// <param name="obj">Answer index</param>
+        private void SelectCorrectAnswer(object obj)
+        {
+            var index = int.Parse((string)obj);
+
+            CorrectAnswerIndex = index;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Attaches a question to the viewmodel
+        /// </summary>
+        /// <param name="Question">The question to attach</param>
+        public override void AttachQuestion(Question Question)
+        {
+            base.AttachQuestion(Question);
+
+            MultipleChoiceQuestion question;
+            try
+            {
+                question = (MultipleChoiceQuestion)Question;
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+
+            ResetProperties();
+            Builder = new MultipleChoiceQuestionBuilder(question);
+
+            // Cannot think of a better way to do that
+            for (var i = 0; i < question.Options.Count; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        AnswerA = question.Options[i];
+                        break;
+
+                    case 1:
+                        AnswerB = question.Options[i];
+                        break;
+
+                    case 2:
+                        AnswerC = question.Options[i];
+                        ShouldAnswerCBeVisible = true;
+                        CanRemoveOptions = true;
+                        break;
+
+                    case 3:
+                        AnswerD = question.Options[i];
+                        ShouldAnswerDBeVisible = true;
+                        break;
+
+                    case 4:
+                        AnswerE = question.Options[i];
+                        ShouldAnswerEBeVisible = true;
+                        CanAddOptions = false;
+                        break;
+                }
+
+            }
+
+            CorrectAnswerIndex = question.CorrectAnswerIndex;
+        }
+
+        /// <summary>
+        /// Submits this form
+        /// </summary>
+        /// <returns>Null if the question cannot be returned</returns>
+        public override Question Submit()
+        {
+            try
+            {
+                var task = new TaskContent(TaskStringContent);
+                Builder.AddTask(task);
+
+                var questionsList = new List<string>()
+                {
+                    AnswerA,
+                    AnswerB,
+                };
+
+                if (string.IsNullOrEmpty(AnswerA))
+                    throw new Exception("Odpowiedź A zawiera puste pole");
+
+                if (string.IsNullOrEmpty(AnswerB))
+                    throw new Exception("Odpowiedź B zawiera puste pole");
+
+                if (ShouldAnswerCBeVisible)
+                {
+                    if (string.IsNullOrEmpty(AnswerC))
+                        throw new Exception("Odpowiedź C zawiera puste pole");
+                    else
+                        questionsList.Add(AnswerC);
+                }
+
+                if (ShouldAnswerDBeVisible)
+                {
+                    if (string.IsNullOrEmpty(AnswerD))
+                        throw new Exception("Odpowiedź D zawiera puste pole");
+                    else
+                        questionsList.Add(AnswerD);
+                }
+
+                if (ShouldAnswerEBeVisible)
+                {
+                    if (string.IsNullOrEmpty(AnswerE))
+                        throw new Exception("Odpowiedź E zawiera puste pole");
+                    else
+                        questionsList.Add(AnswerE);
+                }
+
+                Builder.AddOptions(questionsList);
+
+                Builder.AddCorrectAnswer(CorrectAnswerIndex);
+
+                if (!int.TryParse(string.IsNullOrEmpty(PointScore) ? null : PointScore, out var pointsInt))
+                    throw new Exception("Nieprawidłowa wartość w polu liczba punktów");
+
+                Builder.AddScoring(new Scoring(ScoringMode.FullAnswer, pointsInt));
+
+                return Builder.GetResult();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }   
+            
+            return null;
+        }
+
         #endregion
 
         #region Constructor
@@ -174,11 +275,8 @@ namespace Testinator.Server.Core
         {
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
             AddAnswerCommand = new RelayCommand(AddAnswer);
-        }
-
-        public override Question Submit()
-        {
-            throw new System.NotImplementedException();
+            SelectCorrectAnswerCommand = new RelayParameterizedCommand(SelectCorrectAnswer);
+            Builder = new MultipleChoiceQuestionBuilder();
         }
 
         #endregion

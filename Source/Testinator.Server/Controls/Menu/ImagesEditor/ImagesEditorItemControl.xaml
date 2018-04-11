@@ -31,6 +31,8 @@
                                 <Image HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Margin="2"
+                                       Stretch="None"
+                                       SnapsToDevicePixels="True"
                                        Source="{Binding Thumbnail, Converter={local:ImageToImageSourceConverterConverter}}" />
 
 

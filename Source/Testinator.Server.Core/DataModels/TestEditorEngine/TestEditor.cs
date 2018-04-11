@@ -1,4 +1,5 @@
-﻿using Testinator.Core;
+﻿using System;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
@@ -9,7 +10,7 @@ namespace Testinator.Server.Core
     {
         #region Private Members
 
-
+        
 
         #endregion
 
@@ -43,6 +44,24 @@ namespace Testinator.Server.Core
             // Load the builder
             Builder = new TestBuilder(TestToEdit);
             AnyUnsavedChanges = false;
+        }
+
+        /// <summary>
+        /// Deleletes a question form the test
+        /// </summary>
+        /// <param name="QuestionToDelete">The question to delet</param>
+        public void DeleteQuestion(Question QuestionToDelete)
+        {
+            Builder.RemoveQuestion(QuestionToDelete);
+            QuestionsChanged.Invoke();
+        }
+
+        /// <summary>
+        /// Fires the question update event to update the view
+        /// </summary>
+        public void UpdateQuestion()
+        {
+            QuestionsChanged.Invoke();
         }
 
         /// <summary>
@@ -140,6 +159,15 @@ namespace Testinator.Server.Core
                     break;
             }
         }
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when questions change, so any viewmodels can update their properties
+        /// </summary>
+        public event Action QuestionsChanged = () => { };
 
         #endregion
 

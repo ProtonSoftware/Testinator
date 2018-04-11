@@ -23,6 +23,16 @@ namespace Testinator.Server.Core
         /// Indicates if there are some unsaved changes
         /// </summary>
         public bool AnyUnsavedChanges { get; protected set; }
+    
+        /// <summary>
+        /// Indicates if this viewmodel is in design mode rather than in creation mode
+        /// </summary>
+        public bool IsInEditMode { get; private set; }
+
+        /// <summary>
+        /// The question that is being edited right now, if not in edit mode null
+        /// </summary>
+        public Question OriginalQuestion { get; private set; }
 
         #region Editable Fields
 
@@ -40,52 +50,35 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Protected Members
-
-        /// <summary>
-        /// The question that is being edited/created right now
-        /// </summary>
-        protected Question EditedQuestion { get; private set; }
-
-        #endregion
-
-        #region Protected Methods
-        
-        /// <summary>
-        /// Attaches a question to the viewmodel
-        /// </summary>
-        /// <param name="Question">The question to attach</param>
-        protected virtual void AttachQuestion(Question Question)
-        {
-            // Save the question
-            EditedQuestion = Question;
-
-            if (EditedQuestion != null)
-            {
-                TaskStringContent = EditedQuestion.Task == null ? "" : EditedQuestion.Task.StringContent;
-                PointScore = EditedQuestion.Scoring.FullPointScore.ToString();
-            }
-        }
-
-        #endregion
-
-        #region Abstract Methods
+        #region Abstract/Virual Methods
 
         /// <summary>
         /// Submits current question
         /// </summary>
         /// <returns>Null if validation falied; otherwise, the question that has been created/edited using this editor</returns>
         public abstract Question Submit();
-        
-        #endregion
 
-        #region Public Commands
+        /// <summary>
+        /// Attaches a question to the viewmodel
+        /// </summary>
+        /// <param name="Question">The question to attach</param>
+        public virtual void AttachQuestion(Question Question)
+        {
+            // Save the question
+            OriginalQuestion = Question;
 
-        #endregion
-
-        #region Command Methods
-
-
+            if (OriginalQuestion != null)
+            {
+                TaskStringContent = OriginalQuestion.Task == null ? "" : OriginalQuestion.Task.StringContent;
+                PointScore = OriginalQuestion.Scoring.FullPointScore.ToString();
+                IsInEditMode = true;
+            }
+            else
+            {
+                IsInEditMode = false;
+                OriginalQuestion = null;
+            }
+        }
 
         #endregion
 
@@ -107,28 +100,18 @@ namespace Testinator.Server.Core
                     return new MultipleChoiceQuestionEditorViewModel();
 
                 case QuestionType.MultipleCheckboxes:
+                    return new MultipleChoiceQuestionEditorViewModel();
                     return null;
 
                 case QuestionType.SingleTextBox:
+                    return new MultipleChoiceQuestionEditorViewModel();
                     return null;
 
                 default:
                     return null;
             }
         }
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BaseQuestionEditorViewModel(Question model = null)
-        {
-            
-        }
-
+        
         #endregion
 
     }

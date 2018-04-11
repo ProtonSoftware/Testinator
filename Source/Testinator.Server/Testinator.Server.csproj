@@ -111,6 +111,7 @@
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\BindableColumnsProperty.cs" />
     <Compile Include="AttachedProperties\IsBusyProperty.cs" />
+    <Compile Include="BitmapExtensionMethods.cs" />
     <Compile Include="Controls\Lists\CriteriaList\CriteriaListControl.xaml.cs">
       <DependentUpon>CriteriaListControl.xaml</DependentUpon>
     </Compile>
@@ -275,6 +276,7 @@
     <Compile Include="Pages\TestResults\TestResultsInitialPage.xaml.cs">
       <DependentUpon>TestResultsInitialPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\AnswerIndexToVisibiltyConverter.cs" />
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\ApplicationPageConverter.cs" />
     <Compile Include="ValueConverters\BooleanToAwesomeConverter.cs" />

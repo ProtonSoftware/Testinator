@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -37,7 +39,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Current image showed in preview
         /// </summary>
-        public Image CurrentPreviewItem => Items.Count != 0 ? Images[CurrentPreviewItemIndex] : null;
+        public Image CurrentPreviewItem => Images.Count != 0 ? Images[CurrentPreviewItemIndex] : null;
 
         /// <summary>
         /// Index of the item being currently showed in preview
@@ -108,13 +110,14 @@ namespace Testinator.Server.Core
             }
             else
             {
-                Images = newItems;
+                Images = newItems.ToList();
+                Items.Clear();
                 for (var i = 0; i < newItems.Count; i++)
                 {
                     Items.Add(new ImagesEditorItemViewModel()
                     {
                         ID = i,
-                        Thumbnail = newItems[i].GetThumbnailImage(40, 30, () => false, IntPtr.Zero),
+                        Thumbnail = newItems[i].GetThumbnail(),
                         OriginalImage = newItems[i],
                     });
                 }
@@ -161,14 +164,26 @@ namespace Testinator.Server.Core
                 try
                 {
                     image = new Bitmap(fileName);
+
+                    TaskContent.ValidateImage(image);
                 }
-                catch (Exception ex)
+                catch (FileNotFoundException ex)
                 {
                     IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
                     {
                         Message = $"Nie można wczytać pliku. Błąd: {ex.Message}",
                         OkText = "OK",
-                        Title = "Błąd wczytywania",
+                        Title = "Nie można dodać obrazka",
+                    });
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
+                    {
+                        Message = ex.Message,
+                        OkText = "OK",
+                        Title = "Nie można dodać obrazka",
                     });
                     return;
                 }
@@ -176,7 +191,7 @@ namespace Testinator.Server.Core
                 Items.Add(new ImagesEditorItemViewModel()
                 {
                     ID = Items.Count,
-                    Thumbnail = image.GetThumbnailImage(40, 30, () => false, IntPtr.Zero),
+                    Thumbnail = image.GetThumbnail(),
                     OriginalImage = image,
                 });
 

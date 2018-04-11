@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Testinator.Core.QuestionBuilders;
 
 namespace Testinator.Core
@@ -40,7 +41,7 @@ namespace Testinator.Core
             var AreOptionsUnique = !CreatedObject.Options.HasDuplicates();
 
             if (!AreOptionsUnique)
-                return false;
+                throw new Exception("Niektóre odpowiedzi są takie same!");
 
             return true;
         }

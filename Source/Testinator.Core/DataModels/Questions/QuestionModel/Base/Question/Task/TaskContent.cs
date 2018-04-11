@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace Testinator.Core
 {
@@ -64,7 +65,7 @@ namespace Testinator.Core
         public void AddStringContent(string Content)
         {
             if (string.IsNullOrEmpty(Content))
-                throw new NullReferenceException("Content cannot be null or empty");
+                throw new NullReferenceException("Treść pytania nie może być pusta!");
 
             StringContent = Content;
         }
@@ -86,6 +87,20 @@ namespace Testinator.Core
 
             if (ValidateImage(Image))
                 Images.Add(Image);
+        }
+
+        /// <summary>
+        /// Adds images to the task
+        /// </summary>
+        /// <param name="Image">The images to be added</param>
+        public void AddImages(List<Bitmap> ImagesToAdd)
+        {
+            if (Images.Count + ImagesToAdd.Count > MaximumImagesCount)
+                throw new Exception($"Maksymalna liczba obrazków to: {MaximumImagesCount}!");
+
+            foreach(var Image in ImagesToAdd)
+                if (ValidateImage(Image))
+                    Images.Add(Image);
         }
 
         /// <summary>
@@ -123,21 +138,21 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Private Methods
+        #region Public Helpers
 
         /// <summary>
         /// Checks if an image is valid and can be added to the task
         /// </summary>
         /// <param name="Image">The image to check</param>
         /// <returns>True if it is fully valid; otherwise, false</returns>
-        private bool ValidateImage(Bitmap Image)
+        public static bool ValidateImage(Bitmap Image)
         {
             if (Image == null)
                 throw new NullReferenceException("Image cannot be null!");
 
             if (Image.Width > MaxiumumWidth ||
                 Image.Height > MaxiumumHeight)
-                throw new Exception($"Image is too big. Maximum size: {MaxiumumWidth}x{MaxiumumHeight}px.");
+                throw new Exception($"Obrazek jest za duży. Maksymalny rozmiar to: {MaxiumumWidth}x{MaxiumumHeight}px.");
 
             return true;
 

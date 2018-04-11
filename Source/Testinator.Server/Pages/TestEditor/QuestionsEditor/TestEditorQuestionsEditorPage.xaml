@@ -136,7 +136,7 @@
 
                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                              Style="{StaticResource TestEditorInputField}"
-  
+                             Text="{Binding CurrentQuestionEditorViewModel.TaskStringContent}"
                              Tag="Wpisz treść pytania"
 
                              Margin="15 0"/>
@@ -193,7 +193,7 @@
                                    VerticalAlignment="Center"
                                    Style="{StaticResource QuestionTextBlockStyle}"/>
 
-                        <TextBlock Text="2"
+                        <TextBlock Text="{Binding CurrentQuestionsCount, FallbackValue=2}"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource QuestionTextBlockStyle}"/>
 
@@ -207,7 +207,7 @@
                                    VerticalAlignment="Center"
                                    Style="{StaticResource QuestionTextBlockStyle}"/>
 
-                        <TextBlock Text="15"
+                        <TextBlock Text="{Binding CurrentTotalPointsScore, FallbackValue=15}"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource QuestionTextBlockStyle}"/>
 

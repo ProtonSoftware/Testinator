@@ -17,10 +17,16 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <Image HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Grid.Column="1"
+        <ScrollViewer HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto"
+                      Grid.Column="1">
+            <Image 
+               Stretch="Uniform"
                Source="{Binding CurrentPreviewItem, Converter={local:ImageToImageSourceConverterConverter}}" />
+
+        </ScrollViewer>
 
 
         <Button HorizontalAlignment="Left"

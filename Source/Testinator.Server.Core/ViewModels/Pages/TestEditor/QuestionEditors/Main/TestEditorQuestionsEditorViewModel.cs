@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -30,7 +31,17 @@ namespace Testinator.Server.Core
         /// Current question type being edited right noew
         /// </summary>
         public QuestionType CurrentQuestionType { get; set; }
-        
+
+        /// <summary>
+        /// The current number of questions in test
+        /// </summary>
+        public int CurrentQuestionsCount => IoCServer.TestEditor.Builder.CurrentQuestions.Count;
+
+        /// <summary>
+        /// The current total score of this test
+        /// </summary>
+        public int CurrentTotalPointsScore => IoCServer.TestEditor.Builder.CurrentPointScore;
+
         #endregion
 
         #region Commands
@@ -60,16 +71,12 @@ namespace Testinator.Server.Core
         #region Command Methods
 
         /// <summary>
-        /// Submits the current question
+        /// Fired when submit button is clicked
         /// </summary>
         private void Submit()
         {
-            if (CurrentQuestionEditorViewModel != null && CurrentQuestionEditorViewModel.AnyUnsavedChanges)
-            {
-                // TODO: unsaved changes
-            }
-            else
-                QuestionTypeDialogVisible ^= true;
+            if (SubmitQuestion())
+                QuestionTypeDialogVisible = true;
         }
 
         /// <summary>
@@ -110,8 +117,7 @@ namespace Testinator.Server.Core
                 QuestionTypeDialogVisible = false;
             }
         }
-
-
+        
         #endregion
 
         #region Constructor
@@ -122,8 +128,7 @@ namespace Testinator.Server.Core
         public TestEditorQuestionsEditorViewModel()
         {
             QuestionListViewModel.Instance.LoadItems(null);
-            CreateCommands();
-            ImagesEditorViewModel = new ImagesEditorViewModel();
+            Initialize();
         }
 
         /// <summary>
@@ -132,29 +137,82 @@ namespace Testinator.Server.Core
         /// <param name="Questions"></param>
         public TestEditorQuestionsEditorViewModel(List<Question> Questions)
         {
-            ImagesEditorViewModel = new ImagesEditorViewModel();
-            Questions.Add(new MultipleChoiceQuestion()
-            {
-                CorrectAnswerIndex = 0,
-                Options = new List<string>() { "one", "two" },
-                Scoring = new Scoring(ScoringMode.FullAnswer, 10),
-                Task = new TaskContent("Some long question task so it is hard to display it in one line. rly.")
-            });
-            Questions.Add(new MultipleChoiceQuestion()
-            {
-                CorrectAnswerIndex = 0,
-                Options = new List<string>() { "one", "two" },
-                Scoring = new Scoring(ScoringMode.FullAnswer, 10),
-                Task = new TaskContent("Some222222 long question task so it is hard to display it in one line. rly.")
-            });
             QuestionListViewModel.Instance.LoadItems(Questions);
-            CreateCommands();
+            Initialize();
         }
-
-
+        
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Fired when a question is selected from the side menu
+        /// </summary>
+        /// <param name="SelectedQuestion">The question that has been selected</param>
+        private void QuestionListItemSelectedEvent(int SelectedQuestionIndex)
+        {
+            if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            {
+                var vm = new DecisionDialogViewModel()
+                {
+                    Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
+                    AcceptText = "Tak",
+                    CancelText = "Nie",
+                    Title = "Zmiana pytania",
+                };
+
+                if(vm.UserResponse)
+                {
+                    SubmitQuestion();
+                }
+            }
+
+            var SelectedQuestion = IoCServer.TestEditor.Builder.CurrentQuestions[SelectedQuestionIndex];
+
+            CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(SelectedQuestion.Type);
+            CurrentQuestionEditorViewModel.AttachQuestion(SelectedQuestion);
+            CurrentQuestionType = SelectedQuestion.Type;
+
+            ImagesEditorViewModel.LoadItems(SelectedQuestion.Task.Images);
+            QuestionTypeDialogVisible = false;
+
+        }
+
+        /// <summary>
+        /// Submits current question
+        /// </summary>
+        /// <returns>True if operation succeed; othwerwise, false</returns>
+        private bool SubmitQuestion()
+        {
+            var NewQuestion = CurrentQuestionEditorViewModel.Submit();
+            
+            if (NewQuestion != null)
+            {
+                NewQuestion.Task.AddImages(ImagesEditorViewModel.Images);
+
+                // Clear images control
+                ImagesEditorViewModel.LoadItems(null);
+
+                if (CurrentQuestionEditorViewModel.IsInEditMode)
+                {
+                    IoCServer.TestEditor.Builder.UpdateQuestion(CurrentQuestionEditorViewModel.OriginalQuestion, NewQuestion);
+                    QuestionListViewModel.Instance.UpdateQuestion(CurrentQuestionEditorViewModel.OriginalQuestion, NewQuestion);
+                }
+                else
+                {
+                    IoCServer.TestEditor.Builder.AddQuestion(NewQuestion);
+                    QuestionListViewModel.Instance.AppendQuestion(NewQuestion);
+                }
+
+                QuestionListViewModel.Instance.UnCheckAll();
+                IoCServer.TestEditor.UpdateQuestion();
+
+                return true;
+            }
+            else
+                return false;
+            
+        }
 
         /// <summary>
         /// Creates command for this viewmodel
@@ -165,6 +223,25 @@ namespace Testinator.Server.Core
             CancelCommand = new RelayCommand(Cancel);
             GoNextPhaseCommand = new RelayCommand(GoNextPhase);
             SelectQuestionTypeCommand = new RelayParameterizedCommand(SelectQuestion);
+        }
+
+        /// <summary>
+        /// Initialies this viewmodel,
+        /// As it has to constructors we would have to copy-pase the code
+        /// </summary>
+        private void Initialize()
+        {
+            CreateCommands();
+            ImagesEditorViewModel = new ImagesEditorViewModel();
+
+            // Fired when data about a test changes, so we can update properties
+            IoCServer.TestEditor.QuestionsChanged += () =>
+            {
+                OnPropertyChanged(nameof(CurrentQuestionsCount));
+                OnPropertyChanged(nameof(CurrentTotalPointsScore));
+            };
+
+            QuestionListViewModel.Instance.ItemSelected += QuestionListItemSelectedEvent;
         }
 
         #endregion

@@ -30,10 +30,24 @@
                         <ColumnDefinition Width="8*" />
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
-            
-                    <TextBlock Text="Odp A.:"
+
+                    <Border Background="{StaticResource GreenLightBrush}"
+                            Margin="10 0"
+                            CornerRadius="5"
+                            Grid.Column="0"
+                            Visibility="{Binding CorrectAnswerIndex, Converter={local:AnswerIndexToVisibiltyConverter}, ConverterParameter=0}">
+                    </Border>
+                    <Border>
+                        <Border.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding SelectCorrectAnswerCommand}"
+                                          CommandParameter="0"/>
+                        </Border.InputBindings>
+                        <TextBlock Text="Odp A.:"
                                HorizontalAlignment="Center"
+                               Margin="0"
                                Style="{StaticResource QuestionTextBlockStyle}" />
+                    </Border>
 
                     <TextBox Text="{Binding AnswerA}"
                              Grid.Column="1"
@@ -48,9 +62,25 @@
                         <ColumnDefinition Width="8*" />
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Odp B.:"
+
+                    <Border Background="{StaticResource GreenLightBrush}"
+                            Margin="10 0"
+                            CornerRadius="5"
+                            Grid.Column="0"
+                            Visibility="{Binding CorrectAnswerIndex, Converter={local:AnswerIndexToVisibiltyConverter}, ConverterParameter=1}">
+                    </Border>
+                    <Border>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding SelectCorrectAnswerCommand}"
+                                          CommandParameter="1"/>
+                        </Border.InputBindings>
+                        <TextBlock Text="Odp B.:"
                                HorizontalAlignment="Center"
+                               Margin="0"
                                Style="{StaticResource QuestionTextBlockStyle}" />
+                    </Border>
+
                     <TextBox Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Column="1"
                              Style="{StaticResource TestEditorInputField}"
@@ -66,9 +96,23 @@
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Odp C.:"
+                    <Border Background="{StaticResource GreenLightBrush}"
+                            Margin="10 0"
+                            CornerRadius="5"
+                            Grid.Column="0"
+                            Visibility="{Binding CorrectAnswerIndex, Converter={local:AnswerIndexToVisibiltyConverter}, ConverterParameter=2}">
+                    </Border>
+                    <Border>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding SelectCorrectAnswerCommand}"
+                                          CommandParameter="2"/>
+                        </Border.InputBindings>
+                        <TextBlock Text="Odp C.:"
                                HorizontalAlignment="Center"
+                               Margin="0"
                                Style="{StaticResource QuestionTextBlockStyle}" />
+                    </Border>
 
                     <TextBox Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Column="1"
@@ -84,9 +128,25 @@
                         <ColumnDefinition Width="8*" />
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Odp D.:"
+
+                    <Border Background="{StaticResource GreenLightBrush}"
+                            Margin="10 0"
+                            CornerRadius="5"
+                            Grid.Column="0"
+                            Visibility="{Binding CorrectAnswerIndex, Converter={local:AnswerIndexToVisibiltyConverter}, ConverterParameter=3}">
+                    </Border>
+                    <Border>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding SelectCorrectAnswerCommand}"
+                                          CommandParameter="3"/>
+                        </Border.InputBindings>
+                        <TextBlock Text="Odp D.:"
                                HorizontalAlignment="Center"
+                               Margin="0"
                                Style="{StaticResource QuestionTextBlockStyle}" />
+                    </Border>
+                    
                     <TextBox Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Column="1"
                              Style="{StaticResource TestEditorInputField}"
@@ -109,9 +169,25 @@
                         <ColumnDefinition Width="8*" />
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Odp E.:"
+                    
+                    <Border Background="{StaticResource GreenLightBrush}"
+                            Margin="10 0"
+                            CornerRadius="5"
+                            Grid.Column="0"
+                            Visibility="{Binding CorrectAnswerIndex, Converter={local:AnswerIndexToVisibiltyConverter}, ConverterParameter=4}">
+                    </Border>
+                    <Border>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding SelectCorrectAnswerCommand}"
+                                          CommandParameter="4"/>
+                        </Border.InputBindings>
+                        <TextBlock Text="Odp E.:"
                                HorizontalAlignment="Center"
+                               Margin="0"
                                Style="{StaticResource QuestionTextBlockStyle}" />
+                    </Border>
+                    
                     <TextBox Text="{Binding AnswerE, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Column="1"
                              Style="{StaticResource TestEditorInputField}"

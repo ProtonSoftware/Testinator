@@ -68,13 +68,14 @@ namespace Testinator.Core.QuestionBuilders
         /// <param name="Prototype">The prototype of a question for this builder to work with</param>
         private void LoadPrototype(TQuestionType Prototype)
         {
-            CreatedObject = Prototype ?? throw new NullReferenceException("Prototype cannot be null");
+            CreatedObject = Prototype == null ? throw new NullReferenceException("Prototype cannot be null") : (TQuestionType)Prototype.Clone();
 
             // Load flags 
             IsCorrectAnswerAttached = HasCorrectAnswer();
             AreOptionsAttached = HasOptions();
             IsScoringAttached = HasScoring();
             IsTaskAttached = HasTask();
+
         }
 
         #endregion
@@ -176,7 +177,7 @@ namespace Testinator.Core.QuestionBuilders
         /// </summary>
         /// <returns>True if it has, otherwise false</returns>
         protected abstract bool HasCorrectAnswer();
-
+        
         #endregion
     }
 }

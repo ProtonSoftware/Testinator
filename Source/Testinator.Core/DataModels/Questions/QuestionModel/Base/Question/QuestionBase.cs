@@ -6,7 +6,7 @@ namespace Testinator.Core
     /// Base class for any question to derive from
     /// </summary>
     [Serializable]
-    public abstract class Question
+    public abstract class Question : ICloneable
     {
         #region Public Properties
 
@@ -41,6 +41,19 @@ namespace Testinator.Core
         /// </summary>
         /// <returns>Number of points that can be displayed easily</returns>
         public abstract string GetDisplayPointScore();
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Clones the object
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         #endregion
     }

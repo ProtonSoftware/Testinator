@@ -70,6 +70,11 @@ namespace Testinator.Core
         /// </summary>
         public List<Question> CurrentQuestions => CreatedObject.Questions;
 
+        /// <summary>
+        /// Current total score of this test
+        /// </summary>
+        public int CurrentPointScore => CreatedObject.TotalPointScore;
+
         #endregion
 
         #region Public Construction Methods

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmapExtensionMethods.cs" />
     <Compile Include="DataModels\TestEditorEngine\Operation.cs" />
     <Compile Include="DataModels\TestEditorEngine\TestEditor.cs" />
     <Compile Include="Networking\Base\IServer.cs" />

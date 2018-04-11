@@ -73,7 +73,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Fired when item gets selected 
         /// </summary>
-        public event Action<Question> ItemSelected = (o) => { };
+        public event Action<int> ItemSelected = (o) => { };
 
         #region Commands
 
@@ -129,7 +129,7 @@ namespace Testinator.Server.Core
 
             // Fire the events
             SelectionChanged.Invoke();
-            ItemSelected.Invoke(SelectedItem);
+            ItemSelected.Invoke(newSelectedItemIndex);
         }
 
         #endregion
@@ -142,7 +142,7 @@ namespace Testinator.Server.Core
         /// <param name="items">Items to load</param>
         public void LoadItems(List<Question> items)
         {
-            mQuestions = items;
+            mQuestions = new List<Question>(items);
             Items = new ObservableCollection<QuestionListItemViewModel>();
             SelectedItem = null;
 
@@ -155,6 +155,21 @@ namespace Testinator.Server.Core
                     Type = mQuestions[i].Type,
                 });
             }
+        }
+
+        /// <summary>
+        /// Updates a question in the list
+        /// </summary>
+        /// <param name="oldQuestion"></param>
+        /// <param name="newQuestion"></param>
+        public void UpdateQuestion(Question oldQuestion, Question newQuestion)
+        {
+            if (!mQuestions.Contains(oldQuestion))
+                return;
+
+            var index = mQuestions.IndexOf(oldQuestion);
+
+            Items[index].Task = newQuestion.Task.StringContent;
         }
 
         /// <summary>
@@ -205,6 +220,7 @@ namespace Testinator.Server.Core
                 Items[mCurrentlySelectedItemIndex].IsSelected = false;
                 SelectionChanged.Invoke();
             }
+            mCurrentlySelectedItemIndex = NothingSelected;
         }
 
         #endregion
