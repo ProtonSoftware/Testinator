@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -88,6 +87,8 @@ namespace Testinator.Server.Core
             if (SubmitQuestion())
             {
                 QuestionTypeDialogVisible = true;
+                QuestionListViewModel.Instance.UnCheckAll();
+                CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(null);
             }
         }
 
@@ -104,6 +105,9 @@ namespace Testinator.Server.Core
         private void DeleteQuestion()
         {
             IoCServer.TestEditor.DeleteQuestion(CurrentQuestionEditorViewModel.OriginalQuestion);
+            QuestionListViewModel.Instance.UnCheckAll();
+            QuestionListViewModel.Instance.CanChangeSelection = true;
+
             QuestionTypeDialogVisible = true;
         }
 
@@ -122,13 +126,22 @@ namespace Testinator.Server.Core
                     Title = "Edytor testów",
                 };
 
+                IoCServer.UI.ShowMessage(vm);
+
                 if (vm.UserResponse)
                 {
-                    SubmitQuestion();
+                    if (!SubmitQuestion())
+                        return;
+                }
+                else
+                {
+                    QuestionListViewModel.Instance.CanChangeSelection = true;
+                    QuestionListViewModel.Instance.SelectLastClickedItem();
                 }
             }
 
             ImagesEditorViewModel.Instance.LoadItems(null);
+            CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(null);
             QuestionListViewModel.Instance.UnCheckAll();
             QuestionTypeDialogVisible = true;
         }
@@ -145,7 +158,7 @@ namespace Testinator.Server.Core
                 CurrentQuestionType = type;
                 IsCancelButtonVisible = false;
                 CanDeleteQuestion = false;
-                CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(type);
+                CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(null, type);
             }
             catch
             {
@@ -163,7 +176,7 @@ namespace Testinator.Server.Core
         /// <param name="SelectedQuestion">The question that has been selected</param>
         private void QuestionListItemSelectedEvent(int SelectedQuestionIndex)
         {
-            if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            if (CurrentQuestionEditorViewModel != null && CurrentQuestionEditorViewModel.AnyUnsavedChanges)
             {
                 var vm = new DecisionDialogViewModel()
                 {
@@ -173,22 +186,34 @@ namespace Testinator.Server.Core
                     Title = "Edytor testów",
                 };
 
+                IoCServer.UI.ShowMessage(vm);
+
                 if (vm.UserResponse)
                 {
-                    if (!SubmitQuestion())
+                    if (SubmitQuestion())
+                    {
+                        QuestionListViewModel.Instance.CanChangeSelection = true;
+                        QuestionListViewModel.Instance.SelectLastClickedItem();
+                    }
+                    else
                         return;
+                }
+                else
+                {
+                    QuestionListViewModel.Instance.CanChangeSelection = true;
+                    QuestionListViewModel.Instance.SelectLastClickedItem();
                 }
             }
 
             var SelectedQuestion = IoCServer.TestEditor.Builder.CurrentQuestions[SelectedQuestionIndex];
 
-            CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(SelectedQuestion.Type);
-            CurrentQuestionEditorViewModel.AttachQuestion(SelectedQuestion);
+            CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(SelectedQuestion);
             CurrentQuestionType = SelectedQuestion.Type;
             ImagesEditorViewModel.Instance.LoadItems(SelectedQuestion.Task.Images);
             QuestionTypeDialogVisible = false;
             IsCancelButtonVisible = true;
             CanDeleteQuestion = true;
+            
         }
 
         #endregion
@@ -247,7 +272,6 @@ namespace Testinator.Server.Core
                     QuestionListViewModel.Instance.AppendQuestion(NewQuestion);
                 }
 
-                QuestionListViewModel.Instance.UnCheckAll();
                 IoCServer.TestEditor.UpdateQuestion();
 
                 return true;
@@ -285,6 +309,16 @@ namespace Testinator.Server.Core
             };
 
             QuestionListViewModel.Instance.ItemSelected += QuestionListItemSelectedEvent;
+
+            // Keep track of any selection changes in questions control to work properly with unsaved changes
+            QuestionListViewModel.Instance.SelectionChanges += () =>
+            {
+                if (CurrentQuestionEditorViewModel != null)
+                {
+                    if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+                        QuestionListViewModel.Instance.CanChangeSelection = false;
+                }
+            };
         }
 
         #endregion

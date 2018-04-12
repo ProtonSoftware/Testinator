@@ -49,7 +49,7 @@
                                Style="{StaticResource QuestionTextBlockStyle}" />
                     </Border>
 
-                    <TextBox Text="{Binding AnswerA}"
+                    <TextBox Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
                              Grid.Column="1"
                              Style="{StaticResource TestEditorInputField}"
                              Tag="Wpisz odpowiedź"/>
@@ -235,7 +235,7 @@
                        Margin="0 15 0 0"
                        VerticalAlignment="Top"
                        Style="{StaticResource QuestionTextBlockStyle}" />
-            <TextBox Text="{Binding PointScore}"
+            <TextBox Text="{Binding PointScore, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource TestEditorInputField}" 
                      Height="35"
                      Tag="9 9 9 p."

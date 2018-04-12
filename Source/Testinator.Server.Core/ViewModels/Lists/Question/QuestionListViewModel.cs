@@ -52,15 +52,14 @@ namespace Testinator.Server.Core
         public ObservableCollection<QuestionListItemViewModel> Items { get; private set; }
 
         /// <summary>
-        /// Indicates if there is any test selected
+        /// Indicates if the user can change the selection of the items
         /// </summary>
-        public bool IsAnySelected => SelectedItem != null;
+        public bool CanChangeSelection { get; set; } = true;
 
         /// <summary>
-        /// Indicates currently selected item
-        /// NOTE: null if nothing is selected
+        /// The index of last clicked item
         /// </summary>
-        public Question SelectedItem { get; private set; }
+        public int LastClickedItemIndex { get; private set; } = NothingSelected;
 
         #endregion
 
@@ -68,7 +67,7 @@ namespace Testinator.Server.Core
         /// Fired when selection in this list chages
         /// NOTE: not invoked if this same item is selected multiple times
         /// </summary>
-        public event Action SelectionChanged = () => { };
+        public event Action SelectionChanges = () => { };
 
         /// <summary>
         /// Fired when item gets selected 
@@ -114,6 +113,15 @@ namespace Testinator.Server.Core
             if (mCurrentlySelectedItemIndex == newSelectedItemIndex)
                 return;
 
+            SelectionChanges.Invoke();
+
+            LastClickedItemIndex = newSelectedItemIndex;
+            
+            ItemSelected.Invoke(newSelectedItemIndex);
+            
+            if (!CanChangeSelection)
+                return;
+
             // Unselect last item if there was any selected
             if (mCurrentlySelectedItemIndex != NothingSelected)
                 Items[mCurrentlySelectedItemIndex].IsSelected = false;
@@ -124,17 +132,29 @@ namespace Testinator.Server.Core
             // Save new selected item index
             mCurrentlySelectedItemIndex = newSelectedItemIndex;
 
-            // Set selected item
-            SelectedItem = mQuestions[newSelectedItemIndex];
-
-            // Fire the events
-            SelectionChanged.Invoke();
-            ItemSelected.Invoke(newSelectedItemIndex);
         }
 
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Selects the last clicked item
+        /// </summary>
+        public void SelectLastClickedItem()
+        {
+            if (!CanChangeSelection)
+                return;
+
+            if (LastClickedItemIndex == NothingSelected || LastClickedItemIndex >= Items.Count)
+                return;
+
+            Items[mCurrentlySelectedItemIndex].IsSelected = false;
+
+            Items[LastClickedItemIndex].IsSelected = true;
+
+            mCurrentlySelectedItemIndex = LastClickedItemIndex;
+        }
 
         /// <summary>
         /// Loads this viewmodel with given questions
@@ -144,7 +164,9 @@ namespace Testinator.Server.Core
         {
             mQuestions = new List<Question>(items);
             Items = new ObservableCollection<QuestionListItemViewModel>();
-            SelectedItem = null;
+            CanChangeSelection = true;
+            mCurrentlySelectedItemIndex = NothingSelected;
+            LastClickedItemIndex = NothingSelected;
 
             for (var i = 0; i < items.Count; i++)
             {
@@ -188,7 +210,6 @@ namespace Testinator.Server.Core
             if (Items[questionIndex].IsSelected)
             {
                 mCurrentlySelectedItemIndex = NothingSelected;
-                SelectedItem = null;
             }
 
             Items.RemoveAt(questionIndex);
@@ -224,9 +245,10 @@ namespace Testinator.Server.Core
             if (mCurrentlySelectedItemIndex != NothingSelected)
             {
                 Items[mCurrentlySelectedItemIndex].IsSelected = false;
-                SelectionChanged.Invoke();
+                SelectionChanges.Invoke();
             }
             mCurrentlySelectedItemIndex = NothingSelected;
+            CanChangeSelection = true;
         }
 
         #endregion

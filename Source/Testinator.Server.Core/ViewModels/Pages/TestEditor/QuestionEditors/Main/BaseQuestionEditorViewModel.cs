@@ -1,4 +1,5 @@
-﻿using Testinator.Core;
+﻿using System.Collections.Generic;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
@@ -7,6 +8,28 @@ namespace Testinator.Server.Core
     /// </summary>
     public abstract class BaseQuestionEditorViewModel: BaseViewModel
     {
+        #region Private Memebrs
+
+        /// <summary>
+        /// Common properties that can raise a question changed event
+        /// </summary>
+        private readonly List<string> mCommonChangesRisingProprties = new List<string>()
+        {
+            nameof(TaskStringContent),
+            nameof(PointScore),
+        };
+
+        #endregion
+
+        #region Abstract Properties
+
+        /// <summary>
+        /// All properties that can cause any unsaved changes
+        /// </summary>
+        protected abstract List<string> SpecificChangesRisingProperties { get; }
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -62,7 +85,7 @@ namespace Testinator.Server.Core
         /// Attaches a question to the viewmodel
         /// </summary>
         /// <param name="Question">The question to attach</param>
-        public virtual void AttachQuestion(Question Question)
+        protected virtual void AttachQuestion(Question Question)
         {
             // Save the question
             OriginalQuestion = Question;
@@ -76,7 +99,35 @@ namespace Testinator.Server.Core
             else
             {
                 IsInEditMode = false;
-                OriginalQuestion = null;
+                AnyUnsavedChanges = true;
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public BaseQuestionEditorViewModel(Question QuestionModel)
+        {
+            AttachQuestion(QuestionModel);
+
+            // Trigger every changes rising properties
+            if(IsInEditMode)
+            {
+                PropertyChanged += (d, e) =>
+                {
+                    if (!AnyUnsavedChanges && (mCommonChangesRisingProprties.Contains(e.PropertyName) ||
+                       SpecificChangesRisingProperties.Contains(e.PropertyName)))
+                        AnyUnsavedChanges = true;
+                };
+
+                ImagesEditorViewModel.Instance.ListModified += () =>
+                {
+                    AnyUnsavedChanges = true;
+                };
             }
         }
 
@@ -87,24 +138,32 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Gets the editor viewmodel corresponding question type
         /// </summary>
-        /// <param name="Type"></param>
-        /// <returns></returns>
-        public static BaseQuestionEditorViewModel ToViewModel(QuestionType Type)
+        /// <param name="QuestionToLoad">The question to load</param>
+        /// <param name="Type">The type of a question to load</param>
+        /// <returns>Null: if null question is passed in and no type is specified
+        ///          Corresponding viewmodel: if only question passed in Type parameter is ignored
+        ///                                   if null question with a concrete type passed in</returns>
+        public static BaseQuestionEditorViewModel ToViewModel(Question QuestionToLoad, QuestionType Type = QuestionType.None)
         {
+            if (QuestionToLoad == null && Type == QuestionType.None)
+                return null;
+            else if (QuestionToLoad != null)
+                Type = QuestionToLoad.Type;
+
             switch (Type)
             {
                 case QuestionType.None:
                     return null;
 
                 case QuestionType.MultipleChoice:
-                    return new MultipleChoiceQuestionEditorViewModel();
+                    return new MultipleChoiceQuestionEditorViewModel(QuestionToLoad);
 
                 case QuestionType.MultipleCheckboxes:
-                    return new MultipleChoiceQuestionEditorViewModel();
+                    return new MultipleChoiceQuestionEditorViewModel(QuestionToLoad);
                     return null;
 
                 case QuestionType.SingleTextBox:
-                    return new MultipleChoiceQuestionEditorViewModel();
+                    return new MultipleChoiceQuestionEditorViewModel(QuestionToLoad);
                     return null;
 
                 default:

@@ -152,6 +152,12 @@ namespace Testinator.Server.Core
         /// </summary>
         public event Action<Bitmap> ImageAdded = (e) => { };
 
+        /// <summary>
+        /// Fired when items are added or deleted from this list,
+        /// Makes triggering changes easier
+        /// </summary>
+        public event Action ListModified = () => { };
+
         #endregion
 
         #region Command Methods
@@ -208,11 +214,13 @@ namespace Testinator.Server.Core
                 Images.Add(image);
 
                 ImageAdded.Invoke(image);
-            }
 
-            OnPropertyChanged(nameof(CanAddImages));
-            OnPropertyChanged(nameof(CanGoForward));
-            OnPropertyChanged(nameof(CanGoBack));
+                ListModified.Invoke();
+
+                OnPropertyChanged(nameof(CanAddImages));
+                OnPropertyChanged(nameof(CanGoForward));
+                OnPropertyChanged(nameof(CanGoBack));
+            }
         }
 
         /// <summary>
@@ -250,6 +258,8 @@ namespace Testinator.Server.Core
             UpdateIndexes(index);
 
             ImageDeleted.Invoke(DeletedImage);
+
+            ListModified.Invoke();
 
             OnPropertyChanged(nameof(CanAddImages));
             OnPropertyChanged(nameof(CanGoForward));
@@ -289,16 +299,6 @@ namespace Testinator.Server.Core
         {
             CreateCommands();
             LoadItems(null);
-        }
-
-        /// <summary>
-        /// Constructor with initialization data
-        /// </summary>
-        /// <param name="model">The intial data for this viewmodel</param>
-        public ImagesEditorViewModel(List<Bitmap> model)
-        {
-            CreateCommands();
-            LoadItems(model);
         }
 
         #endregion

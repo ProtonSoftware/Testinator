@@ -143,7 +143,7 @@
 
                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                              Style="{StaticResource TestEditorInputField}"
-                             Text="{Binding CurrentQuestionEditorViewModel.TaskStringContent}"
+                             Text="{Binding CurrentQuestionEditorViewModel.TaskStringContent, UpdateSourceTrigger=PropertyChanged}"
                              Tag="Wpisz treść pytania"
 
                              Margin="15 0"/>
@@ -155,10 +155,17 @@
                 
                 <!-- Tittle box -->
                 <Grid Grid.Row="0" Background="#F5FAF4">
-                    <TextBlock Text="Pytanie wielokrotnego wyboru (Wiele poprawnych odpowiedzi)"
-                               VerticalAlignment="Center"
-                               FontFamily="{StaticResource FontMontserratRegular}"
-                               Margin="15 0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="15 0">
+                        <TextBlock Text="Pytanie wielokrotnego wyboru (Wiele poprawnych odpowiedzi)"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource FontMontserratRegular}"
+                                   />
+                        <TextBlock Text="*"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource FontMontserratRegular}"
+                                   Visibility="{Binding CurrentQuestionEditorViewModel.AnyUnsavedChanges, Converter={local:BooleanToVisiblityConverter}}"/>
+                    </StackPanel>
                     <Button Content="Usuń pytanie" 
                             HorizontalAlignment="Right"
                             Padding="5 5"

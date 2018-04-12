@@ -10,6 +10,26 @@ namespace Testinator.Server.Core
     /// </summary>
     public class MultipleChoiceQuestionEditorViewModel : BaseQuestionEditorViewModel
     {
+        #region Protected Memebers
+
+        /// <summary>
+        /// Properties that can cause any unsaved changes
+        /// </summary>
+        protected override List<string> SpecificChangesRisingProperties => new List<string>()
+        {
+            nameof(AnswerA),
+            nameof(AnswerB),
+            nameof(AnswerC),
+            nameof(AnswerD),
+            nameof(AnswerE),
+            nameof(ShouldAnswerCBeVisible),
+            nameof(ShouldAnswerDBeVisible),
+            nameof(ShouldAnswerEBeVisible),
+            nameof(CorrectAnswerIndex),
+        };
+
+        #endregion
+
         #region Public Properties
 
         public string AnswerA { get; set; }
@@ -144,10 +164,13 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Attaches a question to the viewmodel
         /// </summary>
-        /// <param name="Question">The question to attach</param>
-        public override void AttachQuestion(Question Question)
+        /// <param name="Question">The question to attach. If null no properties should be loaded</param>
+        protected override void AttachQuestion(Question Question)
         {
             base.AttachQuestion(Question);
+
+            if (Question == null)
+                return;
 
             MultipleChoiceQuestion question;
             try
@@ -271,7 +294,8 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MultipleChoiceQuestionEditorViewModel()
+        /// <param name="Model">The model for this view. If null is passed in creating mode is enabled</param>
+        public MultipleChoiceQuestionEditorViewModel(Question Model) : base(Model)
         {
             RemoveAnswerCommand = new RelayCommand(RemoveAnswer);
             AddAnswerCommand = new RelayCommand(AddAnswer);
@@ -301,8 +325,7 @@ namespace Testinator.Server.Core
             CanAddOptions = true;
             CanRemoveOptions = false;
         }
-
-
+        
         #endregion
     }
 }
