@@ -14,6 +14,16 @@ namespace Testinator.Server.Core
     /// </summary>
     public class ImagesEditorViewModel : BaseViewModel
     {
+        #region Singletone
+
+        /// <summary>
+        /// Single instance of this viewmodel
+        /// </summary>
+        public static ImagesEditorViewModel Instance { get; private set; } = new ImagesEditorViewModel();
+        // Keep private setter as we want only one instance of this viewmodel to be availavle throughout the application
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>

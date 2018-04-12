@@ -185,6 +185,12 @@ namespace Testinator.Server.Core
 
             mQuestions.Remove(questionToRemove);
 
+            if (Items[questionIndex].IsSelected)
+            {
+                mCurrentlySelectedItemIndex = NothingSelected;
+                SelectedItem = null;
+            }
+
             Items.RemoveAt(questionIndex);
 
             // Update the rest questions ids

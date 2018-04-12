@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using Testinator.Core;
 
-namespace Testinator.Server
+namespace Testinator.Server.Core
 {
     /// <summary>
     /// Viewmodel for a images editor item

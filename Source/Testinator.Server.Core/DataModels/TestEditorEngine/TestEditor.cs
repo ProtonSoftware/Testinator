@@ -53,6 +53,7 @@ namespace Testinator.Server.Core
         public void DeleteQuestion(Question QuestionToDelete)
         {
             Builder.RemoveQuestion(QuestionToDelete);
+            QuestionListViewModel.Instance.RemoveQuestion(QuestionToDelete);
             QuestionsChanged.Invoke();
         }
 

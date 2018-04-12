@@ -18,11 +18,6 @@ namespace Testinator.Server.Core
         public bool QuestionTypeDialogVisible { get; set; } = true;
 
         /// <summary>
-        /// The viewmodel for images editor
-        /// </summary>
-        public ImagesEditorViewModel ImagesEditorViewModel { get; private set; }
-
-        /// <summary>
         /// The view model for the currently edited question
         /// </summary>
         public BaseQuestionEditorViewModel CurrentQuestionEditorViewModel { get; private set; }
@@ -42,6 +37,16 @@ namespace Testinator.Server.Core
         /// </summary>
         public int CurrentTotalPointsScore => IoCServer.TestEditor.Builder.CurrentPointScore;
 
+        /// <summary>
+        /// Indicates if cancel button should be visible
+        /// </summary>
+        public bool IsCancelButtonVisible { get; private set; }
+
+        /// <summary>
+        /// Indicates if the user can delete current question
+        /// </summary>
+        public bool CanDeleteQuestion { get; private set; }
+
         #endregion
 
         #region Commands
@@ -52,9 +57,14 @@ namespace Testinator.Server.Core
         public ICommand SubmitCommand { get; private set; }
 
         /// <summary>
-        /// Cancels current question edition/creating
+        /// Cancels current question edition
         /// </summary>
         public ICommand CancelCommand { get; private set; }
+
+        /// <summary>
+        /// The command to delete current question from the test
+        /// </summary>
+        public ICommand DeleteQuestionCommand { get; private set; }
 
         /// <summary>
         /// Goes to the next creation phase
@@ -65,7 +75,7 @@ namespace Testinator.Server.Core
         /// The command to select question type from the list
         /// </summary>
         public ICommand SelectQuestionTypeCommand { get; private set; }
-
+        
         #endregion
 
         #region Command Methods
@@ -76,7 +86,9 @@ namespace Testinator.Server.Core
         private void Submit()
         {
             if (SubmitQuestion())
+            {
                 QuestionTypeDialogVisible = true;
+            }
         }
 
         /// <summary>
@@ -84,7 +96,15 @@ namespace Testinator.Server.Core
         /// </summary>
         private void GoNextPhase()
         {
+        }
 
+        /// <summary>
+        /// Deletes current question from the test
+        /// </summary>
+        private void DeleteQuestion()
+        {
+            IoCServer.TestEditor.DeleteQuestion(CurrentQuestionEditorViewModel.OriginalQuestion);
+            QuestionTypeDialogVisible = true;
         }
 
         /// <summary>
@@ -92,32 +112,85 @@ namespace Testinator.Server.Core
         /// </summary>
         private void Cancel()
         {
-            
+            if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            {
+                var vm = new DecisionDialogViewModel()
+                {
+                    Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
+                    AcceptText = "Tak",
+                    CancelText = "Nie",
+                    Title = "Edytor testów",
+                };
+
+                if (vm.UserResponse)
+                {
+                    SubmitQuestion();
+                }
+            }
+
+            ImagesEditorViewModel.Instance.LoadItems(null);
+            QuestionListViewModel.Instance.UnCheckAll();
+            QuestionTypeDialogVisible = true;
         }
 
         /// <summary>
         /// Select question type from the popup
         /// </summary>
         /// <param name="Type">The type of the question as <see cref="QuestionType"/> enum</param>
-        private void SelectQuestion(object Type)
+        private void SelectQuestionFromTiles(object Type)
         {
             try
             {
                 var type = (QuestionType)Type;
                 CurrentQuestionType = type;
+                IsCancelButtonVisible = false;
+                CanDeleteQuestion = false;
                 CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(type);
             }
             catch
             {
                 // Developer error
                 IoCServer.Logger.Log("No such question. Error code: 1");
+                return;
             }
-            finally
-            {
-                QuestionTypeDialogVisible = false;
-            }
+            
+            QuestionTypeDialogVisible = false;
         }
-        
+
+        /// <summary>
+        /// Fired when a question is selected from the side menu
+        /// </summary>
+        /// <param name="SelectedQuestion">The question that has been selected</param>
+        private void QuestionListItemSelectedEvent(int SelectedQuestionIndex)
+        {
+            if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            {
+                var vm = new DecisionDialogViewModel()
+                {
+                    Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
+                    AcceptText = "Tak",
+                    CancelText = "Nie",
+                    Title = "Edytor testów",
+                };
+
+                if (vm.UserResponse)
+                {
+                    if (!SubmitQuestion())
+                        return;
+                }
+            }
+
+            var SelectedQuestion = IoCServer.TestEditor.Builder.CurrentQuestions[SelectedQuestionIndex];
+
+            CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(SelectedQuestion.Type);
+            CurrentQuestionEditorViewModel.AttachQuestion(SelectedQuestion);
+            CurrentQuestionType = SelectedQuestion.Type;
+            ImagesEditorViewModel.Instance.LoadItems(SelectedQuestion.Task.Images);
+            QuestionTypeDialogVisible = false;
+            IsCancelButtonVisible = true;
+            CanDeleteQuestion = true;
+        }
+
         #endregion
 
         #region Constructor
@@ -128,6 +201,7 @@ namespace Testinator.Server.Core
         public TestEditorQuestionsEditorViewModel()
         {
             QuestionListViewModel.Instance.LoadItems(null);
+            ImagesEditorViewModel.Instance.LoadItems(null);
             Initialize();
         }
 
@@ -146,39 +220,6 @@ namespace Testinator.Server.Core
         #region Private Methods
 
         /// <summary>
-        /// Fired when a question is selected from the side menu
-        /// </summary>
-        /// <param name="SelectedQuestion">The question that has been selected</param>
-        private void QuestionListItemSelectedEvent(int SelectedQuestionIndex)
-        {
-            if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
-            {
-                var vm = new DecisionDialogViewModel()
-                {
-                    Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
-                    AcceptText = "Tak",
-                    CancelText = "Nie",
-                    Title = "Zmiana pytania",
-                };
-
-                if(vm.UserResponse)
-                {
-                    SubmitQuestion();
-                }
-            }
-
-            var SelectedQuestion = IoCServer.TestEditor.Builder.CurrentQuestions[SelectedQuestionIndex];
-
-            CurrentQuestionEditorViewModel = BaseQuestionEditorViewModel.ToViewModel(SelectedQuestion.Type);
-            CurrentQuestionEditorViewModel.AttachQuestion(SelectedQuestion);
-            CurrentQuestionType = SelectedQuestion.Type;
-
-            ImagesEditorViewModel.LoadItems(SelectedQuestion.Task.Images);
-            QuestionTypeDialogVisible = false;
-
-        }
-
-        /// <summary>
         /// Submits current question
         /// </summary>
         /// <returns>True if operation succeed; othwerwise, false</returns>
@@ -188,16 +229,18 @@ namespace Testinator.Server.Core
             
             if (NewQuestion != null)
             {
-                NewQuestion.Task.AddImages(ImagesEditorViewModel.Images);
+                NewQuestion.Task.AddImages(ImagesEditorViewModel.Instance.Images);
 
                 // Clear images control
-                ImagesEditorViewModel.LoadItems(null);
+                ImagesEditorViewModel.Instance.LoadItems(null);
 
+                // Update question
                 if (CurrentQuestionEditorViewModel.IsInEditMode)
                 {
                     IoCServer.TestEditor.Builder.UpdateQuestion(CurrentQuestionEditorViewModel.OriginalQuestion, NewQuestion);
                     QuestionListViewModel.Instance.UpdateQuestion(CurrentQuestionEditorViewModel.OriginalQuestion, NewQuestion);
                 }
+                // Add question
                 else
                 {
                     IoCServer.TestEditor.Builder.AddQuestion(NewQuestion);
@@ -222,7 +265,8 @@ namespace Testinator.Server.Core
             SubmitCommand = new RelayCommand(Submit);
             CancelCommand = new RelayCommand(Cancel);
             GoNextPhaseCommand = new RelayCommand(GoNextPhase);
-            SelectQuestionTypeCommand = new RelayParameterizedCommand(SelectQuestion);
+            SelectQuestionTypeCommand = new RelayParameterizedCommand(SelectQuestionFromTiles);
+            DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
         }
 
         /// <summary>
@@ -232,7 +276,6 @@ namespace Testinator.Server.Core
         private void Initialize()
         {
             CreateCommands();
-            ImagesEditorViewModel = new ImagesEditorViewModel();
 
             // Fired when data about a test changes, so we can update properties
             IoCServer.TestEditor.QuestionsChanged += () =>

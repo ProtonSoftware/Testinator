@@ -48,7 +48,7 @@ namespace Testinator.Core
         public Scoring(ScoringMode CurrentMode, int FullScore)
         {
             if (FullScore < 1)
-                throw new Exception("Value cannot be less than 1");
+                throw new Exception("Liczba punktów nie może być mniejsza od 1!");
 
             Mode = CurrentMode;
             FullPointScore = FullScore;

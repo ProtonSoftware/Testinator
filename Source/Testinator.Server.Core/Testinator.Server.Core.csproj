@@ -66,12 +66,12 @@
     <Compile Include="TestHost\TestOptions.cs" />
     <Compile Include="ViewModels\Application\PageHostViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AddLatecomersDialogViewModel.cs" />
-    <Compile Include="ViewModels\Lists\QuestionListItemViewModel.cs" />
-    <Compile Include="ViewModels\Lists\QuestionListViewModel.cs" />
-    <Compile Include="ViewModels\Lists\TestResultsListItemViewModel.cs" />
-    <Compile Include="ViewModels\Lists\TestResultsListViewModel.cs" />
-    <Compile Include="ViewModels\Menu\ImagesEditor\ImagesEditorItemViewModel.cs" />
-    <Compile Include="ViewModels\Menu\ImagesEditor\ImagesEditorViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Question\QuestionListItemViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Question\QuestionListViewModel.cs" />
+    <Compile Include="ViewModels\Lists\TestResults\TestResultsListItemViewModel.cs" />
+    <Compile Include="ViewModels\Lists\TestResults\TestResultsListViewModel.cs" />
+    <Compile Include="ViewModels\Menus\ImagesEditor\ImagesEditorItemViewModel.cs" />
+    <Compile Include="ViewModels\Menus\ImagesEditor\ImagesEditorViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\AttachCriteria\TestEditorAttachCriteriaViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\Finalizing\TestEditorFinalizingViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\QuestionEditors\Main\TestEditorQuestionsEditorViewModel.cs" />
@@ -103,18 +103,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Application\ApplicationSettingsViewModel.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
-    <Compile Include="ViewModels\Lists\CriteriaListItemViewModel.cs" />
-    <Compile Include="ViewModels\Lists\TestListItemViewModel.cs" />
-    <Compile Include="ViewModels\Lists\TestListViewModel.cs" />
-    <Compile Include="ViewModels\Lists\CriteriaListViewModel.cs" />
-    <Compile Include="ViewModels\Menu\MenuListItemViewModel.cs" />
-    <Compile Include="ViewModels\Menu\MenuListViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Criteria\CriteriaListItemViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Test\TestListItemViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Test\TestListViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Criteria\CriteriaListViewModel.cs" />
+    <Compile Include="ViewModels\Menus\MainApplicationMenu\MenuListItemViewModel.cs" />
+    <Compile Include="ViewModels\Menus\MainApplicationMenu\MenuListViewModel.cs" />
     <Compile Include="ViewModels\Pages\Other\AboutViewModel.cs" />
     <Compile Include="ViewModels\Pages\Other\BeginTestViewModel.cs" />
     <Compile Include="ViewModels\Pages\Other\HomeViewModel.cs" />
     <Compile Include="ViewModels\Pages\Other\ScreenStreamViewModel.cs" />
     <Compile Include="ViewModels\Pages\Other\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Menu\SideMenuViewModel.cs" />
+    <Compile Include="ViewModels\Menus\MainApplicationMenu\SideMenuViewModel.cs" />
     <Compile Include="ViewModels\Pages\TestEditor\CriteriaEditors\TestEditorAddNewCriteriaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
