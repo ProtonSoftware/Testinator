@@ -61,6 +61,16 @@ namespace Testinator.Server.Core
         /// </summary>
         public int LastClickedItemIndex { get; private set; } = NothingSelected;
 
+        /// <summary>
+        /// The current state of the menu
+        /// </summary>
+        public QuestionMenuState State { get; private set; } = QuestionMenuState.Expanded;
+
+        /// <summary>
+        /// Indicates if the menu is collapsed
+        /// </summary>
+        public bool IsCollapsed => State == QuestionMenuState.Collapsed;
+
         #endregion
 
         /// <summary>
@@ -81,6 +91,12 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand SelectItemCommand { get; private set; }
 
+        /// <summary>
+        /// The command attached to the left button in the control
+        /// Switches between semi-expanded and collapsed
+        /// </summary>
+        public ICommand LeftChangeStateButtonCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -92,6 +108,7 @@ namespace Testinator.Server.Core
         {
             // Create commands
             SelectItemCommand = new RelayParameterizedCommand((param) => SelectItem(param));
+            LeftChangeStateButtonCommand = new RelayCommand(LeftChangeStateButton);
 
             // Create defaults
             Items = new ObservableCollection<QuestionListItemViewModel>();
@@ -132,6 +149,19 @@ namespace Testinator.Server.Core
             // Save new selected item index
             mCurrentlySelectedItemIndex = newSelectedItemIndex;
 
+        }
+        
+        /// <summary>
+        /// Changes how much the menu is expanded
+        /// </summary>
+        private void LeftChangeStateButton()
+        {
+            // If menu is collapsed, expand it
+            if (State == QuestionMenuState.Collapsed)
+                State = QuestionMenuState.Expanded;
+            else
+                // Otherwise, collapse it
+                State = QuestionMenuState.Collapsed;
         }
 
         #endregion

@@ -14,6 +14,7 @@ namespace Testinator.Core
         /// The action to run
         /// </summary>
         private Action mAction;
+        private ICommand leftChangeStateButtonCommand;
 
         #endregion
 
@@ -34,6 +35,11 @@ namespace Testinator.Core
         public RelayCommand(Action action)
         {
             mAction = action;
+        }
+
+        public RelayCommand(ICommand leftChangeStateButtonCommand)
+        {
+            this.leftChangeStateButtonCommand = leftChangeStateButtonCommand;
         }
 
         #endregion
