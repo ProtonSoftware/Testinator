@@ -105,9 +105,9 @@ namespace Testinator.Server.Core
         private void DeleteQuestion()
         {
             IoCServer.TestEditor.DeleteQuestion(CurrentQuestionEditorViewModel.OriginalQuestion);
+            QuestionListViewModel.Instance.RemoveQuestion(CurrentQuestionEditorViewModel.OriginalQuestion);
             QuestionListViewModel.Instance.UnCheckAll();
             QuestionListViewModel.Instance.CanChangeSelection = true;
-
             QuestionTypeDialogVisible = true;
         }
 
