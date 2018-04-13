@@ -31,6 +31,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public Operation CurrentOperation { get; private set; }
 
+        /// <summary>
+        /// The name of currently edited/created test
+        /// </summary>
+        public string CurrentTestName => Builder.CurrentTestName;
+
         #endregion
 
         #region Public Methods

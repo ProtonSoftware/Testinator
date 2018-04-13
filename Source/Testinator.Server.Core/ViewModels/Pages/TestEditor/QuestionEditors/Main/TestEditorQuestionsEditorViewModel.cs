@@ -74,6 +74,11 @@ namespace Testinator.Server.Core
         /// The command to select question type from the list
         /// </summary>
         public ICommand SelectQuestionTypeCommand { get; private set; }
+
+        /// <summary>
+        /// The command to go back to the previous page
+        /// </summary>
+        public ICommand GoPreviousPageCommand { get; private set; }
         
         #endregion
 
@@ -100,12 +105,28 @@ namespace Testinator.Server.Core
         }
 
         /// <summary>
+        /// Goes to the previous page
+        /// </summary>
+        private void GoPreviousPage()
+        {
+            if (CurrentQuestionEditorViewModel != null && CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            {
+                if (AskToSave())
+                {
+                    if (!SubmitQuestion())
+                        return;
+                }
+            }
+
+            IoCServer.TestEditor.Return();
+        }
+
+        /// <summary>
         /// Deletes current question from the test
         /// </summary>
         private void DeleteQuestion()
         {
             IoCServer.TestEditor.DeleteQuestion(CurrentQuestionEditorViewModel.OriginalQuestion);
-            QuestionListViewModel.Instance.RemoveQuestion(CurrentQuestionEditorViewModel.OriginalQuestion);
             QuestionListViewModel.Instance.UnCheckAll();
             QuestionListViewModel.Instance.CanChangeSelection = true;
             QuestionTypeDialogVisible = true;
@@ -118,17 +139,7 @@ namespace Testinator.Server.Core
         {
             if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
             {
-                var vm = new DecisionDialogViewModel()
-                {
-                    Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
-                    AcceptText = "Tak",
-                    CancelText = "Nie",
-                    Title = "Edytor testów",
-                };
-
-                IoCServer.UI.ShowMessage(vm);
-
-                if (vm.UserResponse)
+                if (AskToSave())
                 {
                     if (!SubmitQuestion())
                         return;
@@ -178,17 +189,7 @@ namespace Testinator.Server.Core
         {
             if (CurrentQuestionEditorViewModel != null && CurrentQuestionEditorViewModel.AnyUnsavedChanges)
             {
-                var vm = new DecisionDialogViewModel()
-                {
-                    Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
-                    AcceptText = "Tak",
-                    CancelText = "Nie",
-                    Title = "Edytor testów",
-                };
-
-                IoCServer.UI.ShowMessage(vm);
-
-                if (vm.UserResponse)
+                if (AskToSave())
                 {
                     if (SubmitQuestion())
                     {
@@ -226,8 +227,8 @@ namespace Testinator.Server.Core
         public TestEditorQuestionsEditorViewModel()
         {
             QuestionListViewModel.Instance.LoadItems(null);
-            ImagesEditorViewModel.Instance.LoadItems(null);
             Initialize();
+            CurrentQuestionEditorViewModel = null;
         }
 
         /// <summary>
@@ -242,7 +243,26 @@ namespace Testinator.Server.Core
         
         #endregion
 
-        #region Private Methods
+        #region Private Helpers
+
+        /// <summary>
+        /// Asks the user if they want to save changes to the question or not
+        /// </summary>
+        /// <returns>True if they want to; otherwise, false</returns>
+        private bool AskToSave()
+        {
+            var vm = new DecisionDialogViewModel()
+            {
+                Message = "Czy chcesz zapisać zmiany w obecnym pytaniu?",
+                AcceptText = "Tak",
+                CancelText = "Nie",
+                Title = "Edytor testów",
+            };
+
+            IoCServer.UI.ShowMessage(vm);
+
+            return vm.UserResponse;
+        }
 
         /// <summary>
         /// Submits current question
@@ -291,6 +311,29 @@ namespace Testinator.Server.Core
             GoNextPhaseCommand = new RelayCommand(GoNextPhase);
             SelectQuestionTypeCommand = new RelayParameterizedCommand(SelectQuestionFromTiles);
             DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
+            GoPreviousPageCommand = new RelayCommand(GoPreviousPage);
+        }
+
+        /// <summary>
+        /// Updates properties responsible for showing information about question numbers and full point score
+        /// </summary>
+        private void UpdateQuestionsInformation()
+        {
+            OnPropertyChanged(nameof(CurrentQuestionsCount));
+            OnPropertyChanged(nameof(CurrentTotalPointsScore));
+        }
+
+        /// <summary>
+        /// Fired when selection in question list changes
+        /// </summary>
+        private void QuestionListViewModel_SelectionChanges()
+        {
+            // Keep track of any selection changes in questions control to work properly with unsaved changes
+            if (CurrentQuestionEditorViewModel != null)
+            {
+                if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+                    QuestionListViewModel.Instance.CanChangeSelection = false;
+            }
         }
 
         /// <summary>
@@ -301,24 +344,30 @@ namespace Testinator.Server.Core
         {
             CreateCommands();
 
+            ImagesEditorViewModel.Instance.LoadItems(null);
+
             // Fired when data about a test changes, so we can update properties
-            IoCServer.TestEditor.QuestionsChanged += () =>
-            {
-                OnPropertyChanged(nameof(CurrentQuestionsCount));
-                OnPropertyChanged(nameof(CurrentTotalPointsScore));
-            };
+            IoCServer.TestEditor.QuestionsChanged += UpdateQuestionsInformation;
 
             QuestionListViewModel.Instance.ItemSelected += QuestionListItemSelectedEvent;
 
             // Keep track of any selection changes in questions control to work properly with unsaved changes
-            QuestionListViewModel.Instance.SelectionChanges += () =>
-            {
-                if (CurrentQuestionEditorViewModel != null)
-                {
-                    if (CurrentQuestionEditorViewModel.AnyUnsavedChanges)
-                        QuestionListViewModel.Instance.CanChangeSelection = false;
-                }
-            };
+            QuestionListViewModel.Instance.SelectionChanges += QuestionListViewModel_SelectionChanges;
+        }
+
+        /// <summary>
+        /// Disposes this viewmodel
+        /// </summary>
+        public override void Dispose()
+        {
+            // Unsubscribe from all events
+            QuestionListViewModel.Instance.ItemSelected -= QuestionListItemSelectedEvent;
+            IoCServer.TestEditor.QuestionsChanged -= UpdateQuestionsInformation;
+            QuestionListViewModel.Instance.ItemSelected -= QuestionListItemSelectedEvent;
+            QuestionListViewModel.Instance.SelectionChanges -= QuestionListViewModel_SelectionChanges;
+
+            if(CurrentQuestionEditorViewModel != null)
+                CurrentQuestionEditorViewModel.Dispose();
         }
 
         #endregion

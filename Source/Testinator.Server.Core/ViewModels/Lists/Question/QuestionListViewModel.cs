@@ -67,9 +67,9 @@ namespace Testinator.Server.Core
         public QuestionMenuState State { get; private set; } = QuestionMenuState.Expanded;
 
         /// <summary>
-        /// Indicates if the menu is collapsed
+        /// Indicates if the menu is expanded
         /// </summary>
-        public bool IsCollapsed => State == QuestionMenuState.Collapsed;
+        public bool IsExpanded => State != QuestionMenuState.Collapsed;
 
         #endregion
 
@@ -240,6 +240,7 @@ namespace Testinator.Server.Core
             if (Items[questionIndex].IsSelected)
             {
                 mCurrentlySelectedItemIndex = NothingSelected;
+                LastClickedItemIndex = NothingSelected;
             }
 
             Items.RemoveAt(questionIndex);

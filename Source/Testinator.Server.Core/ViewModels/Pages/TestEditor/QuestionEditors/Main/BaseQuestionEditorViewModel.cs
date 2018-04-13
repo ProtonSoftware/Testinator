@@ -117,18 +117,36 @@ namespace Testinator.Server.Core
             // Trigger every changes rising properties
             if(IsInEditMode)
             {
-                PropertyChanged += (d, e) =>
-                {
-                    if (!AnyUnsavedChanges && (mCommonChangesRisingProprties.Contains(e.PropertyName) ||
-                       SpecificChangesRisingProperties.Contains(e.PropertyName)))
-                        AnyUnsavedChanges = true;
-                };
+                PropertyChanged += CheckForChangesInProperties;
 
-                ImagesEditorViewModel.Instance.ListModified += () =>
-                {
-                    AnyUnsavedChanges = true;
-                };
+                ImagesEditorViewModel.Instance.ListModified += SetUnsavedChanges;
             }
+        }
+        
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Checks for changes in this viewmodel properties
+        /// If changes are detected AnyUnsavedChanges flag is set
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckForChangesInProperties(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (!AnyUnsavedChanges && (mCommonChangesRisingProprties.Contains(e.PropertyName) ||
+                                       SpecificChangesRisingProperties.Contains(e.PropertyName)))
+                SetUnsavedChanges();
+        }
+
+        /// <summary>
+        /// Sets unsaved changes to true
+        /// </summary>
+        // Can't do a anonymous method because we need to unsubscribe from this event later
+        private void SetUnsavedChanges()
+        {
+            AnyUnsavedChanges = true;
         }
 
         #endregion
@@ -170,7 +188,20 @@ namespace Testinator.Server.Core
                     return null;
             }
         }
-        
+
+        /// <summary>
+        /// Disposes this viewmodel
+        /// </summary>
+        public override void Dispose()
+        {
+            // These events are only available in edit mode
+            if (IsInEditMode)
+            {
+                PropertyChanged -= CheckForChangesInProperties;
+                ImagesEditorViewModel.Instance.ListModified -= SetUnsavedChanges;
+            }
+        }
+
         #endregion
 
     }

@@ -68,6 +68,7 @@
     <Compile Include="ViewModels\Dialogs\AddLatecomersDialogViewModel.cs" />
     <Compile Include="ViewModels\Lists\Question\QuestionListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\Question\QuestionListViewModel.cs" />
+    <Compile Include="ViewModels\Lists\Question\QuestionMenuState.cs" />
     <Compile Include="ViewModels\Lists\TestResults\TestResultsListItemViewModel.cs" />
     <Compile Include="ViewModels\Lists\TestResults\TestResultsListViewModel.cs" />
     <Compile Include="ViewModels\Menus\ImagesEditor\ImagesEditorItemViewModel.cs" />

@@ -4,32 +4,80 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Testinator.Server"
+             xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
+             xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="100">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+
         <Button Grid.Column="0"
-                Content="{Binding IsCollapsed, Converter={local:IsSelectedToFontAwesomeIconConverter}}"
+                Content="{Binding IsExpanded, Converter={local:IsSelectedToFontAwesomeIconConverter}}"
                 FontFamily="{StaticResource FontAwesome}"
                 Style="{StaticResource BaseUIButton}"
-                Margin="1"
+                Margin="0"
                 Padding="0"
                 Command="{Binding LeftChangeStateButtonCommand}"
+                Background="#2F475F"
+                Panel.ZIndex="1"
                 />
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      Grid.Column="1">
-            <ItemsControl ItemsSource="{Binding Items}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:QuestionListItemControl/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Grid Grid.Column="1"
+              Width="150"
+              Animations:AnimateSlideInFromLeftProperty.Value="{Binding IsExpanded}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#4CA194">
+                <TextBlock Text="{Binding TestEditor.CurrentTestName, Source={x:Static local:ViewModelLocator.Instance}}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+
+            </Grid>
+            
+            <Grid Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Items}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:QuestionListItemControl/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Powrót"
+                        Background="#4CA194"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.GoPreviousPageCommand}"
+                        />
+
+                <Button Content="Rozwiń"
+                        Grid.Column="2"
+                        Background="#4CA194"
+                        Foreground="White"
+                        BorderThickness="0"
+                        />
+            </Grid>
+        </Grid>
+
     </Grid>
 </UserControl>

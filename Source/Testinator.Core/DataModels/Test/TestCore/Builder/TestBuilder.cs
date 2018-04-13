@@ -75,6 +75,11 @@ namespace Testinator.Core
         /// </summary>
         public int CurrentPointScore => CreatedObject.TotalPointScore;
 
+        /// <summary>
+        /// The name of currently created/editer test
+        /// </summary>
+        public string CurrentTestName => CreatedObject != null ? CreatedObject.Info.Name : ""; 
+
         #endregion
 
         #region Public Construction Methods

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Testinator.UICore;
 using Testinator.Server.Core;
+using System;
 
 namespace Testinator.Server
 {
@@ -91,7 +92,12 @@ namespace Testinator.Server
             {
                 // Just update the view model (if it isn't null)
                 if (targetPageViewModel != null)
+                {
+                    // Kill current page viewmodel by calling dispose method, so it can free all it's resources
+                    ((IDisposable)page.ViewModelObject).Dispose();
+
                     page.ViewModelObject = targetPageViewModel;
+                }
 
                 return value;
             }
@@ -118,6 +124,9 @@ namespace Testinator.Server
                     // Remove old page
                     Application.Current.Dispatcher.Invoke(() => oldPageFrame.Content = null);
                 });
+
+                // Kill current page viewmodel by calling dispose method, so it can free all it's resources
+                ((IDisposable)oldPage.ViewModelObject).Dispose();
             }
 
             // Set the new page content

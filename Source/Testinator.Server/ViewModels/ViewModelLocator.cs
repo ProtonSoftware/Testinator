@@ -24,6 +24,12 @@ namespace Testinator.Server
         /// </summary>
         public static TestHost TestHost => IoCServer.TestHost;
 
+        /// <summary>
+        /// The shortcut to the test editor
+        /// </summary>
+        public static TestEditor TestEditor => IoCServer.TestEditor;
+
+
         #endregion
     }
 }
