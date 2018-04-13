@@ -148,8 +148,8 @@ namespace Testinator.Server.Core
 
             if (LastClickedItemIndex == NothingSelected || LastClickedItemIndex >= Items.Count)
                 return;
-
-            Items[mCurrentlySelectedItemIndex].IsSelected = false;
+            if (mCurrentlySelectedItemIndex != NothingSelected)    
+                Items[mCurrentlySelectedItemIndex].IsSelected = false;
 
             Items[LastClickedItemIndex].IsSelected = true;
 
