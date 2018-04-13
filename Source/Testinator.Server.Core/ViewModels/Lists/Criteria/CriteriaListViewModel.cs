@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -10,6 +11,15 @@ namespace Testinator.Server.Core
     /// </summary>
     public class CriteriaListViewModel : BaseViewModel
     {
+        #region Public Constats
+
+        /// <summary>
+        /// Indicates that nothing is selected
+        /// </summary>
+        private const int NothingSelected = -1;
+
+        #endregion
+
         #region Singleton
 
         /// <summary>
@@ -19,17 +29,72 @@ namespace Testinator.Server.Core
 
         #endregion
 
+        #region Private Members
+
+        /// <summary>
+        /// Currently selected item index
+        /// </summary>
+        private int mCurrentlySelectedIndex;
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// List of items (criterias) in this criteria list
         /// </summary>
-        public ObservableCollection<CriteriaListItemViewModel> Items { get; set; }
+        public ObservableCollection<CriteriaListItemViewModel> Items { get; private set; } = new ObservableCollection<CriteriaListItemViewModel>();
 
         /// <summary>
         /// The criteria xml file reader which loads criteria from local folder
         /// </summary>
         public XmlReader CriteriaFileReader { get; private set; } = new XmlReader(SaveableObjects.Grading);
+
+        /// <summary>
+        /// Indicates if the indicator should be visible after clicking an item
+        /// </summary>
+        public bool ShouldSelectIndicatorBeVisible { get; set; }
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when an item is selected from the list
+        /// </summary>
+        public event Action<GradingPercentage> ItemSelected = (i) => { };
+
+        #endregion
+
+        #region Public Commands
+
+        /// <summary>
+        /// The command to select an item from the list
+        /// </summary>
+        public ICommand SelectItemCommand { get; private set; }
+
+        #endregion
+
+        #region Command Methods
+        
+        /// <summary>
+        /// Selects an item from the list
+        /// </summary>
+        /// <param name="obj"></param>
+        private void SelectItem(object obj)
+        {
+            var newSelectedIndex = (int)obj;
+
+            if(ShouldSelectIndicatorBeVisible)
+            {
+                Items[mCurrentlySelectedIndex].IsSelected = false;
+                Items[newSelectedIndex].IsSelected = true;
+            }
+
+            mCurrentlySelectedIndex = newSelectedIndex;
+
+            ItemSelected.Invoke(Items[newSelectedIndex].Grading);
+        }
 
         #endregion
 
@@ -42,6 +107,8 @@ namespace Testinator.Server.Core
         {
             // Load every criteria at the start
             LoadItems();
+
+            SelectItemCommand = new RelayParameterizedCommand(SelectItem);
         }
 
         #endregion
@@ -54,7 +121,8 @@ namespace Testinator.Server.Core
         public void UncheckAll()
         {
             // Simply mark every item as unselected
-            foreach (var item in Items) item.IsSelected = false;
+            foreach (var item in Items)
+                item.IsSelected = false;
         }
 
         /// <summary>
@@ -83,8 +151,19 @@ namespace Testinator.Server.Core
             }
 
             // Rewrite list to the observable collection
-            Items = new ObservableCollection<CriteriaListItemViewModel>();
-            foreach (var item in list) Items.Add(new CriteriaListItemViewModel(item));
+            Items.Clear();
+
+
+            var indexer = 0;
+            foreach (var item in list)
+            {
+                Items.Add(new CriteriaListItemViewModel()
+                {
+                    Grading = item,
+                    ID = indexer,
+                });
+                indexer++;
+            }
         }
 
         #endregion

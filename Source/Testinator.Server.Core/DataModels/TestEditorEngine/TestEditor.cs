@@ -36,6 +36,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public string CurrentTestName => Builder.CurrentTestName;
 
+        /// <summary>
+        /// Current grading for this test
+        /// </summary>
+        public GradingPoints CurrentGrading => Builder.CurrentGrading;
+
         #endregion
 
         #region Public Methods
@@ -203,6 +208,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void GoToCriteriaEditor()
         {
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorAttachCriteria, new TestEditorAttachCriteriaViewModel());
             CurrentOperation = Operation.EditingCriteria;
         }
 
@@ -211,6 +217,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void GoToFinalizing()
         {
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorFinalize, new TestEditorFinalizingViewModel());
             CurrentOperation = Operation.EditingCriteria;
         }
 

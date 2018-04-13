@@ -10,6 +10,11 @@ namespace Testinator.Server.Core
         #region Public Properties
 
         /// <summary>
+        /// The if of this item in the list
+        /// </summary>
+        public int ID { get; set; }
+
+        /// <summary>
         /// The grading this model is based on
         /// </summary>
         public GradingPercentage Grading { get; set; }
@@ -18,19 +23,6 @@ namespace Testinator.Server.Core
         /// Indicates if this item is currently selected
         /// </summary>
         public bool IsSelected { get; set; } = false;
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default construcotr
-        /// </summary>
-        /// <param name="grading">The object this view model is based on</param>
-        public CriteriaListItemViewModel(GradingPercentage grading)
-        {
-            Grading = grading;
-        }
 
         #endregion
     }

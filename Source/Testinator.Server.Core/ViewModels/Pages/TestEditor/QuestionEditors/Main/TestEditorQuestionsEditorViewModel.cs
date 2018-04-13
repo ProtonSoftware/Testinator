@@ -102,6 +102,41 @@ namespace Testinator.Server.Core
         /// </summary>
         private void GoNextPhase()
         {
+            if (CurrentQuestionEditorViewModel != null && CurrentQuestionEditorViewModel.AnyUnsavedChanges)
+            {
+                if (AskToSave())
+                {
+                    if (!SubmitQuestion())
+                        return;
+                }
+
+                QuestionTypeDialogVisible = true;
+                CurrentQuestionEditorViewModel = null;
+            }
+            
+            if (IoCServer.TestEditor.Builder.CurrentQuestions.Count == 0)
+            {
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
+                {
+                    Message = "Nie można przejść dalej, ponieważ test nie posiada pytań!",
+                    Title = "Test editor",
+                });
+
+                return;
+            }
+
+            if (IoCServer.TestEditor.Builder.CurrentPointScore <= 4)
+            {
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
+                {
+                    Message = "Nie można przejść dalej, ponieważ maksymalna liczba punktów za test jest mniejsza od 5!",
+                    Title = "Test editor",
+                });
+
+                return;
+            }
+
+            IoCServer.TestEditor.GoNextPhase();
         }
 
         /// <summary>

@@ -69,7 +69,12 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Indicates if the menu is expanded
         /// </summary>
-        public bool IsExpanded => State != QuestionMenuState.Collapsed;
+        public bool IsExpanded => State == QuestionMenuState.Expanded;
+
+        /// <summary>
+        /// Indicates if the menu is fully expanded
+        /// </summary>
+        public bool IsFullyExpanded => State == QuestionMenuState.FullyExpanded;
 
         #endregion
 
@@ -97,6 +102,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand LeftChangeStateButtonCommand { get; private set; }
 
+        /// <summary>
+        /// The command to fully expand the menu
+        /// </summary>
+        public ICommand FullyExpandCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -109,6 +119,7 @@ namespace Testinator.Server.Core
             // Create commands
             SelectItemCommand = new RelayParameterizedCommand((param) => SelectItem(param));
             LeftChangeStateButtonCommand = new RelayCommand(LeftChangeStateButton);
+            FullyExpandCommand = new RelayCommand(FullyExpand);
 
             // Create defaults
             Items = new ObservableCollection<QuestionListItemViewModel>();
@@ -162,6 +173,14 @@ namespace Testinator.Server.Core
             else
                 // Otherwise, collapse it
                 State = QuestionMenuState.Collapsed;
+        }
+
+        /// <summary>
+        /// Expand the menu fully
+        /// </summary>
+        private void FullyExpand()
+        {
+            State = QuestionMenuState.FullyExpanded;
         }
 
         #endregion

@@ -42,6 +42,7 @@
                        Margin="50 0 0 0"/>
         </Grid>
                 
+        <!-- Tittle underline -->
         <Border Grid.Row="1" Grid.ColumnSpan="3" 
                 Background="#4CA194"/>
         
@@ -54,8 +55,17 @@
         </Grid>
         
         <!-- Side menu with questions -->
-        <local:QuestionListControl Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"/>
-        
+        <local:QuestionListControl Grid.Column="0"
+                                   Grid.Row="2" Grid.RowSpan="3"/>
+
+        <!-- Expanded question control -->
+        <!-- Finish this after matura-->
+        <!--<local:QuestionListExpandedControl Grid.Column="1"
+                                           Grid.Row="2" Grid.RowSpan="3"
+                                           Width="100"
+                                           Animations:AnimateSlideAndFadeInFromLeftProperty.Value="{Binding IsFullyExpanded, Source={x:Static Core:QuestionListViewModel.Instance}}"
+                                           />-->
+
         <!-- Question type tiles -->
         <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="3"
               Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding QuestionTypeDialogVisible}"
@@ -76,25 +86,38 @@
             </Grid.RowDefinitions>
 
             <Button Content="Pytanie ABC" 
-                Grid.Row="0" Grid.Column="0"
-                Background="#4CA194"
-                Margin="5"
-                Command="{Binding SelectQuestionTypeCommand}"
-                CommandParameter="{x:Static core:QuestionType.MultipleChoice}"/>
+                    Grid.Row="0" Grid.Column="0"
+                    Background="#4CA194"
+                    Margin="5"
+                    Command="{Binding SelectQuestionTypeCommand}"
+                    CommandParameter="{x:Static core:QuestionType.MultipleChoice}"
+                    FontFamily="{StaticResource FontMontserratBold}"/>
 
-            <Button Content="Pytanie z checkboxami" 
-                Grid.Row="1" Grid.Column="1"
-                Background="#4CA194"
-                Margin="5"
-                Command="{Binding SelectQuestionTypeCommand}"
-                CommandParameter="{x:Static core:QuestionType.MultipleCheckboxes}"/>
+            <Button Grid.Row="0" Grid.Column="1"
+                    Background="#4CA194"
+                    Margin="5"
+                    Command="{Binding SelectQuestionTypeCommand}"
+                    CommandParameter="{x:Static core:QuestionType.MultipleCheckboxes}"
+                    IsEnabled="False"
+                    Cursor="No">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Pytanie z checkboxami"/>
+                    <TextBlock Text="Comming soon!"/>
+                </StackPanel>
+            </Button>
 
-            <Button Content="Pytania z textboxem" 
-                Grid.Row="0" Grid.Column="2"
-                Background="#4CA194"
-                Margin="5"
-                Command="{Binding SelectQuestionTypeCommand}"
-                CommandParameter="{x:Static core:QuestionType.SingleTextBox}"/>
+            <Button Grid.Row="0" Grid.Column="2"
+                    Background="#4CA194"
+                    Margin="5"
+                    Command="{Binding SelectQuestionTypeCommand}"
+                    CommandParameter="{x:Static core:QuestionType.SingleTextBox}"
+                    IsEnabled="False"
+                    Cursor="No">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Pytania z textboxem" />
+                    <TextBlock Text="Comming soon!"/>
+                </StackPanel>
+            </Button>
 
             <Button Grid.Row="3" Grid.Column="1"
                     Style="{StaticResource BaseUIButton}"

@@ -78,7 +78,12 @@ namespace Testinator.Core
         /// <summary>
         /// The name of currently created/editer test
         /// </summary>
-        public string CurrentTestName => CreatedObject != null ? CreatedObject.Info.Name : ""; 
+        public string CurrentTestName => CreatedObject != null ? CreatedObject.Info.Name : "";
+        
+        /// <summary>
+        /// Current grading for this test
+        /// </summary>
+        public GradingPoints CurrentGrading => CreatedObject.Grading;
 
         #endregion
 
