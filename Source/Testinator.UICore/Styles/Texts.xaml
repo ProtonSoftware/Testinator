@@ -16,6 +16,32 @@
 
     </Style>
 
+    <!-- Finalizing tile title -->
+    <Style x:Key="FinalizingTileTitleTextBlock" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratBold}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="10 5 5 10" />
+
+        <Setter Property="Foreground" Value="#E3E3E4" />
+
+    </Style>
+
+    <!-- Finalizing tile content -->
+    <Style x:Key="FinalizingTileContentTextBlock" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratBold}" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="25 0 5 10" />
+
+        <Setter Property="Foreground" Value="#2F475F" />
+
+    </Style>
+
     <Style x:Key="FontAwesomeIconText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
 
         <Setter Property="VerticalAlignment" Value="Center" />

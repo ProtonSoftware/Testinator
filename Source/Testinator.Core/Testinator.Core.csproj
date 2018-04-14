@@ -104,6 +104,7 @@
     <Compile Include="Dialogs\ViewModels\DecisionDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
     <Compile Include="EnumberableExtensions.cs" />
+    <Compile Include="Enums\EnumHelpers.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Files\Base\FileDataHasher.cs" />
     <Compile Include="Files\Base\FileHandler.cs" />

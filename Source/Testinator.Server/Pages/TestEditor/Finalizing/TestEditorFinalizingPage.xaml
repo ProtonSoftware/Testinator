@@ -11,73 +11,334 @@
                  d:DesignHeight="720"
                  d:DesignWidth="1024">
 
-    <Border Background="{StaticResource WhiteLightBrush}">
+    <Grid Background="#F3F4F8">
 
-        <Border VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Padding="40"
-                CornerRadius="3"
-                Background="{StaticResource WhiteDarkBrush}">
+        <Grid.RowDefinitions>
+            <!-- Title Bar -->
+            <RowDefinition Height="60"/>
+            <!-- Tittle underline -->
+            <RowDefinition Height="1.5"/>
+            <!-- Main content-->
+            <RowDefinition Height="*"/>
+            <!-- Buttons section-->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <Grid TextBlock.TextAlignment="Center">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+        <!-- Page title -->
+        <Grid Grid.Row="0" 
+              Background="#FFFFFF"
+              Panel.ZIndex="10">
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="Finalizowanie"
+                       FontFamily="{StaticResource FontMontserratRegular}"
+                       Margin="50 0 0 0"/>
+        </Grid>
+
+        <!-- Tittle underline -->
+        <Border Grid.Row="1" Grid.ColumnSpan="3" 
+                Background="#4CA194"/>
+
+        <!-- Main content -->
+        <Border Grid.Row="2" 
+                CornerRadius="5"
+                BorderThickness="1"
+                Margin="25"
+                Background="#FFFFFF">
+
+            <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <!-- Tittle-->
+                    <RowDefinition Height="50"/>
+                    <!-- Main content-->
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{x:Static core:LocalizationResource.SuccessfulTestAdd}"
-                       Grid.ColumnSpan="2"
-                       Style="{StaticResource MediumTitleText}" />
 
-                <TextBlock Text="{x:Static core:LocalizationResource.Name}"
-                       Grid.Row="1"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                <!-- Tittle box -->
+                <Grid Grid.Row="0" Background="#F5FAF4">
+                    <TextBlock Text="Ustal kryteria oceniania"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource FontMontserratRegular}"
+                               Margin="15 0"
+                                />
 
-                <TextBlock Text="{Binding Test.Name}"
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                </Grid>
 
-                <TextBlock Text="{x:Static core:LocalizationResource.TimeDuration}"
-                       Grid.Row="2"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                <!-- Main Content-->
+                <Grid Grid.Row="1">
 
-                <TextBlock Text="{Binding Test.Duration}"
-                       Grid.Row="2"
-                       Grid.Column="1"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1.2*"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Text="{x:Static core:LocalizationResource.QuestionCount}"
-                       Grid.Row="3"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="{Binding Test.Questions.Count}"
-                       Grid.Row="3"
-                       Grid.Column="1"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                    <!-- Name -->
+                    <Border Grid.Row="0" Grid.Column="0" 
+                            Style="{StaticResource TestFinalizingTile}">
 
-                <TextBlock Text="{x:Static core:LocalizationResource.PointsCount}"
-                       Grid.Row="4"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                        <Grid>
+                            <TextBlock Text="Nazwa"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
 
-                <TextBlock Text="{Binding Test.TotalPointScore}"
-                       Grid.Row="4"
-                       Grid.Column="1"
-                       Style="{StaticResource QuestionTextBlockStyle}" />
+                            <TextBlock Text="Nazwa"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Duration -->
+                    <Border Grid.Row="0" Grid.Column="1" 
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <TextBlock Text="Czas trwania"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="24:00:23"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Number of questions -->
+                    <Border Grid.Row="0" Grid.Column="2" 
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <TextBlock Text="Liczba pytań "
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <Grid VerticalAlignment="Bottom">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"
+                                            Orientation="Horizontal">
+
+                                    <TextBlock Text="9"
+                                               Margin="5 0 0 10"
+                                               Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                                    <TextBlock Text="ABC"
+                                               Style="{StaticResource FontAwesomeIconText}"
+                                               Width="100"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1"
+                                            Orientation="Horizontal">
+
+                                    <TextBlock Text="9"
+                                               Margin="5 0 0 10"
+                                               Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                                    <TextBlock Text="{StaticResource FontAwesomeCheckBoxIcon}"
+                                               Style="{StaticResource FontAwesomeIconText}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2"
+                                            Orientation="Horizontal">
+
+                                    <TextBlock Text="9"
+                                               Margin="5 0 0 10"
+                                               Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                                    <TextBlock Text="{StaticResource FontAwesomeKeyboardIcon}"
+                                               Style="{StaticResource FontAwesomeIconText}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                    </Border>
+
+                    <!-- Tags -->
+                    <Border Grid.Row="1" Grid.Column="0" 
+                            Style="{StaticResource TestFinalizingTile}">
+                        <Grid>
+                            <TextBlock Text="Tagi"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="Tag1, Tag2, Tag3"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Criteria -->
+                    <Border Grid.Row="1" Grid.Column="1" 
+                            Style="{StaticResource TestFinalizingTile}">
+                        <TextBlock Text="Place holder" Style="{StaticResource TitleText}"
+                                   FontSize="{StaticResource FontSizeSmall}"
+                                   HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Point score -->
+                    <Border Grid.Row="1" Grid.Column="2" 
+                            Style="{StaticResource TestFinalizingTile}">
+                        <Grid>
+                            <TextBlock Text="Liczba punktów"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="100"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- File name -->
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Nazwa pliku"
+                                       Grid.Row="0" Grid.Column="0"
+                                       Margin="5 2"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+                            <CheckBox Grid.Row="0" Grid.Column="1"
+                                      Margin="0"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2"
+                                       Style="{StaticResource MediumTitleText}"
+                                       Foreground="#E3E3E4"
+                                       Text="Domyślna"
+                                       Margin="0 5 10 5"/>
+
+                            <Border Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    Background="#E3E3E4"
+                                    VerticalAlignment="Center"
+                                    Margin="10 0">
+                                
+                                <Grid>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox Margin="10 5 0 5"
+                                                 VerticalAlignment="Center"
+                                                 Background="Transparent"
+                                                 FontSize="{StaticResource FontSizeXLarge}"
+                                                 FontFamily="{StaticResource FontMontserratBold}"
+                                                 BorderThickness="0"
+                                                 Padding="10 10 0 10"
+                                                 MinWidth="25"
+                                                 IsEnabled="False">
+                                            <TextBox.Template>
+                                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                                    <TextBox Text="{TemplateBinding Text}"
+                                                             FontFamily="{TemplateBinding FontFamily}"
+                                                             FontSize="{TemplateBinding FontSize}"
+                                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                                             Padding="{TemplateBinding Padding}"
+                                                             Margin="{TemplateBinding Margin}"
+                                                             MinWidth="{TemplateBinding MinWidth}"
+                                                             IsEnabled="{TemplateBinding IsEnabled}"
+                                                             Background="{TemplateBinding Background}"
+                                                             Foreground="{TemplateBinding Foreground}"
+                                                             BorderThickness="{TemplateBinding BorderThickness}"
+                                                                />
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Background" Value="Red"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </TextBox.Template>
+                                        </TextBox>
+
+                                        <TextBlock Text=".dat"
+                                                   Margin="0"
+                                                   FontSize="{StaticResource FontSizeXLarge}"
+                                                   VerticalAlignment="Center"
+                                                   Grid.Column="1"
+                                                   FontFamily="{StaticResource FontMontserratBold}"/>
+
+                                    </Grid>
+
+                                    <TextBlock Text="{StaticResource FontAwesomeFileIcon}"
+                                               Grid.Column="1"
+                                               Panel.ZIndex="10"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               Margin="0 0 25 0"
+                                               FontFamily="{StaticResource FontAwesome}"
+                                               FontSize="{StaticResource FontSizeXXLarge}"/>
+
+                                </Grid>
+                                
+                            </Border>
+                            
+                        </Grid>
+
+                    </Border>
+
+                    <!-- Error -->
+                    <Border Grid.Row="2" Grid.Column="2"
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <TextBlock Text="Błąd"
+                                   Margin="5"
+                                   Foreground="Red"
+                                   FontSize="{StaticResource FontSizeLarge}"/>
+
+                    </Border>
+
+                </Grid>
 
             </Grid>
 
         </Border>
 
-    </Border>
-    
+        <Grid Grid.Row="3">
+
+            <Button Content="Dalej"
+                    Margin="10"
+                    Command="{Binding SubmitCriteriaCommand}"
+                    Style="{StaticResource BaseUIButton}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right" />
+
+            <Button Content="Powrót"
+                    Margin="10"
+                    Command="{Binding GoPreviousPageCommand}"
+                    Style="{StaticResource BaseUIButton}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left" />
+        </Grid>
+
+    </Grid>
 </UICore:BasePage>

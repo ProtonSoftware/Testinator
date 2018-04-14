@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -40,6 +41,26 @@ namespace Testinator.Server.Core
         /// Current grading for this test
         /// </summary>
         public GradingPoints CurrentGrading => Builder.CurrentGrading;
+
+        /// <summary>
+        /// Current duration of the test
+        /// </summary>
+        public string CurrentDuration => Builder.CurrentDuration;
+
+        /// <summary>
+        /// Current tags associated with this test
+        /// </summary>
+        public string CurrentTags => Builder.CurrentTags;
+
+        /// <summary>
+        /// Current full point score for this test
+        /// </summary>
+        public int CurrentPointScore => Builder.CurrentPointScore;
+
+        /// <summary>
+        /// Current question counts based on the question type
+        /// </summary>
+        public Dictionary<QuestionType, int> CurrentQuestionsNumber => Builder.CurrentQuestionsNumber;
 
         #endregion
 

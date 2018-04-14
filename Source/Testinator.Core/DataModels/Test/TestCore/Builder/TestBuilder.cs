@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Testinator.Core;
 
 namespace Testinator.Core
 {
@@ -8,7 +9,7 @@ namespace Testinator.Core
     /// </summary>
     public class TestBuilder : Builder<Test>
     {
-        #region Public Memebrs
+        #region Public Constants/Limits
 
         /// <summary>
         /// The minimum numebr of questions that a sigle test can have
@@ -78,12 +79,27 @@ namespace Testinator.Core
         /// <summary>
         /// The name of currently created/editer test
         /// </summary>
-        public string CurrentTestName => CreatedObject != null ? CreatedObject.Info.Name : "";
+        public string CurrentTestName => CreatedObject != null ? CreatedObject.Info.Name : "NaN";
         
         /// <summary>
         /// Current grading for this test
         /// </summary>
         public GradingPoints CurrentGrading => CreatedObject.Grading;
+
+        /// <summary>
+        /// Current test duration if exists
+        /// </summary>
+        public string CurrentDuration => CreatedObject.Info != null ? CreatedObject.Info.Duration.ToString(@"hh\:mm\:ss") : "NaN";
+
+        /// <summary>
+        /// Current tags associated with this test
+        /// </summary>
+        public string CurrentTags => CreatedObject.Info != null ? CreatedObject.Info.Tags : "NaN";
+    
+        /// <summary>
+        /// Stores the number of questions of each type
+        /// </summary>
+        public Dictionary<QuestionType, int> CurrentQuestionsNumber { get; private set; }
 
         #endregion
 
@@ -199,6 +215,9 @@ namespace Testinator.Core
 
             CreatedObject.Questions.Add(QuestionToAdd);
 
+            // Update question cout
+            CurrentQuestionsNumber[QuestionToAdd.Type]++;
+
             // Update maximum point score
             CreatedObject.TotalPointScore += QuestionToAdd.Scoring.FullPointScore;
         }
@@ -218,6 +237,9 @@ namespace Testinator.Core
                 return;
 
             CreatedObject.Questions.Remove(QuestionToRemove);
+
+            // Update question cout
+            CurrentQuestionsNumber[QuestionToRemove.Type]--;
 
             // Update maximum point score
             CreatedObject.TotalPointScore -= QuestionToRemove.Scoring.FullPointScore;
@@ -244,11 +266,15 @@ namespace Testinator.Core
 
             CreatedObject.Questions.Remove(OldQuestion);
 
+            CurrentQuestionsNumber[OldQuestion.Type]--;
+
             // Keep total point score up to date so there is no need to caltulate it every time
             CreatedObject.TotalPointScore -= OldQuestion.Scoring.FullPointScore;
 
             // Insert at the old question's position to maintain the question order
             CreatedObject.Questions.Insert(OldQuestionsIndex, NewQuestion);
+
+            CurrentQuestionsNumber[NewQuestion.Type]++;
 
             CreatedObject.TotalPointScore += NewQuestion.Scoring.FullPointScore;
         }
@@ -304,7 +330,27 @@ namespace Testinator.Core
         /// <returns>True if it is between <see cref="MinimumTestDurationSeconds"/> and <see cref="MaximumTestDurationSeconds"/>; otherwise, false</returns>
         private bool IsDurationInRange(TimeSpan TimeToCheck)
             => !(TimeToCheck.TotalSeconds < MinimumTestDurationSeconds || TimeToCheck.TotalSeconds > MaximumTestDurationSeconds);
-        
+
+        /// <summary>
+        /// Loads question numbers from the current test
+        /// </summary>
+        private void LoadQuestionNumbers()
+        {
+            CurrentQuestionsNumber = new Dictionary<QuestionType, int>();
+            var types = EnumHelpers.GetValues<QuestionType>();
+            foreach (var type in types)
+            {
+                // Skip only none type
+                if (type == QuestionType.None)
+                    continue;
+
+                CurrentQuestionsNumber.Add(type, 0);
+            }
+
+            foreach (var question in CurrentQuestions)
+                CurrentQuestionsNumber[question.Type]++;
+        }
+
         #endregion
 
         #region Constructors
@@ -315,6 +361,7 @@ namespace Testinator.Core
         public TestBuilder()
         {
             CreatedObject = new Test();
+            LoadQuestionNumbers();
         }
 
         /// <summary>
@@ -324,6 +371,7 @@ namespace Testinator.Core
         public TestBuilder(Test Prototype)
         {
             CreatedObject = Prototype;
+            LoadQuestionNumbers();
         }
 
         #endregion

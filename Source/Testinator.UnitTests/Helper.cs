@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Testinator.Core;
 
 namespace Testinator.UnitTests
 {
@@ -17,6 +18,9 @@ namespace Testinator.UnitTests
             list.Insert(index, "THREE");
 
             var a = TimeSpan.Zero;
+
+            var types = EnumHelpers.GetValues<QuestionType>();
+
             Assert.IsTrue("THREE" == list[2]);
         }
 
