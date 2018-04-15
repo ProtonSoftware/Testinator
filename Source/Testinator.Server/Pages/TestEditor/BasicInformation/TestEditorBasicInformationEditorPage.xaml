@@ -1,0 +1,177 @@
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorBasicInformationEditorViewModel" x:Class="Testinator.Server.TestEditorBasicInformationEditorPage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 mc:Ignorable="d"
+                 d:DesignHeight="720"
+                 d:DesignWidth="1024">
+
+    <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <TextBlock Text="{x:Static core:LocalizationResource.TestEditorTitle}"
+                   Margin="0 40"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Style="{StaticResource TitleText}"
+                   Foreground="{StaticResource BlackDarkBrush}" />
+
+        <Border CornerRadius="3"
+                Background="{StaticResource WhiteDarkBrush}"
+                Padding="30"
+                Margin="50 100 50 50">
+
+            <Grid>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                    
+                <TextBlock Text="{x:Static core:LocalizationResource.TestName}"
+                           Style="{StaticResource QuestionTextBlockStyle}" 
+                           Grid.Row="0"/>
+
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource BigInputTextBox}"
+                            Tag="Krótka nazwa testu"
+                            Grid.Row="1"/>
+
+
+
+                <Grid Grid.Row="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="Czas trwania"
+                               Style="{StaticResource QuestionTextBlockStyle}"
+                               Grid.Row="0"
+                               Grid.ColumnSpan="10"/>
+
+                    <TextBox Text="{Binding DurationHours, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource BigInputTextBox}"
+                             Tag="H H"
+                             HorizontalContentAlignment="Center"
+                             Grid.Row="1" Grid.Column="0"
+                             Margin="15"/>
+
+                    <TextBlock Text=":"
+                               FontSize="{StaticResource FontSizeLarge}"
+                               FontFamily="{StaticResource FontMontserratBold}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Grid.Row="1" Grid.Column="1"/>
+
+                    <TextBox Text="{Binding DurationMinutes, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource BigInputTextBox}"
+                             Tag="M M"
+                             HorizontalContentAlignment="Center"
+                             Grid.Row="1" Grid.Column="2"
+                             Margin="15"/>
+
+                    <TextBlock Text=":"
+                               FontSize="{StaticResource FontSizeLarge}"
+                               FontFamily="{StaticResource FontMontserratBold}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Grid.Row="1" Grid.Column="3"/>
+
+                    <TextBox Text="{Binding DurationSeconds, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource BigInputTextBox}"
+                             Tag="S S"
+                             HorizontalContentAlignment="Center"
+                             Grid.Row="1" Grid.Column="4"
+                             Margin="15"/>
+
+                    <TextBlock Text="Tag:"
+                            Style="{StaticResource QuestionTextBlockStyle}"
+                            Grid.Row="0"
+                            Grid.Column="6"/>
+
+                    <TextBox Text="{Binding Tags, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource BigInputTextBox}"
+                             Tag="Np. C++"
+                             HorizontalContentAlignment="Left"
+                             Grid.Row="1" Grid.Column="6"
+                             Margin="15"/>
+                </Grid>
+
+                <TextBlock Text="Notatka:"
+                            Style="{StaticResource QuestionTextBlockStyle}"
+                            Grid.Row="3"/>
+
+                <TextBox Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource BigInputTextBox}"
+                         Tag="Zostania zapisana razem z testem..."
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Top"
+                         VerticalScrollBarVisibility="Auto"
+                         Grid.Row="4"
+                         Height="100"/>
+                
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Style="{StaticResource QuestionTextBlockStyle}"
+                           Foreground="{StaticResource LightRedBrush}"
+                           Grid.Row="5"
+                           />
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Column="0"
+                        Content="Wróc"
+                        Command="{Binding ReturnCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        HorizontalAlignment="Left" />
+
+                    <Button Grid.Column="1"
+                        Content="Anuluj "
+                        Command="{Binding ExitCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        HorizontalAlignment="Center" />
+
+                    <Button Grid.Column="2"
+                        Content="Dalej"
+                        Command="{Binding SubmitCommand}"
+                        Style="{StaticResource BaseUIButton}"
+                        HorizontalAlignment="Right" />
+
+                </Grid>
+
+
+            </Grid>
+            
+            
+        </Border>
+
+    </Grid>
+    
+</UICore:BasePage>

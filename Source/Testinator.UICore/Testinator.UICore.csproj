@@ -86,6 +86,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\Tiles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Comboboxes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

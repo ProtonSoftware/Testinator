@@ -6,9 +6,14 @@ namespace Testinator.Core
     /// The package contaning the test startup args
     /// </summary>
     [Serializable]
-    public class TestStartupArgsPackage : PackageContent
+    public class TestStartupArgs : PackageContent
     {
         #region Public Properties
+
+        /// <summary>
+        /// Current session identifier 
+        /// </summary>
+        public Guid SessionIdentifier { get; set; }
 
         /// <summary>
         /// Indicates it the result page is allowed to see by the user
@@ -23,19 +28,7 @@ namespace Testinator.Core
         /// <summary>
         /// The time offset this test should start
         /// </summary>
-        public TimeSpan TimerOffset { get; set; } = TimeSpan.FromSeconds(0);
-
-        #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Default construcotr
-        /// </summary>
-        public TestStartupArgsPackage()
-        {
-
-        }
+        public TimeSpan TimerOffset { get; set; }
 
         #endregion
     }

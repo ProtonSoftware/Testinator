@@ -1,0 +1,379 @@
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorFinalizingViewModel" x:Class="Testinator.Server.TestEditorFinalizePage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 mc:Ignorable="d"
+                 d:DesignHeight="720"
+                 d:DesignWidth="1024">
+
+    <Grid Background="#F3F4F8">
+
+        <Grid.RowDefinitions>
+            <!-- Title Bar -->
+            <RowDefinition Height="60"/>
+            <!-- Tittle underline -->
+            <RowDefinition Height="1.5"/>
+            <!-- Main content-->
+            <RowDefinition Height="*"/>
+            <!-- Buttons section-->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Page title -->
+        <Grid Grid.Row="0" 
+              Background="#FFFFFF"
+              Panel.ZIndex="10">
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="Finalizowanie"
+                       FontFamily="{StaticResource FontMontserratRegular}"
+                       Margin="50 0 0 0"/>
+        </Grid>
+
+        <!-- Tittle underline -->
+        <Border Grid.Row="1" Grid.ColumnSpan="3" 
+                Background="#4CA194"/>
+
+        <!-- Main content -->
+        <Border Grid.Row="2" 
+                CornerRadius="5"
+                BorderThickness="1"
+                Margin="25"
+                Background="#FFFFFF">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <!-- Tittle-->
+                    <RowDefinition Height="50"/>
+                    <!-- Main content-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <!-- Tittle box -->
+                <Grid Grid.Row="0" Background="#F5FAF4">
+                    <TextBlock Text="Ustal kryteria oceniania"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource FontMontserratRegular}"
+                               Margin="15 0"
+                                />
+
+                </Grid>
+
+                <!-- Main Content-->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1.2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Name -->
+                    <Border Grid.Row="0" Grid.Column="0" 
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <TextBlock Text="{Binding TestName}"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="Nazwa"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Duration -->
+                    <Border Grid.Row="0" Grid.Column="1" 
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <TextBlock Text="Czas trwania"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="{Binding Duration}"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Number of questions -->
+                    <Border Grid.Row="0" Grid.Column="2" 
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <TextBlock Text="Liczba pytań "
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <Grid VerticalAlignment="Bottom">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"
+                                            Orientation="Horizontal">
+
+                                    <TextBlock Text="{Binding MultipleChoiceQuestionsCount}"
+                                               Margin="5 0 0 10"
+                                               Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                                    <TextBlock Text="ABC"
+                                               Style="{StaticResource FontAwesomeIconText}"
+                                               Width="100"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1"
+                                            Orientation="Horizontal">
+
+                                    <TextBlock Text="{Binding MultipleCheckBoxesQuestionsCount}"
+                                               Margin="5 0 0 10"
+                                               Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                                    <TextBlock Text="{StaticResource FontAwesomeCheckBoxIcon}"
+                                               Style="{StaticResource FontAwesomeIconText}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2"
+                                            Orientation="Horizontal">
+
+                                    <TextBlock Text="{Binding SingleTextBoxQuestionsCount}"
+                                               Margin="5 0 0 10"
+                                               Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                                    <TextBlock Text="{StaticResource FontAwesomeKeyboardIcon}"
+                                               Style="{StaticResource FontAwesomeIconText}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                    </Border>
+
+                    <!-- Tags -->
+                    <Border Grid.Row="1" Grid.Column="0" 
+                            Style="{StaticResource TestFinalizingTile}">
+                        <Grid>
+                            <TextBlock Text="Tagi"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="{Binding Tags}"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Criteria -->
+                    <Border Grid.Row="1" Grid.Column="1" 
+                            Style="{StaticResource TestFinalizingTile}">
+                        <TextBlock Text="Place holder" Style="{StaticResource TitleText}"
+                                   FontSize="{StaticResource FontSizeSmall}"
+                                   HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Point score -->
+                    <Border Grid.Row="1" Grid.Column="2" 
+                            Style="{StaticResource TestFinalizingTile}">
+                        <Grid>
+                            <TextBlock Text="Liczba punktów"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+
+                            <TextBlock Text="{Binding TotalPointsScore}"
+                                       Style="{StaticResource FinalizingTileContentTextBlock}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- File name -->
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Nazwa pliku"
+                                       Grid.Row="0" Grid.Column="0"
+                                       Margin="5 2"
+                                       Style="{StaticResource FinalizingTileTitleTextBlock}"/>
+                            <CheckBox Grid.Row="0" Grid.Column="1"
+                                      Margin="0"
+                                      IsChecked="{Binding DefaultFileName}"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="2"
+                                       Style="{StaticResource MediumTitleText}"
+                                       Foreground="#E3E3E4"
+                                       Text="Domyślna"
+                                       Margin="0 5 10 5"/>
+
+                            <Border Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    Background="#E3E3E4"
+                                    VerticalAlignment="Center"
+                                    Margin="10 0">
+                                
+                                <Grid>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"
+                                                              MinWidth="200"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                                      VerticalScrollBarVisibility="Disabled"
+                                                      >
+                                            
+                                            <TextBox Margin="10 5 0 5"
+                                                     Text="{Binding FileName}"
+                                                     VerticalAlignment="Center"
+                                                     FontSize="{StaticResource FontSizeXLarge}"
+                                                     FontFamily="{StaticResource FontMontserratBold}"
+                                                     Background="#B6B8B9"
+                                                     BorderThickness="0"
+                                                     Padding="10 10 0 10"
+                                                     MinWidth="25"
+                                                     IsEnabled="{Binding DefaultFileName, Converter={local:BooleanInvertConverter}}"
+                                                     >
+                                                <TextBox.Style>
+                                                    <Style TargetType="{x:Type TextBox}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                                                    <TextBox Text="{TemplateBinding Text}"
+                                                                             FontFamily="{TemplateBinding FontFamily}"
+                                                                             FontSize="{TemplateBinding FontSize}"
+                                                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                                                             Padding="{TemplateBinding Padding}"
+                                                                             Margin="{TemplateBinding Margin}"
+                                                                             MinWidth="{TemplateBinding MinWidth}"
+                                                                             IsEnabled="{TemplateBinding IsEnabled}"
+                                                                             Background="{TemplateBinding Background}"
+                                                                             Foreground="{TemplateBinding Foreground}"
+                                                                             BorderThickness="{TemplateBinding BorderThickness}"
+                                                                             x:Name="Textbox" />
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter Property="Background" Value="#939698" TargetName="Textbox"/>
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsEnabled" Value="True">
+                                                                            <Setter Property="Background" Value="#B6B8B9" TargetName="Textbox"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </TextBox.Style>
+                                            </TextBox>
+                                        </ScrollViewer>
+                                        <TextBlock Text=".dat"
+                                                   Margin="-1 0 25 0"
+                                                   FontSize="{StaticResource FontSizeXLarge}"
+                                                   VerticalAlignment="Center"
+                                                   Padding="0 10 50 10"
+                                                   Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   FontFamily="{StaticResource FontMontserratBold}"
+                                                   Background="#B6B8B9"
+                                                   Foreground="#646464"
+                                                   />
+
+                                        <TextBlock Text=".dat"
+                                                   Margin="-1 0 25 0"
+                                                   FontSize="{StaticResource FontSizeXLarge}"
+                                                   VerticalAlignment="Center"
+                                                   Padding="0 10 50 10"
+                                                   Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   FontFamily="{StaticResource FontMontserratBold}"
+                                                   Visibility="{Binding DefaultFileName, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
+
+
+                                        <TextBlock Text="{StaticResource FontAwesomeFileIcon}"
+                                               Grid.Column="2"
+                                               Panel.ZIndex="10"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               Margin="0 0 40 0"
+                                               FontFamily="{StaticResource FontAwesome}"
+                                               FontSize="{StaticResource FontSizeXXLarge}"/>
+
+                                    </Grid>
+
+                                </Grid>
+                                
+                            </Border>
+                            
+                        </Grid>
+
+                    </Border>
+
+                    <!-- Error -->
+                    <Border Grid.Row="2" Grid.Column="2"
+                            Style="{StaticResource TestFinalizingTile}">
+
+                        <TextBlock Text="{Binding ErrorMessage}"
+                                   Visibility="{Binding IsErrorMessageVisible, Converter={local:BooleanToVisiblityConverter}}"
+                                   Margin="5"
+                                   Foreground="Red"
+                                   FontSize="{StaticResource FontSizeLarge}"/>
+
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+        <Grid Grid.Row="3">
+
+            <Button Content="Dalej"
+                    Margin="10"
+                    Command="{Binding FinishCommand}"
+                    Style="{StaticResource BaseUIButton}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right" />
+
+            <Button Content="Powrót"
+                    Margin="10"
+                    Command="{Binding GoPreviousPageCommand}"
+                    Style="{StaticResource BaseUIButton}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left" />
+        </Grid>
+
+    </Grid>
+</UICore:BasePage>

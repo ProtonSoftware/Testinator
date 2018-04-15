@@ -180,7 +180,7 @@ namespace Testinator.Server.Core
 
             ResultsDateDay = value.Date.ToShortDateString();
             ResultsDateHour = value.Date.ToShortTimeString();
-            TestName = value.Test.Name;
+            TestName = value.Test.Info.Name;
             TestAttendeesNumber = value.ClientAnswers.Count.ToString(); ;
         }
 

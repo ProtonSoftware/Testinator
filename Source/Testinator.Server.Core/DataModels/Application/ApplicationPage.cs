@@ -51,29 +51,29 @@
         BeginTestResults,
 
         /// <summary>
-        /// The page to create/edit tests
+        /// The test editor initial page
         /// </summary>
-        TestEditor,
+        TestEditorInitial,
 
         /// <summary>
         /// The page to create new criteria for future tests
         /// </summary>
-        TestEditorAddNewCriteria,
+        TestEditorCriteriaEditor,
 
         /// <summary>
-        /// The page to create new test
+        /// The page for editing basic information about a test
         /// </summary>
-        TestEditorAddTest,
+        TestEditorBasicInformationEditor,
 
         /// <summary>
-        /// The page to add questions to previously created test on TestEditorAddTest page
+        /// The page to edit questions
         /// </summary>
-        TestEditorAddQuestions,
+        TestEditorQuestionsEditor,
 
         /// <summary>
-        /// The page to edit existing test
+        /// The page to manage tests. Delete or edit them or something else
         /// </summary>
-        TestEditorEditTest,
+        TestEditorTestManagmentPage,
 
         /// <summary>
         /// The page to attach criteria to previously created test
@@ -81,9 +81,9 @@
         TestEditorAttachCriteria,
 
         /// <summary>
-        /// The page for showing that test is created and proceed successfully
+        /// The page to finalize test creation process
         /// </summary>
-        TestEditorResult,
+        TestEditorFinalize,
 
         /// <summary>
         /// The test results initial page

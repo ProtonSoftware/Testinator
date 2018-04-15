@@ -32,6 +32,15 @@ namespace Testinator.Client
         }
 
         /// <summary>
+        /// Notify the application about closing procedure
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnExit(ExitEventArgs e)
+        {
+            IoCClient.Application.Close();
+        }
+
+        /// <summary>
         /// Configures our application ready for use
         /// </summary>
         private void ApplicationSetup()

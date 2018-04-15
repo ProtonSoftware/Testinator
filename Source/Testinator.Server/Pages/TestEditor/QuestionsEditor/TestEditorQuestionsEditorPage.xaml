@@ -1,0 +1,291 @@
+﻿<UICore:BasePage x:TypeArguments="Core:TestEditorQuestionsEditorViewModel" x:Class="Testinator.Server.TestEditorQuestionsEditorPage"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:Testinator.Server"
+                 xmlns:Core="clr-namespace:Testinator.Server.Core;assembly=Testinator.Server.Core"
+                 xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
+                 xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
+                 xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
+                 mc:Ignorable="d"
+                 d:DesignHeight="720"
+                 d:DesignWidth="1024">
+
+    <Grid Background="#F3F4F8">
+
+        <Grid.ColumnDefinitions>
+            <!-- Questions cotrol -->
+            <ColumnDefinition Width="Auto" />
+            <!-- Page content -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <!-- Title Bar -->
+            <RowDefinition Height="60"/>
+            <!-- Tittle underline -->
+            <RowDefinition Height="1.5"/>
+            <!-- Main content-->
+            <RowDefinition Height="*"/>
+            <!-- Buttons section-->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Page title -->
+        <Grid Grid.ColumnSpan="3" Grid.Row="0" 
+              Background="#FFFFFF">
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="Dodawanie pytań"
+                       FontFamily="{StaticResource FontMontserratRegular}"
+                       Margin="50 0 0 0"/>
+        </Grid>
+                
+        <!-- Tittle underline -->
+        <Border Grid.Row="1" Grid.ColumnSpan="3" 
+                Background="#4CA194"/>
+        
+        <!-- Images preview control -->
+        <Grid Grid.RowSpan="222" Grid.ColumnSpan="222"
+              Panel.ZIndex="1000">
+            <!-- Images preview control -->
+            <local:ImagesEditorPreview Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding IsPreviewModeEnabled}"/>
+        
+        </Grid>
+        
+        <!-- Side menu with questions -->
+        <local:QuestionListControl Grid.Column="0"
+                                   Grid.Row="2" Grid.RowSpan="3"/>
+
+        <!-- Expanded question control -->
+        <!-- Finish this after matura-->
+        <!--<local:QuestionListExpandedControl Grid.Column="1"
+                                           Grid.Row="2" Grid.RowSpan="3"
+                                           Width="100"
+                                           Animations:AnimateSlideAndFadeInFromLeftProperty.Value="{Binding IsFullyExpanded, Source={x:Static Core:QuestionListViewModel.Instance}}"
+                                           />-->
+
+        <!-- Question type tiles -->
+        <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="3"
+              Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding QuestionTypeDialogVisible}"
+              Background="#EEEFF3"
+              Panel.ZIndex="100">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Pytanie ABC" 
+                    Grid.Row="0" Grid.Column="0"
+                    Background="#4CA194"
+                    Margin="5"
+                    Command="{Binding SelectQuestionTypeCommand}"
+                    CommandParameter="{x:Static core:QuestionType.MultipleChoice}"
+                    FontFamily="{StaticResource FontMontserratBold}"/>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                    Background="#4CA194"
+                    Margin="5"
+                    Command="{Binding SelectQuestionTypeCommand}"
+                    CommandParameter="{x:Static core:QuestionType.MultipleCheckboxes}"
+                    IsEnabled="False"
+                    Cursor="No">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Pytanie z checkboxami"/>
+                    <TextBlock Text="Comming soon!"/>
+                </StackPanel>
+            </Button>
+
+            <Button Grid.Row="0" Grid.Column="2"
+                    Background="#4CA194"
+                    Margin="5"
+                    Command="{Binding SelectQuestionTypeCommand}"
+                    CommandParameter="{x:Static core:QuestionType.SingleTextBox}"
+                    IsEnabled="False"
+                    Cursor="No">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Pytania z textboxem" />
+                    <TextBlock Text="Comming soon!"/>
+                </StackPanel>
+            </Button>
+
+            <Button Grid.Row="3" Grid.Column="1"
+                    Style="{StaticResource BaseUIButton}"
+                    Content="Zakończ dodawanie pytań"
+                    Command="{Binding GoNextPhaseCommand}"/>
+
+        </Grid>
+        
+        <!-- Question Editor -->
+        <Border Grid.Column="2" Grid.Row="2" 
+                CornerRadius="5"
+                BorderThickness="1"
+                Margin="25"
+                Background="#FFFFFF">
+            
+            <Grid>
+                
+                <Grid.RowDefinitions>
+                    <!-- Tittle-->
+                    <RowDefinition Height="50"/>
+                    <!-- Task -->
+                    <RowDefinition Height="145"/>
+                    <!-- Main content-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Task field -->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Task -->
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               Text="Pytanie: "
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="15 0"/>
+
+                    <TextBox Grid.Row="1" Grid.ColumnSpan="2"
+                             Style="{StaticResource TestEditorInputField}"
+                             Text="{Binding CurrentQuestionEditorViewModel.TaskStringContent, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="Wpisz treść pytania"
+
+                             Margin="15 0"/>
+
+                    <!-- Image editor -->
+                    <local:ImagesEditorControl Grid.Row="0" Grid.Column="1"
+                                               Height="50"/>
+                </Grid>                
+                
+                <!-- Tittle box -->
+                <Grid Grid.Row="0" Background="#F5FAF4">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="15 0">
+                        <TextBlock Text="Pytanie wielokrotnego wyboru (Wiele poprawnych odpowiedzi)"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource FontMontserratRegular}"
+                                   />
+                        <TextBlock Text="*"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource FontMontserratRegular}"
+                                   Visibility="{Binding CurrentQuestionEditorViewModel.AnyUnsavedChanges, Converter={local:BooleanToVisiblityConverter}}"/>
+                    </StackPanel>
+                    <Button Content="Usuń pytanie" 
+                            HorizontalAlignment="Right"
+                            Padding="5 5"
+                            Command="{Binding DeleteQuestionCommand}"
+                            Style="{StaticResource BaseUIButton}"
+                            Visibility="{Binding CanDeleteQuestion, Converter={local:BooleanToVisiblityConverter}}"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <local:MultipleChoiceQuestionEditor Visibility="{Binding Converter={local:QuestionTypeToVisibilityConverter}, 
+                                                                        ConverterParameter={x:Static core:QuestionType.MultipleChoice}, 
+                        RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=DataContext.CurrentQuestionType}"
+                                                        DataContext="{Binding CurrentQuestionEditorViewModel}"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Buttons section -->
+        <Grid Grid.Column="2" Grid.Row="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="3"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    Margin="10 10 10 15"
+                    Height="75"
+                    MaxWidth="350"
+                    Padding="15 5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="0">
+                        <TextBlock Text="Ilość pytań:"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                        <TextBlock Text="{Binding CurrentQuestionsCount, FallbackValue=2}"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="1">
+
+                        <TextBlock Text="Łącznie punktów:"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                        <TextBlock Text="{Binding CurrentTotalPointsScore, FallbackValue=15}"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+
+                    </StackPanel>
+                </Grid>
+                
+            </Border>
+            <Grid Grid.Column="1"
+                  VerticalAlignment="Bottom">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Zatwierdź pytanie" 
+                        Style="{StaticResource BaseUIButton}"
+                        Command="{Binding SubmitCommand}"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        />
+                
+                <Button Content="Anuluj" 
+                        Style="{StaticResource BaseUIButton}"
+                        Command="{Binding CancelCommand}"
+                        Grid.Column="1"
+                        />
+                
+                <Button Content="Koniec pytań" 
+                        Grid.Column="2"
+                        Style="{StaticResource BaseUIButton}"
+                        Command="{Binding GoNextPhaseCommand}"/>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</UICore:BasePage>

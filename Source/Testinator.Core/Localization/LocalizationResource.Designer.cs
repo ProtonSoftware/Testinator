@@ -61,6 +61,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aborting.
+        /// </summary>
+        public static string Aborting {
+            get {
+                return ResourceManager.GetString("Aborting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About {
@@ -250,6 +259,15 @@ namespace Testinator.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection falied.
+        /// </summary>
+        public static string ConnectionFalied {
+            get {
+                return ResourceManager.GetString("ConnectionFalied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string ContinueQuestion {
@@ -403,11 +421,11 @@ namespace Testinator.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit test.
+        ///   Looks up a localized string similar to Edit/delete a test.
         /// </summary>
-        public static string EditTest {
+        public static string EditManageTest {
             get {
-                return ResourceManager.GetString("EditTest", resourceCulture);
+                return ResourceManager.GetString("EditManageTest", resourceCulture);
             }
         }
         
@@ -579,6 +597,15 @@ namespace Testinator.Core {
         public static string MarkFName {
             get {
                 return ResourceManager.GetString("MarkFName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum number of attempts has beed reached. \nTry again or make sure the server is online..
+        /// </summary>
+        public static string MaximumAttemptsReachedMessage {
+            get {
+                return ResourceManager.GetString("MaximumAttemptsReachedMessage", resourceCulture);
             }
         }
         

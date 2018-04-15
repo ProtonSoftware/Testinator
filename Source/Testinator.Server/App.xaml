@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Comboboxes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/ProgressBars.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/DataGrids.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Tiles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

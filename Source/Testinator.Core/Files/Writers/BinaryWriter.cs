@@ -26,31 +26,29 @@ namespace Testinator.Core
         /// Writes the <see cref="Test"/> to the file
         /// </summary>
         /// <param name="test">The test to be written to file</param>
-        public override void WriteToFile(Test test)
+        /// <param name="fileName">Filename for the test</param>
+        public override void WriteToFile(Test test, string fileName = "")
         {
             // Make sure we have test to write and the writer object type is set to test
             if (test == null || ObjectType != SaveableObjects.Test)
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // Create test file name
-            var filename = BinaryReader.TestIDs.ContainsKey(test.ID) ? BinaryReader.TestIDs[test.ID] : CreateFinalFileName("Test");
+            if(string.IsNullOrEmpty(fileName))
+                fileName = BinaryReader.AllTests.ContainsKey(test) ? BinaryReader.AllTests[test] : CreateFinalFileName("Test");
 
             // Try to convert the test object to binary array
             if (!DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
                 throw new Exception("Test object is unconvertable.");
 
             // Finally save the file
-            WriteBinaryDataToFile(filename, dataBin);
-
-            // Reload the test list
-            var binaryReader = new BinaryReader(SaveableObjects.Test);
-            binaryReader.ReadFile<Test>();
+            WriteBinaryDataToFile(fileName, dataBin);
         }
 
         /// <summary>
         /// Writes <see cref="ClientTestResultsBase"/> to file
         /// </summary>
-        public override void WriteToFile(ClientTestResultsBase results)
+        public override void WriteToFile(ClientTestResults results)
         {
             // Make sure we have results to write and the writer object type is set to result
             if (results == null || ObjectType != SaveableObjects.Results)
@@ -70,7 +68,7 @@ namespace Testinator.Core
         /// <summary>
         /// Writes <see cref="TestResults"/> to file
         /// </summary>
-        public override void WriteToFile(ServerTestResultsBase results)
+        public override void WriteToFile(ServerTestResults results)
         {
             // Make sure we have results to write and the writer object type is set to result
             if (results == null || ObjectType != SaveableObjects.Results)
@@ -102,11 +100,11 @@ namespace Testinator.Core
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // If there is no test like passed one, don't delete anything
-            if (!BinaryReader.TestIDs.ContainsKey(test.ID))
+            if (!BinaryReader.AllTests.ContainsKey(test))
                 return;
 
             // Try to delete test by filename
-            var filename = BinaryReader.TestIDs[test.ID];
+            var filename = BinaryReader.AllTests[test];
             if (!DeleteBinaryFileByName(filename))
                 // If something went wrong, throw an error
                 throw new Exception("Cannot delete file!");
@@ -116,7 +114,7 @@ namespace Testinator.Core
         /// Deletes the <see cref="TestResults"/>
         /// </summary>
         /// <param name="result">Results to be deleted</param>
-        public override void DeleteFile(ServerTestResultsBase result)
+        public override void DeleteFile(ServerTestResults result)
         {
             // Make sure we have results to delete and the writer object type is set to result
             if (result == null || ObjectType != SaveableObjects.Results)
@@ -196,7 +194,7 @@ namespace Testinator.Core
         /// <summary>
         /// Creates the file name for <see cref="ClientTestResultsBase"/>
         /// </summary>
-        private string CreateClientResultsFileName(ClientTestResultsBase results)
+        private string CreateClientResultsFileName(ClientTestResults results)
         {
             var hours = DateTime.Now.ToShortTimeString().Replace(':', '-');
             var date = DateTime.Now.ToShortDateString().Replace('/', '-');
@@ -206,7 +204,7 @@ namespace Testinator.Core
         /// <summary>
         /// Creates the file name for <see cref="TestResults"/>
         /// </summary>
-        private string CreateResultsFileName(ServerTestResultsBase result)
+        private string CreateResultsFileName(ServerTestResults result)
         {
             var hours = result.Date.ToShortTimeString().Replace(':', '-');
             var date = result.Date.ToShortDateString().Replace('/', '-');

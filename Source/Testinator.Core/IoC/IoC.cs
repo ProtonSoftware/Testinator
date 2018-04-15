@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using System.Collections.Generic;
 
 namespace Testinator.Core
 {

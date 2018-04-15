@@ -144,10 +144,12 @@
                                    Text="{Binding Attempts}"/>
                     </StackPanel>
 
-                    <Button Content="{x:Static core:LocalizationResource.Cancel}"
+                    <Button Content="{Binding CancelText}"
                             Style="{StaticResource BaseUIButton}"
                             Command="{Binding StopConnectingCommand}"
-                            Margin="15" />
+                            Margin="15"
+                            IsEnabled="{Binding IsCancelling, Converter={local:BooleanInvertConverter}}">
+                    </Button>
 
                 </StackPanel>
 

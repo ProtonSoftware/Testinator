@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using System;
 using Testinator.Core;
 
 namespace Testinator.Server.Core
@@ -41,6 +42,11 @@ namespace Testinator.Server.Core
         public static FileManagerBase File => IoCServer.Get<FileManagerBase>();
 
         /// <summary>
+        /// A shortcut to access the <see cref="TestEditor"/>
+        /// </summary>
+        public static TestEditor TestEditor => IoCServer.Get<TestEditor>();
+
+        /// <summary>
         /// A shortcut to access the <see cref="IUIManager"/>
         /// </summary>
         public static IUIManager UI => IoCServer.Get<IUIManager>();
@@ -49,6 +55,15 @@ namespace Testinator.Server.Core
         /// A shortcut to access the <see cref="ILogFactory"/>
         /// </summary>
         public static ILogFactory Logger => IoCServer.Get<ILogFactory>();
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when IoC completes its setup
+        /// </summary>
+        public static event Action SetupCompleted = () => { };
 
         #endregion
 
@@ -63,6 +78,8 @@ namespace Testinator.Server.Core
         {
             // Bind all required view models
             BindViewModels();
+
+            SetupCompleted.Invoke();
         }
 
         /// <summary>
@@ -76,6 +93,7 @@ namespace Testinator.Server.Core
             Kernel.Bind<ApplicationSettingsViewModel>().ToConstant(new ApplicationSettingsViewModel());
             Kernel.Bind<ServerNetwork>().ToConstant(new ServerNetwork());
             Kernel.Bind<TestHost>().ToConstant(new TestHost());
+            Kernel.Bind<TestEditor>().ToConstant(new TestEditor());
         }
 
         #endregion

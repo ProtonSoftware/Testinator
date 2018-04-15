@@ -106,5 +106,29 @@ namespace Testinator.Server
         /// <param name="langCode">The code of an language to change to</param>
         public void ChangeLanguage(string langCode) => LocalizationResource.Culture = new CultureInfo(langCode);
 
+        /// <summary>
+        /// Ask the user to choose single file from the disk
+        /// </summary>
+        /// <param name="InitialDirectory">Initial directory</param>
+        /// <param name="Filer">Filer for file types</param>
+        /// <returns>Path to the file that has been selected; Empty if file has not been selected</returns>
+        public string ShowSingleFileDialog(string InitialDirectory, string Filer)
+        {
+            // Dont delete this namespace here bcs it causes ambiguities calls above
+            var ofd = new System.Windows.Forms.OpenFileDialog()
+            {
+                InitialDirectory = InitialDirectory,
+                Filter = Filer,
+                RestoreDirectory = true,
+            };
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return ofd.FileName;
+            }
+            else
+                return "";
+
+        }
     }
 }

@@ -45,11 +45,11 @@
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
                                         Header="{x:Static core:LocalizationResource.UserName}"
-                                        Binding="{Binding ClientName}"/>
+                                        Binding="{Binding Name}"/>
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
                                         Header="{x:Static core:LocalizationResource.UserSurname}"
-                                        Binding="{Binding ClientSurname}"/>
+                                        Binding="{Binding LastName}"/>
                     <DataGridTextColumn Width="*"
                                         IsReadOnly="True"
                                         Header="{x:Static core:LocalizationResource.AmountOfPoints}"

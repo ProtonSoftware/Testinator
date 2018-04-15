@@ -1,4 +1,6 @@
-﻿using Testinator.Core;
+﻿using System;
+using System.Reflection;
+using Testinator.Core;
 
 namespace Testinator.Server.Core
 {
@@ -15,6 +17,11 @@ namespace Testinator.Server.Core
         public string ApplicationLanguage { get; set; } = "pl-PL";
 
         /// <summary>
+        /// Current version of the application
+        /// </summary>
+        public Version Version { get; private set; }
+
+        /// <summary>
         /// Show the side menu only if we are not on login page
         /// </summary>
         public bool SideMenuVisible => CurrentPage != ApplicationPage.Login;
@@ -23,6 +30,16 @@ namespace Testinator.Server.Core
         /// The current subpage of the BeginTestPage
         /// </summary>
         public ApplicationPage CurrentBeginTestPage { get; private set; } = ApplicationPage.BeginTestInitial;
+
+        #endregion
+
+        #region Public Events
+
+        /// <summary>
+        /// Fired when main application is closing, so some operation may trigger this event 
+        /// and prepare for closing
+        /// </summary>
+        public event Action Closing = () => { };
 
         #endregion
 
@@ -53,6 +70,28 @@ namespace Testinator.Server.Core
 
             // Fire off a CurrentBeginTestPage changed event
             OnPropertyChanged(nameof(CurrentBeginTestPage));
+        }
+
+        /// <summary>
+        /// Closes the application
+        /// </summary>
+        public void Close()
+        {
+            Closing.Invoke();
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ApplicationViewModel()
+        {
+            // Get the current version from assebly
+            var assebly = Assembly.LoadFrom("Testinator.Server.Core.dll");
+            Version = assebly.GetName().Version;
         }
 
         #endregion

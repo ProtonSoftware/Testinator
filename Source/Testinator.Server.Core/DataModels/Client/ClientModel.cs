@@ -26,11 +26,11 @@ namespace Testinator.Server.Core
         /// makes sense only if the test in progress 
         /// </summary>
         public int QuestionsCount { get; set; }
-
+        
         /// <summary>
-        /// The value for the progress bar, substract one from the CurrentQuestion to show the progress correctly
+        /// The value for the progress bar
         /// </summary>
-        public int ProgressBarValue => CurrentQuestion - 1;
+        public int ProgressBarValue => CurrentQuestion;
 
         /// <summary>
         /// The percentage value for the progress bar;
@@ -41,6 +41,11 @@ namespace Testinator.Server.Core
         /// Indicates if there is any connection problems with this client
         /// </summary>
         public bool ConnectionProblem { get; set; }
+
+        /// <summary>
+        /// Indicates if this client has sent their results to the server
+        /// </summary>
+        public bool HasResultsBeenReceived { get; set; }
 
         /// <summary>
         /// The answer given by this user
@@ -56,6 +61,26 @@ namespace Testinator.Server.Core
         /// The client mark
         /// </summary>
         public Marks Mark { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Resets this client's model properties so it can start a new test
+        /// </summary>
+        /// <param name="QuestionsCount">The number of question in new test so they progress bar can show correct values</param>
+        public void ResetForNewTest(int QuestionsCount)
+        {
+            CanStartTest = false;
+            CurrentQuestion = 0;
+            this.QuestionsCount = QuestionsCount;
+            ConnectionProblem = false;
+            HasResultsBeenReceived = false;
+            Answers = new List<Answer>();
+            PointsScored = 0;
+            Mark = default(Marks);
+        }
 
         #endregion
     }

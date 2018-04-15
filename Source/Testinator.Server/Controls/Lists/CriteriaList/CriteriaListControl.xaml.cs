@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Testinator.Server.Core;
 
 namespace Testinator.Server
 {
@@ -10,6 +11,7 @@ namespace Testinator.Server
         public CriteriaListControl()
         {
             InitializeComponent();
+            DataContext = CriteriaListViewModel.Instance;
         }
     }
 }

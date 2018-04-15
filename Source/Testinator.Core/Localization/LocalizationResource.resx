@@ -165,8 +165,8 @@
   <data name="EditCriteria" xml:space="preserve">
     <value>Edit criteria</value>
   </data>
-  <data name="EditTest" xml:space="preserve">
-    <value>Edit test</value>
+  <data name="EditManageTest" xml:space="preserve">
+    <value>Edit/delete a test</value>
   </data>
   <data name="FillData" xml:space="preserve">
     <value>Fill the data</value>
@@ -500,5 +500,14 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Aborting</value>
+  </data>
+  <data name="ConnectionFalied" xml:space="preserve">
+    <value>Connection falied</value>
+  </data>
+  <data name="MaximumAttemptsReachedMessage" xml:space="preserve">
+    <value>Maximum number of attempts has beed reached. \nTry again or make sure the server is online.</value>
   </data>
 </root>

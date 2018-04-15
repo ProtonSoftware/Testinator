@@ -25,7 +25,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The ammout of points the user can get for a good answer
         /// </summary>
-        public string PointScore => $"{Question.PointScore}p.";
+        public string PointScore => $"{Question.Scoring.FullPointScore}p.";
 
         /// <summary>
         /// Current answer written by the user

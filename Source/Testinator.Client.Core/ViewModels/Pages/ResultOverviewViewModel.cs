@@ -14,12 +14,12 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The name of the test user has completed
         /// </summary>
-        public string TestName => IoCClient.TestHost.CurrentTest.Name;
+        public string TestName => IoCClient.TestHost.CurrentTest.Info.Name;
 
         /// <summary>
         /// The time in which user has completed the test
         /// </summary>
-        public TimeSpan CompletionTime => IoCClient.TestHost.CurrentTest.Duration - IoCClient.Application.TimeLeft;
+        public TimeSpan CompletionTime => IoCClient.TestHost.CurrentTest.Info.Duration - IoCClient.Application.TimeLeft;
 
         /// <summary>
         /// The score user achieved

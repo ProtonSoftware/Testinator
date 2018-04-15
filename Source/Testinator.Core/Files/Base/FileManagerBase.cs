@@ -101,8 +101,9 @@ namespace Testinator.Core
 
         /// <summary>
         /// Writes the <see cref="Test"/> to the file
+         /// <param name="Filename">Filename for the test</param>
         /// </summary>
-        public virtual void WriteToFile(Test test) { }
+        public virtual void WriteToFile(Test test, string Filename = "") { }
 
         /// <summary>
         /// Writes the <see cref="GradingPercentage"/> to the file
@@ -117,12 +118,12 @@ namespace Testinator.Core
         /// <summary>
         /// Writes <see cref="TestResults"/> to file
         /// </summary>
-        public virtual void WriteToFile(ServerTestResultsBase tr) { }
+        public virtual void WriteToFile(ServerTestResults tr) { }
 
         /// <summary>
         /// Writes <see cref="ClientTestResultsBase"/> to file
         /// </summary>
-        public virtual void WriteToFile(ClientTestResultsBase ctr) { }
+        public virtual void WriteToFile(ClientTestResults ctr) { }
 
         /// <summary>
         /// Writes object's property info to file
@@ -160,7 +161,7 @@ namespace Testinator.Core
         /// <summary>
         /// Deletes the <see cref="TestResults"/>
         /// </summary>
-        public virtual void DeleteFile(ServerTestResultsBase results) { }
+        public virtual void DeleteFile(ServerTestResults results) { }
 
         #endregion
 

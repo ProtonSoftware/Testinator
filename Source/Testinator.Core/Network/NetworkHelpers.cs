@@ -48,7 +48,7 @@ namespace Testinator.Core
         /// </summary>
         /// <param name="ip">The address to chceck</param>
         /// <returns>True if address is correct, false if not</returns>
-        public static bool IsAddressCorrect(string ip)
+        public static bool IsIPAddressCorrect(string ip)
         {
             return IPAddress.TryParse(ip, out var ipa);
         }

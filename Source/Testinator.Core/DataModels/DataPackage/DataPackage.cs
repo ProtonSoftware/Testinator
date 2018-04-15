@@ -47,5 +47,28 @@ namespace Testinator.Core
         }
 
         #endregion
+
+        #region Quick Creation Methods
+
+        /// <summary>
+        /// Creates a package that contains a test
+        /// </summary>
+        /// <param name="Test"></param>
+        /// <returns></returns>
+        public static DataPackage TestPackage(Test Test) => new DataPackage(PackageType.TestForm, Test);
+
+        /// <summary>
+        /// Creates a package that contains startup command with args
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static DataPackage StartTestPackage(TestStartupArgs args) => new DataPackage(PackageType.BeginTest, args);
+
+        /// <summary>
+        /// Creates a package that contains abort test command
+        /// </summary>
+        public static DataPackage AbortTestPackage => new DataPackage(PackageType.StopTestForcefully);
+
+        #endregion
     }
 }

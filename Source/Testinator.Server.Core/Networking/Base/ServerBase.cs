@@ -15,11 +15,6 @@ namespace Testinator.Server.Core
         #region Protected Memebers
 
         /// <summary>
-        /// The socked this server is operating on
-        /// </summary>
-        protected Socket mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        /// <summary>
         /// Matches all connected sockets with their client models
         /// </summary>
         protected readonly Dictionary<Socket, ClientModel> mClients = new Dictionary<Socket, ClientModel>();
@@ -47,6 +42,11 @@ namespace Testinator.Server.Core
         /// Server port
         /// </summary>
         private int mPort;
+
+        /// <summary>
+        /// The socked this server is operating on
+        /// </summary>
+        private Socket mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         #endregion
 
@@ -245,6 +245,10 @@ namespace Testinator.Server.Core
                 foreach (var socket in mClients.Keys.ToList())
                 {
                     Send(socket, DisconnectRequestPackage);
+                    
+                    // Call the even method before closing socket
+                    ClientDisconnected(mClients[socket]);
+
                     socket.Shutdown(SocketShutdown.Both);
                     socket.Close();
                     mClients.Remove(socket);
@@ -281,13 +285,6 @@ namespace Testinator.Server.Core
         {
             // Get the target socket
             var targetSocket = mClients.FirstOrDefault(x => x.Value == TargetClient).Key;
-
-            // It target does not exist...
-            if (targetSocket == null)
-            {
-                IoCServer.Logger.Log("Could not send the data as target client does not exist");
-                throw new ServerException(LocalizationResource.CouldNotSendData, "Target client does not exist");
-            }
 
             // Attempt to send data
             try
@@ -428,7 +425,17 @@ namespace Testinator.Server.Core
                 IoCServer.Logger.Log("Skipping data package. Binary conversion failed.");
 
             // Continue receiving
-            senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
+            try
+            {
+                senderSocket.BeginReceive(mReciverBuffer, 0, BufferSize, SocketFlags.None, ReceiveCallback, senderSocket);
+            }
+            // If the socket has been meanwhile disposed(removed from connected users) or is it has already been closed with a previous call, dont do anything
+            catch(Exception ex)
+            {
+                // No need to do anything in fact
+                if (ex is ObjectDisposedException || ex is SocketException)
+                    return;
+            }
         }
 
         private void InfoPackageHandler(Socket SenderSocket, DataPackage ReceivedPackage)

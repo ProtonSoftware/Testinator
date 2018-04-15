@@ -20,7 +20,7 @@
                                 <MouseBinding MouseAction="LeftClick" 
                                               Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                                                AncestorType=local:TestListControl},
-                                                                                               Path=DataContext.ChooseTestCommand}"
+                                                                                               Path=DataContext.SelectItemCommand}"
                                               CommandParameter="{Binding ID}" />
                             </Border.InputBindings>
 
@@ -35,7 +35,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Test.Name}"
+                                <TextBlock Text="{Binding Test.Info.Name}"
                                            Style="{StaticResource MediumTitleText}"
                                            />
                             </Grid>

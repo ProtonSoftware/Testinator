@@ -11,9 +11,9 @@ namespace Testinator.Core
         // TODO: Fix that, it shouldn't be there, not like this
         #region Public Properties
 
-        public static Dictionary<int, string> TestIDs { get; set; } = new Dictionary<int, string>();
+        public static Dictionary<Test, string> AllTests { get; set; } = new Dictionary<Test, string>();
 
-        public static Dictionary<ServerTestResultsBase, string> Results { get; set; } = new Dictionary<ServerTestResultsBase, string>();
+        public static Dictionary<ServerTestResults, string> Results { get; set; } = new Dictionary<ServerTestResults, string>();
 
         #endregion
 
@@ -39,11 +39,8 @@ namespace Testinator.Core
         public override List<T> ReadFile<T>()
         {
             // Reset the dictionaries
-            Results = new Dictionary<ServerTestResultsBase, string>();
-            TestIDs = new Dictionary<int, string>();
-
-            // Prepare the indexer which is needed for some object types
-            var indexer = 0;
+            Results = new Dictionary<ServerTestResults, string>();
+            AllTests = new Dictionary<Test, string>();
 
             // Create the list we will return later
             var results = new List<T>();
@@ -62,24 +59,18 @@ namespace Testinator.Core
                 if (filecontent is Test)
                 {
                     // Convert file to T object
-                    filecontent = GetObjectFromFile<T>(file, true);
-
-                    // Set the ID of the test
-                    (filecontent as Test).ID = indexer;
-
+                    filecontent = GetObjectFromFile<T>(file,true);
+                    
                     // Add it to the dictionary
-                    TestIDs.Add(indexer, Path.GetFileNameWithoutExtension(file));
-
-                    // Update the indexer
-                    indexer++;
+                    AllTests.Add((filecontent as Test), Path.GetFileNameWithoutExtension(file));
                 }
-                else if (filecontent is ServerTestResultsBase)
+                else if (filecontent is ServerTestResults)
                 {
                     // Convert file to T object
                     filecontent = GetObjectFromFile<T>(file);
 
                     // Add the object to the Results dictionary
-                    Results.Add(filecontent as ServerTestResultsBase, Path.GetFileNameWithoutExtension(file));
+                    Results.Add(filecontent as ServerTestResults, Path.GetFileNameWithoutExtension(file));
                 }
                 else
                     // If no type found, just try to get the object as it is

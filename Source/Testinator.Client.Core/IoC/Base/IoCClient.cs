@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using System;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
@@ -31,7 +32,7 @@ namespace Testinator.Client.Core
         public static TestHost TestHost => IoCClient.Get<TestHost>();
 
         /// <summary>
-        /// A shortcut to access the <see cref="FileWritersBase"/>
+        /// A shortcut to access the <see cref="FileManagerBase"/>
         /// </summary>
         public static FileManagerBase File => IoCClient.Get<FileManagerBase>();
 
@@ -47,6 +48,15 @@ namespace Testinator.Client.Core
 
         #endregion
 
+        #region Public Events
+
+        /// <summary>
+        /// Fired when IoC completes its setup
+        /// </summary>
+        public static event Action SetupCompleted = () => { };
+
+        #endregion
+
         #region Construction
 
         /// <summary>
@@ -58,6 +68,7 @@ namespace Testinator.Client.Core
         {
             // Bind all required view models
             BindViewModels();
+            SetupCompleted.Invoke();
         }
 
         /// <summary>

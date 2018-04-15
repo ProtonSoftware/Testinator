@@ -45,17 +45,24 @@ namespace Testinator.Server.Core
         #endregion
 
         #region Private Events
-
+        
+        /// <summary>
+        /// Client connected to the server
+        /// </summary>
+        /// <param name="NewClient">The client that has conneced</param>
         protected override void ClientConnected(ClientModel NewClient)
         {
             // Jump on the dispatcher thread
             var uiContext = SynchronizationContext.Current;
             uiContext.Send(x => ConnectedClients.Add(NewClient), null);
             
-
             OnClientConnected.Invoke(NewClient);
         }
 
+        /// <summary>
+        /// Client disconnected from the server
+        /// </summary>
+        /// <param name="DisconnectedClient">The client that has been disconnected</param>
         protected override void ClientDisconnected(ClientModel DisconnectedClient)
         {
             // Jump on the dispatcher thread
@@ -65,11 +72,21 @@ namespace Testinator.Server.Core
             OnClientDisconnected(DisconnectedClient);
         }
 
+        /// <summary>
+        /// Client's model got updated
+        /// </summary>
+        /// <param name="OldClientModel">old client model</param>
+        /// <param name="NewClientModel">New client model</param>
         protected override void ClientModelUpdated(ClientModel OldClientModel, ClientModel NewClientModel)
         {
             OnClientDataUpdated(OldClientModel, NewClientModel);
         }
 
+        /// <summary>
+        /// Data has been received from a client
+        /// </summary>
+        /// <param name="SenderClient">The client we received the data from</param>
+        /// <param name="DataReceived">The data itself</param>
         protected override void DataReceived(ClientModel SenderClient, DataPackage DataReceived)
         {
             OnDataReceived(SenderClient, DataReceived);

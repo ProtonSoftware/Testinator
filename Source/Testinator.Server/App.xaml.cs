@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -56,6 +57,9 @@ namespace Testinator.Server
         /// </summary>
         private void ApplicationSetup()
         {
+            // Default language
+            LocalizationResource.Culture = new CultureInfo("pl-PL");
+
             // Bind a UI Manager
             IoCServer.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
 
@@ -74,19 +78,24 @@ namespace Testinator.Server
         }
 
         /// <summary>
+        /// Notify the application about closing procedure
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnExit(ExitEventArgs e)
+        {
+            IoCServer.Application.Close();
+        }
+
+        /// <summary>
         /// Checks if there is a new version of that application
         /// </summary>
         private async Task<bool> CheckUpdatesAsync()
         {
             try
             {
-                // Get current version
-                var assembly = Assembly.LoadFrom("Testinator.Server.Core.dll");
-                var currentVersion = assembly.GetName().Version.ToString();
-
                 // Set webservice's url and parameters we want to send
                 var url = "http://minorsonek.pl/testinator/data/index.php";
-                var parameters = $"version={ currentVersion }&type=Server";
+                var parameters = $"version={ IoCServer.Application.Version.ToString() }&type=Server";
 
                 // Catch the result
                 var result = string.Empty;
@@ -114,7 +123,7 @@ namespace Testinator.Server
                             };
                             await IoCServer.UI.ShowMessage(vm);
 
-                            // Depend on the answer...
+                            // Depending on the answer...
                             return vm.UserResponse;
                         }
 

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
@@ -31,7 +32,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// IP of the server we are connecting to
         /// </summary>
-        public string ServerIP { get; set; } = IoCClient.Application.Network.Ip;
+        public string ServerIP { get; set; } = IoCClient.Application.Network.IPString;
 
         /// <summary>
         /// Port of the server we are connecting to
@@ -46,7 +47,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// A flag indicating if the connect command is running
         /// </summary>
-        public bool ConnectingIsRunning => IoCClient.Application.Network.Connecting;
+        public bool ConnectingIsRunning => IoCClient.Application.Network.IsTryingToConnect;
 
         /// <summary>
         /// If any error occur, show this message
@@ -57,6 +58,16 @@ namespace Testinator.Client.Core
         /// A flag indicating if server port or ip is incorrect
         /// </summary>
         public bool IpOrPortError { get; set; }
+
+        /// <summary>
+        /// Indicates if the current connecting is being canceled right now
+        /// </summary>
+        public bool IsCancelling { get; set; }
+
+        /// <summary>
+        /// Content of the connect button based on <see cref="IsCancelling"/> property
+        /// </summary>
+        public string CancelText => IsCancelling ? LocalizationResource.Aborting + "..." : LocalizationResource.Cancel;
 
         /// <summary>
         /// Number of attempts taken to connect to the server
@@ -102,7 +113,10 @@ namespace Testinator.Client.Core
             SettingsMenuHideCommand = new RelayCommand(HideMenu);
             StopConnectingCommand = new RelayCommand(StopConnecting);
 
-            IoCClient.Application.Network.OnAttemptUpdate += Network_OnAttemptUpdate;
+            IoCClient.Application.Network.AttemptCounterUpdated += Network_OnAttemptUpdate;
+            IoCClient.Application.Network.AttemptsTimeout += Network_AttemptsTimeout;
+            IoCClient.Application.Network.ConnectionFinished += Network_ConnectionFinished;
+            IoCClient.Application.Network.Connected += Network_Connected;
         }
 
         #endregion
@@ -126,7 +140,7 @@ namespace Testinator.Client.Core
             
             // Setup client and start connecting
             IoCClient.Application.Network.Initialize(ServerIP, int.Parse(ServerPort));
-            IoCClient.Application.Network.StartConnecting();
+            IoCClient.Application.Network.Connect();
             
             // Log it
             IoCClient.Logger.Log("Attempting to connect to the server");
@@ -153,7 +167,7 @@ namespace Testinator.Client.Core
         private void HideMenu()
         {
             // Verify the data
-            if (!NetworkHelpers.IsAddressCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
+            if (!NetworkHelpers.IsIPAddressCorrect(ServerIP) || !NetworkHelpers.IsPortCorrect(ServerPort))
             {
                 IpOrPortError = true;
                 return;
@@ -174,12 +188,28 @@ namespace Testinator.Client.Core
             // Log it
             IoCClient.Logger.Log("User disconnected");
 
-            OnPropertyChanged(nameof(ConnectingIsRunning));
+            IsCancelling = true;
         }
 
         #endregion
 
         #region Private Helpers
+
+        private void Network_Connected()
+        {
+            // Unsubscribe from events, if the page changed to waiting for test this viewmodel gets destroyed,
+            // but references to the event methods are stored in Network class so when the login page viewmodel get created again
+            // event methods are subscribed again and, thus they are fired multiple times
+            IoCClient.Application.Network.AttemptCounterUpdated -= Network_OnAttemptUpdate;
+            IoCClient.Application.Network.AttemptsTimeout -= Network_AttemptsTimeout;
+            IoCClient.Application.Network.ConnectionFinished -= Network_ConnectionFinished;
+        }
+
+        private void Network_ConnectionFinished()
+        {
+            OnPropertyChanged(nameof(ConnectingIsRunning));
+            IsCancelling = false;
+        }
 
         /// <summary>
         /// Fired when attempt counter updates
@@ -191,14 +221,28 @@ namespace Testinator.Client.Core
         }
 
         /// <summary>
+        /// Fired when attemts timeout is reached
+        /// </summary>
+        private void Network_AttemptsTimeout()
+        {
+            OnPropertyChanged(nameof(ConnectingIsRunning));
+            IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel()
+            {
+                Message = LocalizationResource.MaximumAttemptsReachedMessage,
+                Title = LocalizationResource.ConnectionFalied,
+                OkText = LocalizationResource.Ok,
+            });
+        }
+
+        /// <summary>
         /// Validates the user's input data
         /// </summary>
         /// <returns></returns>
         private bool IsInputDataValid()
         {
             // For now, check if user have specified at least two character for each input
-            if (Name.Length < 2) return false;
-            if (Surname.Length < 2) return false;
+            if (string.IsNullOrEmpty(Name) || Name.Length < 2) return false;
+            if (string.IsNullOrEmpty(Surname) || Surname.Length < 2) return false;
             
             return true;
         }

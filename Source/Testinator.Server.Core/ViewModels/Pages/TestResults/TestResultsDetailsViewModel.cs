@@ -35,7 +35,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The name of the test the users took
         /// </summary>
-        public string TestName => mTestResults.Test.Name;
+        public string TestName => mTestResults.Test.Info.Name;
         
         /// <summary>
         /// The current subpage
@@ -127,6 +127,8 @@ namespace Testinator.Server.Core
         /// <param name="client"></param>
         private void ChangeViewAnswers(object client)
         {
+            // Disable for now
+            return;
             var Client = client as TestResultsClientModel;
 
             if (Client == null)
@@ -146,12 +148,13 @@ namespace Testinator.Server.Core
             var QuestionViewModels = new List<BaseViewModel>();
 
             var addedQuestions = Enumerable.Repeat<bool>(false, mTestResults.Test.Questions.Count).ToList();
+
             // Fill empty answers with nulls and match questions to the answers
             for (var i = 0; i < mTestResults.Test.Questions.Count; i++)
             {
                 try
                 {
-                    var index = UserAnswers[i].ID;
+                    var index = 0;// UserAnswers[i].ID;
                     Questions.Add(mTestResults.Test.Questions[index - 1]);
                     addedQuestions[index - 1] = true;
                 }
@@ -187,12 +190,12 @@ namespace Testinator.Server.Core
                                 // Cast the answer and question objects
                                 // NOTE: if the answer doesn't exist exception is thrown here
                                 multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
-                                isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
+                                //isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
 
                                 // Check if user has answered correctly
-                                if (isAnswerCorrect)
+                                //if (isAnswerCorrect)
                                     // Give them points for this question
-                                    totalScore += multipleChoiceQuestion.PointScore;
+                                    //totalScore += multipleChoiceQuestion.PointScore;
                             }
                             // Catch the exception but let the answer to be saved
                             catch (ArgumentOutOfRangeException) { }
@@ -216,23 +219,23 @@ namespace Testinator.Server.Core
                     case QuestionType.MultipleCheckboxes:
                         {
                             // Create local variables for the answer and correct answer boolean for the further use
-                            MultipleCheckboxesAnswer multipleCheckboxesAnswer = null;
+                            //MultipleCheckboxesAnswer multipleCheckboxesAnswer = null;
                             var isAnswerCorrect = false;
-                            var multipleCheckboxesQuestion = Questions[i] as MultipleCheckboxesQuestion;
+                            var MultipleCheckBoxesQuestion = Questions[i] as MultipleCheckBoxesQuestion;
 
                             // Try to get answer in the try/catch in case the answer doesn't exist
                             try
                             {
                                 // Cast the answer and question objects
                                 // NOTE: if the answer doesn't exist exception is thrown here
-                                multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
+                                //multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
 
-                                isAnswerCorrect = multipleCheckboxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
+                                //isAnswerCorrect = MultipleCheckBoxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
 
                                 // Check if user has answered correctly
-                                if (isAnswerCorrect)
+                                //if (isAnswerCorrect)
                                     // Give them points for this question
-                                    totalScore += multipleCheckboxesQuestion.PointScore;
+                                //    totalScore += MultipleCheckBoxesQuestion.PointScore;
                             }
                             // Catch the exception but let the answer to be saved
                             catch (ArgumentOutOfRangeException) { }
@@ -242,12 +245,12 @@ namespace Testinator.Server.Core
                             var viewmodel = new QuestionMultipleCheckboxesViewModel()
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = multipleCheckboxesAnswer,
+                                //UserAnswer = multipleCheckboxesAnswer,
                                 Index = i,
                             };
 
                             // Attach the question
-                            viewmodel.AttachQuestion(multipleCheckboxesQuestion);
+                            viewmodel.AttachQuestion(MultipleCheckBoxesQuestion);
 
                             QuestionViewModels.Add(viewmodel);
                         }
@@ -267,12 +270,12 @@ namespace Testinator.Server.Core
                                 // NOTE: if the answer doesn't exist exception is thrown here
                                 singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
 
-                                isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
+                               // isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
 
                                 // Check if user has answered correctly
-                                if (isAnswerCorrect)
+                               // if (isAnswerCorrect)
                                     // Give them multipleCheckboxesAnswer for this question
-                                    totalScore += singleTextBoxQuestion.PointScore;
+                                //    totalScore += singleTextBoxQuestion.PointScore;
                             }
                             // Catch the exception but let the answer to be saved
                             catch (ArgumentOutOfRangeException) { }
@@ -282,7 +285,7 @@ namespace Testinator.Server.Core
                             var viewmodel = new QuestionSingleTextBoxViewModel()
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = singleTextBoxAnswer?.Answer,
+                               // UserAnswer = singleTextBoxAnswer?.Answer,
                                 Index = i,
                             };
 
@@ -330,6 +333,8 @@ namespace Testinator.Server.Core
         /// </summary>
         private void CreateQuestionsViewData()
         {
+            return; // Disable for now
+
             // Clear any junk
             QuestionsViewData.Clear();
 
@@ -339,8 +344,8 @@ namespace Testinator.Server.Core
                 // Get the answers given by this user
                 var answers = mTestResults.ClientAnswers[student];
 
-                if (answers != null)
-                    answers = answers.OrderBy(x => x.ID).ToList();
+                //if (answers != null)
+                //    answers = answers.OrderBy(x => x.ID).ToList();
 
                 // Create a viewmodel for them
                 var viewmodel = new QuestionsViewItemViewModel()
@@ -362,18 +367,18 @@ namespace Testinator.Server.Core
                         switch (question.Type)
                         {
                             case QuestionType.MultipleCheckboxes:
-                                if ((question as MultipleCheckboxesQuestion).IsAnswerCorrect(answers[i] as MultipleCheckboxesAnswer))
-                                    scoredPoints = (question as MultipleCheckboxesQuestion).PointScore;
+                                //if ((question as MultipleCheckBoxesQuestion).IsAnswerCorrect(answers[i] as MultipleCheckboxesAnswer))
+                               //     scoredPoints = (question as MultipleCheckBoxesQuestion).PointScore;
                                 break;
 
                             case QuestionType.MultipleChoice:
-                                if ((question as MultipleChoiceQuestion).IsAnswerCorrect(answers[i] as MultipleChoiceAnswer))
-                                    scoredPoints = (question as MultipleChoiceQuestion).PointScore;
+                               // if ((question as MultipleChoiceQuestion).IsAnswerCorrect(answers[i] as MultipleChoiceAnswer))
+                               //     scoredPoints = (question as MultipleChoiceQuestion).PointScore;
                                 break;
 
                             case QuestionType.SingleTextBox:
-                                if ((question as SingleTextBoxQuestion).IsAnswerCorrect(answers[i] as SingleTextBoxAnswer))
-                                    scoredPoints = (question as SingleTextBoxQuestion).PointScore;
+                              //  if ((question as SingleTextBoxQuestion).IsAnswerCorrect(answers[i] as SingleTextBoxAnswer))
+                              //      scoredPoints = (question as SingleTextBoxQuestion).PointScore;
                                 break;
                         }
                     }

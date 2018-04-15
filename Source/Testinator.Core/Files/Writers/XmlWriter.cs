@@ -52,7 +52,7 @@ namespace Testinator.Core
 
             // Finally save the file
             if (!WriteXmlDocumentFile(filename, doc))
-                // If something went wrong, throw an error
+                // If something went wrong, throw an exception
                 throw new Exception("Cannot save criteria file!");
         }
 

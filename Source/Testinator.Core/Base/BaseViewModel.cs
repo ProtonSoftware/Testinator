@@ -10,8 +10,13 @@ namespace Testinator.Core
     /// A base view model that fires Property Changed events as needed
     /// </summary>
     [Serializable]
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged, IDisposable
     {
+        /// <summary>
+        /// Disposes this viewmodel 
+        /// </summary>
+        public virtual void Dispose() { }
+
         /// <summary>
         /// The event that is fired when any child property changes its value
         /// </summary>

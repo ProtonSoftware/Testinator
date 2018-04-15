@@ -8,7 +8,6 @@ namespace Testinator.Client.Core
     /// </summary>
     public class ClientModel : Testinator.Core.Client
     {
-
         #region Public Methods
 
         /// <summary>

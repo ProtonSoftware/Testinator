@@ -5,7 +5,7 @@ using Testinator.Core;
 namespace Testinator.Server.Core
 {
     /// <summary>
-    /// A viewmodel for <see cref="MultipleCheckboxesQuestion"/>
+    /// A viewmodel for <see cref="MultipleCheckBoxesQuestion"/>
     /// </summary>
     public class QuestionMultipleCheckboxesViewModel : BaseViewModel
     {
@@ -14,7 +14,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The question for this view model to show
         /// </summary>
-        public MultipleCheckboxesQuestion Question { get; set; }
+        public MultipleCheckBoxesQuestion Question { get; set; }
 
         /// <summary>
         /// The title which shows question id
@@ -24,7 +24,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The ammout of points the user can get for a good answer
         /// </summary>
-        public string PointScore => $"{Question.PointScore}p.";
+        public string PointScore => $"{Question.Scoring.FullPointScore}p.";
 
         /// <summary>
         /// Options for the questions to check or uncheck
@@ -49,7 +49,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The answer given by the user 
         /// </summary>
-        public MultipleCheckboxesAnswer UserAnswer { get; set; }
+        public MultipleCheckBoxesAnswer UserAnswer { get; set; }
 
         /// <summary>
         /// The index of the viewmodel in a viewmodels list
@@ -79,13 +79,13 @@ namespace Testinator.Server.Core
         /// NOTE: needs to be done before attaching this view model to the page
         /// </summary>
         /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(MultipleCheckboxesQuestion question)
+        public void AttachQuestion(MultipleCheckBoxesQuestion question)
         {
             // Get the question
             Question = question;
 
             // Convert from dictionary to answer items list
-            Options = ListConvertFromDictionaryQuestion(Question.OptionsAndAnswers);
+            Options = ListConvertQuestions();
         }
 
         #endregion
@@ -97,20 +97,20 @@ namespace Testinator.Server.Core
         /// </summary>
         /// <param name="options">Possible answers to the question as list of string</param>
         /// <returns></returns>
-        private List<CheckboxAnswerItemViewModel> ListConvertFromDictionaryQuestion(Dictionary<string, bool> options)
+        private List<CheckboxAnswerItemViewModel> ListConvertQuestions()
         {
             // Initialize the list that we are willing to return 
             var FinalList = new List<CheckboxAnswerItemViewModel>();
 
             var i = 0;
             // Loop each answer to create answer item from it
-            foreach (var option in options)
+            foreach (var option in Question.Options)
             {
                 // Create new answer item
                 var answerItemViewModel = new CheckboxAnswerItemViewModel
                 {
                     // Rewrite answer string content
-                    Text = option.Key.ToString(),  
+                    Text = option,  
                 };
 
                 // If user gave no answer
@@ -118,7 +118,7 @@ namespace Testinator.Server.Core
                 {
 
                     // Mark the checkboxes in the correct order if the user didn't give the answer
-                    answerItemViewModel.IsChecked = option.Value;
+                    answerItemViewModel.IsChecked = Question.CorrectAnswer[i];
                     NoAnswer = true;
                 }
                 
@@ -126,10 +126,10 @@ namespace Testinator.Server.Core
                 else
                 {
                     // Show their answer
-                    answerItemViewModel.IsChecked = UserAnswer.Answers[i];
+                    answerItemViewModel.IsChecked = UserAnswer.UserAnswer[i];
 
                     // Set if it is correct
-                    answerItemViewModel.IsCorrect = option.Value == UserAnswer.Answers[i];
+                    answerItemViewModel.IsCorrect = Question.CorrectAnswer[i] == UserAnswer.UserAnswer[i];
                 }
                 
                 // Add this item viewmodel to the list

@@ -17,7 +17,7 @@
                 case IconType.MultipleChoiceQuestion:
                     return "\uf031";
 
-                case IconType.MultipleCheckboxesQuestion:
+                case IconType.MultipleCheckBoxesQuestion:
                     return "\uf046";
 
                 case IconType.SingleTextBoxQuestion:

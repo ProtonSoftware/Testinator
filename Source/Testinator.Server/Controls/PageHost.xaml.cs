@@ -1,7 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using Testinator.Server.Core;
+<<<<<<< HEAD
 using Testinator.UICore;
+=======
+using System;
+>>>>>>> Test-rework
 
 namespace Testinator.Server
 {
@@ -73,10 +77,60 @@ namespace Testinator.Server
             var newPageFrame = (d as PageHost).NewPage;
             var oldPageFrame = (d as PageHost).OldPage;
 
+<<<<<<< HEAD
             // Change the page based on that
             Instance.ChangeFramePages(newPageFrame, oldPageFrame, targetPage, targetPageViewModel);
             
             // Return the value back to dependency property
+=======
+            // If the current page hasn't changed
+            // just update the view model
+            if (newPageFrame.Content is BasePage page &&
+                page.ToApplicationPage() == targetPage)
+            {
+                // Just update the view model (if it isn't null)
+                if (targetPageViewModel != null)
+                {
+                    // Kill current page viewmodel by calling dispose method, so it can free all it's resources
+                    ((IDisposable)page.ViewModelObject).Dispose();
+
+                    page.ViewModelObject = targetPageViewModel;
+                }
+
+                return value;
+            }
+
+            // Store the current page content as the old page
+            var oldPageContent = newPageFrame.Content;
+
+            // Remove current page from new page frame
+            newPageFrame.Content = null;
+
+            // Move the previous page into the old page frame
+            oldPageFrame.Content = oldPageContent;
+
+            // Animate out previous page when the Loaded event fires
+            // right after this call due to moving frames
+            if (oldPageContent is BasePage oldPage)
+            {
+                // Tell old page to animate out
+                oldPage.ShouldAnimateOut = true;
+
+                // Once it is done, remove it
+                Task.Delay((int)(oldPage.SlideSeconds * 1000)).ContinueWith((t) =>
+                {
+                    // Remove old page
+                    Application.Current.Dispatcher.Invoke(() => oldPageFrame.Content = null);
+                });
+
+                // Kill current page viewmodel by calling dispose method, so it can free all it's resources
+                ((IDisposable)oldPage.ViewModelObject).Dispose();
+            }
+
+            // Set the new page content
+            newPageFrame.Content = targetPage.ToBasePage(targetPageViewModel);
+
+>>>>>>> Test-rework
             return value;
         }
 

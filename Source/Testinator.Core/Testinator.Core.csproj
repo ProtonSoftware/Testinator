@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,6 +59,8 @@
     <Compile Include="Base\IHavePassword.cs" />
     <Compile Include="Base\RelayCommand.cs" />
     <Compile Include="Base\RelayParameterizedCommand.cs" />
+    <Compile Include="DataModels\Builder\Builder.cs" />
+    <Compile Include="DataModels\Builder\IBuilder.cs" />
     <Compile Include="DataModels\Client\Client.cs" />
     <Compile Include="DataModels\DataPackage\Content\ResultFormPackage.cs" />
     <Compile Include="DataModels\DataPackage\Content\StatusPackage.cs" />
@@ -66,32 +69,42 @@
     <Compile Include="DataModels\DataPackage\Content\InfoPackage.cs" />
     <Compile Include="DataModels\DataPackage\PackageContent.cs" />
     <Compile Include="DataModels\DataPackage\PackageType.cs" />
-    <Compile Include="DataModels\Questions\AnswerModel\Base\Answer.cs" />
-    <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleCheckboxesAnswer.cs" />
-    <Compile Include="DataModels\Questions\AnswerModel\Types\MultipleChoiceAnswer.cs" />
-    <Compile Include="DataModels\Questions\AnswerModel\Types\SingleTextBoxAnswer.cs" />
-    <Compile Include="DataModels\Questions\QuestionHelpers.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionBase.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleCheckboxesQuestion.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\Types\MultipleChoiceQuestion.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\Base\QuestionTypes.cs" />
-    <Compile Include="DataModels\Questions\QuestionModel\Types\SingleTextBoxQuestion.cs" />
-    <Compile Include="DataModels\Results\Base\ResultsBase.cs" />
-    <Compile Include="DataModels\Results\Base\TestResultsBase.cs" />
-    <Compile Include="DataModels\Results\Base\ClientTestResultsBase.cs" />
+    <Compile Include="DataModels\Questions\Answer\Base\Answer.cs" />
+    <Compile Include="DataModels\Questions\Answer\Base\IAnswer.cs" />
+    <Compile Include="DataModels\Questions\Answer\Implementation\MultipleCheckboxesAnswer.cs" />
+    <Compile Include="DataModels\Questions\Answer\Implementation\MultipleChoiceAnswer.cs" />
+    <Compile Include="DataModels\Questions\Answer\Implementation\SingleTextBoxAnswer.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Builder\QuestionBuilder.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Question\IQuestion.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Question\QuestionBase.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Scoring\Scoring.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Scoring\ScoringMode.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Builders\MultipleCheckboxesQuestionBuilder.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Builders\MultipleChoiceQuestionBuilder.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Builders\SingleTextBoxQuestionBuilder.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\MultipleCheckBoxesQuestion.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\MultipleChoiceQuestion.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Question\QuestionTypes.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Implementation\Questions\SingleTextBoxQuestion.cs" />
+    <Compile Include="DataModels\Questions\QuestionModel\Base\Question\Task\TaskContent.cs" />
+    <Compile Include="DataModels\Results\Implementation\ClientTestResults.cs" />
+    <Compile Include="DataModels\Results\Implementation\ServerTestResults.cs" />
     <Compile Include="DataModels\Results\TestResultsClientModel.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingBase.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingPoints.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\GradingPercentage.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Base\GradingBase.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Implementation\GradingPoints.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Implementation\GradingPercentage.cs" />
     <Compile Include="DataModels\Test\GradingSystem\GradingExtensionMethods.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\Mark.cs" />
-    <Compile Include="DataModels\Test\GradingSystem\Marks.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Base\Mark.cs" />
+    <Compile Include="DataModels\Test\GradingSystem\Base\Marks.cs" />
+    <Compile Include="DataModels\Test\TestCore\Builder\TestBuilder.cs" />
     <Compile Include="DataModels\Test\TestCore\Test.cs" />
-    <Compile Include="DataModels\Test\TestCore\TestExtensionMethods.cs" />
+    <Compile Include="DataModels\Test\TestCore\TestInformation.cs" />
     <Compile Include="Dialogs\Base\BaseDialogViewModel.cs" />
     <Compile Include="Dialogs\Base\MessageTypes.cs" />
     <Compile Include="Dialogs\ViewModels\DecisionDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\MessageBoxDialogViewModel.cs" />
+    <Compile Include="EnumberableExtensions.cs" />
+    <Compile Include="Enums\EnumHelpers.cs" />
     <Compile Include="Expressions\ExpressionHelpers.cs" />
     <Compile Include="Files\Base\FileDataHasher.cs" />
     <Compile Include="Files\Base\FileHandler.cs" />
@@ -130,6 +143,7 @@
       <LastGenOutput>LocalizationResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
