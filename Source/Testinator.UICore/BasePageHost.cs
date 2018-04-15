@@ -57,8 +57,12 @@ namespace Testinator.UICore
             {
                 // Just update the view model (if it isn't null)
                 if (targetPageViewModel != null)
+                {
                     page.ViewModelObject = targetPageViewModel;
 
+                    // Kill current page viewmodel by calling dispose method, so it can free all it's resources
+                    ((IDisposable)page.ViewModelObject).Dispose();
+                }
                 return;
             }
 
@@ -84,6 +88,9 @@ namespace Testinator.UICore
                     // Remove old page
                     Application.Current.Dispatcher.Invoke(() => oldPageFrame.Content = null);
                 });
+
+                // Kill current page viewmodel by calling dispose method, so it can free all it's resources
+                ((IDisposable)oldPage.ViewModelObject).Dispose();
             }
 
             // Set the new page content
