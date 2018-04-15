@@ -87,7 +87,7 @@
                             Style="{StaticResource TestFinalizingTile}">
 
                         <Grid>
-                            <TextBlock Text="Nazwa"
+                            <TextBlock Text="{Binding TestName}"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
 
                             <TextBlock Text="Nazwa"
@@ -104,7 +104,7 @@
                             <TextBlock Text="Czas trwania"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
 
-                            <TextBlock Text="24:00:23"
+                            <TextBlock Text="{Binding Duration}"
                                        Style="{StaticResource FinalizingTileContentTextBlock}"/>
 
                         </Grid>
@@ -129,7 +129,7 @@
                                 <StackPanel Grid.Column="0"
                                             Orientation="Horizontal">
 
-                                    <TextBlock Text="9"
+                                    <TextBlock Text="{Binding MultipleChoiceQuestionsCount}"
                                                Margin="5 0 0 10"
                                                Style="{StaticResource FinalizingTileContentTextBlock}"/>
 
@@ -141,7 +141,7 @@
                                 <StackPanel Grid.Column="1"
                                             Orientation="Horizontal">
 
-                                    <TextBlock Text="9"
+                                    <TextBlock Text="{Binding MultipleCheckBoxesQuestionsCount}"
                                                Margin="5 0 0 10"
                                                Style="{StaticResource FinalizingTileContentTextBlock}"/>
 
@@ -152,7 +152,7 @@
                                 <StackPanel Grid.Column="2"
                                             Orientation="Horizontal">
 
-                                    <TextBlock Text="9"
+                                    <TextBlock Text="{Binding SingleTextBoxQuestionsCount}"
                                                Margin="5 0 0 10"
                                                Style="{StaticResource FinalizingTileContentTextBlock}"/>
 
@@ -171,7 +171,7 @@
                             <TextBlock Text="Tagi"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
 
-                            <TextBlock Text="Tag1, Tag2, Tag3"
+                            <TextBlock Text="{Binding Tags}"
                                        Style="{StaticResource FinalizingTileContentTextBlock}"/>
 
                         </Grid>
@@ -192,7 +192,7 @@
                             <TextBlock Text="Liczba punktów"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
 
-                            <TextBlock Text="100"
+                            <TextBlock Text="{Binding TotalPointsScore}"
                                        Style="{StaticResource FinalizingTileContentTextBlock}"/>
 
                         </Grid>
@@ -219,7 +219,8 @@
                                        Margin="5 2"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
                             <CheckBox Grid.Row="0" Grid.Column="1"
-                                      Margin="0"/>
+                                      Margin="0"
+                                      IsChecked="{Binding DefaultFileName}"/>
 
                             <TextBlock Grid.Row="0" Grid.Column="2"
                                        Style="{StaticResource MediumTitleText}"
@@ -243,60 +244,93 @@
                                     <Grid Grid.Column="0">
 
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"
+                                                              MinWidth="200"/>
                                             <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBox Margin="10 5 0 5"
-                                                 VerticalAlignment="Center"
-                                                 Background="Transparent"
-                                                 FontSize="{StaticResource FontSizeXLarge}"
-                                                 FontFamily="{StaticResource FontMontserratBold}"
-                                                 BorderThickness="0"
-                                                 Padding="10 10 0 10"
-                                                 MinWidth="25"
-                                                 IsEnabled="False">
-                                            <TextBox.Template>
-                                                <ControlTemplate TargetType="{x:Type TextBox}">
-                                                    <TextBox Text="{TemplateBinding Text}"
-                                                             FontFamily="{TemplateBinding FontFamily}"
-                                                             FontSize="{TemplateBinding FontSize}"
-                                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                                             Padding="{TemplateBinding Padding}"
-                                                             Margin="{TemplateBinding Margin}"
-                                                             MinWidth="{TemplateBinding MinWidth}"
-                                                             IsEnabled="{TemplateBinding IsEnabled}"
-                                                             Background="{TemplateBinding Background}"
-                                                             Foreground="{TemplateBinding Foreground}"
-                                                             BorderThickness="{TemplateBinding BorderThickness}"
-                                                                />
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsEnabled" Value="False">
-                                                            <Setter Property="Background" Value="Red"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </TextBox.Template>
-                                        </TextBox>
-
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                                      VerticalScrollBarVisibility="Disabled"
+                                                      >
+                                            
+                                            <TextBox Margin="10 5 0 5"
+                                                     Text="{Binding FileName}"
+                                                     VerticalAlignment="Center"
+                                                     FontSize="{StaticResource FontSizeXLarge}"
+                                                     FontFamily="{StaticResource FontMontserratBold}"
+                                                     Background="#B6B8B9"
+                                                     BorderThickness="0"
+                                                     Padding="10 10 0 10"
+                                                     MinWidth="25"
+                                                     IsEnabled="{Binding DefaultFileName, Converter={local:BooleanInvertConverter}}"
+                                                     >
+                                                <TextBox.Style>
+                                                    <Style TargetType="{x:Type TextBox}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                                                    <TextBox Text="{TemplateBinding Text}"
+                                                                             FontFamily="{TemplateBinding FontFamily}"
+                                                                             FontSize="{TemplateBinding FontSize}"
+                                                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                                                             Padding="{TemplateBinding Padding}"
+                                                                             Margin="{TemplateBinding Margin}"
+                                                                             MinWidth="{TemplateBinding MinWidth}"
+                                                                             IsEnabled="{TemplateBinding IsEnabled}"
+                                                                             Background="{TemplateBinding Background}"
+                                                                             Foreground="{TemplateBinding Foreground}"
+                                                                             BorderThickness="{TemplateBinding BorderThickness}"
+                                                                             x:Name="Textbox" />
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter Property="Background" Value="#939698" TargetName="Textbox"/>
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsEnabled" Value="True">
+                                                                            <Setter Property="Background" Value="#B6B8B9" TargetName="Textbox"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </TextBox.Style>
+                                            </TextBox>
+                                        </ScrollViewer>
                                         <TextBlock Text=".dat"
-                                                   Margin="0"
+                                                   Margin="-1 0 25 0"
                                                    FontSize="{StaticResource FontSizeXLarge}"
                                                    VerticalAlignment="Center"
+                                                   Padding="0 10 50 10"
                                                    Grid.Column="1"
-                                                   FontFamily="{StaticResource FontMontserratBold}"/>
+                                                   Grid.ColumnSpan="2"
+                                                   FontFamily="{StaticResource FontMontserratBold}"
+                                                   Background="#B6B8B9"
+                                                   Foreground="#646464"
+                                                   />
 
-                                    </Grid>
+                                        <TextBlock Text=".dat"
+                                                   Margin="-1 0 25 0"
+                                                   FontSize="{StaticResource FontSizeXLarge}"
+                                                   VerticalAlignment="Center"
+                                                   Padding="0 10 50 10"
+                                                   Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   FontFamily="{StaticResource FontMontserratBold}"
+                                                   Visibility="{Binding DefaultFileName, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
 
-                                    <TextBlock Text="{StaticResource FontAwesomeFileIcon}"
-                                               Grid.Column="1"
+
+                                        <TextBlock Text="{StaticResource FontAwesomeFileIcon}"
+                                               Grid.Column="2"
                                                Panel.ZIndex="10"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Center"
-                                               Margin="0 0 25 0"
+                                               Margin="0 0 40 0"
                                                FontFamily="{StaticResource FontAwesome}"
                                                FontSize="{StaticResource FontSizeXXLarge}"/>
+
+                                    </Grid>
 
                                 </Grid>
                                 
@@ -310,7 +344,8 @@
                     <Border Grid.Row="2" Grid.Column="2"
                             Style="{StaticResource TestFinalizingTile}">
 
-                        <TextBlock Text="Błąd"
+                        <TextBlock Text="{Binding ErrorMessage}"
+                                   Visibility="{Binding IsErrorMessageVisible, Converter={local:BooleanToVisiblityConverter}}"
                                    Margin="5"
                                    Foreground="Red"
                                    FontSize="{StaticResource FontSizeLarge}"/>
@@ -327,7 +362,7 @@
 
             <Button Content="Dalej"
                     Margin="10"
-                    Command="{Binding SubmitCriteriaCommand}"
+                    Command="{Binding FinishCommand}"
                     Style="{StaticResource BaseUIButton}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right" />

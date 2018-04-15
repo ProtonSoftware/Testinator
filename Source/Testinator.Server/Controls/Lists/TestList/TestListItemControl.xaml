@@ -35,7 +35,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Test.Name}"
+                                <TextBlock Text="{Binding Test.Info.Name}"
                                            Style="{StaticResource MediumTitleText}"
                                            />
                             </Grid>

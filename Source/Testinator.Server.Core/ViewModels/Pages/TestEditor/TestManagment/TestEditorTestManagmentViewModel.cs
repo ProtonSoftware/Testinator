@@ -134,5 +134,17 @@ namespace Testinator.Server.Core
         }
 
         #endregion
+
+        #region CleanUp
+
+        /// <summary>
+        /// Disposes this viewmodel
+        /// </summary>
+        public override void Dispose()
+        {
+            TestListViewModel.Instance.SelectionChanged -= UpdateView;
+        }
+
+        #endregion
     }
 }

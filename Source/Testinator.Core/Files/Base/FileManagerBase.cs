@@ -101,8 +101,9 @@ namespace Testinator.Core
 
         /// <summary>
         /// Writes the <see cref="Test"/> to the file
+         /// <param name="Filename">Filename for the test</param>
         /// </summary>
-        public virtual void WriteToFile(Test test) { }
+        public virtual void WriteToFile(Test test, string Filename = "") { }
 
         /// <summary>
         /// Writes the <see cref="GradingPercentage"/> to the file

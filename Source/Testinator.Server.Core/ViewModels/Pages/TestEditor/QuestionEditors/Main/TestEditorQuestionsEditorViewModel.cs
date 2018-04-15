@@ -153,7 +153,7 @@ namespace Testinator.Server.Core
                 }
             }
 
-            IoCServer.TestEditor.Return();
+            IoCServer.TestEditor.GoPreviousPage();
         }
 
         /// <summary>

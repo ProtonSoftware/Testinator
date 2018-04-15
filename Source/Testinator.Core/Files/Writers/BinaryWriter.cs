@@ -26,25 +26,23 @@ namespace Testinator.Core
         /// Writes the <see cref="Test"/> to the file
         /// </summary>
         /// <param name="test">The test to be written to file</param>
-        public override void WriteToFile(Test test)
+        /// <param name="fileName">Filename for the test</param>
+        public override void WriteToFile(Test test, string fileName = "")
         {
             // Make sure we have test to write and the writer object type is set to test
             if (test == null || ObjectType != SaveableObjects.Test)
                 throw new Exception("Wrong BinaryWriter usage.");
 
             // Create test file name
-            var filename = BinaryReader.AllTests.ContainsKey(test) ? BinaryReader.AllTests[test] : CreateFinalFileName("Test");
+            if(string.IsNullOrEmpty(fileName))
+                fileName = BinaryReader.AllTests.ContainsKey(test) ? BinaryReader.AllTests[test] : CreateFinalFileName("Test");
 
             // Try to convert the test object to binary array
             if (!DataPackageDescriptor.TryConvertToBin(out var dataBin, new DataPackage(PackageType.TestForm, test)))
                 throw new Exception("Test object is unconvertable.");
 
             // Finally save the file
-            WriteBinaryDataToFile(filename, dataBin);
-
-            // Reload the test list
-            var binaryReader = new BinaryReader(SaveableObjects.Test);
-            binaryReader.ReadFile<Test>();
+            WriteBinaryDataToFile(fileName, dataBin);
         }
 
         /// <summary>

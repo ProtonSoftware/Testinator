@@ -11,8 +11,11 @@ namespace Testinator.Server.Core
     {
         #region Private Members
 
+        /// <summary>
+        /// Writer for test
+        /// </summary>
+        private BinaryWriter mTestFileWriter = new BinaryWriter(SaveableObjects.Test);
         
-
         #endregion
 
         #region Public Properties
@@ -21,6 +24,16 @@ namespace Testinator.Server.Core
         /// The test builder this test editor uses to edit or create tests
         /// </summary>
         public TestBuilder Builder { get; private set; }
+
+        /// <summary>
+        /// Indicates if the editor is in edit mode (it's working on an exisiting test)
+        /// </summary>
+        public bool IsInEditMode { get; private set; }
+
+        /// <summary>
+        /// Original object being edited, makes sense if <see cref="IsInEditMode"/> is set
+        /// </summary>
+        public Test OriginalTest { get; private set; }
 
         /// <summary>
         /// Indicates if there are some changes done to the test
@@ -35,32 +48,32 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The name of currently edited/created test
         /// </summary>
-        public string CurrentTestName => Builder.CurrentTestName;
+        public string CurrentTestName => Builder == null ? "Nan" : Builder.CurrentTestName;
 
         /// <summary>
         /// Current grading for this test
         /// </summary>
-        public GradingPoints CurrentGrading => Builder.CurrentGrading;
+        public GradingPoints CurrentGrading => Builder?.CurrentGrading;
 
         /// <summary>
         /// Current duration of the test
         /// </summary>
-        public string CurrentDuration => Builder.CurrentDuration;
+        public string CurrentDuration => Builder == null ? "Nan" : Builder.CurrentDuration;
 
         /// <summary>
         /// Current tags associated with this test
         /// </summary>
-        public string CurrentTags => Builder.CurrentTags;
+        public string CurrentTags => Builder == null ? "Nan" : Builder.CurrentTags;
 
         /// <summary>
         /// Current full point score for this test
         /// </summary>
-        public int CurrentPointScore => Builder.CurrentPointScore;
+        public int CurrentPointScore => Builder == null ? 0 : Builder.CurrentPointScore;
 
         /// <summary>
         /// Current question counts based on the question type
         /// </summary>
-        public Dictionary<QuestionType, int> CurrentQuestionsNumber => Builder.CurrentQuestionsNumber;
+        public Dictionary<QuestionType, int> CurrentQuestionsNumber => Builder?.CurrentQuestionsNumber;
 
         #endregion
 
@@ -75,6 +88,8 @@ namespace Testinator.Server.Core
             // Load the builder
             Builder = new TestBuilder(TestToEdit);
             AnyUnsavedChanges = false;
+            IsInEditMode = true;
+            OriginalTest = TestToEdit;
         }
 
         /// <summary>
@@ -103,6 +118,8 @@ namespace Testinator.Server.Core
         {
             Builder = new TestBuilder();
             AnyUnsavedChanges = true;
+            IsInEditMode = false;
+            OriginalTest = null;
         }
 
         /// <summary>
@@ -138,10 +155,6 @@ namespace Testinator.Server.Core
                 case Operation.EditingCriteria:
                     GoToFinalizing();
                     break;
-
-                case Operation.Finalizing:
-                    Finish();
-                    break;
             }
         }
 
@@ -168,7 +181,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Returns to the previous screen
         /// </summary>
-        public void Return()
+        public void GoPreviousPage()
         {
             switch (CurrentOperation)
             {
@@ -187,9 +200,66 @@ namespace Testinator.Server.Core
                     break;
 
                 case Operation.Finalizing:
-                    GoToQuestionsEditor();
+                    GoToCriteriaEditor();
                     break;
             }
+        }
+
+        /// <summary>
+        /// Saves the test to file 
+        /// </summary>
+        /// <returns>True if successful; otherwise, false</returns>
+        /// <param name="FileName">File name for the test, if not specified default name is used</param>
+        public bool Save(string FileName = "")
+        {
+            if (IsInEditMode)
+                FileName = "";
+
+            var Test = IoCServer.TestEditor.Builder.GetResult();
+
+            Test.Info.SoftwareVersion = IoCServer.Application.Version;
+
+            try
+            {
+                mTestFileWriter.WriteToFile(Test, FileName);
+            }
+            catch (Exception ex)
+            {
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
+                {
+                    Title = "Test editor",
+                    Message = $"Nie można zapisać pliku. Treść błędu: {ex.Message}",
+                    OkText = "Ok",
+                });
+
+                return false;
+            }
+
+            return true;          
+        }
+
+        /// <summary>
+        /// Finishes the work and goes back to the main page
+        /// </summary>
+        public void FinishAndClose()
+        {
+            CleanUp();
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorInitial);
+        }
+
+        /// <summary>
+        /// Gets the file name associated with the current test object
+        /// </summary>
+        /// <returns></returns>
+        public string GetCurrentTestFileName()
+        {
+            if (OriginalTest == null)
+                return "NaN";
+
+            if (BinaryReader.AllTests.ContainsKey(OriginalTest))
+                return BinaryReader.AllTests[OriginalTest];
+
+            return "Nan";
         }
 
         #endregion
@@ -210,8 +280,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void GoToInformationEditor()
         {
-            IoCServer.Application.GoToPage(ApplicationPage.TestEditorBasicInformationEditor, 
-                Builder.CurrentTestInfo == null ? new TestEditorBasicInformationEditorViewModel(Builder.CurrentTestInfo) : null);
+            IoCServer.Application.GoToPage(ApplicationPage.TestEditorBasicInformationEditor, new TestEditorBasicInformationEditorViewModel(Builder.CurrentTestInfo));
             CurrentOperation = Operation.EditingInformation;
         }
 
@@ -239,15 +308,17 @@ namespace Testinator.Server.Core
         private void GoToFinalizing()
         {
             IoCServer.Application.GoToPage(ApplicationPage.TestEditorFinalize, new TestEditorFinalizingViewModel());
-            CurrentOperation = Operation.EditingCriteria;
+            CurrentOperation = Operation.Finalizing;
         }
 
         /// <summary>
-        /// Finishes the work of this edtior by saving the test
+        /// Cleans up 
         /// </summary>
-        private void Finish()
+        private void CleanUp()
         {
-            CurrentOperation = Operation.EditingCriteria;
+            Builder = null;
+            CurrentOperation = Operation.None;
+            OriginalTest = null;
         }
 
         #endregion

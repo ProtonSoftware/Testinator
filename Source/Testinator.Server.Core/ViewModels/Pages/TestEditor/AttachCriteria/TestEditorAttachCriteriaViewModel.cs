@@ -65,7 +65,6 @@ namespace Testinator.Server.Core
 
         #endregion
 
-
         #region Command Methods
 
         /// <summary>
@@ -73,7 +72,7 @@ namespace Testinator.Server.Core
         /// </summary>
         private void GoPreviousPage()
         {
-            IoCServer.TestEditor.Return();
+            IoCServer.TestEditor.GoPreviousPage();
         }
 
         /// <summary>
@@ -111,6 +110,22 @@ namespace Testinator.Server.Core
             catch (Exception ex)
             {
                 ErrorMessage = ex.Message;
+                return;
+            }
+            try
+            {
+
+                IoCServer.TestEditor.Builder.AddGrading(PointsGrading);
+            }
+            catch (Exception ex)
+            {
+                IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel()
+                {
+                    Title = "Test editor",
+                    Message = $"Nieznany bład. {ex.Message}",
+                });
+
+                return;
             }
 
             IoCServer.TestEditor.GoNextPhase();
@@ -138,7 +153,6 @@ namespace Testinator.Server.Core
         }
 
         #endregion
-
 
         #region Constructor
 

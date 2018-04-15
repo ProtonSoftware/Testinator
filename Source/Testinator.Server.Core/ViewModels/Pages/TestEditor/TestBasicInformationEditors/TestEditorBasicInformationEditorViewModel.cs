@@ -51,7 +51,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The name of the test
         /// </summary>
-        public string Name { get; set; } = "dddddddd";
+        public string Name { get; set; }
 
         /// <summary>
         /// Duration in hours
@@ -61,7 +61,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Duration in minutes
         /// </summary>
-        public string DurationMinutes { get; set; } = "22";
+        public string DurationMinutes { get; set; }
 
         /// <summary>
         /// Duration in seconds
@@ -209,7 +209,7 @@ namespace Testinator.Server.Core
         private void CreateCommands()
         {
             SubmitCommand = new RelayCommand(Submit);
-            ReturnCommand = new RelayCommand(() => IoCServer.TestEditor.Return());
+            ReturnCommand = new RelayCommand(() => IoCServer.TestEditor.GoPreviousPage());
             ExitCommand = new RelayCommand(() => IoCServer.TestEditor.Exit());
         }
 

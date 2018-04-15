@@ -59,7 +59,7 @@ namespace Testinator.Core
                 if (filecontent is Test)
                 {
                     // Convert file to T object
-                    filecontent = GetObjectFromFile<T>(file, false);
+                    filecontent = GetObjectFromFile<T>(file,true);
                     
                     // Add it to the dictionary
                     AllTests.Add((filecontent as Test), Path.GetFileNameWithoutExtension(file));

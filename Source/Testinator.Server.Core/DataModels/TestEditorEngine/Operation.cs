@@ -7,6 +7,11 @@
     public enum Operation
     {
         /// <summary>
+        /// Nothing is being done
+        /// </summary>
+        None,
+
+        /// <summary>
         /// Represents the process of editing basic test information
         /// </summary>
         EditingInformation,

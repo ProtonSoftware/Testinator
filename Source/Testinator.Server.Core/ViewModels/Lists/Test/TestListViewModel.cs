@@ -111,7 +111,8 @@ namespace Testinator.Server.Core
                 return;
 
             // Unselect last item
-            Items[mCurrentlySelectedItemIndex].IsSelected = false;
+            if (mCurrentlySelectedItemIndex != NothingSelected)
+                Items[mCurrentlySelectedItemIndex].IsSelected = false;
 
             // Select the one that has been clicked
             Items[newSelectedItemIndex].IsSelected = true;
