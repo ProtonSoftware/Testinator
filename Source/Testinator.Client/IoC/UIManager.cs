@@ -12,21 +12,13 @@ namespace Testinator.Client
     public class UIManager : IUIManager
     {
         /// <summary>
-        /// Changes page in the application
+        /// Performs an action by taking it on dispatcher UI Thread
         /// </summary>
-        /// <param name="page">Target page</param>
-        /// <param name="viewmodel">Corresponding viewmodel</param>
-        public void ChangePage(ApplicationPage page, BaseViewModel viewmodel = null)
+        /// <param name="action">An action to invoke</param>
+        public void DispatcherThreadAction(Action action)
         {
-            // Get back on UI thread
-            Application.Current.Dispatcher.Invoke(() => 
-            {
-                // Change page
-                IoCClient.Application.GoToPage(page, viewmodel);
-
-                // Log it
-                IoCClient.Logger.Log("Changing application page to " + page.ToString());
-            });
+            // Invoke the action on the UI Thread
+            Application.Current.Dispatcher.BeginInvoke(action);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Testinator.Core;
 
 namespace Testinator.Client.Core
@@ -9,12 +10,10 @@ namespace Testinator.Client.Core
     public interface IUIManager
     {
         /// <summary>
-        /// Changes page in the application
-        /// NOTE: Used as a work around thread problem in client netowrk
+        /// Performs an action by taking it on dispatcher UI Thread
         /// </summary>
-        /// <param name="page">The target page</param>
-        /// <param name="viewmodel">The corresponding viewmodel, null by default</param>
-        void ChangePage(ApplicationPage page, BaseViewModel viewmodel = null);
+        /// <param name="action">An action to invoke</param>
+        void DispatcherThreadAction(Action action);
 
         /// <summary>
         /// Enables fullscreen mode 

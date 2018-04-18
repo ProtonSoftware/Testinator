@@ -86,7 +86,7 @@ namespace Testinator.Client.Core
 
             // In any other case return to the login page
             else
-                IoCClient.UI.ChangePage(ApplicationPage.Login);
+                IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.Login));
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Testinator.Client.Core
 
             // If not in reults page show login page
             if (!IoCClient.TestHost.IsTestInProgress)
-                IoCClient.UI.ChangePage(ApplicationPage.Login);
+                IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.Login));
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Testinator.Client.Core
             // If we're in login page change page to the waiting for test page
             if (IoCClient.Application.CurrentPage == ApplicationPage.Login)
             {
-                IoCClient.UI.ChangePage(ApplicationPage.WaitingForTest);
+                IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest));
             }
             else
                 // Notify the test host

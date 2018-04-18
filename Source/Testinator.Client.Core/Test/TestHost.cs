@@ -432,7 +432,7 @@ namespace Testinator.Client.Core
                 IoCClient.UI.DisableFullscreenMode();
 
             // Change page to the result page
-            IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);
+            IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.ResultOverviewPage));
 
             // Indicate that we're in the result page
             IsShowingResultPage = true;
