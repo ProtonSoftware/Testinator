@@ -80,5 +80,21 @@ namespace Testinator.Client
             // Finally return this task
             return task;
         }
+
+        /// <summary>
+        /// Enables fullscreen mode
+        /// </summary>
+        public void EnableFullscreenMode()
+        {
+            ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOn();
+        }
+
+        /// <summary>
+        /// Disables fullscreen mode
+        /// </summary>
+        public void DisableFullscreenMode()
+        {
+            ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOff();
+        }
     }
 }

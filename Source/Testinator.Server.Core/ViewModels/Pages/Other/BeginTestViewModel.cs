@@ -144,7 +144,7 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Constructor
+        #region Construction/Desctruction
 
         /// <summary>
         /// Default constructor
@@ -173,6 +173,19 @@ namespace Testinator.Server.Core
 
             // Hook to the test host evet
             IoCServer.TestHost.TestFinished += ChangePageToResults;
+        }
+
+        /// <summary>
+        /// Disposes this viewmodel
+        /// </summary>
+        public override void Dispose()
+        {
+            // Unsub from events
+            IoCServer.TestHost.OnTimerUpdated -= () => UpdateView();
+            IoCServer.Network.OnClientConnected -= (s) => UpdateView();
+            IoCServer.Network.OnClientDisconnected -= (s) => UpdateView();
+            TestListViewModel.Instance.SelectionChanged -= () => UpdateView();
+            IoCServer.TestHost.TestFinished -= ChangePageToResults;
         }
 
         #endregion
@@ -305,7 +318,10 @@ namespace Testinator.Server.Core
         {
             // Meanwhile lock the clients list and send them the test 
             IoCServer.TestHost.AddClients(IoCServer.Network.ConnectedClients.ToList());
-            
+
+            // Add selected test
+            IoCServer.TestHost.AddTest(TestListViewModel.Instance.SelectedItem);
+
             // If there is no enough users to start the test, show the message and don't send the test
             if (IoCServer.TestHost.ClientsInTest.Count == 0)
             {
@@ -315,13 +331,14 @@ namespace Testinator.Server.Core
                     Message = "Nie można ropocząć testu. Brak użytkowników, którzy mogą go rozpocząć.",
                     OkText = "OK"
                 });
+
                 return;
             }
 
+            IoCServer.TestHost.SendTestToAll();
+
             // Then go to the info page
             IoCServer.Application.GoToBeginTestPage(ApplicationPage.BeginTestInfo);
-
-            IoCServer.TestHost.SendTestToAll();
         }
 
         /// <summary>

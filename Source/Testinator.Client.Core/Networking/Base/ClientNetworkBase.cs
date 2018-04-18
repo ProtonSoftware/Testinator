@@ -176,7 +176,8 @@ namespace Testinator.Client.Core
         public ClientNetworkBase()
         {
             // Create default values
-            BufferSize = 32768;
+            BufferSize = 20971520; // 20 mb
+            // TODO: dynamic buffer or something
             Port = 3333;
             IPAddress = NetworkHelpers.GetLocalIPAddress();
         }

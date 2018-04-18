@@ -22,17 +22,6 @@ namespace Testinator.Client.Core
         /// </summary>
         private int mCurrentQuestion = 0;
 
-        /// <summary>
-        /// Indicates if this application is in full screen mode
-        /// </summary>
-        private bool mFullScreenModeOn = false;
-
-        /// <summary>
-        /// Indicates if this is the first question that test host is showing
-        /// Prevent from question counter bug
-        /// </summary>
-        private bool mFirstQuestion = true;
-
         #endregion
 
         #region Public Properties
@@ -40,7 +29,7 @@ namespace Testinator.Client.Core
         /// <summary>
         /// The test that is currently hosted
         /// </summary>
-        public Test CurrentTest { get; set; }
+        public Test CurrentTest { get; private set; }
 
         /// <summary>
         /// List of all questions in the test
@@ -66,7 +55,7 @@ namespace Testinator.Client.Core
         /// A flag indicating if we have any test to show,
         /// to show corresponding content in the WaitingPage
         /// </summary>
-        public bool IsTestReceived { get; private set; }
+        public bool IsTestReceived => CurrentTest != null;
 
         /// <summary>
         /// Indicated if the test result has been sucesfully sent for this session
@@ -77,6 +66,11 @@ namespace Testinator.Client.Core
         /// Indicates if the user has completed the test
         /// </summary>
         public bool IsTestCompleted => mCurrentQuestion > Questions.Count;
+
+        /// <summary>
+        /// Indicates if fullscreen should be enabled 
+        /// </summary>
+        public bool IsFullScreenEnabled { get; private set; }
 
         /// <summary>
         /// Indicates how much time is left
@@ -104,33 +98,19 @@ namespace Testinator.Client.Core
         public int UserScore { get; private set; }
 
         /// <summary>
+        /// The identifier of current test session 
+        /// </summary>
+        public Guid SessionIdentifier { get; private set; }
+
+        /// <summary>
         /// The user's mark
         /// </summary>
         public Marks UserMark { get; private set; }
 
         /// <summary>
-        /// Indicates if the test should be held in fullscren mode
-        /// </summary>
-        public bool FullScreenMode
-        {
-            get => mFullScreenModeOn;
-            private set
-            {
-                // Set the value
-                mFullScreenModeOn = value;
-
-                // Check if value indicates to run the full screen mode
-                if (value) FullScreenModeOn.Invoke();
-
-                // Or to disable it
-                else FullScreenModeOff.Invoke();
-            }
-        }
-
-        /// <summary>
         /// The viewmodels for the result page, contaning question, user answer and the correct answer
         /// </summary>
-        public List<BaseViewModel> QuestionViewModels { get; set; } = new List<BaseViewModel>();
+        public List<BaseViewModel> QuestionViewModels { get; private set; } = new List<BaseViewModel>();
 
         #endregion
 
@@ -140,16 +120,6 @@ namespace Testinator.Client.Core
         /// Fired when a test is received
         /// </summary>
         public event Action OnTestReceived = () => { };
-
-        /// <summary>
-        /// Fired when server has sent a behest to run a full screen mode
-        /// </summary>
-        public event Action FullScreenModeOn = () => { };
-
-        /// <summary>
-        /// Fired after completing the test to escape from full screen mode
-        /// </summary>
-        public event Action FullScreenModeOff = () => { };
 
         #endregion
 
@@ -177,10 +147,10 @@ namespace Testinator.Client.Core
                 return;
 
             if (CurrentTest == null)
-                throw new Exception("Cannot start the test");
+                throw new NullReferenceException("Cannot start the test");
 
             // Indicate that test is starting
-            IoCClient.Logger.Log("Test is starting...");
+            IoCClient.Logger.Log("Starting test...");
 
             IsTestInProgress = true;
 
@@ -229,19 +199,18 @@ namespace Testinator.Client.Core
             // Don't do anything in this case
             if (IsTestInProgress || IsShowingResultPage)
                 return;
-            
-            // Save the test
-            CurrentTest = test;
+
+            // Save the test if it is not null
+            CurrentTest = test ?? throw new NullReferenceException("Test cannot be null");
 
             // Set the timeleft to the duration time
             TimeLeft = test.Info.Duration;
 
             // Randomize question order
-            Questions.Shuffle();
             IoCClient.Logger.Log("Shuffling questions");
+            Questions.Shuffle();
 
             // Indicate that we have received test
-            IsTestReceived = true;
             OnTestReceived.Invoke();
         }
 
@@ -267,10 +236,8 @@ namespace Testinator.Client.Core
             // Clear flags
             IsTestInProgress = false;
             IsShowingResultPage = false;
-            IsTestReceived = false;
             IsResultSent = false;
             AreResultsAllowed = true;
-            FullScreenMode = false;
 
             IoCClient.Logger.Log("Reseting test host done.");
         }
@@ -284,8 +251,7 @@ namespace Testinator.Client.Core
             // Save the answer
             UserAnswers.Add(answer);
 
-            // Log it
-            IoCClient.Logger.Log($"User answer added for question nr {CurrentQuestionString}");
+            IoCClient.Logger.Log($"User answer saved for question nr {CurrentQuestionString}.");
         }
 
         /// <summary>
@@ -294,15 +260,12 @@ namespace Testinator.Client.Core
         /// </summary>
         public void GoNextQuestion()
         {
-            if (!mFirstQuestion)
-            { 
-                // Update question number
-                UpdateQuestionNumber();
+            // Update question number
+            UpdateQuestionNumber();
 
-                // Send the update
-                SendUpdate();
-            }
-
+            // Send the update
+            SendUpdate();
+            
             // If last question was the last question, finish the test
             if (mCurrentQuestion >= Questions.Count)
             {
@@ -314,8 +277,6 @@ namespace Testinator.Client.Core
             IoCClient.Logger.Log("Going to the next question");
 
             QuestionHelpers.ShowQuestion(CurrentTest.Questions[mCurrentQuestion]);
-
-            mFirstQuestion = false;
         }
 
         /// <summary>
@@ -325,7 +286,7 @@ namespace Testinator.Client.Core
         public void SetupArguments(TestStartupArgs args)
         {
             AreResultsAllowed = args.IsResultsPageAllowed;
-            FullScreenMode = args.FullScreenMode;
+            IsFullScreenEnabled = args.FullScreenMode;
             TimeLeft = CurrentTest.Info.Duration - args.TimerOffset;
         }
 
@@ -337,12 +298,11 @@ namespace Testinator.Client.Core
             // Total point score
             var totalScore = 0;
 
-            // Log what we are doing
-            IoCClient.Logger.Log("Calculating user's score");
+            IoCClient.Logger.Log("Calculating user's score...");
 
             for (var i = 0; i < CurrentTest.Questions.Count; i++)
             {
-                // We can stop here as all the rest answers are blank
+                // We can stop here as all remaining answers are blank
                 if (UserAnswers[i] == null)
                     break;
 
@@ -352,6 +312,8 @@ namespace Testinator.Client.Core
             // Set calculated point score to the property and set the corresponding mark
             UserScore = totalScore;
             UserMark = CurrentTest.Grading.GetMark(UserScore);
+
+            IoCClient.Logger.Log($"User score calculation finished. Total score: {totalScore}.");
         }
 
         #endregion
@@ -361,70 +323,87 @@ namespace Testinator.Client.Core
         /// <summary>
         /// Attempts to send the results to the server
         /// </summary>
-        private void TrySendResult()
+        /// <returns>True if results have been sent successfully; otherwise, false</returns>
+        private bool TrySendResult()
         {
-            // Create the data package
-            var data = new DataPackage(PackageType.ResultForm)
-            {
-                Content = new ResultFormPackage()
-                {
-                    Answers = UserAnswers,
-                    PointsScored = UserScore,
-                    Mark = UserMark,
-                },
-            };
-
             // Send or save the data
             if (IoCClient.Application.Network.IsConnected)
             {
-                IoCClient.Application.Network.SendData(data);
-                IsResultSent = true;
-            }
-
-            else
-            {
-                try
+                // Create the data package first
+                var data = new DataPackage(PackageType.ResultForm)
                 {
-                    // Try to write the results to file
-                    ResultFileWriter.WriteToFile(new ClientTestResults()
+                    Content = new ResultFormPackage()
                     {
                         Answers = UserAnswers,
-                        Client = new TestResultsClientModel()
-                        {
-                            Name = IoCClient.Client.Name,
-                            LastName = IoCClient.Client.LastName,
-                            MachineName = IoCClient.Client.MachineName,
-                            Mark = UserMark,
-                            PointsScored = UserScore,
-                        },
-                        Test = CurrentTest,
-                    });
-                }
-                catch (Exception ex)
+                        PointsScored = UserScore,
+                        Mark = UserMark,
+                    },
+                };
+
+                // Send it
+                IoCClient.Application.Network.SendData(data);
+                IsResultSent = true;
+
+                IoCClient.Logger.Log($"Test results sent to the server");
+
+                return true;
+            }
+            else
+                return false;
+
+        }
+
+        /// <summary>
+        /// Saves results to file 
+        /// </summary>
+        /// <returns>True if operation was successful; otherwise, false</returns>
+        private bool TrySaveResultsToFile()
+        {
+            try
+            {
+                // Try to write the results to file
+                ResultFileWriter.WriteToFile(new ClientTestResults()
                 {
-                    // If an error occured, show info to the user
-                    IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+                    Answers = UserAnswers,
+                    SessionIdentifier = SessionIdentifier,
+                    Client = new TestResultsClientModel()
                     {
-                        Title = "Błąd zapisu",
-                        Message = "Nie udało się zapisać ani wysłać wyników testu." +
-                                  "\nTreść błędu: " + ex.Message,
-                        OkText = "Ok"
-                    });
+                        Name = IoCClient.Client.Name,
+                        LastName = IoCClient.Client.LastName,
+                        MachineName = IoCClient.Client.MachineName,
+                        Mark = UserMark,
+                        PointsScored = UserScore,
+                    },
+                    Test = CurrentTest,
+                });
 
-                    IoCClient.Logger.Log("Unable to save the results, error message: " + ex.Message);
-
-                    // Don't show the next message
-                    return;
-                }
-
-                // Show a message box with info about it
                 IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
                     Title = "Wyniki testu w pliku",
                     Message = "Wyniki testu zostały zapisane do pliku, ponieważ połączenie z serwerem zostało utracone.",
                     OkText = "Ok"
                 });
+
+                IoCClient.Logger.Log($"Test results saved to file");
+
+                return true;
+
             }
+            catch (Exception ex)
+            {
+                IoCClient.UI.ShowMessage(new MessageBoxDialogViewModel
+                {
+                    Title = "Błąd zapisu",
+                    Message = "Nie udało się zapisać ani wysłać wyników testu." +
+                                "\nTreść błędu: " + ex.Message,
+                    OkText = "Ok"
+                });
+
+                IoCClient.Logger.Log($"Unable to save the results, error message: {ex.Message}");
+
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -432,26 +411,34 @@ namespace Testinator.Client.Core
         /// </summary>
         private void TestFinished()
         {
-            // Calculate the user's score
             CalculateScore();
 
-            // Try to send the results
-            TrySendResult();
+            // If sending results falied try save them to file
+            if (!TrySendResult())
+            {
+                // If that also falied...
+                if (!TrySaveResultsToFile())
+                {
+                    // TODO: handle that situation 
+                }
+
+            }
 
             // Test is not in progress now
             IsTestInProgress = false;
 
             // If full screen mode was fired, disable it
-            if (FullScreenMode) FullScreenMode = false;
+            if (IsFullScreenEnabled)
+                IoCClient.UI.DisableFullscreenMode();
 
             // Change page to the result page
             IoCClient.UI.ChangePage(ApplicationPage.ResultOverviewPage);
 
-            // Dont need the connection in the result page so stop reconnecting if meanwhile connection has been lost
-            IoCClient.Application.Network.StopReconnecting();
-
             // Indicate that we're in the result page
             IsShowingResultPage = true;
+
+            // Dont need the connection in the result page so stop reconnecting if meanwhile connection has been lost
+            IoCClient.Application.Network.StopReconnecting();
         }
 
         /// <summary>
@@ -479,7 +466,7 @@ namespace Testinator.Client.Core
             { 
                 Content = new StatusPackage()
                 {
-                    // Send progress user has made
+                    // Send progress the user has made
                     CurrentQuestion = mCurrentQuestion,
                 },
             };
@@ -497,7 +484,7 @@ namespace Testinator.Client.Core
         private void ResetQuestionNumber()
         {
             mCurrentQuestion = 0;
-            CurrentQuestionString = mCurrentQuestion + " / " + Questions.Count;
+            CurrentQuestionString = string.Empty;
         }
 
         /// <summary>
@@ -506,7 +493,8 @@ namespace Testinator.Client.Core
         private void UpdateQuestionNumber()
         {
             mCurrentQuestion++;
-            CurrentQuestionString = mCurrentQuestion + 1 + " / " + Questions.Count;
+            // Add one because mCurrentQuestion starts from 0
+            CurrentQuestionString = $"{mCurrentQuestion} / {Questions.Count}";
         }
 
         /// <summary>
@@ -520,7 +508,7 @@ namespace Testinator.Client.Core
             TimeLeft = TimeLeft.Subtract(new TimeSpan(0, 0, 1));
 
             // If we reach 0, time has run out and so the test
-            if (TimeLeft.Equals(new TimeSpan(0, 0, 0)))
+            if (TimeLeft.TotalSeconds == 0)
             {
                 mTestTimer.Stop();
                 TimesUp();        

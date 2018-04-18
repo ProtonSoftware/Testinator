@@ -25,6 +25,11 @@ namespace Testinator.Core
         public DateTime Date { get; set; }
 
         /// <summary>
+        /// The identifier for the test session these results are from
+        /// </summary>
+        public Guid SessionIdentifier { get; set; }
+
+        /// <summary>
         /// The mark user has got
         /// </summary>
         public Mark Mark { get; set; }
@@ -33,17 +38,5 @@ namespace Testinator.Core
         /// User's answers
         /// </summary>
         public List<Answer> Answers { get; set; }
-
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ClientTestResults()
-        {
-
-        }
-
-        #endregion
     }
 }

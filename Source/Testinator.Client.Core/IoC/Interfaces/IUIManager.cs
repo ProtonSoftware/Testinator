@@ -17,6 +17,16 @@ namespace Testinator.Client.Core
         void ChangePage(ApplicationPage page, BaseViewModel viewmodel = null);
 
         /// <summary>
+        /// Enables fullscreen mode 
+        /// </summary>
+        void EnableFullscreenMode();
+
+        /// <summary>
+        /// Disables fullscreen mode 
+        /// </summary>
+        void DisableFullscreenMode();
+
+        /// <summary>
         /// Displays a single message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>
