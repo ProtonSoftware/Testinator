@@ -115,6 +115,66 @@ namespace Testinator.Client
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Runs a full screen mode
+        /// </summary>
+        public void FullScreenModeOn()
+        {
+            // Indicate that this window changes to full screen mode
+            mFullscreenMode = true;
+
+            // Make sure we are on UIThread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                // Prevent alt tabs etc.
+                (mWindow as MainWindow).PreventUserEscapeActions();
+
+                // Go to real "full screen mode"
+                WindowChrome.SetWindowChrome(mWindow, new WindowChrome
+                {
+                    CaptionHeight = 0,
+                    ResizeBorderThickness = new Thickness(0)
+                });
+                mWindow.Topmost = true;
+                mWindow.WindowStyle = WindowStyle.None;
+                mWindow.ResizeMode = ResizeMode.NoResize;
+                mWindow.WindowState = WindowState.Maximized;
+            });
+        }
+
+        /// <summary>
+        /// Disables the full screen mode
+        /// </summary>
+        public void FullScreenModeOff()
+        {
+            // Indicate that this window changes to normal mode
+            mFullscreenMode = false;
+
+            // Make sure we are on UIThread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                // Allow alt tabs etc.
+                (mWindow as MainWindow).AllowUserActions();
+
+                // Come back to initial window state
+                WindowChrome.SetWindowChrome(mWindow, new WindowChrome
+                {
+                    CaptionHeight = TitleHeight,
+                    ResizeBorderThickness = ResizeBorderThickness,
+                    CornerRadius = new CornerRadius(0),
+                    GlassFrameThickness = new Thickness(0)
+                });
+                mWindow.Topmost = false;
+                mWindow.WindowStyle = WindowStyle.None;
+                mWindow.ResizeMode = ResizeMode.CanResize;
+                mWindow.WindowState = WindowState.Normal;
+            });
+        }
+
+        #endregion
+
         #region Commands
 
         /// <summary>
@@ -211,10 +271,6 @@ namespace Testinator.Client
                 // Fire off resize events
                 WindowResized();
             };
-
-            // Listen out for full screen mode requests
-            IoCClient.TestHost.FullScreenModeOn += TestHost_FullScreenModeOn;
-            IoCClient.TestHost.FullScreenModeOff += TestHost_FullScreenModeOff;
         }
 
         #endregion
@@ -249,62 +305,7 @@ namespace Testinator.Client
             OnPropertyChanged(nameof(WindowCornerRadius));
         }
 
-        /// <summary>
-        /// Runs a full screen mode
-        /// </summary>
-        private void TestHost_FullScreenModeOn()
-        {
-            // Indicate that this window changes to full screen mode
-            mFullscreenMode = true;
-
-            // Make sure we are on UIThread
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                // Prevent alt tabs etc.
-                (mWindow as MainWindow).PreventUserEscapeActions();
-
-                // Go to real "full screen mode"
-                WindowChrome.SetWindowChrome(mWindow, new WindowChrome
-                {
-                    CaptionHeight = 0,
-                    ResizeBorderThickness = new Thickness(0)
-                });
-                mWindow.Topmost = true;
-                mWindow.WindowStyle = WindowStyle.None;
-                mWindow.ResizeMode = ResizeMode.NoResize;
-                mWindow.WindowState = WindowState.Maximized;
-            });
-        }
-
-        /// <summary>
-        /// Disables the full screen mode
-        /// </summary>
-        private void TestHost_FullScreenModeOff()
-        {
-            // Indicate that this window changes to normal mode
-            mFullscreenMode = false;
-
-            // Make sure we are on UIThread
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                // Allow alt tabs etc.
-                (mWindow as MainWindow).AllowUserActions();
-
-                // Come back to initial window state
-                WindowChrome.SetWindowChrome(mWindow, new WindowChrome
-                {
-                    CaptionHeight = TitleHeight,
-                    ResizeBorderThickness = ResizeBorderThickness,
-                    CornerRadius = new CornerRadius(0),
-                    GlassFrameThickness = new Thickness(0)
-                });
-                mWindow.Topmost = false;
-                mWindow.WindowStyle = WindowStyle.None;
-                mWindow.ResizeMode = ResizeMode.CanResize;
-                mWindow.WindowState = WindowState.Normal;
-            });
-        }
-
         #endregion
+
     }
 }

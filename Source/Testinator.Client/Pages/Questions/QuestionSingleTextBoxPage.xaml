@@ -28,9 +28,9 @@
                                     HorizontalAlignment="Center"
                                     Margin="10" />
 
-                        <TextBlock Text="{Binding Question.Task}" 
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource QuestionTextBlockStyle}"/>
+                    <TextBlock Text="{Binding Question.Task.StringContent}" 
+                               TextWrapping="Wrap"
+                               Style="{StaticResource QuestionTextBlockStyle}"/>
 
                         <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource BigInputTextBox}"

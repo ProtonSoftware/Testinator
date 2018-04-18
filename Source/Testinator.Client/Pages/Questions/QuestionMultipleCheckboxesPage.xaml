@@ -29,7 +29,7 @@
                            HorizontalAlignment="Center"
                            Margin="10" />
 
-                    <TextBlock Text="{Binding Question.Task}"
+                    <TextBlock Text="{Binding Question.Task.StringContent}"
                            TextWrapping="Wrap"
                            Style="{StaticResource QuestionTextBlockStyle}"
                            Margin="5" />

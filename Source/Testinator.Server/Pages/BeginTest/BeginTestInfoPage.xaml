@@ -43,7 +43,7 @@
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding CurrentTest.Name}"
+            <TextBlock Text="{Binding CurrentTest.Info.Name}"
                        Grid.Row="1" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
@@ -51,7 +51,7 @@
                        Grid.Row="2"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
-            <TextBlock Text="{Binding CurrentTest.Duration}"
+            <TextBlock Text="{Binding CurrentTest.Info.Duration}"
                        Grid.Row="2" Grid.Column="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 

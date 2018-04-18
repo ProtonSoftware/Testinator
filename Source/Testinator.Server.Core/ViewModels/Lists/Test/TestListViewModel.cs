@@ -174,6 +174,7 @@ namespace Testinator.Server.Core
 
             mCurrentlySelectedItemIndex = NothingSelected;
             SelectedItem = null;
+            IsAnySelected = false;
 
             SelectionChanged.Invoke();
         }

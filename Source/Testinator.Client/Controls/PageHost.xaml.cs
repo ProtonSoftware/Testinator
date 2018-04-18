@@ -14,7 +14,7 @@ namespace Testinator.Client
 
         /// <summary>
         /// Single instance of this view model
-        /// NOTE: It's the only way to call abstract methods like they were static ones, as we can't declare them as static
+        /// NOTE: It's the only way to call abstract methods like they were static ones, as we can't declare them as static (?????)
         /// </summary>
         public static PageHost Instance { get; set; } = new PageHost();
 
