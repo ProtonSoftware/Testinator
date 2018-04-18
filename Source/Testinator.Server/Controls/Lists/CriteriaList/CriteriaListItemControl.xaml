@@ -65,7 +65,7 @@
                             </EventTrigger>
 
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" TargetName="container" Value="{StaticResource GreenLightBrush}" />
+                                <Setter Property="Background" TargetName="container" Value="{StaticResource GreenSeaBrush}" />
                             </DataTrigger>
                             
                             <Trigger Property="IsEnabled" Value="False">

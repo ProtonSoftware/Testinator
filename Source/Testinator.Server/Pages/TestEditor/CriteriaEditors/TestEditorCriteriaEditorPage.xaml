@@ -157,7 +157,7 @@
                     <TextBlock Text="{x:Static core:LocalizationResource.InvalidDataError}"
                                Visibility="{Binding InvalidDataError, Converter={local:BooleanToVisiblityConverter}}"
                                Grid.Row="10"
-                               Foreground="{StaticResource LightRedBrush}"
+                               Foreground="{StaticResource RedLightBrush}"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <Grid Grid.Row="11">

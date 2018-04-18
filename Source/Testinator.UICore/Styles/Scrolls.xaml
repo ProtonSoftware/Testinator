@@ -10,7 +10,7 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="rectangle"
                                 SnapsToDevicePixels="True"
-                                Background="{StaticResource GreenLightBrush}"
+                                Background="{StaticResource GreenSeaBrush}"
                                 CornerRadius="3"
                                 Height="{TemplateBinding Height}"
                                 Width="{TemplateBinding Width}"/>

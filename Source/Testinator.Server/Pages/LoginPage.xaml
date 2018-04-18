@@ -39,7 +39,7 @@
                     <!-- Error if PIN is not valid -->
                     <TextBlock Text="{Binding ErrorMessage}"
                                Margin="0 0 0 10"
-                               Foreground="{StaticResource LightRedBrush}"
+                               Foreground="{StaticResource RedLightBrush}"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <!-- Submit button -->
@@ -79,7 +79,7 @@
                     <!-- Error if PIN is not valid -->
                     <TextBlock Text="{Binding ErrorMessage}"
                                Margin="0 0 0 10"
-                               Foreground="{StaticResource LightRedBrush}"
+                               Foreground="{StaticResource RedLightBrush}"
                                Style="{StaticResource QuestionTextBlockStyle}" />
 
                     <!-- Submit button -->

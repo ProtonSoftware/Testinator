@@ -63,23 +63,23 @@
                         <ControlTemplate.Triggers>
                             
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource GreenLightBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource GreenSeaBrush}"/>
                             </DataTrigger>
                             
                             <DataTrigger Binding="{Binding RedBackground}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource LightRedBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource RedLightBrush}"/>
                             </DataTrigger>
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="{StaticResource GreenLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation To="{StaticResource GreenSea}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation From="{StaticResource GreenLight}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
+                                        <ColorAnimation From="{StaticResource GreenSea}" Duration="0:0:0.3" Storyboard.TargetName="container" Storyboard.TargetProperty="Background.Color" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

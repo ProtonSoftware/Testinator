@@ -114,7 +114,6 @@ namespace Testinator.Server.Core
             }
             try
             {
-
                 IoCServer.TestEditor.Builder.AddGrading(PointsGrading);
             }
             catch (Exception ex)
@@ -139,7 +138,6 @@ namespace Testinator.Server.Core
         {
             PointsGrading = newGrading.ToPoints(IoCServer.TestEditor.Builder.CurrentPointScore);
             IsCriteriaEditModeOn = false;
-            IsCriteriaEditModeOn = false;
             ErrorMessage = "";
             MatchPropertiesWithCriteria();
         }
@@ -161,6 +159,7 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestEditorAttachCriteriaViewModel()
         {
+            // Create commands
             GoPreviousPageCommand = new RelayCommand(GoPreviousPage);
             SubmitCriteriaCommand = new RelayCommand(SubmitCriteria);
             EditCommand = new RelayCommand(BeginEdit);
@@ -169,7 +168,8 @@ namespace Testinator.Server.Core
             CriteriaListViewModel.Instance.ShouldSelectIndicatorBeVisible = false;
             CriteriaListViewModel.Instance.ItemSelected += CriteriaItemSelected;
 
-            PointsGrading = IoCServer.TestEditor.Builder.CurrentGrading;
+            PointsGrading =  new GradingPercentage().ToPoints(IoCServer.TestEditor.CurrentPointScore);
+
             MatchPropertiesWithCriteria();
         }
 
@@ -260,7 +260,7 @@ namespace Testinator.Server.Core
         #region Cleanup
 
         /// <summary>
-        /// Disposed this viewmodel
+        /// Dispose this viewmodel
         /// </summary>
         public override void Dispose()
         {

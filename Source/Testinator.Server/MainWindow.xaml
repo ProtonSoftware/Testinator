@@ -34,10 +34,8 @@
 
                                 <!-- Window border and dropshadown -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=3}"
-                                    Background="{Binding WhiteLightBrush}">
-                                    <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
-                                    </Border.Effect>
+                                        Style="{StaticResource DropShadowBorder}"
+                                        Background="{Binding WhiteLightBrush}">
                                 </Border>
 
                                 <!-- The main window content -->

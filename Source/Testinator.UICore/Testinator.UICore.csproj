@@ -52,7 +52,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePageHost.cs" />
+    <Compile Include="Base\BasePageHost.cs" />
     <Compile Include="Base\BaseAttachedProperty.cs" />
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,7 +86,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\Tiles.xaml">
+    <Page Include="Styles\Borders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

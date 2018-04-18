@@ -22,11 +22,12 @@
 
         <Border CornerRadius="3"
                 Background="{StaticResource WhiteDarkBrush}"
+                Style="{StaticResource DropShadowBorder}"
                 Padding="30"
                 Margin="50 100 50 50">
 
             <Grid>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -37,7 +38,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                    
+
                 <TextBlock Text="{x:Static core:LocalizationResource.TestName}"
                            Style="{StaticResource QuestionTextBlockStyle}" 
                            Grid.Row="0"/>
@@ -65,7 +66,7 @@
                         <ColumnDefinition Width=".1*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <TextBlock Text="Czas trwania"
                                Style="{StaticResource QuestionTextBlockStyle}"
                                Grid.Row="0"
@@ -133,10 +134,10 @@
                          VerticalScrollBarVisibility="Auto"
                          Grid.Row="4"
                          Height="100"/>
-                
+
                 <TextBlock Text="{Binding ErrorMessage}"
                            Style="{StaticResource QuestionTextBlockStyle}"
-                           Foreground="{StaticResource LightRedBrush}"
+                           Foreground="{StaticResource RedLightBrush}"
                            Grid.Row="5"
                            />
                 <Grid Grid.Row="6">
@@ -145,7 +146,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Button Grid.Column="0"
                         Content="Wróc"
                         Command="{Binding ReturnCommand}"
@@ -168,10 +169,10 @@
 
 
             </Grid>
-            
-            
+
+
         </Border>
 
     </Grid>
-    
+
 </UICore:BasePage>

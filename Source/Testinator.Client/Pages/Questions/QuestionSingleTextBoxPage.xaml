@@ -44,7 +44,7 @@
                                    Style="{StaticResource MediumTitleText}"
                                    Visibility="{Binding IsCorrectAnswerVisible, Converter={local:BooleanToVisiblityConverter}}"/>
                         <TextBlock Text="{Binding Question.CorrectAnswer}"
-                                   Background="{StaticResource GreenLightBrush}"
+                                   Background="{StaticResource GreenSeaBrush}"
                                    Style="{StaticResource QuestionTextBlockStyle}"
                                    Padding="5 10 5 10"
                                    TextWrapping="Wrap"

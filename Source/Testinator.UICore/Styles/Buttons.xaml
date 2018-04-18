@@ -9,6 +9,79 @@
         <ResourceDictionary Source="Texts.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Style TargetType="{x:Type Button}" x:Key="NewBaseButton" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+
+        <Setter Property="Background" Value="{StaticResource WhitePureBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource BlueDarkBrush}" />
+
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="10" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="{TemplateBinding Padding}" 
+                            Margin="{TemplateBinding Margin}" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}"
+                            Style="{StaticResource DropShadowBorder}">
+
+                        <TextBlock VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center"
+                                   FontFamily="{TemplateBinding FontFamily}" 
+                                   Text="{TemplateBinding Content}" />
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource BlackLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+        
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="GreenTileButton" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+
+        <Setter Property="Background" Value="{StaticResource GreenSeaBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WhitePureBrush}" />
+
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="15" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="{TemplateBinding Padding}" 
+                            Margin="{TemplateBinding Margin}" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}"
+                            Style="{StaticResource DropShadowBorder}">
+
+                        <ContentPresenter Content="{TemplateBinding Content}" />
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource BlackLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
     <!-- Initial standard button style -->
     <Style TargetType="{x:Type Button}" x:Key="BaseButton" BasedOn="{StaticResource BaseStyle}">
 
@@ -141,7 +214,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource LightRedBrush}" />
+                <Setter Property="Background" Value="{StaticResource RedLightBrush}" />
             </Trigger>
         </Style.Triggers>
 

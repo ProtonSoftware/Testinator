@@ -13,7 +13,7 @@
                         <Rectangle Name="PART_Track" 
                                        Fill="{StaticResource WhiteDarkBrush}" Stroke="{StaticResource BlackLightBrush}" StrokeThickness="1" />
                         <Rectangle Name="PART_Indicator" 
-                                       Fill="{StaticResource GreenLightBrush}" Stroke="{StaticResource BlackLightBrush}" StrokeThickness="1" HorizontalAlignment="Left" />
+                                       Fill="{StaticResource GreenSeaBrush}" Stroke="{StaticResource BlackLightBrush}" StrokeThickness="1" HorizontalAlignment="Left" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

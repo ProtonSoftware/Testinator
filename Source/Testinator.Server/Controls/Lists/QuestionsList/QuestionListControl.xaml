@@ -64,16 +64,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Content="Powrót"
-                        Background="#4CA194"
-                        Foreground="White"
+                        Background="{StaticResource GreenSeaBrush}"
+                        Foreground="{StaticResource WhitePureBrush}"
                         BorderThickness="0"
                         Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.GoPreviousPageCommand}"
                         />
 
                 <Button Content="Rozwiń"
                         Grid.Column="2"
-                        Background="#4CA194"
-                        Foreground="White"
+                        Background="{StaticResource GreenSeaBrush}"
+                        Foreground="{StaticResource WhitePureBrush}"
                         BorderThickness="0"
                         />
             </Grid>

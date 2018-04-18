@@ -14,13 +14,13 @@ namespace Testinator.Server
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // Cast value and parameter to integer
-            int index = Int32.Parse(value.ToString());
-            int param = Int32.Parse(parameter.ToString());
+            var index = int.Parse(value.ToString());
+            var param = int.Parse(parameter.ToString());
 
             // Check if they match
             if (index == param)
                 // Return green color
-                return Application.Current.FindResource("GreenLightBrush");
+                return Application.Current.FindResource("GreenSeaBrush");
             else
                 // Return transparent color
                 return Color.FromArgb(255, 255, 255, 255);

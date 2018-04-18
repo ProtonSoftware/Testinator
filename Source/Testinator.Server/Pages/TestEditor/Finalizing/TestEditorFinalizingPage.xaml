@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <!-- Title Bar -->
             <RowDefinition Height="60"/>
-            <!-- Tittle underline -->
+            <!-- Title underline -->
             <RowDefinition Height="1.5"/>
             <!-- Main content-->
             <RowDefinition Height="*"/>
@@ -84,7 +84,7 @@
 
                     <!-- Name -->
                     <Border Grid.Row="0" Grid.Column="0" 
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
 
                         <Grid>
                             <TextBlock Text="{Binding TestName}"
@@ -98,7 +98,7 @@
 
                     <!-- Duration -->
                     <Border Grid.Row="0" Grid.Column="1" 
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
 
                         <Grid>
                             <TextBlock Text="Czas trwania"
@@ -112,7 +112,7 @@
 
                     <!-- Number of questions -->
                     <Border Grid.Row="0" Grid.Column="2" 
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
 
                         <Grid>
                             <TextBlock Text="Liczba pytań "
@@ -166,7 +166,7 @@
 
                     <!-- Tags -->
                     <Border Grid.Row="1" Grid.Column="0" 
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
                         <Grid>
                             <TextBlock Text="Tagi"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
@@ -179,7 +179,7 @@
 
                     <!-- Criteria -->
                     <Border Grid.Row="1" Grid.Column="1" 
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
                         <TextBlock Text="Place holder" Style="{StaticResource TitleText}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    HorizontalAlignment="Center"/>
@@ -187,7 +187,7 @@
 
                     <!-- Point score -->
                     <Border Grid.Row="1" Grid.Column="2" 
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
                         <Grid>
                             <TextBlock Text="Liczba punktów"
                                        Style="{StaticResource FinalizingTileTitleTextBlock}"/>
@@ -200,7 +200,7 @@
 
                     <!-- File name -->
                     <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -342,7 +342,7 @@
 
                     <!-- Error -->
                     <Border Grid.Row="2" Grid.Column="2"
-                            Style="{StaticResource TestFinalizingTile}">
+                            Style="{StaticResource GreenTile}">
 
                         <TextBlock Text="{Binding ErrorMessage}"
                                    Visibility="{Binding IsErrorMessageVisible, Converter={local:BooleanToVisiblityConverter}}"

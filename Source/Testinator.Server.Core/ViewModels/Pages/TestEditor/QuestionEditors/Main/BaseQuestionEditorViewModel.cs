@@ -73,7 +73,7 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Abstract/Virual Methods
+        #region Abstract/Virtual Methods
 
         /// <summary>
         /// Submits current question
@@ -170,19 +170,14 @@ namespace Testinator.Server.Core
 
             switch (Type)
             {
-                case QuestionType.None:
-                    return null;
-
                 case QuestionType.MultipleChoice:
                     return new MultipleChoiceQuestionEditorViewModel(QuestionToLoad);
 
                 case QuestionType.MultipleCheckboxes:
                     return new MultipleChoiceQuestionEditorViewModel(QuestionToLoad);
-                    return null;
 
                 case QuestionType.SingleTextBox:
                     return new MultipleChoiceQuestionEditorViewModel(QuestionToLoad);
-                    return null;
 
                 default:
                     return null;

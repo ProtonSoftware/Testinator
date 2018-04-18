@@ -46,7 +46,7 @@
                         <ControlTemplate.Triggers>
 
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter TargetName="container" Property="Background" Value="{StaticResource GreenLightBrush}" />
+                                <Setter TargetName="container" Property="Background" Value="{StaticResource GreenSeaBrush}" />
                             </DataTrigger>
 
                             <EventTrigger RoutedEvent="MouseEnter">

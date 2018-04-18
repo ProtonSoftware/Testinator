@@ -12,7 +12,7 @@
                  d:DesignHeight="720"
                  d:DesignWidth="512">
 
-    <Grid Background="{StaticResource GreenLightBrush}">
+    <Grid Background="{StaticResource GreenSeaBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -34,12 +34,12 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <TextBlock Text="{x:Static core:LocalizationResource.NoUsersConnected}"
-                       Foreground="{StaticResource LightRedBrush}"
+                       Foreground="{StaticResource RedLightBrush}"
                        Style="{StaticResource QuestionTextBlockStyle}"
                        Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding NotEnoughClients}"
                        HorizontalAlignment="Center" />
             <TextBlock Text="{x:Static core:LocalizationResource.NoTestChoosen}"
-                       Foreground="{StaticResource LightRedBrush}"
+                       Foreground="{StaticResource RedLightBrush}"
                        Style="{StaticResource QuestionTextBlockStyle}"
                        Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding TestNotSelected}"
                        HorizontalAlignment="Center" />

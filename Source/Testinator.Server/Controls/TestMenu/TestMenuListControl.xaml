@@ -21,7 +21,7 @@
                     HorizontalAlignment="Left"
                     BorderBrush="{StaticResource BlackDarkBrush}"
                     BorderThickness="2"
-                    Background="{StaticResource GreenLightBrush}">
+                    Background="{StaticResource GreenSeaBrush}">
 
 
                 <Viewbox Margin="5">

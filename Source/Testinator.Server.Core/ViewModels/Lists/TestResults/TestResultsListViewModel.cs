@@ -93,6 +93,7 @@ namespace Testinator.Server.Core
             }
             catch (Exception ex)
             {
+                /*
                 // If an error occured, show info to the user
                 IoCServer.UI.ShowMessage(new MessageBoxDialogViewModel
                 {
@@ -100,7 +101,7 @@ namespace Testinator.Server.Core
                     Message = "Nie udało się wczytać dostępnych rezultatów." +
                               "\nTreść błędu: " + ex.Message,
                     OkText = "Ok"
-                });
+                });*/
 
                 IoCServer.Logger.Log("Unable to read results from local folder, error message: " + ex.Message);
             }

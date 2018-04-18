@@ -46,7 +46,8 @@
                 CornerRadius="5"
                 BorderThickness="1"
                 Margin="25"
-                Background="#FFFFFF">
+                Style="{StaticResource DropShadowBorder}"
+                Background="{StaticResource WhitePureBrush}">
 
             <Grid>
 
@@ -391,7 +392,7 @@
 
                             <TextBlock Grid.Row="8" Grid.ColumnSpan="4"
                                        Text="{Binding ErrorMessage}"
-                                       Foreground="{StaticResource LightRedBrush}"
+                                       Foreground="{StaticResource RedLightBrush}"
                                        Style="{StaticResource QuestionTextBlockStyle}" />
 
                         </Grid>

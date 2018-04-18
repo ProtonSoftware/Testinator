@@ -55,11 +55,11 @@
                                Foreground="{StaticResource BlackDarkBrush}"
                                Style="{StaticResource TitleText}" />
                     <TextBlock Text="{x:Static core:LocalizationResource.Active}"
-                               Foreground="{StaticResource GreenLightBrush}"
+                               Foreground="{StaticResource GreenSeaBrush}"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}}"
                                Style="{StaticResource MediumTitleText}" />
                     <TextBlock Text="{x:Static core:LocalizationResource.Disabled}"
-                               Foreground="{StaticResource LightRedBrush}"
+                               Foreground="{StaticResource RedLightBrush}"
                                Visibility="{Binding IsServerStarted, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                Style="{StaticResource MediumTitleText}" />
                 </StackPanel>

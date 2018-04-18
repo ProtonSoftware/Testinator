@@ -28,7 +28,7 @@
                                 <Border>
                                     <Button Padding="0" 
                                             Margin="0" 
-                                            Background="{StaticResource GreenLightBrush}"
+                                            Background="{StaticResource GreenSeaBrush}"
                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.ShowAnswersCommand}"
                                             CommandParameter="{Binding}">
                                         <StackPanel Orientation="Horizontal">

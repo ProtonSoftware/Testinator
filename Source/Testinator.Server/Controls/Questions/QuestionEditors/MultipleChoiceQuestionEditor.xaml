@@ -31,7 +31,7 @@
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Background="{StaticResource GreenLightBrush}"
+                    <Border Background="{StaticResource GreenSeaBrush}"
                             Margin="10 0"
                             CornerRadius="5"
                             Grid.Column="0"
@@ -63,7 +63,7 @@
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Background="{StaticResource GreenLightBrush}"
+                    <Border Background="{StaticResource GreenSeaBrush}"
                             Margin="10 0"
                             CornerRadius="5"
                             Grid.Column="0"
@@ -96,7 +96,7 @@
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Background="{StaticResource GreenLightBrush}"
+                    <Border Background="{StaticResource GreenSeaBrush}"
                             Margin="10 0"
                             CornerRadius="5"
                             Grid.Column="0"
@@ -129,7 +129,7 @@
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Background="{StaticResource GreenLightBrush}"
+                    <Border Background="{StaticResource GreenSeaBrush}"
                             Margin="10 0"
                             CornerRadius="5"
                             Grid.Column="0"
@@ -170,7 +170,7 @@
                         <ColumnDefinition Width=".15*" />
                     </Grid.ColumnDefinitions>
                     
-                    <Border Background="{StaticResource GreenLightBrush}"
+                    <Border Background="{StaticResource GreenSeaBrush}"
                             Margin="10 0"
                             CornerRadius="5"
                             Grid.Column="0"
@@ -207,7 +207,7 @@
 
         <TextBlock Text="{Binding ErrorMessage}"
                    Style="{StaticResource QuestionTextBlockStyle}"
-                   Foreground="{StaticResource LightRedBrush}"
+                   Foreground="{StaticResource RedLightBrush}"
                    TextWrapping="Wrap"
                    Margin="25 0 0 0"
                    Grid.Row="1"

@@ -9,6 +9,7 @@
                 <!-- Order is important -->
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Borders.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Buttons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Texts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Scrolls.xaml" />
@@ -16,7 +17,6 @@
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Comboboxes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/ProgressBars.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/DataGrids.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Testinator.UICore;component/Styles/Tiles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

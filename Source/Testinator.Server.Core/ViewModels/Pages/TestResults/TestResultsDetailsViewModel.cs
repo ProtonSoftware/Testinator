@@ -68,7 +68,7 @@ namespace Testinator.Server.Core
 
         #endregion
 
-        #region Construction
+        #region Constructors
 
         /// <summary>
         /// Default constructor
@@ -88,6 +88,7 @@ namespace Testinator.Server.Core
             // Create commands
             CreateCommands();
 
+            // Load given data
             LoadData(results);
         }
 
@@ -334,7 +335,7 @@ namespace Testinator.Server.Core
         private void CreateQuestionsViewData()
         {
             return; // Disable for now
-
+            /*
             // Clear any junk
             QuestionsViewData.Clear();
 
@@ -395,7 +396,7 @@ namespace Testinator.Server.Core
 
                 QuestionsViewData.Add(viewmodel);
 
-            }
+            }*/
         }
 
         /// <summary>

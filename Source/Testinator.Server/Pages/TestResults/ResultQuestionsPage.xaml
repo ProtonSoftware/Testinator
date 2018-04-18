@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="{StaticResource GreenLightBrush}" 
+        <Grid Background="{StaticResource GreenSeaBrush}" 
               Grid.Row="0">
       
             <Button Content="Powrót"

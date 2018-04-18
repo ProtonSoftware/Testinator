@@ -13,24 +13,40 @@
 
     <Border Background="{StaticResource WhiteLightBrush}">
 
-        <StackPanel  VerticalAlignment="Center">
+        <Grid>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-            <Button Content="{x:Static core:LocalizationResource.CreateNewTest}"
-                    Command="{Binding CreateNewTestCommand}"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource BaseUIButton}" />
+            <Button Command="{Binding CreateNewTestCommand}"
+                    Style="{StaticResource GreenTileButton}">
 
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center"
+                            FlowDirection="RightToLeft">
+
+                    <TextBlock Text="{StaticResource FontAwesomeTestIcon}"
+                               Style="{StaticResource FontAwesomeIconText}" />
+                    <TextBlock Text="{x:Static core:LocalizationResource.CreateNewTest}" />
+
+                </StackPanel>
+
+            </Button>
+<!--
             <Button Content="{x:Static core:LocalizationResource.EditManageTest}"
                     Command="{Binding EditManageTestCommand}"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource BaseUIButton}" />
+                    Grid.Row="1"
+                    Style="{StaticResource GreenTileButton}" />
 
             <Button Content="{x:Static core:LocalizationResource.CreateNewCriteria}"
                     Command="{Binding CreateNewCriteriaCommand}"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource BaseUIButton}" />
+                    Grid.Row="2"
+                    Style="{StaticResource GreenTileButton}" />-->
 
-        </StackPanel>
+        </Grid>
         
     </Border>
     

@@ -9,12 +9,20 @@
         <ResourceDictionary Source="Texts.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
- 
-    <!-- Test finzalizing tile -->
-    <Style x:Key="TestFinalizingTile" TargetType="{x:Type Border}">
+    <!-- Base drop shadow for border -->
+    <Style x:Key="DropShadowBorder" TargetType="{x:Type Border}">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Basic green tile -->
+    <Style x:Key="GreenTile" TargetType="{x:Type Border}" BasedOn="{StaticResource DropShadowBorder}">
         <Setter Property="Margin" Value="15"/>
         <Setter Property="Padding" Value="5"/>
-        <Setter Property="Background" Value="#4CA194"/>
+        <Setter Property="Background" Value="{StaticResource GreenSeaBrush}"/>
     </Style>
 
 </ResourceDictionary>

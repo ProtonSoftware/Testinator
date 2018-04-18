@@ -56,11 +56,11 @@
                         <ControlTemplate.Triggers>
                             
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource GreenLightBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource GreenSeaBrush}"/>
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding RedBackground}" Value="True">
-                                <Setter Property="Background" TargetName="background" Value="{StaticResource LightRedBrush}"/>
+                                <Setter Property="Background" TargetName="background" Value="{StaticResource RedLightBrush}"/>
                             </DataTrigger>
 
                         </ControlTemplate.Triggers>

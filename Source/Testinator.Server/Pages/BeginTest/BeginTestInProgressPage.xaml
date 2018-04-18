@@ -57,7 +57,7 @@
                                                                                        AncestorType=UICore:BasePage},
                                                                                        Path=DataContext.QuestionsCount}" 
                                                          Value="{Binding ProgressBarValue, Mode=OneWay}"
-                                                         Foreground="{StaticResource GreenLightBrush}" />
+                                                         Foreground="{StaticResource GreenSeaBrush}" />
                                             <TextBlock Text="{Binding ProgressBarPercentage}"
                                                        Style="{StaticResource QuestionTextBlockStyle}"
                                                        Margin="0"

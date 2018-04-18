@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Testinator.Server
+namespace Testinator.Server.Core
 {
     public static class BitmapExtensionMethods
     {

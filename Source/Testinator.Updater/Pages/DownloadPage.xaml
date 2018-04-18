@@ -23,7 +23,7 @@
                        Style="{StaticResource QuestionTextBlockStyle}" />
 
             <TextBlock Text="{Binding ErrorMessage}" 
-                       Foreground="{StaticResource LightRedBrush}"
+                       Foreground="{StaticResource RedLightBrush}"
                        Grid.Row="1"
                        Style="{StaticResource QuestionTextBlockStyle}" />
 

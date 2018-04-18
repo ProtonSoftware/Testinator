@@ -18,7 +18,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="{StaticResource GreenLightBrush}"
+        <Grid Background="{StaticResource GreenSeaBrush}"
               Panel.ZIndex="1000">
 
             <TextBlock Text="{Binding TestName}"
@@ -32,7 +32,7 @@
         </Grid>
 
         <StackPanel Grid.Row="1"
-                    Background="{StaticResource GreenLightBrush}"
+                    Background="{StaticResource GreenSeaBrush}"
                     Orientation="Horizontal">
 
             <Button Content="{x:Static core:LocalizationResource.Back}"
