@@ -394,7 +394,9 @@ namespace Testinator.Server.Core
         {
             IsTestInProgress = false;
             IoCServer.Application.GoToPage(ApplicationPage.BeginTestResults);
-            CleanUp();
+
+            // Clear guid
+            CurrentSessionIdentifier = default(Guid);
         }
 
         /// <summary>
@@ -407,6 +409,7 @@ namespace Testinator.Server.Core
             TestStartupArgs = null;
             TimeLeft = default(TimeSpan);
             Results = null;
+            ClientsInTest.Clear();
             CurrentSessionIdentifier = default(Guid);
         }
 
