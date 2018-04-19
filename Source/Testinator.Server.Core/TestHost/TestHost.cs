@@ -407,7 +407,6 @@ namespace Testinator.Server.Core
             TestStartupArgs = null;
             TimeLeft = default(TimeSpan);
             Results = null;
-            ClientsInTest.Clear();
             CurrentSessionIdentifier = default(Guid);
         }
 
