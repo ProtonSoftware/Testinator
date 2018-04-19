@@ -24,9 +24,14 @@ namespace Testinator.Client.Core
             IsReadOnly ? "Pytanie " + DisplayIndex + " / " + IoCClient.TestHost.Questions.Count : "Pytanie " + IoCClient.TestHost.CurrentQuestionString;
 
         /// <summary>
+        /// Current answer for this question
+        /// </summary>
+        public SingleTextBoxAnswer UserAnswer { get; set; }
+
+        /// <summary>
         /// Current answer written by the user
         /// </summary>
-        public string UserAnswer { get; set; }
+        public string UserAnswerString { get; set; }
 
         /// <summary>
         /// Sets the visibility of the no-answer warning
@@ -109,7 +114,7 @@ namespace Testinator.Client.Core
         private void Submit()
         {
             // If the textbox is empty show warning to the user
-            if (string.IsNullOrWhiteSpace(UserAnswer))
+            if (string.IsNullOrWhiteSpace(UserAnswerString))
             {
                 NoAnswerWarning = true;
                 return;
@@ -118,8 +123,11 @@ namespace Testinator.Client.Core
             // Save the answer
             var answer = new SingleTextBoxAnswer()
             {
-                UserAnswer = UserAnswer,
+                UserAnswer = UserAnswerString,
             };
+
+            UserAnswer = answer;
+
             IoCClient.TestHost.SaveAnswer(answer);
 
             // Go to next question page
@@ -135,10 +143,16 @@ namespace Testinator.Client.Core
         /// NOTE: needs to be done before attaching this view model to the page
         /// </summary>
         /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(SingleTextBoxQuestion question)
+        /// <param name="ReadOnly">Indicates if this viewmodel is readonly</param>
+        public void AttachQuestion(SingleTextBoxQuestion question, bool ReadOnly = false)
         {
+            IsReadOnly = ReadOnly;
+
             // Save the question
             Question = question;
+
+            if (question.CheckAnswer(UserAnswer) > 0)
+                IsAnswerCorrect = true;
         }
 
         #endregion

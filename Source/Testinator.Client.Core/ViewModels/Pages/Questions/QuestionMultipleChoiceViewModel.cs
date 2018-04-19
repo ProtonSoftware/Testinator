@@ -43,7 +43,7 @@ namespace Testinator.Client.Core
         /// Indicates whether the view should be enabled for changes
         /// ReadOnly mode is used while presenting the result to the user
         /// </summary>
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly { get; private set; }
 
         /// <summary>
         /// Indicates if the answer is empty (used to show now answer notification
@@ -132,7 +132,7 @@ namespace Testinator.Client.Core
             // Save the answer
             var answer = new MultipleChoiceAnswer()
             {
-                SelectedAnswerIndex = CurrentlySelectedIdx,
+                SelectedAnswerIndex = CurrentlySelectedIdx - 1,
             };
             IoCClient.TestHost.SaveAnswer(answer);
 
@@ -172,7 +172,8 @@ namespace Testinator.Client.Core
         /// NOTE: needs to be done before attaching this view model to the page
         /// </summary>
         /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(MultipleChoiceQuestion question)
+        /// <param name="ReadOnly">Indicates if this viewmodel is readonly</param>
+        public void AttachQuestion(MultipleChoiceQuestion question, bool ReadOnly = false)
         {
             // Get the question
             Question = question;
@@ -180,16 +181,23 @@ namespace Testinator.Client.Core
             // Convert the list of string to list of ABCAnswerItemViewModel
             Options = ListConvertFromStringQuestion(Question.Options);
 
+            IsReadOnly = ReadOnly;
+
             if (IsReadOnly)
             {
                 // Set the correct answer selected so it's green initially
-                Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
+                Options[Question.CorrectAnswerIndex].IsSelected = true;
 
                 // If the answer is null, return (means that the user gave no answer to this question) 
                 if (UserAnswer == null)
                 {
                     NoAnswer = true;
                     return;
+                }
+                else
+                {
+                    if (question.CheckAnswer(UserAnswer) > 0)
+                        IsAnswerCorrect = true;
                 }
 
                 // Set the user's answer selected so it's green

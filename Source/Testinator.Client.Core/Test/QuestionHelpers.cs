@@ -44,5 +44,54 @@ namespace Testinator.Client.Core
                     }
             }
         }
+
+        /// <summary>
+        /// Gets view data for restuls page from a question
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="answer"></param>
+        /// <param name="Index">Index in the list</param>
+        /// <returns></returns>
+        public static BaseViewModel ToViewModel(this Question question, Answer answer, int Index)
+        {
+            switch(question.Type)
+            {
+                case QuestionType.MultipleChoice:
+                {
+                    var questionViewModel = new QuestionMultipleChoiceViewModel
+                    {
+                        UserAnswer = (MultipleChoiceAnswer)answer,
+                        Index = Index,
+                    };
+                    questionViewModel.AttachQuestion(question as MultipleChoiceQuestion, true);
+                    return questionViewModel;
+                }
+
+                case QuestionType.MultipleCheckboxes:
+                {
+                    var questionViewModel = new QuestionMultipleCheckboxesViewModel
+                    {
+                        UserAnswer = (MultipleCheckBoxesAnswer)answer,
+                        Index = Index,
+                    };
+                    questionViewModel.AttachQuestion(question as MultipleCheckBoxesQuestion, true);
+                    return questionViewModel;
+                }
+
+                case QuestionType.SingleTextBox:
+                {
+                    var questionViewModel = new QuestionSingleTextBoxViewModel
+                    {
+                        UserAnswer = (SingleTextBoxAnswer)answer,
+                        Index = Index,
+                    };
+                    questionViewModel.AttachQuestion(question as SingleTextBoxQuestion, true);
+                    return questionViewModel;
+                }
+                default:
+                    return null;
+            }
+            
+        }
     }
 }

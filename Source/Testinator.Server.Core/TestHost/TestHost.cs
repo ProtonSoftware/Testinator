@@ -236,11 +236,6 @@ namespace Testinator.Server.Core
         public event Action OnTimerUpdated = () => { };
 
         /// <summary>
-        /// Fired when the test finishes
-        /// </summary>
-        public event Action TestFinished = () => { };
-
-        /// <summary>
         /// Fired when any data is resived from a client
         /// </summary>
         /// <param name="client">The sender client</param>
@@ -261,6 +256,11 @@ namespace Testinator.Server.Core
 
                     break;
 
+                case PackageType.ReadyForTest:
+
+                    client.CanStartTest = true;
+                    break;
+
                 case PackageType.ResultForm:
                     
                     // Get the content
@@ -279,7 +279,7 @@ namespace Testinator.Server.Core
                         FinishTest();
                     }
                     
-                    if (OnlyClientsWithConnectionProblemLeft())
+                    else if (OnlyClientsWithConnectionProblemLeft())
                     {
                         var vm = new DecisionDialogViewModel()
                         {
@@ -288,6 +288,8 @@ namespace Testinator.Server.Core
                             AcceptText = "Ok",
                             CancelText = "No, wait for them",
                         };
+
+                        IoCServer.UI.ShowMessage(vm);
 
                         // Stop before time
                         if (vm.UserResponse)
@@ -350,7 +352,7 @@ namespace Testinator.Server.Core
                 return;
 
             if (IsTestInProgress)
-                client.ConnectionProblem = true;
+                client.HasConnectionProblem = true;
             else
                 ClientsInTest.Remove(client);
         }
@@ -382,7 +384,7 @@ namespace Testinator.Server.Core
         private void FinishTest()
         {
             IsTestInProgress = false;
-            TestFinished.Invoke();
+            IoCServer.Application.GoToPage(ApplicationPage.BeginTestResults);
         }
 
         /// <summary>
@@ -419,14 +421,27 @@ namespace Testinator.Server.Core
         /// <returns></returns>
         private bool OnlyClientsWithConnectionProblemLeft()
         {
+            // Indicates if there is still some users that are answering questions
+            var someoneStillSolvingTheTest = false;
+
+            var someoneWithConnectionProbles = false;
+
             foreach (var client in ClientsInTest)
             {
-                // Look a client that hasn't sent the result and doesn't have connection problem
-                if (!client.HasResultsBeenReceived && !client.ConnectionProblem)
-                    return false;
+                // Not interested in those who have already sent results
+                if (client.HasResultsBeenReceived)
+                    continue;
+
+                // If there is a client with connection problem indicates it
+                if (client.HasConnectionProblem)
+                    someoneWithConnectionProbles = true;
+                else
+                    // Or if there is a client thet doesnot have a connection probles
+                    someoneStillSolvingTheTest = true;
+
             }
 
-            return true;
+            return !someoneStillSolvingTheTest && someoneWithConnectionProbles;
         }
 
         /// <summary>

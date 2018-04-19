@@ -171,8 +171,6 @@ namespace Testinator.Server.Core
             IoCServer.Network.OnClientDisconnected += (s) => UpdateView();
             TestListViewModel.Instance.SelectionChanged += () => UpdateView();
 
-            // Hook to the test host evet
-            IoCServer.TestHost.TestFinished += ChangePageToResults;
         }
 
         /// <summary>
@@ -185,7 +183,6 @@ namespace Testinator.Server.Core
             IoCServer.Network.OnClientConnected -= (s) => UpdateView();
             IoCServer.Network.OnClientDisconnected -= (s) => UpdateView();
             TestListViewModel.Instance.SelectionChanged -= () => UpdateView();
-            IoCServer.TestHost.TestFinished -= ChangePageToResults;
         }
 
         #endregion
@@ -405,15 +402,6 @@ namespace Testinator.Server.Core
         #endregion
 
         #region Private Event Methods
-
-        /// <summary>
-        /// Fired when the test finishes
-        /// </summary>
-        private void ChangePageToResults()
-        {
-            // Change page on UI Thread
-            IoCServer.UI.DispatcherThreadAction(() => IoCServer.Application.GoToPage(ApplicationPage.BeginTestResults));
-        }
 
         /// <summary>
         /// Updates the view and all the properties

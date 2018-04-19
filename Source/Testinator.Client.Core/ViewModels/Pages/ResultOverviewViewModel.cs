@@ -22,9 +22,9 @@ namespace Testinator.Client.Core
         public TimeSpan CompletionTime => IoCClient.TestHost.CurrentTest.Info.Duration - IoCClient.Application.TimeLeft;
 
         /// <summary>
-        /// The score user achieved
+        /// The score user achieved in a string format
         /// </summary>
-        public int UserScore => IoCClient.TestHost.UserScore;
+        public string UserScore => $"{IoCClient.TestHost.UserScore} / {IoCClient.TestHost.CurrentTest.TotalPointScore}";
 
         /// <summary>
         /// Indicates if the server app has allowed user to check his answers just after he finishes his test
@@ -82,6 +82,9 @@ namespace Testinator.Client.Core
             IoCClient.TestHost.Reset();
 
             IoCClient.Application.ReturnMainScreen();
+
+            // Indicate we are ready for another test now
+            IoCClient.Application.Network.SendData(new DataPackage(PackageType.ReadyForTest));
         }
 
         /// <summary>

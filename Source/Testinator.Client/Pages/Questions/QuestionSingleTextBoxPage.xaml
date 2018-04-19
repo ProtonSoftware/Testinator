@@ -32,7 +32,7 @@
                                TextWrapping="Wrap"
                                Style="{StaticResource QuestionTextBlockStyle}"/>
 
-                        <TextBox Text="{Binding UserAnswer, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding UserAnswerString, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource BigInputTextBox}"
                                  FontSize="{StaticResource FontSizeLarge}"
                                  IsEnabled="{Binding IsReadOnly, Converter={local:BooleanInvertConverter}}"

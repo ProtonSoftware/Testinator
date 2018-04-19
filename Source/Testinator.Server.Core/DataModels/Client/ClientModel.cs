@@ -17,7 +17,7 @@ namespace Testinator.Server.Core
         public bool CanStartTest { get; set; } = true;
 
         /// <summary>
-        /// Number of questions this client have done so far
+        /// Question number this client is currently solving
         /// </summary>
         public int CurrentQuestion { get; set; }
 
@@ -30,7 +30,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// The value for the progress bar
         /// </summary>
-        public int ProgressBarValue => CurrentQuestion;
+        public int ProgressBarValue => CurrentQuestion - 1;
 
         /// <summary>
         /// The percentage value for the progress bar;
@@ -40,7 +40,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Indicates if there is any connection problems with this client
         /// </summary>
-        public bool ConnectionProblem { get; set; }
+        public bool HasConnectionProblem { get; set; }
 
         /// <summary>
         /// Indicates if this client has sent their results to the server
@@ -75,7 +75,7 @@ namespace Testinator.Server.Core
             CanStartTest = false;
             CurrentQuestion = 0;
             this.QuestionsCount = QuestionsCount;
-            ConnectionProblem = false;
+            HasConnectionProblem = false;
             HasResultsBeenReceived = false;
             Answers = new List<Answer>();
             PointsScored = 0;

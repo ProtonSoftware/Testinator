@@ -252,6 +252,12 @@ namespace Testinator.Client.Core
             UserAnswers.Add(answer);
 
             IoCClient.Logger.Log($"User answer saved for question nr {CurrentQuestionString}.");
+
+            // Create view data from the results page if it is allowed to be shown
+            if (AreResultsAllowed)
+            {
+                QuestionViewModels.Add(Questions[mCurrentQuestion - 1].ToViewModel(answer, QuestionViewModels.Count));
+            }
         }
 
         /// <summary>
@@ -267,7 +273,7 @@ namespace Testinator.Client.Core
             SendUpdate();
             
             // If last question was the last question, finish the test
-            if (mCurrentQuestion >= Questions.Count)
+            if (mCurrentQuestion > Questions.Count)
             {
                 TestFinished();
                 return;
@@ -276,7 +282,9 @@ namespace Testinator.Client.Core
             // Indicate that we are going to the next question
             IoCClient.Logger.Log("Going to the next question");
 
-            QuestionHelpers.ShowQuestion(CurrentTest.Questions[mCurrentQuestion]);
+            // Go to the next question
+            // NOTE: Although mCurrentQuestion starts from 0, it has been incremented above so we need to subtract one here
+            QuestionHelpers.ShowQuestion(CurrentTest.Questions[mCurrentQuestion - 1]);
         }
 
         /// <summary>

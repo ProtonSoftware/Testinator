@@ -158,13 +158,16 @@ namespace Testinator.Client.Core
         /// NOTE: needs to be done before attaching this view model to the page
         /// </summary>
         /// <param name="question">The question to be attached to this viewmodel</param>
-        public void AttachQuestion(MultipleCheckBoxesQuestion question)
+        /// <param name="ReadOnly">Indicates if this viewmodel is readonly</param>
+        public void AttachQuestion(MultipleCheckBoxesQuestion question, bool ReadOnly = false)
         {
             // Get the question
             Question = question;
 
             // Convert from dictionary to answer items list
             Options = ListConvertQuestion();
+
+            IsReadOnly = ReadOnly;
 
             // If not in readonly mode...
             if (!IsReadOnly)

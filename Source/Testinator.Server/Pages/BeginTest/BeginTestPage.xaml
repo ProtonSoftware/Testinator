@@ -110,7 +110,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="*" IsReadOnly="True" Header="Name" Binding="{Binding Name}"/>
                         <DataGridTextColumn Width="*" IsReadOnly="True" Header="Surname" Binding="{Binding LastName}"/>
-                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding IPString}"/>
+                        <DataGridTextColumn Width="*" IsReadOnly="True" Header="Ip Address" Binding="{Binding IP}"/>
                         <DataGridTextColumn Width="*" IsReadOnly="True" Header="Machine Name" Binding="{Binding MachineName}"/>
                     </DataGrid.Columns>
                 </DataGrid>

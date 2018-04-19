@@ -43,10 +43,6 @@ namespace Testinator.Client.Core
             if (Network.IsConnected)
             {
                 IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest));
-
-                // This shouldn't be here
-                // Indicate we are ready for another test now
-                IoCClient.Application.Network.SendData(new DataPackage(PackageType.ReadyForTest));
             }
             else
                 IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.Login));

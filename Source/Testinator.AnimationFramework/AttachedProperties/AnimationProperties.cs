@@ -171,10 +171,10 @@ namespace Testinator.AnimationFramework
         {
             if (value)
                 // Animate in
-                await element.SlideInAsync(AnimationSlideInDirection.Top, firstLoad, firstLoad ? 0 : 3.3f, keepMargin: false);
+                await element.SlideInAsync(AnimationSlideInDirection.Top, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
             else
                 // Animate out
-                await element.SlideOutAsync(AnimationSlideInDirection.Top, firstLoad ? 0 : 3.3f, keepMargin: false);
+                await element.SlideOutAsync(AnimationSlideInDirection.Top, firstLoad ? 0 : 0.3f, keepMargin: false);
         }
     }
 
