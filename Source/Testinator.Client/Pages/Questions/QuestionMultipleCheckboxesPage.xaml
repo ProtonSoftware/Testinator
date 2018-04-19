@@ -33,7 +33,23 @@
                            TextWrapping="Wrap"
                            Style="{StaticResource QuestionTextBlockStyle}"
                            Margin="5" />
-
+                    
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Question.Task.Images}"                                      >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Image HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="2"
+                                           Stretch="None"
+                                           SnapsToDevicePixels="True"
+                                           Source="{Binding Converter={local:ImageToImageSourceConverterConverter}}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
                     <local:MultipleCheckboxesAnswersList DataContext="{Binding Options}" />
 
                     <TextBlock Text="Brak odpowiedzi!"

@@ -63,6 +63,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public TestStartupArgs TestStartupArgs { get; private set; }
 
+        /// <summary>
+        /// Current session identifier
+        /// </summary>
+        public Guid CurrentSessionIdentifier { get; private set; }
+
         #endregion
 
         #region Public Methods
@@ -113,6 +118,7 @@ namespace Testinator.Server.Core
 
             foreach (var client in ClientsInTest)
             {
+                client.CanStartTest = true;
                 IoCServer.Network.Send(client, stopTestPackage);
             }
 
@@ -130,12 +136,15 @@ namespace Testinator.Server.Core
             if (IsTestInProgress)
                 return;
 
+            if (CurrentSessionIdentifier.Equals(default(Guid)))
+                CurrentSessionIdentifier = Guid.NewGuid();
+
             // If there were no args before create new ones
             if (TestStartupArgs == null)
             {
                 TestStartupArgs = new TestStartupArgs()
                 {
-                    SessionIdentifier = new Guid(),
+                    SessionIdentifier = CurrentSessionIdentifier,
                     FullScreenMode = options.FullScreenEnabled,
                     IsResultsPageAllowed = options.ResultsPageAllowed,
                     TimerOffset = TimeSpan.FromSeconds(0),
@@ -385,6 +394,7 @@ namespace Testinator.Server.Core
         {
             IsTestInProgress = false;
             IoCServer.Application.GoToPage(ApplicationPage.BeginTestResults);
+            CleanUp();
         }
 
         /// <summary>
@@ -398,6 +408,7 @@ namespace Testinator.Server.Core
             TimeLeft = default(TimeSpan);
             Results = null;
             ClientsInTest.Clear();
+            CurrentSessionIdentifier = default(Guid);
         }
 
         /// <summary>
