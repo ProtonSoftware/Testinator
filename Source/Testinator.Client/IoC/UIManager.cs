@@ -78,7 +78,7 @@ namespace Testinator.Client
         /// </summary>
         public void EnableFullscreenMode()
         {
-            ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOn();
+            DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOn());
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Testinator.Client
         /// </summary>
         public void DisableFullscreenMode()
         {
-            ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOff();
+            DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOff());
         }
     }
 }

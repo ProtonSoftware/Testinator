@@ -160,6 +160,10 @@ namespace Testinator.Client.Core
             // Start the test timer
             mTestTimer.Start();
 
+            // Enable full screen if required
+            if (IsFullScreenEnabled)
+                IoCClient.UI.EnableFullscreenMode();
+
             // Show the first question
             GoNextQuestion();
         }
