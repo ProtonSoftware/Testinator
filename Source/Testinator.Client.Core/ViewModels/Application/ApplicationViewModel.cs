@@ -21,7 +21,7 @@ namespace Testinator.Client.Core
         public TimeSpan TimeLeft => IoCClient.TestHost.TimeLeft;
 
         #endregion
-        
+
         #region Public Events
 
         /// <summary>
@@ -54,6 +54,22 @@ namespace Testinator.Client.Core
         public void Close()
         {
             Closing.Invoke();
+        }
+
+        /// <summary>
+        /// Fired when application page changes
+        /// </summary>
+        /// <param name="newPage">The new page</param>
+        public override void OnPageChange(ApplicationPage newPage)
+        {
+            if (newPage == ApplicationPage.Login)
+                IoCClient.UI.EnableLoginScreenView();
+
+            // NOTE: As the only page that can come after login page is waiting for test page we can do it like that
+            //       If it was only 'else' here it would cause usless calls to UIManager to disable login screen view 
+            //       that has already been disabled
+            else if (newPage == ApplicationPage.WaitingForTest)
+                IoCClient.UI.DisableLoginScreenView();
         }
 
         #endregion

@@ -9,6 +9,20 @@
     <FontFamily x:Key="FontMontserratThin">pack://application;,,,/Testinator.UICore;component/Fonts/#Montserrat Thin</FontFamily>
     <FontFamily x:Key="FontAwesome">pack://application;,,,/Testinator.UICore;component/Fonts/#FontAwesome</FontFamily>
 
+    <FontFamily x:Key="RobotoBlack">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Black</FontFamily>
+    <FontFamily x:Key="RobotoBlackItalic">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Black Italic</FontFamily>
+    <FontFamily x:Key="RobotoBlackBold">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Black Bold</FontFamily>
+    <FontFamily x:Key="RobotoBlackBoldItalic">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Black Bold Italic</FontFamily>
+    <FontFamily x:Key="RobotoItalic">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Italic</FontFamily>
+    <FontFamily x:Key="RobotoLight">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Light</FontFamily>
+    <FontFamily x:Key="RobotoLightItalic">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Light Italic</FontFamily>
+    <FontFamily x:Key="RobotoMedium">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Medium</FontFamily>
+    <FontFamily x:Key="RobotoMediumItalic">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Medium Italic</FontFamily>
+    <FontFamily x:Key="RobotoRegular">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto</FontFamily>
+    <FontFamily x:Key="RobotoThin">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Thin</FontFamily>
+    <FontFamily x:Key="RobotoThinItalic">pack://application;,,,/Testinator.UICore;component/Fonts/#Roboto Thin Italic</FontFamily>
+
+
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratThin}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
@@ -36,6 +50,7 @@
     <system:String x:Key="FontAwesomeHamburgerMenuIcon">&#xf0c9;</system:String>
     <system:String x:Key="FontAwesomeTestIcon">&#xf15c;</system:String>
     <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeCogsIcon">&#xf085;</system:String>
     <system:String x:Key="FontAwesomeXIcon">&#xf00d;</system:String>
     <system:String x:Key="FontAwesomeUnderscoreIcon">&#xf2d1;</system:String>
     <system:String x:Key="FontAwesomeSquareIcon">&#xf096;</system:String>

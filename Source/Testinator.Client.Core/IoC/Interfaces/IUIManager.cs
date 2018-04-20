@@ -26,6 +26,16 @@ namespace Testinator.Client.Core
         void DisableFullscreenMode();
 
         /// <summary>
+        /// Enables login screen aplication format
+        /// </summary>
+        void EnableLoginScreenView();
+
+        /// <summary>
+        /// Disables login screen aplication format
+        /// </summary>
+        void DisableLoginScreenView();
+
+        /// <summary>
         /// Displays a single message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>

@@ -53,7 +53,7 @@
         <Setter Property="Foreground" Value="{StaticResource GreenSeaBrush}" />
 
     </Style>
-
+    
     <Style TargetType="{x:Type Button}" x:Key="GreenTileButton" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
@@ -117,7 +117,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Padding="{TemplateBinding Padding}" Margin="{TemplateBinding Margin}" CornerRadius="3" Background="{TemplateBinding Background}">
+                    <Border Padding="{TemplateBinding Padding}" 
+                            Margin="{TemplateBinding Margin}"
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
 
                         <TextBlock VerticalAlignment="Center" 
                                    HorizontalAlignment="Center"
@@ -215,6 +218,27 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="LoginScreenButton" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="Background" Value="{StaticResource GreenSeaBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WhitePureBrush}" />
+
+        <Setter Property="FontFamily" Value="{StaticResource RobotoLight}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="BorderThickness" Value="0" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource GreenSeaLightBrush}" />
+            </Trigger>
+        </Style.Triggers>
+
 
     </Style>
 

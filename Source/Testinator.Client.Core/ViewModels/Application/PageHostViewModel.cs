@@ -7,6 +7,8 @@ namespace Testinator.Client.Core
     /// </summary>
     public class PageHostViewModel : BaseViewModel
     {
+        #region Public Properties
+
         /// <summary>
         /// The current page of the application
         /// </summary>
@@ -20,7 +22,9 @@ namespace Testinator.Client.Core
         /// </summary>
         public BaseViewModel CurrentPageViewModel { get; set; }
 
-        #region Public Helpers
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Navigates to the specified page
@@ -39,9 +43,19 @@ namespace Testinator.Client.Core
             OnPropertyChanged(nameof(CurrentPageViewModel));
             OnPropertyChanged(nameof(CurrentPage));
 
+            // Notify listeners
+            OnPageChange(page);
+
             // Log it
             IoCClient.Logger.Log("Changing application page to:" + page.ToString());
+
         }
+
+        /// <summary>
+        /// Fired when application page chages
+        /// </summary>
+        /// <param name="newPage">Newly loaded page</param>
+        public virtual void OnPageChange(ApplicationPage newPage) { }
 
         #endregion
     }

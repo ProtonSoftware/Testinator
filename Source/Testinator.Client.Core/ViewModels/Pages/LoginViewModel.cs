@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Input;
 using Testinator.Core;
 
@@ -98,6 +100,11 @@ namespace Testinator.Client.Core
         /// </summary>
         public ICommand StopConnectingCommand { get; private set; }
 
+        /// <summary>
+        /// Fired when website link is clicked
+        /// </summary>
+        public ICommand LinkClickedCommand { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -112,6 +119,7 @@ namespace Testinator.Client.Core
             SettingsMenuExpandCommand = new RelayCommand(ExpandMenu);
             SettingsMenuHideCommand = new RelayCommand(HideMenu);
             StopConnectingCommand = new RelayCommand(StopConnecting);
+            LinkClickedCommand = new RelayCommand(LinkClicked);
 
             IoCClient.Application.Network.AttemptCounterUpdated += Network_OnAttemptUpdate;
             IoCClient.Application.Network.AttemptsTimeout += Network_AttemptsTimeout;
@@ -190,6 +198,15 @@ namespace Testinator.Client.Core
 
             IsCancelling = true;
         }
+
+        /// <summary>
+        /// Opens web browser and goes to the testinatro website
+        /// </summary>
+        private void LinkClicked()
+        {
+            Process.Start("http://www.google.com/");
+        }
+
 
         #endregion
 

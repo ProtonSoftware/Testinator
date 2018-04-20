@@ -53,6 +53,17 @@
 
     </Style>
 
+    <!-- Quote text -->
+    <Style x:Key="QuoteText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoLightItalic}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{StaticResource WhitePureBrush}" />
+
+    </Style>
+
     <Style x:Key="FontAwesomeIconText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
 
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -155,6 +166,77 @@
         </Setter>
 
     </Style>
+
+
+    <!-- Login screen: label above textbox input -->
+    <Style x:Key="LoginScreenTextBoxLabel" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmaller}" />
+        <Setter Property="Foreground" Value="{StaticResource GreenSeaBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <!-- Login screnn input text box -->
+    <Style x:Key="LoginScreenTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoLight}" />
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#2a2a2a" />
+        <Setter Property="BorderThickness" Value="0 0 0 2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GreenSeaBrush}"/>
+        <Setter Property="Padding" Value="2 7"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+
+                    <Grid>
+
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"                                
+                                >
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                        <TextBlock IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}"
+                                   x:Name="placeholder"
+                                   FontFamily="{StaticResource FontMontserratThin}"
+                                   Padding="{TemplateBinding Padding}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                   Foreground="{StaticResource BlackLightBrush}"
+                                   >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
 
     <Style x:Key="SmallInputTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 

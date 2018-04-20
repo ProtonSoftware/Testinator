@@ -88,5 +88,21 @@ namespace Testinator.Client
         {
             DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).FullScreenModeOff());
         }
+
+        /// <summary>
+        /// Enables login screen aplication format
+        /// </summary>
+        public void EnableLoginScreenView()
+        {
+            DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).EnableSmallFormat());
+        }
+
+        /// <summary>
+        /// Disables login screen aplication format
+        /// </summary>
+        public void DisableLoginScreenView()
+        {
+            DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).DisableSmallFormat());
+        }
     }
 }

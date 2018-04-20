@@ -8,19 +8,236 @@
                  xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
                  xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
-                 mc:Ignorable="d">
+                 mc:Ignorable="d"
+                 d:DesignHeight="500" d:DesignWidth="750">
     
-    <Grid Background="{StaticResource WhiteLightBrush}">
+    <Grid Background="#e6e6e6">
+
+        <Grid.ColumnDefinitions>
+
+            <!-- Image -->
+            <ColumnDefinition Width="325"/>
+            <!-- Main login screen -->
+            <ColumnDefinition Width="425"/>
+
+        </Grid.ColumnDefinitions>
+
+        <!-- Left side login screen part -->
+        <Grid Grid.Column="0">
+
+            <Grid.RowDefinitions>
+                <!-- Label -->
+                <RowDefinition Height="Auto"/>
+                <!-- The rest of the page-->
+                <RowDefinition Height="*"/>
+                <!-- Quote content 1 -->
+                <RowDefinition Height="Auto"/>
+                <!-- Quote content 2 -->
+                <RowDefinition Height="Auto"/>
+                <!-- Quote author-->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Image -->
+            <Image Source="/Assets/Images/LoginScreenBanner.jpg"
+                   Stretch="None" 
+                   Grid.RowSpan="50"
+                   Margin="-1 0 0 0"
+                   />
+
+            <!-- Label left part -->
+            <Border Grid.Row="0"
+                    Height="40"
+                    Width="150"
+                    Background="#e6e6e6"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Margin="0 10 0 0">
+                
+                <TextBlock Text="Testy kiedyś..."
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="{StaticResource RobotoLight}"
+                           FontSize="17"/>
+            </Border>
+
+
+            <!-- Quote part 1 -->
+            <TextBlock Grid.Row="2"
+                       Text="Nie ma drogi na skórty. Sa tylko wzory"
+                       FontFamily="{StaticResource RobotoLightItalic}"
+                       FontSize="{StaticResource FontSizeRegular}"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource WhitePureBrush}"
+                       />
+
+            <!-- Quote part 2 -->
+            <TextBlock Grid.Row="3"
+                       Margin="0 3 0 0"
+                       FontFamily="{StaticResource RobotoLightItalic}"
+                       FontSize="{StaticResource FontSizeRegular}"
+                       HorizontalAlignment="Center"
+                       Text="skróconego mnożenia"
+                       Foreground="{StaticResource WhitePureBrush}"
+                       />
+
+            <!-- Quote author -->
+            <TextBlock Grid.Row="4"
+                       Text="Mateusz Dykiel"
+                       HorizontalAlignment="Right"
+                       Style="{StaticResource QuoteText}"
+                       FontFamily="{StaticResource RobotoThin}"
+                       FontSize="15"
+                       Margin="0 6 15 6"/>
+
+        </Grid>
+
+        <!-- Right side login screen part -->
+        <Grid Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <!-- Label -->
+                <RowDefinition Height="Auto"/>
+                <!-- Login form -->
+                <RowDefinition Height="*"/>
+                <!-- Website link -->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Label right part -->
+            <Border Grid.Row="0"
+                    Height="40"
+                    Width="150"
+                    Background="#565352"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="0 10">
+
+                <TextBlock Text="i dziś..."
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="{StaticResource RobotoLight}"
+                           Foreground="{StaticResource WhitePureBrush}"
+                           FontSize="17"/>
+                
+            </Border>
+
+            <!-- Settings button -->
+            <Button Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource GreenSeaBrush}"
+                    Background="Transparent"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Content="{StaticResource FontAwesomeCogsIcon}"
+                    Style="{StaticResource IconGrowButton}"
+                    Padding="5"
+                    Margin="0 0 5 0"/>
+            
+            <!-- Login form -->
+            <Border Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="250"
+                    Height="300">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!-- Name -->
+                        <RowDefinition Height=".5*"/>
+                        <!-- Last name -->
+                        <RowDefinition Height="*"/>
+                        <!-- Error Message -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Connect button -->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Name -->
+                    <StackPanel Grid.Row="0"
+                                VerticalAlignment="Center">
+
+                        <TextBlock Text="Imię"
+                                   Style="{StaticResource LoginScreenTextBoxLabel}"/>
+                        <TextBox Tag="Imię"
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource LoginScreenTextBox}"/>
+                    </StackPanel>
+
+                    <!-- Last name -->
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Center">
+
+                        <TextBlock Text="Nazwisko"
+                                   Style="{StaticResource LoginScreenTextBoxLabel}"/>
+                        <TextBox Tag="Nazwisko"
+                                 Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource LoginScreenTextBox}"/>
+                    </StackPanel>
+
+                    <!-- Error if input values are not valid -->
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Grid.Row="2"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource RedLightBrush}"
+                               FontSize="{StaticResource FontSizeSmall}"
+                               Style="{StaticResource QuestionTextBlockStyle}" 
+                               TextWrapping="Wrap"/>
+
+                    <!-- Connect button -->
+                    <Button Grid.Row="3"
+                            Command="{Binding TryConnectingCommand}"
+                            IsDefault="True"
+                            Style="{StaticResource LoginScreenButton}"
+                            VerticalAlignment="Center"
+                            Content="Połącz"/>
+
+                </Grid>
+
+            </Border>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                
+            <TextBlock Text="Dowiedz się więcej na naszej "
+                       
+                       Foreground="#808080"
+                       Margin="0 0 0 10"
+                       FontFamily="{StaticResource RobotoLight}"/>
+
+                <TextBlock Text="stronie"
+                           Foreground="#3f3fc1"
+                           Margin="0 0 0 10"
+                           TextDecorations="Underline"
+                           Cursor="Hand"
+                           FontFamily="{StaticResource RobotoLight}">
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" Command="{Binding LinkClickedCommand}" />
+                    </TextBlock.InputBindings>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+
         
+        
+        
+        
+        <!-- OLD STUFF, Left for copy-paste -->
+
+
         <!-- Settings bubble (IP, Port changes) -->
-        <Border VerticalAlignment="Top"
+        <Border VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 Background="{StaticResource WhiteDarkBrush}"
                 CornerRadius="3"
                 Padding="10"
-                Animations:AnimateWidthProperty.Value="{Binding IsSettingsMenuOpened}">
+                Grid.Column="0"
+                Margin="50"
+                Panel.ZIndex="-1"
+                Animations:AnimateWidthProperty.Value="{Binding IsSettingsMenuOpened}"
+                Visibility="Collapsed">
             
-            <Grid>
+            <Grid Visibility="Collapsed">
                 
                 <Grid.RowDefinitions>
                     
@@ -81,50 +298,15 @@
                 HorizontalAlignment="Center"
                 Background="{StaticResource WhiteDarkBrush}"
                 Padding="50"
+                Grid.Column="0"
                 CornerRadius="3"
-                TextBlock.TextAlignment="Center">
+                TextBlock.TextAlignment="Center" Margin="50,58"
+                Visibility="Hidden">
             <Grid>
 
-                <!-- Input boxes -->
-                <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
-
-                    <!-- Title -->
-                    <TextBlock Text="{x:Static core:LocalizationResource.FillData}" 
-                               Style="{StaticResource TitleText}"
-                               Foreground="{StaticResource BlackDarkBrush}" />
-
-                    <!-- User name input -->
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static core:LocalizationResource.WriteUsername}"
-                             Margin="0 25"
-                             local:IsFocusedProperty.Value="True"
-                             Style="{StaticResource BigInputTextBox}" />
-
-                    <!-- User surname input -->
-                    <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                             Tag="{x:Static core:LocalizationResource.WriteUserSurname}"
-                             Margin="0 0 0 25"
-                             Style="{StaticResource BigInputTextBox}" />
-
-                    <!-- Error if input values are not valid -->
-                    <TextBlock Text="{Binding ErrorMessage}"
-                               Margin="0 0 0 10"
-                               Foreground="{StaticResource RedLightBrush}"
-                               Style="{StaticResource QuestionTextBlockStyle}" />
-
-                    <!-- Submit button -->
-                    <Button Content="{x:Static core:LocalizationResource.Confirm}"
-                            Command="{Binding TryConnectingCommand}"
-                            Margin="0"
-                            IsDefault="True"
-                            Style="{StaticResource BaseUIButton}"
-                            local:IsBusyProperty.Value="{Binding ConnectionIsRunning}"
-                            />
-
-                </StackPanel>
-
                 <!-- Trying to connect content -->
-                <StackPanel Visibility="{Binding ConnectingIsRunning, Converter={local:BooleanToVisiblityConverter}}">
+                <StackPanel Visibility="{Binding ConnectingIsRunning, FallbackValue=False, 
+                                                                      Converter={local:BooleanToVisiblityConverter}}">
 
                     <TextBlock Text="{x:Static core:LocalizationResource.WaitingForConnection}"
                                Style="{StaticResource TitleText}"

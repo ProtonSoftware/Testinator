@@ -29,6 +29,9 @@ namespace Testinator.Client
             // Show the main window
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
+
+            // Go to the first page
+            IoCClient.Application.GoToPage(ApplicationPage.Login);
         }
 
         /// <summary>

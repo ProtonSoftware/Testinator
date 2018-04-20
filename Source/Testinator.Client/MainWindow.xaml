@@ -47,7 +47,7 @@
                                     <Grid.RowDefinitions>
 
                                         <!-- Top title bar -->
-                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=32}" />
+                                        <RowDefinition Height="{Binding TitleHeightXaml, FallbackValue=32}" />
 
                                         <!-- Content -->
                                         <RowDefinition Height="*" />
@@ -60,7 +60,10 @@
                                     </Grid.OpacityMask>
                                     
                                     <!-- Top title bar -->
-                                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource BlackDarkBrush}">
+                                    <Grid Grid.Column="0" 
+                                          Panel.ZIndex="1" 
+                                          Background="{StaticResource BlackDarkBrush}"
+                                          Visibility="{Binding TitleBarVisible, Converter={local:BooleanToVisiblityConverter}}">
 
                                         <Grid.ColumnDefinitions>
 
@@ -108,7 +111,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="{Binding ResizeBorderThickness}"
-            CaptionHeight="{Binding TitleHeight}"
+            CaptionHeight="{Binding CaptionHeight}"
             CornerRadius="0"
             GlassFrameThickness="0"
             />

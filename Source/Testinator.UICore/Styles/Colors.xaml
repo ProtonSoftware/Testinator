@@ -17,6 +17,9 @@
     <Color x:Key="GreenSea">#4CA194</Color>
     <SolidColorBrush x:Key="GreenSeaBrush" Color="{StaticResource GreenSea}" />
 
+    <Color x:Key="GreenSeaLight">#60b2a5</Color>
+    <SolidColorBrush x:Key="GreenSeaLightBrush" Color="{StaticResource GreenSeaLight}" />
+
     <Color x:Key="BlueDark">#2F475F</Color>
     <SolidColorBrush x:Key="BlueDarkBrush" Color="{StaticResource BlueDark}" />
 

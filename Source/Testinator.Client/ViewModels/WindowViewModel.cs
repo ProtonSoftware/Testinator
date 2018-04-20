@@ -39,6 +39,26 @@ namespace Testinator.Client
         /// </summary>
         private bool mFullscreenMode = false;
 
+        /// <summary>
+        /// Minimum width of the window
+        /// </summary>
+        private double mWindowMinimumWidth = 800;
+
+        /// <summary>
+        /// Minimum height of the window
+        /// </summary>
+        private double mWindowMinimumHeight = 720;
+
+        /// <summary>
+        /// Login screen width
+        /// </summary>
+        private const int LoginScreenWidth = 750;
+
+        /// <summary>
+        /// Login screen height
+        /// </summary>
+        private const int LoginScreenHeight = 500;
+
         #endregion
 
         #region Public Properties
@@ -86,15 +106,15 @@ namespace Testinator.Client
         /// <summary>
         /// The margin around the window to allow for a drop shadow
         /// </summary>
-        public Thickness OuterMarginSizeThickness => new Thickness(OuterMarginSize);
+        public Thickness OuterMarginSizeThickness => TitleBarVisible ? new Thickness(OuterMarginSize) : new Thickness(0, 10, 0, 0);
 
         /// <summary>
         /// The radius of the edges of the window
         /// </summary>
         public int WindowRadius
         {
-            // If it is maximized or docked, no border
-            get => Borderless ? 0 : mWindowRadius;
+            // If it is maximized or docked, or no title bar no corner radius
+            get => (Borderless || !TitleBarVisible ) ? 0 : mWindowRadius;
             set => mWindowRadius = value;
         }
 
@@ -107,6 +127,21 @@ namespace Testinator.Client
         /// The height of the title bar / caption of the window
         /// </summary>
         public int TitleHeight { get; set; } = 32;
+
+        /// <summary>
+        /// The value of title height to bind to in xaml
+        /// </summary>
+        public int TitleHeightXaml => TitleBarVisible ? TitleHeight : 0;
+
+        /// <summary>
+        /// The height of area that can move window
+        /// </summary>
+        public int CaptionHeight => TitleBarVisible ? TitleHeight : 10 + OuterMarginSize;
+
+        /// <summary>
+        /// Indicates if window title bar should be visible
+        /// </summary>
+        public bool TitleBarVisible { get; set; } = true;
 
         /// <summary>
         /// The height of the title bar / caption of the window converted to the grid length
@@ -171,6 +206,50 @@ namespace Testinator.Client
                 mWindow.ResizeMode = ResizeMode.CanResize;
                 mWindow.WindowState = WindowState.Normal;
             });
+        }
+
+        /// <summary>
+        /// Enables small application format (used in login page)
+        /// </summary>
+        public void EnableSmallFormat()
+        {
+            // Hide title bar
+            TitleBarVisible = false;
+
+            // Set no resize mode
+            mWindow.ResizeMode = ResizeMode.NoResize;
+
+            // Store current minimum values
+            mWindowMinimumHeight = WindowMinimumHeight;
+            mWindowMinimumWidth = WindowMinimumWidth;
+
+            // Set login scree dimensions as minimum values for now so the window can go smaller than defined
+            WindowMinimumHeight = LoginScreenHeight;
+            WindowMinimumWidth = LoginScreenWidth;
+
+            // Set current dimensions
+            mWindow.Height = LoginScreenHeight;
+            mWindow.Width = LoginScreenWidth;
+        }
+
+        /// <summary>
+        /// Disables small application format (used in login page)
+        /// </summary>
+        public void DisableSmallFormat()
+        {
+            // Show title bar
+            TitleBarVisible = true;
+
+            // Set resize mode
+            mWindow.ResizeMode = ResizeMode.CanResize;
+
+            // Restore minimum dimenstions
+            WindowMinimumHeight = mWindowMinimumHeight;
+            WindowMinimumWidth = mWindowMinimumWidth;
+
+            // Set current dimensions to the minimum dimensions
+            mWindow.Height = WindowMinimumHeight;
+            mWindow.Width = WindowMinimumWidth;
         }
 
         #endregion
