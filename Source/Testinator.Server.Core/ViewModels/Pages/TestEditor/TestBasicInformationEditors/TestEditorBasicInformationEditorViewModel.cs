@@ -94,11 +94,6 @@ namespace Testinator.Server.Core
         /// </summary>
         public ICommand ExitCommand { get; private set; }
 
-        /// <summary>
-        /// The command to come back to the previous page
-        /// </summary>
-        public ICommand ReturnCommand { get; private set; }
-
         #endregion
 
         #region Command Methods
@@ -209,7 +204,6 @@ namespace Testinator.Server.Core
         private void CreateCommands()
         {
             SubmitCommand = new RelayCommand(Submit);
-            ReturnCommand = new RelayCommand(() => IoCServer.TestEditor.GoPreviousPage());
             ExitCommand = new RelayCommand(() => IoCServer.TestEditor.Exit());
         }
 

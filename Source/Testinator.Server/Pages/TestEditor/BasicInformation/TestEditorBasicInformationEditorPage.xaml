@@ -11,151 +11,149 @@
                  d:DesignHeight="720"
                  d:DesignWidth="1024">
 
-    <local:UITitledTable Title="Podstawowe Informacje"
-                         Margin="30 50">
+    <Border Background="{StaticResource WhiteLightBrush}">
 
-        <Grid>
+        <local:UITitledTable Title="Podstawowe Informacje"
+                             Margin="30 50">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-
-            <TextBlock Text="{x:Static core:LocalizationResource.TestName}"
-                           Style="{StaticResource NewUITextBlockMedium}" 
-                           Grid.Row="0"/>
-
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource BigInputTextBox}"
-                            Tag="Krótka nazwa testu"
-                            Grid.Row="1"/>
-
-            <Grid Grid.Row="2">
+            <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width=".1*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width=".1*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width=".1*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Czas trwania"
-                               Style="{StaticResource NewUITextBlockMedium}"
-                               Grid.Row="0"
-                               Grid.ColumnSpan="10"/>
+                <TextBlock Text="{x:Static core:LocalizationResource.TestName}"
+                               Style="{StaticResource NewUITextBlockMedium}" 
+                               Grid.Row="0"/>
 
-                <TextBox Text="{Binding DurationHours, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource BigInputTextBox}"
+                                Tag="Krótka nazwa testu"
+                                Grid.Row="1"/>
+
+                <Grid Grid.Row="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Czas trwania"
+                                   Style="{StaticResource NewUITextBlockMedium}"
+                                   Grid.Row="0"
+                                   Grid.ColumnSpan="10"/>
+
+                    <TextBox Text="{Binding DurationHours, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource BigInputTextBox}"
+                                 Tag="HH"
+                                 HorizontalContentAlignment="Center"
+                                 Grid.Row="1" Grid.Column="0"
+                                 Margin="15"/>
+
+                    <TextBlock Text=":"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   FontFamily="{StaticResource FontMontserratBold}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Grid.Row="1" Grid.Column="1"/>
+
+                    <TextBox Text="{Binding DurationMinutes, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource BigInputTextBox}"
+                                 Tag="MM"
+                                 HorizontalContentAlignment="Center"
+                                 Grid.Row="1" Grid.Column="2"
+                                 Margin="15"/>
+
+                    <TextBlock Text=":"
+                                   FontSize="{StaticResource FontSizeLarge}"
+                                   FontFamily="{StaticResource FontMontserratBold}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Grid.Row="1" Grid.Column="3"/>
+
+                    <TextBox Text="{Binding DurationSeconds, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource BigInputTextBox}"
+                                 Tag="SS"
+                                 HorizontalContentAlignment="Center"
+                                 Grid.Row="1" Grid.Column="4"
+                                 Margin="15"/>
+
+                    <TextBlock Text="Tag:"
+                                Style="{StaticResource NewUITextBlockMedium}"
+                                Grid.Row="0"
+                                Grid.Column="6"/>
+
+                    <TextBox Text="{Binding Tags, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource BigInputTextBox}"
+                                 Tag="Np. C++"
+                                 HorizontalContentAlignment="Left"
+                                 Grid.Row="1" Grid.Column="6"
+                                 Margin="15"/>
+                </Grid>
+
+                <TextBlock Text="Notatka:"
+                                Style="{StaticResource NewUITextBlockMedium}"
+                                Grid.Row="3"/>
+
+                <TextBox Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource BigInputTextBox}"
-                             Tag="HH"
-                             HorizontalContentAlignment="Center"
-                             Grid.Row="1" Grid.Column="0"
-                             Margin="15"/>
-
-                <TextBlock Text=":"
-                               FontSize="{StaticResource FontSizeLarge}"
-                               FontFamily="{StaticResource FontMontserratBold}"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Grid.Row="1" Grid.Column="1"/>
-
-                <TextBox Text="{Binding DurationMinutes, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource BigInputTextBox}"
-                             Tag="MM"
-                             HorizontalContentAlignment="Center"
-                             Grid.Row="1" Grid.Column="2"
-                             Margin="15"/>
-
-                <TextBlock Text=":"
-                               FontSize="{StaticResource FontSizeLarge}"
-                               FontFamily="{StaticResource FontMontserratBold}"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Grid.Row="1" Grid.Column="3"/>
-
-                <TextBox Text="{Binding DurationSeconds, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource BigInputTextBox}"
-                             Tag="SS"
-                             HorizontalContentAlignment="Center"
-                             Grid.Row="1" Grid.Column="4"
-                             Margin="15"/>
-
-                <TextBlock Text="Tag:"
-                            Style="{StaticResource NewUITextBlockMedium}"
-                            Grid.Row="0"
-                            Grid.Column="6"/>
-
-                <TextBox Text="{Binding Tags, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource BigInputTextBox}"
-                             Tag="Np. C++"
+                             Tag="Zostania zapisana razem z testem..."
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
                              HorizontalContentAlignment="Left"
-                             Grid.Row="1" Grid.Column="6"
-                             Margin="15"/>
-            </Grid>
+                             VerticalContentAlignment="Top"
+                             VerticalScrollBarVisibility="Auto"
+                             Grid.Row="4"
+                             Height="100"/>
+                
+                <Grid Grid.Row="5">
 
-            <TextBlock Text="Notatka:"
-                            Style="{StaticResource NewUITextBlockMedium}"
-                            Grid.Row="3"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource BigInputTextBox}"
-                         Tag="Zostania zapisana razem z testem..."
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Top"
-                         VerticalScrollBarVisibility="Auto"
-                         Grid.Row="4"
-                         Height="100"/>
+                    <Button Content="Wróc"
+                            Command="{Binding ExitCommand}"
+                            Style="{StaticResource BlueButton}"
+                            HorizontalAlignment="Left" />
 
-            <TextBlock Text="{Binding ErrorMessage}"
-                           Style="{StaticResource QuestionTextBlockStyle}"
-                           Foreground="{StaticResource RedLightBrush}"
-                           Grid.Row="5"
-                           />
-            <Grid Grid.Row="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Style="{StaticResource QuestionTextBlockStyle}"
+                               Foreground="{StaticResource RedLightBrush}"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               />
 
-                <Button Grid.Column="0"
-                        Content="Wróc"
-                        Command="{Binding ReturnCommand}"
-                        Style="{StaticResource BaseUIButton}"
-                        HorizontalAlignment="Left" />
+                    <Button Grid.Column="2"
+                            Content="Dalej"
+                            Command="{Binding SubmitCommand}"
+                            Style="{StaticResource BlueButton}"
+                            HorizontalAlignment="Right" />
 
-                <Button Grid.Column="1"
-                        Content="Anuluj"
-                        Command="{Binding ExitCommand}"
-                        Style="{StaticResource BaseUIButton}"
-                        HorizontalAlignment="Center" />
+                </Grid>
 
-                <Button Grid.Column="2"
-                        Content="Dalej"
-                        Command="{Binding SubmitCommand}"
-                        Style="{StaticResource BaseUIButton}"
-                        HorizontalAlignment="Right" />
 
             </Grid>
 
-
-        </Grid>
-
-    </local:UITitledTable>
+        </local:UITitledTable>
+    </Border>
 
 </UICore:BasePage>

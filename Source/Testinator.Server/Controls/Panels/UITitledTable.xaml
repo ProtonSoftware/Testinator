@@ -30,7 +30,7 @@
                                                Style="{StaticResource NewUITextBlockMedium}" />
                                 </Border>
 
-                                <Border Background="{StaticResource WhiteLightBrush}"
+                                <Border Background="{StaticResource WhitePureBrush}"
                                         Grid.Row="1"
                                         Padding="30">
                                     <ContentPresenter Content="{TemplateBinding Content}" />

@@ -47,6 +47,13 @@
         
     </Style>
 
+    <Style TargetType="{x:Type Button}" x:Key="BlueButton" BasedOn="{StaticResource NewBaseButton}">
+
+        <Setter Property="Background" Value="{StaticResource BlueDarkBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource GreenSeaBrush}" />
+
+    </Style>
+
     <Style TargetType="{x:Type Button}" x:Key="GreenTileButton" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
