@@ -16,6 +16,17 @@
 
     </Style>
 
+    <Style x:Key="NewUITextBlockMedium" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
+        <Setter Property="Padding" Value="6" />
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource BlueDarkBrush}" />
+
+    </Style>
+
     <!-- Finalizing tile title -->
     <Style x:Key="FinalizingTileTitleTextBlock" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
 
@@ -100,10 +111,8 @@
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="Margin" Value="0 5 0 5" />
-        <Setter Property="BorderBrush" Value="{StaticResource BlackLightBrush}" />
-        <Setter Property="BorderThickness" Value="0 0 0 1" />
 
-        <Setter Property="Background" Value="{StaticResource WhiteLightBrush}" />
+        <Setter Property="Background" Value="{StaticResource GrayLightBrush}" />
         <Setter Property="Foreground" Value="{StaticResource BlackDarkBrush}" />
 
         <Setter Property="Template">
@@ -113,8 +122,6 @@
                     <Grid>
 
                         <Border x:Name="border" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="True">
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
@@ -143,18 +150,6 @@
                         </TextBlock>
 
                     </Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -170,7 +165,7 @@
 
         <Setter Property="VerticalAlignment" Value="Center" />
 
-        <Setter Property="Background" Value="{StaticResource WhiteLightBrush}" />
+        <Setter Property="Background" Value="{StaticResource GrayLightBrush}" />
         <Setter Property="Foreground" Value="{StaticResource BlackDarkBrush}" />
 
         <Setter Property="Template">
@@ -208,18 +203,6 @@
                         </TextBlock>
 
                     </Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

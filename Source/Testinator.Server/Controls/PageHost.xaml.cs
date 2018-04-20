@@ -79,7 +79,6 @@ namespace Testinator.Server
             Instance.ChangeFramePages(newPageFrame, oldPageFrame, targetPage, targetPageViewModel);
             
             // Return the value back to dependency property
-
             return value;
         }
 

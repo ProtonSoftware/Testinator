@@ -22,6 +22,7 @@
             </Grid.RowDefinitions>
 
             <Button Command="{Binding CreateNewTestCommand}"
+                    Margin="20"
                     Style="{StaticResource GreenTileButton}">
 
                 <StackPanel Orientation="Horizontal" 
@@ -35,16 +36,39 @@
                 </StackPanel>
 
             </Button>
-<!--
-            <Button Content="{x:Static core:LocalizationResource.EditManageTest}"
-                    Command="{Binding EditManageTestCommand}"
-                    Grid.Row="1"
-                    Style="{StaticResource GreenTileButton}" />
 
-            <Button Content="{x:Static core:LocalizationResource.CreateNewCriteria}"
-                    Command="{Binding CreateNewCriteriaCommand}"
+            <Button Command="{Binding EditManageTestCommand}"
+                    Margin="20"
+                    Grid.Row="1"
+                    Style="{StaticResource GreenTileButton}">
+                
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="{StaticResource FontAwesomeTestIcon}"
+                               Style="{StaticResource FontAwesomeIconText}" />
+                    <TextBlock Text="{x:Static core:LocalizationResource.EditManageTest}" />
+
+                </StackPanel>
+                
+            </Button>
+
+            <Button Command="{Binding CreateNewCriteriaCommand}"
+                    Margin="20"
                     Grid.Row="2"
-                    Style="{StaticResource GreenTileButton}" />-->
+                    Style="{StaticResource GreenTileButton}">
+                
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center"
+                            FlowDirection="RightToLeft">
+
+                    <TextBlock Text="{StaticResource FontAwesomeTestIcon}"
+                               Style="{StaticResource FontAwesomeIconText}" />
+                    <TextBlock Text="{x:Static core:LocalizationResource.CreateNewCriteria}" />
+
+                </StackPanel>
+                
+            </Button>
 
         </Grid>
         

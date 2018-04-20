@@ -14,10 +14,7 @@ namespace Testinator.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="subjects"></param>
         /// <returns>False if all items in the list are unique, otherwise true</returns>
-        public static bool HasDuplicates<T>(this IEnumerable<T> subjects)
-        {
-            return HasDuplicates(subjects, EqualityComparer<T>.Default);
-        }
+        public static bool HasDuplicates<T>(this IEnumerable<T> subjects) => HasDuplicates(subjects, EqualityComparer<T>.Default);
 
         /// <summary>
         /// Checks if the list contains any duplicates using comparer
