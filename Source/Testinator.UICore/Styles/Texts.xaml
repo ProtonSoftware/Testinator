@@ -18,7 +18,7 @@
 
     <Style x:Key="NewUITextBlockMedium" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
 
-        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
         <Setter Property="Padding" Value="6" />
 
@@ -107,7 +107,7 @@
 
     <Style x:Key="BigInputTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 
-        <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="Margin" Value="0 5 0 5" />

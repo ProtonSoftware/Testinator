@@ -74,7 +74,9 @@
                             Background="{TemplateBinding Background}"
                             Style="{StaticResource DropShadowBorder}">
 
-                        <ContentPresenter Content="{TemplateBinding Content}" />
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
 
                     </Border>
                 </ControlTemplate>

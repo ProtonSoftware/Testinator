@@ -36,8 +36,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                  Background="#4CA194">
+            <Grid Background="{StaticResource GreenSeaBrush}">
                 <TextBlock Text="{Binding TestEditor.CurrentTestName, Source={x:Static local:ViewModelLocator.Instance}}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"/>
@@ -64,17 +63,17 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Content="Powrót"
-                        Background="{StaticResource GreenSeaBrush}"
-                        Foreground="{StaticResource WhitePureBrush}"
-                        BorderThickness="0"
+                        Margin="0"
+                        Padding="5"
+                        Style="{StaticResource GreenTileButton}"
                         Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UICore:BasePage}}, Path=DataContext.GoPreviousPageCommand}"
                         />
 
                 <Button Content="Rozwiń"
+                        Margin="0"
+                        Padding="5"
                         Grid.Column="2"
-                        Background="{StaticResource GreenSeaBrush}"
-                        Foreground="{StaticResource WhitePureBrush}"
-                        BorderThickness="0"
+                        Style="{StaticResource GreenTileButton}"
                         />
             </Grid>
         </Grid>

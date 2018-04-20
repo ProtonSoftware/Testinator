@@ -238,7 +238,7 @@
             <TextBox Text="{Binding PointScore, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource TestEditorInputField}" 
                      Height="35"
-                     Tag="9 9 9 p."
+                     Tag="999 p."
                      Margin="0 10 0 0"
                      VerticalAlignment="Top"
                      VerticalContentAlignment="Center"
