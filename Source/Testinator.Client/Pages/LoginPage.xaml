@@ -10,7 +10,7 @@
                  xmlns:Animations="clr-namespace:Testinator.AnimationFramework;assembly=Testinator.AnimationFramework"
                  mc:Ignorable="d"
                  d:DesignHeight="500" d:DesignWidth="750">
-    
+
     <Grid Background="#e6e6e6">
 
         <Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
                 <!-- Quote author-->
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
+
             <!-- Image -->
             <Image Source="/Assets/Images/LoginScreenBanner.jpg"
                    Stretch="None" 
@@ -53,7 +53,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Margin="0 10 0 0">
-                
+
                 <TextBlock Text="Testy kiedyś..."
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
@@ -87,8 +87,14 @@
                        HorizontalAlignment="Right"
                        Style="{StaticResource QuoteText}"
                        FontFamily="{StaticResource RobotoThin}"
+                       Cursor="Hand"
                        FontSize="15"
-                       Margin="0 6 15 6"/>
+                       TextDecorations="Underline"
+                       Margin="0 6 15 7">
+                <TextBlock.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding QuoteAuthorClickedCommand}" />
+                </TextBlock.InputBindings>
+            </TextBlock>
 
         </Grid>
 
@@ -96,13 +102,146 @@
         <Grid Grid.Column="1">
 
             <Grid.RowDefinitions>
-                <!-- Label -->
+                <!-- Label and cog-->
                 <RowDefinition Height="Auto"/>
+                <!-- Label with text -->
+                <RowDefinition Height=".2*"/>
                 <!-- Login form -->
                 <RowDefinition Height="*"/>
                 <!-- Website link -->
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+
+            <!-- Connection settings menu -->
+            <Border Background="#e6e6e6"
+                    Grid.RowSpan="3"
+                    Height="250"
+                    Width="250"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Panel.ZIndex="2"
+                    Animations:AnimateSlideInFromTopProperty.Value="{Binding IsSettingsMenuOpened}">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+
+                        <!-- Title -->
+                        <RowDefinition Height="*"/>
+                        <!-- Ip -->
+                        <RowDefinition Height="*"/>
+                        <!-- Port -->
+                        <RowDefinition Height="*"/>
+                        <!-- Error message -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Buttons -->
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+
+                        <!-- Input fields -->
+                        <ColumnDefinition Width="3*"/>
+                        <!-- Default button -->
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Ustawienia połączenia"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                    <!-- Ip -->
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Margin="10 0">
+
+                        <TextBlock Text="Ip"
+                                   Style="{StaticResource LoginScreenTextBoxLabel}"/>
+                        <TextBox Tag="192.168.1.1"
+                                 Text="{Binding ServerIP, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource LoginScreenTextBox}"/>
+                    </StackPanel>
+
+
+                    <!-- Port -->
+                    <StackPanel Grid.Row="2"
+                                VerticalAlignment="Center"
+                                Margin="10 0">
+
+                        <TextBlock Text="Port"
+                                   Style="{StaticResource LoginScreenTextBoxLabel}"/>
+                        <TextBox Tag="3333"
+                                 Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource LoginScreenTextBox}"/>
+                    </StackPanel>
+
+                    <!-- Default settings button -->
+                    <Button Grid.Row="1" Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Height="35"
+                            Focusable="False"
+                            Command="{Binding SettingsMenuLoadDefaultValuesCommand}"
+                            Style="{StaticResource IconGrowButton}"
+                            Content="{StaticResource FontAwesomeRedoAltIcon}"
+                            VerticalAlignment="Center" Margin="0 45 0 0" Width="34"/>
+
+                    <!-- Error message -->
+                    <TextBlock Text="Nieprawidłowe wartości"
+                               Grid.Row="3"
+                               Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding IpOrPortError}"
+                               Style="{StaticResource QuestionTextBlockStyle}" 
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource RedLightBrush}"
+                               FontSize="{StaticResource FontSizeSmall}"
+                               TextWrapping="Wrap"/>
+
+                    <!-- Buttons -->
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2"
+                          Grid.Row="4">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Submit -->
+                        <Button Grid.Column="0"
+                                Height="60"
+                                Command="{Binding SettingsMenuSubmitCommand}"
+                                IsDefault="{Binding IsSettingsMenuOpened}"
+                                Style="{StaticResource IconGrowButton}"
+                                Content="{StaticResource FontAwesomeCheckIcon}"
+                                VerticalAlignment="Center"/>
+
+                        <!-- Cancel -->
+                        <Button Grid.Column="2"
+                                Height="60"
+                                Command="{Binding SettingsMenuCancelCommand}"
+                                Style="{StaticResource IconGrowButton}"
+                                Content="{StaticResource FontAwesomeXIcon}"
+                                Foreground="{StaticResource RedLightBrush}"
+                                VerticalAlignment="Center"/>
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Dark overlay, visible when connection menu is opened or connection is running -->
+            <Border Grid.RowSpan="4"
+                    Panel.ZIndex="1"
+                    Animations:AnimateFadeInProperty.Value="{Binding OverlayVisible}">
+                <Border.Background>
+                    <SolidColorBrush Color="{StaticResource BlackPure}"
+                                     Opacity=".2"
+                                     />
+                </Border.Background>
+
+            </Border>
 
             <!-- Label right part -->
             <Border Grid.Row="0"
@@ -119,21 +258,32 @@
                            FontFamily="{StaticResource RobotoLight}"
                            Foreground="{StaticResource WhitePureBrush}"
                            FontSize="17"/>
-                
+
             </Border>
 
             <!-- Settings button -->
             <Button Content="{StaticResource FontAwesomeCogsIcon}"
+                    Command="{Binding SettingsMenuExpandCommand}"
                     HorizontalAlignment="Right"
-                    Height="40"
+                    Height="25"
                     VerticalAlignment="Center"
                     Foreground="{StaticResource GreenSeaBrush}"
                     Padding="5"
-                    Margin="0 0 5 0"
-                    Style="{StaticResource IconGrowButton}" />
-            
+                    Focusable="False"
+                    Margin="0 0 15 0"
+                    Style="{StaticResource IconGrowButton}"
+                    Panel.ZIndex="2"/>
+
+            <!-- Welcome label -->
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="{StaticResource RobotoThin}"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Text="Witaj, uzupełnij dane i kliknij połącz" />
+
             <!-- Login form -->
-            <Border Grid.Row="1"
+            <Border Grid.Row="2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="250"
@@ -172,7 +322,7 @@
                                  Style="{StaticResource LoginScreenTextBox}"/>
                     </StackPanel>
 
-                    <!-- Error if input values are not valid -->
+                    <!-- Error message -->
                     <TextBlock Text="{Binding ErrorMessage}"
                                Grid.Row="2"
                                VerticalAlignment="Center"
@@ -184,7 +334,7 @@
                     <!-- Connect button -->
                     <Button Grid.Row="3"
                             Command="{Binding TryConnectingCommand}"
-                            IsDefault="True"
+                            IsDefault="{Binding IsSettingsMenuOpened, Converter={local:BooleanInvertConverter}}"
                             Style="{StaticResource LoginScreenButton}"
                             VerticalAlignment="Center"
                             Content="Połącz"/>
@@ -193,10 +343,11 @@
 
             </Border>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal"
+            <!-- Website link -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                
-            <TextBlock Text="Dowiedz się więcej na naszej "
+
+                <TextBlock Text="Dowiedz się więcej na naszej "
                        
                        Foreground="#808080"
                        Margin="0 0 0 10"
@@ -213,129 +364,79 @@
                     </TextBlock.InputBindings>
                 </TextBlock>
             </StackPanel>
-        </Grid>
 
+            <!-- Connecting screen -->
+            <Border Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Height="300"
+                    Width="400"
+                    Panel.ZIndex="2"
+                    Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding ConnectingIsRunning}">
+                <Border.Background>
+                    <SolidColorBrush Color="#e6e6e6" Opacity=".85"/>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="{StaticResource BlackPure}" Opacity=".2" ShadowDepth="3"/>
+                </Border.Effect>
 
-        
-        
-        
-        
-        <!-- OLD STUFF, Left for copy-paste -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!-- Title -->
+                        <RowDefinition Height="75"/>
+                        <!-- Spinner -->
+                        <RowDefinition Height="*"/>
+                        <!-- Attempts -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Cancel -->
+                        <RowDefinition Height="75"/>
+                    </Grid.RowDefinitions>
 
+                    <!-- Title -->
+                    <TextBlock Grid.Row="0"
+                               Text="Łączenie..."
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="{StaticResource RobotoRegular}"
+                               FontSize="{StaticResource FontSizeLarge}"/>
 
-        <!-- Settings bubble (IP, Port changes) -->
-        <Border VerticalAlignment="Center"
-                HorizontalAlignment="Right"
-                Background="{StaticResource WhiteDarkBrush}"
-                CornerRadius="3"
-                Padding="10"
-                Grid.Column="0"
-                Margin="50"
-                Panel.ZIndex="-1"
-                Animations:AnimateWidthProperty.Value="{Binding IsSettingsMenuOpened}"
-                Visibility="Collapsed">
-            
-            <Grid Visibility="Collapsed">
-                
-                <Grid.RowDefinitions>
-                    
-                    <!-- Buttons row -->
-                    <RowDefinition Height="Auto" />
-                    <!-- Menu content row -->
-                    <RowDefinition Height="*" />
-                    
-                </Grid.RowDefinitions>
-                
-                <!-- Settings cog button (expands the menu) -->
-                <Button Content="{StaticResource FontAwesomeCogIcon}"
-                        Command="{Binding SettingsMenuExpandCommand}"
-                        Style="{StaticResource BaseUIButton}"
-                        FontFamily="{StaticResource FontAwesome}"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Panel.ZIndex="2"
-                        Margin="5"
-                        Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}" />
-
-                <!-- Settings close button (hides the menu) -->
-                <Button Content="{StaticResource FontAwesomeXIcon}"
-                        Command="{Binding SettingsMenuHideCommand}"
-                        Style="{StaticResource BaseUIButton}"
-                        FontFamily="{StaticResource FontAwesome}"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Panel.ZIndex="2"
-                        Margin="5"
-                        Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}" />
-
-                <StackPanel Grid.Row="1"
-                            Animations:AnimateSlideAndFadeInFromTopProperty.Value="{Binding IsSettingsMenuOpened}"
-                            Visibility="{Binding IsSettingsMenuOpened, Converter={local:BooleanToVisiblityConverter}}">
-                    
-                    <TextBlock Text="IP"
-                               FontFamily="{StaticResource FontMontserratBold}" />
-                    
-                    <TextBox Text="{Binding ServerIP, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SmallInputTextBox}" />
-                    
-                    <TextBlock Text="Port" 
-                               FontFamily="{StaticResource FontMontserratBold}" />
-
-                    <TextBox Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"
-                             local:IntegerOnlyTextBoxProperty.Value="True"
-                             Style="{StaticResource SmallInputTextBox}" />
-                    
-                </StackPanel>
-                
-            </Grid>
-            
-        </Border>
-
-        <!-- Main container -->
-        <Border VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Background="{StaticResource WhiteDarkBrush}"
-                Padding="50"
-                Grid.Column="0"
-                CornerRadius="3"
-                TextBlock.TextAlignment="Center" Margin="50,58"
-                Visibility="Hidden">
-            <Grid>
-
-                <!-- Trying to connect content -->
-                <StackPanel Visibility="{Binding ConnectingIsRunning, FallbackValue=False, 
-                                                                      Converter={local:BooleanToVisiblityConverter}}">
-
-                    <TextBlock Text="{x:Static core:LocalizationResource.WaitingForConnection}"
-                               Style="{StaticResource TitleText}"
-                               Foreground="{StaticResource BlackDarkBrush}"
-                               Margin="15" />
-
+                    <!-- Spinner -->
                     <TextBlock Style="{StaticResource SpinningText}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
                                FontSize="{StaticResource FontSizeTitleLarge}"
-                               Margin="0 20" />
+                               Grid.Row="1"/>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 20" HorizontalAlignment="Center">
-                        <TextBlock Style="{StaticResource TitleText}"
+                    <!-- Attempts -->
+                    <StackPanel Orientation="Horizontal" 
+                                Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom">
+                        <TextBlock 
+                                   FontFamily="{StaticResource RobotoRegular}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    Text="{x:Static core:LocalizationResource.TrySemicolon}"/>
-                        <TextBlock Style="{StaticResource TitleText}"
+                        <TextBlock 
+                                   FontFamily="{StaticResource RobotoRegular}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    Text="{Binding Attempts}"/>
                     </StackPanel>
 
+
+                    <!-- Cancel button -->
                     <Button Content="{Binding CancelText}"
-                            Style="{StaticResource BaseUIButton}"
+                            Grid.Row="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="150"
+                            Style="{StaticResource LoginScreenButton}"
                             Command="{Binding StopConnectingCommand}"
-                            Margin="15"
                             IsEnabled="{Binding IsCancelling, Converter={local:BooleanInvertConverter}}">
                     </Button>
 
-                </StackPanel>
+                </Grid>
 
-            </Grid>
-        </Border>
-
+            </Border>
+        </Grid>
     </Grid>
-    
+
 </UICore:BasePage>

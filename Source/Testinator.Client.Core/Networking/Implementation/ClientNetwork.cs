@@ -174,13 +174,12 @@ namespace Testinator.Client.Core
             // Get directory in appdata
             var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//Testinator//";
 
-            // Prepare IP to return
             var ip = default(IPAddress);
             var port = 0;
 
             try
             {
-                // Try to read IP from file
+                // Try to read data from file
                 var fileContent = File.ReadAllText(directory + "ipconfig.txt").Trim();
                 var separatorIndex = fileContent.IndexOf(';');
 
