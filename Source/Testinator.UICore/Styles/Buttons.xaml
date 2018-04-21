@@ -257,7 +257,7 @@
     <Style x:Key="IconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource WhiteDarkBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource GreenSeaBrush}" />
 
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="BorderThickness" Value="0" />
@@ -282,6 +282,7 @@
                             <Viewbox>
                                 <TextBlock Text="{TemplateBinding Content}"
                                        Focusable="False" 
+                                       Foreground="{TemplateBinding Foreground}"
                                        FontFamily="{TemplateBinding FontFamily}"
                                        FontSize="{TemplateBinding FontSize}"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
@@ -320,6 +321,7 @@
                             <Viewbox>
                                 <TextBlock Text="{TemplateBinding Content}" 
                                        Focusable="False" 
+                                       Foreground="{TemplateBinding Foreground}"
                                        FontFamily="{TemplateBinding FontFamily}"
                                        FontSize="{TemplateBinding FontSize}"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
