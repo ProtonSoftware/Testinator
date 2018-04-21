@@ -47,6 +47,8 @@
     <system:Double x:Key="FontSizeXXLarge">32</system:Double>
     <system:Double x:Key="FontSizeTitleLarge">38</system:Double>
 
+    <!-- Naming: use the same names as in the cheatsheet -->
+    
     <system:String x:Key="FontAwesomeHamburgerMenuIcon">&#xf0c9;</system:String>
     <system:String x:Key="FontAwesomeTestIcon">&#xf15c;</system:String>
     <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
@@ -72,5 +74,6 @@
     <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf0a8;</system:String>
     <system:String x:Key="FontAwesomeRedoAltIcon">&#xf01e;</system:String>
     <system:String x:Key="FontAwesomeCheckIcon">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeSignOutIcon">&#xf2f5;</system:String> 
 
 </ResourceDictionary>
