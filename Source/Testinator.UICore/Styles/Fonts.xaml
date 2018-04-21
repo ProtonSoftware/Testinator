@@ -68,7 +68,7 @@
     <system:String x:Key="FontAwesomeEditIcon">&#xf044;</system:String>
     <system:String x:Key="FontAwesomePercentIcon">&#xf295;</system:String>
     <system:String x:Key="FontAwesomeMinusIcon">&#xf056;</system:String>
-    <system:String x:Key="FontAwesomeArrowRightIcon">&#xf35a;</system:String>
-    <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf359;</system:String>
+    <system:String x:Key="FontAwesomeArrowRightIcon">&#xf0a9;</system:String>
+    <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf0a8;</system:String>
 
 </ResourceDictionary>

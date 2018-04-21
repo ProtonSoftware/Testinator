@@ -28,7 +28,7 @@ namespace Testinator.Client.Core
         /// Fired when main application is closing, so some operation may trigger this event 
         /// and prepare for closing
         /// </summary>
-        public event Action Closing = () => { };
+        public event Action OnAppClosing = () => { };
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Testinator.Client.Core
         /// </summary>
         public void Close()
         {
-            Closing.Invoke();
+            OnAppClosing.Invoke();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Testinator.Client.Core
                 IoCClient.UI.EnableLoginScreenView();
 
             // NOTE: As the only page that can come after login page is waiting for test page we can do it like that
-            //       If it was only 'else' here it would cause usless calls to UIManager to disable login screen view 
+            //       If there was only 'else' here it would cause useless calls to UIManager to disable login screen view 
             //       that has already been disabled
             else if (newPage == ApplicationPage.WaitingForTest)
                 IoCClient.UI.DisableLoginScreenView();

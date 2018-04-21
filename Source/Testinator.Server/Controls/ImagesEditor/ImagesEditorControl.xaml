@@ -32,14 +32,18 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <Button Content="Dodaj obrazek"
-                Grid.Column="1"
-                Style="{StaticResource BaseUIButton}"
+        <Button Grid.Column="1"
+                Style="{StaticResource NewBaseButton}"
                 Margin="3"
                 Padding="5"
                 VerticalAlignment="Center"
                 Command="{Binding AddImageCommand}"
-                IsEnabled="{Binding CanAddImages}"
-                />
+                IsEnabled="{Binding CanAddImages}">
+
+            <local:TextWithIcon Content="Dodaj obrazek"
+                                Icon="{StaticResource FontAwesomeMinusIcon}"
+                                ForegroundColor="{StaticResource BlueDarkBrush}" />
+
+        </Button>
     </Grid>
 </UserControl>

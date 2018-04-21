@@ -31,13 +31,7 @@ namespace Testinator.Core
         /// NOTE: override this method to cumstumize finalizing procedure
         /// </summary>
         /// <returns>The object tha was created using this builder</returns>
-        public virtual T GetResult()
-        {
-            if (IsReady())
-                return CreatedObject;
-
-            return null;
-        }
+        public virtual T GetResult() => IsReady() ? CreatedObject : null;
 
         #endregion
     }

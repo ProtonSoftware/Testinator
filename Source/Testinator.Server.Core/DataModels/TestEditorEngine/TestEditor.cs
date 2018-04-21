@@ -106,10 +106,7 @@ namespace Testinator.Server.Core
         /// <summary>
         /// Fires the question update event to update the view
         /// </summary>
-        public void UpdateQuestion()
-        {
-            QuestionsChanged.Invoke();
-        }
+        public void UpdateQuestion() => QuestionsChanged.Invoke();
 
         /// <summary>
         /// Initializes editor to create a new test

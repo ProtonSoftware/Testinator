@@ -20,18 +20,23 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
+                                    <RowDefinition Height="1" />
                                     <RowDefinition Height="6*" />
                                 </Grid.RowDefinitions>
 
                                 <Border Background="{StaticResource WhiteDarkBrush}"
                                         Padding="10">
-                                    <TextBlock Text="{Binding Path=Title, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                               VerticalAlignment="Center"
-                                               Style="{StaticResource NewUITextBlockMedium}" />
+                                    <local:TextWithIcon Content="{Binding Path=Title, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                        Icon="{StaticResource FontAwesomeInfoCircle}"
+                                                        ForegroundColor="{StaticResource BlueDarkBrush}"
+                                                        />
                                 </Border>
 
+                                <Border Background="{StaticResource BlackPureBrush}"
+                                        Grid.Row="1" />
+
                                 <Border Background="{StaticResource WhitePureBrush}"
-                                        Grid.Row="1"
+                                        Grid.Row="2"
                                         Padding="30">
                                     <ContentPresenter Content="{TemplateBinding Content}" />
                                 </Border>

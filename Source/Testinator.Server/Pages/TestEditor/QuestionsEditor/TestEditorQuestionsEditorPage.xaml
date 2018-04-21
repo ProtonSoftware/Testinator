@@ -91,7 +91,7 @@
                     Style="{StaticResource GreenTileButton}" />
 
             <Button Grid.Row="0" Grid.Column="1"
-                    Background="#4CA194"
+                    Background="{StaticResource GreenSeaBrush}"
                     Margin="5"
                     Command="{Binding SelectQuestionTypeCommand}"
                     CommandParameter="{x:Static core:QuestionType.MultipleCheckboxes}"
@@ -258,11 +258,17 @@
                         Command="{Binding CancelCommand}"
                         Grid.Column="1"
                         />
-                
-                <Button Content="Koniec pytań" 
-                        Grid.Column="2"
-                        Style="{StaticResource BlueButton}"
-                        Command="{Binding GoNextPhaseCommand}"/>
+
+                <Button Grid.Column="2"
+                        Style="{StaticResource NewBaseButton}"
+                        Background="{StaticResource BlueDarkBrush}"
+                        Command="{Binding GoNextPhaseCommand}">
+
+                    <local:TextWithIcon Content="Koniec pytań"
+                                        Icon="{StaticResource FontAwesomeArrowRightIcon}"
+                                        ForegroundColor="{StaticResource GreenSeaBrush}" />
+
+                </Button>
             </Grid>
 
         </Grid>

@@ -17,8 +17,8 @@
         <Setter Property="Background" Value="{StaticResource WhitePureBrush}" />
         <Setter Property="Foreground" Value="{StaticResource BlueDarkBrush}" />
 
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="Padding" Value="4" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -29,10 +29,8 @@
                             Background="{TemplateBinding Background}"
                             Style="{StaticResource DropShadowBorder}">
 
-                        <TextBlock VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center"
-                                   FontFamily="{TemplateBinding FontFamily}" 
-                                   Text="{TemplateBinding Content}" />
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          VerticalAlignment="Center" />
 
                     </Border>
                 </ControlTemplate>
@@ -44,16 +42,9 @@
                 <Setter Property="Background" Value="{StaticResource BlackLightBrush}"/>
             </Trigger>
         </Style.Triggers>
-        
-    </Style>
-
-    <Style TargetType="{x:Type Button}" x:Key="BlueButton" BasedOn="{StaticResource NewBaseButton}">
-
-        <Setter Property="Background" Value="{StaticResource BlueDarkBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource GreenSeaBrush}" />
 
     </Style>
-    
+
     <Style TargetType="{x:Type Button}" x:Key="GreenTileButton" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontFamily" Value="{StaticResource FontMontserratRegular}" />
@@ -75,7 +66,6 @@
                             Style="{StaticResource DropShadowBorder}">
 
                         <ContentPresenter Content="{TemplateBinding Content}"
-                                          HorizontalAlignment="Center"
                                           VerticalAlignment="Center" />
 
                     </Border>
