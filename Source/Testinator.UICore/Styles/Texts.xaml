@@ -70,7 +70,7 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="4" />
         <Setter Property="Margin" Value="2" />
 
         <Setter Property="Background" Value="Transparent" />
@@ -144,7 +144,7 @@
                                    FontFamily="{StaticResource FontMontserratThin}"
                                    Padding="{TemplateBinding Padding}"
                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                   VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                    Foreground="{StaticResource BlackLightBrush}"
                                    >
                             <TextBlock.Style>

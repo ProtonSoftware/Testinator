@@ -26,12 +26,16 @@
                     Style="{StaticResource GreenTileButton}">
 
                 <StackPanel Orientation="Horizontal" 
-                            VerticalAlignment="Center"
                             FlowDirection="RightToLeft">
 
                     <TextBlock Text="{StaticResource FontAwesomeTestIcon}"
+                               Margin="30 0"
                                Style="{StaticResource FontAwesomeIconText}" />
-                    <TextBlock Text="{x:Static core:LocalizationResource.CreateNewTest}" />
+                    <TextBlock Text="{x:Static core:LocalizationResource.CreateNewTest}"
+                               Foreground="{StaticResource WhitePureBrush}"
+                               FontSize="{StaticResource FontSizeXXLarge}"
+                               Margin="30 0"
+                               Style="{StaticResource MediumTitleText}" />
 
                 </StackPanel>
 
@@ -42,12 +46,16 @@
                     Grid.Row="1"
                     Style="{StaticResource GreenTileButton}">
                 
-                <StackPanel Orientation="Horizontal" 
-                            VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
 
                     <TextBlock Text="{StaticResource FontAwesomeTestIcon}"
+                               Margin="30 0"
                                Style="{StaticResource FontAwesomeIconText}" />
-                    <TextBlock Text="{x:Static core:LocalizationResource.EditManageTest}" />
+                    <TextBlock Text="{x:Static core:LocalizationResource.EditManageTest}"
+                               Foreground="{StaticResource WhitePureBrush}"
+                               FontSize="{StaticResource FontSizeXXLarge}"
+                               Margin="30 0"
+                               Style="{StaticResource MediumTitleText}" />
 
                 </StackPanel>
                 
@@ -59,12 +67,16 @@
                     Style="{StaticResource GreenTileButton}">
                 
                 <StackPanel Orientation="Horizontal" 
-                            VerticalAlignment="Center"
                             FlowDirection="RightToLeft">
 
                     <TextBlock Text="{StaticResource FontAwesomeTestIcon}"
+                               Margin="30 0"
                                Style="{StaticResource FontAwesomeIconText}" />
-                    <TextBlock Text="{x:Static core:LocalizationResource.CreateNewCriteria}" />
+                    <TextBlock Text="{x:Static core:LocalizationResource.CreateNewCriteria}"
+                               Foreground="{StaticResource WhitePureBrush}"
+                               FontSize="{StaticResource FontSizeXXLarge}"
+                               Margin="30 0"
+                               Style="{StaticResource MediumTitleText}" />
 
                 </StackPanel>
                 

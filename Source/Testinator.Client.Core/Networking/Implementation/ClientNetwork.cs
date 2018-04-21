@@ -57,7 +57,7 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Overridden Methods
+        #region Override Methods
 
         /// <summary>
         /// Fired when connection gets stoped
@@ -126,7 +126,7 @@ namespace Testinator.Client.Core
             {
                 IoCClient.UI.DispatcherThreadAction(() => IoCClient.Application.GoToPage(ApplicationPage.WaitingForTest));
             }
-            else
+            //else
                 // Notify the test host
                 //IoCClient.TestHost.NetworkReconnected();
             
@@ -164,7 +164,7 @@ namespace Testinator.Client.Core
 
         #endregion
 
-        #region Config File Reading/Wiritng
+        #region Config File Reading/Writing
 
         /// <summary>
         /// Initializes this client using config file, if config doesn't exist or is invalid default values are used

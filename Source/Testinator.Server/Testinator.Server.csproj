@@ -129,13 +129,13 @@
     <Compile Include="Controls\Lists\ResultsList\ResultsListItemControl.xaml.cs">
       <DependentUpon>ResultsListItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Menu\ImagesEditor\ImagesEditorControl.xaml.cs">
+    <Compile Include="Controls\ImagesEditor\ImagesEditorControl.xaml.cs">
       <DependentUpon>ImagesEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Menu\ImagesEditor\ImagesEditorItemControl.xaml.cs">
+    <Compile Include="Controls\ImagesEditor\ImagesEditorItemControl.xaml.cs">
       <DependentUpon>ImagesEditorItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Menu\ImagesEditor\ImagesEditorPreview.xaml.cs">
+    <Compile Include="Controls\ImagesEditor\ImagesEditorPreview.xaml.cs">
       <DependentUpon>ImagesEditorPreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Menu\MenuListControl.xaml.cs">
@@ -146,6 +146,9 @@
     </Compile>
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Panels\TextWithIcon.xaml.cs">
+      <DependentUpon>TextWithIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Panels\UITitledTable.xaml.cs">
       <DependentUpon>UITitledTable.xaml</DependentUpon>
@@ -323,15 +326,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Menu\ImagesEditor\ImagesEditorControl.xaml">
+    <Page Include="Controls\ImagesEditor\ImagesEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Menu\ImagesEditor\ImagesEditorItemControl.xaml">
+    <Page Include="Controls\ImagesEditor\ImagesEditorItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Menu\ImagesEditor\ImagesEditorPreview.xaml">
+    <Page Include="Controls\ImagesEditor\ImagesEditorPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -344,6 +347,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PageHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Panels\TextWithIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

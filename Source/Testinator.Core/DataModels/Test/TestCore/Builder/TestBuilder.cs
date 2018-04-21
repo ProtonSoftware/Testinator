@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Testinator.Core;
 
 namespace Testinator.Core
 {
@@ -302,22 +301,20 @@ namespace Testinator.Core
 
         #endregion
 
-        #region Private Overridden Methods
+        #region Private Override Methods
 
         /// <summary>
         /// Checks if the test is ready to be returned
         /// </summary>
         /// <returns>True if the test is ready; otherwise, false</returns>
-        protected override bool IsReady()
-        {
-            return (!string.IsNullOrEmpty(CreatedObject.Info.Name)) &&
+        protected override bool IsReady() => 
+                   (!string.IsNullOrEmpty(CreatedObject.Info.Name)) &&
 
                    (CreatedObject.Info.Duration != null && IsDurationInRange(CreatedObject.Info.Duration)) &&
 
                    (CreatedObject.Questions != null && CreatedObject.Questions.Count >= MinimumQuestionsCount && CreatedObject.Questions.Count <= MaximumQuestionsCount) &&
 
                    (CreatedObject.Grading != null && CreatedObject.Grading.GetMaxScore() == CreatedObject.TotalPointScore);
-        }
 
         #endregion
 

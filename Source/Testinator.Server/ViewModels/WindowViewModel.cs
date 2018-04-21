@@ -39,7 +39,7 @@ namespace Testinator.Server
         /// <summary>
         /// The smallest width the window can go to
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 800;
+        public double WindowMinimumWidth { get; set; } = 1024;
 
         /// <summary>
         /// The smallest height the window can go to
