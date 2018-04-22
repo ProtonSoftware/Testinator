@@ -65,14 +65,16 @@
     <system:String x:Key="FontAwesomeAngleDoubleLeftIcon">&#xf100;</system:String>
     <system:String x:Key="FontAwesomeAngleDoubleRightIcon">&#xf101;</system:String>
     <system:String x:Key="FontAwesomeCheckBoxIcon">&#xf14a;</system:String>
+    <system:String x:Key="FontAwesomeCheckCircleIcon">&#xf058;</system:String> 
     <system:String x:Key="FontAwesomeKeyboardIcon">&#xf11c;</system:String>
     <system:String x:Key="FontAwesomeFileIcon">&#xf15b;</system:String>
     <system:String x:Key="FontAwesomeEditIcon">&#xf044;</system:String>
     <system:String x:Key="FontAwesomePercentIcon">&#xf295;</system:String>
     <system:String x:Key="FontAwesomeMinusIcon">&#xf056;</system:String>
+    <system:String x:Key="FontAwesomePlusIcon">&#xf055;</system:String> 
     <system:String x:Key="FontAwesomeArrowRightIcon">&#xf0a9;</system:String>
     <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf0a8;</system:String>
     <system:String x:Key="FontAwesomeRedoAltIcon">&#xf01e;</system:String>
-    <system:String x:Key="FontAwesomeCheckIcon">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeCheckIcon">&#xf00c;</system:String> 
 
 </ResourceDictionary>

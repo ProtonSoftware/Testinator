@@ -88,11 +88,11 @@ namespace Testinator.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to + Add Answer.
+        ///   Looks up a localized string similar to Add answer.
         /// </summary>
-        public static string AddAnswerButton {
+        public static string AddAnswer {
             get {
-                return ResourceManager.GetString("AddAnswerButton", resourceCulture);
+                return ResourceManager.GetString("AddAnswer", resourceCulture);
             }
         }
         

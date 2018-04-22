@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAnswerButton" xml:space="preserve">
-    <value>+ Add Answer</value>
+  <data name="AddAnswer" xml:space="preserve">
+    <value>Add answer</value>
   </data>
   <data name="AddMultipleCheckboxesQuestionIntroduction" xml:space="preserve">
     <value>Write the question task and every answer and check which of them are right.</value>

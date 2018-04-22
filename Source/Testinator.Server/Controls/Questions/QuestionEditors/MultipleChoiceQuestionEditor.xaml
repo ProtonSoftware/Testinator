@@ -217,21 +217,31 @@
                         Grid.Row="2"
                         VerticalAlignment="Bottom">
 
-            <Button Content="{x:Static core:LocalizationResource.AddAnswerButton}"
-                    Command="{Binding AddAnswerCommand}"
-                    Style="{StaticResource BaseUIButton}"
+            <Button Command="{Binding AddAnswerCommand}"
+                    Style="{StaticResource NewBaseButton}"
                     IsEnabled="{Binding CanAddOptions}"
                     VerticalAlignment="Top"
-                    HorizontalAlignment="Left"/>
+                    HorizontalAlignment="Left">
 
-            <Button Content="Remove Answer"
-                        Command="{Binding RemoveAnswerCommand}"
-                        Style="{StaticResource BaseUIButton}"
-                        IsEnabled="{Binding CanRemoveOptions}"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"/>
+                <local:TextWithIcon Content="{x:Static core:LocalizationResource.AddAnswer}"
+                                    Icon="{StaticResource FontAwesomePlusIcon}"
+                                    ForegroundColor="{StaticResource BlueDarkBrush}" />
 
-            <TextBlock Text="Punkty za pytanie :"
+            </Button>
+
+            <Button Command="{Binding RemoveAnswerCommand}"
+                    Style="{StaticResource NewBaseButton}"
+                    IsEnabled="{Binding CanRemoveOptions}"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left">
+
+                <local:TextWithIcon Content="Remove Answer"
+                                    Icon="{StaticResource FontAwesomeMinusIcon}"
+                                    ForegroundColor="{StaticResource BlueDarkBrush}" />
+
+            </Button>
+
+            <TextBlock Text="Punkty za pytanie:"
                        Margin="0 15 0 0"
                        VerticalAlignment="Top"
                        Style="{StaticResource QuestionTextBlockStyle}" />

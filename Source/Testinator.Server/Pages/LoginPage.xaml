@@ -17,6 +17,7 @@
                 Background="{StaticResource WhiteDarkBrush}"
                 Padding="50"
                 CornerRadius="3"
+                Style="{StaticResource DropShadowBorder}"
                 TextBlock.TextAlignment="Center">
             <Grid>
 

@@ -41,7 +41,7 @@
                 IsEnabled="{Binding CanAddImages}">
 
             <local:TextWithIcon Content="Dodaj obrazek"
-                                Icon="{StaticResource FontAwesomeMinusIcon}"
+                                Icon="{StaticResource FontAwesomePlusIcon}"
                                 ForegroundColor="{StaticResource BlueDarkBrush}" />
 
         </Button>
