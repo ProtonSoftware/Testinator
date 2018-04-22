@@ -1,5 +1,5 @@
 ﻿using System;
-using Testinator.Core;
+using System.Reflection;
 
 namespace Testinator.Client.Core
 {
@@ -16,6 +16,11 @@ namespace Testinator.Client.Core
         public ClientNetwork Network { get; set; } = new ClientNetwork();
 
         /// <summary>
+        /// Current version of the application
+        /// </summary>
+        public Version Version { get; private set; }
+
+        /// <summary>
         /// Indicates how much time is left 
         /// </summary>
         public TimeSpan TimeLeft => IoCClient.TestHost.TimeLeft;
@@ -29,6 +34,20 @@ namespace Testinator.Client.Core
         /// and prepare for closing
         /// </summary>
         public event Action OnAppClosing = () => { };
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default construcotr
+        /// </summary>
+        public ApplicationViewModel()
+        {
+            // Get the current version from assebly
+            var assebly = Assembly.LoadFrom("Testinator.Client.Core.dll");
+            Version = assebly.GetName().Version;
+        }
 
         #endregion
 

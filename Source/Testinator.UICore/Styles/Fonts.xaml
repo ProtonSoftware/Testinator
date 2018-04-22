@@ -74,6 +74,5 @@
     <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf0a8;</system:String>
     <system:String x:Key="FontAwesomeRedoAltIcon">&#xf01e;</system:String>
     <system:String x:Key="FontAwesomeCheckIcon">&#xf00c;</system:String>
-    <system:String x:Key="FontAwesomeSignOutIcon">&#xf2f5;</system:String> 
 
 </ResourceDictionary>
