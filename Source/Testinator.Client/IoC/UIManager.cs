@@ -92,7 +92,7 @@ namespace Testinator.Client
         /// <summary>
         /// Enables login screen aplication format
         /// </summary>
-        public void EnableLoginScreenView()
+        public void EnableSmallApplicationView()
         {
             DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).EnableSmallFormat());
         }
@@ -100,7 +100,7 @@ namespace Testinator.Client
         /// <summary>
         /// Disables login screen aplication format
         /// </summary>
-        public void DisableLoginScreenView()
+        public void DisableSmallApplicationView()
         {
             DispatcherThreadAction(() => ((WindowViewModel)Application.Current.MainWindow.DataContext).DisableSmallFormat());
         }

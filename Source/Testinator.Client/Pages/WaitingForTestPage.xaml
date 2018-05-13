@@ -7,17 +7,168 @@
                  xmlns:Core="clr-namespace:Testinator.Client.Core;assembly=Testinator.Client.Core"
                  xmlns:core="clr-namespace:Testinator.Core;assembly=Testinator.Core"
                  xmlns:UICore="clr-namespace:Testinator.UICore;assembly=Testinator.UICore"
-                 mc:Ignorable="d">
+                 mc:Ignorable="d"
+                 d:DesignHeight="500" d:DesignWidth="750">
     
     <Grid Background="{StaticResource WhiteLightBrush}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="325"/>
+            <ColumnDefinition Width="425"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left side showcase -->
+        <local:LoginPageLeftSide />
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <!-- Label and exit button -->
+                <RowDefinition Height="Auto"/>
+                <!-- Label with text -->
+                <RowDefinition Height=".2*"/>
+                <!-- Main content -->
+                <RowDefinition Height="*"/>
+                <!-- Link and version -->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Label right part -->
+            <Border Grid.Row="0"
+                    Height="40"
+                    Width="150"
+                    Background="#565352"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="0 10">
+
+                <TextBlock Text="i dziś..."
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="{StaticResource RobotoLight}"
+                           Foreground="{StaticResource WhitePureBrush}"
+                           FontSize="17"/>
+
+            </Border>
+            
+            <!-- Exit button -->
+            <Button Grid.Column="1"
+                Style="{StaticResource IconGrowButton}"
+                FontFamily="{StaticResource FontAwesome}"
+                Content="{StaticResource FontAwesomeXIcon}"
+                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},Path=DataContext.CloseCommand}"
+                Foreground="{StaticResource RedLightBrush}"
+                HorizontalAlignment="Right"
+                Height="25"
+                VerticalAlignment="Center"
+                Padding="5"
+                Margin="0 0 10 0"
+                 />
+
+            <!-- Welcome label -->
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="{StaticResource RobotoThin}"
+                       FontSize="{StaticResource FontSizeLarge}"
+                       Text="Zaczekaj na rozpocznięcie testu." />
+
+            <!-- Test info area -->
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Row="2"
+                    MinHeight="100"
+                    MinWidth="250"
+                    CornerRadius="3"
+                    Grid.Column="1"
+                    Padding="30">
+                
+                <Grid>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static core:LocalizationResource.Name}"
+                           Grid.Row="1"
+                           Style="{StaticResource QuestionTextBlockStyle}" />
+
+                        <TextBlock Text="{Binding TestName}"
+                           Grid.Column="1"
+                           Grid.Row="1"
+                           Style="{StaticResource QuestionTextBlockStyle}" />
+
+                        <TextBlock Text="{x:Static core:LocalizationResource.TimeDuration}"
+                           Grid.Row="2"
+                           Style="{StaticResource QuestionTextBlockStyle}" />
+
+                        <TextBlock Text="{Binding TestDuration}"
+                           Grid.Column="1"
+                           Grid.Row="2"
+                           Style="{StaticResource QuestionTextBlockStyle}" />
+
+                    </Grid>
+                </Grid>
+            </Border>
+
+
+
+            <!-- Website link -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom">
+
+                <TextBlock Text="Dowiedz się więcej na naszej "
+                       
+                       Foreground="#808080"
+                       Margin="0 0 0 10"
+                       FontFamily="{StaticResource RobotoLight}"/>
+
+                <TextBlock Text="stronie."
+                           Foreground="#3f3fc1"
+                           Margin="0 0 0 10"
+                           TextDecorations="Underline"
+                           Cursor="Hand"
+                           FontFamily="{StaticResource RobotoLight}">
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" Command="{Binding LinkClickedCommand}" />
+                    </TextBlock.InputBindings>
+                </TextBlock>
+            </StackPanel>
+
+            <!-- Version -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 2 2">
+                <TextBlock Text="v."
+                           FontFamily="{StaticResource RobotoRegular}"
+                           FontSize="{StaticResource FontSizeSmall}"/>
+                <TextBlock Text="{Binding ApplicationViewModel.Version, Source={x:Static local:ViewModelLocator.Instance}}"
+                           FontFamily="{StaticResource RobotoRegular}"
+                           FontSize="{StaticResource FontSizeSmall}"/>
+            </StackPanel>
+
+        </Grid>
 
         <!-- User data changes bubble -->
         <Border VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Background="{StaticResource WhiteDarkBrush}"
                 CornerRadius="3"
-                Margin="10"
+                Grid.Column="1"
+                Margin="0 150"
                 Padding="10"
+                Visibility="Collapsed"
                 Width="330">
 
             <StackPanel local:TextEntryWidthMatcherProperty.Value="True">
@@ -27,61 +178,6 @@
 
             </StackPanel>
 
-        </Border>
-
-        <Border HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="{StaticResource WhiteDarkBrush}"
-                MinHeight="100"
-                MinWidth="250"
-                CornerRadius="3"
-                Padding="30">
-            <Grid>
-
-                <TextBlock Text="{x:Static core:LocalizationResource.WaitingForTest}"
-                       Visibility="{Binding IsTestReceived, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                       Style="{StaticResource TitleText}"
-                       Foreground="{StaticResource BlackDarkBrush}"
-                       Margin="15" />
-
-                <Grid Visibility="{Binding IsTestReceived, Converter={local:BooleanToVisiblityConverter}}">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Text="{x:Static core:LocalizationResource.TestReceivedMessage}" 
-                           Grid.ColumnSpan="2"
-                           Style="{StaticResource MediumTitleText}" />
-
-                    <TextBlock Text="{x:Static core:LocalizationResource.Name}"
-                           Grid.Row="1"
-                           Style="{StaticResource QuestionTextBlockStyle}" />
-
-                    <TextBlock Text="{Binding TestName}"
-                           Grid.Column="1"
-                           Grid.Row="1"
-                           Style="{StaticResource QuestionTextBlockStyle}" />
-
-                    <TextBlock Text="{x:Static core:LocalizationResource.TimeDuration}"
-                           Grid.Row="2"
-                           Style="{StaticResource QuestionTextBlockStyle}" />
-
-                    <TextBlock Text="{Binding TestDuration}"
-                           Grid.Column="1"
-                           Grid.Row="2"
-                           Style="{StaticResource QuestionTextBlockStyle}" />
-
-                </Grid>
-            </Grid>
         </Border>
 
     </Grid>

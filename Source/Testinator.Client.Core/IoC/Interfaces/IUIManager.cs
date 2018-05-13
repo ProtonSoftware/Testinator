@@ -21,19 +21,19 @@ namespace Testinator.Client.Core
         void EnableFullscreenMode();
 
         /// <summary>
-        /// Disables fullscreen mode 
+        /// Disables fullscreen mode
         /// </summary>
         void DisableFullscreenMode();
 
         /// <summary>
-        /// Enables login screen aplication format
+        /// Enables small aplication format
         /// </summary>
-        void EnableLoginScreenView();
+        void EnableSmallApplicationView();
 
         /// <summary>
-        /// Disables login screen aplication format
+        /// Disables small application format
         /// </summary>
-        void DisableLoginScreenView();
+        void DisableSmallApplicationView();
 
         /// <summary>
         /// Displays a single message box to the user

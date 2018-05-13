@@ -106,6 +106,9 @@
     <Compile Include="Controls\Input\TextEntryControl.xaml.cs">
       <DependentUpon>TextEntryControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LoginPageLeftSide.xaml.cs">
+      <DependentUpon>LoginPageLeftSide.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Questions\CheckboxAnswerItemControl.xaml.cs">
       <DependentUpon>CheckboxAnswerItemControl.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="Controls\Input\TextEntryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LoginPageLeftSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

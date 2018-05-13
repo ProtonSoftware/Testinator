@@ -81,14 +81,14 @@ namespace Testinator.Client.Core
         /// <param name="newPage">The new page</param>
         public override void OnPageChange(ApplicationPage newPage)
         {
-            if (newPage == ApplicationPage.Login)
-                IoCClient.UI.EnableLoginScreenView();
+            // In both cases we need small format
+            if (newPage == ApplicationPage.Login || newPage == ApplicationPage.WaitingForTest)
+                IoCClient.UI.EnableSmallApplicationView();
 
-            // NOTE: As the only page that can come after login page is waiting for test page we can do it like that
-            //       If there was only 'else' here it would cause useless calls to UIManager to disable login screen view 
+            // NOTE: If there was only 'else' here it would cause useless calls to UIManager to disable login screen view 
             //       that has already been disabled
-            else if (newPage == ApplicationPage.WaitingForTest)
-                IoCClient.UI.DisableLoginScreenView();
+            else if (newPage > ApplicationPage.WaitingForTest)
+                IoCClient.UI.DisableSmallApplicationView();
         }
 
         #endregion

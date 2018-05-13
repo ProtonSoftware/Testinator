@@ -5,6 +5,8 @@
     /// </summary>
     public enum ApplicationPage
     {
+        // ------------- Small app format 
+
         /// <summary>
         /// No page
         /// </summary>
@@ -19,6 +21,8 @@
         /// The page which waits for the test from server app
         /// </summary>
         WaitingForTest,
+
+        // -------------- Big app format
 
         /// <summary>
         /// The page that contains test results
