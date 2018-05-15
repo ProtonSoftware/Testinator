@@ -18,8 +18,8 @@
                           HorizontalContentAlignment="Stretch" 
                           IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="0.5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserName}" Binding="{Binding ClientName}"/>
-                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserSurname}" Binding="{Binding ClientSurname}"/>
+                    <DataGridTextColumn Width="0.5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserName}" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.UserSurname}" Binding="{Binding LastName}"/>
                     <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.AmountOfPoints}" Binding="{Binding PointsScored}"/>
                     <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="{x:Static core:LocalizationResource.Mark}" Binding="{Binding Mark, Converter={local:MarkToTextConverter}}"/>
                     <DataGridTemplateColumn Width=".5*">
