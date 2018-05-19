@@ -62,6 +62,11 @@ namespace Testinator.Server.Core
         /// </summary>
         public Marks Mark { get; set; }
 
+        /// <summary>
+        /// The order in which the client answered questions
+        /// </summary>
+        public List<int> QuestionsOrder { get; set; }
+
         #endregion
 
         #region Public Methods

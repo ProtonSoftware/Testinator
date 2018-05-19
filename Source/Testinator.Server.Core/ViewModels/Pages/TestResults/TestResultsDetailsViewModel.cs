@@ -128,90 +128,66 @@ namespace Testinator.Server.Core
         /// <param name="client"></param>
         private void ChangeViewAnswers(object client)
         {
-            // Disable for now
-            return;
-            var Client = client as TestResultsClientModel;
-
-            if (Client == null)
+            if (!(client is TestResultsClientModel Client))
                 return;
 
             var UserAnswers = mTestResults.ClientAnswers[Client] == null ? new List<Answer>() : new List<Answer>(mTestResults.ClientAnswers[Client]);
 
-            // Total point score
+            var QuestionsOrder = Client.QuestionsOrder;
+
             var totalScore = 0;
 
             // Log what we are doing
             IoCServer.Logger.Log("Preparing view data to show user's answers");
 
             // Get the questions from the test
-            var Questions = new List<Question>();
+            var Questions = mTestResults.Test.Questions;
 
             var QuestionViewModels = new List<BaseViewModel>();
 
             var addedQuestions = Enumerable.Repeat<bool>(false, mTestResults.Test.Questions.Count).ToList();
 
-            // Fill empty answers with nulls and match questions to the answers
-            for (var i = 0; i < mTestResults.Test.Questions.Count; i++)
-            {
-                try
-                {
-                    var index = 0;// UserAnswers[i].ID;
-                    Questions.Add(mTestResults.Test.Questions[index - 1]);
-                    addedQuestions[index - 1] = true;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    UserAnswers.Add(null);
-                }
-            }
-
-            // Add the rest quesionts
-            for (var i = 0; i < addedQuestions.Count; i++)
-            {
-                if (addedQuestions[i] == false)
-                    Questions.Add(mTestResults.Test.Questions[i]);
-            }
-            
-            // We can iterate like this because the question list and answer list are in the same order
+            // Go through all questions
             for (var i = 0; i < Questions.Count; i++)
             {
+                var QuestionIndex = QuestionsOrder[i];
+
+                Answer answer = null;
+                var isAnswerCorrect = false;
+                var question = Questions[QuestionIndex];
+
+                // Try to get answer in the try/catch in case the answer doesn't exist
+                try
+                {
+                    // Cast the answer and question objects
+                    // NOTE: if the answer doesn't exist exception is thrown here
+                    answer = UserAnswers[i];
+
+                    var points = question.CheckAnswer(answer);
+
+                    isAnswerCorrect = points != 0;
+                    totalScore += points;
+
+                }
+                // Catch the exception but let the answer to be saved
+                catch (ArgumentOutOfRangeException) { }
+                catch (NullReferenceException) { }
+
                 // Based on question type...
                 switch (Questions[i].Type)
                 {
                     case QuestionType.MultipleChoice:
                         {
-                            // Create local variables for the answer and correct answer boolean for the further use
-                            MultipleChoiceAnswer multipleChoiceAnswer = null;
-                            var isAnswerCorrect = false;
-                            var multipleChoiceQuestion = Questions[i] as MultipleChoiceQuestion;
-
-                            // Try to get answer in the try/catch in case the answer doesn't exist
-                            try
-                            {
-                                // Cast the answer and question objects
-                                // NOTE: if the answer doesn't exist exception is thrown here
-                                multipleChoiceAnswer = UserAnswers[i] as MultipleChoiceAnswer;
-                                //isAnswerCorrect = multipleChoiceQuestion.IsAnswerCorrect(multipleChoiceAnswer);
-
-                                // Check if user has answered correctly
-                                //if (isAnswerCorrect)
-                                    // Give them points for this question
-                                    //totalScore += multipleChoiceQuestion.PointScore;
-                            }
-                            // Catch the exception but let the answer to be saved
-                            catch (ArgumentOutOfRangeException) { }
-                            catch (NullReferenceException) { }
-
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionMultipleChoiceViewModel()
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
-                                UserAnswer = multipleChoiceAnswer,
+                                UserAnswer = (MultipleChoiceAnswer)answer,
                                 Index = i,
                             };
 
                             // Attach the question
-                            viewmodel.AttachQuestion(multipleChoiceQuestion);
+                            viewmodel.AttachQuestion((MultipleChoiceQuestion)question);
 
                             QuestionViewModels.Add(viewmodel);
                         }
@@ -219,39 +195,16 @@ namespace Testinator.Server.Core
 
                     case QuestionType.MultipleCheckboxes:
                         {
-                            // Create local variables for the answer and correct answer boolean for the further use
-                            //MultipleCheckboxesAnswer multipleCheckboxesAnswer = null;
-                            var isAnswerCorrect = false;
-                            var MultipleCheckBoxesQuestion = Questions[i] as MultipleCheckBoxesQuestion;
-
-                            // Try to get answer in the try/catch in case the answer doesn't exist
-                            try
-                            {
-                                // Cast the answer and question objects
-                                // NOTE: if the answer doesn't exist exception is thrown here
-                                //multipleCheckboxesAnswer = UserAnswers[i] as MultipleCheckboxesAnswer;
-
-                                //isAnswerCorrect = MultipleCheckBoxesQuestion.IsAnswerCorrect(multipleCheckboxesAnswer);
-
-                                // Check if user has answered correctly
-                                //if (isAnswerCorrect)
-                                    // Give them points for this question
-                                //    totalScore += MultipleCheckBoxesQuestion.PointScore;
-                            }
-                            // Catch the exception but let the answer to be saved
-                            catch (ArgumentOutOfRangeException) { }
-                            catch (NullReferenceException) { }
-
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionMultipleCheckboxesViewModel()
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
-                                //UserAnswer = multipleCheckboxesAnswer,
+                                UserAnswer = (MultipleCheckBoxesAnswer)answer,
                                 Index = i,
                             };
 
                             // Attach the question
-                            viewmodel.AttachQuestion(MultipleCheckBoxesQuestion);
+                            viewmodel.AttachQuestion((MultipleCheckBoxesQuestion)question);
 
                             QuestionViewModels.Add(viewmodel);
                         }
@@ -259,39 +212,16 @@ namespace Testinator.Server.Core
 
                     case QuestionType.SingleTextBox:
                         {
-                            // Create local variables for the answer and correct answer boolean for the further use
-                            SingleTextBoxAnswer singleTextBoxAnswer = null;
-                            var isAnswerCorrect = false;
-                            var singleTextBoxQuestion = Questions[i] as SingleTextBoxQuestion;
-
-                            // Try to get answer in the try/catch in case the answer doesn't exist
-                            try
-                            {
-                                // Cast the answer and question objects
-                                // NOTE: if the answer doesn't exist exception is thrown here
-                                singleTextBoxAnswer = UserAnswers[i] as SingleTextBoxAnswer;
-
-                               // isAnswerCorrect = singleTextBoxQuestion.IsAnswerCorrect(singleTextBoxAnswer);
-
-                                // Check if user has answered correctly
-                               // if (isAnswerCorrect)
-                                    // Give them multipleCheckboxesAnswer for this question
-                                //    totalScore += singleTextBoxQuestion.PointScore;
-                            }
-                            // Catch the exception but let the answer to be saved
-                            catch (ArgumentOutOfRangeException) { }
-                            catch (NullReferenceException) { }
-
                             // Create view model for the future use by the result page
                             var viewmodel = new QuestionSingleTextBoxViewModel()
                             {
                                 IsAnswerCorrect = isAnswerCorrect,
-                               // UserAnswer = singleTextBoxAnswer?.Answer,
+                                UserAnswer = ((SingleTextBoxAnswer)answer)?.UserAnswer,
                                 Index = i,
                             };
 
                             // Attach the question
-                            viewmodel.AttachQuestion(singleTextBoxQuestion);
+                            viewmodel.AttachQuestion((SingleTextBoxQuestion)question);
 
                             QuestionViewModels.Add(viewmodel);
                         }
@@ -334,19 +264,13 @@ namespace Testinator.Server.Core
         /// </summary>
         private void CreateQuestionsViewData()
         {
-            return; // Disable for now
-            /*
             // Clear any junk
             QuestionsViewData.Clear();
-
 
             foreach (var student in mTestResults.ClientAnswers.Keys)
             {
                 // Get the answers given by this user
                 var answers = mTestResults.ClientAnswers[student];
-
-                //if (answers != null)
-                //    answers = answers.OrderBy(x => x.ID).ToList();
 
                 // Create a viewmodel for them
                 var viewmodel = new QuestionsViewItemViewModel()
@@ -355,9 +279,7 @@ namespace Testinator.Server.Core
                     Surname = student.LastName,
                 };
 
-
-                // TODO: damnn, this really needs a rework. Dirty, but works. 
-                // I dont even bother to comment this because it will be replaced anyway.
+                var order = student.QuestionsOrder;
 
                 var i = 0;
                 foreach(var question in mTestResults.Test.Questions)
@@ -365,29 +287,14 @@ namespace Testinator.Server.Core
                     var scoredPoints = 0;
                     try
                     {
-                        switch (question.Type)
-                        {
-                            case QuestionType.MultipleCheckboxes:
-                                //if ((question as MultipleCheckBoxesQuestion).IsAnswerCorrect(answers[i] as MultipleCheckboxesAnswer))
-                               //     scoredPoints = (question as MultipleCheckBoxesQuestion).PointScore;
-                                break;
+                        var answer = answers[order.IndexOf(i)];
 
-                            case QuestionType.MultipleChoice:
-                               // if ((question as MultipleChoiceQuestion).IsAnswerCorrect(answers[i] as MultipleChoiceAnswer))
-                               //     scoredPoints = (question as MultipleChoiceQuestion).PointScore;
-                                break;
-
-                            case QuestionType.SingleTextBox:
-                              //  if ((question as SingleTextBoxQuestion).IsAnswerCorrect(answers[i] as SingleTextBoxAnswer))
-                              //      scoredPoints = (question as SingleTextBoxQuestion).PointScore;
-                                break;
-                        }
+                        scoredPoints = question.CheckAnswer(answer);
                     }
                     catch
                     {
                         scoredPoints = 0;
                     }
-                    finally { }
 
                     i++;
 
@@ -396,7 +303,7 @@ namespace Testinator.Server.Core
 
                 QuestionsViewData.Add(viewmodel);
 
-            }*/
+            }
         }
 
         /// <summary>

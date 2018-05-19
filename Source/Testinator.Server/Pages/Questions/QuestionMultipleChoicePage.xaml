@@ -44,7 +44,7 @@
                         </Border>
                     </Grid>
 
-                    <TextBlock Text="{Binding Question.Task}"
+                    <TextBlock Text="{Binding Question.Task.StringContent}"
                            Style="{StaticResource QuestionTextBlockStyle}"
                            TextWrapping="Wrap"
                            FontSize="{StaticResource FontSizeLarge}"

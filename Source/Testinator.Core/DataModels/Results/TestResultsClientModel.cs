@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Testinator.Core
 {
@@ -18,6 +19,11 @@ namespace Testinator.Core
         /// The client mark
         /// </summary>
         public Marks Mark { get; set; }
+
+        /// <summary>
+        /// The order in which this client answered questions
+        /// </summary>
+        public List<int> QuestionsOrder { get; set; }
 
         #region Constructor
 

@@ -108,6 +108,11 @@ namespace Testinator.Client.Core
         public Marks UserMark { get; private set; }
 
         /// <summary>
+        /// The order of the questions. Used to match answers to the questions on server side, or something along those lines
+        /// </summary>
+        public List<int> QuestionsOrder { get; private set; }
+
+        /// <summary>
         /// The viewmodels for the result page, contaning question, user answer and the correct answer
         /// </summary>
         public List<BaseViewModel> QuestionViewModels { get; private set; } = new List<BaseViewModel>();
@@ -212,7 +217,7 @@ namespace Testinator.Client.Core
 
             // Randomize question order
             IoCClient.Logger.Log("Shuffling questions");
-            Questions.Shuffle();
+            QuestionsOrder = (List<int>)Questions.Shuffle();
 
             // Indicate that we have received test
             OnTestReceived.Invoke();
@@ -349,6 +354,7 @@ namespace Testinator.Client.Core
                         Answers = UserAnswers,
                         PointsScored = UserScore,
                         Mark = UserMark,
+                        QuestionsOrder = QuestionsOrder,
                     },
                 };
 
@@ -385,6 +391,7 @@ namespace Testinator.Client.Core
                         MachineName = IoCClient.Client.MachineName,
                         Mark = UserMark,
                         PointsScored = UserScore,
+                        QuestionsOrder = QuestionsOrder,
                     },
                     Test = CurrentTest,
                 });

@@ -91,7 +91,7 @@ namespace Testinator.Server.Core
 
 
             // Set the correct answer selected so it's green initially
-            Options[Question.CorrectAnswerIndex - 1].IsSelected = true;
+            Options[Question.CorrectAnswerIndex].IsSelected = true;
 
             // If the answer is null, return (means that the user gave no answer to this question) 
             if (UserAnswer == null)

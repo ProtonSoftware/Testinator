@@ -279,7 +279,7 @@ namespace Testinator.Server.Core
                     client.Answers = result.Answers;
                     client.PointsScored = result.PointsScored;
                     client.Mark = result.Mark;
-
+                    client.QuestionsOrder = result.QuestionsOrder;
                     client.HasResultsBeenReceived = true;
 
                     if (HasEveryClientSentResults())
@@ -486,6 +486,7 @@ namespace Testinator.Server.Core
                 {
                     PointsScored = client.PointsScored,
                     Mark = client.Mark,
+                    QuestionsOrder = client.QuestionsOrder,
                 }, client.Answers);
             }
 
