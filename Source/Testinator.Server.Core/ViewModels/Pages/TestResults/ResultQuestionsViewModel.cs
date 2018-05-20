@@ -17,6 +17,11 @@ namespace Testinator.Server.Core
         public List<BaseViewModel> Questions { get; set; } = new List<BaseViewModel>();
 
         /// <summary>
+        /// The viewmodels for the question list control
+        /// </summary>
+        public List<QuestionListItemViewModel> QuestionListItems { get; set; }
+
+        /// <summary>
         /// Name of the student that took the test
         /// </summary>
         public string Name { get; set; }

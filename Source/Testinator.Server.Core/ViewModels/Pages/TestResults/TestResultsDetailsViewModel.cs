@@ -145,6 +145,8 @@ namespace Testinator.Server.Core
 
             var QuestionViewModels = new List<BaseViewModel>();
 
+            var QuestionListItemsViewModels = new List<QuestionListItemViewModel>();
+
             var addedQuestions = Enumerable.Repeat<bool>(false, mTestResults.Test.Questions.Count).ToList();
 
             // Go through all questions
@@ -227,12 +229,22 @@ namespace Testinator.Server.Core
                         }
                         break;
                 }
+
+                QuestionListItemsViewModels.Add(new QuestionListItemViewModel()
+                {
+                    ID = i,
+                    Task = question.Task.StringContent,
+                    Type = question.Type,
+                    IsSelected = false,
+                    IsAnswerCorrect = isAnswerCorrect,
+            });
             }
 
             var questionsViewmodel = new ResultQuestionsViewModel(QuestionViewModels)
             {
                 Name = $"{Client.Name} {Client.LastName}",
                 Results = mTestResults,
+                QuestionListItems = QuestionListItemsViewModels,
             };
 
             IoCServer.Application.GoToPage(ApplicationPage.ResultQuestions, questionsViewmodel);

@@ -34,6 +34,8 @@ namespace Testinator.Server.Core
         /// </summary>
         public string Task { get; set; }
 
+        public bool IsAnswerCorrect { get; set; }
+
         #endregion
     }
 }

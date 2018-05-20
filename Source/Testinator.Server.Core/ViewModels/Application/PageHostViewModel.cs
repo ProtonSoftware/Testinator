@@ -35,6 +35,9 @@ namespace Testinator.Server.Core
             // Set the current page
             CurrentPage = page;
 
+            OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(CurrentPageViewModel));
+
             // Log it
             IoCServer.Logger.Log("Changing application page to:" + page.ToString());
         }

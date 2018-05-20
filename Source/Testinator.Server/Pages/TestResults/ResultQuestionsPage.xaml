@@ -42,10 +42,10 @@
             <ScrollViewer Grid.Column="0"
                           Panel.ZIndex="2"
                           Background="{StaticResource WhitePureBrush}">
-                <ItemsControl ItemsSource="{Binding Questions}">
+                <ItemsControl ItemsSource="{Binding QuestionListItems}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <local:QuestionListItemControl/>
+                            <local:ResultsQuestionListItemControl/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

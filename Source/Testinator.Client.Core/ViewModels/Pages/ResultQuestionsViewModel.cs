@@ -22,7 +22,7 @@ namespace Testinator.Client.Core
         #region Commands
 
         /// <summary>
-        /// The command to select a test from the list
+        /// The command to select a question from the list
         /// </summary>
         public ICommand SelectQuestionCommand { get; set; }
 
@@ -30,7 +30,7 @@ namespace Testinator.Client.Core
         /// The command to go back to the result overview page
         /// </summary>
         public ICommand ReturnCommand { get; set; }
-
+        
         #endregion
 
         #region Constructor

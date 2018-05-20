@@ -123,6 +123,9 @@
     <Compile Include="Controls\Lists\QuestionsList\QuestionListExpandedControl.xaml.cs">
       <DependentUpon>QuestionListExpandedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Lists\QuestionsList\ResultsQuestionListItemControl.xaml.cs">
+      <DependentUpon>ResultsQuestionListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Lists\ResultsList\ResultsListControl.xaml.cs">
       <DependentUpon>ResultsListControl.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Lists\QuestionsList\QuestionListExpandedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Lists\QuestionsList\ResultsQuestionListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
