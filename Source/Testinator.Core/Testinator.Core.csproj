@@ -118,7 +118,7 @@
     <Compile Include="Files\Writers\LogsWriter.cs" />
     <Compile Include="Files\Writers\XmlWriter.cs" />
     <Compile Include="IoC\IoC.cs" />
-    <Compile Include="Localization\LocalizationResource.Designer.cs">
+    <Compile Include="LocalizationResource.Designer.cs">
       <DependentUpon>LocalizationResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,8 +137,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Localization\LocalizationResource.pl-PL.resx" />
-    <EmbeddedResource Include="Localization\LocalizationResource.resx">
+    <EmbeddedResource Include="LocalizationResource.pl-PL.resx" />
+    <EmbeddedResource Include="LocalizationResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizationResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
