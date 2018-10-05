@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+  <Property>
+    <Name>LogFilePath</Name>
+    <Type>System.String</Type>
+    <Value>log.txt</Value>
+  </Property>
+  <Property>
+    <Name>AreInformationMessageBoxesAllowed</Name>
+    <Type>System.Boolean</Type>
+    <Value>True</Value>
+  </Property>
+  <Property>
+    <Name>IsNextQuestionTypeTheSame</Name>
+    <Type>System.Boolean</Type>
+    <Value>True</Value>
+  </Property>
+  <Property>
+    <Name>LanguageIndex</Name>
+    <Type>System.Int32</Type>
+    <Value>0</Value>
+  </Property>
+</Config>

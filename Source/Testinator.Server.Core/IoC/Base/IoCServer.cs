@@ -1,6 +1,8 @@
-﻿using Ninject;
+﻿using Microsoft.EntityFrameworkCore;
+using Ninject;
 using System;
 using Testinator.Core;
+using Testinator.Server.DataAccess;
 
 namespace Testinator.Server.Core
 {
@@ -56,6 +58,8 @@ namespace Testinator.Server.Core
         /// </summary>
         public static ILogFactory Logger => IoCServer.Get<ILogFactory>();
 
+        public static DbContext DbContext => IoCServer.Get<TestinatorAppDataContext>();
+
         #endregion
 
         #region Public Events
@@ -78,6 +82,17 @@ namespace Testinator.Server.Core
         {
             // Bind all required view models
             BindViewModels();
+
+            // TODO: is it the right way?
+            //var options = new DbContextOptionsBuilder<TestinatorAppDataContext>()
+            //    .UseSqlite("Data Source = Testinator.db")
+            //    .Options;
+
+            //var db = new TestinatorAppDataContext(options);
+           
+            //db.Database.EnsureCreated();
+
+            //Kernel.Bind<TestinatorAppDataContext>().ToConstant(db);
 
             SetupCompleted.Invoke();
         }
